@@ -10,7 +10,7 @@
   ],
   "author": "Canvas Tools",
   "license": "MIT",
-  "homepage": "https://github.com/canvastools/figma-plugin-preact-ui#readme",
+  "homepage": "https://canvastools.github.io/figma-plugin-preact-ui/",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/canvastools/figma-plugin-preact-ui.git"
@@ -37,6 +37,7 @@
     "esbuild-sass-plugin": "^3.3.1",
     "eslint": "^8.54.0",
     "eslint-plugin-storybook": "^0.8.0",
+    "gh-pages": "^6.1.1",
     "storybook": "^8.1.6",
     "storybook-addon-sass-postcss": "^0.2.0",
     "typescript": "^5.3.2"
@@ -48,6 +49,7 @@
     "lint": "eslint --ext .ts,.tsx --ignore-pattern node_modules .",
     "lint:fix": "eslint --ext .ts,.tsx --ignore-pattern node_modules --fix .",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "deploy-storybook": "gh-pages -d storybook-static"
   }
 }
