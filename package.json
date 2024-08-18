@@ -3,7 +3,10 @@
   "version": "0.0.1",
   "description": "...",
   "keywords": [
-    "figma", "plugin", "ui", "preact"
+    "figma",
+    "plugin",
+    "ui",
+    "preact"
   ],
   "author": "Canvas Tools",
   "license": "MIT",
