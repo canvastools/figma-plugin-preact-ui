@@ -1,0 +1,30 @@
+body {
+  padding: 0 !important;
+  margin: 0 !important;
+  min-height: 100vh;
+}
+
+body * {
+  box-sizing: border-box;
+}
+
+#storybook-root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+#storybook-viewport {
+  display: flex;
+  flex-flow: column nowrap;
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--figma-color-bg);
+}
+
+.viewport-padding-true {
+  padding: 24px;
+}
+
+.viewport-padding-false {
+  padding: 0px;
+}
