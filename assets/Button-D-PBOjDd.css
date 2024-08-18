@@ -1,0 +1,1 @@
+.Button{display:inline-flex;justify-content:center;align-items:center;padding:10px 16px;border-radius:2px;background-color:var(--figma-color-bg-brand);border:1px solid var(--figma-color-border-brand);color:var(--figma-color-text-brand)}.Button:hover{background-color:var(--figma-color-bg-brand-hover)}
