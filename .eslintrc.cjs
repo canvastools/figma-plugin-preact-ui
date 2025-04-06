@@ -1,21 +1,22 @@
 module.exports = {
   root: true,
-  env: { browser: true, es2020: false },
-  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'plugin:react-hooks/recommended', 'plugin:storybook/recommended', 'plugin:storybook/recommended'],
-  ignorePatterns: ['dist', '.eslintrc.cjs'],
-  parser: '@typescript-eslint/parser',
+  env: { browser: true, es2020: true },
+  extends: [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:storybook/recommended",
+    "plugin:storybook/recommended",
+  ],
+  ignorePatterns: ["dist", ".eslintrc.cjs", "esbuild.js", "node_modules", "storybook-static"],
+  parser: "@typescript-eslint/parser",
   parserOptions: {
-    project: './tsconfig.json'
+    project: "./tsconfig.json",
   },
-  plugins: ['react-refresh'],
-  rules: {
-    '@typescript-eslint/no-unused-vars': [
-      'error',
-      {
-        argsIgnorePattern: '^_',
-        varsIgnorePattern: '^_',
-        caughtErrorsIgnorePattern: '^_'
-      }
-    ]
-  }
+  plugins: ["react-refresh"],
+  overrides: [
+    {
+      files: ["**/*.ts", "**/*.tsx"],
+    },
+  ],
 }
