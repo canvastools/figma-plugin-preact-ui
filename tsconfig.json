@@ -4,8 +4,8 @@
     "jsx": "preserve",
     "jsxFactory": "h",
     "jsxFragmentFactory": "Fragment",
-    "target": "es2020",
-    "lib": ["ES2020", "DOM"],
+    "target": "es2017",
+    "lib": ["es2017", "dom"],
     "strict": true,
     "strictNullChecks": true,
     "strictPropertyInitialization": true,
@@ -13,7 +13,8 @@
     "removeComments": true,
     "noImplicitAny": false,
     "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "noEmit": true
   },
   "include": ["./src/**/*.ts", "./src/**/*.d.ts"]
 }

@@ -10,7 +10,7 @@ const renamePlugin = () => {
     name: "rename-plugin",
     setup(build) {
       build.onEnd((result) => {
-        fs.rename("dist/index.js", "dist/lib.js", () => {})
+        fs.rename("dist/index.js", "dist/index.js", () => {})
         fs.rename("dist/index.css", "dist/styles.css", () => {})
       })
     },
@@ -20,7 +20,7 @@ const renamePlugin = () => {
 let ctx = await esbuild.context({
   entryPoints: ["src/index.ts"],
   outdir: "dist/",
-  target: ["es2020"],
+  target: ["es2017"],
   bundle: true,
   minify: isProduction,
   logLevel: "debug",

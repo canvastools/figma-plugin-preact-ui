@@ -18,7 +18,7 @@
   "bugs": {
     "url": "https://github.com/canvastools/figma-plugin-preact-ui/issues"
   },
-  "main": "./dist/lib.js",
+  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "type": "module",
   "dependencies": {
@@ -50,9 +50,9 @@
   },
   "scripts": {
     "build": "node esbuild",
-    "prod": "npm lint && node esbuild build --prod",
+    "prod": "npm run lint && node esbuild build --prod",
     "watch": "npm run build --watch",
-    "tsc": "tsc --noEmit --skipLibCheck --strict",
+    "tsc": "tsc",
     "lint": "eslint . || true",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
