@@ -1,25 +1,19 @@
-/** @jsx h */
+import { typedForwardRef } from "../../utils/typedForwardRef"
 
-import { h } from 'preact'
-import { forwardRef } from 'preact/compat'
-
-import './Button.scss'
-
-/* Types */
-
-type ButtonProps = {
-  title: string
-  onClick: () => void
-}
+import type { ButtonProps } from "./Button.types"
+import "./Button.scss"
 
 /* Component */
 
-const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
+const _Button = (
+  { children, ...rest }: ButtonProps,
+  ref: preact.Ref<HTMLButtonElement>
+) => {
   return (
-    <button ref={ref} className="Button" {...props}>
-      {props.title}
+    <button ref={ref} className="Button" {...rest}>
+      {children}
     </button>
   )
-})
+}
 
-export { Button, ButtonProps }
+export const Button = typedForwardRef<ButtonProps, HTMLButtonElement>(_Button)

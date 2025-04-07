@@ -1,9 +1,8 @@
 {
   "compilerOptions": {
     "module": "esnext",
-    "jsx": "preserve",
-    "jsxFactory": "h",
-    "jsxFragmentFactory": "Fragment",
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact",
     "target": "es2017",
     "lib": ["es2017", "dom"],
     "strict": true,
@@ -14,7 +13,9 @@
     "noImplicitAny": false,
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
     "noEmit": true
   },
-  "include": ["./src/**/*.ts", "./src/**/*.d.ts"]
+  "include": ["./src/**/*.ts", "./src/**/*.tsx", "./src/**/*.d.ts"]
 }

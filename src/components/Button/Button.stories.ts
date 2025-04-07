@@ -1,5 +1,3 @@
-/** @jsx h */
-
 import { Meta, StoryObj } from "@storybook/preact"
 import { fn } from "@storybook/test"
 

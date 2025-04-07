@@ -1,11 +1,7 @@
-/** @jsx h */
+import "./Loader.scss"
 
-import { h } from 'preact'
-import './Loader.scss'
-
-/* Types */
-
-type LoaderProps = Record<string, never>
+import type { LoaderProps } from "./Loader.types"
+import "./Loader.scss"
 
 /* Component */
 
@@ -18,4 +14,4 @@ const Loader = () => {
   )
 }
 
-export { Loader, LoaderProps }
+export { Loader }

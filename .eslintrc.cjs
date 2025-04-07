@@ -8,7 +8,15 @@ module.exports = {
     "plugin:storybook/recommended",
     "plugin:storybook/recommended",
   ],
-  ignorePatterns: ["dist", ".eslintrc.cjs", "esbuild.js", "node_modules", "storybook-static", "**/*.stories.tsx"],
+  ignorePatterns: [
+    "dist",
+    "node_modules",
+    "scripts",
+    ".eslintrc.cjs",
+    "rollup.config.dts.js",
+    "vite.config.js",
+    "storybook-static",
+  ],
   parser: "@typescript-eslint/parser",
   parserOptions: {
     project: "./tsconfig.json",
