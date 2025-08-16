@@ -1,0 +1,61 @@
+@use "../../variables.scss" as *;
+
+.Typography {
+  $parent: &;
+
+  font-family: "Inter", sans-serif;
+
+  &_variant {
+    &-heading {
+      font-weight: 550;
+
+      &#{$parent}_size {
+        &-small {
+          font-size: 11px;
+          line-height: 22px;
+          letter-spacing: -0.005em;
+        }
+
+        &-medium {
+          font-size: 13px;
+          line-height: 25px;
+          letter-spacing: -0.015em;
+        }
+
+        &-large {
+          font-size: 24px;
+          line-height: 32px;
+          letter-spacing: -0.005em;
+        }
+      }
+    }
+
+    &-body {
+      font-weight: 450;
+
+      &#{$parent}_size {
+        &-small {
+          font-size: 9px;
+          line-height: 14px;
+          letter-spacing: 0.01em;
+        }
+
+        &-medium {
+          font-size: 11px;
+          line-height: 17px;
+          letter-spacing: 0.02em;
+        }
+
+        &-large {
+          font-size: 13px;
+          line-height: 22px;
+          letter-spacing: 0.025em;
+        }
+      }
+    }
+  }
+
+  &_strong {
+    font-weight: 550;
+  }
+}

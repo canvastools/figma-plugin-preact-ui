@@ -368,3 +368,8 @@
     color-scheme: light;
   }
 }
+
+* {
+  box-sizing: border-box;
+  text-rendering: geometricPrecision;
+}
