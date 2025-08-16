@@ -1,19 +1,41 @@
-import { typedForwardRef } from "../../utils/typedForwardRef"
+import { bem, typedForwardRef } from "../../utils"
 
 import type { ButtonProps } from "./Button.types"
 import "./Button.scss"
 
-/* Component */
+/* --- */
 
-const _Button = (
-  { children, ...rest }: ButtonProps,
+const ButtonComponent = (
+  {
+    className,
+    variant = "primary",
+    size = "default",
+    fullWidth = false,
+    disabled = false,
+    children,
+    ...rest
+  }: ButtonProps,
   ref: preact.Ref<HTMLButtonElement>
 ) => {
+  const _className = bem("Button", undefined, {
+    variant,
+    size,
+    fullWidth,
+    disabled,
+  })
+
   return (
-    <button ref={ref} className="Button" {...rest}>
+    <button
+      className={[_className, className].join(" ").trim()}
+      ref={ref}
+      {...rest}
+      disabled={disabled}
+    >
       {children}
     </button>
   )
 }
 
-export const Button = typedForwardRef<ButtonProps, HTMLButtonElement>(_Button)
+export const Button = typedForwardRef<ButtonProps, HTMLButtonElement>(
+  ButtonComponent
+)
