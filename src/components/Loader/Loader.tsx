@@ -1,17 +1,23 @@
-import "./Loader.scss"
+import { bem, typedForwardRef } from "../../utils"
 
 import type { LoaderProps } from "./Loader.types"
 import "./Loader.scss"
 
-/* Component */
+/* --- */
 
-const Loader = () => {
-  // props: LoaderProps
+const LoaderComponent = (
+  { className, ...rest }: LoaderProps,
+  ref: preact.Ref<HTMLDivElement>
+) => {
+  const _className = bem("Loader", undefined, undefined)
+
   return (
-    <div className="Loader">
+    <div className={[_className, className].join(" ").trim()} {...rest}>
       <div className="Loader__spinner"></div>
     </div>
   )
 }
 
-export { Loader }
+export const Loader = typedForwardRef<LoaderProps, HTMLDivElement>(
+  LoaderComponent
+)

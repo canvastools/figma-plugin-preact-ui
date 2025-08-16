@@ -1,6 +1,9 @@
-import { ComponentChildren } from "preact"
-
 export interface ButtonProps {
-  children?: ComponentChildren
-  onClick: () => void
+  className?: string
+  variant?: "primary" | "secondary"
+  size?: "default" | "large"
+  disabled?: boolean
+  fullWidth?: boolean
+  children?: preact.ComponentChildren
+  onClick?: () => void
 }

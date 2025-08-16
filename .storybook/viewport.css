@@ -17,7 +17,6 @@ body * {
   display: flex;
   flex-flow: column nowrap;
   width: 100%;
-  min-height: 100vh;
   background-color: var(--figma-color-bg);
 }
 
@@ -27,4 +26,22 @@ body * {
 
 .viewport-padding-false {
   padding: 0px;
+}
+
+/* Helpers */
+
+.sb-column {
+  display: flex;
+  flex-flow: column nowrap;
+  width: 100%;
+}
+
+.sb-row {
+  display: flex;
+  flex-flow: row nowrap;
+  width: 100%;
+}
+
+.sb-gap-16 {
+  gap: 16px;
 }

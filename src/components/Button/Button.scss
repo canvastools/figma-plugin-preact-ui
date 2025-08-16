@@ -1,14 +1,70 @@
+@use "../../variables.scss" as *;
+
 .Button {
+  $parent: &;
+
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  padding: 10px 16px;
-  border-radius: 2px;
-  background-color: var(--figma-color-bg-brand);
-  border: 1px solid var(--figma-color-border-brand);
-  color: var(--figma-color-text-brand);
+  border-radius: var(--figma-sizing-radius-medium);
+  border: none;
+  cursor: auto;
+  width: fit-content;
 
-  &:hover {
-    background-color: var(--figma-color-bg-brand-hover);
+  &:focus-visible {
+    outline: 1px solid var(--figma-color-border-selected);
+    outline-offset: 1px;
+  }
+
+  &_variant {
+    &-primary {
+      background-color: var(--figma-color-bg-brand);
+      color: var(--figma-color-text-onbrand);
+
+      &:hover,
+      &:active {
+        background-color: var(--figma-color-bg-brand-pressed);
+      }
+
+      &#{$parent}_disabled {
+        background-color: var(--figma-color-bg-disabled);
+        color: var(--figma-color-text-ondisabled);
+      }
+    }
+    &-secondary {
+      background-color: unset;
+      color: var(--figma-color-text-default);
+      border: 1px solid var(--figma-color-border);
+
+      &:hover,
+      &:active {
+        background-color: var(--figma-color-bg-pressed);
+      }
+
+      &:focus-visible {
+        border-color: transparent;
+      }
+
+      &#{$parent}_disabled {
+        background-color: unset;
+        border: 1px solid var(--figma-color-border-disabled);
+        color: var(--figma-color-text-disabled);
+      }
+    }
+  }
+
+  &_size {
+    &-default {
+      height: 24px;
+      padding: 0 var(--figma-sizing-spacer-2);
+    }
+    &-large {
+      height: 32px;
+      padding: 0 12px;
+    }
+  }
+
+  &_fullWidth {
+    width: 100%;
   }
 }

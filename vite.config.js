@@ -1,16 +1,10 @@
 import { defineConfig } from "vite"
 import preact from "@preact/preset-vite"
-import dts from "vite-plugin-dts"
 
 export default defineConfig(({ command }) => ({
-  plugins: [
-    preact(),
-    command === "build" &&
-      dts({
-        exclude: ["**/*.stories.ts", "**/*.stories.tsx", "**/*.scss"],
-      }),
-  ].filter(Boolean),
+  plugins: [preact()],
   build: {
+    minify: true,
     lib: {
       entry: "src/index.ts",
       name: "figma-plugin-preact-ui",
@@ -19,6 +13,9 @@ export default defineConfig(({ command }) => ({
     },
     rollupOptions: {
       external: ["preact", "preact/compat", "preact/hooks"],
+      output: {
+        exports: "named",
+      },
     },
   },
 }))
