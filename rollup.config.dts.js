@@ -1,11 +1,11 @@
 import dts from "rollup-plugin-dts"
-import { defineConfig } from "rollup"
 
-export default defineConfig({
+export default {
   input: "dist/tmp-types/index.d.ts",
   output: {
     file: "dist/index.d.ts",
     format: "es",
   },
   plugins: [dts()],
-})
+  external: [/\.scss$/],
+}

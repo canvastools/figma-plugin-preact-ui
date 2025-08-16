@@ -9,13 +9,17 @@
     "strictNullChecks": true,
     "strictPropertyInitialization": true,
     "baseUrl": "./src",
-    "removeComments": true,
+    "removeComments": false,
     "noImplicitAny": false,
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "noEmit": true
+    "emitDeclarationOnly": true,
+    "declaration": true,
+    "declarationMap": false,
+    "outDir": "dist/tmp-types"
   },
-  "include": ["./src/**/*.ts", "./src/**/*.tsx", "./src/**/*.d.ts"]
+  "include": ["./src/**/*.ts", "./src/**/*.tsx", "./src/**/*.d.ts"],
+  "exclude": ["**/*.stories.ts", "**/*.stories.tsx", "**/*.scss"]
 }
