@@ -77,18 +77,18 @@ export const Size: Story = {
     <div className="sb-column sb-gap-16">
       <div className="sb-row sb-gap-16">
         <Button variant="primary" size="default">
-          Default
+          Primary Default
         </Button>
         <Button variant="primary" size="large">
-          Large
+          Primary Large
         </Button>
       </div>
       <div className="sb-row sb-gap-16">
         <Button variant="secondary" size="default">
-          Default
+          Secondary Default
         </Button>
         <Button variant="secondary" size="large">
-          Large
+          Secondary Large
         </Button>
       </div>
     </div>
@@ -103,18 +103,18 @@ export const Disabled: Story = {
     <div className="sb-column sb-gap-16">
       <div className="sb-row sb-gap-16">
         <Button variant="primary" size="default" disabled>
-          Default
+          Primary Default Disabled
         </Button>
         <Button variant="primary" size="large" disabled>
-          Large
+          Primary Large Disabled
         </Button>
       </div>
       <div className="sb-row sb-gap-16">
         <Button variant="secondary" size="default" disabled>
-          Default
+          Secondary Default Disabled
         </Button>
         <Button variant="secondary" size="large" disabled>
-          Large
+          Secondary Large Disabled
         </Button>
       </div>
     </div>
@@ -128,16 +128,16 @@ export const FullWidth: Story = {
   render: () => (
     <div className="sb-column sb-gap-16">
       <Button variant="primary" size="default" fullWidth>
-        Default
+        Primary Default FullWidth
       </Button>
       <Button variant="primary" size="large" fullWidth>
-        Large
+        Primary Large FullWidth
       </Button>
       <Button variant="secondary" size="default" fullWidth>
-        Default
+        Secondary Default FullWidth
       </Button>
       <Button variant="secondary" size="large" fullWidth>
-        Large
+        Secondary Large FullWidth
       </Button>
     </div>
   ),

@@ -3,6 +3,8 @@ import { bem, typedForwardRef } from "../../utils"
 import type { ButtonProps } from "./Button.types"
 import "./Button.scss"
 
+import { Typography } from "../Typography/Typography"
+
 /* --- */
 
 const ButtonComponent = (
@@ -31,7 +33,9 @@ const ButtonComponent = (
       {...rest}
       disabled={disabled}
     >
-      {children}
+      <Typography variant="body" size="medium">
+        {children}
+      </Typography>
     </button>
   )
 }
