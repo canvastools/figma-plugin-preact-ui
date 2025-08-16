@@ -3,8 +3,6 @@
 import type { Preview } from "@storybook/preact"
 
 import "./viewport.css"
-import "./figma-dark.css"
-import "./figma-light.css"
 
 const preview: Preview = {
   parameters: {
