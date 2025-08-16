@@ -1,15 +1,19 @@
 import { Meta, StoryObj } from "@storybook/preact"
 
-import { Loader, LoaderProps } from "./Loader"
+import { Loader } from "./Loader"
+import type { LoaderProps } from "./Loader.types"
 
 const meta: Meta<LoaderProps> = {
-  title: "Components/State/Loader",
+  title: "Components/States/Loader",
   component: Loader,
+  tags: ["autodocs"],
 }
 
 export default meta
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<LoaderProps>
 
-export const Primary: Story = {
-  args: {},
+export const Demo: Story = {
+  args: {
+    className: "",
+  },
 }

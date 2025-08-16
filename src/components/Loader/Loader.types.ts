@@ -1,3 +1,3 @@
-type LoaderProps = Record<string, never>
-
-export type { LoaderProps }
+export interface LoaderProps {
+  className?: string
+}
