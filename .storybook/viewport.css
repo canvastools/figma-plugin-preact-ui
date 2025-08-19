@@ -45,3 +45,7 @@ body * {
 .sb-gap-16 {
   gap: 16px;
 }
+
+.sb-width-100 {
+  width: 100%;
+}
