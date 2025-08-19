@@ -10,30 +10,24 @@ const meta: Meta<TextProps> = {
   argTypes: {
     className: {
       control: { type: "text" },
-      description: "Additional CSS class names to apply to the component",
     },
     variant: {
       control: { type: "radio" },
       options: ["heading", "body"],
-      description: "The visual variant of the Text",
     },
     size: {
       control: { type: "radio" },
       options: ["small", "medium", "large"],
-      description: "The size of the Text",
     },
     strong: {
       control: { type: "boolean" },
-      description: "Whether the Text should be strong",
     },
     align: {
       control: { type: "radio" },
       options: ["left", "center", "right"],
-      description: "The alignment of the Text",
     },
     children: {
       control: { type: "text" },
-      description: "The content to display inside the Text",
     },
   },
 }
