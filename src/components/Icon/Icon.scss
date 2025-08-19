@@ -1,0 +1,25 @@
+@use "../../variables.scss" as *;
+
+.Icon {
+  $parent: &;
+
+  display: flex;
+
+  & > svg {
+    display: block;
+  }
+
+  &_size {
+    &-16,
+    &-16 > svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    &-24,
+    &-24 > svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+}
