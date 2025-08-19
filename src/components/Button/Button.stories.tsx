@@ -11,34 +11,26 @@ const meta: Meta<ButtonProps> = {
   argTypes: {
     className: {
       control: { type: "text" },
-      description: "Additional CSS class names to apply to the component",
     },
     variant: {
       control: { type: "radio" },
       options: ["primary", "secondary"],
-      description: "The visual variant of the button",
     },
     size: {
       control: { type: "radio" },
       options: ["default", "large"],
-      description: "The size of the button",
     },
     disabled: {
       control: { type: "boolean" },
-      description: "Whether the button is disabled",
     },
     fullWidth: {
       control: { type: "boolean" },
-      description:
-        "Whether the button should take the full width of its container",
     },
     children: {
       control: { type: "text" },
-      description: "The content to display inside the button",
     },
     onClick: {
       action: "clicked",
-      description: "Callback function called when the button is clicked",
     },
   },
 }
