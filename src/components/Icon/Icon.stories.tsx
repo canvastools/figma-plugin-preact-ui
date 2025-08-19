@@ -39,7 +39,7 @@ export const Demo: Story = {
     glyph: "help",
     variant: "default",
     size: 24,
-    color: "rgba(0, 0, 0, 1)",
+    color: "#ea62ff",
   },
 }
 
@@ -74,7 +74,7 @@ export const Color: Story = {
   render: () => (
     <div className="sb-column sb-gap-16">
       <Icon glyph="help" />
-      <Icon glyph="help" color="var(--figma-color-icon-brand)" />
+      <Icon glyph="help" color="var(--pui-color-neutral-icon-brand)" />
     </div>
   ),
 }
@@ -110,7 +110,7 @@ export const Custom: Story = {
             />
           </svg>
         </Icon>
-        <Icon size={16} color="var(--figma-color-icon-success)">
+        <Icon size={16} color="var(--pui-color-neutral-icon-brand)">
           <svg
             width="24"
             height="24"

@@ -12,7 +12,7 @@ const IconComponent = (
     glyph,
     variant = "default",
     size = 24,
-    color = "var(--figma-color-icon)",
+    color,
     children,
     ...rest
   }: IconProps,
