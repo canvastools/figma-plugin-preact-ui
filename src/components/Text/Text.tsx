@@ -1,22 +1,23 @@
 import { bem, typedForwardRef } from "../../utils"
 
-import type { TypographyProps } from "./Typography.types"
-import "./Typography.scss"
+import type { TextProps } from "./Text.types"
+import "./Text.scss"
 
 /* --- */
 
-const TypographyComponent = (
+const TextComponent = (
   {
     className,
     variant = "body",
     size = "medium",
     strong = false,
+    align = "left",
     children,
     ...rest
-  }: TypographyProps,
+  }: TextProps,
   ref: preact.Ref<HTMLDivElement>
 ) => {
-  const _className = bem("Typography", undefined, { variant, size, strong })
+  const _className = bem("Text", undefined, { variant, size, strong, align })
 
   return (
     <div
@@ -29,6 +30,4 @@ const TypographyComponent = (
   )
 }
 
-export const Typography = typedForwardRef<TypographyProps, HTMLDivElement>(
-  TypographyComponent
-)
+export const Text = typedForwardRef<TextProps, HTMLDivElement>(TextComponent)
