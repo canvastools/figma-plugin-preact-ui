@@ -10,17 +10,6 @@ export type { IconProps } from "./components/Icon/Icon.types"
 export { Loader } from "./components/Loader/Loader"
 export type { LoaderProps } from "./components/Loader/Loader.types"
 
-export { Text } from "./components/Text/Text"
-export type { TextProps } from "./components/Text/Text.types"
-
-//
-
-export { Checkbox } from "./components/Checkbox/Checkbox"
-export type {
-  CheckboxProps,
-  CheckboxValue,
-} from "./components/Checkbox/Checkbox.types"
-
 export { Tab } from "./components/Tab/Tab"
 export type { TabProps } from "./components/Tab/Tab.types"
 
@@ -32,3 +21,14 @@ export type { TabListProps } from "./components/TabList/TabList.types"
 
 export { TabPanel } from "./components/TabPanel/TabPanel"
 export type { TabPanelProps } from "./components/TabPanel/TabPanel.types"
+
+export { Text } from "./components/Text/Text"
+export type { TextProps } from "./components/Text/Text.types"
+
+//
+
+export { Checkbox } from "./components/Checkbox/Checkbox"
+export type {
+  CheckboxProps,
+  CheckboxValue,
+} from "./components/Checkbox/Checkbox.types"
