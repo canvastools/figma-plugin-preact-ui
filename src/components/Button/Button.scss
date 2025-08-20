@@ -1,7 +1,5 @@
 @use "../../variables.scss" as *;
 
-@use "sass:color";
-
 .Button {
   $parent: &;
   padding: 0 var(--pui-space-100);

@@ -142,6 +142,12 @@ export const Custom: Story = {
 export const ErrorHandling: Story = {
   parameters: {
     controls: { disable: true },
+    docs: {
+      description: {
+        story:
+          "Some property combinations may not have corresponding glyphs. In such cases, an error is thrown.",
+      },
+    },
   },
   render: () => {
     return (
