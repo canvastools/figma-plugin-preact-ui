@@ -4,7 +4,7 @@ import { Loader } from "./Loader"
 import type { LoaderProps } from "./Loader.types"
 
 const meta: Meta<LoaderProps> = {
-  title: "Components/State/Loader",
+  title: "Components/Feedback/Loader",
   component: Loader,
   tags: ["autodocs"],
 }

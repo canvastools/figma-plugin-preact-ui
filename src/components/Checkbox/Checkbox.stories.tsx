@@ -8,7 +8,7 @@ import type { CheckboxProps } from "./Checkbox.types"
 import { Icon } from "../Icon/Icon"
 
 const meta: Meta<CheckboxProps> = {
-  title: "Components/Input/Checkbox",
+  title: "Components/Input & Selection/Checkbox",
   component: Checkbox,
   tags: ["autodocs"],
   argTypes: {
