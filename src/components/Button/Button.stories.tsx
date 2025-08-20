@@ -77,7 +77,7 @@ export const Variant: Story = {
       <Button variant="primary">Primary</Button>
       <Button variant="secondary">Secondary</Button>
       <Button variant="destructive">Destructive</Button>
-      <Button variant="destructive-secondary">Secondary Destructive</Button>
+      <Button variant="destructive-secondary">Destructive Secondary</Button>
       <Button variant="success">Success</Button>
       <Button variant="link">Link</Button>
       <Button variant="link-destructive">Link Danger</Button>
@@ -100,12 +100,67 @@ export const Size: Story = {
           Primary Large
         </Button>
       </div>
+
       <div className="sb-row sb-gap-16">
         <Button variant="secondary" size="default">
           Secondary Default
         </Button>
         <Button variant="secondary" size="large">
           Secondary Large
+        </Button>
+      </div>
+
+      <div className="sb-row sb-gap-16">
+        <Button variant="destructive" size="default">
+          Destructive Default
+        </Button>
+        <Button variant="destructive" size="large">
+          Destructive Large
+        </Button>
+      </div>
+
+      <div className="sb-row sb-gap-16">
+        <Button variant="destructive-secondary" size="default">
+          Destructive Secondary Default
+        </Button>
+        <Button variant="destructive-secondary" size="large">
+          Destructive Secondary Large
+        </Button>
+      </div>
+
+      <div className="sb-row sb-gap-16">
+        <Button variant="success" size="default">
+          Success Default
+        </Button>
+        <Button variant="success" size="large">
+          Success Large
+        </Button>
+      </div>
+
+      <div className="sb-row sb-gap-16">
+        <Button variant="link" size="default">
+          Link Default
+        </Button>
+        <Button variant="link" size="large">
+          Link Large
+        </Button>
+      </div>
+
+      <div className="sb-row sb-gap-16">
+        <Button variant="link-destructive" size="default">
+          Link Destructive Default
+        </Button>
+        <Button variant="link-destructive" size="large">
+          Link Destructive Large
+        </Button>
+      </div>
+
+      <div className="sb-row sb-gap-16">
+        <Button variant="ghost" size="default">
+          Ghost Default
+        </Button>
+        <Button variant="ghost" size="large">
+          Ghost Large
         </Button>
       </div>
     </div>
@@ -126,12 +181,67 @@ export const Disabled: Story = {
           Primary Large Disabled
         </Button>
       </div>
+
       <div className="sb-row sb-gap-16">
         <Button variant="secondary" size="default" disabled>
           Secondary Default Disabled
         </Button>
         <Button variant="secondary" size="large" disabled>
           Secondary Large Disabled
+        </Button>
+      </div>
+
+      <div className="sb-row sb-gap-16">
+        <Button variant="destructive" size="default" disabled>
+          Destructive Default Disabled
+        </Button>
+        <Button variant="destructive" size="large" disabled>
+          Destructive Large Disabled
+        </Button>
+      </div>
+
+      <div className="sb-row sb-gap-16">
+        <Button variant="destructive-secondary" size="default" disabled>
+          Destructive Secondary Default Disabled
+        </Button>
+        <Button variant="destructive-secondary" size="large" disabled>
+          Destructive Secondary Large Disabled
+        </Button>
+      </div>
+
+      <div className="sb-row sb-gap-16">
+        <Button variant="success" size="default" disabled>
+          Success Default Disabled
+        </Button>
+        <Button variant="success" size="large" disabled>
+          Success Large Disabled
+        </Button>
+      </div>
+
+      <div className="sb-row sb-gap-16">
+        <Button variant="link" size="default" disabled>
+          Link Default Disabled
+        </Button>
+        <Button variant="link" size="large" disabled>
+          Link Large Disabled
+        </Button>
+      </div>
+
+      <div className="sb-row sb-gap-16">
+        <Button variant="link-destructive" size="default" disabled>
+          Link Destructive Default Disabled
+        </Button>
+        <Button variant="link-destructive" size="large" disabled>
+          Link Destructive Large Disabled
+        </Button>
+      </div>
+
+      <div className="sb-row sb-gap-16">
+        <Button variant="ghost" size="default" disabled>
+          Ghost Default Disabled
+        </Button>
+        <Button variant="ghost" size="large" disabled>
+          Ghost Large Disabled
         </Button>
       </div>
     </div>
@@ -155,6 +265,42 @@ export const FullWidth: Story = {
       </Button>
       <Button variant="secondary" size="large" fullWidth>
         Secondary Large FullWidth
+      </Button>
+      <Button variant="destructive" size="default" fullWidth>
+        Destructive Default FullWidth
+      </Button>
+      <Button variant="destructive" size="large" fullWidth>
+        Destructive Large FullWidth
+      </Button>
+      <Button variant="destructive-secondary" size="default" fullWidth>
+        Destructive Secondary Default FullWidth
+      </Button>
+      <Button variant="destructive-secondary" size="large" fullWidth>
+        Destructive Secondary Large FullWidth
+      </Button>
+      <Button variant="success" size="default" fullWidth>
+        Success Default FullWidth
+      </Button>
+      <Button variant="success" size="large" fullWidth>
+        Success Large FullWidth
+      </Button>
+      <Button variant="link" size="default" fullWidth>
+        Link Default FullWidth
+      </Button>
+      <Button variant="link" size="large" fullWidth>
+        Link Large FullWidth
+      </Button>
+      <Button variant="link-destructive" size="default" fullWidth>
+        Link Destructive Default FullWidth
+      </Button>
+      <Button variant="link-destructive" size="large" fullWidth>
+        Link Destructive Large FullWidth
+      </Button>
+      <Button variant="ghost" size="default" fullWidth>
+        Ghost Default FullWidth
+      </Button>
+      <Button variant="ghost" size="large" fullWidth>
+        Ghost Large FullWidth
       </Button>
     </div>
   ),
@@ -181,26 +327,311 @@ export const WithIcon: Story = {
         >
           Button with icon
         </Button>
+        <Button
+          variant="primary"
+          size="default"
+          suffix={<Icon glyph="help" variant="small" />}
+        >
+          Button with icon
+        </Button>
+        <Button
+          variant="primary"
+          size="large"
+          suffix={<Icon glyph="help" variant="small" />}
+        >
+          Button with icon
+        </Button>
+        <Button
+          variant="primary"
+          size="large"
+          prefix={<Icon glyph="help" variant="small" />}
+          suffix={<Icon glyph="help" variant="small" />}
+        >
+          Button with icon
+        </Button>
       </div>
 
       <div className="sb-row sb-gap-16">
-        <Button variant="primary" size="default" disabled>
-          <Icon glyph="help" variant="small" />
+        <Button
+          variant="secondary"
+          size="default"
+          prefix={<Icon glyph="help" variant="small" />}
+        >
           Button with icon
         </Button>
-        <Button variant="primary" size="large" disabled>
-          <Icon glyph="help" variant="small" />
+        <Button
+          variant="secondary"
+          size="large"
+          prefix={<Icon glyph="help" variant="small" />}
+        >
+          Button with icon
+        </Button>
+        <Button
+          variant="secondary"
+          size="default"
+          suffix={<Icon glyph="help" variant="small" />}
+        >
+          Button with icon
+        </Button>
+        <Button
+          variant="secondary"
+          size="large"
+          suffix={<Icon glyph="help" variant="small" />}
+        >
+          Button with icon
+        </Button>
+        <Button
+          variant="secondary"
+          size="large"
+          prefix={<Icon glyph="help" variant="small" />}
+          suffix={<Icon glyph="help" variant="small" />}
+        >
           Button with icon
         </Button>
       </div>
 
-      <div className="sb-column sb-gap-16">
-        <Button variant="secondary" size="default" fullWidth>
-          <Icon glyph="help" variant="small" />
+      <div className="sb-row sb-gap-16">
+        <Button
+          variant="destructive"
+          size="default"
+          prefix={<Icon glyph="help" variant="small" />}
+        >
           Button with icon
         </Button>
-        <Button variant="secondary" size="large" fullWidth>
-          <Icon glyph="help" variant="small" />
+        <Button
+          variant="destructive"
+          size="large"
+          prefix={<Icon glyph="help" variant="small" />}
+        >
+          Button with icon
+        </Button>
+
+        <Button
+          variant="destructive"
+          size="default"
+          suffix={<Icon glyph="help" variant="small" />}
+        >
+          Button with icon
+        </Button>
+        <Button
+          variant="destructive"
+          size="large"
+          suffix={<Icon glyph="help" variant="small" />}
+        >
+          Button with icon
+        </Button>
+
+        <Button
+          variant="destructive"
+          size="large"
+          prefix={<Icon glyph="help" variant="small" />}
+          suffix={<Icon glyph="help" variant="small" />}
+        >
+          Button with icon
+        </Button>
+      </div>
+
+      <div className="sb-row sb-gap-16">
+        <Button
+          variant="destructive-secondary"
+          size="default"
+          prefix={<Icon glyph="help" variant="small" />}
+        >
+          Button with icon
+        </Button>
+        <Button
+          variant="destructive-secondary"
+          size="large"
+          prefix={<Icon glyph="help" variant="small" />}
+        >
+          Button with icon
+        </Button>
+
+        <Button
+          variant="destructive-secondary"
+          size="default"
+          suffix={<Icon glyph="help" variant="small" />}
+        >
+          Button with icon
+        </Button>
+        <Button
+          variant="destructive-secondary"
+          size="large"
+          suffix={<Icon glyph="help" variant="small" />}
+        >
+          Button with icon
+        </Button>
+
+        <Button
+          variant="destructive-secondary"
+          size="large"
+          prefix={<Icon glyph="help" variant="small" />}
+          suffix={<Icon glyph="help" variant="small" />}
+        >
+          Button with icon
+        </Button>
+      </div>
+
+      <div className="sb-row sb-gap-16">
+        <Button
+          variant="success"
+          size="default"
+          prefix={<Icon glyph="help" variant="small" />}
+        >
+          Button with icon
+        </Button>
+        <Button
+          variant="success"
+          size="large"
+          prefix={<Icon glyph="help" variant="small" />}
+        >
+          Button with icon
+        </Button>
+
+        <Button
+          variant="success"
+          size="default"
+          suffix={<Icon glyph="help" variant="small" />}
+        >
+          Button with icon
+        </Button>
+        <Button
+          variant="success"
+          size="large"
+          suffix={<Icon glyph="help" variant="small" />}
+        >
+          Button with icon
+        </Button>
+
+        <Button
+          variant="success"
+          size="large"
+          prefix={<Icon glyph="help" variant="small" />}
+          suffix={<Icon glyph="help" variant="small" />}
+        >
+          Button with icon
+        </Button>
+      </div>
+
+      <div className="sb-row sb-gap-16">
+        <Button
+          variant="link"
+          size="default"
+          prefix={<Icon glyph="help" variant="small" />}
+        >
+          Button with icon
+        </Button>
+        <Button
+          variant="link"
+          size="large"
+          prefix={<Icon glyph="help" variant="small" />}
+        >
+          Button with icon
+        </Button>
+
+        <Button
+          variant="link"
+          size="default"
+          suffix={<Icon glyph="help" variant="small" />}
+        >
+          Button with icon
+        </Button>
+        <Button
+          variant="link"
+          size="large"
+          suffix={<Icon glyph="help" variant="small" />}
+        >
+          Button with icon
+        </Button>
+
+        <Button
+          variant="link"
+          size="large"
+          prefix={<Icon glyph="help" variant="small" />}
+          suffix={<Icon glyph="help" variant="small" />}
+        >
+          Button with icon
+        </Button>
+      </div>
+
+      <div className="sb-row sb-gap-16">
+        <Button
+          variant="link-destructive"
+          size="default"
+          prefix={<Icon glyph="help" variant="small" />}
+        >
+          Button with icon
+        </Button>
+        <Button
+          variant="link-destructive"
+          size="large"
+          prefix={<Icon glyph="help" variant="small" />}
+        >
+          Button with icon
+        </Button>
+
+        <Button
+          variant="link-destructive"
+          size="default"
+          suffix={<Icon glyph="help" variant="small" />}
+        >
+          Button with icon
+        </Button>
+        <Button
+          variant="link-destructive"
+          size="large"
+          suffix={<Icon glyph="help" variant="small" />}
+        >
+          Button with icon
+        </Button>
+
+        <Button
+          variant="link-destructive"
+          size="large"
+          prefix={<Icon glyph="help" variant="small" />}
+          suffix={<Icon glyph="help" variant="small" />}
+        >
+          Button with icon
+        </Button>
+      </div>
+
+      <div className="sb-row sb-gap-16">
+        <Button
+          variant="ghost"
+          size="default"
+          prefix={<Icon glyph="help" variant="small" />}
+        >
+          Button with icon
+        </Button>
+        <Button
+          variant="ghost"
+          size="large"
+          prefix={<Icon glyph="help" variant="small" />}
+        >
+          Button with icon
+        </Button>
+
+        <Button
+          variant="ghost"
+          size="default"
+          suffix={<Icon glyph="help" variant="small" />}
+        >
+          Button with icon
+        </Button>
+        <Button
+          variant="ghost"
+          size="large"
+          suffix={<Icon glyph="help" variant="small" />}
+        >
+          Button with icon
+        </Button>
+
+        <Button
+          variant="ghost"
+          size="large"
+          prefix={<Icon glyph="help" variant="small" />}
+          suffix={<Icon glyph="help" variant="small" />}
+        >
           Button with icon
         </Button>
       </div>
