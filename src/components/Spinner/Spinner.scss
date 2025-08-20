@@ -1,25 +1,26 @@
 @use "../../variables.scss" as *;
 
-.Loader {
+.Spinner {
   $parent: &;
 
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  height: 24px;
+  width: 24px;
 
   &__spinner {
-    --_m: conic-gradient(#0000 0, var(--pui-color-icon-on-neutral-disabled)),
+    --_m: conic-gradient(#0000 0, var(--pui-color-icon-onneutral-disabled)),
       linear-gradient(#000 0 0) content-box;
     -webkit-mask: var(--_m);
     mask: var(--_m);
 
-    width: 24px;
+    width: 100%;
     padding: 2px;
     aspect-ratio: 1;
     border-radius: 50%;
     opacity: 0;
-    background: var(--pui-color-icon-on-neutral-primary);
+    background: var(--pui-color-icon-onneutral-disabled);
     -webkit-mask-composite: source-out;
     mask-composite: subtract;
     animation: l3 0.4s 0s infinite linear;

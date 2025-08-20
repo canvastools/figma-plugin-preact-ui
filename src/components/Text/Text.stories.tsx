@@ -45,6 +45,10 @@ export const Demo: Story = {
 }
 
 export const Variant: Story = {
+  tags: ["!dev"],
+  parameters: {
+    controls: { disable: true },
+  },
   render: () => (
     <div className="sb-column sb-gap-16">
       <Text variant="heading">Heading</Text>
@@ -64,6 +68,13 @@ export const Variant: Story = {
 }
 
 export const Size: Story = {
+  tags: ["!dev"],
+  parameters: {
+    controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
+  },
   render: () => (
     <div className="sb-row sb-gap-16">
       <div className="sb-column sb-gap-16">
@@ -121,7 +132,9 @@ export const Size: Story = {
 }
 
 export const Strong: Story = {
+  tags: ["!dev"],
   parameters: {
+    controls: { disable: true },
     docs: {
       description: {
         story: "This property visually affects only the body variant.",
@@ -158,6 +171,10 @@ export const Strong: Story = {
 }
 
 export const Align: Story = {
+  tags: ["!dev"],
+  parameters: {
+    controls: { disable: true },
+  },
   render: () => (
     <div className="sb-column sb-gap-16">
       <div className="sb-column sb-gap-16">

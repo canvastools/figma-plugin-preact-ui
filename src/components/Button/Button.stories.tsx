@@ -17,14 +17,14 @@ const meta: Meta<ButtonProps> = {
     variant: {
       control: { type: "radio" },
       options: [
-        "primary",
-        "secondary",
+        "default",
+        "ghost",
+        "brand",
         "destructive",
         "destructive-secondary",
         "success",
         "link",
         "link-destructive",
-        "ghost",
       ],
     },
     size: {
@@ -57,7 +57,7 @@ type Story = StoryObj<ButtonProps>
 export const Demo: Story = {
   args: {
     className: "",
-    variant: "primary",
+    variant: "brand",
     size: "default",
     disabled: false,
     fullWidth: false,
@@ -67,13 +67,14 @@ export const Demo: Story = {
 }
 
 export const Variant: Story = {
+  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },
   render: () => (
     <div className="sb-column sb-gap-16">
-      <Button variant="primary">Primary</Button>
-      <Button variant="secondary">Secondary</Button>
+      <Button variant="brand">Brand</Button>
+      <Button variant="default">Secondary</Button>
       <Button variant="destructive">Destructive</Button>
       <Button variant="destructive-secondary">Destructive Secondary</Button>
       <Button variant="success">Success</Button>
@@ -85,77 +86,60 @@ export const Variant: Story = {
 }
 
 export const Size: Story = {
+  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },
   render: () => (
-    <div className="sb-column sb-gap-16">
-      <div className="sb-row sb-gap-16">
-        <Button variant="primary" size="default">
-          Primary Default
+    <div className="sb-row sb-gap-16">
+      <div className="sb-column sb-gap-16">
+        <Button variant="brand" size="default">
+          Brand Default
         </Button>
-        <Button variant="primary" size="large">
-          Primary Large
-        </Button>
-      </div>
-
-      <div className="sb-row sb-gap-16">
-        <Button variant="secondary" size="default">
-          Secondary Default
-        </Button>
-        <Button variant="secondary" size="large">
+        <Button variant="default" size="large">
           Secondary Large
         </Button>
-      </div>
-
-      <div className="sb-row sb-gap-16">
         <Button variant="destructive" size="default">
           Destructive Default
+        </Button>
+        <Button variant="destructive-secondary" size="default">
+          Destructive Secondary Default
+        </Button>
+        <Button variant="success" size="default">
+          Success Default
+        </Button>
+        <Button variant="link" size="default">
+          Link Default
+        </Button>
+        <Button variant="link-destructive" size="default">
+          Link Destructive Default
+        </Button>
+        <Button variant="ghost" size="default">
+          Ghost Default
+        </Button>
+      </div>
+
+      <div className="sb-column sb-gap-16">
+        <Button variant="brand" size="large">
+          Brand Large
+        </Button>
+        <Button variant="default" size="default">
+          Secondary Default
         </Button>
         <Button variant="destructive" size="large">
           Destructive Large
         </Button>
-      </div>
-
-      <div className="sb-row sb-gap-16">
-        <Button variant="destructive-secondary" size="default">
-          Destructive Secondary Default
-        </Button>
         <Button variant="destructive-secondary" size="large">
           Destructive Secondary Large
-        </Button>
-      </div>
-
-      <div className="sb-row sb-gap-16">
-        <Button variant="success" size="default">
-          Success Default
         </Button>
         <Button variant="success" size="large">
           Success Large
         </Button>
-      </div>
-
-      <div className="sb-row sb-gap-16">
-        <Button variant="link" size="default">
-          Link Default
-        </Button>
         <Button variant="link" size="large">
           Link Large
         </Button>
-      </div>
-
-      <div className="sb-row sb-gap-16">
-        <Button variant="link-destructive" size="default">
-          Link Destructive Default
-        </Button>
         <Button variant="link-destructive" size="large">
           Link Destructive Large
-        </Button>
-      </div>
-
-      <div className="sb-row sb-gap-16">
-        <Button variant="ghost" size="default">
-          Ghost Default
         </Button>
         <Button variant="ghost" size="large">
           Ghost Large
@@ -166,77 +150,60 @@ export const Size: Story = {
 }
 
 export const Disabled: Story = {
+  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },
   render: () => (
-    <div className="sb-column sb-gap-16">
-      <div className="sb-row sb-gap-16">
-        <Button variant="primary" size="default" disabled>
-          Primary Default Disabled
+    <div className="sb-row sb-gap-16">
+      <div className="sb-column sb-gap-16">
+        <Button variant="brand" size="default" disabled>
+          Brand Default Disabled
         </Button>
-        <Button variant="primary" size="large" disabled>
-          Primary Large Disabled
-        </Button>
-      </div>
-
-      <div className="sb-row sb-gap-16">
-        <Button variant="secondary" size="default" disabled>
-          Secondary Default Disabled
-        </Button>
-        <Button variant="secondary" size="large" disabled>
+        <Button variant="default" size="large" disabled>
           Secondary Large Disabled
         </Button>
-      </div>
-
-      <div className="sb-row sb-gap-16">
         <Button variant="destructive" size="default" disabled>
           Destructive Default Disabled
+        </Button>
+        <Button variant="destructive-secondary" size="default" disabled>
+          Destructive Secondary Default Disabled
+        </Button>
+        <Button variant="success" size="default" disabled>
+          Success Default Disabled
+        </Button>
+        <Button variant="link" size="default" disabled>
+          Link Default Disabled
+        </Button>
+        <Button variant="link-destructive" size="default" disabled>
+          Link Destructive Default Disabled
+        </Button>
+        <Button variant="ghost" size="default" disabled>
+          Ghost Default Disabled
+        </Button>
+      </div>
+
+      <div className="sb-column sb-gap-16">
+        <Button variant="brand" size="large" disabled>
+          Brand Large Disabled
+        </Button>
+        <Button variant="default" size="default" disabled>
+          Secondary Default Disabled
         </Button>
         <Button variant="destructive" size="large" disabled>
           Destructive Large Disabled
         </Button>
-      </div>
-
-      <div className="sb-row sb-gap-16">
-        <Button variant="destructive-secondary" size="default" disabled>
-          Destructive Secondary Default Disabled
-        </Button>
         <Button variant="destructive-secondary" size="large" disabled>
           Destructive Secondary Large Disabled
-        </Button>
-      </div>
-
-      <div className="sb-row sb-gap-16">
-        <Button variant="success" size="default" disabled>
-          Success Default Disabled
         </Button>
         <Button variant="success" size="large" disabled>
           Success Large Disabled
         </Button>
-      </div>
-
-      <div className="sb-row sb-gap-16">
-        <Button variant="link" size="default" disabled>
-          Link Default Disabled
-        </Button>
         <Button variant="link" size="large" disabled>
           Link Large Disabled
         </Button>
-      </div>
-
-      <div className="sb-row sb-gap-16">
-        <Button variant="link-destructive" size="default" disabled>
-          Link Destructive Default Disabled
-        </Button>
         <Button variant="link-destructive" size="large" disabled>
           Link Destructive Large Disabled
-        </Button>
-      </div>
-
-      <div className="sb-row sb-gap-16">
-        <Button variant="ghost" size="default" disabled>
-          Ghost Default Disabled
         </Button>
         <Button variant="ghost" size="large" disabled>
           Ghost Large Disabled
@@ -247,21 +214,22 @@ export const Disabled: Story = {
 }
 
 export const FullWidth: Story = {
+  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },
   render: () => (
     <div className="sb-column sb-gap-16">
-      <Button variant="primary" size="default" fullWidth>
-        Primary Default FullWidth
+      <Button variant="brand" size="default" fullWidth>
+        Brand Default FullWidth
       </Button>
-      <Button variant="primary" size="large" fullWidth>
-        Primary Large FullWidth
+      <Button variant="brand" size="large" fullWidth>
+        Brand Large FullWidth
       </Button>
-      <Button variant="secondary" size="default" fullWidth>
+      <Button variant="default" size="default" fullWidth>
         Secondary Default FullWidth
       </Button>
-      <Button variant="secondary" size="large" fullWidth>
+      <Button variant="default" size="large" fullWidth>
         Secondary Large FullWidth
       </Button>
       <Button variant="destructive" size="default" fullWidth>
@@ -304,7 +272,8 @@ export const FullWidth: Story = {
   ),
 }
 
-export const WithIcon: Story = {
+export const Prefix: Story = {
+  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
     docs: {
@@ -313,40 +282,43 @@ export const WithIcon: Story = {
           "The icon’s colours are overridden automatically when using the &lt;Icon/&gt; component.",
       },
     },
+    viewport: {
+      defaultViewport: "large",
+    },
   },
   render: () => (
     <div className="sb-column sb-gap-16">
       <div className="sb-row sb-gap-16">
         <Button
-          variant="primary"
+          variant="brand"
           size="default"
           prefix={<Icon glyph="help" variant="small" />}
         >
           Button with icon
         </Button>
         <Button
-          variant="primary"
+          variant="brand"
           size="large"
           prefix={<Icon glyph="help" variant="small" />}
         >
           Button with icon
         </Button>
         <Button
-          variant="primary"
+          variant="brand"
           size="default"
           suffix={<Icon glyph="help" variant="small" />}
         >
           Button with icon
         </Button>
         <Button
-          variant="primary"
+          variant="brand"
           size="large"
           suffix={<Icon glyph="help" variant="small" />}
         >
           Button with icon
         </Button>
         <Button
-          variant="primary"
+          variant="brand"
           size="large"
           prefix={<Icon glyph="help" variant="small" />}
           suffix={<Icon glyph="help" variant="small" />}
@@ -357,35 +329,35 @@ export const WithIcon: Story = {
 
       <div className="sb-row sb-gap-16">
         <Button
-          variant="secondary"
+          variant="default"
           size="default"
           prefix={<Icon glyph="help" variant="small" />}
         >
           Button with icon
         </Button>
         <Button
-          variant="secondary"
+          variant="default"
           size="large"
           prefix={<Icon glyph="help" variant="small" />}
         >
           Button with icon
         </Button>
         <Button
-          variant="secondary"
+          variant="default"
           size="default"
           suffix={<Icon glyph="help" variant="small" />}
         >
           Button with icon
         </Button>
         <Button
-          variant="secondary"
+          variant="default"
           size="large"
           suffix={<Icon glyph="help" variant="small" />}
         >
           Button with icon
         </Button>
         <Button
-          variant="secondary"
+          variant="default"
           size="large"
           prefix={<Icon glyph="help" variant="small" />}
           suffix={<Icon glyph="help" variant="small" />}
@@ -644,6 +616,7 @@ export const WithIcon: Story = {
 }
 
 export const CustomIcon: Story = {
+  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
     docs: {
@@ -656,7 +629,7 @@ export const CustomIcon: Story = {
   render: () => (
     <div className="sb-column sb-gap-16">
       <Button
-        variant="primary"
+        variant="brand"
         prefix={
           <Icon size={24}>
             <svg
@@ -676,10 +649,10 @@ export const CustomIcon: Story = {
           </Icon>
         }
       >
-        Primary Custom Icon
+        Brand Custom Icon
       </Button>
       <Button
-        variant="secondary"
+        variant="default"
         prefix={
           <Icon size={24}>
             <svg

@@ -1,0 +1,72 @@
+@use "../../variables.scss" as *;
+
+.Checkbox {
+  $parent: &;
+
+  flex: 1 1 auto;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--pui-space-200);
+
+  @include curson-feedback;
+
+  &__input-native {
+    position: relative;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    z-index: 2;
+  }
+
+  &__input {
+    flex: 0 0 16px;
+    height: 16px;
+    position: relative;
+    background-color: var(--pui-color-bg-neutral-secondary);
+    border-radius: var(--pui-radius-medium);
+    @include focus-within;
+
+    box-shadow: inset 0 0 0 1px var(--pui-color-border);
+
+    & .Icon {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+    }
+  }
+
+  &__label {
+    color: var(--pui-color-text-onneutral);
+  }
+
+  &_disabled {
+    #{$parent}__input {
+      background-color: var(--pui-color-bg-neutral);
+      box-shadow: inset 0 0 0 1px var(--pui-color-border-disabled);
+    }
+
+    #{$parent}__label {
+      color: var(--pui-color-text-onneutral-disabled);
+    }
+  }
+
+  &_checked {
+    #{$parent}__input {
+      background-color: var(--pui-color-bg-brand);
+      box-shadow: inset 0 0 0 1px var(--pui-color-border-selected-strong);
+
+      & .Icon {
+        color: var(--pui-color-icon-onbrand);
+      }
+    }
+
+    &#{$parent}_disabled {
+      #{$parent}__input {
+        background-color: var(--pui-color-bg-disabled);
+        box-shadow: none;
+      }
+    }
+  }
+}

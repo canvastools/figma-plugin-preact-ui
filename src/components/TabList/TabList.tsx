@@ -18,6 +18,7 @@ const TabListComponent = (
       {...rest}
     >
       {children}
+      <div className="TabList__overflow" />
     </div>
   )
 }

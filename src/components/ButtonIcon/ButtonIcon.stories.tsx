@@ -17,7 +17,7 @@ const meta: Meta<ButtonIconProps> = {
     },
     variant: {
       control: { type: "radio" },
-      options: ["secondary", "ghost"],
+      options: ["default", "ghost"],
     },
     selected: {
       control: { type: "boolean" },
@@ -39,7 +39,7 @@ type Story = StoryObj<ButtonIconProps>
 export const Demo: Story = {
   args: {
     className: "",
-    variant: "secondary",
+    variant: "default",
     selected: false,
     disabled: false,
     children: <Icon glyph="help" />,
@@ -48,12 +48,13 @@ export const Demo: Story = {
 }
 
 export const Variant: Story = {
+  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },
   render: () => (
     <div className="sb-column sb-gap-16">
-      <ButtonIcon variant="secondary">
+      <ButtonIcon variant="default">
         <Icon glyph="help" />
       </ButtonIcon>
       <ButtonIcon variant="ghost">
@@ -64,6 +65,7 @@ export const Variant: Story = {
 }
 
 export const Selected: Story = {
+  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },
@@ -74,7 +76,7 @@ export const Selected: Story = {
     return (
       <div className="sb-column sb-gap-16">
         <ButtonIcon
-          variant="secondary"
+          variant="default"
           selected={isSelectedSecondary}
           onClick={() => setIsSelectedSecondary(!isSelectedSecondary)}
         >
@@ -93,12 +95,13 @@ export const Selected: Story = {
 }
 
 export const Disabled: Story = {
+  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },
   render: () => (
     <div className="sb-column sb-gap-16">
-      <ButtonIcon variant="secondary" disabled>
+      <ButtonIcon variant="default" disabled>
         <Icon glyph="help" />
       </ButtonIcon>
       <ButtonIcon variant="ghost" disabled>
@@ -109,6 +112,7 @@ export const Disabled: Story = {
 }
 
 export const CustomIcon: Story = {
+  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
     docs: {
@@ -120,7 +124,7 @@ export const CustomIcon: Story = {
   },
   render: () => (
     <div className="sb-column sb-gap-16">
-      <ButtonIcon variant="secondary">
+      <ButtonIcon variant="default">
         <Icon size={24}>
           <svg
             width="24"

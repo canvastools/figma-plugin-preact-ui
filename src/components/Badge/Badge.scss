@@ -1,0 +1,144 @@
+@use "../../variables.scss" as *;
+
+.Badge {
+  $parent: &;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #bebebe;
+  overflow: hidden;
+  width: fit-content;
+  height: 16px;
+  border-radius: var(--pui-radius-medium);
+
+  &__content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__children {
+    padding: 0 var(--pui-space-100);
+  }
+
+  &_prefix &__children {
+    padding-left: 0;
+  }
+
+  &_variant {
+    &-default {
+      background-color: var(--pui-color-bg-neutral);
+      box-shadow: inset 0 0 0 1px var(--pui-color-border);
+      color: var(--pui-color-text-onneutral);
+
+      & .Icon {
+        color: var(--pui-color-icon-onneutral);
+      }
+    }
+
+    &-brand {
+      background-color: var(--pui-color-bg-brand);
+      color: var(--pui-color-text-onbrand);
+
+      & .Icon {
+        color: var(--pui-color-icon-onbrand);
+      }
+    }
+
+    &-brand-secondary {
+      background-color: var(--pui-color-bg-neutral);
+      box-shadow: inset 0 0 0 1px var(--pui-color-border-branded);
+      color: var(--pui-color-text-onneutral-branded);
+
+      & .Icon {
+        color: var(--pui-color-icon-onneutral-branded);
+      }
+    }
+
+    &-danger {
+      background-color: var(--pui-color-bg-destructive);
+      color: var(--pui-color-text-ondestructive);
+
+      & .Icon {
+        color: var(--pui-color-icon-ondestructive);
+      }
+    }
+
+    &-danger-secondary {
+      background-color: var(--pui-color-bg-neutral);
+      box-shadow: inset 0 0 0 1px var(--pui-color-border-danger);
+      color: var(--pui-color-text-onneutral-danger);
+
+      & .Icon {
+        color: var(--pui-color-icon-onneutral-danger);
+      }
+    }
+
+    &-warning {
+      background-color: var(--pui-color-bg-warning);
+      color: var(--pui-color-text-onwarning);
+
+      & .Icon {
+        color: var(--pui-color-icon-onwarning);
+      }
+    }
+
+    &-warning-secondary {
+      background-color: var(--pui-color-bg-neutral);
+      box-shadow: inset 0 0 0 1px var(--pui-color-border-warning);
+      color: var(--pui-color-text-onneutral-warning);
+
+      & .Icon {
+        color: var(--pui-color-icon-onneutral-warning);
+      }
+    }
+
+    &-success {
+      background-color: var(--pui-color-bg-success);
+      color: var(--pui-color-text-onsuccess);
+
+      & .Icon {
+        color: var(--pui-color-icon-onsuccess);
+      }
+    }
+
+    &-success-secondary {
+      background-color: var(--pui-color-bg-neutral);
+      box-shadow: inset 0 0 0 1px var(--pui-color-border-success);
+      color: var(--pui-color-text-onneutral-success);
+
+      & .Icon {
+        color: var(--pui-color-icon-onneutral-success);
+      }
+    }
+
+    &-disabled {
+      background-color: var(--pui-color-bg-disabled);
+      color: var(--pui-color-text-ondisabled);
+
+      & .Icon {
+        color: var(--pui-color-icon-ondisabled);
+      }
+    }
+
+    &-disabled-secondary {
+      background-color: var(--pui-color-bg-neutral);
+      box-shadow: inset 0 0 0 1px var(--pui-color-border-disabled);
+      color: var(--pui-color-text-onneutral-disabled);
+
+      & .Icon {
+        color: var(--pui-color-icon-onneutral-disabled);
+      }
+    }
+
+    &-count {
+      background-color: var(--pui-color-bg-neutral-hover);
+      color: var(--pui-color-text-onneutral-secondary);
+
+      & .Icon {
+        color: var(--pui-color-icon-onneutral-secondary);
+      }
+    }
+  }
+}

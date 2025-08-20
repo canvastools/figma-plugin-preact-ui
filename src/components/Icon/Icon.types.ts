@@ -10,6 +10,6 @@ export interface IconProps {
   glyph?: keyof typeof glyphs
   variant?: "default" | "small"
   size?: 16 | 24
-  color?: string
+  fill?: string
   children?: preact.VNode
 }

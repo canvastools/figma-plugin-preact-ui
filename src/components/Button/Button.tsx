@@ -10,7 +10,7 @@ import { Text } from "../Text/Text"
 const ButtonComponent = (
   {
     className,
-    variant = "primary",
+    variant = "default",
     size = "default",
     fullWidth = false,
     disabled = false,

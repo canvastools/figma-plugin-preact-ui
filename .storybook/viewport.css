@@ -20,13 +20,13 @@ body * {
 }
 
 .figma-light {
-  background-color: var(--pui-color-neutral-bg-primary);
-  color: var(--pui-color-text-on-neutral-primary);
+  background-color: var(--pui-color-bg-neutral);
+  color: var(--pui-color-text-onneutral);
 }
 
 .figma-dark {
-  background-color: var(--pui-color-neutral-bg-primary);
-  color: var(--pui-color-text-on-neutral-primary);
+  background-color: var(--pui-color-bg-neutral);
+  color: var(--pui-color-text-onneutral);
 }
 
 .viewport-padding-true {

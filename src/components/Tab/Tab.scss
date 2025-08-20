@@ -8,41 +8,50 @@
   align-items: center;
   flex: 0 0 auto;
   height: 24px;
-  padding: 0 var(--pui-space-200);
   border-radius: var(--pui-radius-medium);
-  color: var(--pui-color-text-on-neutral-primary);
+  color: var(--pui-color-text-onneutral);
+  padding: 0;
 
-  &:focus-visible {
-    outline: 1px solid var(--pui-color-border-on-neutral-selected);
-    outline-offset: 1px;
-    box-shadow: none;
+  @include focus-visible;
+
+  &__content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__children {
+    padding: 0 var(--pui-space-200);
+  }
+
+  &_suffix &__children {
+    padding-right: var(--pui-space-100);
+  }
+
+  &_suffix {
+    padding-right: var(--pui-space-200);
   }
 
   &_variant {
     &-default {
-      cursor: pointer;
       border: none;
-      background-color: transparent;
+      background-color: var(--pui-color-bg-neutral);
+      @include curson-feedback;
 
       &:hover {
-        background-color: var(--pui-color-neutral-bg-primary-hover);
-      }
-
-      &:active {
-        background-color: var(--pui-color-neutral-bg-primary-pressed);
+        background-color: var(--pui-color-bg-neutral-hover);
       }
 
       &#{$parent}_selected,
-      &#{$parent}_selected:hover,
-      &#{$parent}_selected:active {
-        background-color: var(--pui-color-neutral-bg-primary-pressed);
+      &#{$parent}_selected:hover {
+        background-color: var(--pui-color-bg-neutral-hover);
       }
     }
 
     &-single {
-      cursor: auto;
       border: none;
-      background-color: transparent;
+      background-color: var(--pui-color-bg-neutral);
+      cursor: auto;
     }
   }
 }
