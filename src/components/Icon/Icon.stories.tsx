@@ -74,7 +74,7 @@ export const Color: Story = {
   render: () => (
     <div className="sb-column sb-gap-16">
       <Icon glyph="help" />
-      <Icon glyph="help" color="var(--pui-color-neutral-icon-brand)" />
+      <Icon glyph="help" color="var(--pui-color-icon-on-neutral-brand)" />
     </div>
   ),
 }
@@ -110,7 +110,7 @@ export const Custom: Story = {
             />
           </svg>
         </Icon>
-        <Icon size={16} color="var(--pui-color-neutral-icon-brand)">
+        <Icon size={16} color="var(--pui-color-icon-on-neutral-brand)">
           <svg
             width="24"
             height="24"
