@@ -21,9 +21,7 @@ const ButtonComponent = (
   }: ButtonProps,
   ref: preact.Ref<HTMLButtonElement>
 ) => {
-  const componentClassName = "Button"
-
-  const _className = bem(componentClassName, undefined, {
+  const _className = bem("Button", undefined, {
     variant,
     size,
     fullWidth,

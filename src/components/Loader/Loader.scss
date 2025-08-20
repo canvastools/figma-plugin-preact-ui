@@ -7,7 +7,7 @@
   height: 100%;
 
   &__spinner {
-    --_m: conic-gradient(#0000 0, var(--figma-color-icon-disabled)),
+    --_m: conic-gradient(#0000 0, var(--pui-color-icon-on-neutral-disabled)),
       linear-gradient(#000 0 0) content-box;
     -webkit-mask: var(--_m);
     mask: var(--_m);
@@ -17,7 +17,7 @@
     aspect-ratio: 1;
     border-radius: 50%;
     opacity: 0;
-    background: var(--figma-color-icon);
+    background: var(--pui-color-icon-on-neutral-primary);
     -webkit-mask-composite: source-out;
     mask-composite: subtract;
     animation: l3 0.4s 0s infinite linear;
