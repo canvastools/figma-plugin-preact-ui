@@ -31,7 +31,7 @@ const preview: Preview = {
           },
         },
       },
-      defaultViewport: "360",
+      defaultViewport: "medium",
     },
   },
   globalTypes: {

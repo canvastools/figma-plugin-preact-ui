@@ -313,6 +313,9 @@ export const WithIcon: Story = {
           "The icon’s colours are overridden automatically when using the &lt;Icon/&gt; component.",
       },
     },
+    viewport: {
+      defaultViewport: "large",
+    },
   },
   render: () => (
     <div className="sb-column sb-gap-16">

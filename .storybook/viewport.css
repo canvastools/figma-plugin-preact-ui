@@ -20,12 +20,12 @@ body * {
 }
 
 .figma-light {
-  background-color: var(--pui-color-neutral-bg);
+  background-color: var(--pui-color-bg-neutral);
   color: var(--pui-color-text-onneutral);
 }
 
 .figma-dark {
-  background-color: var(--pui-color-neutral-bg);
+  background-color: var(--pui-color-bg-neutral);
   color: var(--pui-color-text-onneutral);
 }
 
