@@ -63,18 +63,18 @@
     &-secondary {
       background-color: transparent;
       color: var(--pui-color-text-onneutral);
-      box-shadow: inset 0 0 0 1px var(--pui-color-border-onneutral);
+      box-shadow: inset 0 0 0 1px var(--pui-color-border);
 
       & .Icon {
         color: var(--pui-color-icon-onneutral);
       }
 
       &:hover {
-        background-color: var(--pui-color-neutral-bg-hover);
+        background-color: var(--pui-color-bg-neutral-hover);
       }
 
       &:active {
-        background-color: var(--pui-color-neutral-bg-pressed);
+        background-color: var(--pui-color-bg-neutral-pressed);
       }
     }
 
@@ -98,18 +98,18 @@
     &-destructive-secondary {
       background-color: transparent;
       color: var(--pui-color-text-onneutral-danger);
-      box-shadow: inset 0 0 0 1px var(--pui-color-border-onneutral-danger);
+      box-shadow: inset 0 0 0 1px var(--pui-color-border-danger);
 
       & .Icon {
         color: var(--pui-color-icon-onneutral-danger);
       }
 
       &:hover {
-        background-color: var(--pui-color-neutral-bg-danger-hover);
+        background-color: var(--pui-color-bg-neutral-danger-hover);
       }
 
       &:active {
-        background-color: var(--pui-color-neutral-bg-danger-pressed);
+        background-color: var(--pui-color-bg-neutral-danger-pressed);
       }
     }
 
@@ -139,11 +139,11 @@
       }
 
       &:hover {
-        background-color: var(--pui-color-neutral-bg-branded-hover);
+        background-color: var(--pui-color-bg-neutral-branded-hover);
       }
 
       &:active {
-        background-color: var(--pui-color-neutral-bg-branded-pressed);
+        background-color: var(--pui-color-bg-neutral-branded-pressed);
       }
     }
 
@@ -156,11 +156,11 @@
       }
 
       &:hover {
-        background-color: var(--pui-color-neutral-bg-danger-hover);
+        background-color: var(--pui-color-bg-neutral-danger-hover);
       }
 
       &:active {
-        background-color: var(--pui-color-neutral-bg-danger-pressed);
+        background-color: var(--pui-color-bg-neutral-danger-pressed);
       }
     }
 
@@ -184,11 +184,11 @@
       }
 
       &:hover {
-        background-color: var(--pui-color-neutral-bg-hover);
+        background-color: var(--pui-color-bg-neutral-hover);
       }
 
       &:active {
-        background-color: var(--pui-color-neutral-bg-pressed);
+        background-color: var(--pui-color-bg-neutral-pressed);
       }
     }
   }
@@ -210,7 +210,7 @@
     &#{$parent}_variant-secondary,
     &#{$parent}_variant-destructive-secondary {
       background-color: transparent;
-      box-shadow: inset 0 0 0 1px var(--pui-color-border-onneutral-disabled);
+      box-shadow: inset 0 0 0 1px var(--pui-color-border-disabled);
       color: var(--pui-color-text-onneutral-disabled);
 
       & .Icon {

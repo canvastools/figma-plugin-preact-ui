@@ -2,20 +2,20 @@
   /* ========================== Background ========================== */
 
   /* Neutral */
-  --pui-color-neutral-bg: #ffffff;
-  --pui-color-neutral-bg-hover: #f5f5f5;
-  --pui-color-neutral-bg-pressed: #e5e5e5;
-  --pui-color-neutral-bg-selected: #e5f4ff;
-  --pui-color-neutral-bg-selected-hover: #f2f9ff;
-  --pui-color-neutral-bg-selected-pressed: #e5f4ff;
+  --pui-color-bg-neutral: #ffffff;
+  --pui-color-bg-neutral-hover: #f5f5f5;
+  --pui-color-bg-neutral-pressed: #e5e5e5;
+  --pui-color-bg-neutral-selected: #e5f4ff;
+  --pui-color-bg-neutral-selected-hover: #f2f9ff;
+  --pui-color-bg-neutral-selected-pressed: #e5f4ff;
 
-  --pui-color-neutral-bg-secondary: #f3f3f3;
+  --pui-color-bg-neutral-secondary: #f3f3f3;
 
-  --pui-color-neutral-bg-branded-hover: #f2f9ff;
-  --pui-color-neutral-bg-branded-pressed: #e5f4ff;
+  --pui-color-bg-neutral-branded-hover: #f2f9ff;
+  --pui-color-bg-neutral-branded-pressed: #e5f4ff;
 
-  --pui-color-neutral-bg-danger-hover: #fff3f1;
-  --pui-color-neutral-bg-danger-pressed: #ffe2e0;
+  --pui-color-bg-neutral-danger-hover: #fff3f1;
+  --pui-color-bg-neutral-danger-pressed: #ffe2e0;
 
   /* Brand */
   --pui-color-bg-brand: #0d99ff;
@@ -83,9 +83,10 @@
   /* ========================== Border ========================== */
 
   /* On Neutral */
-  --pui-color-border-onneutral: #e5e5e5;
-  --pui-color-border-onneutral-selected: #0d99ff;
-  --pui-color-border-onneutral-disabled: #e5e5e5;
+  --pui-color-border: #e5e5e5;
+  --pui-color-border-selected: #0d99ff;
+  --pui-color-border-selected-strong: #007be5;
+  --pui-color-border-disabled: #e5e5e5;
 
-  --pui-color-border-onneutral-danger: #ffc7c2;
+  --pui-color-border-danger: #ffc7c2;
 }

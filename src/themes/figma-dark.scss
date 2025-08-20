@@ -2,20 +2,20 @@
   /* ========================== Background ========================== */
 
   /* Neutral */
-  --pui-color-neutral-bg: #2c2c2c;
-  --pui-color-neutral-bg-hover: #383838;
-  --pui-color-neutral-bg-pressed: #444444;
-  --pui-color-neutral-bg-selected: #4a5878;
-  --pui-color-neutral-bg-selected-hover: #394360;
-  --pui-color-neutral-bg-selected-pressed: #4a5878;
+  --pui-color-bg-neutral: #2c2c2c;
+  --pui-color-bg-neutral-hover: #383838;
+  --pui-color-bg-neutral-pressed: #444444;
+  --pui-color-bg-neutral-selected: #4a5878;
+  --pui-color-bg-neutral-selected-hover: #394360;
+  --pui-color-bg-neutral-selected-pressed: #4a5878;
 
-  --pui-color-neutral-bg-secondary: #383838;
+  --pui-color-bg-neutral-secondary: #383838;
 
-  --pui-color-neutral-bg-branded-hover: #394360;
-  --pui-color-neutral-bg-branded-pressed: #4a5878;
+  --pui-color-bg-neutral-branded-hover: #394360;
+  --pui-color-bg-neutral-branded-pressed: #4a5878;
 
-  --pui-color-neutral-bg-danger-hover: #60332a;
-  --pui-color-neutral-bg-danger-pressed: #7b3e31;
+  --pui-color-bg-neutral-danger-hover: #60332a;
+  --pui-color-bg-neutral-danger-pressed: #7b3e31;
 
   /* Brand */
   --pui-color-bg-brand: #0c8ce9;
@@ -83,9 +83,10 @@
   /* ========================== Border ========================== */
 
   /* On Neutral */
-  --pui-color-border-onneutral: #444444;
-  --pui-color-border-onneutral-selected: #0c8ce9;
-  --pui-color-border-onneutral-disabled: #444444;
+  --pui-color-border: #444444;
+  --pui-color-border-selected: #0c8ce9;
+  --pui-color-border-selected-strong: #7cc4f8;
+  --pui-color-border-disabled: #444444;
 
-  --pui-color-border-onneutral-danger: #963323;
+  --pui-color-border-danger: #963323;
 }

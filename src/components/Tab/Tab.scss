@@ -21,12 +21,12 @@
       @include curson-feedback;
 
       &:hover {
-        background-color: var(--pui-color-neutral-bg-hover);
+        background-color: var(--pui-color-bg-neutral-hover);
       }
 
       &#{$parent}_selected,
       &#{$parent}_selected:hover {
-        background-color: var(--pui-color-neutral-bg-hover);
+        background-color: var(--pui-color-bg-neutral-hover);
       }
     }
 
