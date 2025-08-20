@@ -1,8 +1,11 @@
 @use "../../variables.scss" as *;
 
 .TabList {
+  $parent: &;
+
   display: flex;
   flex-flow: row nowrap;
   flex: 1 1 100%;
   gap: var(--pui-space-100);
+  padding: 0 var(--pui-space-200);
 }
