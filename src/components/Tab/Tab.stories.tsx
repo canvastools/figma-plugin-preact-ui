@@ -81,6 +81,12 @@ export const Demo: Story = {
 export const Variant: Story = {
   parameters: {
     controls: { disable: true },
+    docs: {
+      description: {
+        story:
+          "The 'single' variant can essentially act as a heading in cases where tabs may replace the heading.",
+      },
+    },
   },
   render: (args) => (
     <div className="sb-column sb-gap-16">

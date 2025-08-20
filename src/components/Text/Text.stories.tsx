@@ -121,6 +121,13 @@ export const Size: Story = {
 }
 
 export const Strong: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: "This property visually affects only the body variant.",
+      },
+    },
+  },
   render: () => (
     <div className="sb-column sb-gap-16">
       <div className="sb-row sb-gap-16">
