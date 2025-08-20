@@ -24,7 +24,15 @@
 
 @mixin focus-visible {
   &:focus-visible {
-    outline: 1px solid var(--pui-color-border-onneutral-selected);
+    outline: 1px solid var(--pui-color-border-selected);
+    outline-offset: 1px;
+    box-shadow: none;
+  }
+}
+
+@mixin focus-within {
+  &:focus-within {
+    outline: 1px solid var(--pui-color-border-selected);
     outline-offset: 1px;
     box-shadow: none;
   }

@@ -32,7 +32,7 @@ const ButtonIconComponent = (
       disabled={disabled}
     >
       <Text variant="body" size="medium">
-        {children && <div className="ButtonIcon__content">{children}</div>}
+        {children && <div className="ButtonIcon__children">{children}</div>}
       </Text>
     </button>
   )

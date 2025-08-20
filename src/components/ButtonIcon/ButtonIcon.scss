@@ -8,14 +8,18 @@
   border: none;
   width: 24px;
   height: 24px;
+  overflow: hidden;
   @include curson-feedback;
 
   @include focus-visible;
 
-  &__content {
+  &__children {
     display: flex;
     justify-content: center;
     align-items: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
   }
 
   &_variant {

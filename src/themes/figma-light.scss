@@ -82,11 +82,13 @@
 
   /* ========================== Border ========================== */
 
-  /* On Neutral */
+  /* Neutral */
   --pui-color-border: #e5e5e5;
   --pui-color-border-selected: #0d99ff;
   --pui-color-border-selected-strong: #007be5;
-  --pui-color-border-disabled: #e5e5e5;
 
   --pui-color-border-danger: #ffc7c2;
+
+  /* Disabled */
+  --pui-color-border-disabled: #e5e5e5;
 }
