@@ -4,7 +4,6 @@ export const link = ({ variant, size }: GlyphProps) => {
   const combination = size + "_" + variant
 
   switch (combination) {
-    case "16_small":
     case "16_default":
       return (
         <svg
