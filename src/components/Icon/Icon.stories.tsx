@@ -6,7 +6,7 @@ import type { IconProps } from "./Icon.types"
 import { glyphs } from "./glyphs"
 
 const meta: Meta<IconProps> = {
-  title: "Components/Images/Icon",
+  title: "Components/Display/Icon",
   component: Icon,
   tags: ["autodocs"],
   argTypes: {

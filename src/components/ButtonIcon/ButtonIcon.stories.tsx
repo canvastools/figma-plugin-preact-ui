@@ -8,7 +8,7 @@ import type { ButtonIconProps } from "./ButtonIcon.types"
 import { Icon } from "../Icon/Icon"
 
 const meta: Meta<ButtonIconProps> = {
-  title: "Components/Actions/ButtonIcon",
+  title: "Components/Input/ButtonIcon",
   component: ButtonIcon,
   tags: ["autodocs"],
   argTypes: {
