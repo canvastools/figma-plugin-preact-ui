@@ -1,0 +1,9 @@
+@use "../../variables.scss" as *;
+
+.TabPanel {
+  $parent: &;
+
+  display: flex;
+  flex-flow: column nowrap;
+  flex: 1 1 100%;
+}

@@ -3,7 +3,7 @@ import { bem, typedForwardRef } from "../../utils"
 import type { ButtonProps } from "./Button.types"
 import "./Button.scss"
 
-import { Typography } from "../Typography/Typography"
+import { Text } from "../Text/Text"
 
 /* --- */
 
@@ -14,6 +14,8 @@ const ButtonComponent = (
     size = "default",
     fullWidth = false,
     disabled = false,
+    prefix,
+    suffix,
     children,
     ...rest
   }: ButtonProps,
@@ -24,6 +26,8 @@ const ButtonComponent = (
     size,
     fullWidth,
     disabled,
+    prefix: Boolean(prefix),
+    suffix: Boolean(suffix),
   })
 
   return (
@@ -33,9 +37,13 @@ const ButtonComponent = (
       {...rest}
       disabled={disabled}
     >
-      <Typography variant="body" size="medium">
-        {children}
-      </Typography>
+      <Text variant="body" size="medium">
+        <div className="Button__content">
+          {prefix && <div className="Button__prefix">{prefix}</div>}
+          {children && <div className="Button__children">{children}</div>}
+          {suffix && <div className="Button__suffix">{suffix}</div>}
+        </div>
+      </Text>
     </button>
   )
 }

@@ -1,9 +1,10 @@
 @use "../../variables.scss" as *;
 
-.Typography {
+.Text {
   $parent: &;
 
   font-family: "Inter", sans-serif;
+  color: inherit;
 
   &_variant {
     &-heading {
@@ -57,5 +58,17 @@
 
   &_strong {
     font-weight: 550;
+  }
+
+  &_align {
+    &-left {
+      text-align: left;
+    }
+    &-center {
+      text-align: center;
+    }
+    &-right {
+      text-align: right;
+    }
   }
 }
