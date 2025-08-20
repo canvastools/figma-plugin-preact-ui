@@ -17,7 +17,16 @@ body * {
   display: flex;
   flex-flow: column nowrap;
   width: 100%;
-  background-color: var(--figma-color-bg);
+}
+
+.figma-light {
+  background-color: var(--pui-color-neutral-bg-primary);
+  color: var(--pui-color-text-on-neutral-primary);
+}
+
+.figma-dark {
+  background-color: var(--pui-color-neutral-bg-primary);
+  color: var(--pui-color-text-on-neutral-primary);
 }
 
 .viewport-padding-true {
