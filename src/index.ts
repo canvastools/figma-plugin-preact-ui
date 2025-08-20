@@ -1,6 +1,9 @@
 export { Button } from "./components/Button/Button"
 export type { ButtonProps } from "./components/Button/Button.types"
 
+export { ButtonIcon } from "./components/ButtonIcon/ButtonIcon"
+export type { ButtonIconProps } from "./components/ButtonIcon/ButtonIcon.types"
+
 export { Icon } from "./components/Icon/Icon"
 export type { IconProps } from "./components/Icon/Icon.types"
 
