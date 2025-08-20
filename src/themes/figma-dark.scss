@@ -6,6 +6,10 @@
   --pui-color-neutral-bg-primary-hover: #ffffff0d;
   --pui-color-neutral-bg-primary-pressed: #ffffff1a;
 
+  --pui-color-neutral-bg-primary-selected: #4a5878; // --figma-color-bg-selected
+  --pui-color-neutral-bg-primary-selected-hover: #536383; // --figma-color-bg-selected-hover
+  --pui-color-neutral-bg-primary-selected-pressed: #444e6a; // --figma-color-bg-selected-pressed
+
   --pui-color-neutral-bg-brand-hover: #394360; // --figma-color-bg-brand-tertiary
   --pui-color-neutral-bg-brand-pressed: #444e6a;
 
@@ -54,8 +58,9 @@
 
   /* Neutral */
   --pui-color-icon-on-neutral-primary: #ffffff; // --figma-color-icon
+  --pui-color-icon-on-neutral-primary-selected: #7cc4f8; // --figma-color-icon-brand
   --pui-color-icon-on-neutral-brand: #7cc4f8; // --figma-color-icon-brand
-  --pui-color-icon-on-neutral-destructive: #e03e1a; // --figma-color-icon-danger
+  --pui-color-icon-on-neutral-destructive: #fca397; // --figma-color-icon-danger
   --pui-color-icon-on-neutral-disabled: #ffffff66; // --figma-color-icon-disabled
 
   /* Brand */
