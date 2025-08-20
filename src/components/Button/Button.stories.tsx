@@ -61,8 +61,6 @@ export const Demo: Story = {
     size: "default",
     disabled: false,
     fullWidth: false,
-    prefix: <Icon glyph="help" variant="small" />,
-    suffix: <Icon glyph="help" variant="small" />,
     children: "Button",
     onClick: fn(),
   },
