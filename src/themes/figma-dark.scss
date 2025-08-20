@@ -2,84 +2,90 @@
   /* ========================== Background ========================== */
 
   /* Neutral */
-  --pui-color-neutral-bg-primary: #2c2c2c; // --figma-color-bg
-  --pui-color-neutral-bg-primary-hover: #ffffff0d;
-  --pui-color-neutral-bg-primary-pressed: #ffffff1a;
+  --pui-color-neutral-bg: #2c2c2c;
+  --pui-color-neutral-bg-hover: #383838;
+  --pui-color-neutral-bg-pressed: #444444;
+  --pui-color-neutral-bg-selected: #4a5878;
+  --pui-color-neutral-bg-selected-hover: #394360;
+  --pui-color-neutral-bg-selected-pressed: #4a5878;
 
-  --pui-color-neutral-bg-primary-selected: #4a5878; // --figma-color-bg-selected
-  --pui-color-neutral-bg-primary-selected-hover: #536383; // --figma-color-bg-selected-hover
-  --pui-color-neutral-bg-primary-selected-pressed: #444e6a; // --figma-color-bg-selected-pressed
+  --pui-color-neutral-bg-secondary: #383838;
 
-  --pui-color-neutral-bg-brand-hover: #394360; // --figma-color-bg-brand-tertiary
-  --pui-color-neutral-bg-brand-pressed: #444e6a;
+  --pui-color-neutral-bg-branded-hover: #394360;
+  --pui-color-neutral-bg-branded-pressed: #4a5878;
 
-  --pui-color-neutral-bg-destructive-hover: #7c2622; //--figma-color-bg-danger-tertiary
-  --pui-color-neutral-bg-destructive-pressed: #8d332e;
+  --pui-color-neutral-bg-danger-hover: #60332a;
+  --pui-color-neutral-bg-danger-pressed: #7b3e31;
 
   /* Brand */
-  --pui-color-bg-brand-primary: #0c8ce9; // --figma-color-bg-brand
-  --pui-color-bg-brand-primary-hover: #0a6dc2; // --figma-color-bg-brand-hover
-  --pui-color-bg-brand-primary-pressed: #0763b4; // --figma-color-bg-brand-pressed
+  --pui-color-bg-brand: #0c8ce9;
+  --pui-color-bg-brand-hover: #0a6dc2;
+  --pui-color-bg-brand-pressed: #0763b4;
 
   /* Destructive */
-  --pui-color-bg-destructive-primary: #e03e1a; // --figma-color-bg-danger
-  --pui-color-bg-destructive-primary-hover: #c4381c; // --figma-color-bg-danger-hover
-  --pui-color-bg-destructive-primary-pressed: #b33117; // --figma-color-bg-danger-pressed
+  --pui-color-bg-destructive: #e03e1a;
+  --pui-color-bg-destructive-hover: #c4381c;
+  --pui-color-bg-destructive-pressed: #b33117;
 
   /* Success */
-  --pui-color-bg-success-primary: #198f51; // --figma-color-bg-success
-  --pui-color-bg-success-primary-hover: #078348; // --figma-color-bg-success-hover
-  --pui-color-bg-success-primary-pressed: #06753f; // --figma-color-bg-success-pressed
+  --pui-color-bg-success: #198f51;
+  --pui-color-bg-success-hover: #078348;
+  --pui-color-bg-success-pressed: #06753f;
 
   /* Disabled */
-  --pui-color-bg-disabled: #757575; // --figma-color-bg-disabled
+  --pui-color-bg-disabled: #757575;
 
   /* ========================== Text ========================== */
 
-  /* Neutral */
-  --pui-color-text-on-neutral-primary: #ffffff; // --figma-color-text
-  --pui-color-text-on-neutral-brand: #7cc4f8; // --figma-color-text-brand
-  --pui-color-text-on-neutral-destructive: #fca397; // --figma-color-text-danger
-  --pui-color-text-on-neutral-disabled: #ffffff66; // --figma-color-text-disabled
+  /* On Neutral */
+  --pui-color-text-onneutral: #ffffff;
+  --pui-color-text-onneutral-disabled: #808080;
 
-  /* Brand */
-  --pui-color-text-on-brand-primary: #ffffff; // --figma-color-text-onbrand
+  --pui-color-text-onneutral-branded: #7cc4f8;
 
-  /* Destructive */
-  --pui-color-text-on-destructive-primary: #ffffff; // --figma-color-text-ondanger
+  --pui-color-text-onneutral-danger: #fca397;
 
-  /* Success */
-  --pui-color-text-on-success-primary: #ffffff; // --figma-color-text-onsuccess
+  /* On Brand */
+  --pui-color-text-onbrand: #ffffff;
 
-  /* Disabled */
-  --pui-color-text-on-disabled: #2c2c2c; // --figma-color-text-ondisabled
+  /* On Destructive */
+  --pui-color-text-ondestructive: #ffffff;
+
+  /* On Success */
+  --pui-color-text-onsuccess: #ffffff;
+
+  /* On Disabled */
+  --pui-color-text-ondisabled: #2c2c2c;
 
   /* ========================== Icon ========================== */
 
   /* Neutral */
-  --pui-color-icon-on-neutral-primary: #ffffff; // --figma-color-icon
-  --pui-color-icon-on-neutral-primary-selected: #7cc4f8; // --figma-color-icon-brand
-  --pui-color-icon-on-neutral-brand: #7cc4f8; // --figma-color-icon-brand
-  --pui-color-icon-on-neutral-destructive: #fca397; // --figma-color-icon-danger
-  --pui-color-icon-on-neutral-disabled: #ffffff66; // --figma-color-icon-disabled
+  --pui-color-icon-onneutral: #ffffff;
+  --pui-color-icon-onneutral-selected: #7cc4f8;
+  --pui-color-icon-onneutral-disabled: #acacac;
 
-  /* Brand */
-  --pui-color-icon-on-brand-primary: #ffffff; // --figma-color-icon-onbrand
+  --pui-color-icon-onneutral-branded: #7cc4f8;
 
-  /* Destructive */
-  --pui-color-icon-on-destructive-primary: #ffffff; // --figma-color-icon-ondanger
+  --pui-color-icon-onneutral-danger: #fca397;
 
-  /* Success */
-  --pui-color-icon-on-success-primary: #ffffff; // --figma-color-icon-onsuccess
+  /* On Brand */
+  --pui-color-icon-onbrand: #ffffff;
 
-  /* Disabled */
-  --pui-color-icon-on-disabled: #2c2c2c; // --figma-color-icon-ondisabled
+  /* On Destructive */
+  --pui-color-icon-ondestructive: #ffffff;
+
+  /* On Success */
+  --pui-color-icon-onsuccess: #ffffff;
+
+  /* On Disabled */
+  --pui-color-icon-ondisabled: #2c2c2c;
 
   /* ========================== Border ========================== */
 
-  /* Neutral */
-  --pui-color-border-on-neutral: #444444; // --figma-color-border
-  --pui-color-border-on-neutral-selected: #7cc4f8; // --figma-color-border-selected
-  --pui-color-border-on-neutral-destructive: #963323; // --figma-color-border-danger
-  --pui-color-border-on-neutral-disabled: #ffffff1a; // --figma-color-border-disabled
+  /* On Neutral */
+  --pui-color-border-onneutral: #444444;
+  --pui-color-border-onneutral-selected: #0c8ce9;
+  --pui-color-border-onneutral-disabled: #444444;
+
+  --pui-color-border-onneutral-danger: #963323;
 }

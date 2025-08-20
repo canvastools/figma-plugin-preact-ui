@@ -21,3 +21,15 @@
   box-sizing: border-box;
   text-rendering: geometricPrecision;
 }
+
+@mixin focus-visible {
+  &:focus-visible {
+    outline: 1px solid var(--pui-color-border-onneutral-selected);
+    outline-offset: 1px;
+    box-shadow: none;
+  }
+}
+
+@mixin curson-feedback {
+  cursor: pointer;
+}

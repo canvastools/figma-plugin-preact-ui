@@ -10,39 +10,30 @@
   height: 24px;
   padding: 0 var(--pui-space-200);
   border-radius: var(--pui-radius-medium);
-  color: var(--pui-color-text-on-neutral-primary);
+  color: var(--pui-color-text-onneutral);
 
-  &:focus-visible {
-    outline: 1px solid var(--pui-color-border-on-neutral-selected);
-    outline-offset: 1px;
-    box-shadow: none;
-  }
+  @include focus-visible;
 
   &_variant {
     &-default {
-      cursor: pointer;
       border: none;
       background-color: transparent;
+      @include curson-feedback;
 
       &:hover {
-        background-color: var(--pui-color-neutral-bg-primary-hover);
-      }
-
-      &:active {
-        background-color: var(--pui-color-neutral-bg-primary-pressed);
+        background-color: var(--pui-color-neutral-bg-hover);
       }
 
       &#{$parent}_selected,
-      &#{$parent}_selected:hover,
-      &#{$parent}_selected:active {
-        background-color: var(--pui-color-neutral-bg-primary-pressed);
+      &#{$parent}_selected:hover {
+        background-color: var(--pui-color-neutral-bg-hover);
       }
     }
 
     &-single {
-      cursor: auto;
       border: none;
       background-color: transparent;
+      cursor: auto;
     }
   }
 }
