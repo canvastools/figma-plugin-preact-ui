@@ -37,9 +37,11 @@ const TabComponent = (
         onClick?.(value)
       }}
     >
-      <Text variant="body" size="medium" strong={value === activeValue}>
-        <div className="Tab__content">{children}</div>
-      </Text>
+      <div className="Tab__content">
+        <Text variant="body" size="medium" strong={value === activeValue}>
+          {children}
+        </Text>
+      </div>
     </button>
   )
 }

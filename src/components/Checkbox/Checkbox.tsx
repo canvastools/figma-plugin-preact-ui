@@ -47,9 +47,11 @@ const CheckboxComponent = (
         {isChecked && !mixed && <Icon glyph="check" size={16} />}
         {isChecked && mixed && <Icon glyph="mixed" size={16} />}
       </div>
-      <Text variant="body" size="medium">
-        {label}
-      </Text>
+      {label && (
+        <Text variant="body" size="medium">
+          {label}
+        </Text>
+      )}
     </div>
   )
 }

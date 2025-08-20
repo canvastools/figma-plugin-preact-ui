@@ -37,13 +37,13 @@ const ButtonComponent = (
       {...rest}
       disabled={disabled}
     >
-      <Text variant="body" size="medium">
-        <div className="Button__content">
+      <div className="Button__content">
+        <Text variant="body" size="medium">
           {prefix && <div className="Button__prefix">{prefix}</div>}
           {children && <div className="Button__children">{children}</div>}
           {suffix && <div className="Button__suffix">{suffix}</div>}
-        </div>
-      </Text>
+        </Text>
+      </div>
     </button>
   )
 }
