@@ -2,6 +2,7 @@
 
 .Button {
   $parent: &;
+
   padding: 0 var(--pui-space-100);
   border-radius: var(--pui-radius-medium);
   border: none;

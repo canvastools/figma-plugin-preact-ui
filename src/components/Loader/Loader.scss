@@ -1,6 +1,8 @@
 @use "../../variables.scss" as *;
 
 .Loader {
+  $parent: &;
+
   display: flex;
   justify-content: center;
   align-items: center;
