@@ -47,44 +47,55 @@ export const Demo: Story = {
 }
 
 export const Checked: Story = {
+  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },
   render: () => (
-    <div className="sb-column sb-gap-16">
-      <Checkbox checked={true} label="Checked True" />
-      <Checkbox checked={false} label="Checked False" />
-      <Checkbox checked={true} mixed={true} label="Checkbox True Mixed" />
-      <Checkbox checked={false} mixed={true} label="Checkbox False Mixed" />
+    <div className="sb-row sb-gap-16">
+      <div className="sb-column sb-gap-16">
+        <Checkbox checked={true} label="Checked True" />
+        <Checkbox checked={false} label="Checked False" />
+      </div>
+      <div className="sb-column sb-gap-16">
+        <Checkbox checked={true} mixed={true} label="Checkbox True Mixed" />
+        <Checkbox checked={false} mixed={true} label="Checkbox False Mixed" />
+      </div>
     </div>
   ),
 }
 
 export const Disabled: Story = {
+  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },
   render: () => (
-    <div className="sb-column sb-gap-16">
-      <Checkbox checked={true} disabled label="Checked True Disabled" />
-      <Checkbox checked={false} disabled label="Checked False Disabled" />
-      <Checkbox
-        checked={true}
-        disabled
-        mixed
-        label="Checkbox True Mixed Disabled"
-      />
-      <Checkbox
-        checked={false}
-        disabled
-        mixed
-        label="Checkbox False Mixed Disabled"
-      />
+    <div className="sb-row sb-gap-16">
+      <div className="sb-column sb-gap-16">
+        <Checkbox checked={true} disabled label="Checked True Disabled" />
+        <Checkbox checked={false} disabled label="Checked False Disabled" />
+      </div>
+      <div className="sb-column sb-gap-16">
+        <Checkbox
+          checked={true}
+          disabled
+          mixed
+          label="Checkbox True Mixed Disabled"
+        />
+        <Checkbox
+          checked={false}
+          disabled
+          mixed
+          label="Checkbox False Mixed Disabled"
+        />
+      </div>
     </div>
   ),
 }
 
 export const Label: Story = {
+  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },

@@ -48,6 +48,7 @@ export const Demo: Story = {
 }
 
 export const Variant: Story = {
+  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },
@@ -64,6 +65,7 @@ export const Variant: Story = {
 }
 
 export const Selected: Story = {
+  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },
@@ -93,6 +95,7 @@ export const Selected: Story = {
 }
 
 export const Disabled: Story = {
+  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },
@@ -109,6 +112,7 @@ export const Disabled: Story = {
 }
 
 export const CustomIcon: Story = {
+  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
     docs: {

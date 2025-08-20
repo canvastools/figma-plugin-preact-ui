@@ -46,6 +46,7 @@ export const Demo: Story = {
 }
 
 export const ImageSrc: Story = {
+  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },
@@ -58,6 +59,7 @@ export const ImageSrc: Story = {
 }
 
 export const Fill: Story = {
+  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },
@@ -70,6 +72,7 @@ export const Fill: Story = {
 }
 
 export const Size: Story = {
+  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },
@@ -98,58 +101,69 @@ export const Size: Story = {
 }
 
 export const Shape: Story = {
+  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },
   render: () => (
-    <div className="sb-column sb-gap-16">
-      <div className="sb-row sb-gap-16">
-        <Avatar imageSrc="https://thispersondoesnotexist.com/" size="small">
-          A
-        </Avatar>
-        <Avatar size="small">A</Avatar>
-        <Avatar
-          imageSrc="https://thispersondoesnotexist.com/"
-          size="small"
-          shape="square"
-        >
-          A
-        </Avatar>
-        <Avatar size="small" shape="square">
-          A
-        </Avatar>
+    <div className="sb-row sb-gap-16">
+      <div className="sb-column sb-gap-16">
+        <div className="sb-row sb-gap-16">
+          <Avatar imageSrc="https://thispersondoesnotexist.com/" size="small">
+            A
+          </Avatar>
+          <Avatar size="small">A</Avatar>
+        </div>
+        <div className="sb-row sb-gap-16">
+          <Avatar imageSrc="https://thispersondoesnotexist.com/" size="default">
+            A
+          </Avatar>
+          <Avatar size="default">A</Avatar>
+        </div>
+        <div className="sb-row sb-gap-16">
+          <Avatar imageSrc="https://thispersondoesnotexist.com/" size="large">
+            A
+          </Avatar>
+          <Avatar size="large">A</Avatar>
+        </div>
       </div>
-      <div className="sb-row sb-gap-16">
-        <Avatar imageSrc="https://thispersondoesnotexist.com/" size="default">
-          A
-        </Avatar>
-        <Avatar size="default">A</Avatar>
-        <Avatar
-          imageSrc="https://thispersondoesnotexist.com/"
-          size="default"
-          shape="square"
-        >
-          A
-        </Avatar>
-        <Avatar size="default" shape="square">
-          A
-        </Avatar>
-      </div>
-      <div className="sb-row sb-gap-16">
-        <Avatar imageSrc="https://thispersondoesnotexist.com/" size="large">
-          A
-        </Avatar>
-        <Avatar size="large">A</Avatar>
-        <Avatar
-          imageSrc="https://thispersondoesnotexist.com/"
-          size="large"
-          shape="square"
-        >
-          A
-        </Avatar>
-        <Avatar size="large" shape="square">
-          A
-        </Avatar>
+      <div className="sb-column sb-gap-16">
+        <div className="sb-row sb-gap-16">
+          <Avatar
+            imageSrc="https://thispersondoesnotexist.com/"
+            size="small"
+            shape="square"
+          >
+            A
+          </Avatar>
+          <Avatar size="small" shape="square">
+            A
+          </Avatar>
+        </div>
+        <div className="sb-row sb-gap-16">
+          <Avatar
+            imageSrc="https://thispersondoesnotexist.com/"
+            size="default"
+            shape="square"
+          >
+            A
+          </Avatar>
+          <Avatar size="default" shape="square">
+            A
+          </Avatar>
+        </div>
+        <div className="sb-row sb-gap-16">
+          <Avatar
+            imageSrc="https://thispersondoesnotexist.com/"
+            size="large"
+            shape="square"
+          >
+            A
+          </Avatar>
+          <Avatar size="large" shape="square">
+            A
+          </Avatar>
+        </div>
       </div>
     </div>
   ),

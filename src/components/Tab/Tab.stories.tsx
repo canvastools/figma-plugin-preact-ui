@@ -83,6 +83,7 @@ export const Demo: Story = {
 }
 
 export const Variant: Story = {
+  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
     docs: {
@@ -110,6 +111,7 @@ export const Variant: Story = {
 }
 
 export const Suffix: Story = {
+  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },

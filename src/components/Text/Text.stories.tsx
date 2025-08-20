@@ -45,6 +45,7 @@ export const Demo: Story = {
 }
 
 export const Variant: Story = {
+  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },
@@ -67,6 +68,7 @@ export const Variant: Story = {
 }
 
 export const Size: Story = {
+  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
     viewport: {
@@ -130,6 +132,7 @@ export const Size: Story = {
 }
 
 export const Strong: Story = {
+  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
     docs: {
@@ -168,6 +171,7 @@ export const Strong: Story = {
 }
 
 export const Align: Story = {
+  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },

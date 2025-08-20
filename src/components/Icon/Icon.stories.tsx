@@ -44,6 +44,7 @@ export const Demo: Story = {
 }
 
 export const Variant: Story = {
+  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
     docs: {
@@ -62,6 +63,7 @@ export const Variant: Story = {
 }
 
 export const Size: Story = {
+  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },
@@ -74,6 +76,7 @@ export const Size: Story = {
 }
 
 export const Color: Story = {
+  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
     docs: {
@@ -92,6 +95,7 @@ export const Color: Story = {
 }
 
 export const CustomIcon: Story = {
+  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
     docs: {
@@ -142,6 +146,7 @@ export const CustomIcon: Story = {
 }
 
 export const ErrorHandling: Story = {
+  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
     docs: {
