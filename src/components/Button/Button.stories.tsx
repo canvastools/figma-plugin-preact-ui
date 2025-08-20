@@ -4,6 +4,8 @@ import { fn } from "@storybook/test"
 import { Button } from "./Button"
 import type { ButtonProps } from "./Button.types"
 
+import { Icon } from "../Icon/Icon"
+
 const meta: Meta<ButtonProps> = {
   title: "Components/Actions/Button",
   component: Button,
@@ -14,7 +16,16 @@ const meta: Meta<ButtonProps> = {
     },
     variant: {
       control: { type: "radio" },
-      options: ["primary", "secondary"],
+      options: [
+        "primary",
+        "secondary",
+        "destructive",
+        "destructive-secondary",
+        "success",
+        "link",
+        "link-destructive",
+        "ghost",
+      ],
     },
     size: {
       control: { type: "radio" },
@@ -25,6 +36,12 @@ const meta: Meta<ButtonProps> = {
     },
     fullWidth: {
       control: { type: "boolean" },
+    },
+    prefix: {
+      control: { type: "text" },
+    },
+    suffix: {
+      control: { type: "text" },
     },
     children: {
       control: { type: "text" },
@@ -44,6 +61,8 @@ export const Demo: Story = {
     size: "default",
     disabled: false,
     fullWidth: false,
+    prefix: <Icon glyph="help" variant="small" />,
+    suffix: <Icon glyph="help" variant="small" />,
     children: "Button",
     onClick: fn(),
   },
@@ -57,6 +76,12 @@ export const Variant: Story = {
     <div className="sb-column sb-gap-16">
       <Button variant="primary">Primary</Button>
       <Button variant="secondary">Secondary</Button>
+      <Button variant="destructive">Destructive</Button>
+      <Button variant="destructive-secondary">Secondary Destructive</Button>
+      <Button variant="success">Success</Button>
+      <Button variant="link">Link</Button>
+      <Button variant="link-destructive">Link Danger</Button>
+      <Button variant="ghost">Ghost</Button>
     </div>
   ),
 }
@@ -131,6 +156,54 @@ export const FullWidth: Story = {
       <Button variant="secondary" size="large" fullWidth>
         Secondary Large FullWidth
       </Button>
+    </div>
+  ),
+}
+
+export const WithIcon: Story = {
+  parameters: {
+    controls: { disable: true },
+  },
+  render: () => (
+    <div className="sb-column sb-gap-16">
+      <div className="sb-row sb-gap-16">
+        <Button
+          variant="primary"
+          size="default"
+          prefix={<Icon glyph="help" variant="small" />}
+        >
+          Button with icon
+        </Button>
+        <Button
+          variant="primary"
+          size="large"
+          prefix={<Icon glyph="help" variant="small" />}
+        >
+          Button with icon
+        </Button>
+      </div>
+
+      <div className="sb-row sb-gap-16">
+        <Button variant="primary" size="default" disabled>
+          <Icon glyph="help" variant="small" />
+          Button with icon
+        </Button>
+        <Button variant="primary" size="large" disabled>
+          <Icon glyph="help" variant="small" />
+          Button with icon
+        </Button>
+      </div>
+
+      <div className="sb-column sb-gap-16">
+        <Button variant="secondary" size="default" fullWidth>
+          <Icon glyph="help" variant="small" />
+          Button with icon
+        </Button>
+        <Button variant="secondary" size="large" fullWidth>
+          <Icon glyph="help" variant="small" />
+          Button with icon
+        </Button>
+      </div>
     </div>
   ),
 }

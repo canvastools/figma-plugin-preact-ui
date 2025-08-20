@@ -14,16 +14,22 @@ const ButtonComponent = (
     size = "default",
     fullWidth = false,
     disabled = false,
+    prefix,
+    suffix,
     children,
     ...rest
   }: ButtonProps,
   ref: preact.Ref<HTMLButtonElement>
 ) => {
-  const _className = bem("Button", undefined, {
+  const componentClassName = "Button"
+
+  const _className = bem(componentClassName, undefined, {
     variant,
     size,
     fullWidth,
     disabled,
+    prefix: Boolean(prefix),
+    suffix: Boolean(suffix),
   })
 
   return (
@@ -34,7 +40,11 @@ const ButtonComponent = (
       disabled={disabled}
     >
       <Text variant="body" size="medium">
-        {children}
+        <div className="Button__content">
+          {prefix && <div className="Button__prefix">{prefix}</div>}
+          {children && <div className="Button__children">{children}</div>}
+          {suffix && <div className="Button__suffix">{suffix}</div>}
+        </div>
       </Text>
     </button>
   )
