@@ -25,7 +25,7 @@ const meta: Meta<IconProps> = {
       control: { type: "radio" },
       options: [16, 24],
     },
-    color: {
+    fill: {
       control: { type: "color" },
     },
   },
@@ -39,7 +39,7 @@ export const Demo: Story = {
     glyph: "help",
     variant: "default",
     size: 24,
-    color: "#ea62ff",
+    fill: "#ea62ff",
   },
 }
 
@@ -85,8 +85,8 @@ export const Color: Story = {
   },
   render: () => (
     <div className="sb-column sb-gap-16">
-      <Icon glyph="help" color="#FF0000" />
-      <Icon glyph="help" color="var(--pui-color-icon-onneutral-branded)" />
+      <Icon glyph="help" fill="#FF0000" />
+      <Icon glyph="help" fill="var(--pui-color-icon-onneutral-branded)" />
     </div>
   ),
 }
@@ -120,7 +120,7 @@ export const CustomIcon: Story = {
             />
           </svg>
         </Icon>
-        <Icon size={24} color="var(--pui-color-icon-onneutral-branded)">
+        <Icon size={24} fill="var(--pui-color-icon-onneutral-branded)">
           <svg
             width="24"
             height="24"

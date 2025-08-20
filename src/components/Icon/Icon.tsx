@@ -12,7 +12,7 @@ const IconComponent = (
     glyph,
     variant = "default",
     size = 24,
-    color,
+    fill,
     children,
     ...rest
   }: IconProps,
@@ -37,7 +37,7 @@ const IconComponent = (
   return (
     <div
       className={[_className, className].join(" ").trim()}
-      style={{ color: color }}
+      style={{ color: fill }}
       {...rest}
     >
       {content}
