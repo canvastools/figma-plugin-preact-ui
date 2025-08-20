@@ -1,14 +1,14 @@
 export interface ButtonProps {
   className?: string
   variant?:
-    | "primary"
-    | "secondary"
+    | "default"
+    | "ghost"
+    | "brand"
     | "destructive"
     | "destructive-secondary"
     | "success"
     | "link"
     | "link-destructive"
-    | "ghost"
   size?: "default" | "large"
   disabled?: boolean
   fullWidth?: boolean

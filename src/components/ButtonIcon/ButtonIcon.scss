@@ -23,8 +23,8 @@
   }
 
   &_variant {
-    &-secondary {
-      background-color: transparent;
+    &-default {
+      background-color: var(--pui-color-bg-neutral);
       color: var(--pui-color-text-onneutral);
       box-shadow: inset 0 0 0 1px var(--pui-color-border);
 
@@ -79,8 +79,8 @@
   &_disabled {
     cursor: auto;
 
-    &#{$parent}_variant-secondary {
-      background-color: transparent;
+    &#{$parent}_variant-default {
+      background-color: var(--pui-color-bg-neutral);
       box-shadow: inset 0 0 0 1px var(--pui-color-border-disabled);
       color: var(--pui-color-text-onneutral-disabled);
 

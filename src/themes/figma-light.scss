@@ -27,6 +27,9 @@
   --pui-color-bg-destructive-hover: #dc3412;
   --pui-color-bg-destructive-pressed: #bd2915;
 
+  /* Warning */
+  --pui-color-bg-warning: #ffcd29;
+
   /* Success */
   --pui-color-bg-success: #14ae5c;
   --pui-color-bg-success-hover: #009951;
@@ -39,17 +42,25 @@
 
   /* On Neutral */
   --pui-color-text-onneutral: #1a1a1a;
+  --pui-color-text-onneutral-secondary: #7b7b7b;
   --pui-color-text-onneutral-disabled: #b2b2b2;
 
   --pui-color-text-onneutral-branded: #007be5;
 
   --pui-color-text-onneutral-danger: #dc3412;
 
+  --pui-color-text-onneutral-warning: #b86200;
+
+  --pui-color-text-onneutral-success: #009951;
+
   /* On Brand */
   --pui-color-text-onbrand: #ffffff;
 
   /* On Destructive */
   --pui-color-text-ondestructive: #ffffff;
+
+  /* On Warning */
+  --pui-color-text-onwarning: #000000;
 
   /* On Success */
   --pui-color-text-onsuccess: #ffffff;
@@ -61,6 +72,7 @@
 
   /* On Neutral */
   --pui-color-icon-onneutral: #1a1a1a;
+  --pui-color-icon-onneutral-secondary: #7b7b7b;
   --pui-color-icon-onneutral-selected: #007be5;
   --pui-color-icon-onneutral-disabled: #989898;
 
@@ -68,11 +80,18 @@
 
   --pui-color-icon-onneutral-danger: #f24822;
 
+  --pui-color-icon-onneutral-warning: #b86200;
+
+  --pui-color-icon-onneutral-success: #009951;
+
   /* On Brand */
   --pui-color-icon-onbrand: #ffffff;
 
   /* On Destructive */
   --pui-color-icon-ondestructive: #ffffff;
+
+  /* On Warning */
+  --pui-color-icon-onwarning: #000000;
 
   /* On Success */
   --pui-color-icon-onsuccess: #ffffff;
@@ -87,7 +106,13 @@
   --pui-color-border-selected: #0d99ff;
   --pui-color-border-selected-strong: #007be5;
 
+  --pui-color-border-branded: #007be5;
+
   --pui-color-border-danger: #ffc7c2;
+
+  --pui-color-border-warning: #ffe8a3;
+
+  --pui-color-border-success: #aff4c6;
 
   /* Disabled */
   --pui-color-border-disabled: #e5e5e5;

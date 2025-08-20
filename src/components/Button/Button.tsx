@@ -10,7 +10,7 @@ import { Text } from "../Text/Text"
 const ButtonComponent = (
   {
     className,
-    variant = "primary",
+    variant = "default",
     size = "default",
     fullWidth = false,
     disabled = false,
@@ -37,13 +37,13 @@ const ButtonComponent = (
       {...rest}
       disabled={disabled}
     >
-      <div className="Button__content">
-        <Text variant="body" size="medium">
+      <Text variant="body" size="medium">
+        <div className="Button__content">
           {prefix && <div className="Button__prefix">{prefix}</div>}
           {children && <div className="Button__children">{children}</div>}
           {suffix && <div className="Button__suffix">{suffix}</div>}
-        </Text>
-      </div>
+        </div>
+      </Text>
     </button>
   )
 }

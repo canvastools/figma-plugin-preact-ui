@@ -8,6 +8,7 @@ import type { TabProps } from "./Tab.types"
 import { TabContext } from "../TabContext/TabContext"
 import { TabList } from "../TabList/TabList"
 import { TabPanel } from "../TabPanel/TabPanel"
+import { Badge } from "../Badge/Badge"
 
 const meta: Meta<TabProps> = {
   title: "Components/Navigation/Tab",
@@ -23,6 +24,9 @@ const meta: Meta<TabProps> = {
     variant: {
       control: { type: "radio" },
       options: ["default", "single"],
+    },
+    suffix: {
+      control: { type: "text" },
     },
     children: {
       control: { type: "text" },
@@ -99,6 +103,42 @@ export const Variant: Story = {
       <TabContext value={"tab-1"}>
         <TabList>
           <Tab variant="single" value="tab-1" children="Single" />
+        </TabList>
+      </TabContext>
+    </div>
+  ),
+}
+
+export const Suffix: Story = {
+  parameters: {
+    controls: { disable: true },
+  },
+  render: (args) => (
+    <div className="sb-column sb-gap-16">
+      <TabContext value={"tab-1"}>
+        <TabList>
+          <Tab
+            variant="default"
+            value="tab-1"
+            children="Tab 1"
+            suffix={<Badge variant="count">1</Badge>}
+          />
+          <Tab
+            variant="default"
+            value="tab-2"
+            children="Tab 2"
+            suffix={<Badge variant="count">2</Badge>}
+          />
+        </TabList>
+      </TabContext>
+      <TabContext value={"tab-1"}>
+        <TabList>
+          <Tab
+            variant="single"
+            value="tab-1"
+            children="Single"
+            suffix={<Badge variant="count">1</Badge>}
+          />
         </TabList>
       </TabContext>
     </div>

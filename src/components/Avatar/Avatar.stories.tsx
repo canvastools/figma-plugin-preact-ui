@@ -4,7 +4,7 @@ import { Avatar } from "./Avatar"
 import type { AvatarProps } from "./Avatar.types"
 
 const meta: Meta<AvatarProps> = {
-  title: "Components/Images & Icons/Avatar",
+  title: "Components/Images/Avatar",
   component: Avatar,
   tags: ["autodocs"],
   argTypes: {

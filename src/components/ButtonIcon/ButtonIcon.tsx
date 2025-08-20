@@ -10,7 +10,7 @@ import { Text } from "../Text/Text"
 const ButtonIconComponent = (
   {
     className,
-    variant = "secondary",
+    variant = "default",
     selected = false,
     disabled = false,
     children,
@@ -32,11 +32,9 @@ const ButtonIconComponent = (
       disabled={disabled}
     >
       {children && (
-        <div className="ButtonIcon__children">
-          <Text variant="body" size="medium">
-            {children}
-          </Text>
-        </div>
+        <Text variant="body" size="medium">
+          <div className="ButtonIcon__children">{children}</div>
+        </Text>
       )}
     </button>
   )

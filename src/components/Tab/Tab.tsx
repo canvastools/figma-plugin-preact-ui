@@ -14,6 +14,7 @@ const TabComponent = (
     className,
     value,
     variant = "default",
+    suffix,
     children,
     onClick,
     ...rest
@@ -25,6 +26,7 @@ const TabComponent = (
   const _className = bem("Tab", undefined, {
     variant,
     selected: value === activeValue,
+    suffix: Boolean(suffix),
   })
 
   return (
@@ -37,11 +39,12 @@ const TabComponent = (
         onClick?.(value)
       }}
     >
-      <div className="Tab__content">
-        <Text variant="body" size="medium" strong={value === activeValue}>
-          {children}
-        </Text>
-      </div>
+      <Text variant="body" size="medium" strong={value === activeValue}>
+        <div className="Tab__content">
+          {children && <div className="Tab__children">{children}</div>}
+          {suffix && <div className="Tab__suffix">{suffix}</div>}
+        </div>
+      </Text>
     </button>
   )
 }

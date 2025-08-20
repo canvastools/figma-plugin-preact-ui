@@ -36,15 +36,9 @@ const AvatarComponent = (
         <img className="Avatar__image" src={imageSrc} alt="Avatar" />
       )}
       {children && (
-        <div className="Avatar__children">
-          <Text
-            variant="body"
-            size={size === "small" ? "small" : "large"}
-            strong
-          >
-            {children}
-          </Text>
-        </div>
+        <Text variant="body" size={size === "small" ? "small" : "large"} strong>
+          <div className="Avatar__children">{children}</div>
+        </Text>
       )}
     </div>
   )
