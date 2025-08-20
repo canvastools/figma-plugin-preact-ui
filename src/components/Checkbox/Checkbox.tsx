@@ -34,6 +34,7 @@ const CheckboxComponent = (
     <div className={[_className, className].join(" ").trim()} {...rest}>
       <div className="Checkbox__input">
         <input
+          className="Checkbox__input-native"
           type="checkbox"
           ref={ref}
           checked={isChecked}

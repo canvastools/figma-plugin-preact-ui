@@ -12,7 +12,11 @@ const LoaderComponent = (
   const _className = bem("Loader", undefined, undefined)
 
   return (
-    <div className={[_className, className].join(" ").trim()} {...rest}>
+    <div
+      className={[_className, className].join(" ").trim()}
+      ref={ref}
+      {...rest}
+    >
       <div className="Loader__spinner"></div>
     </div>
   )
