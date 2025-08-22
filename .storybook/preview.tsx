@@ -8,13 +8,9 @@ import "./viewport.css"
 const preview: Preview = {
   parameters: {
     options: {
-      storySort: (a, b) => {
-        // Always put "Docs" first
-        if (a.title.startsWith("Docs")) return -1
-        if (b.title.startsWith("Docs")) return 1
-
-        // Then sort everything else alphabetically
-        return a.title.localeCompare(b.title, undefined, { numeric: true })
+      storySort: {
+        method: "alphabetical",
+        order: ["Overview", "Components", "Docs"],
       },
     },
     backgrounds: { disable: true, grid: { disable: true } },

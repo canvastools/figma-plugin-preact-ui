@@ -43,6 +43,10 @@ body * {
   width: 100%;
 }
 
+.sb-gap-8 {
+  gap: 8px;
+}
+
 .sb-gap-16 {
   gap: 16px;
 }
@@ -53,4 +57,17 @@ body * {
 
 .sb-padding-24 {
   padding: 24px;
+}
+
+.sb-grid-cell-border {
+  border-bottom: 1px solid var(--pui-color-neutral-border-default);
+  border-right: 1px solid var(--pui-color-neutral-border-default);
+}
+
+.sb-grid-cell-border:nth-child(3n) {
+  border-right: none;
+}
+
+.sb-grid-cell-border:nth-last-child(-n + 3) {
+  border-bottom: none;
 }
