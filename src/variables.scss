@@ -1,43 +1,35 @@
 @use "./themes/figma-light.scss" as *;
 @use "./themes/figma-dark.scss" as *;
 
-:root {
-  --pui-space-0: 0;
-  --pui-space-100: 4px;
-  --pui-space-200: 8px;
-  --pui-space-300: 16px;
-  --pui-space-400: 24px;
-  --pui-space-500: 32px;
-  --pui-space-600: 40px;
-
-  --pui-radius-0: 0;
-  --pui-radius-small: 2px;
-  --pui-radius-medium: 5px;
-  --pui-radius-large: 13px;
-  --pui-radius-full: 100%;
-}
-
 * {
   box-sizing: border-box;
-  text-rendering: geometricPrecision;
+  font-family: "Inter";
+  font-style: normal;
 }
 
-@mixin focus-visible {
-  &:focus-visible {
-    outline: 1px solid var(--pui-color-border-selected);
-    outline-offset: 1px;
-    box-shadow: none;
+$spacing: (
+  100: 4px,
+  200: 8px,
+  400: 16px,
+  600: 24px,
+  800: 32px,
+  1000: 40px,
+);
+
+$radius: (
+  0: 0,
+  small: 2px,
+  medium: 5px,
+  large: 13px,
+  full: 100%,
+);
+
+:root {
+  @each $space, $value in $spacing {
+    --pui-space-#{$space}: #{$value};
   }
-}
 
-@mixin focus-within {
-  &:focus-within {
-    outline: 1px solid var(--pui-color-border-selected);
-    outline-offset: 1px;
-    box-shadow: none;
+  @each $radius, $value in $radius {
+    --pui-radius-#{$radius}: #{$value};
   }
-}
-
-@mixin curson-feedback {
-  cursor: pointer;
 }
