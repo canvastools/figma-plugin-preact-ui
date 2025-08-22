@@ -31,15 +31,17 @@ const TabComponent = (
     suffix: Boolean(suffix),
   })
 
+  const handleClick = () => {
+    onChange(value)
+    onClick?.(value)
+  }
+
   return (
     <button
       className={[_className, className].join(" ").trim()}
       ref={ref}
       {...rest}
-      onClick={() => {
-        onChange?.(value)
-        onClick?.(value)
-      }}
+      onClick={handleClick}
     >
       <Text
         variant="body"
