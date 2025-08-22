@@ -2,6 +2,7 @@
 
 import type { Preview } from "@storybook/preact"
 
+import "./fonts.css"
 import "./viewport.css"
 
 const preview: Preview = {
