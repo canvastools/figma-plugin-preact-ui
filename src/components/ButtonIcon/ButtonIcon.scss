@@ -72,26 +72,6 @@
     );
   }
 
-  &_selected {
-    background-color: var(--pui-color-neutral-bg-interactive-selected);
-    color: var(--pui-color-neutral-text-interactive-selected);
-    box-shadow: none;
-
-    & .Icon {
-      color: var(--pui-color-neutral-icon-interactive-selected);
-    }
-
-    &:hover {
-      background-color: var(--pui-color-neutral-bg-interactive-selected-hover);
-    }
-
-    &:active {
-      background-color: var(
-        --pui-color-neutral-bg-interactive-selected-pressed
-      );
-    }
-  }
-
   &_disabled {
     cursor: auto;
 

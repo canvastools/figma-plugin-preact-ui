@@ -11,7 +11,6 @@ const ButtonIconComponent = (
   {
     className,
     context = "neutral",
-    selected = false,
     disabled = false,
     children,
     ...rest
@@ -20,7 +19,6 @@ const ButtonIconComponent = (
 ) => {
   const _className = bem("ButtonIcon", undefined, {
     context,
-    selected,
     disabled,
   })
 

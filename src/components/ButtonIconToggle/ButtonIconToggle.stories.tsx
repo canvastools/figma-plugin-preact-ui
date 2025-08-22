@@ -2,14 +2,14 @@ import { Meta, StoryObj } from "@storybook/preact"
 import { fn } from "@storybook/test"
 import { useState } from "preact/hooks"
 
-import { ButtonIcon } from "./ButtonIcon"
-import type { ButtonIconProps } from "./ButtonIcon.types"
+import { ButtonIconToggle } from "./ButtonIconToggle"
+import type { ButtonIconToggleProps } from "./ButtonIconToggle.types"
 
 import { Icon } from "../Icon/Icon"
 
-const meta: Meta<ButtonIconProps> = {
-  title: "Components/ButtonIcon",
-  component: ButtonIcon,
+const meta: Meta<ButtonIconToggleProps> = {
+  title: "Components/ButtonIconToggle",
+  component: ButtonIconToggle,
   tags: ["autodocs"],
   argTypes: {
     className: {
@@ -18,6 +18,12 @@ const meta: Meta<ButtonIconProps> = {
     context: {
       control: { type: "radio" },
       options: ["neutral", "neutral-ghost"],
+    },
+    defaultSelected: {
+      control: { type: "boolean" },
+    },
+    selected: {
+      control: { type: "boolean" },
     },
     disabled: {
       control: { type: "boolean" },
@@ -28,19 +34,58 @@ const meta: Meta<ButtonIconProps> = {
     onClick: {
       action: "clicked",
     },
+    onChange: {
+      action: "changed",
+    },
   },
 }
 export default meta
-type Story = StoryObj<ButtonIconProps>
+type Story = StoryObj<ButtonIconToggleProps>
 
 export const Demo: Story = {
   tags: ["!autodocs"],
   args: {
     className: "",
     context: "neutral",
+    defaultSelected: false,
     disabled: false,
     children: <Icon glyph="help" />,
     onClick: fn(),
+    onChange: fn(),
+  },
+}
+
+export const Uncontrolled: Story = {
+  tags: ["!dev"],
+  parameters: {
+    controls: { disable: true },
+  },
+  render: () => (
+    <div className="sb-column sb-gap-16">
+      <ButtonIconToggle context="neutral">
+        <Icon glyph="help" />
+      </ButtonIconToggle>
+    </div>
+  ),
+}
+
+export const Controlled: Story = {
+  tags: ["!dev"],
+  parameters: {
+    controls: { disable: true },
+  },
+  render: () => {
+    const [isSelected, setIsSelected] = useState(false)
+
+    return (
+      <ButtonIconToggle
+        context="neutral"
+        selected={isSelected}
+        onChange={setIsSelected}
+      >
+        <Icon glyph="help" />
+      </ButtonIconToggle>
+    )
   },
 }
 
@@ -51,12 +96,12 @@ export const Context: Story = {
   },
   render: () => (
     <div className="sb-column sb-gap-16">
-      <ButtonIcon context="neutral">
+      <ButtonIconToggle context="neutral">
         <Icon glyph="help" />
-      </ButtonIcon>
-      <ButtonIcon context="neutral-ghost">
+      </ButtonIconToggle>
+      <ButtonIconToggle context="neutral-ghost">
         <Icon glyph="help" />
-      </ButtonIcon>
+      </ButtonIconToggle>
     </div>
   ),
 }
@@ -68,12 +113,12 @@ export const Disabled: Story = {
   },
   render: () => (
     <div className="sb-column sb-gap-16">
-      <ButtonIcon context="neutral" disabled>
+      <ButtonIconToggle context="neutral" disabled>
         <Icon glyph="help" />
-      </ButtonIcon>
-      <ButtonIcon context="neutral-ghost" disabled>
+      </ButtonIconToggle>
+      <ButtonIconToggle context="neutral-ghost" disabled>
         <Icon glyph="help" />
-      </ButtonIcon>
+      </ButtonIconToggle>
     </div>
   ),
 }
@@ -91,7 +136,7 @@ export const CustomIcon: Story = {
   },
   render: () => (
     <div className="sb-column sb-gap-16">
-      <ButtonIcon context="neutral">
+      <ButtonIconToggle context="neutral">
         <Icon size={24}>
           <svg
             width="24"
@@ -108,8 +153,8 @@ export const CustomIcon: Story = {
             />
           </svg>
         </Icon>
-      </ButtonIcon>
-      <ButtonIcon context="neutral-ghost">
+      </ButtonIconToggle>
+      <ButtonIconToggle context="neutral-ghost">
         <Icon size={24}>
           <svg
             width="24"
@@ -126,7 +171,7 @@ export const CustomIcon: Story = {
             />
           </svg>
         </Icon>
-      </ButtonIcon>
+      </ButtonIconToggle>
     </div>
   ),
 }
