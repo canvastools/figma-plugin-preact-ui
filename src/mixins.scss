@@ -1,0 +1,21 @@
+@use "./variables.scss" as *;
+
+@mixin focus-visible($offset: 1px) {
+  &:focus-visible {
+    outline: 1px solid var(--pui-color-system-border-focus);
+    outline-offset: $offset;
+    box-shadow: none;
+  }
+}
+
+@mixin focus-within {
+  &:focus-within {
+    outline: 1px solid var(--pui-color-system-border-focus);
+    outline-offset: 1px;
+    box-shadow: none;
+  }
+}
+
+@mixin curson-feedback {
+  cursor: auto;
+}
