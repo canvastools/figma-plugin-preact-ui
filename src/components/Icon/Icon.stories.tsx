@@ -5,6 +5,8 @@ import { Icon } from "./Icon"
 import type { IconProps } from "./Icon.types"
 import { glyphs } from "./glyphs"
 
+import { Text } from "../Text/Text"
+
 const meta: Meta<IconProps> = {
   title: "Components/Icon",
   component: Icon,
@@ -44,6 +46,7 @@ const meta: Meta<IconProps> = {
     },
   },
 }
+
 export default meta
 type Story = StoryObj<IconProps>
 
@@ -56,6 +59,82 @@ export const Demo: Story = {
     variant: "default",
     size: 24,
   },
+}
+
+const glyphCombinations = (glyph: string) => {
+  // @ts-ignore-next-line
+  const combinations = meta.argTypes.variant.options.flatMap((i) =>
+    // @ts-ignore-next-line
+    meta.argTypes.size.options.map((j) => [i, j])
+  )
+
+  const validCombinations = combinations.filter(([variant, size]) => {
+    try {
+      return glyphs[glyph]({ variant, size })
+    } catch (e) {
+      return false
+    }
+  })
+
+  return validCombinations.map(([variant, size]) => (
+    <div
+      className="sb-row sb-gap-8 sb-width-full"
+      style={{ justifyContent: "space-between", alignItems: "center" }}
+    >
+      <Text
+        context={
+          variant == "default" && size == 24 ? "neutral" : "neutral-secondary"
+        }
+      >
+        {glyph} ({size}, {variant})
+      </Text>
+      <div
+        style={{
+          backgroundColor: "var(--pui-color-neutral-bg-secondary)",
+          width: "fit-content",
+        }}
+      >
+        <Icon
+          glyph={glyph as keyof typeof glyphs}
+          variant={variant}
+          size={size}
+          context="neutral"
+        />
+      </div>
+    </div>
+  ))
+}
+
+export const Glyphs: Story = {
+  tags: ["!dev"],
+  parameters: {
+    controls: { disable: true },
+  },
+  render: () => (
+    <div
+      className="sb-row sb-gap-16"
+      style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(3, 1fr)",
+        gridTemplateRows: "repeat(auto, 1fr)",
+        gridColumnGap: "0px",
+        gridRowGap: "0px",
+      }}
+    >
+      {Object.keys(glyphs).map((glyph) => {
+        return (
+          <div
+            className="sb-column sb-gap-16 sb-grid-cell-border"
+            style={{
+              padding: "20px",
+            }}
+          >
+            {glyphCombinations(glyph)}
+          </div>
+        )
+      })}
+    </div>
+  ),
 }
 
 export const Context: Story = {
