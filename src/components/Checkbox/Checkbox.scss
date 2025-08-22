@@ -1,9 +1,11 @@
 @use "../../variables.scss" as *;
+@use "../../mixins.scss" as *;
 
 .Checkbox {
   $parent: &;
 
-  flex: 1 1 auto;
+  flex: 0 0 auto;
+  width: fit-content;
   display: flex;
   align-items: flex-start;
   gap: var(--pui-space-200);
@@ -23,11 +25,11 @@
     flex: 0 0 16px;
     height: 16px;
     position: relative;
-    background-color: var(--pui-color-bg-neutral-secondary);
+    background-color: var(--pui-color-neutral-bg-interactive);
     border-radius: var(--pui-radius-medium);
     @include focus-within;
 
-    box-shadow: inset 0 0 0 1px var(--pui-color-border);
+    box-shadow: inset 0 0 0 1px var(--pui-color-neutral-border-interactive);
 
     & .Icon {
       position: absolute;
@@ -38,35 +40,43 @@
   }
 
   &__label {
-    color: var(--pui-color-text-onneutral);
+    color: var(--pui-color-neutral-text-interactive);
   }
 
   &_disabled {
     #{$parent}__input {
-      background-color: var(--pui-color-bg-neutral);
-      box-shadow: inset 0 0 0 1px var(--pui-color-border-disabled);
+      background-color: var(--pui-color-disabled-bg-interactive);
+      box-shadow: inset 0 0 0 1px var(--pui-color-disabled-border-interactive);
     }
 
     #{$parent}__label {
-      color: var(--pui-color-text-onneutral-disabled);
+      color: var(--pui-color-disabled-text-interactive);
     }
   }
 
   &_checked {
     #{$parent}__input {
-      background-color: var(--pui-color-bg-brand);
-      box-shadow: inset 0 0 0 1px var(--pui-color-border-selected-strong);
+      background-color: var(--pui-color-brand-bg-interactive);
+      box-shadow: inset 0 0 0 1px var(--pui-color-brand-border-interactive);
 
       & .Icon {
-        color: var(--pui-color-icon-onbrand);
+        color: var(--pui-color-brand-icon-interactive);
+      }
+    }
+  }
+
+  &_disabled {
+    #{$parent}__input {
+      background-color: var(--pui-color-disabled-bg-interactive);
+      box-shadow: none;
+
+      & .Icon {
+        color: var(--pui-color-disabled-icon-interactive);
       }
     }
 
-    &#{$parent}_disabled {
-      #{$parent}__input {
-        background-color: var(--pui-color-bg-disabled);
-        box-shadow: none;
-      }
+    #{$parent}__label {
+      color: var(--pui-color-disabled-text-interactive);
     }
   }
 }

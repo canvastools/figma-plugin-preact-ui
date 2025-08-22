@@ -10,8 +10,8 @@ import { Text } from "../Text/Text"
 const ButtonComponent = (
   {
     className,
-    variant = "default",
-    size = "default",
+    context = "neutral",
+    size = "medium",
     fullWidth = false,
     disabled = false,
     prefix,
@@ -22,7 +22,7 @@ const ButtonComponent = (
   ref: preact.Ref<HTMLButtonElement>
 ) => {
   const _className = bem("Button", undefined, {
-    variant,
+    context,
     size,
     fullWidth,
     disabled,
@@ -37,7 +37,7 @@ const ButtonComponent = (
       {...rest}
       disabled={disabled}
     >
-      <Text variant="body" size="medium">
+      <Text variant="body" size="medium" context="inherit">
         <div className="Button__content">
           {prefix && <div className="Button__prefix">{prefix}</div>}
           {children && <div className="Button__children">{children}</div>}

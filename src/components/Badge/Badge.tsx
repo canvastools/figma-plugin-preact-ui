@@ -8,12 +8,20 @@ import { Text } from "../Text/Text"
 /* --- */
 
 const BadgeComponent = (
-  { className, variant = "default", prefix, children, ...rest }: BadgeProps,
+  {
+    className,
+    context = "neutral",
+    prefix,
+    suffix,
+    children,
+    ...rest
+  }: BadgeProps,
   ref: preact.Ref<HTMLDivElement>
 ) => {
   const _className = bem("Badge", undefined, {
-    variant,
+    context,
     prefix: Boolean(prefix),
+    suffix: Boolean(suffix),
   })
 
   return (
@@ -22,10 +30,11 @@ const BadgeComponent = (
       ref={ref}
       {...rest}
     >
-      <Text variant="body" size="medium">
+      <Text variant="body" size="medium" context="inherit">
         <div className="Badge__content">
           {prefix && <div className="Badge__prefix">{prefix}</div>}
           {children && <div className="Badge__children">{children}</div>}
+          {suffix && <div className="Badge__suffix">{suffix}</div>}
         </div>
       </Text>
     </div>

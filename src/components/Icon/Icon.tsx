@@ -10,9 +10,9 @@ const IconComponent = (
   {
     className,
     glyph,
+    context = "inherit",
     variant = "default",
     size = 24,
-    fill,
     children,
     ...rest
   }: IconProps,
@@ -20,11 +20,12 @@ const IconComponent = (
 ) => {
   const _className = bem("Icon", undefined, {
     glyph,
+    context,
     variant,
     size: size.toString(),
   })
 
-  let content: preact.VNode
+  let content: preact.ComponentChildren
 
   if (children) {
     content = children
@@ -35,11 +36,7 @@ const IconComponent = (
   }
 
   return (
-    <div
-      className={[_className, className].join(" ").trim()}
-      style={{ color: fill }}
-      {...rest}
-    >
+    <div className={[_className, className].join(" ").trim()} {...rest}>
       {content}
     </div>
   )

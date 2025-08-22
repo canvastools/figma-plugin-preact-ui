@@ -4,7 +4,7 @@ import { Spinner } from "./Spinner"
 import type { SpinnerProps } from "./Spinner.types"
 
 const meta: Meta<SpinnerProps> = {
-  title: "Components/Feedback/Spinner",
+  title: "Components/Spinner",
   component: Spinner,
   tags: ["autodocs"],
 }

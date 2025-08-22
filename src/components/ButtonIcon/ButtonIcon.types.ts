@@ -1,6 +1,6 @@
 export interface ButtonIconProps {
   className?: string
-  variant?: "default" | "ghost"
+  context?: "neutral" | "neutral-ghost"
   selected?: boolean
   disabled?: boolean
   children?: preact.ComponentChildren

@@ -10,7 +10,7 @@ import { Text } from "../Text/Text"
 const ButtonIconComponent = (
   {
     className,
-    variant = "default",
+    context = "neutral",
     selected = false,
     disabled = false,
     children,
@@ -19,7 +19,7 @@ const ButtonIconComponent = (
   ref: preact.Ref<HTMLButtonElement>
 ) => {
   const _className = bem("ButtonIcon", undefined, {
-    variant,
+    context,
     selected,
     disabled,
   })
@@ -32,8 +32,8 @@ const ButtonIconComponent = (
       disabled={disabled}
     >
       {children && (
-        <Text variant="body" size="medium">
-          <div className="ButtonIcon__children">{children}</div>
+        <Text variant="body" size="medium" context="inherit">
+          {children && <div className="ButtonIcon__children">{children}</div>}
         </Text>
       )}
     </button>

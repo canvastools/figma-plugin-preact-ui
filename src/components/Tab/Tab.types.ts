@@ -2,7 +2,8 @@ export interface TabProps {
   className?: string
   value: string
   variant?: "default" | "single"
-  suffix?: preact.VNode
+  prefix?: preact.ComponentChildren
+  suffix?: preact.ComponentChildren
   children: preact.ComponentChildren
   onClick?: (value: string) => void
 }

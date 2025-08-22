@@ -11,9 +11,17 @@ import { TabPanel } from "../TabPanel/TabPanel"
 import { Badge } from "../Badge/Badge"
 
 const meta: Meta<TabProps> = {
-  title: "Components/Navigation/Tab",
+  title: "Components/Tab",
   component: Tab,
   tags: ["autodocs"],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Always used within &lt;TabContext/&gt;, optionally in combination with &lt;TabList&gt; and &lt;TabPanel&gt;",
+      },
+    },
+  },
   argTypes: {
     className: {
       control: { type: "text" },
@@ -24,6 +32,9 @@ const meta: Meta<TabProps> = {
     variant: {
       control: { type: "radio" },
       options: ["default", "single"],
+    },
+    prefix: {
+      control: { type: "text" },
     },
     suffix: {
       control: { type: "text" },
@@ -40,14 +51,7 @@ export default meta
 type Story = StoryObj<TabProps>
 
 export const Demo: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Always used within &lt;TabContext/&gt;, optionally in combination with &lt;TabList&gt; and &lt;TabPanel&gt;",
-      },
-    },
-  },
+  tags: ["!autodocs"],
   args: {
     className: "",
     variant: "default",
@@ -123,13 +127,13 @@ export const Suffix: Story = {
             variant="default"
             value="tab-1"
             children="Tab 1"
-            suffix={<Badge variant="count">1</Badge>}
+            suffix={<Badge context="neutral-brand">1</Badge>}
           />
           <Tab
             variant="default"
             value="tab-2"
             children="Tab 2"
-            suffix={<Badge variant="count">2</Badge>}
+            suffix={<Badge context="brand">2</Badge>}
           />
         </TabList>
       </TabContext>
@@ -139,7 +143,7 @@ export const Suffix: Story = {
             variant="single"
             value="tab-1"
             children="Single"
-            suffix={<Badge variant="count">1</Badge>}
+            suffix={<Badge context="neutral-brand">1</Badge>}
           />
         </TabList>
       </TabContext>

@@ -4,7 +4,7 @@ export const search = ({ variant, size }: GlyphProps) => {
   const combination = size + "_" + variant
 
   switch (combination) {
-    case "24_small":
+    case "24_scaled":
       return (
         <svg
           width="24"

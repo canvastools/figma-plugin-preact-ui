@@ -8,7 +8,7 @@ import type { CheckboxProps } from "./Checkbox.types"
 import { Icon } from "../Icon/Icon"
 
 const meta: Meta<CheckboxProps> = {
-  title: "Components/Inputs/Checkbox",
+  title: "Components/Checkbox",
   component: Checkbox,
   tags: ["autodocs"],
   argTypes: {
@@ -36,6 +36,7 @@ export default meta
 type Story = StoryObj<CheckboxProps>
 
 export const Demo: Story = {
+  tags: ["!autodocs"],
   args: {
     className: "",
     checked: false,

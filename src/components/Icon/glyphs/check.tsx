@@ -22,7 +22,7 @@ export const check = ({ variant, size }: GlyphProps) => {
         </svg>
       )
 
-    case "24_small":
+    case "24_scaled":
       return (
         <svg
           width="24"

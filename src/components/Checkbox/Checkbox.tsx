@@ -48,8 +48,16 @@ const CheckboxComponent = (
         {isChecked && mixed && <Icon glyph="mixed" size={16} />}
       </div>
       {label && (
-        <Text variant="body" size="medium">
-          {label}
+        <Text variant="body" size="medium" context="inherit">
+          <div
+            className="Checkbox__label"
+            onClick={() => {
+              setIsChecked(!isChecked)
+              onChange?.(!isChecked)
+            }}
+          >
+            {label}
+          </div>
         </Text>
       )}
     </div>

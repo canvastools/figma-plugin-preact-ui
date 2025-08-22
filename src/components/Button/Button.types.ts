@@ -1,19 +1,21 @@
 export interface ButtonProps {
   className?: string
-  variant?:
-    | "default"
-    | "ghost"
+  context?:
+    | "neutral"
+    | "neutral-ghost"
+    | "neutral-brand"
+    | "neutral-brand-ghost"
+    | "neutral-danger"
+    | "neutral-danger-ghost"
+    | "neutral-inverted"
     | "brand"
-    | "destructive"
-    | "destructive-secondary"
+    | "danger"
     | "success"
-    | "link"
-    | "link-destructive"
-  size?: "default" | "large"
+  size?: "medium" | "large"
   disabled?: boolean
   fullWidth?: boolean
-  prefix?: preact.VNode
-  suffix?: preact.VNode
+  prefix?: preact.ComponentChildren
+  suffix?: preact.ComponentChildren
   children?: preact.ComponentChildren
   onClick?: () => void
 }
