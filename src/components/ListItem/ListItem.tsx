@@ -5,19 +5,24 @@ import { useState, useEffect, useRef } from "preact/hooks"
 import type { ListItemProps } from "./ListItem.types"
 import "./ListItem.scss"
 
+import { Icon } from "../Icon/Icon"
+
 /* --- */
 
 const ListItemComponent = (
   {
     className,
+    variant = "default",
     id,
     isNested,
     nestingLevel = 0,
     draggable,
     acceptsChildren,
+    selectionScope = "item",
     onDragStart,
     onDragEnd,
     selectable,
+    hoverable,
     onSelect,
     subItems,
     children,
@@ -25,8 +30,13 @@ const ListItemComponent = (
   }: ListItemProps,
   ref: preact.Ref<HTMLDivElement>
 ) => {
-  const { selectedItems, toggleSelect, selectionMode, setExactSelection } =
-    useListContext()
+  const {
+    selectedItems,
+    toggleSelect,
+    selectionMode,
+    setExactSelection,
+    items,
+  } = useListContext()
   const [isDragOver, setIsDragOver] = useState(false)
   const [dragPosition, setDragPosition] = useState<
     "above" | "below" | "inside" | "self" | null
@@ -66,10 +76,13 @@ const ListItemComponent = (
   }, [])
 
   const _className = bem("ListItem", undefined, {
+    variant,
+    "selection-scope-descendants": selectionScope === "withDescendants",
     nested: isNested,
     draggable: Boolean(draggable),
     selectable: Boolean(selectable),
     selected: isSelected,
+    hoverable: Boolean(hoverable),
     "drag-over": isDragOver,
     "drag-above": dragPosition === "above",
     "drag-below": dragPosition === "below",
@@ -81,8 +94,48 @@ const ListItemComponent = (
     if (!selectable || selectionMode === "none") return
     const range = e.shiftKey
     const additive = e.metaKey || e.ctrlKey
-    toggleSelect(id, { range, additive })
+    if (selectionScope === "withDescendants") {
+      // Expand to include descendants on selection toggle by delegating to ListContext helper
+      // We encode desired scope in the id toggle: first toggle the root
+      toggleSelect(id, { range, additive })
+      // On multi-mode without range/additive, ListContext resets selection to [id];
+      // descendants marking is handled for single mode only in context,
+      // so here we force exact selection when needed in multi default click
+      if (selectionMode !== "single" && !range && !additive) {
+        // Build [id + descendants]
+        const rootAndDesc = new Set<string>([id])
+        collectDescendantsForLocal(id).forEach((d) => rootAndDesc.add(d))
+        setExactSelection(Array.from(rootAndDesc))
+      }
+    } else {
+      toggleSelect(id, { range, additive })
+    }
     onSelect?.(!isSelected)
+  }
+
+  const collectDescendantsForLocal = (rootId: string): string[] => {
+    const ids: string[] = []
+    const walk = (nodes: any[]): boolean => {
+      for (let i = 0; i < nodes.length; i++) {
+        const n = nodes[i]
+        if (n.id === rootId) {
+          const addAll = (children?: any[]) => {
+            if (!children) return
+            for (let j = 0; j < children.length; j++) {
+              const c = children[j]
+              ids.push(c.id)
+              addAll(c.children)
+            }
+          }
+          addAll(n.children)
+          return true
+        }
+        if (n.children && walk(n.children)) return true
+      }
+      return false
+    }
+    walk(items as any)
+    return ids
   }
 
   const handleDragOver = (e: DragEvent) => {
@@ -119,14 +172,20 @@ const ListItemComponent = (
       const content = target.querySelector(
         ".ListItem__content"
       ) as HTMLElement | null
-      const rect = content?.getBoundingClientRect()
+      let rect: DOMRect | undefined
+      if (variant === "layer") {
+        rect = target.getBoundingClientRect()
+      } else {
+        rect = content?.getBoundingClientRect()
+      }
       if (!rect) return
-
-      // Only apply zones when hovering over the content block, not full item height
-      if (e.clientY < rect.top || e.clientY > rect.bottom) {
-        setIsDragOver(false)
-        setDragPosition(null)
-        return
+      if (variant !== "layer") {
+        // Only apply zones when hovering over the content block, not full item height
+        if (e.clientY < rect.top || e.clientY > rect.bottom) {
+          setIsDragOver(false)
+          setDragPosition(null)
+          return
+        }
       }
 
       const dropY = e.clientY - rect.top
@@ -187,6 +246,10 @@ const ListItemComponent = (
       } catch {}
       e.dataTransfer?.setData("text/plain", ids[0])
       ;(window as any).__puiDraggingIds = ids
+      // Hide default drag preview
+      try {
+        e.dataTransfer?.setDragImage(new Image(), 0, 0)
+      } catch {}
       onDragStart?.()
     }
   }
@@ -222,31 +285,42 @@ const ListItemComponent = (
       }}
       key={id}
       {...rest}
+      draggable={Boolean(draggable && variant === "layer")}
+      onDragStart={
+        variant === "layer" && draggable
+          ? (handleDragHandleDragStart as any)
+          : undefined
+      }
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       data-nesting-level={nestingLevel}
       data-item-id={id}
-      style={{
-        paddingLeft: `calc(var(--pui-space-200) * ${nestingLevel})`,
-      }}
+      style={`--level: ${nestingLevel}`}
     >
       <div className="ListItem__content" onClick={handleClick}>
-        {draggable && (
+        {draggable && variant !== "layer" && (
           <div
             className="ListItem__drag-handle"
             draggable={true}
             onDragStart={handleDragHandleDragStart}
             onDragEnd={handleDragHandleDragEnd}
+            style={{
+              left: `calc(var(--pui-space-400) * ${nestingLevel})`,
+            }}
           >
-            ⋮⋮
+            <Icon glyph="dragHandle" size={16} />
           </div>
         )}
-        {selectable && (
-          <div className="ListItem__selection-indicator">
-            {isSelected ? "☑" : "☐"}
+        {children && (
+          <div
+            className="ListItem__children"
+            style={{
+              paddingLeft: `calc(var(--pui-space-400) * ${nestingLevel})`,
+            }}
+          >
+            {children}
           </div>
         )}
-        {children && <div className="ListItem__children">{children}</div>}
       </div>
 
       {subItems && <div className="ListItem__sub-items">{subItems}</div>}

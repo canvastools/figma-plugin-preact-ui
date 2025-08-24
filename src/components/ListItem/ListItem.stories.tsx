@@ -125,7 +125,9 @@ export const Demo: Story = {
                 onDragEnd={args.onDragEnd}
                 onSelect={args.onSelect}
               >
-                <Text variant="body">{item.id}</Text>
+                <Text variant="body" context="neutral">
+                  {item.id}
+                </Text>
               </ListItem>
             ))}
           </ListContainer>
@@ -135,10 +137,15 @@ export const Demo: Story = {
   },
 }
 
-export const DraggableOnly: Story = {
+export const SingleDraggable: Story = {
   tags: ["!dev"],
   parameters: {
     controls: { disable: true },
+    docs: {
+      description: {
+        story: "Allows to drag only one item at a time. Selection is disabled.",
+      },
+    },
   },
   render: () => {
     const [items, setItems] = useState(sampleItems)
@@ -152,8 +159,10 @@ export const DraggableOnly: Story = {
         >
           <ListContainer>
             {items.map((item) => (
-              <ListItem id={item.id} draggable={true} acceptsChildren={true}>
-                <Text variant="body">Item {item.id} (Draggable only)</Text>
+              <ListItem id={item.id} draggable={true}>
+                <Text variant="body" context="neutral">
+                  {item.id}
+                </Text>
               </ListItem>
             ))}
           </ListContainer>
@@ -163,10 +172,16 @@ export const DraggableOnly: Story = {
   },
 }
 
-export const SelectableOnly: Story = {
+export const SingleSelectable: Story = {
   tags: ["!dev"],
   parameters: {
     controls: { disable: true },
+    docs: {
+      description: {
+        story:
+          "Allows to select only one item at a time. Dragging is disabled.",
+      },
+    },
   },
   render: () => {
     const [items, setItems] = useState(sampleItems)
@@ -183,7 +198,9 @@ export const SelectableOnly: Story = {
           <ListContainer>
             {items.map((item) => (
               <ListItem id={item.id} selectable={true}>
-                <Text variant="body">Item {item.id} (Selectable only)</Text>
+                <Text variant="body" context="neutral">
+                  {item.id}
+                </Text>
               </ListItem>
             ))}
           </ListContainer>
@@ -193,10 +210,54 @@ export const SelectableOnly: Story = {
   },
 }
 
-export const NestedChildren: Story = {
+export const MultiSelectabledAndDraggbale: Story = {
   tags: ["!dev"],
   parameters: {
     controls: { disable: true },
+    docs: {
+      description: {
+        story:
+          "Allows to select and drag multiple items at a time. Use Shift or Ctrl/CMD key to select multiple items.",
+      },
+    },
+  },
+  render: () => {
+    const [items, setItems] = useState(sampleItems)
+    const [selectedItems, setSelectedItems] = useState<string[]>([])
+
+    return (
+      <div className="sb-column sb-gap-16">
+        <ListContext
+          items={items}
+          selectedItems={selectedItems}
+          selectionMode="multi"
+          onSelectionChange={setSelectedItems}
+          onItemsChange={setItems}
+        >
+          <ListContainer>
+            {items.map((item) => (
+              <ListItem id={item.id} selectable={true} draggable={true}>
+                <Text variant="body" context="neutral">
+                  {item.id}
+                </Text>
+              </ListItem>
+            ))}
+          </ListContainer>
+        </ListContext>
+      </div>
+    )
+  },
+}
+
+export const SelectionScopeItem: Story = {
+  tags: ["!dev"],
+  parameters: {
+    controls: { disable: true },
+    docs: {
+      description: {
+        story: "Selection allows to select each item individually.",
+      },
+    },
   },
   render: () => {
     const [items, setItems] = useState(sampleItems)
@@ -216,7 +277,7 @@ export const NestedChildren: Story = {
               key={child.id}
               id={child.id}
               draggable={true}
-              selectable={true}
+              selectable={child.id === "One-1" ? false : true}
               acceptsChildren={true}
               nestingLevel={level}
               subItems={
@@ -228,8 +289,8 @@ export const NestedChildren: Story = {
                   : undefined
               }
             >
-              <Text variant="body">
-                {"  ".repeat(level)}📁 {child.id} (Level {level})
+              <Text variant="body" context="neutral">
+                {child.id} (Level {level})
               </Text>
             </ListItem>
           ))}
@@ -261,7 +322,270 @@ export const NestedChildren: Story = {
                     : undefined
                 }
               >
-                <Text variant="body">📁 {item.id} (Level 0)</Text>
+                <Text variant="body" context="neutral">
+                  {item.id} (Level 0)
+                </Text>
+              </ListItem>
+            ))}
+          </ListContainer>
+        </ListContext>
+      </div>
+    )
+  },
+}
+
+export const SelectionScopeWithDescendants: Story = {
+  tags: ["!dev"],
+  parameters: {
+    controls: { disable: true },
+    docs: {
+      description: {
+        story:
+          "Selection allows to select all descendants of the selected item at once.",
+      },
+    },
+  },
+  render: () => {
+    const [items, setItems] = useState(sampleItems)
+    const [selectedItems, setSelectedItems] = useState<string[]>([])
+
+    const renderSubItems = (
+      children: any[],
+      level: number,
+      parentPath: number[] = []
+    ) => {
+      if (!children || children.length === 0) return null
+
+      return (
+        <ListContainer nestingLevel={level} parentPath={parentPath}>
+          {children.map((child, index) => (
+            <ListItem
+              key={child.id}
+              id={child.id}
+              draggable={true}
+              selectable={true}
+              acceptsChildren={true}
+              nestingLevel={level}
+              selectionScope="withDescendants"
+              subItems={
+                child.children
+                  ? renderSubItems(child.children, level + 1, [
+                      ...parentPath,
+                      index,
+                    ])
+                  : undefined
+              }
+            >
+              <Text variant="body" context="neutral">
+                {child.id} (Level {level})
+              </Text>
+            </ListItem>
+          ))}
+        </ListContainer>
+      )
+    }
+
+    return (
+      <div className="sb-column sb-gap-16">
+        <ListContext
+          items={items}
+          selectedItems={selectedItems}
+          selectionMode="multi"
+          onItemsChange={setItems}
+          onSelectionChange={setSelectedItems}
+        >
+          <ListContainer>
+            {items.map((item, index) => (
+              <ListItem
+                key={item.id}
+                id={item.id}
+                draggable={true}
+                selectable={true}
+                acceptsChildren={true}
+                nestingLevel={0}
+                selectionScope="withDescendants"
+                subItems={
+                  item.children
+                    ? renderSubItems(item.children, 1, [index])
+                    : undefined
+                }
+              >
+                <Text variant="body" context="neutral">
+                  {item.id} (Level 0)
+                </Text>
+              </ListItem>
+            ))}
+          </ListContainer>
+        </ListContext>
+      </div>
+    )
+  },
+}
+
+export const Hoverable: Story = {
+  tags: ["!dev"],
+  parameters: {
+    controls: { disable: true },
+  },
+  render: () => {
+    const [items, setItems] = useState(sampleItems)
+    const [selectedItems, setSelectedItems] = useState<string[]>([])
+
+    const renderSubItems = (
+      children: any[],
+      level: number,
+      parentPath: number[] = []
+    ) => {
+      if (!children || children.length === 0) return null
+
+      return (
+        <ListContainer nestingLevel={level} parentPath={parentPath}>
+          {children.map((child, index) => (
+            <ListItem
+              key={child.id}
+              id={child.id}
+              draggable={true}
+              selectable={true}
+              acceptsChildren={true}
+              nestingLevel={level}
+              hoverable={true}
+              subItems={
+                child.children
+                  ? renderSubItems(child.children, level + 1, [
+                      ...parentPath,
+                      index,
+                    ])
+                  : undefined
+              }
+            >
+              <Text variant="body" context="neutral">
+                {child.id} (Level {level})
+              </Text>
+            </ListItem>
+          ))}
+        </ListContainer>
+      )
+    }
+
+    return (
+      <div className="sb-column sb-gap-16">
+        <ListContext
+          items={items}
+          selectedItems={selectedItems}
+          selectionMode="multi"
+          onItemsChange={setItems}
+          onSelectionChange={setSelectedItems}
+        >
+          <ListContainer>
+            {items.map((item, index) => (
+              <ListItem
+                key={item.id}
+                id={item.id}
+                draggable={true}
+                selectable={true}
+                acceptsChildren={true}
+                nestingLevel={0}
+                hoverable={true}
+                subItems={
+                  item.children
+                    ? renderSubItems(item.children, 1, [index])
+                    : undefined
+                }
+              >
+                <Text variant="body" context="neutral">
+                  {item.id} (Level 0)
+                </Text>
+              </ListItem>
+            ))}
+          </ListContainer>
+        </ListContext>
+      </div>
+    )
+  },
+}
+
+export const VariantLayer: Story = {
+  tags: ["!dev"],
+  parameters: {
+    controls: { disable: true },
+    docs: {
+      description: {
+        story: "Reproduce a layer look and feel of the related Figma panel.",
+      },
+    },
+  },
+  render: () => {
+    const [items, setItems] = useState(sampleItems)
+    const [selectedItems, setSelectedItems] = useState<string[]>([])
+
+    const renderSubItems = (
+      children: any[],
+      level: number,
+      parentPath: number[] = []
+    ) => {
+      if (!children || children.length === 0) return null
+
+      return (
+        <ListContainer nestingLevel={level} parentPath={parentPath}>
+          {children.map((child, index) => (
+            <ListItem
+              variant="layer"
+              key={child.id}
+              id={child.id}
+              draggable={true}
+              selectable={true}
+              acceptsChildren={true}
+              nestingLevel={level}
+              hoverable={true}
+              selectionScope="withDescendants"
+              subItems={
+                child.children
+                  ? renderSubItems(child.children, level + 1, [
+                      ...parentPath,
+                      index,
+                    ])
+                  : undefined
+              }
+            >
+              <Text variant="body" context="neutral">
+                {child.id} (Level {level})
+              </Text>
+            </ListItem>
+          ))}
+        </ListContainer>
+      )
+    }
+
+    return (
+      <div className="sb-column sb-gap-16">
+        <ListContext
+          items={items}
+          selectedItems={selectedItems}
+          selectionMode="multi"
+          onItemsChange={setItems}
+          onSelectionChange={setSelectedItems}
+        >
+          <ListContainer>
+            {items.map((item, index) => (
+              <ListItem
+                variant="layer"
+                key={item.id}
+                id={item.id}
+                draggable={true}
+                selectable={true}
+                acceptsChildren={true}
+                nestingLevel={0}
+                hoverable={true}
+                selectionScope="withDescendants"
+                subItems={
+                  item.children
+                    ? renderSubItems(item.children, 1, [index])
+                    : undefined
+                }
+              >
+                <Text variant="body" context="neutral">
+                  {item.id} (Level 0)
+                </Text>
               </ListItem>
             ))}
           </ListContainer>

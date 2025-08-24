@@ -29,10 +29,8 @@
     object-fit: cover;
   }
 
-  &_image {
-    & #{$parent}__children {
-      opacity: 0;
-    }
+  &_image &__children {
+    opacity: 0;
   }
 
   &_shape {

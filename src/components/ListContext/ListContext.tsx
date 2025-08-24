@@ -25,7 +25,7 @@ const useListContext = () => {
 const ListContext = ({
   items: controlledItems = [],
   selectedItems: controlledSelectedItems = [],
-  selectionMode = "multi",
+  selectionMode = "single",
   onItemsChange,
   onSelectionChange,
   children,
@@ -102,6 +102,31 @@ const ListContext = ({
     []
   )
 
+  const collectDescendantIds = useCallback(
+    (rootId: string): string[] => {
+      const ids: string[] = []
+      const walk = (nodes: ListItemData[]) => {
+        nodes.forEach((n) => {
+          if (n.id === rootId) {
+            const addAll = (children?: ListItemData[]) => {
+              if (!children) return
+              children.forEach((c) => {
+                ids.push(c.id)
+                addAll(c.children)
+              })
+            }
+            addAll(n.children)
+          } else if (n.children) {
+            walk(n.children)
+          }
+        })
+      }
+      walk(currentItems)
+      return ids
+    },
+    [currentItems]
+  )
+
   const toggleSelect = useCallback(
     (itemId: string, options?: { range?: boolean; additive?: boolean }) => {
       if (selectionMode === "none") return
@@ -158,6 +183,7 @@ const ListContext = ({
       onSelectionChange,
       currentItems,
       flattenItemsDepthFirst,
+      collectDescendantIds,
     ]
   )
 
