@@ -106,6 +106,10 @@ const ListContainerComponent = (
         }
       }
 
+      // Clamp index to container bounds to avoid out-of-range
+      if (targetIndex < 0) targetIndex = 0
+      if (targetIndex > childElements.length) targetIndex = childElements.length
+
       reorderItems(
         itemIds,
         targetIndex,

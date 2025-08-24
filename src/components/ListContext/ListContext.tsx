@@ -186,6 +186,36 @@ const ListContext = ({
       // Create a deep copy of the current items
       const newItems = JSON.parse(JSON.stringify(currentItems))
 
+      // Build a map of id -> path from the current (pre-removal) tree
+      const idToPath = (() => {
+        const map = new Map<string, number[]>()
+        const walk = (nodes: ListItemData[], path: number[]) => {
+          nodes.forEach((n, idx) => {
+            const p = [...path, idx]
+            map.set(n.id, p)
+            if (n.children && n.children.length) walk(n.children, p)
+          })
+        }
+        walk(currentItems, [])
+        return map
+      })()
+
+      // Guard: prevent dropping an ancestor into its own descendant container
+      if (targetParentPath && targetParentPath.length > 0) {
+        for (const id of itemIds) {
+          const draggedPath = idToPath.get(id)
+          if (draggedPath) {
+            const isAncestor =
+              targetParentPath.length >= draggedPath.length &&
+              draggedPath.every((v, i) => targetParentPath[i] === v)
+            if (isAncestor) {
+              // Ignore drop to avoid cycles
+              return
+            }
+          }
+        }
+      }
+
       // Helper function to find and remove items from any level
       const findAndRemoveItems = (
         items: ListItemData[],
@@ -220,29 +250,47 @@ const ListContext = ({
       ) => {
         if (path.length === 0) {
           // Insert at root level
-          items.splice(targetIndex, 0, ...itemsToInsert)
+          const clamped = Math.max(0, Math.min(targetIndex, items.length))
+          items.splice(clamped, 0, ...itemsToInsert)
           return
         }
 
         // Navigate to the target container
-        let current = items[path[0]]
+        const firstIdx = Math.max(
+          0,
+          Math.min(path[0], Math.max(0, items.length - 1))
+        )
+        let current: ListItemData | undefined = items[firstIdx]
 
-        // If path is [0], we want to insert into the children of the first root item
+        // If path is [x], insert into the children of the item at index x
         if (path.length === 1) {
-          if (!current.children) {
-            current.children = []
-          }
-          current.children.splice(targetIndex, 0, ...itemsToInsert)
+          if (!current) return
+          if (!current.children) current.children = []
+          const clamped = Math.max(
+            0,
+            Math.min(targetIndex, current.children.length)
+          )
+          current.children.splice(clamped, 0, ...itemsToInsert)
           return
         }
 
-        // For deeper paths, navigate to the nested container
+        // For deeper paths, navigate to the nested container, clamping indices
         for (let i = 1; i < path.length; i++) {
-          if (!current.children) return
-          current = current.children[path[i]]
+          if (!current) return
+          if (!current.children) current.children = []
+          const idx = Math.max(
+            0,
+            Math.min(path[i], Math.max(0, current.children.length - 1))
+          )
+          current = current.children[idx]
         }
+        if (!current) return
         if (!current.children) current.children = []
-        current.children.splice(targetIndex, 0, ...itemsToInsert)
+        const clamped = Math.max(
+          0,
+          Math.min(targetIndex, current.children.length)
+        )
+        current.children.splice(clamped, 0, ...itemsToInsert)
       }
 
       // Find and remove the dragged items from anywhere in the tree
@@ -250,11 +298,27 @@ const ListContext = ({
 
       if (removedItems.length === 0) return
 
+      // Adjust target index for moves within the same container
+      const normalizedTargetPath =
+        targetParentPath && targetParentPath.length ? targetParentPath : []
+      let removedBeforeCount = 0
+      itemIds.forEach((id) => {
+        const path = idToPath.get(id)
+        if (!path || path.length === 0) return
+        const parentPath = path.slice(0, path.length - 1)
+        const indexInParent = path[path.length - 1]
+        const sameContainer =
+          parentPath.length === normalizedTargetPath.length &&
+          parentPath.every((v, i) => v === normalizedTargetPath[i])
+        if (sameContainer && indexInParent < targetIndex) removedBeforeCount++
+      })
+      const adjustedTargetIndex = Math.max(0, targetIndex - removedBeforeCount)
+
       // Insert the items at the target location
       insertItemsAtPath(
         newItems,
-        targetParentPath || [],
-        targetIndex,
+        normalizedTargetPath,
+        adjustedTargetIndex,
         removedItems
       )
 
