@@ -42,6 +42,7 @@ const ListItemComponent = (
     "above" | "below" | "inside" | "self" | null
   >(null)
   const selfRef = useRef<HTMLDivElement | null>(null)
+  const dropParentRef = useRef<HTMLElement | null>(null)
 
   const isSelected = selectedItems.has(id)
 
@@ -49,20 +50,20 @@ const ListItemComponent = (
     const handleGlobalDragEnd = () => {
       setIsDragOver(false)
       setDragPosition(null)
+      // Clear drop-parent highlight
+      if (dropParentRef.current) {
+        dropParentRef.current.classList.remove("ListItem_drop-parent")
+        dropParentRef.current = null
+      }
     }
 
     const handleResetDragStates = () => {
       setIsDragOver(false)
       setDragPosition(null)
-      // Clear drop-parent classes on self and immediate parent
-      const DROP_PARENT_CLASS = "ListItem_drop-parent"
-      const el = selfRef.current
-      if (el) {
-        el.classList.remove(DROP_PARENT_CLASS)
-        const parentItem = el
-          .closest(".ListContainer")
-          ?.closest(".ListItem") as HTMLElement | null
-        if (parentItem) parentItem.classList.remove(DROP_PARENT_CLASS)
+      // Clear drop-parent highlight
+      if (dropParentRef.current) {
+        dropParentRef.current.classList.remove("ListItem_drop-parent")
+        dropParentRef.current = null
       }
     }
 
@@ -189,34 +190,41 @@ const ListItemComponent = (
       }
 
       const dropY = e.clientY - rect.top
-      const topZone = rect.height * 0.25
-      const bottomZone = rect.height * 0.75
+      // Fixed-size reordering bands to reduce flicker on divider line
+      const TOP_START = 0
+      const TOP_END = 8
+      const BOTTOM_START = Math.max(0, rect.height - 8)
+      const BOTTOM_END = Math.max(0, rect.height + 0)
 
       setIsDragOver(true)
       let nextPos: "inside" | "above" | "below" = "below"
-      if (acceptsChildren && dropY >= topZone && dropY <= bottomZone) {
+      const inTopBand = dropY >= TOP_START && dropY <= TOP_END
+      const inBottomBand = dropY >= BOTTOM_START && dropY <= BOTTOM_END
+      if (inTopBand) {
+        nextPos = "above"
+      } else if (inBottomBand) {
+        nextPos = "below"
+      } else if (acceptsChildren) {
         nextPos = "inside"
       } else {
-        nextPos = dropY < topZone ? "above" : "below"
+        // Fallback when not hoverable for inside
+        nextPos = dropY < rect.height / 2 ? "above" : "below"
       }
-      // If hovering bottom zone and this item currently has children, treat as inside
-      // so the hovered item is indicated as the drop parent visually.
-      if (nextPos === "below" && subItems) {
-        nextPos = "inside"
-      }
+      // Bottom band maps to inside when item has children to match drop behavior
+      if (nextPos === "below" && subItems) nextPos = "inside"
       setDragPosition(nextPos)
 
-      // Toggle drop-parent class on the immediate parent item
-      const DROP_PARENT_CLASS = "ListItem_drop-parent"
+      // Stable drop-parent highlight: only update when target element changes
       const selfEl = e.currentTarget as HTMLElement
       const containerEl = selfEl.closest(".ListContainer")
       const parentItem = containerEl?.closest(".ListItem") as HTMLElement | null
-      if (nextPos === "inside") {
-        selfEl.classList.add(DROP_PARENT_CLASS)
-        if (parentItem) parentItem.classList.remove(DROP_PARENT_CLASS)
-      } else {
-        if (parentItem) parentItem.classList.add(DROP_PARENT_CLASS)
-        selfEl.classList.remove(DROP_PARENT_CLASS)
+      const desiredEl = nextPos === "inside" ? selfEl : parentItem || null
+      if (dropParentRef.current !== desiredEl) {
+        if (dropParentRef.current) {
+          dropParentRef.current.classList.remove("ListItem_drop-parent")
+        }
+        if (desiredEl) desiredEl.classList.add("ListItem_drop-parent")
+        dropParentRef.current = desiredEl
       }
     }
   }
@@ -224,16 +232,11 @@ const ListItemComponent = (
   const handleDragLeave = () => {
     setIsDragOver(false)
     setDragPosition(null)
-    // Remove drop-parent class from self and immediate parent
-    const DROP_PARENT_CLASS = "ListItem_drop-parent"
-    const selfEl = selfRef.current
-    if (selfEl) selfEl.classList.remove(DROP_PARENT_CLASS)
-    const parentItem = selfEl
-      ? (selfEl
-          .closest(".ListContainer")
-          ?.closest(".ListItem") as HTMLElement | null)
-      : null
-    if (parentItem) parentItem.classList.remove(DROP_PARENT_CLASS)
+    // Clear stable drop-parent highlight
+    if (dropParentRef.current) {
+      dropParentRef.current.classList.remove("ListItem_drop-parent")
+      dropParentRef.current = null
+    }
   }
 
   const handleDragHandleDragStart = (e: DragEvent) => {
@@ -253,7 +256,11 @@ const ListItemComponent = (
       ;(window as any).__puiDraggingIds = ids
       // Hide default drag preview
       try {
-        e.dataTransfer?.setDragImage(new Image(), 0, 0)
+        const img = new Image()
+        img.src =
+          "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+
+        e.dataTransfer?.setDragImage(img, -9999, -9999)
       } catch {}
       onDragStart?.()
     }
@@ -267,15 +274,10 @@ const ListItemComponent = (
         delete (window as any).__puiDraggingIds
       } catch {}
       // Remove drop-parent class from self and parent
-      const DROP_PARENT_CLASS = "ListItem_drop-parent"
-      const selfEl = selfRef.current
-      if (selfEl) selfEl.classList.remove(DROP_PARENT_CLASS)
-      const parentItem = selfEl
-        ? (selfEl
-            .closest(".ListContainer")
-            ?.closest(".ListItem") as HTMLElement | null)
-        : null
-      if (parentItem) parentItem.classList.remove(DROP_PARENT_CLASS)
+      if (dropParentRef.current) {
+        dropParentRef.current.classList.remove("ListItem_drop-parent")
+        dropParentRef.current = null
+      }
       onDragEnd?.()
     }
   }
