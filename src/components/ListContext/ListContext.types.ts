@@ -8,6 +8,7 @@ export interface ListContextValue {
   items: ListItemData[]
   selectedItems: Set<string>
   setSelection: (itemIds: string[], selected: boolean) => void
+  setExactSelection: (itemIds: string[]) => void
   toggleSelect: (
     itemId: string,
     options?: { range?: boolean; additive?: boolean }

@@ -1,6 +1,6 @@
 import { bem, typedForwardRef } from "../../utils"
 import { useListContext } from "../ListContext/ListContext"
-import { useState, useEffect } from "preact/hooks"
+import { useState, useEffect, useRef } from "preact/hooks"
 
 import type { ListItemProps } from "./ListItem.types"
 import "./ListItem.scss"
@@ -25,11 +25,13 @@ const ListItemComponent = (
   }: ListItemProps,
   ref: preact.Ref<HTMLDivElement>
 ) => {
-  const { selectedItems, toggleSelect, selectionMode } = useListContext()
+  const { selectedItems, toggleSelect, selectionMode, setExactSelection } =
+    useListContext()
   const [isDragOver, setIsDragOver] = useState(false)
   const [dragPosition, setDragPosition] = useState<
     "above" | "below" | "inside" | "self" | null
   >(null)
+  const selfRef = useRef<HTMLDivElement | null>(null)
 
   const isSelected = selectedItems.has(id)
 
@@ -42,6 +44,16 @@ const ListItemComponent = (
     const handleResetDragStates = () => {
       setIsDragOver(false)
       setDragPosition(null)
+      // Clear drop-parent classes on self and immediate parent
+      const DROP_PARENT_CLASS = "ListItem_drop-parent"
+      const el = selfRef.current
+      if (el) {
+        el.classList.remove(DROP_PARENT_CLASS)
+        const parentItem = el
+          .closest(".ListContainer")
+          ?.closest(".ListItem") as HTMLElement | null
+        if (parentItem) parentItem.classList.remove(DROP_PARENT_CLASS)
+      }
     }
 
     document.addEventListener("dragend", handleGlobalDragEnd)
@@ -122,10 +134,25 @@ const ListItemComponent = (
       const bottomZone = rect.height * 0.75
 
       setIsDragOver(true)
+      let nextPos: "inside" | "above" | "below" = "below"
       if (acceptsChildren && dropY >= topZone && dropY <= bottomZone) {
-        setDragPosition("inside")
+        nextPos = "inside"
       } else {
-        setDragPosition(dropY < topZone ? "above" : "below")
+        nextPos = dropY < topZone ? "above" : "below"
+      }
+      setDragPosition(nextPos)
+
+      // Toggle drop-parent class on the immediate parent item
+      const DROP_PARENT_CLASS = "ListItem_drop-parent"
+      const selfEl = e.currentTarget as HTMLElement
+      const containerEl = selfEl.closest(".ListContainer")
+      const parentItem = containerEl?.closest(".ListItem") as HTMLElement | null
+      if (nextPos === "inside") {
+        selfEl.classList.add(DROP_PARENT_CLASS)
+        if (parentItem) parentItem.classList.remove(DROP_PARENT_CLASS)
+      } else {
+        if (parentItem) parentItem.classList.add(DROP_PARENT_CLASS)
+        selfEl.classList.remove(DROP_PARENT_CLASS)
       }
     }
   }
@@ -133,15 +160,27 @@ const ListItemComponent = (
   const handleDragLeave = () => {
     setIsDragOver(false)
     setDragPosition(null)
+    // Remove drop-parent class from self and immediate parent
+    const DROP_PARENT_CLASS = "ListItem_drop-parent"
+    const selfEl = selfRef.current
+    if (selfEl) selfEl.classList.remove(DROP_PARENT_CLASS)
+    const parentItem = selfEl
+      ? (selfEl
+          .closest(".ListContainer")
+          ?.closest(".ListItem") as HTMLElement | null)
+      : null
+    if (parentItem) parentItem.classList.remove(DROP_PARENT_CLASS)
   }
 
   const handleDragHandleDragStart = (e: DragEvent) => {
     if (draggable) {
-      // Prefer JSON multi-drag; include all selected if this item is selected
-      const ids =
-        selectedItems.has(id) && selectedItems.size > 0
-          ? Array.from(selectedItems)
-          : [id]
+      // Determine if this drag should be multi based on current selection BEFORE mutating it
+      const isMultiDrag = selectedItems.has(id) && selectedItems.size > 1
+      const ids = isMultiDrag ? Array.from(selectedItems) : [id]
+      // If not multi, set exact selection to this id only
+      if (selectionMode !== "none" && !isMultiDrag) {
+        setExactSelection([id])
+      }
       const payload = { ids }
       try {
         e.dataTransfer?.setData("application/json", JSON.stringify(payload))
@@ -159,6 +198,16 @@ const ListItemComponent = (
       try {
         delete (window as any).__puiDraggingIds
       } catch {}
+      // Remove drop-parent class from self and parent
+      const DROP_PARENT_CLASS = "ListItem_drop-parent"
+      const selfEl = selfRef.current
+      if (selfEl) selfEl.classList.remove(DROP_PARENT_CLASS)
+      const parentItem = selfEl
+        ? (selfEl
+            .closest(".ListContainer")
+            ?.closest(".ListItem") as HTMLElement | null)
+        : null
+      if (parentItem) parentItem.classList.remove(DROP_PARENT_CLASS)
       onDragEnd?.()
     }
   }
@@ -166,7 +215,11 @@ const ListItemComponent = (
   return (
     <div
       className={[_className, className].join(" ").trim()}
-      ref={ref}
+      ref={(node) => {
+        selfRef.current = node
+        if (typeof ref === "function") ref(node as any)
+        else if (ref) (ref as any).current = node
+      }}
       key={id}
       {...rest}
       onDragOver={handleDragOver}

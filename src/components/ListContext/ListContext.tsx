@@ -75,6 +75,16 @@ const ListContext = ({
     ]
   )
 
+  // Replace selection with exactly these ids (uncontrolled or via callback)
+  const setExactSelection = useCallback(
+    (itemIds: string[]) => {
+      const next = new Set(itemIds)
+      if (!isSelectionControlled) setInternalSelectedItems(next)
+      onSelectionChange?.(Array.from(next))
+    },
+    [isSelectionControlled, onSelectionChange]
+  )
+
   const flattenItemsDepthFirst = useCallback(
     (items: ListItemData[]): string[] => {
       const result: string[] = []
@@ -379,6 +389,7 @@ const ListContext = ({
     items: currentItems,
     selectedItems: currentSelectedItems,
     setSelection,
+    setExactSelection,
     toggleSelect,
     selectAll,
     deselectAll,
