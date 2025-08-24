@@ -31,6 +31,8 @@ const ListContainerComponent = (
     e.preventDefault()
     e.stopPropagation()
     let itemIds: string[] | null = null
+    const globalIds = (window as any).__puiDraggingIds as string[] | undefined
+    if (Array.isArray(globalIds)) itemIds = globalIds
     const json = e.dataTransfer?.getData("application/json")
     if (json) {
       try {
@@ -79,8 +81,26 @@ const ListContainerComponent = (
         for (let i = 0; i < childElements.length; i++) {
           const child = childElements[i]
           if (child.classList.contains("ListItem_drag-inside")) {
+            // Ignore self-drop: if target item is among dragged ids, ignore
+            const targetId = child.getAttribute("data-item-id")
+            if (targetId && itemIds.includes(targetId)) return
             targetPath = [...parentPath, i]
             targetIndex = 0
+            break
+          }
+        }
+      }
+
+      // Ignore drop if attempting to drop onto self or into own descendants would create cycles (basic guard by same target container and computed no-op)
+      if (dragPosition !== "inside") {
+        for (let i = 0; i < childElements.length; i++) {
+          const child = childElements[i]
+          if (
+            child.classList.contains("ListItem_drag-above") ||
+            child.classList.contains("ListItem_drag-below")
+          ) {
+            const targetId = child.getAttribute("data-item-id")
+            if (targetId && itemIds.includes(targetId)) return
             break
           }
         }

@@ -83,8 +83,13 @@
     }
   }
 
-  &_drag-inside #{$parent}__content {
+  &_drag-inside > #{$parent}__content {
     outline: 2px dashed #000000;
     outline-offset: -2px;
+  }
+
+  &_drag-self > #{$parent}__content {
+    outline: 2px dashed red;
+    opacity: 0.8;
   }
 }

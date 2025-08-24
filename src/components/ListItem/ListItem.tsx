@@ -28,7 +28,7 @@ const ListItemComponent = (
   const { selectedItems, toggleSelect, selectionMode } = useListContext()
   const [isDragOver, setIsDragOver] = useState(false)
   const [dragPosition, setDragPosition] = useState<
-    "above" | "below" | "inside" | null
+    "above" | "below" | "inside" | "self" | null
   >(null)
 
   const isSelected = selectedItems.has(id)
@@ -62,6 +62,7 @@ const ListItemComponent = (
     "drag-above": dragPosition === "above",
     "drag-below": dragPosition === "below",
     "drag-inside": dragPosition === "inside",
+    "drag-self": dragPosition === "self",
   })
 
   const handleClick = (e: MouseEvent) => {
@@ -79,8 +80,43 @@ const ListItemComponent = (
       e.stopPropagation()
       e.dataTransfer!.dropEffect = "move"
 
+      // Ignore self-hover: if dragging this item (or multi-drag including this id), do not show styles
+      let draggedIds: string[] = []
+      // Prefer global cache set on dragstart to work around browsers that hide dataTransfer on dragover
+      const globalIds = (window as any).__puiDraggingIds as string[] | undefined
+      if (Array.isArray(globalIds)) draggedIds = globalIds
+      const json = e.dataTransfer?.getData("application/json")
+      if (json) {
+        try {
+          const parsed = JSON.parse(json)
+          if (parsed && Array.isArray(parsed.ids)) draggedIds = parsed.ids
+        } catch {}
+      }
+      if (draggedIds.length === 0) {
+        const plain = e.dataTransfer?.getData("text/plain")
+        if (plain) draggedIds = [plain]
+      }
+      if (draggedIds.includes(id)) {
+        // Mark self-hover to allow style override but do not compute zones
+        setIsDragOver(true)
+        setDragPosition("self")
+        return
+      }
+
       const target = e.currentTarget as HTMLElement
-      const rect = target.getBoundingClientRect()
+      const content = target.querySelector(
+        ".ListItem__content"
+      ) as HTMLElement | null
+      const rect = content?.getBoundingClientRect()
+      if (!rect) return
+
+      // Only apply zones when hovering over the content block, not full item height
+      if (e.clientY < rect.top || e.clientY > rect.bottom) {
+        setIsDragOver(false)
+        setDragPosition(null)
+        return
+      }
+
       const dropY = e.clientY - rect.top
       const topZone = rect.height * 0.25
       const bottomZone = rect.height * 0.75
@@ -111,6 +147,7 @@ const ListItemComponent = (
         e.dataTransfer?.setData("application/json", JSON.stringify(payload))
       } catch {}
       e.dataTransfer?.setData("text/plain", ids[0])
+      ;(window as any).__puiDraggingIds = ids
       onDragStart?.()
     }
   }
@@ -119,6 +156,9 @@ const ListItemComponent = (
     if (draggable) {
       setIsDragOver(false)
       setDragPosition(null)
+      try {
+        delete (window as any).__puiDraggingIds
+      } catch {}
       onDragEnd?.()
     }
   }
@@ -129,15 +169,15 @@ const ListItemComponent = (
       ref={ref}
       key={id}
       {...rest}
-      onClick={handleClick}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       data-nesting-level={nestingLevel}
+      data-item-id={id}
       style={{
         paddingLeft: `calc(var(--pui-space-200) * ${nestingLevel})`,
       }}
     >
-      <div className="ListItem__content">
+      <div className="ListItem__content" onClick={handleClick}>
         {draggable && (
           <div
             className="ListItem__drag-handle"
