@@ -4,6 +4,7 @@ export interface ListItemProps {
   isNested?: boolean
   nestingLevel?: number
   draggable?: boolean
+  acceptsChildren?: boolean
   onDragStart?: () => void
   onDragEnd?: () => void
   selectable?: boolean

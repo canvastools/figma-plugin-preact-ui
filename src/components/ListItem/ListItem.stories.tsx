@@ -110,6 +110,7 @@ export const Demo: Story = {
         <ListContext
           items={items}
           selectedItems={selectedItems}
+          selectionMode="multi"
           onItemsChange={setItems}
           onSelectionChange={setSelectedItems}
         >
@@ -119,6 +120,7 @@ export const Demo: Story = {
                 id={item.id}
                 draggable={args.draggable}
                 selectable={args.selectable}
+                acceptsChildren={true}
                 onDragStart={args.onDragStart}
                 onDragEnd={args.onDragEnd}
                 onSelect={args.onSelect}
@@ -143,10 +145,14 @@ export const DraggableOnly: Story = {
 
     return (
       <div className="sb-column sb-gap-16">
-        <ListContext items={items} onItemsChange={setItems}>
+        <ListContext
+          items={items}
+          onItemsChange={setItems}
+          selectionMode="none"
+        >
           <ListContainer>
             {items.map((item) => (
-              <ListItem id={item.id} draggable={true}>
+              <ListItem id={item.id} draggable={true} acceptsChildren={true}>
                 <Text variant="body">Item {item.id} (Draggable only)</Text>
               </ListItem>
             ))}
@@ -171,6 +177,7 @@ export const SelectableOnly: Story = {
         <ListContext
           items={items}
           selectedItems={selectedItems}
+          selectionMode="single"
           onSelectionChange={setSelectedItems}
         >
           <ListContainer>
@@ -210,6 +217,7 @@ export const NestedChildren: Story = {
               id={child.id}
               draggable={true}
               selectable={true}
+              acceptsChildren={true}
               nestingLevel={level}
               subItems={
                 child.children
@@ -234,6 +242,7 @@ export const NestedChildren: Story = {
         <ListContext
           items={items}
           selectedItems={selectedItems}
+          selectionMode="multi"
           onItemsChange={setItems}
           onSelectionChange={setSelectedItems}
         >
@@ -244,6 +253,7 @@ export const NestedChildren: Story = {
                 id={item.id}
                 draggable={true}
                 selectable={true}
+                acceptsChildren={true}
                 nestingLevel={0}
                 subItems={
                   item.children

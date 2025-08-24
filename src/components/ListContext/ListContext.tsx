@@ -1,5 +1,11 @@
 import { createContext } from "preact"
-import { useContext, useState, useEffect, useCallback } from "preact/hooks"
+import {
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+  useRef,
+} from "preact/hooks"
 import type {
   ListContextValue,
   ListContextProps,
@@ -19,6 +25,7 @@ const useListContext = () => {
 const ListContext = ({
   items: controlledItems = [],
   selectedItems: controlledSelectedItems = [],
+  selectionMode = "multi",
   onItemsChange,
   onSelectionChange,
   children,
@@ -38,6 +45,10 @@ const ListContext = ({
   const currentSelectedItems = isSelectionControlled
     ? new Set(controlledSelectedItems)
     : internalSelectedItems
+
+  // Track anchor for range-selection and the root elements for outside-click detection
+  const lastSelectedAnchorRef = useRef<string | null>(null)
+  const rootElementsRef = useRef<Set<HTMLElement>>(new Set())
 
   const setSelection = useCallback(
     (itemIds: string[], selected: boolean) => {
@@ -61,6 +72,82 @@ const ListContext = ({
       controlledSelectedItems,
       onSelectionChange,
       isSelectionControlled,
+    ]
+  )
+
+  const flattenItemsDepthFirst = useCallback(
+    (items: ListItemData[]): string[] => {
+      const result: string[] = []
+      const walk = (nodes: ListItemData[]) => {
+        nodes.forEach((n) => {
+          result.push(n.id)
+          if (n.children && n.children.length) {
+            walk(n.children)
+          }
+        })
+      }
+      walk(items)
+      return result
+    },
+    []
+  )
+
+  const toggleSelect = useCallback(
+    (itemId: string, options?: { range?: boolean; additive?: boolean }) => {
+      if (selectionMode === "none") return
+
+      const additive = Boolean(options?.additive)
+      const range = Boolean(options?.range)
+
+      if (selectionMode === "single") {
+        const already = currentSelectedItems.has(itemId)
+        const next = new Set<string>()
+        if (!already) next.add(itemId)
+        if (!isSelectionControlled) setInternalSelectedItems(next)
+        onSelectionChange?.(Array.from(next))
+        lastSelectedAnchorRef.current = itemId
+        return
+      }
+
+      // multi
+      if (range) {
+        const order = flattenItemsDepthFirst(currentItems)
+        const anchor = lastSelectedAnchorRef.current || itemId
+        const start = order.indexOf(anchor)
+        const end = order.indexOf(itemId)
+        if (start === -1 || end === -1) return
+        const [lo, hi] = start <= end ? [start, end] : [end, start]
+        const toSelect = order.slice(lo, hi + 1)
+        const next = new Set<string>(toSelect)
+        if (!isSelectionControlled) setInternalSelectedItems(next)
+        onSelectionChange?.(Array.from(next))
+        lastSelectedAnchorRef.current = itemId
+        return
+      }
+
+      if (additive) {
+        const next = new Set(currentSelectedItems)
+        if (next.has(itemId)) next.delete(itemId)
+        else next.add(itemId)
+        if (!isSelectionControlled) setInternalSelectedItems(next)
+        onSelectionChange?.(Array.from(next))
+        lastSelectedAnchorRef.current = itemId
+        return
+      }
+
+      // default click acts like single anchor in multi-mode
+      const next = new Set<string>([itemId])
+      if (!isSelectionControlled) setInternalSelectedItems(next)
+      onSelectionChange?.(Array.from(next))
+      lastSelectedAnchorRef.current = itemId
+    },
+    [
+      selectionMode,
+      currentSelectedItems,
+      isSelectionControlled,
+      onSelectionChange,
+      currentItems,
+      flattenItemsDepthFirst,
     ]
   )
 
@@ -154,10 +241,8 @@ const ListContext = ({
           if (!current.children) return
           current = current.children[path[i]]
         }
-
-        if (current.children) {
-          current.children.splice(targetIndex, 0, ...itemsToInsert)
-        }
+        if (!current.children) current.children = []
+        current.children.splice(targetIndex, 0, ...itemsToInsert)
       }
 
       // Find and remove the dragged items from anywhere in the tree
@@ -182,6 +267,38 @@ const ListContext = ({
     [currentItems, onItemsChange, isItemsControlled]
   )
 
+  // Outside-click to clear selection in single/multi modes
+  useEffect(() => {
+    if (selectionMode === "none") return
+    const handlePointerDown = (e: Event) => {
+      const target = e.target as Node | null
+      if (!target) return
+      for (const root of rootElementsRef.current) {
+        if (root.contains(target)) return
+      }
+      if (currentSelectedItems.size > 0) {
+        const next = new Set<string>()
+        if (!isSelectionControlled) setInternalSelectedItems(next)
+        onSelectionChange?.(Array.from(next))
+      }
+    }
+    document.addEventListener("pointerdown", handlePointerDown)
+    return () => document.removeEventListener("pointerdown", handlePointerDown)
+  }, [
+    selectionMode,
+    currentSelectedItems,
+    isSelectionControlled,
+    onSelectionChange,
+  ])
+
+  const registerRootElement = useCallback((el: HTMLElement | null) => {
+    if (!el) return () => {}
+    rootElementsRef.current.add(el)
+    return () => {
+      rootElementsRef.current.delete(el)
+    }
+  }, [])
+
   useEffect(() => {
     if (isItemsControlled) {
       setInternalItems(controlledItems)
@@ -198,9 +315,12 @@ const ListContext = ({
     items: currentItems,
     selectedItems: currentSelectedItems,
     setSelection,
+    toggleSelect,
     selectAll,
     deselectAll,
     reorderItems,
+    selectionMode,
+    registerRootElement,
   }
 
   return (

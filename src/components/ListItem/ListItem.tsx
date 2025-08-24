@@ -14,6 +14,7 @@ const ListItemComponent = (
     isNested,
     nestingLevel = 0,
     draggable,
+    acceptsChildren,
     onDragStart,
     onDragEnd,
     selectable,
@@ -24,11 +25,11 @@ const ListItemComponent = (
   }: ListItemProps,
   ref: preact.Ref<HTMLDivElement>
 ) => {
-  const { selectedItems, setSelection } = useListContext()
+  const { selectedItems, toggleSelect, selectionMode } = useListContext()
   const [isDragOver, setIsDragOver] = useState(false)
-  const [dragPosition, setDragPosition] = useState<"above" | "below" | null>(
-    null
-  )
+  const [dragPosition, setDragPosition] = useState<
+    "above" | "below" | "inside" | null
+  >(null)
 
   const isSelected = selectedItems.has(id)
 
@@ -60,27 +61,36 @@ const ListItemComponent = (
     "drag-over": isDragOver,
     "drag-above": dragPosition === "above",
     "drag-below": dragPosition === "below",
+    "drag-inside": dragPosition === "inside",
   })
 
-  const handleClick = () => {
-    if (selectable) {
-      setSelection([id], !isSelected)
-      onSelect?.(!isSelected)
-    }
+  const handleClick = (e: MouseEvent) => {
+    if (!selectable || selectionMode === "none") return
+    const range = e.shiftKey
+    const additive = e.metaKey || e.ctrlKey
+    toggleSelect(id, { range, additive })
+    onSelect?.(!isSelected)
   }
 
   const handleDragOver = (e: DragEvent) => {
-    if (draggable) {
+    // Any item can be a drop target; show zones depending on acceptsChildren
+    if (draggable || acceptsChildren) {
       e.preventDefault()
+      e.stopPropagation()
       e.dataTransfer!.dropEffect = "move"
 
       const target = e.currentTarget as HTMLElement
       const rect = target.getBoundingClientRect()
       const dropY = e.clientY - rect.top
-      const threshold = rect.height / 2
+      const topZone = rect.height * 0.25
+      const bottomZone = rect.height * 0.75
 
       setIsDragOver(true)
-      setDragPosition(dropY < threshold ? "above" : "below")
+      if (acceptsChildren && dropY >= topZone && dropY <= bottomZone) {
+        setDragPosition("inside")
+      } else {
+        setDragPosition(dropY < topZone ? "above" : "below")
+      }
     }
   }
 
@@ -91,7 +101,16 @@ const ListItemComponent = (
 
   const handleDragHandleDragStart = (e: DragEvent) => {
     if (draggable) {
-      e.dataTransfer?.setData("text/plain", id)
+      // Prefer JSON multi-drag; include all selected if this item is selected
+      const ids =
+        selectedItems.has(id) && selectedItems.size > 0
+          ? Array.from(selectedItems)
+          : [id]
+      const payload = { ids }
+      try {
+        e.dataTransfer?.setData("application/json", JSON.stringify(payload))
+      } catch {}
+      e.dataTransfer?.setData("text/plain", ids[0])
       onDragStart?.()
     }
   }
@@ -115,7 +134,7 @@ const ListItemComponent = (
       onDragLeave={handleDragLeave}
       data-nesting-level={nestingLevel}
       style={{
-        paddingLeft: `px calc(var(--pui-space-200) * ${nestingLevel});`,
+        paddingLeft: `calc(var(--pui-space-200) * ${nestingLevel})`,
       }}
     >
       <div className="ListItem__content">
