@@ -35,7 +35,6 @@ const ButtonIconToggleComponent = (
         setInternalSelected(newSelected)
       }
 
-      onClick?.()
       onChange?.(newSelected)
     }
   }
