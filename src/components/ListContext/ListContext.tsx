@@ -350,10 +350,39 @@ const ListContext = ({
       })
       const adjustedTargetIndex = Math.max(0, targetIndex - removedBeforeCount)
 
+      // Adjust target path (for INSIDE drops) when the target item index shifts
+      // due to removing dragged items from the same container (parent path)
+      let adjustedTargetPath = [...normalizedTargetPath]
+      if (adjustedTargetPath.length > 0) {
+        const parentOfTargetItemPath = adjustedTargetPath.slice(
+          0,
+          adjustedTargetPath.length - 1
+        )
+        const originalTargetItemIndex =
+          adjustedTargetPath[adjustedTargetPath.length - 1]
+        let removedBeforeAtLevel = 0
+        itemIds.forEach((id) => {
+          const p = idToPath.get(id)
+          if (!p || p.length === 0) return
+          const pParent = p.slice(0, p.length - 1)
+          const pIndex = p[p.length - 1]
+          const sameContainer =
+            pParent.length === parentOfTargetItemPath.length &&
+            pParent.every((v, i) => v === parentOfTargetItemPath[i])
+          if (sameContainer && pIndex < originalTargetItemIndex) {
+            removedBeforeAtLevel++
+          }
+        })
+        adjustedTargetPath[adjustedTargetPath.length - 1] = Math.max(
+          0,
+          originalTargetItemIndex - removedBeforeAtLevel
+        )
+      }
+
       // Insert the items at the target location
       insertItemsAtPath(
         newItems,
-        normalizedTargetPath,
+        adjustedTargetPath,
         adjustedTargetIndex,
         removedItems
       )

@@ -116,11 +116,11 @@
     content: "";
     display: none;
     position: absolute;
-    left: calc(var(--level) * var(--pui-space-400));
+    left: calc(var(--level) * var(--pui-space-400) - var(--pui-space-400));
     right: 0;
     height: 2px;
     background: var(--pui-color-neutral-border-interactive-drop-position);
-    width: 150%;
+    width: calc(100%);
     z-index: 1;
     pointer-events: none;
   }
@@ -133,10 +133,6 @@
   &_drag-below > &__content > &__children::before {
     display: block;
     bottom: calc(var(--pui-space-100) * -1 - 1px);
-  }
-
-  &_drag-self > &__content {
-    background-color: transparent;
   }
 
   &_drag-inside > &__content > &__children::before {

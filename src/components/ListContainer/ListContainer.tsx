@@ -53,6 +53,7 @@ const ListContainerComponent = (
 
       let targetIndex = childElements.length
       let dragPosition: "above" | "below" | "inside" = "below"
+      let insideTargetIndex: number | null = null
 
       for (let i = 0; i < childElements.length; i++) {
         const child = childElements[i]
@@ -61,10 +62,20 @@ const ListContainerComponent = (
             dragPosition = "above"
             targetIndex = i
           } else if (child.classList.contains("ListItem_drag-below")) {
-            dragPosition = "below"
-            targetIndex = i + 1
+            // If target item has children, interpret bottom zone as INSIDE at index 0
+            const hasSubItems =
+              child.querySelector(".ListItem__sub-items") !== null
+            if (hasSubItems) {
+              dragPosition = "inside"
+              insideTargetIndex = i
+              targetIndex = 0
+            } else {
+              dragPosition = "below"
+              targetIndex = i + 1
+            }
           } else if (child.classList.contains("ListItem_drag-inside")) {
             dragPosition = "inside"
+            insideTargetIndex = i
             targetIndex = 0
           }
           break
@@ -77,17 +88,13 @@ const ListContainerComponent = (
       // If inside, we want to insert into the children of the target item (the one currently marked)
       let targetPath = parentPath
       if (dragPosition === "inside") {
-        // Find the first child with inside state to compute its path index
-        for (let i = 0; i < childElements.length; i++) {
+        const i = insideTargetIndex ?? -1
+        if (i >= 0) {
           const child = childElements[i]
-          if (child.classList.contains("ListItem_drag-inside")) {
-            // Ignore self-drop: if target item is among dragged ids, ignore
-            const targetId = child.getAttribute("data-item-id")
-            if (targetId && itemIds.includes(targetId)) return
-            targetPath = [...parentPath, i]
-            targetIndex = 0
-            break
-          }
+          const targetId = child.getAttribute("data-item-id")
+          if (targetId && itemIds.includes(targetId)) return
+          targetPath = [...parentPath, i]
+          targetIndex = 0
         }
       }
 

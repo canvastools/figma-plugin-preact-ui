@@ -199,6 +199,11 @@ const ListItemComponent = (
       } else {
         nextPos = dropY < topZone ? "above" : "below"
       }
+      // If hovering bottom zone and this item currently has children, treat as inside
+      // so the hovered item is indicated as the drop parent visually.
+      if (nextPos === "below" && subItems) {
+        nextPos = "inside"
+      }
       setDragPosition(nextPos)
 
       // Toggle drop-parent class on the immediate parent item
