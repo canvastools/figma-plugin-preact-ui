@@ -62,10 +62,11 @@ const ListContainerComponent = (
             dragPosition = "above"
             targetIndex = i
           } else if (child.classList.contains("ListItem_drag-below")) {
-            // If target item has children, interpret bottom zone as INSIDE at index 0
+            // If target item has children and is NOT collapsed, interpret bottom zone as INSIDE at index 0
             const hasSubItems =
               child.querySelector(".ListItem__sub-items") !== null
-            if (hasSubItems) {
+            const isCollapsed = child.classList.contains("ListItem_collapsed")
+            if (hasSubItems && !isCollapsed) {
               dragPosition = "inside"
               insideTargetIndex = i
               targetIndex = 0

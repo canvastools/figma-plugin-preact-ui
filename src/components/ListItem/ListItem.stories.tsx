@@ -362,7 +362,7 @@ export const SelectionScopeWithDescendants: Story = {
               key={child.id}
               id={child.id}
               draggable={true}
-              selectable={child.id === "One-1" ? false : true}
+              selectable={true}
               acceptsChildren={true}
               nestingLevel={level}
               selectionScope="withDescendants"
@@ -576,6 +576,99 @@ export const VariantLayer: Story = {
                 nestingLevel={0}
                 hoverable={true}
                 selectionScope="withDescendants"
+                subItems={
+                  item.children
+                    ? renderSubItems(item.children, 1, [index])
+                    : undefined
+                }
+              >
+                <Text variant="body" context="neutral">
+                  {item.id} (Level 0)
+                </Text>
+              </ListItem>
+            ))}
+          </ListContainer>
+        </ListContext>
+      </div>
+    )
+  },
+}
+
+export const Collapsable: Story = {
+  tags: ["!dev"],
+  parameters: {
+    controls: { disable: true },
+    docs: {
+      description: {
+        story: "Reproduce a layer look and feel of the related Figma panel.",
+      },
+    },
+  },
+  render: () => {
+    const [items, setItems] = useState(sampleItems)
+    const [selectedItems, setSelectedItems] = useState<string[]>([])
+
+    const renderSubItems = (
+      children: any[],
+      level: number,
+      parentPath: number[] = []
+    ) => {
+      if (!children || children.length === 0) return null
+
+      return (
+        <ListContainer nestingLevel={level} parentPath={parentPath}>
+          {children.map((child, index) => (
+            <ListItem
+              variant="layer"
+              key={child.id}
+              id={child.id}
+              draggable={true}
+              selectable={true}
+              acceptsChildren={true}
+              nestingLevel={level}
+              hoverable={true}
+              selectionScope="withDescendants"
+              showCollapseControl={true}
+              subItems={
+                child.children
+                  ? renderSubItems(child.children, level + 1, [
+                      ...parentPath,
+                      index,
+                    ])
+                  : undefined
+              }
+            >
+              <Text variant="body" context="neutral">
+                {child.id} (Level {level})
+              </Text>
+            </ListItem>
+          ))}
+        </ListContainer>
+      )
+    }
+
+    return (
+      <div className="sb-column sb-gap-16">
+        <ListContext
+          items={items}
+          selectedItems={selectedItems}
+          selectionMode="multi"
+          onItemsChange={setItems}
+          onSelectionChange={setSelectedItems}
+        >
+          <ListContainer>
+            {items.map((item, index) => (
+              <ListItem
+                variant="layer"
+                key={item.id}
+                id={item.id}
+                draggable={true}
+                selectable={true}
+                acceptsChildren={true}
+                nestingLevel={0}
+                hoverable={true}
+                selectionScope="withDescendants"
+                showCollapseControl={true}
                 subItems={
                   item.children
                     ? renderSubItems(item.children, 1, [index])

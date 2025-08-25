@@ -7,6 +7,9 @@ export interface ListItemProps {
   draggable?: boolean
   acceptsChildren?: boolean
   selectionScope?: "item" | "withDescendants"
+  collapsed?: boolean
+  showCollapseControl?: boolean
+  onCollapsedChange?: (collapsed: boolean) => void
   onDragStart?: () => void
   onDragEnd?: () => void
   selectable?: boolean

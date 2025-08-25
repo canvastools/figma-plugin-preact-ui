@@ -19,6 +19,9 @@ const ListItemComponent = (
     draggable,
     acceptsChildren,
     selectionScope = "item",
+    collapsed,
+    showCollapseControl,
+    onCollapsedChange,
     onDragStart,
     onDragEnd,
     selectable,
@@ -49,7 +52,21 @@ const ListItemComponent = (
   const lastRectRef = useRef<DOMRect | null>(null)
   const lastTargetElRef = useRef<HTMLElement | null>(null)
 
+  // Collapsed (controlled/uncontrolled)
+  const isCollapsedControlled = collapsed !== undefined
+  const [internalCollapsed, setInternalCollapsed] = useState<boolean>(
+    Boolean(collapsed)
+  )
+  useEffect(() => {
+    if (isCollapsedControlled) setInternalCollapsed(Boolean(collapsed))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [collapsed])
+  const effectiveCollapsed = isCollapsedControlled
+    ? Boolean(collapsed)
+    : internalCollapsed
+
   const isSelected = selectedItems.has(id)
+  const hasChildren = Boolean(subItems)
 
   useEffect(() => {
     // register meta for range selection filtering
@@ -108,6 +125,9 @@ const ListItemComponent = (
     selectable: Boolean(selectable),
     selected: isSelected,
     hoverable: Boolean(hoverable),
+    "has-children": hasChildren,
+    collapsed: Boolean(effectiveCollapsed),
+    collapsable: showCollapseControl,
     "drag-over": isDragOver,
     "drag-above": dragPosition === "above",
     "drag-below": dragPosition === "below",
@@ -232,7 +252,8 @@ const ListItemComponent = (
           else if (inBottomBand) nextPos = "below"
           else if (acceptsChildren) nextPos = "inside"
           else nextPos = dropY2 < r.height / 2 ? "above" : "below"
-          if (nextPos === "below" && subItems) nextPos = "inside"
+          if (nextPos === "below" && hasChildren && !effectiveCollapsed)
+            nextPos = "inside"
           if (nextPos !== dragPosition) setDragPosition(nextPos)
 
           const containerEl = t.closest(".ListContainer")
@@ -321,19 +342,46 @@ const ListItemComponent = (
       }}
       key={id}
       {...rest}
-      draggable={Boolean(draggable && variant === "layer")}
-      onDragStart={
-        variant === "layer" && draggable
-          ? (handleDragHandleDragStart as any)
-          : undefined
-      }
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       data-nesting-level={nestingLevel}
       data-item-id={id}
       style={`--level: ${nestingLevel}`}
     >
-      <div className="ListItem__content" onClick={handleClick}>
+      <div
+        className="ListItem__content"
+        onClick={handleClick}
+        draggable={Boolean(draggable && variant === "layer")}
+        onDragStart={
+          variant === "layer" && draggable
+            ? (handleDragHandleDragStart as any)
+            : undefined
+        }
+        onDragEnd={
+          variant === "layer" && draggable
+            ? (handleDragHandleDragEnd as any)
+            : undefined
+        }
+      >
+        {showCollapseControl && (
+          <div
+            className="ListItem__collapse-toggle"
+            onClick={(e) => {
+              e.stopPropagation()
+              if (isCollapsedControlled) {
+                onCollapsedChange?.(!effectiveCollapsed)
+              } else {
+                setInternalCollapsed((v) => !v)
+                onCollapsedChange?.(!effectiveCollapsed)
+              }
+            }}
+          >
+            <Icon
+              glyph={effectiveCollapsed ? "chevronRight" : "chevronDown"}
+              size={16}
+            />
+          </div>
+        )}
         {draggable && variant !== "layer" && (
           <div
             className="ListItem__drag-handle"
