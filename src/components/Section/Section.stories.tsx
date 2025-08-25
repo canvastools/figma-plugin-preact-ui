@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from "@storybook/preact"
 
 import { Section } from "./Section"
-import type { SectionProps } from "./Secton.types"
+import type { SectionProps } from "./Section.types"
 
 import { Text } from "../Text/Text"
 import { Divider } from "../Divider/Divider"

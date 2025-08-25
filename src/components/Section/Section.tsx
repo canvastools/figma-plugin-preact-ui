@@ -1,6 +1,6 @@
 import { bem, typedForwardRef } from "../../utils"
 
-import type { SectionProps } from "./Secton.types"
+import type { SectionProps } from "./Section.types"
 import "./Section.scss"
 
 /* --- */
