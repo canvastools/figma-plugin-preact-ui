@@ -12,11 +12,11 @@ import { Icon } from "../Icon/Icon"
 const ListItemComponent = (
   {
     className,
-    variant = "default",
     id,
     isNested,
     nestingLevel = 0,
     draggable,
+    dragHandle = "default",
     acceptsChildren,
     selectionScope = "item",
     collapsed,
@@ -45,6 +45,7 @@ const ListItemComponent = (
   const [dragPosition, setDragPosition] = useState<
     "above" | "below" | "inside" | "self" | null
   >(null)
+  const [isDragging, setIsDragging] = useState(false)
   const selfRef = useRef<HTMLDivElement | null>(null)
   const dropParentRef = useRef<HTMLElement | null>(null)
   const rafIdRef = useRef<number | null>(null)
@@ -77,6 +78,7 @@ const ListItemComponent = (
     const handleGlobalDragEnd = () => {
       setIsDragOver(false)
       setDragPosition(null)
+      setIsDragging(false)
       // Clear drop-parent highlight
       if (dropParentRef.current) {
         dropParentRef.current.classList.remove("ListItem_drop-parent")
@@ -94,6 +96,7 @@ const ListItemComponent = (
     const handleResetDragStates = () => {
       setIsDragOver(false)
       setDragPosition(null)
+      setIsDragging(false)
       // Clear drop-parent highlight
       if (dropParentRef.current) {
         dropParentRef.current.classList.remove("ListItem_drop-parent")
@@ -118,7 +121,7 @@ const ListItemComponent = (
   }, [])
 
   const _className = bem("ListItem", undefined, {
-    variant,
+    variant: dragHandle,
     "selection-scope-descendants": selectionScope === "withDescendants",
     nested: isNested,
     draggable: Boolean(draggable),
@@ -133,6 +136,7 @@ const ListItemComponent = (
     "drag-below": dragPosition === "below",
     "drag-inside": dragPosition === "inside",
     "drag-self": dragPosition === "self",
+    dragging: isDragging,
   })
 
   const handleClick = (e: MouseEvent) => {
@@ -291,6 +295,7 @@ const ListItemComponent = (
 
   const handleDragHandleDragStart = (e: DragEvent) => {
     if (draggable) {
+      setIsDragging(true)
       // Determine if this drag should be multi based on current selection BEFORE mutating it
       const isMultiDrag = selectedItems.has(id) && selectedItems.size > 1
       const ids = isMultiDrag ? Array.from(selectedItems) : [id]
@@ -320,6 +325,7 @@ const ListItemComponent = (
     if (draggable) {
       setIsDragOver(false)
       setDragPosition(null)
+      setIsDragging(false)
       try {
         delete (window as any).__puiDraggingIds
       } catch {}
@@ -351,14 +357,14 @@ const ListItemComponent = (
       <div
         className="ListItem__content"
         onClick={handleClick}
-        draggable={Boolean(draggable && variant === "layer")}
+        draggable={Boolean(draggable && dragHandle === "container")}
         onDragStart={
-          variant === "layer" && draggable
+          dragHandle === "container" && draggable
             ? (handleDragHandleDragStart as any)
             : undefined
         }
         onDragEnd={
-          variant === "layer" && draggable
+          dragHandle === "container" && draggable
             ? (handleDragHandleDragEnd as any)
             : undefined
         }
@@ -382,7 +388,7 @@ const ListItemComponent = (
             />
           </div>
         )}
-        {draggable && variant !== "layer" && (
+        {draggable && dragHandle !== "container" && (
           <div
             className="ListItem__drag-handle"
             draggable={true}

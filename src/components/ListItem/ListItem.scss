@@ -13,6 +13,7 @@
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
+    align-items: stretch;
     padding: var(--pui-space-100) var(--pui-space-400);
     outline-width: 1px;
     outline-color: transparent;
@@ -179,20 +180,21 @@
 
   /* Drop parent inside its own tree */
 
-  &_selected &__content > &__children::before {
+  &_dragging &__content > &__children::before {
     background-color: var(
       --pui-color-neutral-border-interactive-drop-position-restricted
     );
   }
 
-  &_selected &_drag-inside > &__content,
-  &_selected &_drop-parent > &__content,
-  &_selected:is(&_drag-inside) > &__content,
-  &_selected:is(&_drop-parent) > &__content {
+  &_dragging &_drag-inside > &__content,
+  &_dragging &_drop-parent > &__content,
+  &_dragging:is(&_drag-inside) > &__content,
+  &_dragging:is(&_drop-parent) > &__content {
     outline-color: var(--pui-color-neutral-border-interactive-selected-error);
   }
 
   /* Collapsed */
+
   &_collapsed > &__sub-items {
     display: none;
   }
@@ -205,5 +207,15 @@
     > &__content
     > &__collapse-toggle {
     display: flex;
+  }
+
+  /* Collapsable + draggable */
+
+  &_collapsable:is(&_draggable) > &__content {
+    padding-left: calc(var(--pui-space-400) * 2);
+  }
+
+  &_collapsable:is(&_draggable) > &__content > &__collapse-toggle {
+    left: calc(var(--pui-space-400) * var(--level) + var(--pui-space-400));
   }
 }
