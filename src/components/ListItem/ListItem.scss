@@ -15,8 +15,8 @@
     justify-content: flex-start;
     padding: var(--pui-space-100) var(--pui-space-400);
     outline-width: 1px;
-    outline-style: solid;
     outline-color: transparent;
+    outline-style: solid;
     outline-offset: -1px;
   }
 
@@ -34,11 +34,12 @@
     justify-content: flex-start;
     align-items: center;
     min-height: 24px;
+    padding-left: calc(var(--pui-space-400) * var(--level));
   }
 
   &__drag-handle {
     position: absolute;
-    left: 0;
+    left: calc(var(--pui-space-400) * var(--level));
     top: 0;
     height: 100%;
     width: 16px;
@@ -79,15 +80,17 @@
 
   /* Selected */
 
-  &_selected > &__content {
+  &_selected:is(&_selectable) > &__content {
     background-color: var(--pui-color-neutral-bg-interactive-selected);
   }
 
-  &_selected:is(&_selection-scope-descendants) > &__sub-items &__content {
+  &_selected:is(&_selectable):is(&_selection-scope-descendants)
+    > &__sub-items
+    &__content {
     background-color: unset;
   }
 
-  &_selected:is(&_selection-scope-descendants) > &__sub-items {
+  &_selected:is(&_selectable):is(&_selection-scope-descendants) > &__sub-items {
     background-color: var(
       --pui-color-neutral-bg-interactive-selected-secondary
     );
@@ -120,12 +123,14 @@
     content: "";
     display: none;
     position: absolute;
-    left: calc(var(--level) * var(--pui-space-400) - var(--pui-space-400));
+    left: calc(
+      (var(--level) + 1) * var(--pui-space-400) - var(--pui-space-400)
+    );
     right: 0;
     height: 2px;
-    background: var(--pui-color-neutral-border-interactive-drop-position);
+    background-color: var(--pui-color-neutral-border-interactive-drop-position);
     width: calc(
-      100% + var(--pui-space-400) - (var(--level) - 1) * var(--pui-space-400)
+      100% + var(--pui-space-400) - var(--level) * var(--pui-space-400)
     );
     z-index: 1;
     pointer-events: none;
@@ -136,17 +141,37 @@
     top: calc(var(--pui-space-100) * -1 - 1px);
   }
 
-  &_drag-below > &__content > &__children::before {
+  &_drag-below > &__content > &__children::before,
+  &_drag-inside > &__content > &__children::before {
     display: block;
     bottom: calc(var(--pui-space-100) * -1 - 1px);
   }
 
   &_drag-inside > &__content > &__children::before {
-    display: none;
+    left: calc(
+      (var(--level) + 2) * var(--pui-space-400) - var(--pui-space-400)
+    );
+    width: calc(
+      100% + var(--pui-space-400) - (var(--level) + 1) * var(--pui-space-400)
+    );
   }
 
   &_drop-parent > &__content,
   &_drag-inside > &__content {
     outline-color: var(--pui-color-neutral-border-interactive-selected);
+  }
+
+  /* Drop parent inside its own tree */
+  &_selected &__content > &__children::before {
+    background-color: var(
+      --pui-color-neutral-border-interactive-drop-position-restricted
+    );
+  }
+
+  &_selected &_drag-inside > &__content,
+  &_selected &_drop-parent > &__content,
+  &_selected:is(&_drag-inside) > &__content,
+  &_selected:is(&_drop-parent) > &__content {
+    outline-color: var(--pui-color-neutral-border-interactive-selected-error);
   }
 }

@@ -36,6 +36,7 @@ const ListItemComponent = (
     selectionMode,
     setExactSelection,
     items,
+    registerItemMeta,
   } = useListContext()
   const [isDragOver, setIsDragOver] = useState(false)
   const [dragPosition, setDragPosition] = useState<
@@ -43,10 +44,19 @@ const ListItemComponent = (
   >(null)
   const selfRef = useRef<HTMLDivElement | null>(null)
   const dropParentRef = useRef<HTMLElement | null>(null)
+  const rafIdRef = useRef<number | null>(null)
+  const pendingClientYRef = useRef<number>(0)
+  const lastRectRef = useRef<DOMRect | null>(null)
+  const lastTargetElRef = useRef<HTMLElement | null>(null)
 
   const isSelected = selectedItems.has(id)
 
   useEffect(() => {
+    // register meta for range selection filtering
+    const unregister = registerItemMeta?.(id, {
+      selectable,
+      selectionScope,
+    })
     const handleGlobalDragEnd = () => {
       setIsDragOver(false)
       setDragPosition(null)
@@ -55,6 +65,13 @@ const ListItemComponent = (
         dropParentRef.current.classList.remove("ListItem_drop-parent")
         dropParentRef.current = null
       }
+      // cancel any scheduled frame
+      if (rafIdRef.current != null) {
+        cancelAnimationFrame(rafIdRef.current)
+        rafIdRef.current = null
+      }
+      lastRectRef.current = null
+      lastTargetElRef.current = null
     }
 
     const handleResetDragStates = () => {
@@ -65,6 +82,12 @@ const ListItemComponent = (
         dropParentRef.current.classList.remove("ListItem_drop-parent")
         dropParentRef.current = null
       }
+      if (rafIdRef.current != null) {
+        cancelAnimationFrame(rafIdRef.current)
+        rafIdRef.current = null
+      }
+      lastRectRef.current = null
+      lastTargetElRef.current = null
     }
 
     document.addEventListener("dragend", handleGlobalDragEnd)
@@ -73,6 +96,7 @@ const ListItemComponent = (
     return () => {
       document.removeEventListener("dragend", handleGlobalDragEnd)
       document.removeEventListener("resetDragStates", handleResetDragStates)
+      unregister?.()
     }
   }, [])
 
@@ -189,42 +213,47 @@ const ListItemComponent = (
         }
       }
 
-      const dropY = e.clientY - rect.top
-      // Fixed-size reordering bands to reduce flicker on divider line
-      const TOP_START = 0
-      const TOP_END = 8
-      const BOTTOM_START = Math.max(0, rect.height - 8)
-      const BOTTOM_END = Math.max(0, rect.height + 0)
-
       setIsDragOver(true)
-      let nextPos: "inside" | "above" | "below" = "below"
-      const inTopBand = dropY >= TOP_START && dropY <= TOP_END
-      const inBottomBand = dropY >= BOTTOM_START && dropY <= BOTTOM_END
-      if (inTopBand) {
-        nextPos = "above"
-      } else if (inBottomBand) {
-        nextPos = "below"
-      } else if (acceptsChildren) {
-        nextPos = "inside"
-      } else {
-        // Fallback when not hoverable for inside
-        nextPos = dropY < rect.height / 2 ? "above" : "below"
-      }
-      // Bottom band maps to inside when item has children to match drop behavior
-      if (nextPos === "below" && subItems) nextPos = "inside"
-      setDragPosition(nextPos)
+      // store latest geometry and pointer; batch compute in rAF
+      lastRectRef.current = rect
+      lastTargetElRef.current = target
+      pendingClientYRef.current = e.clientY
 
-      // Stable drop-parent highlight: only update when target element changes
-      const selfEl = e.currentTarget as HTMLElement
-      const containerEl = selfEl.closest(".ListContainer")
-      const parentItem = containerEl?.closest(".ListItem") as HTMLElement | null
-      const desiredEl = nextPos === "inside" ? selfEl : parentItem || null
-      if (dropParentRef.current !== desiredEl) {
-        if (dropParentRef.current) {
-          dropParentRef.current.classList.remove("ListItem_drop-parent")
-        }
-        if (desiredEl) desiredEl.classList.add("ListItem_drop-parent")
-        dropParentRef.current = desiredEl
+      if (rafIdRef.current == null) {
+        rafIdRef.current = requestAnimationFrame(() => {
+          rafIdRef.current = null
+          const r = lastRectRef.current
+          const t = lastTargetElRef.current
+          if (!r || !t) return
+          const dropY2 = pendingClientYRef.current - r.top
+          const TOP_START = 0
+          const TOP_END = 8
+          const BOTTOM_START = Math.max(0, r.height - 8)
+          const BOTTOM_END = Math.max(0, r.height - 0)
+
+          let nextPos: "inside" | "above" | "below" = "below"
+          const inTopBand = dropY2 >= TOP_START && dropY2 <= TOP_END
+          const inBottomBand = dropY2 >= BOTTOM_START && dropY2 <= BOTTOM_END
+          if (inTopBand) nextPos = "above"
+          else if (inBottomBand) nextPos = "below"
+          else if (acceptsChildren) nextPos = "inside"
+          else nextPos = dropY2 < r.height / 2 ? "above" : "below"
+          if (nextPos === "below" && subItems) nextPos = "inside"
+          if (nextPos !== dragPosition) setDragPosition(nextPos)
+
+          const containerEl = t.closest(".ListContainer")
+          const parentItem = containerEl?.closest(
+            ".ListItem"
+          ) as HTMLElement | null
+          const desiredEl = nextPos === "inside" ? t : parentItem || null
+          if (dropParentRef.current !== desiredEl) {
+            if (dropParentRef.current) {
+              dropParentRef.current.classList.remove("ListItem_drop-parent")
+            }
+            if (desiredEl) desiredEl.classList.add("ListItem_drop-parent")
+            dropParentRef.current = desiredEl
+          }
+        })
       }
     }
   }
@@ -237,6 +266,12 @@ const ListItemComponent = (
       dropParentRef.current.classList.remove("ListItem_drop-parent")
       dropParentRef.current = null
     }
+    if (rafIdRef.current != null) {
+      cancelAnimationFrame(rafIdRef.current)
+      rafIdRef.current = null
+    }
+    lastRectRef.current = null
+    lastTargetElRef.current = null
   }
 
   const handleDragHandleDragStart = (e: DragEvent) => {
@@ -260,7 +295,7 @@ const ListItemComponent = (
         img.src =
           "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
 
-        e.dataTransfer?.setDragImage(img, -9999, -9999)
+        e.dataTransfer?.setDragImage(img, 0, 0)
       } catch {}
       onDragStart?.()
     }
@@ -311,23 +346,11 @@ const ListItemComponent = (
             draggable={true}
             onDragStart={handleDragHandleDragStart}
             onDragEnd={handleDragHandleDragEnd}
-            style={{
-              left: `calc(var(--pui-space-400) * ${nestingLevel})`,
-            }}
           >
             <Icon glyph="dragHandle" size={16} />
           </div>
         )}
-        {children && (
-          <div
-            className="ListItem__children"
-            style={{
-              paddingLeft: `calc(var(--pui-space-400) * ${nestingLevel})`,
-            }}
-          >
-            {children}
-          </div>
-        )}
+        {children && <div className="ListItem__children">{children}</div>}
       </div>
 
       {subItems && <div className="ListItem__sub-items">{subItems}</div>}

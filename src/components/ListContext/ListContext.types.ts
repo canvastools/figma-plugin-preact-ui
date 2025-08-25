@@ -13,6 +13,10 @@ export interface ListContextValue {
     itemId: string,
     options?: { range?: boolean; additive?: boolean }
   ) => void
+  registerItemMeta?: (
+    id: string,
+    meta: { selectable?: boolean; selectionScope?: "item" | "withDescendants" }
+  ) => () => void
   selectAll: () => void
   deselectAll: () => void
   reorderItems: (

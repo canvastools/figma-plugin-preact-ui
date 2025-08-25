@@ -120,7 +120,6 @@ export const Demo: Story = {
                 id={item.id}
                 draggable={args.draggable}
                 selectable={args.selectable}
-                acceptsChildren={true}
                 onDragStart={args.onDragStart}
                 onDragEnd={args.onDragEnd}
                 onSelect={args.onSelect}
@@ -363,7 +362,7 @@ export const SelectionScopeWithDescendants: Story = {
               key={child.id}
               id={child.id}
               draggable={true}
-              selectable={true}
+              selectable={child.id === "One-1" ? false : true}
               acceptsChildren={true}
               nestingLevel={level}
               selectionScope="withDescendants"

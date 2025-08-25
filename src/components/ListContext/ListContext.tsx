@@ -35,6 +35,12 @@ const ListContext = ({
   const [internalSelectedItems, setInternalSelectedItems] = useState<
     Set<string>
   >(new Set(controlledSelectedItems))
+  const itemMetaRef = useRef<
+    Map<
+      string,
+      { selectable?: boolean; selectionScope?: "item" | "withDescendants" }
+    >
+  >(new Map())
 
   // Determine if we're in controlled mode for each aspect
   const isItemsControlled = onItemsChange !== undefined
@@ -152,8 +158,38 @@ const ListContext = ({
         const end = order.indexOf(itemId)
         if (start === -1 || end === -1) return
         const [lo, hi] = start <= end ? [start, end] : [end, start]
-        const toSelect = order.slice(lo, hi + 1)
-        const next = new Set<string>(toSelect)
+        const rawRange = order.slice(lo, hi + 1)
+        // Filter according to meta: skip unselectable; if selectionScope==withDescendants skip their descendants too
+        const next = new Set<string>()
+        const skipSet = new Set<string>()
+        // Build a quick parent map to find descendants efficiently
+        const parentOf = new Map<string, string | null>()
+        const buildParents = (nodes: ListItemData[], parent: string | null) => {
+          nodes.forEach((n) => {
+            parentOf.set(n.id, parent)
+            if (n.children) buildParents(n.children, n.id)
+          })
+        }
+        buildParents(currentItems, null)
+        const isDescendantOfSkipped = (id: string): boolean => {
+          let cur: string | null | undefined = id
+          while (cur) {
+            if (skipSet.has(cur)) return true
+            cur = parentOf.get(cur) || null
+          }
+          return false
+        }
+        rawRange.forEach((id) => {
+          const meta = itemMetaRef.current.get(id)
+          if (meta?.selectable === false) {
+            if (meta?.selectionScope === "withDescendants") {
+              skipSet.add(id)
+            }
+            return
+          }
+          if (isDescendantOfSkipped(id)) return
+          next.add(id)
+        })
         if (!isSelectionControlled) setInternalSelectedItems(next)
         onSelectionChange?.(Array.from(next))
         lastSelectedAnchorRef.current = itemId
@@ -428,6 +464,22 @@ const ListContext = ({
     }
   }, [])
 
+  const registerItemMeta = useCallback(
+    (
+      id: string,
+      meta: {
+        selectable?: boolean
+        selectionScope?: "item" | "withDescendants"
+      }
+    ) => {
+      itemMetaRef.current.set(id, meta)
+      return () => {
+        itemMetaRef.current.delete(id)
+      }
+    },
+    []
+  )
+
   useEffect(() => {
     if (isItemsControlled) {
       setInternalItems(controlledItems)
@@ -451,6 +503,7 @@ const ListContext = ({
     reorderItems,
     selectionMode,
     registerRootElement,
+    registerItemMeta,
   }
 
   return (
