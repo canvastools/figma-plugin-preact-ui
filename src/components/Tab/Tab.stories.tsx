@@ -18,7 +18,7 @@ const meta: Meta<typeof Tab> = {
     docs: {
       description: {
         component:
-          "Always used within &lt;TabContext/&gt;, optionally in combination with &lt;TabList&gt; and &lt;TabPanel&gt;",
+          "Always used within &lt;TabContext&gt;, optionally in combination with &lt;TabList&gt; and &lt;TabPanel&gt;",
       },
     },
   },

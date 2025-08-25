@@ -15,7 +15,8 @@ const meta: Meta<typeof TabPanel> = {
   parameters: {
     docs: {
       description: {
-        component: "A wrapper component that displays tab's content.",
+        component:
+          "A wrapper component that displays tab's content. Always used within &lt;TabContext/&gt;.",
       },
     },
   },
