@@ -35,7 +35,7 @@ const meta: Meta<typeof TabPanel> = {
     children: {
       table: {
         type: {
-          summary: "string | number | JSX.Element",
+          summary: "JSX.Element",
         },
       },
       control: { disable: true },
@@ -47,23 +47,26 @@ export default meta
 type Story = StoryObj<TabPanelProps>
 
 export const Demo: Story = {
+  args: {
+    className: "",
+  },
   render: (args) => (
     <TabContext defaultValue="tab-1">
       <TabList>
-        <Tab {...args} value="tab-1">
-          Tab 1
-        </Tab>
-        <Tab {...args} value="tab-2">
-          Tab 2
-        </Tab>
-        <Tab {...args} value="tab-3">
-          Tab 3
-        </Tab>
+        <Tab value="tab-1">Tab 1</Tab>
+        <Tab value="tab-2">Tab 2</Tab>
+        <Tab value="tab-3">Tab 3</Tab>
       </TabList>
       <br />
-      <TabPanel value="tab-1">Tab 1 Content</TabPanel>
-      <TabPanel value="tab-2">Tab 2 Content</TabPanel>
-      <TabPanel value="tab-3">Tab 3 Content</TabPanel>
+      <TabPanel {...args} value="tab-1">
+        Tab 1 Content
+      </TabPanel>
+      <TabPanel {...args} value="tab-2">
+        Tab 2 Content
+      </TabPanel>
+      <TabPanel {...args} value="tab-3">
+        Tab 3 Content
+      </TabPanel>
     </TabContext>
   ),
 }

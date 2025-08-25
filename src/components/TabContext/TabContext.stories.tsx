@@ -41,7 +41,7 @@ const meta: Meta<typeof TabContext> = {
     children: {
       table: {
         type: {
-          summary: "string | number | JSX.Element",
+          summary: "JSX.Element",
         },
       },
       control: { disable: true },

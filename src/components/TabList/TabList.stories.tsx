@@ -26,7 +26,7 @@ const meta: Meta<typeof TabList> = {
     children: {
       table: {
         type: {
-          summary: "string | number | JSX.Element",
+          summary: "JSX.Element",
         },
       },
       control: { disable: true },
@@ -40,18 +40,15 @@ type Story = StoryObj<TabListProps>
 
 export const Demo: Story = {
   tags: ["!autodocs"],
+  args: {
+    className: "",
+  },
   render: (args) => (
     <TabContext defaultValue="tab-1">
-      <TabList>
-        <Tab {...args} value="tab-1">
-          Tab 1
-        </Tab>
-        <Tab {...args} value="tab-2">
-          Tab 2
-        </Tab>
-        <Tab {...args} value="tab-3">
-          Tab 3
-        </Tab>
+      <TabList {...args}>
+        <Tab value="tab-1">Tab 1</Tab>
+        <Tab value="tab-2">Tab 2</Tab>
+        <Tab value="tab-3">Tab 3</Tab>
       </TabList>
       <br />
       <TabPanel value="tab-1">Tab 1 Content</TabPanel>
