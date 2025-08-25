@@ -84,6 +84,8 @@
     background-color: var(--pui-color-neutral-bg-interactive-selected);
   }
 
+  /* Selection of descendants */
+
   &_selected:is(&_selectable):is(&_selection-scope-descendants)
     > &__sub-items
     &__content {
@@ -102,16 +104,13 @@
     background-color: var(--pui-color-neutral-bg-interactive-hover);
   }
 
+  /* Hover of descendants */
+
   &_hoverable:is(&_selected):is(&_selection-scope-descendants)
     > &__sub-items
     &__content:hover {
     background-color: var(--pui-color-neutral-bg-interactive-selected-hover);
   }
-
-  // &_hoverable:has(#{$parent}_variant-layer) > #{$parent}__content:hover {
-  //   box-shadow: inset 0 4px 0 0 var(--pui-color-neutral-bg-default),
-  //     inset 0 -4px 0 0 var(--pui-color-neutral-bg-default);
-  // }
 
   /* Draggable */
 
@@ -162,6 +161,7 @@
   }
 
   /* Drop parent inside its own tree */
+
   &_selected &__content > &__children::before {
     background-color: var(
       --pui-color-neutral-border-interactive-drop-position-restricted

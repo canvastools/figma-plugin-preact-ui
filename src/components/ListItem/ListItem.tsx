@@ -198,19 +198,13 @@ const ListItemComponent = (
         ".ListItem__content"
       ) as HTMLElement | null
       let rect: DOMRect | undefined
-      if (variant === "layer") {
-        rect = target.getBoundingClientRect()
-      } else {
-        rect = content?.getBoundingClientRect()
-      }
+      rect = content?.getBoundingClientRect()
       if (!rect) return
-      if (variant !== "layer") {
-        // Only apply zones when hovering over the content block, not full item height
-        if (e.clientY < rect.top || e.clientY > rect.bottom) {
-          setIsDragOver(false)
-          setDragPosition(null)
-          return
-        }
+      // Only apply zones when hovering over the content block, not full item height
+      if (e.clientY < rect.top || e.clientY > rect.bottom) {
+        setIsDragOver(false)
+        setDragPosition(null)
+        return
       }
 
       setIsDragOver(true)
