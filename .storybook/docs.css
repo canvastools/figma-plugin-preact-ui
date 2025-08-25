@@ -1,0 +1,13 @@
+#storybook-docs .docblock-argstable pre {
+  border: 1px solid rgb(236, 244, 249);
+  color: rgba(46, 52, 56, 0.9);
+  background-color: rgb(247, 250, 252);
+  padding: 2px 5px;
+  border-radius: 3px;
+  font-family: ui-monospace, Menlo, Monaco, "Roboto Mono", "Oxygen Mono",
+    "Ubuntu Monospace", "Source Code Pro", "Droid Sans Mono", "Courier New",
+    monospace;
+  font-size: 12px;
+  line-height: 13px;
+  max-width: 100%;
+}

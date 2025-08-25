@@ -4,6 +4,7 @@ import type { Preview } from "@storybook/preact"
 
 import "./fonts.css"
 import "./viewport.css"
+import "./docs.css"
 
 const preview: Preview = {
   parameters: {
