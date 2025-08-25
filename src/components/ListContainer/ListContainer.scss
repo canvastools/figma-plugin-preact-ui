@@ -3,4 +3,18 @@
   position: relative;
   display: flex;
   flex-direction: column;
+
+  &__end-dropzone {
+    position: absolute;
+    width: calc(100% - var(--pui-space-400));
+    bottom: -1px;
+    left: var(--pui-space-400);
+    height: 2px;
+
+    &-active {
+      background-color: var(
+        --pui-color-neutral-border-interactive-drop-position
+      );
+    }
+  }
 }

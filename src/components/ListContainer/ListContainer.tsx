@@ -17,7 +17,7 @@ const ListContainerComponent = (
   }: ListContainerProps & { nestingLevel?: number; parentPath?: number[] },
   ref: preact.Ref<HTMLDivElement>
 ) => {
-  const { reorderItems, registerRootElement } = useListContext()
+  const { reorderItems, registerRootElement, items } = useListContext()
   const rootRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => registerRootElement?.(rootRef.current), [registerRootElement])
@@ -125,6 +125,52 @@ const ListContainerComponent = (
     }
   }
 
+  // Synthetic root-level end drop zone handlers
+  const handleEndZoneDragOver = (e: DragEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    e.dataTransfer!.dropEffect = "move"
+    ;(e.currentTarget as HTMLElement).classList.add(
+      "ListContainer__end-dropzone-active"
+    )
+  }
+
+  const handleEndZoneDrop = (e: DragEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    ;(e.currentTarget as HTMLElement).classList.remove(
+      "ListContainer__end-dropzone-active"
+    )
+    let itemIds: string[] | null = null
+    const globalIds = (window as any).__puiDraggingIds as string[] | undefined
+    if (Array.isArray(globalIds)) itemIds = globalIds
+    const json = e.dataTransfer?.getData("application/json")
+    if (json) {
+      try {
+        const parsed = JSON.parse(json)
+        if (parsed && Array.isArray(parsed.ids)) itemIds = parsed.ids
+      } catch {}
+    }
+    if (!itemIds) {
+      const itemId = e.dataTransfer?.getData("text/plain")
+      if (itemId) itemIds = [itemId]
+    }
+
+    if (itemIds && itemIds.length) {
+      const resetDragStatesEvent = new CustomEvent("resetDragStates")
+      document.dispatchEvent(resetDragStatesEvent)
+      // Always insert at the end of root level
+      const rootCount = Array.isArray(items) ? items.length : 0
+      reorderItems(itemIds, rootCount, undefined)
+    }
+  }
+
+  const handleEndZoneDragLeave = (e: DragEvent) => {
+    ;(e.currentTarget as HTMLElement).classList.remove(
+      "ListContainer__end-dropzone-active"
+    )
+  }
+
   const _className = bem("ListContainer", undefined, undefined)
 
   return (
@@ -142,6 +188,14 @@ const ListContainerComponent = (
       data-parent-path={parentPath.join(",")}
     >
       {children}
+      {parentPath.length === 0 && (
+        <div
+          className="ListContainer__end-dropzone"
+          onDragOver={handleEndZoneDragOver}
+          onDrop={handleEndZoneDrop}
+          onDragLeave={handleEndZoneDragLeave}
+        />
+      )}
     </div>
   )
 }
