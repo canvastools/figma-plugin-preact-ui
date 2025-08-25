@@ -11,7 +11,7 @@ const TextComponent = (
     context = "inherit",
     variant = "body",
     size = "medium",
-    strong = false,
+    strong,
     align = "left",
     children,
     ...rest

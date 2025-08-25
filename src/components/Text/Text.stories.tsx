@@ -27,14 +27,19 @@ const meta: Meta<TextProps> = {
         "warning",
         "success",
       ],
+      defaultValue: { summary: "inherit" },
+      description:
+        "The `inherit` value makes the text use the colours defined by its parent styles.",
     },
     variant: {
       control: { type: "radio" },
       options: ["heading", "body"],
+      defaultValue: { summary: "body" },
     },
     size: {
       control: { type: "radio" },
       options: ["small", "medium", "large"],
+      defaultValue: { summary: "medium" },
     },
     strong: {
       description: "This property visually affects only the body context.",
@@ -43,9 +48,16 @@ const meta: Meta<TextProps> = {
     align: {
       control: { type: "radio" },
       options: ["left", "center", "right"],
+      defaultValue: { summary: "left" },
     },
     children: {
+      table: {
+        type: {
+          summary: "string | number | JSX.Element",
+        },
+      },
       control: { type: "text" },
+      description: "Usually a text content.",
     },
   },
 }

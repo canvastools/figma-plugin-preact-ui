@@ -28,10 +28,12 @@ const meta: Meta<ButtonProps> = {
         "danger",
         "success",
       ],
+      defaultValue: { summary: "neutral" },
     },
     size: {
       control: { type: "radio" },
       options: ["medium", "large"],
+      defaultValue: { summary: "medium" },
     },
     disabled: {
       control: { type: "boolean" },
@@ -40,16 +42,41 @@ const meta: Meta<ButtonProps> = {
       control: { type: "boolean" },
     },
     prefix: {
-      control: { type: "text" },
+      table: {
+        type: {
+          summary: "string | number | JSX.Element",
+        },
+      },
+      description: "Element inserted before children.",
+      control: { disable: true },
     },
     suffix: {
-      control: { type: "text" },
+      table: {
+        type: {
+          summary: "string | number | JSX.Element",
+        },
+      },
+      description: "Element inserted after children.",
+      control: { disable: true },
     },
     children: {
+      table: {
+        type: {
+          summary: "string | number | JSX.Element",
+        },
+      },
       control: { type: "text" },
+      description: "Usually a text content.",
     },
     onClick: {
       action: "clicked",
+      description:
+        "Callback function that is called when the button is clicked.",
+      table: {
+        type: {
+          summary: "([PointerEvent]) => void",
+        },
+      },
     },
   },
 }
@@ -593,7 +620,7 @@ export const CustomIcon: Story = {
     docs: {
       description: {
         story:
-          "The icon’s colours are overridden automatically when using the &lt;Icon/&gt; component and SVGs must use the 'currentColor' value for all colour properties",
+          "The icon’s colours are overridden automatically when using the &lt;Icon&gt; component and SVGs must use the 'currentColor' value for all colour properties",
       },
     },
   },

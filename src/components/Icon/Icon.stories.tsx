@@ -35,14 +35,22 @@ const meta: Meta<IconProps> = {
         "warning",
         "success",
       ],
+      defaultValue: { summary: "inherit" },
+      description:
+        "The `inherit` value makes the icon use the colours defined by its parent styles.",
     },
     variant: {
       control: { type: "select" },
       options: ["default", "scaled"],
+      defaultValue: { summary: "default" },
+      description:
+        "Some icons may have glyph variations (e.g. size) while preserving the container dimensions.",
     },
     size: {
       control: { type: "radio" },
       options: [16, 24],
+      defaultValue: { summary: "24" },
+      description: "The size of the icon container.",
     },
   },
 }
@@ -200,12 +208,6 @@ export const Variant: Story = {
   tags: ["!dev"],
   parameters: {
     controls: { disable: true },
-    docs: {
-      description: {
-        story:
-          "Some glyphs have scaled variants for cases where more spacing is required around them while keeping the container size unchanged.",
-      },
-    },
   },
   render: () => (
     <div className="sb-row sb-gap-16">

@@ -12,9 +12,9 @@ const ButtonIconToggleComponent = (
   {
     className,
     context = "neutral",
-    defaultSelected = false,
+    defaultSelected,
     selected: controlledSelected,
-    disabled = false,
+    disabled,
     children,
     onClick,
     onChange,

@@ -12,9 +12,9 @@ import { Icon } from "../Icon/Icon"
 const CheckboxComponent = (
   {
     className,
-    checked = false,
-    mixed = false,
-    disabled = false,
+    checked,
+    mixed,
+    disabled,
     label,
     onChange,
     ...rest

@@ -28,14 +28,32 @@ const meta: Meta<BadgeProps> = {
         "warning",
         "success",
       ],
+      defaultValue: { summary: "neutral" },
     },
     prefix: {
-      control: { type: "text" },
+      table: {
+        type: {
+          summary: "string | number | JSX.Element",
+        },
+      },
+      control: { disable: true },
+      description: "Element inserted before children.",
     },
     suffix: {
-      control: { type: "text" },
+      table: {
+        type: {
+          summary: "string | number | JSX.Element",
+        },
+      },
+      control: { disable: true },
+      description: "Element inserted after children.",
     },
     children: {
+      table: {
+        type: {
+          summary: "string | number | JSX.Element",
+        },
+      },
       control: { type: "text" },
     },
   },

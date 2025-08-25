@@ -11,7 +11,7 @@ const ButtonIconComponent = (
   {
     className,
     context = "neutral",
-    disabled = false,
+    disabled,
     children,
     ...rest
   }: ButtonIconProps,

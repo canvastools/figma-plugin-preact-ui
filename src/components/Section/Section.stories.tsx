@@ -15,7 +15,12 @@ const meta: Meta<SectionProps> = {
       control: { type: "text" },
     },
     children: {
-      control: { type: "text" },
+      control: { disable: true },
+      table: {
+        type: {
+          summary: "string | number | JSX.Element",
+        },
+      },
     },
   },
 }

@@ -5,23 +5,46 @@
 
   position: relative;
   display: flex;
-  flex-flow: row nowrap;
   flex: 1 1 100%;
-  gap: var(--pui-space-100);
-  padding-right: var(--pui-space-200);
-  overflow-x: auto;
-  scrollbar-width: none;
+  margin: 0 calc(var(--pui-space-200) * -1);
 
   &__overflow {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    width: var(--pui-space-200);
-    background: linear-gradient(
-      to right,
-      transparent,
-      var(--pui-color-neutral-bg-default)
-    );
+    &-left {
+      position: absolute;
+      width: var(--pui-space-200);
+      top: 0;
+      bottom: 0;
+      left: 0;
+
+      background: linear-gradient(
+        to left,
+        transparent,
+        var(--pui-color-neutral-bg-default)
+      );
+    }
+
+    &-right {
+      position: absolute;
+      width: var(--pui-space-200);
+      top: 0;
+      bottom: 0;
+      right: 0;
+
+      background: linear-gradient(
+        to right,
+        transparent,
+        var(--pui-color-neutral-bg-default)
+      );
+    }
+  }
+
+  &__children {
+    display: flex;
+    flex-flow: row nowrap;
+    flex: 1 1 auto;
+    gap: var(--pui-space-100);
+    padding: 0 var(--pui-space-200);
+    overflow-x: auto;
+    scrollbar-width: none;
   }
 }

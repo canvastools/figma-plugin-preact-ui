@@ -18,15 +18,29 @@ const meta: Meta<ButtonIconProps> = {
     context: {
       control: { type: "radio" },
       options: ["neutral", "neutral-ghost"],
+      defaultValue: { summary: "neutral" },
     },
     disabled: {
       control: { type: "boolean" },
     },
     children: {
-      control: { type: "text" },
+      table: {
+        type: {
+          summary: "string | number | JSX.Element",
+        },
+      },
+      control: { disable: true },
+      description: "Usually the Icon component",
     },
     onClick: {
       action: "clicked",
+      description:
+        "Callback function that is called when the button is clicked",
+      table: {
+        type: {
+          summary: "([PointerEvent]) => void",
+        },
+      },
     },
   },
 }
@@ -85,7 +99,7 @@ export const CustomIcon: Story = {
     docs: {
       description: {
         story:
-          "The icon’s colours are overridden automatically when using the &lt;Icon/&gt; component and SVGs must use the 'currentColor' value for all colour properties",
+          "The icon’s colours are overridden automatically when using the &lt;Icon&gt; component and SVGs must use the 'currentColor' value for all colour properties",
       },
     },
   },

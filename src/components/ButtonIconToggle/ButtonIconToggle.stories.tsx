@@ -18,24 +18,42 @@ const meta: Meta<ButtonIconToggleProps> = {
     context: {
       control: { type: "radio" },
       options: ["neutral", "neutral-ghost"],
+      defaultValue: { summary: "neutral" },
     },
     defaultSelected: {
       control: { type: "boolean" },
+      description: "Initial value for uncontrolled mode.",
     },
     selected: {
-      control: { type: "boolean" },
+      control: { disable: true },
+      description: "Value for controlled mode.",
+      table: {
+        type: {
+          summary: "boolean",
+        },
+      },
     },
     disabled: {
       control: { type: "boolean" },
     },
     children: {
-      control: { type: "text" },
-    },
-    onClick: {
-      action: "clicked",
+      table: {
+        type: {
+          summary: "string | number | JSX.Element",
+        },
+      },
+      control: { disable: true },
+      description: "Usually the Icon component",
     },
     onChange: {
       action: "changed",
+      description:
+        "Callback function that is called when the button is clicked.",
+      table: {
+        type: {
+          summary: "([boolean]) => void",
+        },
+      },
     },
   },
 }
@@ -50,7 +68,6 @@ export const Demo: Story = {
     defaultSelected: false,
     disabled: false,
     children: <Icon glyph="help" />,
-    onClick: fn(),
     onChange: fn(),
   },
 }
@@ -94,16 +111,29 @@ export const Context: Story = {
   parameters: {
     controls: { disable: true },
   },
-  render: () => (
-    <div className="sb-column sb-gap-16">
-      <ButtonIconToggle context="neutral">
-        <Icon glyph="help" />
-      </ButtonIconToggle>
-      <ButtonIconToggle context="neutral-ghost">
-        <Icon glyph="help" />
-      </ButtonIconToggle>
-    </div>
-  ),
+  render: () => {
+    const [isSelected_1, setIsSelected_1] = useState(true)
+    const [isSelected_2, setIsSelected_2] = useState(false)
+
+    return (
+      <div className="sb-column sb-gap-16">
+        <ButtonIconToggle
+          context="neutral"
+          selected={isSelected_1}
+          onChange={setIsSelected_1}
+        >
+          <Icon glyph="help" />
+        </ButtonIconToggle>
+        <ButtonIconToggle
+          context="neutral-ghost"
+          selected={isSelected_2}
+          onChange={setIsSelected_2}
+        >
+          <Icon glyph="help" />
+        </ButtonIconToggle>
+      </div>
+    )
+  },
 }
 
 export const Disabled: Story = {
@@ -130,7 +160,7 @@ export const CustomIcon: Story = {
     docs: {
       description: {
         story:
-          "The icon’s colours are overridden automatically when using the &lt;Icon/&gt; component and SVGs must use the 'currentColor' value for all colour properties",
+          "The icon’s colours are overridden automatically when using the &lt;Icon&gt; component and SVGs must use the 'currentColor' value for all colour properties",
       },
     },
   },

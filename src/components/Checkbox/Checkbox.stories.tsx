@@ -29,6 +29,13 @@ const meta: Meta<CheckboxProps> = {
     },
     onChange: {
       action: "clicked",
+      description:
+        "Callback function that is called when the checkbox is clicked.",
+      table: {
+        type: {
+          summary: "([boolean]) => void",
+        },
+      },
     },
   },
 }

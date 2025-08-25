@@ -16,6 +16,7 @@ const meta: Meta<DividerProps> = {
     variant: {
       control: { type: "radio" },
       options: ["full", "inset"],
+      defaultValue: { summary: "full" },
     },
   },
 }
