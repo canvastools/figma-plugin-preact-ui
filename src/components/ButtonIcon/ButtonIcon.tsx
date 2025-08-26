@@ -28,6 +28,7 @@ const ButtonIconComponent = (
       event.preventDefault()
       return
     }
+    event.stopPropagation()
     onClick?.({ event })
   }
 

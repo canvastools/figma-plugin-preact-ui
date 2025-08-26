@@ -33,7 +33,7 @@ const ButtonIconToggleComponent = (
       if (controlledSelected === undefined) {
         setInternalSelected(newSelected)
       }
-
+      e.event.stopPropagation()
       onChange?.({ event: e.event, selected: newSelected })
     }
   }

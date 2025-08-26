@@ -35,6 +35,7 @@ const CheckboxComponent = (
       event.preventDefault()
       return
     }
+    event.stopPropagation()
     onChange?.({ event, checked: !isChecked })
   }
 
@@ -45,6 +46,7 @@ const CheckboxComponent = (
       event.preventDefault?.()
       return
     }
+    event.stopPropagation()
     onChange?.({ event: event as unknown as MouseEvent, checked: !isChecked })
   }
 
