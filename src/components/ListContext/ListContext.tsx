@@ -457,6 +457,27 @@ const ListContext = ({
     onSelectionChange,
   ])
 
+  const dragImageRef = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    // Fake drag image
+    const ghost = document.createElement("div")
+    ghost.style.width = "20px"
+    ghost.style.height = "20px"
+    ghost.style.opacity = "0"
+    ghost.style.position = "absolute"
+    ghost.style.top = "-1000px"
+    ghost.style.pointerEvents = "none"
+
+    document.body.appendChild(ghost)
+    dragImageRef.current = ghost
+
+    return () => {
+      document.body.removeChild(ghost)
+      dragImageRef.current = null
+    }
+  }, [])
+
   const registerRootElement = useCallback((el: HTMLElement | null) => {
     if (!el) return () => {}
     rootElementsRef.current.add(el)
@@ -532,6 +553,7 @@ const ListContext = ({
     registerItemMeta,
     getPathForId,
     registerItemPath,
+    dragImage: dragImageRef.current,
   }
 
   return (

@@ -32,6 +32,7 @@ const TabComponent = (
   })
 
   const handleClick = (event: MouseEvent) => {
+    event.stopPropagation()
     onChange(value)
     onClick?.({ event, value })
   }

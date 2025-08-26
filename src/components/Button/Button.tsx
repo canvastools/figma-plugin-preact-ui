@@ -36,6 +36,7 @@ const ButtonComponent = (
       event.preventDefault()
       return
     }
+    event.stopPropagation()
     onClick?.({ event })
   }
 

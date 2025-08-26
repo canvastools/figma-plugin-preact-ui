@@ -28,6 +28,7 @@ export interface ListContextValue {
   ) => void
   selectionMode: "none" | "single" | "multi"
   registerRootElement?: (el: HTMLElement | null) => () => void
+  dragImage?: HTMLDivElement | null
 }
 
 export interface ListContextProps {

@@ -75,20 +75,20 @@
   &_disabled {
     cursor: auto;
 
-    background-color: var(--pui-color-disabled-bg-interactive);
-    color: var(--pui-color-disabled-text-interactive);
+    background-color: var(--pui-color-disabled-bg-default);
+    color: var(--pui-color-disabled-text-default);
     box-shadow: none;
 
     & .Icon {
-      color: var(--pui-color-disabled-icon-interactive);
+      color: var(--pui-color-disabled-icon-default);
     }
 
     &:hover {
-      background-color: var(--pui-color-disabled-bg-interactive);
+      background-color: var(--pui-color-disabled-bg-default);
     }
 
     &:active {
-      background-color: var(--pui-color-disabled-bg-interactive);
+      background-color: var(--pui-color-disabled-bg-default);
     }
   }
 }

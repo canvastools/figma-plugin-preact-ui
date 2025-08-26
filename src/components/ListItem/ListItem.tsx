@@ -40,6 +40,7 @@ const ListItemComponent = (
     setExactSelection,
     items,
     registerItemMeta,
+    dragImage,
   } = useListContext()
   const [isDragOver, setIsDragOver] = useState(false)
   const [dragPosition, setDragPosition] = useState<
@@ -311,11 +312,7 @@ const ListItemComponent = (
       ;(window as any).__puiDraggingIds = ids
       // Hide default drag preview
       try {
-        const img = new Image()
-        img.src =
-          "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
-
-        e.dataTransfer?.setDragImage(img, 0, 0)
+        e.dataTransfer?.setDragImage(dragImage as HTMLElement, 0, 0)
       } catch {}
       onDragStart?.({ event: e })
     }

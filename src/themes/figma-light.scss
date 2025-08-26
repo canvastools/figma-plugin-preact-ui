@@ -1,119 +1,240 @@
 .figma-light {
-  /* ========================== Background ========================== */
+  /*
+  * Naming convention:
+  * --pui-color_{context}_{element}_{modifiers}
+  *
+  * {context}: neutral, neutral-inverted, brand, danger, warning, success, disabled
+  * {element}: bg, text, icon, border
+  * {modifiers}: default, secondary, interactive, hover, pressed, selected, selected-hover, selected-pressed
+  **/
 
-  /* Neutral */
-  --pui-color-bg-neutral: #ffffff;
-  --pui-color-bg-neutral-hover: #f5f5f5;
-  --pui-color-bg-neutral-pressed: #e5e5e5;
-  --pui-color-bg-neutral-selected: #e5f4ff;
-  --pui-color-bg-neutral-selected-hover: #f2f9ff;
-  --pui-color-bg-neutral-selected-pressed: #e5f4ff;
+  $colors: (
+    neutral: (
+      bg: (
+        default: #ffffff,
+        secondary: #f5f5f5,
 
-  --pui-color-bg-neutral-secondary: #f3f3f3;
+        interactive: #ffffff,
+        interactive-secondary: #f5f5f5,
+        interactive-hover: #f5f5f5,
+        interactive-pressed: #e5e5e5,
 
-  --pui-color-bg-neutral-branded-hover: #f2f9ff;
-  --pui-color-bg-neutral-branded-pressed: #e5f4ff;
+        interactive-selected: #e5f4ff,
+        interactive-selected-secondary: #f2f9ff,
+        interactive-selected-hover: #bde3ff,
+        interactive-selected-pressed: #e5f4ff,
 
-  --pui-color-bg-neutral-danger-hover: #fff3f1;
-  --pui-color-bg-neutral-danger-pressed: #ffe2e0;
+        interactive-brand: #ffffff,
+        interactive-brand-hover: #e5f4ff,
+        interactive-brand-pressed: #bde3ff,
 
-  /* Brand */
-  --pui-color-bg-brand: #0d99ff;
-  --pui-color-bg-brand-hover: #007be5;
-  --pui-color-bg-brand-pressed: #0768cf;
+        interactive-danger: #ffffff,
+        interactive-danger-hover: #fff0f0,
+        interactive-danger-pressed: #ffe2e0,
+      ),
+      text: (
+        default: #1a1a1a,
+        secondary: #7d7d7d,
 
-  /* Destructive */
-  --pui-color-bg-destructive: #f24822;
-  --pui-color-bg-destructive-hover: #dc3412;
-  --pui-color-bg-destructive-pressed: #bd2915;
+        brand: #007be5,
+        danger: #dc3412,
+        warning: #b86200,
+        success: #009951,
 
-  /* Warning */
-  --pui-color-bg-warning: #ffcd29;
+        interactive: #1a1a1a,
+        interactive-secondary: #ababab,
+        interactive-selected: #007be5,
 
-  /* Success */
-  --pui-color-bg-success: #14ae5c;
-  --pui-color-bg-success-hover: #009951;
-  --pui-color-bg-success-pressed: #008043;
+        interactive-brand: #007be5,
 
-  /* Disabled */
-  --pui-color-bg-disabled: #d9d9d9;
+        interactive-danger: #dc3412,
+      ),
+      icon: (
+        default: #1a1a1a,
+        secondary: #7d7d7d,
 
-  /* ========================== Text ========================== */
+        brand: #007be5,
+        danger: #dc3412,
+        warning: #b86200,
+        success: #009951,
 
-  /* On Neutral */
-  --pui-color-text-onneutral: #1a1a1a;
-  --pui-color-text-onneutral-secondary: #7b7b7b;
-  --pui-color-text-onneutral-disabled: #b2b2b2;
+        interactive: #1a1a1a,
+        interactive-selected: #007be5,
 
-  --pui-color-text-onneutral-branded: #007be5;
+        interactive-brand: #007be5,
 
-  --pui-color-text-onneutral-danger: #dc3412;
+        interactive-danger: #dc3412,
+      ),
+      border: (
+        default: #e5e5e5,
+        secondary: #cccccc,
 
-  --pui-color-text-onneutral-warning: #b86200;
+        brand: #bde3ff,
+        danger: #ffc7c2,
+        warning: #fcd19c,
+        success: #aff4c6,
 
-  --pui-color-text-onneutral-success: #009951;
+        interactive: #e5e5e5,
+        interactive-selected: #0d99ff,
+        interactive-selected-error: #f24822,
+        interactive-drop-position: #1a1a1a,
+        interactive-drop-position-restricted: #f24822,
 
-  /* On Brand */
-  --pui-color-text-onbrand: #ffffff;
+        interactive-brand: #bde3ff,
 
-  /* On Destructive */
-  --pui-color-text-ondestructive: #ffffff;
+        interactive-danger: #ffc7c2,
+      ),
+    ),
+    neutral-inverted: (
+      bg: (
+        default: #2c2c2c,
 
-  /* On Warning */
-  --pui-color-text-onwarning: #000000;
+        interactive: #2c2c2c,
+        interactive-hover: #5c5c5c,
+        interactive-pressed: #808080,
+      ),
+      text: (
+        default: #ffffff,
 
-  /* On Success */
-  --pui-color-text-onsuccess: #ffffff;
+        interactive: #ffffff,
+        // secondary?
+      ),
+      icon: (
+        default: #ffffff,
 
-  /* On Disabled */
-  --pui-color-text-ondisabled: #ffffff;
+        interactive: #ffffff,
+        // secondary?
+      ),
+      border: (
+        default: #333333,
 
-  /* ========================== Icon ========================== */
+        interactive: #333333,
+        // secondary?
+        //interactive?,
+      ),
+    ),
+    brand: (
+      bg: (
+        default: #0d99ff,
 
-  /* On Neutral */
-  --pui-color-icon-onneutral: #1a1a1a;
-  --pui-color-icon-onneutral-secondary: #7b7b7b;
-  --pui-color-icon-onneutral-selected: #007be5;
-  --pui-color-icon-onneutral-disabled: #989898;
+        interactive: #0d99ff,
+        interactive-hover: #007be5,
+        interactive-pressed: #0768cf,
+      ),
+      text: (
+        default: #ffffff,
+        // secondary?
+        interactive: #ffffff,
+      ),
+      icon: (
+        default: #ffffff,
+        // secondary?
+        interactive: #ffffff,
+      ),
+      border: (
+        // default?
+        // secondary?,
+        interactive: #007be5,
+      ),
+    ),
+    danger: (
+      bg: (
+        default: #f24822,
 
-  --pui-color-icon-onneutral-branded: #007be5;
+        interactive: #f24822,
+        interactive-hover: #dc3412,
+        interactive-pressed: #bd2915,
+      ),
+      text: (
+        default: #ffffff,
+        // secondary?
+        interactive: #ffffff,
+      ),
+      icon: (
+        default: #ffffff,
+        // secondary?
+        interactive: #ffffff,
+      ),
+      border: (
+        interactive: #dc3412,
+        // default?
+        // secondary?,
+      ),
+    ),
+    warning: (
+      bg: (
+        default: #ffcd29,
+        // interactive?
+      ),
+      text: (
+        default: #000000,
+        // secondary?
+        // interactive?,
+      ),
+      icon: (
+        default: #000000,
+        // secondary?
+        // interactive?,
+      ),
+      border: (
+        // default?
+        // secondary?,
+        // interactive?,
+      ),
+    ),
+    success: (
+      bg: (
+        default: #14ae5c,
 
-  --pui-color-icon-onneutral-danger: #f24822;
+        interactive: #14ae5c,
+        interactive-hover: #009951,
+        interactive-pressed: #008043,
+      ),
+      text: (
+        default: #ffffff,
+        // secondary?
+        interactive: #ffffff,
+      ),
+      icon: (
+        default: #ffffff,
+        // secondary?
+        interactive: #ffffff,
+      ),
+      border: (
+        // default?
+        // secondary?,
+        // interactive?
+        interactive: #009951,
+      ),
+    ),
+    disabled: (
+      bg: (
+        default: #d9d9d9,
+        secondary: #ffffff,
+      ),
+      text: (
+        default: #989898,
+      ),
+      icon: (
+        default: #989898,
+      ),
+      border: (
+        default: #b3b3b3,
+        secondary: #e5e5e5,
+      ),
+    ),
+    system: (
+      border: (
+        focus: #0d99ff,
+      ),
+    ),
+  );
 
-  --pui-color-icon-onneutral-warning: #b86200;
-
-  --pui-color-icon-onneutral-success: #009951;
-
-  /* On Brand */
-  --pui-color-icon-onbrand: #ffffff;
-
-  /* On Destructive */
-  --pui-color-icon-ondestructive: #ffffff;
-
-  /* On Warning */
-  --pui-color-icon-onwarning: #000000;
-
-  /* On Success */
-  --pui-color-icon-onsuccess: #ffffff;
-
-  /* On Disabled */
-  --pui-color-icon-ondisabled: #ffffff;
-
-  /* ========================== Border ========================== */
-
-  /* Neutral */
-  --pui-color-border: #e5e5e5;
-  --pui-color-border-selected: #0d99ff;
-  --pui-color-border-selected-strong: #007be5;
-
-  --pui-color-border-branded: #007be5;
-
-  --pui-color-border-danger: #ffc7c2;
-
-  --pui-color-border-warning: #ffe8a3;
-
-  --pui-color-border-success: #aff4c6;
-
-  /* Disabled */
-  --pui-color-border-disabled: #e5e5e5;
+  @each $role, $role-value in $colors {
+    @each $element, $element-value in $role-value {
+      @each $hierarchy, $hierarchy-value in $element-value {
+        --pui-color-#{$role}-#{$element}-#{$hierarchy}: #{$hierarchy-value};
+      }
+    }
+  }
 }
