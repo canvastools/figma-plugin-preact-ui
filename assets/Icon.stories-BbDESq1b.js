@@ -1,0 +1,135 @@
+import{u as e}from"./jsxRuntime.module-CXXlufuJ.js";import{I as n,g as u}from"./Icon-DvMK2avU.js";import{T as R}from"./Text-Zs2635gN.js";import"./preact.module-DKQ80Dzn.js";import"./typedForwardRef-DzGXX2Gk.js";import"./compat.module-C_m5Zvzo.js";const g={title:"Components/Icon",component:n,tags:["autodocs"],argTypes:{className:{control:{type:"text"}},glyph:{control:{type:"select"},options:Object.keys(u)},context:{control:{type:"radio"},options:["inherit","neutral","neutral-secondary","neutral-brand","neutral-danger","neutral-warning","neutral-success","neutral-inverted","brand","danger","warning","success"],defaultValue:{summary:"inherit"},description:"The `inherit` value makes the icon use the colours defined by its parent styles."},variant:{control:{type:"select"},options:["default","scaled"],defaultValue:{summary:"default"},description:"Some icons may have glyph variations (e.g. size) while preserving the container dimensions."},size:{control:{type:"radio"},options:[16,24],defaultValue:{summary:"24"},description:"The size of the icon container."}}},t={tags:["!autodocs"],args:{className:"",glyph:"help",context:"neutral",variant:"default",size:24},render:r=>e(n,{...r})},E=r=>g.argTypes.variant.options.flatMap(a=>g.argTypes.size.options.map(s=>[a,s])).filter(([a,s])=>{try{return u[r]({variant:a,size:s})}catch{return!1}}).map(([a,s])=>e("div",{className:"sb-row sb-gap-8 sb-width-full",style:{justifyContent:"space-between",alignItems:"center"},children:[e(R,{context:a=="default"&&s==24?"neutral":"neutral-secondary",children:[r," (",s,", ",a,")"]}),e("div",{style:{backgroundColor:"var(--pui-color-neutral-bg-secondary)",width:"fit-content"},children:e(n,{glyph:r,variant:a,size:s,context:"neutral"})})]})),o={tags:["!dev"],parameters:{controls:{disable:!0}},render:()=>e("div",{className:"sb-row sb-gap-16",style:{display:"grid",gridTemplateColumns:"repeat(3, 1fr)",gridTemplateRows:"repeat(auto, 1fr)",gridColumnGap:"0px",gridRowGap:"0px"},children:Object.keys(u).map(r=>e("div",{className:"sb-column sb-gap-16 sb-grid-cell-border",style:{padding:"20px"},children:E(r)}))})},l={tags:["!dev"],parameters:{controls:{disable:!0}},render:()=>e("div",{className:"sb-row sb-gap-16",children:[e("div",{className:"sb-column sb-gap-16 sb-padding-24",children:[e(n,{glyph:"help",context:"neutral"}),e(n,{glyph:"help",context:"neutral-secondary"}),e(n,{glyph:"help",context:"neutral-brand"}),e(n,{glyph:"help",context:"neutral-danger"}),e(n,{glyph:"help",context:"neutral-warning"}),e(n,{glyph:"help",context:"neutral-success"})]}),e("div",{className:"sb-column sb-gap-16 sb-padding-24",style:{backgroundColor:"var(--pui-color-neutral-inverted-bg-default)"},children:e(n,{glyph:"help",context:"neutral-inverted"})}),e("div",{className:"sb-column sb-gap-16 sb-padding-24",style:{backgroundColor:"var(--pui-color-brand-bg-default)"},children:e(n,{glyph:"help",context:"brand"})}),e("div",{className:"sb-column sb-gap-16 sb-padding-24",style:{backgroundColor:"var(--pui-color-danger-bg-default)"},children:e(n,{glyph:"help",context:"danger"})}),e("div",{className:"sb-column sb-gap-16 sb-padding-24",style:{backgroundColor:"var(--pui-color-warning-bg-default)"},children:e(n,{glyph:"help",context:"warning"})}),e("div",{className:"sb-column sb-gap-16 sb-padding-24",style:{backgroundColor:"var(--pui-color-success-bg-default)"},children:e(n,{glyph:"help",context:"success"})})]})},c={tags:["!dev"],parameters:{controls:{disable:!0}},render:()=>e("div",{className:"sb-row sb-gap-16",children:[e(n,{glyph:"help",variant:"default",context:"neutral"}),e(n,{glyph:"help",variant:"scaled",context:"neutral"})]})},d={tags:["!dev"],parameters:{controls:{disable:!0}},render:()=>e("div",{className:"sb-row sb-gap-16",children:[e(n,{glyph:"help",size:24,context:"neutral"}),e(n,{glyph:"help",size:16,context:"neutral"})]})},i={tags:["!dev"],parameters:{controls:{disable:!0},docs:{description:{story:"A custom SVG must use the 'currentColor' value for all colour properties in order to inherit the component’s context."}}},render:()=>e("div",{className:"sb-column sb-gap-16",children:e(n,{size:24,context:"neutral",children:e("svg",{width:"24",height:"24",viewBox:"0 0 24 24",fill:"none",xmlns:"http://www.w3.org/2000/svg",children:e("path",{fill:"currentColor","fill-rule":"evenodd","clip-rule":"evenodd",d:"M15.755 7.23427C15.4526 7.41038 15.0708 7.42207 14.7499 7.23681C14.4289 7.05149 14.2481 6.71483 14.2496 6.36477C14.2518 5.84407 13.908 5.22635 13.212 5.10473C12.8177 5.03581 12.4126 5 11.9999 5C11.5873 5 11.1822 5.03582 10.7878 5.10474C10.0918 5.22636 9.74809 5.84409 9.75026 6.36479C9.75172 6.71485 9.57093 7.05152 9.24994 7.23684C8.92906 7.4221 8.54727 7.41041 8.24489 7.2343C7.79535 6.97249 7.09002 6.96142 6.63667 7.50141C6.1179 8.11934 5.70348 8.82895 5.42136 9.60311C5.17962 10.2665 5.54277 10.8723 5.99461 11.1305C6.29865 11.3042 6.49993 11.6292 6.49993 12C6.49993 12.3707 6.29864 12.6957 5.9946 12.8694C5.54276 13.1276 5.17959 13.7334 5.42133 14.3968C5.70344 15.171 6.11787 15.8806 6.63664 16.4986C7.08999 17.0386 7.79532 17.0275 8.24486 16.7657C8.54724 16.5896 8.92903 16.5779 9.2499 16.7631C9.57089 16.9485 9.75168 17.2851 9.75022 17.6352C9.74805 18.1559 10.0918 18.7736 10.7878 18.8953C11.1822 18.9642 11.5873 19 11.9999 19C12.4126 19 12.8177 18.9642 13.2121 18.8953C13.9081 18.7736 14.2518 18.1559 14.2496 17.6352C14.2481 17.2851 14.4289 16.9484 14.7499 16.7631C15.0708 16.5779 15.4526 16.5895 15.755 16.7657C16.2045 17.0275 16.9099 17.0386 17.3632 16.4986C17.882 15.8806 18.2964 15.171 18.5786 14.3968C18.8203 13.7334 18.4571 13.1276 18.0053 12.8694C17.7013 12.6957 17.5 12.3707 17.5 12C17.5 11.6292 17.7013 11.3042 18.0053 11.1305C18.4571 10.8723 18.8203 10.2665 18.5785 9.60313C18.2964 8.82895 17.882 8.11931 17.3632 7.50137C16.9098 6.96138 16.2045 6.97245 15.755 7.23427ZM14.2499 8.10284C14.8939 8.47463 15.6587 8.4476 16.2582 8.0984C16.3697 8.03351 16.5144 8.04562 16.5973 8.14436C17.0424 8.67449 17.3974 9.28272 17.639 9.94552C17.6832 10.0667 17.6212 10.1982 17.5092 10.2623C16.9063 10.6067 16.5 11.2559 16.5 12C16.5 12.744 16.9063 13.3932 17.5092 13.7377C17.6212 13.8017 17.6832 13.9332 17.639 14.0544C17.3975 14.7172 17.0424 15.3254 16.5974 15.8556C16.5145 15.9543 16.3697 15.9664 16.2583 15.9015C15.6587 15.5523 14.8939 15.5253 14.2499 15.8971C13.6057 16.269 13.2467 16.9452 13.2496 17.6394C13.2502 17.7685 13.1671 17.888 13.0399 17.9102C12.7021 17.9692 12.3546 18 11.9999 18C11.6452 18 11.2977 17.9692 10.9599 17.9102C10.8327 17.888 10.7497 17.7685 10.7502 17.6394C10.7531 16.9452 10.3941 16.269 9.7499 15.8971C9.10594 15.5253 8.34117 15.5523 7.74159 15.9015C7.63018 15.9664 7.48543 15.9543 7.40253 15.8556C6.95747 15.3254 6.60242 14.7172 6.36089 14.0544C6.31671 13.9332 6.3787 13.8017 6.49072 13.7377C7.09359 13.3932 7.49993 12.744 7.49993 12C7.49993 11.2559 7.0936 10.6067 6.49074 10.2622C6.37872 10.1982 6.31674 10.0667 6.36091 9.94551C6.60245 9.28272 6.9575 8.67451 7.40255 8.14439C7.48545 8.04565 7.6302 8.03354 7.74161 8.09843C8.3412 8.44763 9.10598 8.47466 9.74994 8.10286C10.3941 7.73094 10.7531 7.05475 10.7503 6.36062C10.7497 6.23151 10.8328 6.11203 10.9599 6.08981C11.2977 6.03078 11.6452 6 11.9999 6C12.3546 6 12.7021 6.03078 13.0399 6.0898C13.1671 6.11203 13.2501 6.2315 13.2496 6.36061C13.2467 7.05473 13.6057 7.73091 14.2499 8.10284ZM10.4999 12C10.4999 11.1716 11.1715 10.5 11.9999 10.5C12.8284 10.5 13.4999 11.1716 13.4999 12C13.4999 12.8284 12.8284 13.5 11.9999 13.5C11.1715 13.5 10.4999 12.8284 10.4999 12ZM11.9999 9.5C10.6192 9.5 9.49994 10.6193 9.49994 12C9.49994 13.3807 10.6192 14.5 11.9999 14.5C13.3807 14.5 14.4999 13.3807 14.4999 12C14.4999 10.6193 13.3807 9.5 11.9999 9.5Z"})})})})},p={tags:["!dev"],parameters:{controls:{disable:!0},docs:{description:{story:"Some property combinations may not have corresponding glyphs. In such cases, an error is thrown."}}},render:()=>e("div",{className:"sb-column sb-gap-16",children:e(n,{glyph:"help",size:16,variant:"scaled"})})};var C,m,h;t.parameters={...t.parameters,docs:{...(C=t.parameters)==null?void 0:C.docs,source:{originalSource:`{
+  tags: ["!autodocs"],
+  args: {
+    className: "",
+    glyph: "help",
+    context: "neutral",
+    variant: "default",
+    size: 24
+  },
+  render: args => <Icon {...args} />
+}`,...(h=(m=t.parameters)==null?void 0:m.docs)==null?void 0:h.source}}};var b,v,y;o.parameters={...o.parameters,docs:{...(b=o.parameters)==null?void 0:b.docs,source:{originalSource:`{
+  tags: ["!dev"],
+  parameters: {
+    controls: {
+      disable: true
+    }
+  },
+  render: () => <div className="sb-row sb-gap-16" style={{
+    display: "grid",
+    gridTemplateColumns: "repeat(3, 1fr)",
+    gridTemplateRows: "repeat(auto, 1fr)",
+    gridColumnGap: "0px",
+    gridRowGap: "0px"
+  }}>
+      {Object.keys(glyphs).map(glyph => {
+      return <div className="sb-column sb-gap-16 sb-grid-cell-border" style={{
+        padding: "20px"
+      }}>
+            {glyphCombinations(glyph)}
+          </div>;
+    })}
+    </div>
+}`,...(y=(v=o.parameters)==null?void 0:v.docs)==null?void 0:y.source}}};var x,f,w;l.parameters={...l.parameters,docs:{...(x=l.parameters)==null?void 0:x.docs,source:{originalSource:`{
+  tags: ["!dev"],
+  parameters: {
+    controls: {
+      disable: true
+    }
+  },
+  render: () => <div className="sb-row sb-gap-16">
+      <div className="sb-column sb-gap-16 sb-padding-24">
+        <Icon glyph="help" context="neutral" />
+        <Icon glyph="help" context="neutral-secondary" />
+        <Icon glyph="help" context="neutral-brand" />
+        <Icon glyph="help" context="neutral-danger" />
+        <Icon glyph="help" context="neutral-warning" />
+        <Icon glyph="help" context="neutral-success" />
+      </div>
+      <div className="sb-column sb-gap-16 sb-padding-24" style={{
+      backgroundColor: "var(--pui-color-neutral-inverted-bg-default)"
+    }}>
+        <Icon glyph="help" context="neutral-inverted" />
+      </div>
+      <div className="sb-column sb-gap-16 sb-padding-24" style={{
+      backgroundColor: "var(--pui-color-brand-bg-default)"
+    }}>
+        <Icon glyph="help" context="brand" />
+      </div>
+      <div className="sb-column sb-gap-16 sb-padding-24" style={{
+      backgroundColor: "var(--pui-color-danger-bg-default)"
+    }}>
+        <Icon glyph="help" context="danger" />
+      </div>
+      <div className="sb-column sb-gap-16 sb-padding-24" style={{
+      backgroundColor: "var(--pui-color-warning-bg-default)"
+    }}>
+        <Icon glyph="help" context="warning" />
+      </div>
+      <div className="sb-column sb-gap-16 sb-padding-24" style={{
+      backgroundColor: "var(--pui-color-success-bg-default)"
+    }}>
+        <Icon glyph="help" context="success" />
+      </div>
+    </div>
+}`,...(w=(f=l.parameters)==null?void 0:f.docs)==null?void 0:w.source}}};var N,I,k;c.parameters={...c.parameters,docs:{...(N=c.parameters)==null?void 0:N.docs,source:{originalSource:`{
+  tags: ["!dev"],
+  parameters: {
+    controls: {
+      disable: true
+    }
+  },
+  render: () => <div className="sb-row sb-gap-16">
+      <Icon glyph="help" variant="default" context="neutral" />
+      <Icon glyph="help" variant="scaled" context="neutral" />
+    </div>
+}`,...(k=(I=c.parameters)==null?void 0:I.docs)==null?void 0:k.source}}};var z,S,T;d.parameters={...d.parameters,docs:{...(z=d.parameters)==null?void 0:z.docs,source:{originalSource:`{
+  tags: ["!dev"],
+  parameters: {
+    controls: {
+      disable: true
+    }
+  },
+  render: () => <div className="sb-row sb-gap-16">
+      <Icon glyph="help" size={24} context="neutral" />
+      <Icon glyph="help" size={16} context="neutral" />
+    </div>
+}`,...(T=(S=d.parameters)==null?void 0:S.docs)==null?void 0:T.source}}};var G,M,Z;i.parameters={...i.parameters,docs:{...(G=i.parameters)==null?void 0:G.docs,source:{originalSource:`{
+  tags: ["!dev"],
+  parameters: {
+    controls: {
+      disable: true
+    },
+    docs: {
+      description: {
+        story: "A custom SVG must use the 'currentColor' value for all colour properties in order to inherit the component’s context."
+      }
+    }
+  },
+  render: () => {
+    return <div className="sb-column sb-gap-16">
+        <Icon size={24} context="neutral">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M15.755 7.23427C15.4526 7.41038 15.0708 7.42207 14.7499 7.23681C14.4289 7.05149 14.2481 6.71483 14.2496 6.36477C14.2518 5.84407 13.908 5.22635 13.212 5.10473C12.8177 5.03581 12.4126 5 11.9999 5C11.5873 5 11.1822 5.03582 10.7878 5.10474C10.0918 5.22636 9.74809 5.84409 9.75026 6.36479C9.75172 6.71485 9.57093 7.05152 9.24994 7.23684C8.92906 7.4221 8.54727 7.41041 8.24489 7.2343C7.79535 6.97249 7.09002 6.96142 6.63667 7.50141C6.1179 8.11934 5.70348 8.82895 5.42136 9.60311C5.17962 10.2665 5.54277 10.8723 5.99461 11.1305C6.29865 11.3042 6.49993 11.6292 6.49993 12C6.49993 12.3707 6.29864 12.6957 5.9946 12.8694C5.54276 13.1276 5.17959 13.7334 5.42133 14.3968C5.70344 15.171 6.11787 15.8806 6.63664 16.4986C7.08999 17.0386 7.79532 17.0275 8.24486 16.7657C8.54724 16.5896 8.92903 16.5779 9.2499 16.7631C9.57089 16.9485 9.75168 17.2851 9.75022 17.6352C9.74805 18.1559 10.0918 18.7736 10.7878 18.8953C11.1822 18.9642 11.5873 19 11.9999 19C12.4126 19 12.8177 18.9642 13.2121 18.8953C13.9081 18.7736 14.2518 18.1559 14.2496 17.6352C14.2481 17.2851 14.4289 16.9484 14.7499 16.7631C15.0708 16.5779 15.4526 16.5895 15.755 16.7657C16.2045 17.0275 16.9099 17.0386 17.3632 16.4986C17.882 15.8806 18.2964 15.171 18.5786 14.3968C18.8203 13.7334 18.4571 13.1276 18.0053 12.8694C17.7013 12.6957 17.5 12.3707 17.5 12C17.5 11.6292 17.7013 11.3042 18.0053 11.1305C18.4571 10.8723 18.8203 10.2665 18.5785 9.60313C18.2964 8.82895 17.882 8.11931 17.3632 7.50137C16.9098 6.96138 16.2045 6.97245 15.755 7.23427ZM14.2499 8.10284C14.8939 8.47463 15.6587 8.4476 16.2582 8.0984C16.3697 8.03351 16.5144 8.04562 16.5973 8.14436C17.0424 8.67449 17.3974 9.28272 17.639 9.94552C17.6832 10.0667 17.6212 10.1982 17.5092 10.2623C16.9063 10.6067 16.5 11.2559 16.5 12C16.5 12.744 16.9063 13.3932 17.5092 13.7377C17.6212 13.8017 17.6832 13.9332 17.639 14.0544C17.3975 14.7172 17.0424 15.3254 16.5974 15.8556C16.5145 15.9543 16.3697 15.9664 16.2583 15.9015C15.6587 15.5523 14.8939 15.5253 14.2499 15.8971C13.6057 16.269 13.2467 16.9452 13.2496 17.6394C13.2502 17.7685 13.1671 17.888 13.0399 17.9102C12.7021 17.9692 12.3546 18 11.9999 18C11.6452 18 11.2977 17.9692 10.9599 17.9102C10.8327 17.888 10.7497 17.7685 10.7502 17.6394C10.7531 16.9452 10.3941 16.269 9.7499 15.8971C9.10594 15.5253 8.34117 15.5523 7.74159 15.9015C7.63018 15.9664 7.48543 15.9543 7.40253 15.8556C6.95747 15.3254 6.60242 14.7172 6.36089 14.0544C6.31671 13.9332 6.3787 13.8017 6.49072 13.7377C7.09359 13.3932 7.49993 12.744 7.49993 12C7.49993 11.2559 7.0936 10.6067 6.49074 10.2622C6.37872 10.1982 6.31674 10.0667 6.36091 9.94551C6.60245 9.28272 6.9575 8.67451 7.40255 8.14439C7.48545 8.04565 7.6302 8.03354 7.74161 8.09843C8.3412 8.44763 9.10598 8.47466 9.74994 8.10286C10.3941 7.73094 10.7531 7.05475 10.7503 6.36062C10.7497 6.23151 10.8328 6.11203 10.9599 6.08981C11.2977 6.03078 11.6452 6 11.9999 6C12.3546 6 12.7021 6.03078 13.0399 6.0898C13.1671 6.11203 13.2501 6.2315 13.2496 6.36061C13.2467 7.05473 13.6057 7.73091 14.2499 8.10284ZM10.4999 12C10.4999 11.1716 11.1715 10.5 11.9999 10.5C12.8284 10.5 13.4999 11.1716 13.4999 12C13.4999 12.8284 12.8284 13.5 11.9999 13.5C11.1715 13.5 10.4999 12.8284 10.4999 12ZM11.9999 9.5C10.6192 9.5 9.49994 10.6193 9.49994 12C9.49994 13.3807 10.6192 14.5 11.9999 14.5C13.3807 14.5 14.4999 13.3807 14.4999 12C14.4999 10.6193 13.3807 9.5 11.9999 9.5Z" />
+          </svg>
+        </Icon>
+      </div>;
+  }
+}`,...(Z=(M=i.parameters)==null?void 0:M.docs)==null?void 0:Z.source}}};var V,j,O;p.parameters={...p.parameters,docs:{...(V=p.parameters)==null?void 0:V.docs,source:{originalSource:`{
+  tags: ["!dev"],
+  parameters: {
+    controls: {
+      disable: true
+    },
+    docs: {
+      description: {
+        story: "Some property combinations may not have corresponding glyphs. In such cases, an error is thrown."
+      }
+    }
+  },
+  render: () => {
+    return <div className="sb-column sb-gap-16">
+        <Icon glyph="help" size={16} variant="scaled"></Icon>
+      </div>;
+  }
+}`,...(O=(j=p.parameters)==null?void 0:j.docs)==null?void 0:O.source}}};const L=["Demo","Glyphs","Context","Variant","Size","CustomGlyph","ErrorHandling"];export{l as Context,i as CustomGlyph,t as Demo,p as ErrorHandling,o as Glyphs,d as Size,c as Variant,L as __namedExportsOrder,g as default};
