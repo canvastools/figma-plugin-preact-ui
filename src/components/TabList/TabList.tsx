@@ -17,8 +17,9 @@ const TabListComponent = (
       ref={ref}
       {...rest}
     >
-      {children}
-      <div className="TabList__overflow" />
+      <div className="TabList__overflow-left" />
+      {children && <div className="TabList__children">{children}</div>}
+      <div className="TabList__overflow-right" />
     </div>
   )
 }

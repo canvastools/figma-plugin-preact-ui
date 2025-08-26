@@ -17,5 +17,5 @@ export interface ButtonProps {
   prefix?: preact.ComponentChildren
   suffix?: preact.ComponentChildren
   children?: preact.ComponentChildren
-  onClick?: () => void
+  onClick?: (args: { event: MouseEvent }) => void
 }

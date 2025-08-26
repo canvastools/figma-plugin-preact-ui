@@ -1,0 +1,544 @@
+import { createContext } from "preact"
+import {
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+  useRef,
+} from "preact/hooks"
+import type {
+  ListContextValue,
+  ListContextProps,
+  ListItemData,
+} from "./ListContext.types"
+
+/* --- */
+
+const RawListContext = createContext<ListContextValue | undefined>(undefined)
+
+const useListContext = () => {
+  const context = useContext(RawListContext)
+  if (!context) throw new Error("ListContext not found")
+  return context
+}
+
+const ListContext = ({
+  items: controlledItems = [],
+  selectedItems: controlledSelectedItems = [],
+  selectionMode = "single",
+  onItemsChange,
+  onSelectionChange,
+  children,
+}: ListContextProps) => {
+  const [internalItems, setInternalItems] =
+    useState<ListItemData[]>(controlledItems)
+  const [internalSelectedItems, setInternalSelectedItems] = useState<
+    Set<string>
+  >(new Set(controlledSelectedItems))
+  const itemMetaRef = useRef<
+    Map<
+      string,
+      { selectable?: boolean; selectionScope?: "item" | "withDescendants" }
+    >
+  >(new Map())
+  const idToPathRef = useRef<Map<string, number[]>>(new Map())
+
+  // Determine if we're in controlled mode for each aspect
+  const isItemsControlled = onItemsChange !== undefined
+  const isSelectionControlled = onSelectionChange !== undefined
+
+  // Use controlled values when available, otherwise use internal state
+  const currentItems = isItemsControlled ? controlledItems : internalItems
+  const currentSelectedItems = isSelectionControlled
+    ? new Set(controlledSelectedItems)
+    : internalSelectedItems
+
+  // Track anchor for range-selection and the root elements for outside-click detection
+  const lastSelectedAnchorRef = useRef<string | null>(null)
+  const rootElementsRef = useRef<Set<HTMLElement>>(new Set())
+
+  const setSelection = useCallback(
+    (itemIds: string[], selected: boolean) => {
+      const newSelectedItems = new Set(currentSelectedItems)
+
+      itemIds.forEach((id) => {
+        if (selected) {
+          newSelectedItems.add(id)
+        } else {
+          newSelectedItems.delete(id)
+        }
+      })
+
+      if (!isSelectionControlled) {
+        setInternalSelectedItems(newSelectedItems)
+      }
+      onSelectionChange?.({ selectedItems: Array.from(newSelectedItems) })
+    },
+    [
+      currentSelectedItems,
+      controlledSelectedItems,
+      onSelectionChange,
+      isSelectionControlled,
+    ]
+  )
+
+  // Replace selection with exactly these ids (uncontrolled or via callback)
+  const setExactSelection = useCallback(
+    (itemIds: string[]) => {
+      const next = new Set(itemIds)
+      if (!isSelectionControlled) setInternalSelectedItems(next)
+      onSelectionChange?.({ selectedItems: Array.from(next) })
+    },
+    [isSelectionControlled, onSelectionChange]
+  )
+
+  const flattenItemsDepthFirst = useCallback(
+    (items: ListItemData[]): string[] => {
+      const result: string[] = []
+      const walk = (nodes: ListItemData[]) => {
+        nodes.forEach((n) => {
+          result.push(n.id)
+          if (n.children && n.children.length) {
+            walk(n.children)
+          }
+        })
+      }
+      walk(items)
+      return result
+    },
+    []
+  )
+
+  const collectDescendantIds = useCallback(
+    (rootId: string): string[] => {
+      const ids: string[] = []
+      const walk = (nodes: ListItemData[]) => {
+        nodes.forEach((n) => {
+          if (n.id === rootId) {
+            const addAll = (children?: ListItemData[]) => {
+              if (!children) return
+              children.forEach((c) => {
+                ids.push(c.id)
+                addAll(c.children)
+              })
+            }
+            addAll(n.children)
+          } else if (n.children) {
+            walk(n.children)
+          }
+        })
+      }
+      walk(currentItems)
+      return ids
+    },
+    [currentItems]
+  )
+
+  const toggleSelect = useCallback(
+    (itemId: string, options?: { range?: boolean; additive?: boolean }) => {
+      if (selectionMode === "none") return
+
+      const additive = Boolean(options?.additive)
+      const range = Boolean(options?.range)
+
+      if (selectionMode === "single") {
+        const already = currentSelectedItems.has(itemId)
+        const next = new Set<string>()
+        if (!already) next.add(itemId)
+        if (!isSelectionControlled) setInternalSelectedItems(next)
+        onSelectionChange?.({ selectedItems: Array.from(next) })
+        lastSelectedAnchorRef.current = itemId
+        return
+      }
+
+      // multi
+      if (range) {
+        const order = flattenItemsDepthFirst(currentItems)
+        const anchor = lastSelectedAnchorRef.current || itemId
+        const start = order.indexOf(anchor)
+        const end = order.indexOf(itemId)
+        if (start === -1 || end === -1) return
+        const [lo, hi] = start <= end ? [start, end] : [end, start]
+        const rawRange = order.slice(lo, hi + 1)
+        // Filter according to meta: skip unselectable; if selectionScope==withDescendants skip their descendants too
+        const next = new Set<string>()
+        const skipSet = new Set<string>()
+        // Build a quick parent map to find descendants efficiently
+        const parentOf = new Map<string, string | null>()
+        const buildParents = (nodes: ListItemData[], parent: string | null) => {
+          nodes.forEach((n) => {
+            parentOf.set(n.id, parent)
+            if (n.children) buildParents(n.children, n.id)
+          })
+        }
+        buildParents(currentItems, null)
+        const isDescendantOfSkipped = (id: string): boolean => {
+          let cur: string | null | undefined = id
+          while (cur) {
+            if (skipSet.has(cur)) return true
+            cur = parentOf.get(cur) || null
+          }
+          return false
+        }
+        rawRange.forEach((id) => {
+          const meta = itemMetaRef.current.get(id)
+          if (meta?.selectable === false) {
+            if (meta?.selectionScope === "withDescendants") {
+              skipSet.add(id)
+            }
+            return
+          }
+          if (isDescendantOfSkipped(id)) return
+          next.add(id)
+        })
+        if (!isSelectionControlled) setInternalSelectedItems(next)
+        onSelectionChange?.({ selectedItems: Array.from(next) })
+        lastSelectedAnchorRef.current = itemId
+        return
+      }
+
+      if (additive) {
+        const next = new Set(currentSelectedItems)
+        if (next.has(itemId)) next.delete(itemId)
+        else next.add(itemId)
+        if (!isSelectionControlled) setInternalSelectedItems(next)
+        onSelectionChange?.({ selectedItems: Array.from(next) })
+        lastSelectedAnchorRef.current = itemId
+        return
+      }
+
+      // default click acts like single anchor in multi-mode
+      const next = new Set<string>([itemId])
+      if (!isSelectionControlled) setInternalSelectedItems(next)
+      onSelectionChange?.({ selectedItems: Array.from(next) })
+      lastSelectedAnchorRef.current = itemId
+    },
+    [
+      selectionMode,
+      currentSelectedItems,
+      isSelectionControlled,
+      onSelectionChange,
+      currentItems,
+      flattenItemsDepthFirst,
+      collectDescendantIds,
+    ]
+  )
+
+  const selectAll = useCallback(() => {
+    const allItemIds: string[] = []
+    const collectIds = (items: ListItemData[]) => {
+      items.forEach((item) => {
+        allItemIds.push(item.id)
+        if (item.children) {
+          collectIds(item.children)
+        }
+      })
+    }
+    collectIds(currentItems)
+    setSelection(allItemIds, true)
+  }, [currentItems, setSelection])
+
+  const deselectAll = useCallback(() => {
+    const allItemIds: string[] = []
+    const collectIds = (items: ListItemData[]) => {
+      items.forEach((item) => {
+        allItemIds.push(item.id)
+        if (item.children) {
+          collectIds(item.children)
+        }
+      })
+    }
+    collectIds(currentItems)
+    setSelection(allItemIds, false)
+  }, [currentItems, setSelection])
+
+  const reorderItems = useCallback(
+    (itemIds: string[], targetIndex: number, targetParentPath?: number[]) => {
+      if (itemIds.length === 0) return
+
+      // Create a deep copy of the current items
+      const newItems = JSON.parse(JSON.stringify(currentItems))
+
+      // Build a map of id -> path from the current (pre-removal) tree
+      const idToPath = (() => {
+        const map = new Map<string, number[]>()
+        const walk = (nodes: ListItemData[], path: number[]) => {
+          nodes.forEach((n, idx) => {
+            const p = [...path, idx]
+            map.set(n.id, p)
+            if (n.children && n.children.length) walk(n.children, p)
+          })
+        }
+        walk(currentItems, [])
+        return map
+      })()
+
+      // Guard: prevent dropping an ancestor into its own descendant container
+      if (targetParentPath && targetParentPath.length > 0) {
+        for (const id of itemIds) {
+          const draggedPath = idToPath.get(id)
+          if (draggedPath) {
+            const isAncestor =
+              targetParentPath.length >= draggedPath.length &&
+              draggedPath.every((v, i) => targetParentPath[i] === v)
+            if (isAncestor) {
+              // Ignore drop to avoid cycles
+              return
+            }
+          }
+        }
+      }
+
+      // Helper function to find and remove items from any level
+      const findAndRemoveItems = (
+        items: ListItemData[],
+        ids: string[]
+      ): ListItemData[] => {
+        const removedItems: ListItemData[] = []
+
+        // Remove from current level
+        for (let i = items.length - 1; i >= 0; i--) {
+          if (ids.includes(items[i].id)) {
+            removedItems.unshift(items.splice(i, 1)[0])
+          }
+        }
+
+        // Remove from children recursively
+        items.forEach((item) => {
+          if (item.children) {
+            const childRemoved = findAndRemoveItems(item.children, ids)
+            removedItems.push(...childRemoved)
+          }
+        })
+
+        return removedItems
+      }
+
+      // Helper function to insert items at a specific path
+      const insertItemsAtPath = (
+        items: ListItemData[],
+        path: number[],
+        targetIndex: number,
+        itemsToInsert: ListItemData[]
+      ) => {
+        if (path.length === 0) {
+          // Insert at root level
+          const clamped = Math.max(0, Math.min(targetIndex, items.length))
+          items.splice(clamped, 0, ...itemsToInsert)
+          return
+        }
+
+        // Navigate to the target container
+        const firstIdx = Math.max(
+          0,
+          Math.min(path[0], Math.max(0, items.length - 1))
+        )
+        let current: ListItemData | undefined = items[firstIdx]
+
+        // If path is [x], insert into the children of the item at index x
+        if (path.length === 1) {
+          if (!current) return
+          if (!current.children) current.children = []
+          const clamped = Math.max(
+            0,
+            Math.min(targetIndex, current.children.length)
+          )
+          current.children.splice(clamped, 0, ...itemsToInsert)
+          return
+        }
+
+        // For deeper paths, navigate to the nested container, clamping indices
+        for (let i = 1; i < path.length; i++) {
+          if (!current) return
+          if (!current.children) current.children = []
+          const idx = Math.max(
+            0,
+            Math.min(path[i], Math.max(0, current.children.length - 1))
+          )
+          current = current.children[idx]
+        }
+        if (!current) return
+        if (!current.children) current.children = []
+        const clamped = Math.max(
+          0,
+          Math.min(targetIndex, current.children.length)
+        )
+        current.children.splice(clamped, 0, ...itemsToInsert)
+      }
+
+      // Find and remove the dragged items from anywhere in the tree
+      const removedItems = findAndRemoveItems(newItems, itemIds)
+
+      if (removedItems.length === 0) return
+
+      // Adjust target index for moves within the same container
+      const normalizedTargetPath =
+        targetParentPath && targetParentPath.length ? targetParentPath : []
+      let removedBeforeCount = 0
+      itemIds.forEach((id) => {
+        const path = idToPath.get(id)
+        if (!path || path.length === 0) return
+        const parentPath = path.slice(0, path.length - 1)
+        const indexInParent = path[path.length - 1]
+        const sameContainer =
+          parentPath.length === normalizedTargetPath.length &&
+          parentPath.every((v, i) => v === normalizedTargetPath[i])
+        if (sameContainer && indexInParent < targetIndex) removedBeforeCount++
+      })
+      const adjustedTargetIndex = Math.max(0, targetIndex - removedBeforeCount)
+
+      // Adjust target path (for INSIDE drops) when the target item index shifts
+      // due to removing dragged items from the same container (parent path)
+      let adjustedTargetPath = [...normalizedTargetPath]
+      if (adjustedTargetPath.length > 0) {
+        const parentOfTargetItemPath = adjustedTargetPath.slice(
+          0,
+          adjustedTargetPath.length - 1
+        )
+        const originalTargetItemIndex =
+          adjustedTargetPath[adjustedTargetPath.length - 1]
+        let removedBeforeAtLevel = 0
+        itemIds.forEach((id) => {
+          const p = idToPath.get(id)
+          if (!p || p.length === 0) return
+          const pParent = p.slice(0, p.length - 1)
+          const pIndex = p[p.length - 1]
+          const sameContainer =
+            pParent.length === parentOfTargetItemPath.length &&
+            pParent.every((v, i) => v === parentOfTargetItemPath[i])
+          if (sameContainer && pIndex < originalTargetItemIndex) {
+            removedBeforeAtLevel++
+          }
+        })
+        adjustedTargetPath[adjustedTargetPath.length - 1] = Math.max(
+          0,
+          originalTargetItemIndex - removedBeforeAtLevel
+        )
+      }
+
+      // Insert the items at the target location
+      insertItemsAtPath(
+        newItems,
+        adjustedTargetPath,
+        adjustedTargetIndex,
+        removedItems
+      )
+
+      // Update state
+      if (!isItemsControlled) {
+        setInternalItems(newItems)
+      }
+      onItemsChange?.({ items: newItems })
+    },
+    [currentItems, onItemsChange, isItemsControlled]
+  )
+
+  // Outside-click to clear selection in single/multi modes
+  useEffect(() => {
+    if (selectionMode === "none") return
+    const handlePointerDown = (e: Event) => {
+      const target = e.target as Node | null
+      if (!target) return
+      for (const root of rootElementsRef.current) {
+        if (root.contains(target)) return
+      }
+      if (currentSelectedItems.size > 0) {
+        const next = new Set<string>()
+        if (!isSelectionControlled) setInternalSelectedItems(next)
+        onSelectionChange?.({ selectedItems: Array.from(next) })
+      }
+    }
+    document.addEventListener("pointerdown", handlePointerDown)
+    return () => document.removeEventListener("pointerdown", handlePointerDown)
+  }, [
+    selectionMode,
+    currentSelectedItems,
+    isSelectionControlled,
+    onSelectionChange,
+  ])
+
+  const registerRootElement = useCallback((el: HTMLElement | null) => {
+    if (!el) return () => {}
+    rootElementsRef.current.add(el)
+    return () => {
+      rootElementsRef.current.delete(el)
+    }
+  }, [])
+
+  const registerItemMeta = useCallback(
+    (
+      id: string,
+      meta: {
+        selectable?: boolean
+        selectionScope?: "item" | "withDescendants"
+      }
+    ) => {
+      itemMetaRef.current.set(id, meta)
+      return () => {
+        itemMetaRef.current.delete(id)
+      }
+    },
+    []
+  )
+
+  const getPathForId = useCallback((id: string) => {
+    return idToPathRef.current.get(id) || null
+  }, [])
+
+  const registerItemPath = useCallback((id: string, path: number[]) => {
+    idToPathRef.current.set(id, path)
+    return () => {
+      idToPathRef.current.delete(id)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (isItemsControlled) {
+      setInternalItems(controlledItems)
+    }
+  }, [controlledItems, isItemsControlled])
+
+  // Rebuild id -> path map whenever the items tree changes
+  useEffect(() => {
+    const map = new Map<string, number[]>()
+    const walk = (nodes: ListItemData[], path: number[]) => {
+      nodes.forEach((n, idx) => {
+        const p = [...path, idx]
+        map.set(n.id, p)
+        if (n.children && n.children.length) walk(n.children, p)
+      })
+    }
+    walk(currentItems, [])
+    idToPathRef.current = map
+  }, [currentItems])
+
+  useEffect(() => {
+    if (isSelectionControlled) {
+      setInternalSelectedItems(new Set(controlledSelectedItems))
+    }
+  }, [controlledSelectedItems, isSelectionControlled])
+
+  const contextValue: ListContextValue = {
+    items: currentItems,
+    selectedItems: currentSelectedItems,
+    setSelection,
+    setExactSelection,
+    toggleSelect,
+    selectAll,
+    deselectAll,
+    reorderItems,
+    selectionMode,
+    registerRootElement,
+    registerItemMeta,
+    getPathForId,
+    registerItemPath,
+  }
+
+  return (
+    <RawListContext.Provider value={contextValue}>
+      {children}
+    </RawListContext.Provider>
+  )
+}
+
+export { ListContext, useListContext }

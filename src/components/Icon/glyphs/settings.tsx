@@ -46,3 +46,4 @@ export const settings = ({ variant, size }: GlyphProps) => {
       )
   }
 }
+

@@ -11,8 +11,9 @@ const ButtonIconComponent = (
   {
     className,
     context = "neutral",
-    disabled = false,
+    disabled,
     children,
+    onClick,
     ...rest
   }: ButtonIconProps,
   ref: preact.Ref<HTMLButtonElement>
@@ -22,12 +23,21 @@ const ButtonIconComponent = (
     disabled,
   })
 
+  const handleClick = (event: MouseEvent) => {
+    if (disabled) {
+      event.preventDefault()
+      return
+    }
+    onClick?.({ event })
+  }
+
   return (
     <button
       className={[_className, className].join(" ").trim()}
       ref={ref}
       {...rest}
       disabled={disabled}
+      onClick={handleClick}
     >
       {children && (
         <Text variant="body" size="medium" context="inherit">

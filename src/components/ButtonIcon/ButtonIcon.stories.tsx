@@ -3,11 +3,10 @@ import { fn } from "@storybook/test"
 import { useState } from "preact/hooks"
 
 import { ButtonIcon } from "./ButtonIcon"
-import type { ButtonIconProps } from "./ButtonIcon.types"
 
 import { Icon } from "../Icon/Icon"
 
-const meta: Meta<ButtonIconProps> = {
+const meta: Meta<typeof ButtonIcon> = {
   title: "Components/ButtonIcon",
   component: ButtonIcon,
   tags: ["autodocs"],
@@ -18,20 +17,34 @@ const meta: Meta<ButtonIconProps> = {
     context: {
       control: { type: "radio" },
       options: ["neutral", "neutral-ghost"],
+      defaultValue: { summary: "neutral" },
     },
     disabled: {
       control: { type: "boolean" },
     },
     children: {
-      control: { type: "text" },
+      table: {
+        type: {
+          summary: "string | number | JSX.Element",
+        },
+      },
+      control: { disable: true },
+      description: "Usually the Icon component",
     },
     onClick: {
       action: "clicked",
+      description:
+        "Callback function that is called when the button is clicked",
+      table: {
+        type: {
+          summary: "(args: {event: MouseEvent}) => void",
+        },
+      },
     },
   },
 }
 export default meta
-type Story = StoryObj<ButtonIconProps>
+type Story = StoryObj<typeof ButtonIcon>
 
 export const Demo: Story = {
   tags: ["!autodocs"],
@@ -42,6 +55,7 @@ export const Demo: Story = {
     children: <Icon glyph="help" />,
     onClick: fn(),
   },
+  render: (args) => <ButtonIcon {...args} />,
 }
 
 export const Context: Story = {
@@ -85,7 +99,7 @@ export const CustomIcon: Story = {
     docs: {
       description: {
         story:
-          "The icon’s colours are overridden automatically when using the &lt;Icon/&gt; component and SVGs must use the 'currentColor' value for all colour properties",
+          "The icon’s colours are overridden automatically when using the &lt;Icon&gt; component and SVGs must use the 'currentColor' value for all colour properties",
       },
     },
   },

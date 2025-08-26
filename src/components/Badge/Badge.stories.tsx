@@ -1,11 +1,10 @@
 import { Meta, StoryObj } from "@storybook/preact"
 
 import { Badge } from "./Badge"
-import type { BadgeProps } from "./Badge.types"
 
 import { Icon } from "../Icon/Icon"
 
-const meta: Meta<BadgeProps> = {
+const meta: Meta<typeof Badge> = {
   title: "Components/Badge",
   component: Badge,
   tags: ["autodocs"],
@@ -28,21 +27,39 @@ const meta: Meta<BadgeProps> = {
         "warning",
         "success",
       ],
+      defaultValue: { summary: "neutral" },
     },
     prefix: {
-      control: { type: "text" },
+      table: {
+        type: {
+          summary: "string | number | JSX.Element",
+        },
+      },
+      control: { disable: true },
+      description: "Element inserted before children.",
     },
     suffix: {
-      control: { type: "text" },
+      table: {
+        type: {
+          summary: "string | number | JSX.Element",
+        },
+      },
+      control: { disable: true },
+      description: "Element inserted after children.",
     },
     children: {
+      table: {
+        type: {
+          summary: "string | number | JSX.Element",
+        },
+      },
       control: { type: "text" },
     },
   },
 }
 
 export default meta
-type Story = StoryObj<BadgeProps>
+type Story = StoryObj<typeof Badge>
 
 export const Demo: Story = {
   tags: ["!autodocs"],
@@ -51,6 +68,7 @@ export const Demo: Story = {
     context: "neutral",
     children: "Badge",
   },
+  render: (args) => <Badge {...args} />,
 }
 
 export const Variant: Story = {

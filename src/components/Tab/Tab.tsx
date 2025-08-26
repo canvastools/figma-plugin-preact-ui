@@ -31,9 +31,9 @@ const TabComponent = (
     suffix: Boolean(suffix),
   })
 
-  const handleClick = () => {
+  const handleClick = (event: MouseEvent) => {
     onChange(value)
-    onClick?.(value)
+    onClick?.({ event, value })
   }
 
   return (

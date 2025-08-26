@@ -1,9 +1,8 @@
 import { Meta, StoryObj } from "@storybook/preact"
 
 import { Text } from "./Text"
-import type { TextProps } from "./Text.types"
 
-const meta: Meta<TextProps> = {
+const meta: Meta<typeof Text> = {
   title: "Components/Text",
   component: Text,
   tags: ["autodocs"],
@@ -27,14 +26,19 @@ const meta: Meta<TextProps> = {
         "warning",
         "success",
       ],
+      defaultValue: { summary: "inherit" },
+      description:
+        "The `inherit` value makes the text use the colours defined by its parent styles.",
     },
     variant: {
       control: { type: "radio" },
       options: ["heading", "body"],
+      defaultValue: { summary: "body" },
     },
     size: {
       control: { type: "radio" },
       options: ["small", "medium", "large"],
+      defaultValue: { summary: "medium" },
     },
     strong: {
       description: "This property visually affects only the body context.",
@@ -43,14 +47,21 @@ const meta: Meta<TextProps> = {
     align: {
       control: { type: "radio" },
       options: ["left", "center", "right"],
+      defaultValue: { summary: "left" },
     },
     children: {
+      table: {
+        type: {
+          summary: "string | number | JSX.Element",
+        },
+      },
       control: { type: "text" },
+      description: "Usually a text content.",
     },
   },
 }
 export default meta
-type Story = StoryObj<TextProps>
+type Story = StoryObj<typeof Text>
 
 export const Demo: Story = {
   tags: ["!autodocs"],

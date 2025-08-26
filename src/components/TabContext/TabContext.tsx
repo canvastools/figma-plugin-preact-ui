@@ -27,7 +27,7 @@ const TabContext = ({
     if (controlledValue === undefined) {
       setInternalValue(newValue)
     }
-    onChange?.(newValue)
+    onChange?.({ value: newValue })
   }
 
   useEffect(() => {

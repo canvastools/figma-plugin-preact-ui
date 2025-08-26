@@ -12,11 +12,12 @@ const ButtonComponent = (
     className,
     context = "neutral",
     size = "medium",
-    fullWidth = false,
-    disabled = false,
+    fullWidth,
+    disabled,
     prefix,
     suffix,
     children,
+    onClick,
     ...rest
   }: ButtonProps,
   ref: preact.Ref<HTMLButtonElement>
@@ -30,12 +31,21 @@ const ButtonComponent = (
     suffix: Boolean(suffix),
   })
 
+  const handleClick = (event: MouseEvent) => {
+    if (disabled) {
+      event.preventDefault()
+      return
+    }
+    onClick?.({ event })
+  }
+
   return (
     <button
       className={[_className, className].join(" ").trim()}
       ref={ref}
       {...rest}
       disabled={disabled}
+      onClick={handleClick}
     >
       <Text variant="body" size="medium" context="inherit">
         <div className="Button__content">

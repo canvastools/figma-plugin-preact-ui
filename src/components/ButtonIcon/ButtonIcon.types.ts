@@ -3,5 +3,5 @@ export interface ButtonIconProps {
   context?: "neutral" | "neutral-ghost"
   disabled?: boolean
   children?: preact.ComponentChildren
-  onClick?: () => void
+  onClick?: (args: { event: MouseEvent }) => void
 }

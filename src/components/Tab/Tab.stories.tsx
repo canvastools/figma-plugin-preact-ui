@@ -3,11 +3,11 @@ import { fn } from "@storybook/test"
 import { useState } from "preact/hooks"
 
 import { Tab } from "./Tab"
-import type { TabProps } from "./Tab.types"
 import { TabContext } from "../TabContext/TabContext"
 import { TabList } from "../TabList/TabList"
 import { TabPanel } from "../TabPanel/TabPanel"
 import { Badge } from "../Badge/Badge"
+import { Icon } from "../Icon/Icon"
 
 const meta: Meta<typeof Tab> = {
   title: "Components/Tab",
@@ -17,7 +17,7 @@ const meta: Meta<typeof Tab> = {
     docs: {
       description: {
         component:
-          "Always used within &lt;TabContext/&gt;, optionally in combination with &lt;TabList&gt; and &lt;TabPanel&gt;",
+          "Always used within &lt;TabContext&gt;, optionally in combination with &lt;TabList&gt; and &lt;TabPanel&gt;",
       },
     },
   },
@@ -26,29 +26,61 @@ const meta: Meta<typeof Tab> = {
       control: { type: "text" },
     },
     value: {
-      control: { type: "text" },
+      control: { disable: true },
+      table: {
+        type: {
+          summary: "string",
+        },
+      },
+      description: "Value of the tab panel for any mode.",
     },
     variant: {
       control: { type: "radio" },
       options: ["default", "single"],
+      defaultValue: "default",
     },
     prefix: {
-      control: { type: "text" },
+      table: {
+        type: {
+          summary: "string | number | JSX.Element",
+        },
+      },
+      description: "Element inserted before children.",
+      control: { disable: true },
     },
     suffix: {
-      control: { type: "text" },
+      table: {
+        type: {
+          summary: "string | number | JSX.Element",
+        },
+      },
+      description: "Element inserted after children.",
+      control: { disable: true },
     },
     children: {
-      control: { type: "text" },
+      table: {
+        type: {
+          summary: "string | number | JSX.Element",
+        },
+      },
+      control: { disable: true },
+      description: "Usually a text content.",
     },
     onClick: {
       action: "clicked",
+      description:
+        "Callback function that is called when the tab is clicked. Returns its value.",
+      table: {
+        type: {
+          summary: "(args: {event: MouseEvent; value: string}) => void",
+        },
+      },
     },
   },
 }
 
 export default meta
-type Story = StoryObj<TabProps>
+type Story = StoryObj<typeof Tab>
 
 export const Demo: Story = {
   tags: ["!autodocs"],
@@ -58,7 +90,7 @@ export const Demo: Story = {
     variant: "default",
     onClick: fn(),
   },
-  render: (args) => {
+  render: (args: any) => {
     if (args.variant === "default") {
       return (
         <TabContext defaultValue="tab-1">
@@ -69,10 +101,14 @@ export const Demo: Story = {
             <Tab {...args} value="tab-2">
               Tab 2
             </Tab>
+            <Tab {...args} value="tab-3">
+              Tab 3
+            </Tab>
           </TabList>
           <br />
           <TabPanel value="tab-1">Tab 1 Content</TabPanel>
           <TabPanel value="tab-2">Tab 2 Content</TabPanel>
+          <TabPanel value="tab-3">Tab 3 Content</TabPanel>
         </TabContext>
       )
     } else {
@@ -86,47 +122,6 @@ export const Demo: Story = {
         </TabContext>
       )
     }
-  },
-}
-
-export const Uncontrolled: Story = {
-  render: () => {
-    return (
-      <TabContext defaultValue="tab-1">
-        <TabList>
-          <Tab value="tab-1">First Tab</Tab>
-          <Tab value="tab-2">Second Tab</Tab>
-        </TabList>
-        <br />
-        <TabPanel value="tab-1">Tab 1 Content</TabPanel>
-        <TabPanel value="tab-2">Tab 2 Content</TabPanel>
-      </TabContext>
-    )
-  },
-}
-
-export const Controlled: Story = {
-  render: () => {
-    const [activeTab, setActiveTab] = useState("tab-2")
-
-    return (
-      <TabContext
-        value={activeTab}
-        onChange={(value) => {
-          setActiveTab(value)
-        }}
-      >
-        <TabList>
-          <Tab value="tab-1">First Tab</Tab>
-          <Tab value="tab-2">Second Tab</Tab>
-          <Tab value="tab-3">Third Tab</Tab>
-        </TabList>
-        <br />
-        <TabPanel value="tab-1">Tab 1 Content</TabPanel>
-        <TabPanel value="tab-2">Tab 2 Content</TabPanel>
-        <TabPanel value="tab-3">Tab 3 Content</TabPanel>
-      </TabContext>
-    )
   },
 }
 
@@ -164,6 +159,55 @@ export const Variant: Story = {
   ),
 }
 
+export const Prefix: Story = {
+  tags: ["!dev"],
+  parameters: {
+    controls: { disable: true },
+  },
+  render: (args) => {
+    const [activeTab, setActiveTab] = useState("tab-1")
+
+    return (
+      <div className="sb-column sb-gap-16">
+        <TabContext
+          defaultValue="tab-1"
+          onChange={(value) => {
+            setActiveTab(value)
+          }}
+        >
+          <TabList>
+            <Tab
+              variant="default"
+              value="tab-1"
+              prefix={<Icon glyph="settings" variant="scaled" />}
+            >
+              First Tab
+            </Tab>
+            <Tab
+              variant="default"
+              value="tab-2"
+              prefix={<Icon glyph="search" variant="scaled" />}
+            >
+              Second Tab
+            </Tab>
+          </TabList>
+        </TabContext>
+        <TabContext defaultValue="tab-1">
+          <TabList>
+            <Tab
+              variant="single"
+              value="tab-1"
+              prefix={<Icon glyph="settings" variant="scaled" />}
+            >
+              Single
+            </Tab>
+          </TabList>
+        </TabContext>
+      </div>
+    )
+  },
+}
+
 export const Suffix: Story = {
   tags: ["!dev"],
   parameters: {
@@ -185,11 +229,13 @@ export const Suffix: Story = {
               variant="default"
               value="tab-1"
               suffix={
-                <Badge
-                  context={activeTab === "tab-1" ? "neutral-brand" : "brand"}
-                >
-                  1
-                </Badge>
+                <div style={{ paddingLeft: "var(--pui-space-100)" }}>
+                  <Badge
+                    context={activeTab === "tab-1" ? "neutral-brand" : "brand"}
+                  >
+                    1
+                  </Badge>
+                </div>
               }
             >
               First Tab
@@ -198,11 +244,13 @@ export const Suffix: Story = {
               variant="default"
               value="tab-2"
               suffix={
-                <Badge
-                  context={activeTab === "tab-2" ? "neutral-brand" : "brand"}
-                >
-                  2
-                </Badge>
+                <div style={{ paddingLeft: "var(--pui-space-100)" }}>
+                  <Badge
+                    context={activeTab === "tab-2" ? "neutral-brand" : "brand"}
+                  >
+                    2
+                  </Badge>
+                </div>
               }
             >
               Second Tab
@@ -214,7 +262,11 @@ export const Suffix: Story = {
             <Tab
               variant="single"
               value="tab-1"
-              suffix={<Badge context="neutral-brand">1</Badge>}
+              suffix={
+                <div style={{ paddingLeft: "var(--pui-space-100)" }}>
+                  <Badge context="neutral-brand">1</Badge>
+                </div>
+              }
             >
               Single
             </Tab>

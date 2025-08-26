@@ -12,9 +12,9 @@ import { Icon } from "../Icon/Icon"
 const CheckboxComponent = (
   {
     className,
-    checked = false,
-    mixed = false,
-    disabled = false,
+    checked,
+    mixed,
+    disabled,
     label,
     onChange,
     ...rest
@@ -30,6 +30,24 @@ const CheckboxComponent = (
     label: Boolean(label),
   })
 
+  const handleClick = (event: MouseEvent) => {
+    if (disabled) {
+      event.preventDefault()
+      return
+    }
+    onChange?.({ event, checked: !isChecked })
+  }
+
+  const handleChange = (
+    event: preact.JSX.TargetedEvent<HTMLInputElement, Event>
+  ) => {
+    if (disabled) {
+      event.preventDefault?.()
+      return
+    }
+    onChange?.({ event: event as unknown as MouseEvent, checked: !isChecked })
+  }
+
   return (
     <div className={[_className, className].join(" ").trim()} {...rest}>
       <div className="Checkbox__input">
@@ -39,23 +57,14 @@ const CheckboxComponent = (
           ref={ref}
           checked={isChecked}
           disabled={disabled}
-          onChange={() => {
-            setIsChecked(!isChecked)
-            onChange?.(!isChecked)
-          }}
+          onChange={handleChange}
         />
         {isChecked && !mixed && <Icon glyph="check" size={16} />}
         {isChecked && mixed && <Icon glyph="mixed" size={16} />}
       </div>
       {label && (
         <Text variant="body" size="medium" context="inherit">
-          <div
-            className="Checkbox__label"
-            onClick={() => {
-              setIsChecked(!isChecked)
-              onChange?.(!isChecked)
-            }}
-          >
+          <div className="Checkbox__label" onClick={handleClick}>
             {label}
           </div>
         </Text>

@@ -12,11 +12,10 @@ const ButtonIconToggleComponent = (
   {
     className,
     context = "neutral",
-    defaultSelected = false,
+    defaultSelected,
     selected: controlledSelected,
-    disabled = false,
+    disabled,
     children,
-    onClick,
     onChange,
     ...rest
   }: ButtonIconToggleProps,
@@ -27,7 +26,7 @@ const ButtonIconToggleComponent = (
   const isSelected =
     controlledSelected !== undefined ? controlledSelected : internalSelected
 
-  const handleClick = () => {
+  const handleClick = (e: { event: MouseEvent }) => {
     if (!disabled) {
       const newSelected = !isSelected
 
@@ -35,8 +34,7 @@ const ButtonIconToggleComponent = (
         setInternalSelected(newSelected)
       }
 
-      onClick?.()
-      onChange?.(newSelected)
+      onChange?.({ event: e.event, selected: newSelected })
     }
   }
 

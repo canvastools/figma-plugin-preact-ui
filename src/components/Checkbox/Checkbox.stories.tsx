@@ -3,11 +3,10 @@ import { fn } from "@storybook/test"
 import { useState } from "preact/hooks"
 
 import { Checkbox } from "./Checkbox"
-import type { CheckboxProps } from "./Checkbox.types"
 
 import { Icon } from "../Icon/Icon"
 
-const meta: Meta<CheckboxProps> = {
+const meta: Meta<typeof Checkbox> = {
   title: "Components/Checkbox",
   component: Checkbox,
   tags: ["autodocs"],
@@ -29,11 +28,18 @@ const meta: Meta<CheckboxProps> = {
     },
     onChange: {
       action: "clicked",
+      description:
+        "Callback function that is called when the checkbox is clicked.",
+      table: {
+        type: {
+          summary: "(args: {event: MouseEvent; checked: boolean}) => void",
+        },
+      },
     },
   },
 }
 export default meta
-type Story = StoryObj<CheckboxProps>
+type Story = StoryObj<typeof Checkbox>
 
 export const Demo: Story = {
   tags: ["!autodocs"],
@@ -45,6 +51,7 @@ export const Demo: Story = {
     label: "Checkbox",
     onChange: fn(),
   },
+  render: (args) => <Checkbox {...args} />,
 }
 
 export const Checked: Story = {

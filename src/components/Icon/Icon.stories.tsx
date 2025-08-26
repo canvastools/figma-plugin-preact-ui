@@ -1,13 +1,11 @@
 import { Meta, StoryObj } from "@storybook/preact"
-import { fn } from "@storybook/test"
 
 import { Icon } from "./Icon"
-import type { IconProps } from "./Icon.types"
 import { glyphs } from "./glyphs"
 
 import { Text } from "../Text/Text"
 
-const meta: Meta<IconProps> = {
+const meta: Meta<typeof Icon> = {
   title: "Components/Icon",
   component: Icon,
   tags: ["autodocs"],
@@ -35,20 +33,28 @@ const meta: Meta<IconProps> = {
         "warning",
         "success",
       ],
+      defaultValue: { summary: "inherit" },
+      description:
+        "The `inherit` value makes the icon use the colours defined by its parent styles.",
     },
     variant: {
       control: { type: "select" },
       options: ["default", "scaled"],
+      defaultValue: { summary: "default" },
+      description:
+        "Some icons may have glyph variations (e.g. size) while preserving the container dimensions.",
     },
     size: {
       control: { type: "radio" },
       options: [16, 24],
+      defaultValue: { summary: "24" },
+      description: "The size of the icon container.",
     },
   },
 }
 
 export default meta
-type Story = StoryObj<IconProps>
+type Story = StoryObj<typeof Icon>
 
 export const Demo: Story = {
   tags: ["!autodocs"],
@@ -59,6 +65,7 @@ export const Demo: Story = {
     variant: "default",
     size: 24,
   },
+  render: (args) => <Icon {...args} />,
 }
 
 const glyphCombinations = (glyph: string) => {
@@ -200,12 +207,6 @@ export const Variant: Story = {
   tags: ["!dev"],
   parameters: {
     controls: { disable: true },
-    docs: {
-      description: {
-        story:
-          "Some glyphs have scaled variants for cases where more spacing is required around them while keeping the container size unchanged.",
-      },
-    },
   },
   render: () => (
     <div className="sb-row sb-gap-16">

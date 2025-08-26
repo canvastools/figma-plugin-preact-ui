@@ -1,9 +1,8 @@
 import { Meta, StoryObj } from "@storybook/preact"
 
 import { Avatar } from "./Avatar"
-import type { AvatarProps } from "./Avatar.types"
 
-const meta: Meta<AvatarProps> = {
+const meta: Meta<typeof Avatar> = {
   title: "Components/Avatar",
   component: Avatar,
   tags: ["autodocs"],
@@ -14,28 +13,58 @@ const meta: Meta<AvatarProps> = {
     size: {
       control: { type: "select" },
       options: ["small", "medium", "large"],
+      defaultValue: { summary: "medium" },
     },
     shape: {
       control: { type: "select" },
       options: ["circle", "square"],
+      defaultValue: { summary: "circle" },
     },
     imageSrc: {
       control: { type: "text" },
+      description: "Image source URL.",
     },
     fillBg: {
+      table: {
+        type: {
+          summary: "HEX | RGB | RGBA | var()",
+        },
+        defaultValue: {
+          summary: "var(--pui-color-neutral-inverted-bg-default)",
+        },
+      },
       control: { type: "color" },
+      description:
+        "Background color for the avatar container when no image is provided.",
     },
     fillText: {
+      table: {
+        type: {
+          summary: "HEX | RGB | RGBA | var()",
+        },
+        defaultValue: {
+          summary: "var(--pui-color-neutral-inverted-text-default)",
+        },
+      },
       control: { type: "color" },
+      description:
+        "Text color for the children text content when no image is provided.",
     },
     children: {
+      table: {
+        type: {
+          summary: "string | number | JSX.Element",
+        },
+      },
       control: { type: "text" },
+      description:
+        "Content when no image is provided, usually a couple of letters.",
     },
   },
 }
 
 export default meta
-type Story = StoryObj<AvatarProps>
+type Story = StoryObj<typeof Avatar>
 
 export const Demo: Story = {
   tags: ["!autodocs"],
@@ -46,6 +75,7 @@ export const Demo: Story = {
     imageSrc: "",
     children: "A",
   },
+  render: (args) => <Avatar {...args} />,
 }
 
 export const Size: Story = {

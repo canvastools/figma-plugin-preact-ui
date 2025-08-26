@@ -2,11 +2,10 @@ import { Meta, StoryObj } from "@storybook/preact"
 import { fn } from "@storybook/test"
 
 import { Button } from "./Button"
-import type { ButtonProps } from "./Button.types"
 
 import { Icon } from "../Icon/Icon"
 
-const meta: Meta<ButtonProps> = {
+const meta: Meta<typeof Button> = {
   title: "Components/Button",
   component: Button,
   tags: ["autodocs"],
@@ -28,10 +27,12 @@ const meta: Meta<ButtonProps> = {
         "danger",
         "success",
       ],
+      defaultValue: { summary: "neutral" },
     },
     size: {
       control: { type: "radio" },
       options: ["medium", "large"],
+      defaultValue: { summary: "medium" },
     },
     disabled: {
       control: { type: "boolean" },
@@ -40,21 +41,46 @@ const meta: Meta<ButtonProps> = {
       control: { type: "boolean" },
     },
     prefix: {
-      control: { type: "text" },
+      table: {
+        type: {
+          summary: "string | number | JSX.Element",
+        },
+      },
+      description: "Element inserted before children.",
+      control: { disable: true },
     },
     suffix: {
-      control: { type: "text" },
+      table: {
+        type: {
+          summary: "string | number | JSX.Element",
+        },
+      },
+      description: "Element inserted after children.",
+      control: { disable: true },
     },
     children: {
+      table: {
+        type: {
+          summary: "string | number | JSX.Element",
+        },
+      },
       control: { type: "text" },
+      description: "Usually a text content.",
     },
     onClick: {
       action: "clicked",
+      description:
+        "Callback function that is called when the button is clicked.",
+      table: {
+        type: {
+          summary: "(args: {event: MouseEvent}) => void",
+        },
+      },
     },
   },
 }
 export default meta
-type Story = StoryObj<ButtonProps>
+type Story = StoryObj<typeof Button>
 
 export const Demo: Story = {
   tags: ["!autodocs"],
@@ -67,6 +93,7 @@ export const Demo: Story = {
     children: "Button",
     onClick: fn(),
   },
+  render: (args) => <Button {...args} />,
 }
 
 export const Context: Story = {
@@ -101,6 +128,9 @@ export const Size: Story = {
         <Button context="neutral" size="medium">
           Neutral Medium
         </Button>
+        <Button context="neutral-ghost" size="medium">
+          Neutral Ghost Medium
+        </Button>
         <Button context="neutral-brand" size="medium">
           Neutral Brand Medium
         </Button>
@@ -129,6 +159,9 @@ export const Size: Story = {
       <div className="sb-column sb-gap-16">
         <Button context="neutral" size="large">
           Neutral Large
+        </Button>
+        <Button context="neutral-ghost" size="large">
+          Neutral Ghost Large
         </Button>
         <Button context="neutral-brand" size="large">
           Neutral Brand Large
@@ -170,6 +203,9 @@ export const Disabled: Story = {
         <Button context="neutral" size="medium" disabled>
           Neutral Medium
         </Button>
+        <Button context="neutral-ghost" size="medium" disabled>
+          Neutral Ghost Medium
+        </Button>
         <Button context="neutral-brand" size="medium" disabled>
           Neutral Brand Medium
         </Button>
@@ -198,6 +234,9 @@ export const Disabled: Story = {
       <div className="sb-column sb-gap-16">
         <Button context="neutral" size="large" disabled>
           Neutral Large
+        </Button>
+        <Button context="neutral-ghost" size="large" disabled>
+          Neutral Ghost Large
         </Button>
         <Button context="neutral-brand" size="large" disabled>
           Neutral Brand Large
@@ -239,6 +278,9 @@ export const FullWidth: Story = {
         <Button context="neutral" size="medium" fullWidth>
           Neutral Medium
         </Button>
+        <Button context="neutral-ghost" size="medium" fullWidth>
+          Neutral Ghost Medium
+        </Button>
         <Button context="neutral-brand" size="medium" fullWidth>
           Neutral Brand Medium
         </Button>
@@ -267,6 +309,9 @@ export const FullWidth: Story = {
       <div className="sb-column sb-gap-16">
         <Button context="neutral" size="large" fullWidth>
           Neutral Large
+        </Button>
+        <Button context="neutral-ghost" size="large" fullWidth>
+          Neutral Ghost Large
         </Button>
         <Button context="neutral-brand" size="large" fullWidth>
           Neutral Brand Large
@@ -315,6 +360,13 @@ export const Prefix: Story = {
           prefix={<Icon glyph="help" variant="scaled" />}
         >
           Neutral Medium
+        </Button>
+        <Button
+          context="neutral-ghost"
+          size="medium"
+          prefix={<Icon glyph="help" variant="scaled" />}
+        >
+          Neutral Ghost Medium
         </Button>
         <Button
           context="neutral-brand"
@@ -380,6 +432,13 @@ export const Prefix: Story = {
           prefix={<Icon glyph="help" variant="scaled" />}
         >
           Neutral Large
+        </Button>
+        <Button
+          context="neutral-ghost"
+          size="large"
+          prefix={<Icon glyph="help" variant="scaled" />}
+        >
+          Neutral Ghost Large
         </Button>
         <Button
           context="neutral-brand"
@@ -461,6 +520,13 @@ export const Suffix: Story = {
           Neutral Medium
         </Button>
         <Button
+          context="neutral-ghost"
+          size="medium"
+          suffix={<Icon glyph="help" variant="scaled" />}
+        >
+          Neutral Ghost Medium
+        </Button>
+        <Button
           context="neutral-brand"
           size="medium"
           suffix={<Icon glyph="help" variant="scaled" />}
@@ -524,6 +590,13 @@ export const Suffix: Story = {
           suffix={<Icon glyph="help" variant="scaled" />}
         >
           Neutral Large
+        </Button>
+        <Button
+          context="neutral-ghost"
+          size="large"
+          suffix={<Icon glyph="help" variant="scaled" />}
+        >
+          Neutral Ghost Large
         </Button>
         <Button
           context="neutral-brand"
@@ -593,7 +666,7 @@ export const CustomIcon: Story = {
     docs: {
       description: {
         story:
-          "The icon’s colours are overridden automatically when using the &lt;Icon/&gt; component and SVGs must use the 'currentColor' value for all colour properties",
+          "The icon’s colours are overridden automatically when using the &lt;Icon&gt; component and SVGs must use the 'currentColor' value for all colour properties",
       },
     },
   },

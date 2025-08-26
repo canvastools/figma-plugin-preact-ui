@@ -1,0 +1,223 @@
+@use "../../variables.scss" as *;
+
+.ListItem {
+  $parent: &;
+
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  &__content {
+    position: relative;
+    flex: 1 1 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: stretch;
+    padding: var(--pui-space-100) var(--pui-space-400);
+    outline-width: 1px;
+    outline-color: transparent;
+    outline-style: solid;
+    outline-offset: -1px;
+  }
+
+  &__sub-items {
+    flex: 1 1 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__children {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: flex-start;
+    align-items: center;
+    min-height: 24px;
+    padding-left: calc(var(--pui-space-400) * var(--level));
+  }
+
+  &__drag-handle {
+    position: absolute;
+    left: calc(var(--pui-space-400) * var(--level));
+    top: 0;
+    height: 100%;
+    width: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+
+    cursor: grab;
+    user-select: none;
+
+    & .Icon {
+      color: var(--pui-color-neutral-icon-secondary);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    &:active {
+      cursor: grabbing;
+    }
+
+    &:hover .Icon {
+      opacity: 1;
+    }
+  }
+
+  &__collapse-toggle {
+    position: absolute;
+    left: calc(var(--pui-space-400) * var(--level));
+    top: 0;
+    height: 100%;
+    width: 16px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+
+    & .Icon {
+      color: var(--pui-color-neutral-icon-secondary);
+      pointer-events: none;
+    }
+  }
+
+  /* Variant */
+
+  &_variant {
+    &-default #{$parent}__content {
+      border-radius: 0;
+    }
+
+    &-layer #{$parent}__content {
+      border-radius: var(--pui-radius-medium);
+    }
+  }
+
+  /* Selected */
+
+  &_selected:is(&_selectable) > &__content {
+    background-color: var(--pui-color-neutral-bg-interactive-selected);
+  }
+
+  /* Selection of descendants */
+
+  &_selected:is(&_selectable):is(&_selection-scope-descendants)
+    > &__sub-items
+    &__content {
+    background-color: unset;
+  }
+
+  &_selected:is(&_selectable):is(&_selection-scope-descendants) > &__sub-items {
+    background-color: var(
+      --pui-color-neutral-bg-interactive-selected-secondary
+    );
+  }
+
+  /* Hoverable */
+
+  &_hoverable:not(&_selected) > &__content:hover {
+    background-color: var(--pui-color-neutral-bg-interactive-hover);
+  }
+
+  /* Hover of descendants */
+
+  &_hoverable:is(&_selected):is(&_selection-scope-descendants)
+    > &__sub-items
+    &__content:hover {
+    background-color: var(--pui-color-neutral-bg-interactive-selected-hover);
+  }
+
+  /* Draggable */
+
+  &_drag-over {
+    position: relative;
+  }
+
+  &_drag-over > &__content > &__children::before {
+    content: "";
+    display: none;
+    position: absolute;
+    left: calc(
+      (var(--level) + 1) * var(--pui-space-400) - var(--pui-space-400)
+    );
+    right: 0;
+    height: 2px;
+    background-color: var(--pui-color-neutral-border-interactive-drop-position);
+    width: calc(
+      100% + var(--pui-space-400) - var(--level) * var(--pui-space-400)
+    );
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  &_drag-above > &__content > &__children::before {
+    display: block;
+    top: calc(var(--pui-space-100) * -1 - 1px);
+  }
+
+  &_drag-below > &__content > &__children::before,
+  &_drag-inside > &__content > &__children::before {
+    display: block;
+    bottom: calc(var(--pui-space-100) * -1 - 1px);
+  }
+
+  &_drag-inside > &__content > &__children::before {
+    left: calc(
+      (var(--level) + 2) * var(--pui-space-400) - var(--pui-space-400)
+    );
+    width: calc(
+      100% + var(--pui-space-400) - (var(--level) + 1) * var(--pui-space-400)
+    );
+  }
+
+  &_drop-parent > &__content,
+  &_drag-inside > &__content {
+    outline-color: var(--pui-color-neutral-border-interactive-selected);
+  }
+
+  /* Drop parent inside its own tree */
+
+  &_dragging &__content > &__children::before {
+    background-color: var(
+      --pui-color-neutral-border-interactive-drop-position-restricted
+    );
+  }
+
+  &_dragging &_drag-inside > &__content,
+  &_dragging &_drop-parent > &__content,
+  &_dragging:is(&_drag-inside) > &__content,
+  &_dragging:is(&_drop-parent) > &__content {
+    outline-color: var(--pui-color-neutral-border-interactive-selected-error);
+  }
+
+  /* Collapsed */
+
+  &_collapsed > &__sub-items {
+    display: none;
+  }
+
+  &_collapsable:is(&_has-children) > &__content > &__collapse-toggle {
+    display: flex;
+  }
+
+  &_collapsable:is(&_has-children):is(&_collapsed)
+    > &__content
+    > &__collapse-toggle {
+    display: flex;
+  }
+
+  /* Collapsable + draggable */
+
+  &_collapsable:is(&_draggable):is(&_dragHandle-default) &__content {
+    padding-left: calc(var(--pui-space-400) * 2);
+  }
+
+  &_collapsable:is(&_draggable):is(&_dragHandle-default)
+    &__content
+    > &__collapse-toggle {
+    left: calc(var(--pui-space-400) * var(--level) + var(--pui-space-400));
+  }
+}
