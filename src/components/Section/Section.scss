@@ -3,7 +3,7 @@
 .Section {
   $parent: &;
 
-  flex: 1 1 100%;
+  width: 100%;
   display: flex;
   padding: var(--pui-space-200) var(--pui-space-400);
 
