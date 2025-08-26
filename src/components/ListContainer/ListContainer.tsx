@@ -11,14 +11,14 @@ const ListContainerComponent = (
   {
     className,
     children,
-    nestingLevel = 0,
-    parentPath = [],
     ...rest
-  }: ListContainerProps & { nestingLevel?: number; parentPath?: number[] },
+  }: ListContainerProps & { nestingLevel?: number },
   ref: preact.Ref<HTMLDivElement>
 ) => {
-  const { reorderItems, registerRootElement, items } = useListContext()
+  const { reorderItems, registerRootElement, items, getPathForId } =
+    useListContext()
   const rootRef = useRef<HTMLDivElement | null>(null)
+  const idToPathLocal = useRef<Map<string, number[]>>(new Map())
 
   useEffect(() => registerRootElement?.(rootRef.current), [registerRootElement])
 
@@ -86,16 +86,23 @@ const ListContainerComponent = (
       const resetDragStatesEvent = new CustomEvent("resetDragStates")
       document.dispatchEvent(resetDragStatesEvent)
 
-      // If inside, we want to insert into the children of the target item (the one currently marked)
-      let targetPath = parentPath
-      if (dragPosition === "inside") {
-        const i = insideTargetIndex ?? -1
-        if (i >= 0) {
-          const child = childElements[i]
-          const targetId = child.getAttribute("data-item-id")
-          if (targetId && itemIds.includes(targetId)) return
-          targetPath = [...parentPath, i]
-          targetIndex = 0
+      // Compute target path from hovered child id via context id->path map
+      let targetPath: number[] = []
+      for (let i = 0; i < childElements.length; i++) {
+        const child = childElements[i]
+        if (child.classList.contains("ListItem_drag-over")) {
+          const childId = child.getAttribute("data-item-id") || ""
+          const childPath = childId ? getPathForId?.(childId) || [] : []
+          if (dragPosition === "inside") {
+            targetPath = childPath
+            targetIndex = 0
+          } else if (childPath.length) {
+            const parentPath = childPath.slice(0, -1)
+            const selfIndex = childPath[childPath.length - 1]
+            targetPath = parentPath
+            targetIndex = dragPosition === "above" ? selfIndex : selfIndex + 1
+          }
+          break
         }
       }
 
@@ -185,18 +192,14 @@ const ListContainerComponent = (
       {...rest}
       onDragOver={handleDragOver}
       onDrop={handleDrop}
-      data-nesting-level={nestingLevel}
-      data-parent-path={parentPath.join(",")}
     >
       {children}
-      {parentPath.length === 0 && (
-        <div
-          className="ListContainer__end-dropzone"
-          onDragOver={handleEndZoneDragOver}
-          onDrop={handleEndZoneDrop}
-          onDragLeave={handleEndZoneDragLeave}
-        />
-      )}
+      <div
+        className="ListContainer__end-dropzone"
+        onDragOver={handleEndZoneDragOver}
+        onDrop={handleEndZoneDrop}
+        onDragLeave={handleEndZoneDragLeave}
+      />
     </div>
   )
 }

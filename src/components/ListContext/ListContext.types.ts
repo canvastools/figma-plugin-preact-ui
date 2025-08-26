@@ -17,6 +17,8 @@ export interface ListContextValue {
     id: string,
     meta: { selectable?: boolean; selectionScope?: "item" | "withDescendants" }
   ) => () => void
+  getPathForId?: (id: string) => number[] | null
+  registerItemPath?: (id: string, path: number[]) => () => void
   selectAll: () => void
   deselectAll: () => void
   reorderItems: (

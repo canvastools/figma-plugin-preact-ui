@@ -41,6 +41,7 @@ const ListContext = ({
       { selectable?: boolean; selectionScope?: "item" | "withDescendants" }
     >
   >(new Map())
+  const idToPathRef = useRef<Map<string, number[]>>(new Map())
 
   // Determine if we're in controlled mode for each aspect
   const isItemsControlled = onItemsChange !== undefined
@@ -480,11 +481,36 @@ const ListContext = ({
     []
   )
 
+  const getPathForId = useCallback((id: string) => {
+    return idToPathRef.current.get(id) || null
+  }, [])
+
+  const registerItemPath = useCallback((id: string, path: number[]) => {
+    idToPathRef.current.set(id, path)
+    return () => {
+      idToPathRef.current.delete(id)
+    }
+  }, [])
+
   useEffect(() => {
     if (isItemsControlled) {
       setInternalItems(controlledItems)
     }
   }, [controlledItems, isItemsControlled])
+
+  // Rebuild id -> path map whenever the items tree changes
+  useEffect(() => {
+    const map = new Map<string, number[]>()
+    const walk = (nodes: ListItemData[], path: number[]) => {
+      nodes.forEach((n, idx) => {
+        const p = [...path, idx]
+        map.set(n.id, p)
+        if (n.children && n.children.length) walk(n.children, p)
+      })
+    }
+    walk(currentItems, [])
+    idToPathRef.current = map
+  }, [currentItems])
 
   useEffect(() => {
     if (isSelectionControlled) {
@@ -504,6 +530,8 @@ const ListContext = ({
     selectionMode,
     registerRootElement,
     registerItemMeta,
+    getPathForId,
+    registerItemPath,
   }
 
   return (
