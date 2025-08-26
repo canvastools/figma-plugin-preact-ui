@@ -17,16 +17,8 @@ body * {
   display: flex;
   flex-flow: column nowrap;
   width: 100%;
-}
-
-.figma-light {
-  background-color: var(--pui-color-bg-neutral);
-  color: var(--pui-color-text-onneutral);
-}
-
-.figma-dark {
-  background-color: var(--pui-color-bg-neutral);
-  color: var(--pui-color-text-onneutral);
+  background-color: var(--pui-color_bg_static_neutral_primary);
+  color: #ea10ac;
 }
 
 .viewport-padding-true {
@@ -51,10 +43,31 @@ body * {
   width: 100%;
 }
 
+.sb-gap-8 {
+  gap: 8px;
+}
+
 .sb-gap-16 {
   gap: 16px;
 }
 
-.sb-width-100 {
+.sb-width-full {
   width: 100%;
+}
+
+.sb-padding-24 {
+  padding: 24px;
+}
+
+.sb-grid-cell-border {
+  border-bottom: 1px solid var(--pui-color-neutral-border-default);
+  border-right: 1px solid var(--pui-color-neutral-border-default);
+}
+
+.sb-grid-cell-border:nth-child(3n) {
+  border-right: none;
+}
+
+.sb-grid-cell-border:nth-last-child(-n + 3) {
+  border-bottom: none;
 }

@@ -1,5 +1,15 @@
 @use "../../variables.scss" as *;
 
+@mixin Icon_context($class, $context, $modifiers) {
+  &-#{$class} {
+    @if $context == "inherit" {
+      color: inherit;
+    } @else {
+      color: var(--pui-color-#{$context}-icon-#{$modifiers});
+    }
+  }
+}
+
 .Icon {
   $parent: &;
 
@@ -21,5 +31,20 @@
       width: 24px;
       height: 24px;
     }
+  }
+
+  &_context {
+    @include Icon_context("inherit", "inherit", "");
+    @include Icon_context("neutral", "neutral", "default");
+    @include Icon_context("neutral-secondary", "neutral", "secondary");
+    @include Icon_context("neutral-brand", "neutral", "brand");
+    @include Icon_context("neutral-danger", "neutral", "danger");
+    @include Icon_context("neutral-warning", "neutral", "warning");
+    @include Icon_context("neutral-success", "neutral", "success");
+    @include Icon_context("neutral-inverted", "neutral-inverted", "default");
+    @include Icon_context("brand", "brand", "default");
+    @include Icon_context("danger", "danger", "default");
+    @include Icon_context("warning", "warning", "default");
+    @include Icon_context("success", "success", "default");
   }
 }

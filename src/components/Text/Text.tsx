@@ -8,6 +8,7 @@ import "./Text.scss"
 const TextComponent = (
   {
     className,
+    context = "inherit",
     variant = "body",
     size = "medium",
     strong = false,
@@ -17,7 +18,13 @@ const TextComponent = (
   }: TextProps,
   ref: preact.Ref<HTMLDivElement>
 ) => {
-  const _className = bem("Text", undefined, { variant, size, strong, align })
+  const _className = bem("Text", undefined, {
+    context,
+    variant,
+    size,
+    strong,
+    align,
+  })
 
   return (
     <div

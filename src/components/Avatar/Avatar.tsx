@@ -10,11 +10,12 @@ import { Text } from "../Text/Text"
 const AvatarComponent = (
   {
     className,
-    imageSrc,
-    children,
-    fill,
-    size = "default",
+    size = "medium",
     shape = "circle",
+    imageSrc,
+    fillBg,
+    fillText,
+    children,
     ...rest
   }: AvatarProps,
   ref: preact.Ref<HTMLDivElement>
@@ -30,13 +31,21 @@ const AvatarComponent = (
       className={[_className, className].join(" ").trim()}
       ref={ref}
       {...rest}
-      style={{ backgroundColor: fill }}
+      style={{
+        backgroundColor: fillBg,
+        color: fillText,
+      }}
     >
       {imageSrc && (
         <img className="Avatar__image" src={imageSrc} alt="Avatar" />
       )}
       {children && (
-        <Text variant="body" size={size === "small" ? "small" : "large"} strong>
+        <Text
+          variant="body"
+          size={size === "small" ? "small" : "large"}
+          strong
+          context="inherit"
+        >
           <div className="Avatar__children">{children}</div>
         </Text>
       )}

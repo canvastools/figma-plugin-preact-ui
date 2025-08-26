@@ -30,7 +30,7 @@ const TabPanelComponent = (
       {...rest}
     >
       <Text variant="body" size="medium">
-        <div className="TabPanel__content">{children}</div>
+        <div className="TabPanel__children">{children}</div>
       </Text>
     </div>
   )

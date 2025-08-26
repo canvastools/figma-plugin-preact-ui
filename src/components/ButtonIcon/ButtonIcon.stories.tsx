@@ -8,19 +8,16 @@ import type { ButtonIconProps } from "./ButtonIcon.types"
 import { Icon } from "../Icon/Icon"
 
 const meta: Meta<ButtonIconProps> = {
-  title: "Components/Actions/ButtonIcon",
+  title: "Components/ButtonIcon",
   component: ButtonIcon,
   tags: ["autodocs"],
   argTypes: {
     className: {
       control: { type: "text" },
     },
-    variant: {
+    context: {
       control: { type: "radio" },
-      options: ["default", "ghost"],
-    },
-    selected: {
-      control: { type: "boolean" },
+      options: ["neutral", "neutral-ghost"],
     },
     disabled: {
       control: { type: "boolean" },
@@ -37,61 +34,31 @@ export default meta
 type Story = StoryObj<ButtonIconProps>
 
 export const Demo: Story = {
+  tags: ["!autodocs"],
   args: {
     className: "",
-    variant: "default",
-    selected: false,
+    context: "neutral",
     disabled: false,
     children: <Icon glyph="help" />,
     onClick: fn(),
   },
 }
 
-export const Variant: Story = {
+export const Context: Story = {
   tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },
   render: () => (
     <div className="sb-column sb-gap-16">
-      <ButtonIcon variant="default">
+      <ButtonIcon context="neutral">
         <Icon glyph="help" />
       </ButtonIcon>
-      <ButtonIcon variant="ghost">
+      <ButtonIcon context="neutral-ghost">
         <Icon glyph="help" />
       </ButtonIcon>
     </div>
   ),
-}
-
-export const Selected: Story = {
-  tags: ["!dev"],
-  parameters: {
-    controls: { disable: true },
-  },
-  render: () => {
-    const [isSelectedSecondary, setIsSelectedSecondary] = useState(true)
-    const [isSelectedGhost, setIsSelectedGhost] = useState(true)
-
-    return (
-      <div className="sb-column sb-gap-16">
-        <ButtonIcon
-          variant="default"
-          selected={isSelectedSecondary}
-          onClick={() => setIsSelectedSecondary(!isSelectedSecondary)}
-        >
-          <Icon glyph="help" />
-        </ButtonIcon>
-        <ButtonIcon
-          variant="ghost"
-          selected={isSelectedGhost}
-          onClick={() => setIsSelectedGhost(!isSelectedGhost)}
-        >
-          <Icon glyph="help" />
-        </ButtonIcon>
-      </div>
-    )
-  },
 }
 
 export const Disabled: Story = {
@@ -101,10 +68,10 @@ export const Disabled: Story = {
   },
   render: () => (
     <div className="sb-column sb-gap-16">
-      <ButtonIcon variant="default" disabled>
+      <ButtonIcon context="neutral" disabled>
         <Icon glyph="help" />
       </ButtonIcon>
-      <ButtonIcon variant="ghost" disabled>
+      <ButtonIcon context="neutral-ghost" disabled>
         <Icon glyph="help" />
       </ButtonIcon>
     </div>
@@ -124,7 +91,7 @@ export const CustomIcon: Story = {
   },
   render: () => (
     <div className="sb-column sb-gap-16">
-      <ButtonIcon variant="default">
+      <ButtonIcon context="neutral">
         <Icon size={24}>
           <svg
             width="24"
@@ -142,7 +109,7 @@ export const CustomIcon: Story = {
           </svg>
         </Icon>
       </ButtonIcon>
-      <ButtonIcon variant="ghost">
+      <ButtonIcon context="neutral-ghost">
         <Icon size={24}>
           <svg
             width="24"

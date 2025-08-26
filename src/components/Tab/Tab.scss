@@ -1,4 +1,5 @@
 @use "../../variables.scss" as *;
+@use "../../mixins.scss" as *;
 
 .Tab {
   $parent: &;
@@ -12,7 +13,7 @@
   color: var(--pui-color-text-onneutral);
   padding: 0;
 
-  @include focus-visible;
+  @include focus-visible(-1px);
 
   &__content {
     display: flex;
@@ -35,22 +36,25 @@
   &_variant {
     &-default {
       border: none;
-      background-color: var(--pui-color-bg-neutral);
+      background-color: var(--pui-color-neutral-bg-interactive);
+      color: var(--pui-color-neutral-text-interactive);
       @include curson-feedback;
 
       &:hover {
-        background-color: var(--pui-color-bg-neutral-hover);
+        background-color: var(--pui-color-neutral-bg-interactive-hover);
       }
 
       &#{$parent}_selected,
       &#{$parent}_selected:hover {
-        background-color: var(--pui-color-bg-neutral-hover);
+        background-color: var(--pui-color-neutral-bg-interactive-hover);
       }
     }
 
     &-single {
       border: none;
-      background-color: var(--pui-color-bg-neutral);
+      background-color: var(--pui-color-neutral-bg-interactive);
+      color: var(--pui-color-neutral-text-interactive);
+
       cursor: auto;
     }
   }

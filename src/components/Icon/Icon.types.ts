@@ -1,15 +1,27 @@
 import { glyphs } from "./glyphs"
 
 export interface GlyphProps {
-  variant: "default" | "small"
+  variant: IconProps["variant"]
   size: number
 }
 
 export interface IconProps {
   className?: string
   glyph?: keyof typeof glyphs
-  variant?: "default" | "small"
+  context?:
+    | "inherit"
+    | "neutral"
+    | "neutral-secondary"
+    | "neutral-brand"
+    | "neutral-danger"
+    | "neutral-warning"
+    | "neutral-success"
+    | "neutral-inverted"
+    | "brand"
+    | "danger"
+    | "warning"
+    | "success"
+  variant?: "default" | "scaled"
   size?: 16 | 24
-  fill?: string
-  children?: preact.VNode
+  children?: preact.ComponentChildren
 }

@@ -10,7 +10,7 @@
   width: 24px;
 
   &__spinner {
-    --_m: conic-gradient(#0000 0, var(--pui-color-icon-onneutral-disabled)),
+    --_m: conic-gradient(#0000 0, var(--pui-color-neutral-icon-secondary)),
       linear-gradient(#000 0 0) content-box;
     -webkit-mask: var(--_m);
     mask: var(--_m);
@@ -20,7 +20,7 @@
     aspect-ratio: 1;
     border-radius: 50%;
     opacity: 0;
-    background: var(--pui-color-icon-onneutral-disabled);
+    background: var(--pui-color-neutral-icon-secondary);
     -webkit-mask-composite: source-out;
     mask-composite: subtract;
     animation: l3 0.4s 0s infinite linear;

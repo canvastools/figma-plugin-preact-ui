@@ -1,0 +1,27 @@
+@use "../../variables.scss" as *;
+
+.ButtonIcon {
+  &_selected {
+    background-color: var(
+      --pui-color-neutral-bg-interactive-selected
+    ) !important;
+    color: var(--pui-color-neutral-text-interactive-selected) !important;
+    box-shadow: none !important;
+
+    & .Icon {
+      color: var(--pui-color-neutral-icon-interactive-selected) !important;
+    }
+
+    &:hover {
+      background-color: var(
+        --pui-color-neutral-bg-interactive-selected-hover
+      ) !important;
+    }
+
+    &:active {
+      background-color: var(
+        --pui-color-neutral-bg-interactive-selected-pressed
+      ) !important;
+    }
+  }
+}

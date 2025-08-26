@@ -1,10 +1,35 @@
 @use "../../variables.scss" as *;
 
+@mixin Text_context($class, $context, $modifiers) {
+  &-#{$class} {
+    @if $context == "inherit" {
+      color: inherit;
+    } @else {
+      color: var(--pui-color-#{$context}-text-#{$modifiers});
+    }
+  }
+}
+
 .Text {
   $parent: &;
 
   font-family: "Inter", sans-serif;
-  color: inherit;
+  user-select: none;
+
+  &_context {
+    @include Text_context("inherit", "inherit", "");
+    @include Text_context("neutral", "neutral", "default");
+    @include Text_context("neutral-secondary", "neutral", "secondary");
+    @include Text_context("neutral-brand", "neutral", "brand");
+    @include Text_context("neutral-danger", "neutral", "danger");
+    @include Text_context("neutral-warning", "neutral", "warning");
+    @include Text_context("neutral-success", "neutral", "success");
+    @include Text_context("neutral-inverted", "neutral-inverted", "default");
+    @include Text_context("brand", "brand", "default");
+    @include Text_context("danger", "danger", "default");
+    @include Text_context("warning", "warning", "default");
+    @include Text_context("success", "success", "default");
+  }
 
   &_variant {
     &-heading {
@@ -13,20 +38,20 @@
       &#{$parent}_size {
         &-small {
           font-size: 11px;
-          line-height: 22px;
+          line-height: 24px;
           letter-spacing: -0.005em;
         }
 
         &-medium {
           font-size: 13px;
           line-height: 25px;
-          letter-spacing: -0.015em;
+          letter-spacing: -0.01em;
         }
 
         &-large {
           font-size: 24px;
           line-height: 32px;
-          letter-spacing: -0.005em;
+          letter-spacing: -0.015em;
         }
       }
     }
@@ -44,13 +69,13 @@
         &-medium {
           font-size: 11px;
           line-height: 17px;
-          letter-spacing: 0.02em;
+          letter-spacing: 0.01em;
         }
 
         &-large {
           font-size: 13px;
           line-height: 22px;
-          letter-spacing: 0.025em;
+          letter-spacing: 0.005em;
         }
       }
     }

@@ -1,0 +1,25 @@
+@use "../../variables.scss" as *;
+
+.Divider {
+  $parent: &;
+
+  flex: 1 1 100%;
+  display: flex;
+  overflow: hidden;
+
+  &__line {
+    height: 1px;
+    width: 100%;
+    background-color: var(--pui-color-neutral-border-default);
+  }
+
+  &_variant {
+    &-full {
+      padding: 0;
+    }
+
+    &-inset {
+      padding: 0 var(--pui-space-400);
+    }
+  }
+}

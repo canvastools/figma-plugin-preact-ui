@@ -1,18 +1,18 @@
 export interface BadgeProps {
   className?: string
-  variant?:
-    | "default"
+  context?:
+    | "neutral"
+    | "neutral-secondary"
+    | "neutral-brand"
+    | "neutral-danger"
+    | "neutral-warning"
+    | "neutral-success"
+    | "neutral-inverted"
     | "brand"
-    | "brand-secondary"
     | "danger"
-    | "danger-secondary"
     | "warning"
-    | "warning-secondary"
     | "success"
-    | "success-secondary"
-    | "disabled"
-    | "disabled-secondary"
-    | "count"
-  prefix?: preact.VNode
+  prefix?: preact.ComponentChildren
+  suffix?: preact.ComponentChildren
   children?: preact.ComponentChildren
 }

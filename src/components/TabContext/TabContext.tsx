@@ -1,7 +1,6 @@
 import { createContext } from "preact"
-import { useContext } from "preact/hooks"
-
-import type { TabContextValue } from "./TabContext.types"
+import { useContext, useState, useEffect } from "preact/hooks"
+import type { TabContextValue, TabContextProps } from "./TabContext.types"
 
 /* --- */
 
@@ -14,12 +13,37 @@ const useTabContext = () => {
 }
 
 const TabContext = ({
-  value,
+  defaultValue = "",
+  value: controlledValue,
   onChange,
   children,
-}: TabContextValue & { children: preact.ComponentChildren }) => {
+}: TabContextProps) => {
+  const [internalValue, setInternalValue] = useState(defaultValue)
+
+  const currentValue =
+    controlledValue !== undefined ? controlledValue : internalValue
+
+  const handleChange = (newValue: string) => {
+    if (controlledValue === undefined) {
+      setInternalValue(newValue)
+    }
+    onChange?.(newValue)
+  }
+
+  useEffect(() => {
+    if (controlledValue !== undefined) {
+      setInternalValue(controlledValue)
+    }
+  }, [controlledValue])
+
+  const contextValue: TabContextValue = {
+    value: currentValue,
+    onChange: handleChange,
+    setValue: setInternalValue,
+  }
+
   return (
-    <RawTabContext.Provider value={{ value, onChange }}>
+    <RawTabContext.Provider value={contextValue}>
       {children}
     </RawTabContext.Provider>
   )
