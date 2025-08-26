@@ -128,6 +128,9 @@ export const Size: Story = {
         <Button context="neutral" size="medium">
           Neutral Medium
         </Button>
+        <Button context="neutral-ghost" size="medium">
+          Neutral Ghost Medium
+        </Button>
         <Button context="neutral-brand" size="medium">
           Neutral Brand Medium
         </Button>
@@ -156,6 +159,9 @@ export const Size: Story = {
       <div className="sb-column sb-gap-16">
         <Button context="neutral" size="large">
           Neutral Large
+        </Button>
+        <Button context="neutral-ghost" size="large">
+          Neutral Ghost Large
         </Button>
         <Button context="neutral-brand" size="large">
           Neutral Brand Large
@@ -197,6 +203,9 @@ export const Disabled: Story = {
         <Button context="neutral" size="medium" disabled>
           Neutral Medium
         </Button>
+        <Button context="neutral-ghost" size="medium" disabled>
+          Neutral Ghost Medium
+        </Button>
         <Button context="neutral-brand" size="medium" disabled>
           Neutral Brand Medium
         </Button>
@@ -225,6 +234,9 @@ export const Disabled: Story = {
       <div className="sb-column sb-gap-16">
         <Button context="neutral" size="large" disabled>
           Neutral Large
+        </Button>
+        <Button context="neutral-ghost" size="large" disabled>
+          Neutral Ghost Large
         </Button>
         <Button context="neutral-brand" size="large" disabled>
           Neutral Brand Large
@@ -266,6 +278,9 @@ export const FullWidth: Story = {
         <Button context="neutral" size="medium" fullWidth>
           Neutral Medium
         </Button>
+        <Button context="neutral-ghost" size="medium" fullWidth>
+          Neutral Ghost Medium
+        </Button>
         <Button context="neutral-brand" size="medium" fullWidth>
           Neutral Brand Medium
         </Button>
@@ -294,6 +309,9 @@ export const FullWidth: Story = {
       <div className="sb-column sb-gap-16">
         <Button context="neutral" size="large" fullWidth>
           Neutral Large
+        </Button>
+        <Button context="neutral-ghost" size="large" fullWidth>
+          Neutral Ghost Large
         </Button>
         <Button context="neutral-brand" size="large" fullWidth>
           Neutral Brand Large
@@ -342,6 +360,13 @@ export const Prefix: Story = {
           prefix={<Icon glyph="help" variant="scaled" />}
         >
           Neutral Medium
+        </Button>
+        <Button
+          context="neutral-ghost"
+          size="medium"
+          prefix={<Icon glyph="help" variant="scaled" />}
+        >
+          Neutral Ghost Medium
         </Button>
         <Button
           context="neutral-brand"
@@ -407,6 +432,13 @@ export const Prefix: Story = {
           prefix={<Icon glyph="help" variant="scaled" />}
         >
           Neutral Large
+        </Button>
+        <Button
+          context="neutral-ghost"
+          size="large"
+          prefix={<Icon glyph="help" variant="scaled" />}
+        >
+          Neutral Ghost Large
         </Button>
         <Button
           context="neutral-brand"
@@ -488,6 +520,13 @@ export const Suffix: Story = {
           Neutral Medium
         </Button>
         <Button
+          context="neutral-ghost"
+          size="medium"
+          suffix={<Icon glyph="help" variant="scaled" />}
+        >
+          Neutral Ghost Medium
+        </Button>
+        <Button
           context="neutral-brand"
           size="medium"
           suffix={<Icon glyph="help" variant="scaled" />}
@@ -551,6 +590,13 @@ export const Suffix: Story = {
           suffix={<Icon glyph="help" variant="scaled" />}
         >
           Neutral Large
+        </Button>
+        <Button
+          context="neutral-ghost"
+          size="large"
+          suffix={<Icon glyph="help" variant="scaled" />}
+        >
+          Neutral Ghost Large
         </Button>
         <Button
           context="neutral-brand"
