@@ -34,7 +34,7 @@ export interface ListContextProps {
   items?: ListItemData[]
   selectedItems?: string[]
   selectionMode?: "none" | "single" | "multi"
-  onItemsChange?: (items: ListItemData[]) => void
-  onSelectionChange?: (selectedItems: string[]) => void
+  onItemsChange?: (args: { items: ListItemData[] }) => void
+  onSelectionChange?: (args: { selectedItems: string[] }) => void
   children: preact.ComponentChildren
 }

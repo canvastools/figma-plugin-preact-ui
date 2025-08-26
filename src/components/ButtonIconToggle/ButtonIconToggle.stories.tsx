@@ -50,7 +50,7 @@ const meta: Meta<typeof ButtonIconToggle> = {
         "Callback function that is called when the button is clicked.",
       table: {
         type: {
-          summary: "([boolean]) => void",
+          summary: "(args: {event: MouseEvent; selected: boolean}) => void",
         },
       },
     },
@@ -98,7 +98,7 @@ export const Controlled: Story = {
       <ButtonIconToggle
         context="neutral"
         selected={isSelected}
-        onChange={setIsSelected}
+        onChange={(args) => setIsSelected(args.selected)}
       >
         <Icon glyph="help" />
       </ButtonIconToggle>
@@ -120,14 +120,14 @@ export const Context: Story = {
         <ButtonIconToggle
           context="neutral"
           selected={isSelected_1}
-          onChange={setIsSelected_1}
+          onChange={(args) => setIsSelected_1(args.selected)}
         >
           <Icon glyph="help" />
         </ButtonIconToggle>
         <ButtonIconToggle
           context="neutral-ghost"
           selected={isSelected_2}
-          onChange={setIsSelected_2}
+          onChange={(args) => setIsSelected_2(args.selected)}
         >
           <Icon glyph="help" />
         </ButtonIconToggle>

@@ -72,7 +72,7 @@ const meta: Meta<typeof Tab> = {
         "Callback function that is called when the tab is clicked. Returns its value.",
       table: {
         type: {
-          summary: "([value]) => void",
+          summary: "(args: {event: MouseEvent; value: string}) => void",
         },
       },
     },

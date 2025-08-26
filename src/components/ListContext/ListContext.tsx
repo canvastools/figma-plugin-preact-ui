@@ -72,7 +72,7 @@ const ListContext = ({
       if (!isSelectionControlled) {
         setInternalSelectedItems(newSelectedItems)
       }
-      onSelectionChange?.(Array.from(newSelectedItems))
+      onSelectionChange?.({ selectedItems: Array.from(newSelectedItems) })
     },
     [
       currentSelectedItems,
@@ -87,7 +87,7 @@ const ListContext = ({
     (itemIds: string[]) => {
       const next = new Set(itemIds)
       if (!isSelectionControlled) setInternalSelectedItems(next)
-      onSelectionChange?.(Array.from(next))
+      onSelectionChange?.({ selectedItems: Array.from(next) })
     },
     [isSelectionControlled, onSelectionChange]
   )
@@ -146,7 +146,7 @@ const ListContext = ({
         const next = new Set<string>()
         if (!already) next.add(itemId)
         if (!isSelectionControlled) setInternalSelectedItems(next)
-        onSelectionChange?.(Array.from(next))
+        onSelectionChange?.({ selectedItems: Array.from(next) })
         lastSelectedAnchorRef.current = itemId
         return
       }
@@ -192,7 +192,7 @@ const ListContext = ({
           next.add(id)
         })
         if (!isSelectionControlled) setInternalSelectedItems(next)
-        onSelectionChange?.(Array.from(next))
+        onSelectionChange?.({ selectedItems: Array.from(next) })
         lastSelectedAnchorRef.current = itemId
         return
       }
@@ -202,7 +202,7 @@ const ListContext = ({
         if (next.has(itemId)) next.delete(itemId)
         else next.add(itemId)
         if (!isSelectionControlled) setInternalSelectedItems(next)
-        onSelectionChange?.(Array.from(next))
+        onSelectionChange?.({ selectedItems: Array.from(next) })
         lastSelectedAnchorRef.current = itemId
         return
       }
@@ -210,7 +210,7 @@ const ListContext = ({
       // default click acts like single anchor in multi-mode
       const next = new Set<string>([itemId])
       if (!isSelectionControlled) setInternalSelectedItems(next)
-      onSelectionChange?.(Array.from(next))
+      onSelectionChange?.({ selectedItems: Array.from(next) })
       lastSelectedAnchorRef.current = itemId
     },
     [
@@ -428,7 +428,7 @@ const ListContext = ({
       if (!isItemsControlled) {
         setInternalItems(newItems)
       }
-      onItemsChange?.(newItems)
+      onItemsChange?.({ items: newItems })
     },
     [currentItems, onItemsChange, isItemsControlled]
   )
@@ -445,7 +445,7 @@ const ListContext = ({
       if (currentSelectedItems.size > 0) {
         const next = new Set<string>()
         if (!isSelectionControlled) setInternalSelectedItems(next)
-        onSelectionChange?.(Array.from(next))
+        onSelectionChange?.({ selectedItems: Array.from(next) })
       }
     }
     document.addEventListener("pointerdown", handlePointerDown)

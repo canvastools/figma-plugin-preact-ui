@@ -57,7 +57,7 @@ const meta: Meta<typeof ListContext> = {
         "Callback function that is called when the item order or structure is changed. Returns an array of items.",
       table: {
         type: {
-          summary: "([ListItemData[]]) => void",
+          summary: "(args: { items: ListItemData[] }) => void",
         },
       },
     },
@@ -67,7 +67,7 @@ const meta: Meta<typeof ListContext> = {
         "Callback function that is called when the selection is changed. Returns an array of selected items IDs.",
       table: {
         type: {
-          summary: "([string[]]) => void",
+          summary: "(args: { selectedItems: string[] }) => void",
         },
       },
     },
@@ -133,13 +133,13 @@ export const Demo: Story = {
           items={items}
           selectedItems={selectedItems}
           selectionMode={args.selectionMode}
-          onItemsChange={(items) => {
-            setItems(items)
-            args.onItemsChange?.(items)
+          onItemsChange={(change) => {
+            setItems(change.items)
+            args.onItemsChange?.(change)
           }}
-          onSelectionChange={(selectedItems) => {
-            setSelectedItems(selectedItems)
-            args.onSelectionChange?.(selectedItems)
+          onSelectionChange={(change) => {
+            setSelectedItems(change.selectedItems)
+            args.onSelectionChange?.(change)
           }}
         >
           <ListContainer>
@@ -171,16 +171,12 @@ export const NoSelection: Story = {
     const [items, setItems] = useState(sampleItems)
     const [selectedItems, setSelectedItems] = useState<string[]>([])
 
-    const renderSubItems = (
-      children: any[],
-      level: number,
-      parentPath: number[] = []
-    ) => {
+    const renderSubItems = (children: any[], level: number) => {
       if (!children || children.length === 0) return null
 
       return (
-        <ListContainer nestingLevel={level} parentPath={parentPath}>
-          {children.map((child, index) => (
+        <ListContainer>
+          {children.map((child) => (
             <ListItem
               key={child.id}
               id={child.id}
@@ -191,10 +187,7 @@ export const NoSelection: Story = {
               hoverable={true}
               subItems={
                 child.children
-                  ? renderSubItems(child.children, level + 1, [
-                      ...parentPath,
-                      index,
-                    ])
+                  ? renderSubItems(child.children, level + 1)
                   : undefined
               }
             >
@@ -214,23 +207,24 @@ export const NoSelection: Story = {
           items={items}
           selectedItems={selectedItems}
           selectionMode="none"
-          onItemsChange={setItems}
-          onSelectionChange={setSelectedItems}
+          onItemsChange={(change) => {
+            setItems(change.items)
+          }}
+          onSelectionChange={(change) => {
+            setSelectedItems(change.selectedItems)
+          }}
         >
           <ListContainer>
-            {items.map((item, index) => (
+            {items.map((item) => (
               <ListItem
                 key={item.id}
                 id={item.id}
                 draggable={true}
                 selectable={true}
                 acceptsChildren={true}
-                nestingLevel={0}
                 hoverable={true}
                 subItems={
-                  item.children
-                    ? renderSubItems(item.children, 1, [index])
-                    : undefined
+                  item.children ? renderSubItems(item.children, 1) : undefined
                 }
               >
                 <Text variant="body" context="neutral">
@@ -260,16 +254,12 @@ export const SingleSelection: Story = {
     const [items, setItems] = useState(sampleItems)
     const [selectedItems, setSelectedItems] = useState<string[]>([])
 
-    const renderSubItems = (
-      children: any[],
-      level: number,
-      parentPath: number[] = []
-    ) => {
+    const renderSubItems = (children: any[], level: number) => {
       if (!children || children.length === 0) return null
 
       return (
-        <ListContainer nestingLevel={level} parentPath={parentPath}>
-          {children.map((child, index) => (
+        <ListContainer>
+          {children.map((child) => (
             <ListItem
               key={child.id}
               id={child.id}
@@ -280,10 +270,7 @@ export const SingleSelection: Story = {
               hoverable={true}
               subItems={
                 child.children
-                  ? renderSubItems(child.children, level + 1, [
-                      ...parentPath,
-                      index,
-                    ])
+                  ? renderSubItems(child.children, level + 1)
                   : undefined
               }
             >
@@ -303,23 +290,24 @@ export const SingleSelection: Story = {
           items={items}
           selectedItems={selectedItems}
           selectionMode="single"
-          onItemsChange={setItems}
-          onSelectionChange={setSelectedItems}
+          onItemsChange={(change) => {
+            setItems(change.items)
+          }}
+          onSelectionChange={(change) => {
+            setSelectedItems(change.selectedItems)
+          }}
         >
           <ListContainer>
-            {items.map((item, index) => (
+            {items.map((item) => (
               <ListItem
                 key={item.id}
                 id={item.id}
                 draggable={true}
                 selectable={true}
                 acceptsChildren={true}
-                nestingLevel={0}
                 hoverable={true}
                 subItems={
-                  item.children
-                    ? renderSubItems(item.children, 1, [index])
-                    : undefined
+                  item.children ? renderSubItems(item.children, 1) : undefined
                 }
               >
                 <Text variant="body" context="neutral">
@@ -349,16 +337,12 @@ export const MultiSelection: Story = {
     const [items, setItems] = useState(sampleItems)
     const [selectedItems, setSelectedItems] = useState<string[]>([])
 
-    const renderSubItems = (
-      children: any[],
-      level: number,
-      parentPath: number[] = []
-    ) => {
+    const renderSubItems = (children: any[], level: number) => {
       if (!children || children.length === 0) return null
 
       return (
-        <ListContainer nestingLevel={level} parentPath={parentPath}>
-          {children.map((child, index) => (
+        <ListContainer>
+          {children.map((child) => (
             <ListItem
               key={child.id}
               id={child.id}
@@ -369,10 +353,7 @@ export const MultiSelection: Story = {
               hoverable={true}
               subItems={
                 child.children
-                  ? renderSubItems(child.children, level + 1, [
-                      ...parentPath,
-                      index,
-                    ])
+                  ? renderSubItems(child.children, level + 1)
                   : undefined
               }
             >
@@ -392,8 +373,12 @@ export const MultiSelection: Story = {
           items={items}
           selectedItems={selectedItems}
           selectionMode="multi"
-          onItemsChange={setItems}
-          onSelectionChange={setSelectedItems}
+          onItemsChange={(change) => {
+            setItems(change.items)
+          }}
+          onSelectionChange={(change) => {
+            setSelectedItems(change.selectedItems)
+          }}
         >
           <ListContainer>
             {items.map((item, index) => (
@@ -406,9 +391,7 @@ export const MultiSelection: Story = {
                 nestingLevel={0}
                 hoverable={true}
                 subItems={
-                  item.children
-                    ? renderSubItems(item.children, 1, [index])
-                    : undefined
+                  item.children ? renderSubItems(item.children, 1) : undefined
                 }
               >
                 <Text variant="body" context="neutral">

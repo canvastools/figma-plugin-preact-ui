@@ -65,7 +65,7 @@ const meta: Meta<typeof ListItem> = {
       description: "Callback function that is called when the item is dragged.",
       table: {
         type: {
-          summary: "() => void",
+          summary: "(args: { event: DragEvent }) => void",
         },
       },
     },
@@ -74,7 +74,7 @@ const meta: Meta<typeof ListItem> = {
       description: "Callback function that is called when the item is dragged.",
       table: {
         type: {
-          summary: "() => void",
+          summary: "(args: { event: DragEvent }) => void",
         },
       },
     },
@@ -99,7 +99,7 @@ const meta: Meta<typeof ListItem> = {
         "Callback function that is called when the item is selected.",
       table: {
         type: {
-          summary: "([boolean]) => void",
+          summary: "(args: { event: MouseEvent; collapsed: boolean }) => void",
         },
       },
     },
@@ -127,7 +127,7 @@ const meta: Meta<typeof ListItem> = {
         "Callback function that is called when the item is collapsed or expanded.",
       table: {
         type: {
-          summary: "([boolean]) => void",
+          summary: "(args: { event: MouseEvent; collapsed: boolean }) => void",
         },
       },
     },
@@ -205,16 +205,12 @@ export const Demo: Story = {
     const [items, setItems] = useState(sampleItems)
     const [selectedItems, setSelectedItems] = useState<string[]>([])
 
-    const renderSubItems = (
-      children: any[],
-      level: number,
-      parentPath: number[] = []
-    ) => {
+    const renderSubItems = (children: any[], level: number) => {
       if (!children || children.length === 0) return null
 
       return (
-        <ListContainer nestingLevel={level} parentPath={parentPath}>
-          {children.map((child, index) => (
+        <ListContainer>
+          {children.map((child) => (
             <ListItem
               {...args}
               key={child.id}
@@ -222,10 +218,7 @@ export const Demo: Story = {
               nestingLevel={level}
               subItems={
                 child.children
-                  ? renderSubItems(child.children, level + 1, [
-                      ...parentPath,
-                      index,
-                    ])
+                  ? renderSubItems(child.children, level + 1)
                   : undefined
               }
             >
@@ -245,8 +238,12 @@ export const Demo: Story = {
           items={items}
           selectedItems={selectedItems}
           selectionMode="multi"
-          onItemsChange={setItems}
-          onSelectionChange={setSelectedItems}
+          onItemsChange={(change) => {
+            setItems(change.items)
+          }}
+          onSelectionChange={(change) => {
+            setSelectedItems(change.selectedItems)
+          }}
         >
           <ListContainer>
             {items.map((item, index) => (
@@ -255,9 +252,7 @@ export const Demo: Story = {
                 key={item.id}
                 id={item.id}
                 subItems={
-                  item.children
-                    ? renderSubItems(item.children, 1, [index])
-                    : undefined
+                  item.children ? renderSubItems(item.children, 1) : undefined
                 }
               >
                 <Text variant="body" context="neutral">
@@ -288,16 +283,12 @@ export const Draggable: Story = {
     const [items, setItems] = useState(sampleItems)
     const [selectedItems, setSelectedItems] = useState<string[]>([])
 
-    const renderSubItems = (
-      children: any[],
-      level: number,
-      parentPath: number[] = []
-    ) => {
+    const renderSubItems = (children: any[], level: number) => {
       if (!children || children.length === 0) return null
 
       return (
-        <ListContainer nestingLevel={level} parentPath={parentPath}>
-          {children.map((child, index) => (
+        <ListContainer>
+          {children.map((child) => (
             <ListItem
               key={child.id}
               id={child.id}
@@ -309,10 +300,7 @@ export const Draggable: Story = {
               hoverable={level > 1 ? false : true}
               subItems={
                 child.children
-                  ? renderSubItems(child.children, level + 1, [
-                      ...parentPath,
-                      index,
-                    ])
+                  ? renderSubItems(child.children, level + 1)
                   : undefined
               }
             >
@@ -338,8 +326,12 @@ export const Draggable: Story = {
           items={items}
           selectedItems={selectedItems}
           selectionMode="multi"
-          onItemsChange={setItems}
-          onSelectionChange={setSelectedItems}
+          onItemsChange={(change) => {
+            setItems(change.items)
+          }}
+          onSelectionChange={(change) => {
+            setSelectedItems(change.selectedItems)
+          }}
         >
           <ListContainer>
             {items.map((item, index) => (
@@ -352,9 +344,7 @@ export const Draggable: Story = {
                 selectionScope="item"
                 hoverable={true}
                 subItems={
-                  item.children
-                    ? renderSubItems(item.children, 1, [index])
-                    : undefined
+                  item.children ? renderSubItems(item.children, 1) : undefined
                 }
               >
                 <Text variant="body" context="neutral">
@@ -393,8 +383,8 @@ export const DragHandleContainer: Story = {
       if (!children || children.length === 0) return null
 
       return (
-        <ListContainer nestingLevel={level} parentPath={parentPath}>
-          {children.map((child, index) => (
+        <ListContainer>
+          {children.map((child) => (
             <ListItem
               key={child.id}
               id={child.id}
@@ -407,10 +397,7 @@ export const DragHandleContainer: Story = {
               hoverable={true}
               subItems={
                 child.children
-                  ? renderSubItems(child.children, level + 1, [
-                      ...parentPath,
-                      index,
-                    ])
+                  ? renderSubItems(child.children, level + 1)
                   : undefined
               }
             >
@@ -430,8 +417,12 @@ export const DragHandleContainer: Story = {
           items={items}
           selectedItems={selectedItems}
           selectionMode="multi"
-          onItemsChange={setItems}
-          onSelectionChange={setSelectedItems}
+          onItemsChange={(change) => {
+            setItems(change.items)
+          }}
+          onSelectionChange={(change) => {
+            setSelectedItems(change.selectedItems)
+          }}
         >
           <ListContainer>
             {items.map((item, index) => (
@@ -445,9 +436,7 @@ export const DragHandleContainer: Story = {
                 selectionScope="item"
                 hoverable={true}
                 subItems={
-                  item.children
-                    ? renderSubItems(item.children, 1, [index])
-                    : undefined
+                  item.children ? renderSubItems(item.children, 1) : undefined
                 }
               >
                 <Text variant="body" context="neutral">
@@ -486,8 +475,8 @@ export const AcceptsChildren: Story = {
       if (!children || children.length === 0) return null
 
       return (
-        <ListContainer nestingLevel={level} parentPath={parentPath}>
-          {children.map((child, index) => (
+        <ListContainer>
+          {children.map((child) => (
             <ListItem
               key={child.id}
               id={child.id}
@@ -499,10 +488,7 @@ export const AcceptsChildren: Story = {
               hoverable={true}
               subItems={
                 child.children
-                  ? renderSubItems(child.children, level + 1, [
-                      ...parentPath,
-                      index,
-                    ])
+                  ? renderSubItems(child.children, level + 1)
                   : undefined
               }
             >
@@ -524,8 +510,12 @@ export const AcceptsChildren: Story = {
           items={items}
           selectedItems={selectedItems}
           selectionMode="multi"
-          onItemsChange={setItems}
-          onSelectionChange={setSelectedItems}
+          onItemsChange={(change) => {
+            setItems(change.items)
+          }}
+          onSelectionChange={(change) => {
+            setSelectedItems(change.selectedItems)
+          }}
         >
           <ListContainer>
             {items.map((item, index) => (
@@ -538,9 +528,7 @@ export const AcceptsChildren: Story = {
                 selectionScope="item"
                 hoverable={true}
                 subItems={
-                  item.children
-                    ? renderSubItems(item.children, 1, [index])
-                    : undefined
+                  item.children ? renderSubItems(item.children, 1) : undefined
                 }
               >
                 <Text variant="body" context="neutral">
@@ -571,16 +559,12 @@ export const Selectable: Story = {
     const [items, setItems] = useState(sampleItems)
     const [selectedItems, setSelectedItems] = useState<string[]>([])
 
-    const renderSubItems = (
-      children: any[],
-      level: number,
-      parentPath: number[] = []
-    ) => {
+    const renderSubItems = (children: any[], level: number) => {
       if (!children || children.length === 0) return null
 
       return (
-        <ListContainer nestingLevel={level} parentPath={parentPath}>
-          {children.map((child, index) => (
+        <ListContainer>
+          {children.map((child) => (
             <ListItem
               key={child.id}
               id={child.id}
@@ -592,10 +576,7 @@ export const Selectable: Story = {
               hoverable={level > 1 ? false : true}
               subItems={
                 child.children
-                  ? renderSubItems(child.children, level + 1, [
-                      ...parentPath,
-                      index,
-                    ])
+                  ? renderSubItems(child.children, level + 1)
                   : undefined
               }
             >
@@ -621,8 +602,12 @@ export const Selectable: Story = {
           items={items}
           selectedItems={selectedItems}
           selectionMode="multi"
-          onItemsChange={setItems}
-          onSelectionChange={setSelectedItems}
+          onItemsChange={(change) => {
+            setItems(change.items)
+          }}
+          onSelectionChange={(change) => {
+            setSelectedItems(change.selectedItems)
+          }}
         >
           <ListContainer>
             {items.map((item, index) => (
@@ -635,9 +620,7 @@ export const Selectable: Story = {
                 selectionScope="item"
                 hoverable={true}
                 subItems={
-                  item.children
-                    ? renderSubItems(item.children, 1, [index])
-                    : undefined
+                  item.children ? renderSubItems(item.children, 1) : undefined
                 }
               >
                 <Text variant="body" context="neutral">
@@ -676,8 +659,8 @@ export const SelectionScope: Story = {
       if (!children || children.length === 0) return null
 
       return (
-        <ListContainer nestingLevel={level} parentPath={parentPath}>
-          {children.map((child, index) => (
+        <ListContainer>
+          {children.map((child) => (
             <ListItem
               key={child.id}
               id={child.id}
@@ -689,10 +672,7 @@ export const SelectionScope: Story = {
               hoverable={true}
               subItems={
                 child.children
-                  ? renderSubItems(child.children, level + 1, [
-                      ...parentPath,
-                      index,
-                    ])
+                  ? renderSubItems(child.children, level + 1)
                   : undefined
               }
             >
@@ -712,8 +692,12 @@ export const SelectionScope: Story = {
           items={items}
           selectedItems={selectedItems}
           selectionMode="multi"
-          onItemsChange={setItems}
-          onSelectionChange={setSelectedItems}
+          onItemsChange={(change) => {
+            setItems(change.items)
+          }}
+          onSelectionChange={(change) => {
+            setSelectedItems(change.selectedItems)
+          }}
         >
           <ListContainer>
             {items.map((item, index) => (
@@ -726,9 +710,7 @@ export const SelectionScope: Story = {
                 selectionScope="withDescendants"
                 hoverable={true}
                 subItems={
-                  item.children
-                    ? renderSubItems(item.children, 1, [index])
-                    : undefined
+                  item.children ? renderSubItems(item.children, 1) : undefined
                 }
               >
                 <Text variant="body" context="neutral">
@@ -767,8 +749,8 @@ export const Hoverable: Story = {
       if (!children || children.length === 0) return null
 
       return (
-        <ListContainer nestingLevel={level} parentPath={parentPath}>
-          {children.map((child, index) => (
+        <ListContainer>
+          {children.map((child) => (
             <ListItem
               key={child.id}
               id={child.id}
@@ -780,10 +762,7 @@ export const Hoverable: Story = {
               hoverable={level > 1 ? false : true}
               subItems={
                 child.children
-                  ? renderSubItems(child.children, level + 1, [
-                      ...parentPath,
-                      index,
-                    ])
+                  ? renderSubItems(child.children, level + 1)
                   : undefined
               }
             >
@@ -809,8 +788,12 @@ export const Hoverable: Story = {
           items={items}
           selectedItems={selectedItems}
           selectionMode="multi"
-          onItemsChange={setItems}
-          onSelectionChange={setSelectedItems}
+          onItemsChange={(change) => {
+            setItems(change.items)
+          }}
+          onSelectionChange={(change) => {
+            setSelectedItems(change.selectedItems)
+          }}
         >
           <ListContainer>
             {items.map((item, index) => (
@@ -864,8 +847,8 @@ export const CollapsableWithDragHandle: Story = {
       if (!children || children.length === 0) return null
 
       return (
-        <ListContainer nestingLevel={level} parentPath={parentPath}>
-          {children.map((child, index) => (
+        <ListContainer>
+          {children.map((child) => (
             <ListItem
               key={child.id}
               id={child.id}
@@ -878,10 +861,7 @@ export const CollapsableWithDragHandle: Story = {
               showCollapseControl={true}
               subItems={
                 child.children
-                  ? renderSubItems(child.children, level + 1, [
-                      ...parentPath,
-                      index,
-                    ])
+                  ? renderSubItems(child.children, level + 1)
                   : undefined
               }
             >
@@ -907,8 +887,12 @@ export const CollapsableWithDragHandle: Story = {
           items={items}
           selectedItems={selectedItems}
           selectionMode="multi"
-          onItemsChange={setItems}
-          onSelectionChange={setSelectedItems}
+          onItemsChange={(change) => {
+            setItems(change.items)
+          }}
+          onSelectionChange={(change) => {
+            setSelectedItems(change.selectedItems)
+          }}
         >
           <ListContainer>
             {items.map((item, index) => (
@@ -944,12 +928,6 @@ export const CollapsableWithDraggableContainer: Story = {
   tags: ["!dev"],
   parameters: {
     controls: { disable: true },
-    docs: {
-      description: {
-        story:
-          "Large trees can be collapsed by setting `showCollapseControl`. By default, the state is managed internally by the component, but you can also pass the state via the `collapsed` property.",
-      },
-    },
   },
   render: () => {
     const [items, setItems] = useState(sampleItems)
@@ -963,8 +941,8 @@ export const CollapsableWithDraggableContainer: Story = {
       if (!children || children.length === 0) return null
 
       return (
-        <ListContainer nestingLevel={level} parentPath={parentPath}>
-          {children.map((child, index) => (
+        <ListContainer>
+          {children.map((child) => (
             <ListItem
               key={child.id}
               id={child.id}
@@ -978,10 +956,7 @@ export const CollapsableWithDraggableContainer: Story = {
               dragHandle="container"
               subItems={
                 child.children
-                  ? renderSubItems(child.children, level + 1, [
-                      ...parentPath,
-                      index,
-                    ])
+                  ? renderSubItems(child.children, level + 1)
                   : undefined
               }
             >
@@ -1007,8 +982,12 @@ export const CollapsableWithDraggableContainer: Story = {
           items={items}
           selectedItems={selectedItems}
           selectionMode="multi"
-          onItemsChange={setItems}
-          onSelectionChange={setSelectedItems}
+          onItemsChange={(change) => {
+            setItems(change.items)
+          }}
+          onSelectionChange={(change) => {
+            setSelectedItems(change.selectedItems)
+          }}
         >
           <ListContainer>
             {items.map((item, index) => (
@@ -1032,6 +1011,96 @@ export const CollapsableWithDraggableContainer: Story = {
                   {item.id}
                 </Text>
                 <Text context="neutral-secondary"> (Level 0)</Text>
+              </ListItem>
+            ))}
+          </ListContainer>
+        </ListContext>
+      </div>
+    )
+  },
+}
+
+export const Content: Story = {
+  tags: ["!dev"],
+  parameters: {
+    controls: { disable: true },
+  },
+  render: () => {
+    const [items, setItems] = useState(sampleItems)
+    const [selectedItems, setSelectedItems] = useState<string[]>([])
+
+    const renderSubItems = (
+      children: any[],
+      level: number,
+      parentPath: number[] = []
+    ) => {
+      if (!children || children.length === 0) return null
+
+      return (
+        <ListContainer>
+          {children.map((child) => (
+            <ListItem
+              key={child.id}
+              id={child.id}
+              nestingLevel={level}
+              draggable={true}
+              acceptsChildren={true}
+              selectable={true}
+              selectionScope="item"
+              hoverable={true}
+              showCollapseControl={true}
+              subItems={
+                child.children
+                  ? renderSubItems(child.children, level + 1)
+                  : undefined
+              }
+            >
+              <Text variant="body" context="neutral">
+                {child.id}
+              </Text>
+              <Text context="neutral-secondary">Level {level}</Text>
+              <input type="text" />
+            </ListItem>
+          ))}
+        </ListContainer>
+      )
+    }
+
+    return (
+      <div className="sb-column sb-gap-16">
+        <ListContext
+          items={items}
+          selectedItems={selectedItems}
+          selectionMode="multi"
+          onItemsChange={(change) => {
+            setItems(change.items)
+          }}
+          onSelectionChange={(change) => {
+            setSelectedItems(change.selectedItems)
+          }}
+        >
+          <ListContainer>
+            {items.map((item, index) => (
+              <ListItem
+                key={item.id}
+                id={item.id}
+                draggable={true}
+                acceptsChildren={true}
+                selectable={true}
+                selectionScope="item"
+                showCollapseControl={true}
+                hoverable={true}
+                subItems={
+                  item.children
+                    ? renderSubItems(item.children, 1, [index])
+                    : undefined
+                }
+              >
+                <Text variant="body" context="neutral">
+                  {item.id}
+                </Text>
+                <Text context="neutral-secondary"> (Level 0)</Text>
+                <input type="color" />
               </ListItem>
             ))}
           </ListContainer>

@@ -52,7 +52,7 @@ const meta: Meta<typeof TabContext> = {
         "Callback function that is called when the tab is changed. Returns the new value.",
       table: {
         type: {
-          summary: "([string]) => void",
+          summary: "(args: {value: string}) => void",
         },
       },
     },
@@ -109,8 +109,8 @@ export const Controlled: Story = {
     return (
       <TabContext
         value={activeTab}
-        onChange={(value) => {
-          setActiveTab(value)
+        onChange={(args) => {
+          setActiveTab(args.value)
         }}
       >
         <TabList>

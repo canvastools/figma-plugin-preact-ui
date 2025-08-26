@@ -25,20 +25,6 @@ const meta: Meta<typeof ListContainer> = {
     className: {
       control: { type: "text" },
     },
-    nestingLevel: {
-      table: {
-        type: {
-          summary: "number",
-        },
-      },
-      control: { disable: true },
-      description:
-        "Nesting level of the container. Must be provided if the container is nested.",
-    },
-    parentPath: {
-      control: { type: "array" },
-      description: "Parent path of the container.",
-    },
     children: {
       table: {
         type: {
@@ -98,17 +84,24 @@ export const Demo: Story = {
           items={items}
           selectedItems={selectedItems}
           selectionMode="multi"
-          onItemsChange={setItems}
-          onSelectionChange={setSelectedItems}
+          onItemsChange={(change) => {
+            setItems(change.items)
+          }}
+          onSelectionChange={(change) => {
+            setSelectedItems(change.selectedItems)
+          }}
         >
           <ListContainer {...args}>
-            {items.map((item) => (
-              <ListItem id={item.id} draggable={true} selectable={true}>
-                <Text variant="body" context="neutral">
-                  {item.id}
-                </Text>
-              </ListItem>
-            ))}
+            {items.map((item) => {
+              console.log(item)
+              return (
+                <ListItem id={item.id} draggable={true} selectable={true}>
+                  <Text variant="body" context="neutral">
+                    {item.id}
+                  </Text>
+                </ListItem>
+              )
+            })}
           </ListContainer>
         </ListContext>
       </div>

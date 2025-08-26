@@ -6,5 +6,5 @@ export interface CheckboxProps {
   mixed?: boolean
   disabled?: boolean
   label?: string
-  onChange?: (value: CheckboxValue) => void
+  onChange?: (args: { event: MouseEvent; checked: CheckboxValue }) => void
 }

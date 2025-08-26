@@ -5,16 +5,16 @@ export interface ListItemProps {
   nestingLevel?: number
   draggable?: boolean
   dragHandle?: "default" | "container"
-  onDragStart?: () => void
-  onDragEnd?: () => void
+  onDragStart?: (args: { event: DragEvent }) => void
+  onDragEnd?: (args: { event: DragEvent }) => void
   acceptsChildren?: boolean
   selectable?: boolean
   selectionScope?: "item" | "withDescendants"
-  onSelect?: (selected: boolean) => void
+  onSelect?: (args: { event: MouseEvent; selected: boolean }) => void
   hoverable?: boolean
   collapsed?: boolean
   showCollapseControl?: boolean
-  onCollapsedChange?: (collapsed: boolean) => void
+  onCollapsedChange?: (args: { event: MouseEvent; collapsed: boolean }) => void
   subItems?: preact.ComponentChildren
   children?: preact.ComponentChildren
 }

@@ -5,5 +5,5 @@ export interface TabProps {
   prefix?: preact.ComponentChildren
   suffix?: preact.ComponentChildren
   children: preact.ComponentChildren
-  onClick?: (value: string) => void
+  onClick?: (args: { event: MouseEvent; value: string }) => void
 }

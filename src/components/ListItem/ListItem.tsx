@@ -159,7 +159,7 @@ const ListItemComponent = (
     } else {
       toggleSelect(id, { range, additive })
     }
-    onSelect?.(!isSelected)
+    onSelect?.({ event: e, selected: !isSelected })
   }
 
   const collectDescendantsForLocal = (rootId: string): string[] => {
@@ -317,11 +317,11 @@ const ListItemComponent = (
 
         e.dataTransfer?.setDragImage(img, 0, 0)
       } catch {}
-      onDragStart?.()
+      onDragStart?.({ event: e })
     }
   }
 
-  const handleDragHandleDragEnd = () => {
+  const handleDragHandleDragEnd = (e: DragEvent) => {
     if (draggable) {
       setIsDragOver(false)
       setDragPosition(null)
@@ -334,7 +334,7 @@ const ListItemComponent = (
         dropParentRef.current.classList.remove("ListItem_drop-parent")
         dropParentRef.current = null
       }
-      onDragEnd?.()
+      onDragEnd?.({ event: e })
     }
   }
 
@@ -375,10 +375,16 @@ const ListItemComponent = (
             onClick={(e) => {
               e.stopPropagation()
               if (isCollapsedControlled) {
-                onCollapsedChange?.(!effectiveCollapsed)
+                onCollapsedChange?.({
+                  event: e,
+                  collapsed: !effectiveCollapsed,
+                })
               } else {
                 setInternalCollapsed((v) => !v)
-                onCollapsedChange?.(!effectiveCollapsed)
+                onCollapsedChange?.({
+                  event: e,
+                  collapsed: !effectiveCollapsed,
+                })
               }
             }}
           >

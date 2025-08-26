@@ -37,7 +37,7 @@ const meta: Meta<typeof ButtonIcon> = {
         "Callback function that is called when the button is clicked",
       table: {
         type: {
-          summary: "([PointerEvent]) => void",
+          summary: "(args: {event: MouseEvent}) => void",
         },
       },
     },

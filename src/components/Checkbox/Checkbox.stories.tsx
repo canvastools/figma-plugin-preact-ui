@@ -32,7 +32,7 @@ const meta: Meta<typeof Checkbox> = {
         "Callback function that is called when the checkbox is clicked.",
       table: {
         type: {
-          summary: "([boolean]) => void",
+          summary: "(args: {event: MouseEvent; checked: boolean}) => void",
         },
       },
     },
