@@ -1,10 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/preact"
-import { fn } from "@storybook/test"
-import { useState } from "preact/hooks"
 
 import { TabContext } from "../TabContext/TabContext"
 import { TabPanel } from "./TabPanel"
-import type { TabPanelProps } from "./TabPanel.types"
 import { TabList } from "../TabList/TabList"
 import { Tab } from "../Tab/Tab"
 
@@ -44,7 +41,7 @@ const meta: Meta<typeof TabPanel> = {
 }
 
 export default meta
-type Story = StoryObj<TabPanelProps>
+type Story = StoryObj<typeof TabPanel>
 
 export const Demo: Story = {
   args: {

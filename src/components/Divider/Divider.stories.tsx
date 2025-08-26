@@ -1,11 +1,10 @@
 import { Meta, StoryObj } from "@storybook/preact"
 
 import { Divider } from "./Divider"
-import type { DividerProps } from "./Divider.types"
 
 import { Text } from "../Text/Text"
 
-const meta: Meta<DividerProps> = {
+const meta: Meta<typeof Divider> = {
   title: "Components/Divider",
   component: Divider,
   tags: ["autodocs"],
@@ -22,7 +21,7 @@ const meta: Meta<DividerProps> = {
 }
 
 export default meta
-type Story = StoryObj<DividerProps>
+type Story = StoryObj<typeof Divider>
 
 export const Demo: Story = {
   tags: ["!autodocs"],
@@ -30,6 +29,7 @@ export const Demo: Story = {
     className: "",
     variant: "full",
   },
+  render: (args) => <Divider {...args} />,
 }
 
 export const Variant: Story = {

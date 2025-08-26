@@ -1,13 +1,11 @@
 import { Meta, StoryObj } from "@storybook/preact"
-import { fn } from "@storybook/test"
 
 import { Icon } from "./Icon"
-import type { IconProps } from "./Icon.types"
 import { glyphs } from "./glyphs"
 
 import { Text } from "../Text/Text"
 
-const meta: Meta<IconProps> = {
+const meta: Meta<typeof Icon> = {
   title: "Components/Icon",
   component: Icon,
   tags: ["autodocs"],
@@ -56,7 +54,7 @@ const meta: Meta<IconProps> = {
 }
 
 export default meta
-type Story = StoryObj<IconProps>
+type Story = StoryObj<typeof Icon>
 
 export const Demo: Story = {
   tags: ["!autodocs"],
@@ -67,6 +65,7 @@ export const Demo: Story = {
     variant: "default",
     size: 24,
   },
+  render: (args) => <Icon {...args} />,
 }
 
 const glyphCombinations = (glyph: string) => {

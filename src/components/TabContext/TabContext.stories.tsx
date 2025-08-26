@@ -3,7 +3,6 @@ import { fn } from "@storybook/test"
 import { useState } from "preact/hooks"
 
 import { TabContext } from "./TabContext"
-import type { TabContextProps } from "./TabContext.types"
 import { TabPanel } from "../TabPanel/TabPanel"
 import { TabList } from "../TabList/TabList"
 import { Tab } from "../Tab/Tab"
@@ -61,25 +60,19 @@ const meta: Meta<typeof TabContext> = {
 }
 
 export default meta
-type Story = StoryObj<TabContextProps>
+type Story = StoryObj<typeof TabContext>
 
 export const Demo: Story = {
   tags: ["!autodocs"],
   args: {
     onChange: fn(),
   },
-  render: (args) => (
+  render: (args: any) => (
     <TabContext defaultValue="tab-1" onChange={args.onChange}>
       <TabList>
-        <Tab {...args} value="tab-1">
-          Tab 1
-        </Tab>
-        <Tab {...args} value="tab-2">
-          Tab 2
-        </Tab>
-        <Tab {...args} value="tab-3">
-          Tab 3
-        </Tab>
+        <Tab value="tab-1">Tab 1</Tab>
+        <Tab value="tab-2">Tab 2</Tab>
+        <Tab value="tab-3">Tab 3</Tab>
       </TabList>
       <br />
       <TabPanel value="tab-1">Tab 1 Content</TabPanel>

@@ -2,11 +2,10 @@ import { Meta, StoryObj } from "@storybook/preact"
 import { fn } from "@storybook/test"
 
 import { Button } from "./Button"
-import type { ButtonProps } from "./Button.types"
 
 import { Icon } from "../Icon/Icon"
 
-const meta: Meta<ButtonProps> = {
+const meta: Meta<typeof Button> = {
   title: "Components/Button",
   component: Button,
   tags: ["autodocs"],
@@ -81,7 +80,7 @@ const meta: Meta<ButtonProps> = {
   },
 }
 export default meta
-type Story = StoryObj<ButtonProps>
+type Story = StoryObj<typeof Button>
 
 export const Demo: Story = {
   tags: ["!autodocs"],
@@ -94,6 +93,7 @@ export const Demo: Story = {
     children: "Button",
     onClick: fn(),
   },
+  render: (args) => <Button {...args} />,
 }
 
 export const Context: Story = {

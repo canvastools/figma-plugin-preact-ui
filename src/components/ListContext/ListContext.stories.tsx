@@ -4,10 +4,8 @@ import { fn } from "@storybook/test"
 import { useState } from "preact/hooks"
 
 import { ListContext } from "./ListContext"
-import type { ListContextProps } from "./ListContext.types"
 import { ListContainer } from "../ListContainer/ListContainer"
 import { ListItem } from "../ListItem/ListItem"
-import type { ListItemProps } from "../ListItem/ListItem.types"
 import type { ListItemData } from "./ListContext.types"
 
 import { Text } from "../Text/Text"
@@ -86,7 +84,7 @@ const meta: Meta<typeof ListContext> = {
 }
 
 export default meta
-type Story = StoryObj<ListContextProps>
+type Story = StoryObj<typeof ListContext>
 
 const sampleItems = [
   {
@@ -125,7 +123,7 @@ export const Demo: Story = {
     onItemsChange: fn(),
     onSelectionChange: fn(),
   },
-  render: (args) => {
+  render: (args: any) => {
     const [items, setItems] = useState(sampleItems)
     const [selectedItems, setSelectedItems] = useState<string[]>([])
 

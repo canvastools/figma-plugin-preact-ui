@@ -6,7 +6,6 @@ import { useState } from "preact/hooks"
 import { ListContext } from "../ListContext/ListContext"
 import { ListContainer } from "../ListContainer/ListContainer"
 import { ListItem } from "./ListItem"
-import type { ListItemProps } from "./ListItem.types"
 import type { ListItemData } from "../ListContext/ListContext.types"
 
 import { Text } from "../Text/Text"
@@ -154,7 +153,7 @@ const meta: Meta<typeof ListItem> = {
 }
 
 export default meta
-type Story = StoryObj<ListItemProps>
+type Story = StoryObj<typeof ListItem>
 
 const sampleItems = [
   {

@@ -5,7 +5,6 @@ import { useState } from "preact/hooks"
 import { TabContext } from "../TabContext/TabContext"
 import { TabPanel } from "../TabPanel/TabPanel"
 import { TabList } from "./TabList"
-import type { TabListProps } from "./TabList.types"
 import { Tab } from "../Tab/Tab"
 
 const meta: Meta<typeof TabList> = {
@@ -36,7 +35,7 @@ const meta: Meta<typeof TabList> = {
 }
 
 export default meta
-type Story = StoryObj<TabListProps>
+type Story = StoryObj<typeof TabList>
 
 export const Demo: Story = {
   tags: ["!autodocs"],

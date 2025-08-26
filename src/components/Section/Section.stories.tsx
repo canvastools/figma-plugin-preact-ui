@@ -1,12 +1,11 @@
 import { Meta, StoryObj } from "@storybook/preact"
 
 import { Section } from "./Section"
-import type { SectionProps } from "./Section.types"
 
 import { Text } from "../Text/Text"
 import { Divider } from "../Divider/Divider"
 
-const meta: Meta<SectionProps> = {
+const meta: Meta<typeof Section> = {
   title: "Components/Section",
   component: Section,
   tags: ["autodocs"],
@@ -26,7 +25,7 @@ const meta: Meta<SectionProps> = {
 }
 
 export default meta
-type Story = StoryObj<SectionProps>
+type Story = StoryObj<typeof Section>
 
 export const Demo: Story = {
   args: {

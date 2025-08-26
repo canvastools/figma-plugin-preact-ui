@@ -3,7 +3,6 @@ import { fn } from "@storybook/test"
 import { useState } from "preact/hooks"
 
 import { Tab } from "./Tab"
-import type { TabProps } from "./Tab.types"
 import { TabContext } from "../TabContext/TabContext"
 import { TabList } from "../TabList/TabList"
 import { TabPanel } from "../TabPanel/TabPanel"
@@ -81,7 +80,7 @@ const meta: Meta<typeof Tab> = {
 }
 
 export default meta
-type Story = StoryObj<TabProps>
+type Story = StoryObj<typeof Tab>
 
 export const Demo: Story = {
   tags: ["!autodocs"],
@@ -91,7 +90,7 @@ export const Demo: Story = {
     variant: "default",
     onClick: fn(),
   },
-  render: (args) => {
+  render: (args: any) => {
     if (args.variant === "default") {
       return (
         <TabContext defaultValue="tab-1">

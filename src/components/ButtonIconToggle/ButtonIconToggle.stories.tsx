@@ -3,11 +3,10 @@ import { fn } from "@storybook/test"
 import { useState } from "preact/hooks"
 
 import { ButtonIconToggle } from "./ButtonIconToggle"
-import type { ButtonIconToggleProps } from "./ButtonIconToggle.types"
 
 import { Icon } from "../Icon/Icon"
 
-const meta: Meta<ButtonIconToggleProps> = {
+const meta: Meta<typeof ButtonIconToggle> = {
   title: "Components/ButtonIconToggle",
   component: ButtonIconToggle,
   tags: ["autodocs"],
@@ -58,7 +57,7 @@ const meta: Meta<ButtonIconToggleProps> = {
   },
 }
 export default meta
-type Story = StoryObj<ButtonIconToggleProps>
+type Story = StoryObj<typeof ButtonIconToggle>
 
 export const Demo: Story = {
   tags: ["!autodocs"],
@@ -70,6 +69,7 @@ export const Demo: Story = {
     children: <Icon glyph="help" />,
     onChange: fn(),
   },
+  render: (args) => <ButtonIconToggle {...args} />,
 }
 
 export const Uncontrolled: Story = {

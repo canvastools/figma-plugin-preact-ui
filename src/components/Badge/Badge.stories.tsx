@@ -1,11 +1,10 @@
 import { Meta, StoryObj } from "@storybook/preact"
 
 import { Badge } from "./Badge"
-import type { BadgeProps } from "./Badge.types"
 
 import { Icon } from "../Icon/Icon"
 
-const meta: Meta<BadgeProps> = {
+const meta: Meta<typeof Badge> = {
   title: "Components/Badge",
   component: Badge,
   tags: ["autodocs"],
@@ -60,7 +59,7 @@ const meta: Meta<BadgeProps> = {
 }
 
 export default meta
-type Story = StoryObj<BadgeProps>
+type Story = StoryObj<typeof Badge>
 
 export const Demo: Story = {
   tags: ["!autodocs"],
@@ -69,6 +68,7 @@ export const Demo: Story = {
     context: "neutral",
     children: "Badge",
   },
+  render: (args) => <Badge {...args} />,
 }
 
 export const Variant: Story = {

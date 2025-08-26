@@ -1,9 +1,8 @@
 import { Meta, StoryObj } from "@storybook/preact"
 
 import { Text } from "./Text"
-import type { TextProps } from "./Text.types"
 
-const meta: Meta<TextProps> = {
+const meta: Meta<typeof Text> = {
   title: "Components/Text",
   component: Text,
   tags: ["autodocs"],
@@ -62,7 +61,7 @@ const meta: Meta<TextProps> = {
   },
 }
 export default meta
-type Story = StoryObj<TextProps>
+type Story = StoryObj<typeof Text>
 
 export const Demo: Story = {
   tags: ["!autodocs"],

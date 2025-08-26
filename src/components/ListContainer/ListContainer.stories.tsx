@@ -1,12 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/preact"
-import { fn } from "@storybook/test"
 
 import { useState } from "preact/hooks"
 
 import { ListContext } from "../ListContext/ListContext"
 import { ListContainer } from "./ListContainer"
 import { ListItem } from "../ListItem/ListItem"
-import type { ListContainerProps } from "./ListContainer.types"
 import type { ListItemData } from "../ListContext/ListContext.types"
 
 import { Text } from "../Text/Text"
@@ -54,7 +52,7 @@ const meta: Meta<typeof ListContainer> = {
 }
 
 export default meta
-type Story = StoryObj<ListContainerProps>
+type Story = StoryObj<typeof ListContainer>
 
 const sampleItems = [
   {

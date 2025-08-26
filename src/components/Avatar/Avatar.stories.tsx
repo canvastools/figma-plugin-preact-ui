@@ -1,9 +1,8 @@
 import { Meta, StoryObj } from "@storybook/preact"
 
 import { Avatar } from "./Avatar"
-import type { AvatarProps } from "./Avatar.types"
 
-const meta: Meta<AvatarProps> = {
+const meta: Meta<typeof Avatar> = {
   title: "Components/Avatar",
   component: Avatar,
   tags: ["autodocs"],
@@ -65,7 +64,7 @@ const meta: Meta<AvatarProps> = {
 }
 
 export default meta
-type Story = StoryObj<AvatarProps>
+type Story = StoryObj<typeof Avatar>
 
 export const Demo: Story = {
   tags: ["!autodocs"],
@@ -76,6 +75,7 @@ export const Demo: Story = {
     imageSrc: "",
     children: "A",
   },
+  render: (args) => <Avatar {...args} />,
 }
 
 export const Size: Story = {
