@@ -1,0 +1,1 @@
+import{u as i}from"./jsxRuntime.module-CXXlufuJ.js";import{t as a,b as d}from"./typedForwardRef-DzGXX2Gk.js";const m=({className:e,variant:r="full",...o},s)=>{const t=d("Divider",void 0,{variant:r});return i("div",{className:[t,e].join(" ").trim(),ref:s,...o,children:i("div",{className:"Divider__line"})})},l=a(m);export{l as D};
