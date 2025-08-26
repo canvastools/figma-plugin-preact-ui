@@ -121,7 +121,7 @@ const ListItemComponent = (
   }, [])
 
   const _className = bem("ListItem", undefined, {
-    variant: dragHandle,
+    dragHandle,
     "selection-scope-descendants": selectionScope === "withDescendants",
     nested: isNested,
     draggable: Boolean(draggable),

@@ -211,11 +211,13 @@
 
   /* Collapsable + draggable */
 
-  &_collapsable:is(&_draggable) > &__content {
+  &_collapsable:is(&_draggable):is(&_dragHandle-default) &__content {
     padding-left: calc(var(--pui-space-400) * 2);
   }
 
-  &_collapsable:is(&_draggable) > &__content > &__collapse-toggle {
+  &_collapsable:is(&_draggable):is(&_dragHandle-default)
+    &__content
+    > &__collapse-toggle {
     left: calc(var(--pui-space-400) * var(--level) + var(--pui-space-400));
   }
 }

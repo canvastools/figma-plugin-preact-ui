@@ -198,7 +198,7 @@ export const Demo: Story = {
     selectionScope: "item",
     onSelect: fn(),
     hoverable: true,
-    showCollapseControl: true,
+    showCollapseControl: false,
     onCollapsedChange: fn(),
   },
   render: (args) => {
@@ -841,7 +841,7 @@ export const Hoverable: Story = {
   },
 }
 
-export const Collapsable: Story = {
+export const CollapsableWithDragHandle: Story = {
   tags: ["!dev"],
   parameters: {
     controls: { disable: true },
@@ -921,6 +921,107 @@ export const Collapsable: Story = {
                 selectionScope="item"
                 showCollapseControl={true}
                 hoverable={true}
+                subItems={
+                  item.children
+                    ? renderSubItems(item.children, 1, [index])
+                    : undefined
+                }
+              >
+                <Text variant="body" context="neutral">
+                  {item.id}
+                </Text>
+                <Text context="neutral-secondary"> (Level 0)</Text>
+              </ListItem>
+            ))}
+          </ListContainer>
+        </ListContext>
+      </div>
+    )
+  },
+}
+
+export const CollapsableWithDraggableContainer: Story = {
+  tags: ["!dev"],
+  parameters: {
+    controls: { disable: true },
+    docs: {
+      description: {
+        story:
+          "Large trees can be collapsed by setting `showCollapseControl`. By default, the state is managed internally by the component, but you can also pass the state via the `collapsed` property.",
+      },
+    },
+  },
+  render: () => {
+    const [items, setItems] = useState(sampleItems)
+    const [selectedItems, setSelectedItems] = useState<string[]>([])
+
+    const renderSubItems = (
+      children: any[],
+      level: number,
+      parentPath: number[] = []
+    ) => {
+      if (!children || children.length === 0) return null
+
+      return (
+        <ListContainer nestingLevel={level} parentPath={parentPath}>
+          {children.map((child, index) => (
+            <ListItem
+              key={child.id}
+              id={child.id}
+              nestingLevel={level}
+              draggable={level > 0 ? false : true}
+              acceptsChildren={true}
+              selectable={level > 0 ? false : true}
+              selectionScope="item"
+              hoverable={level > 0 ? false : true}
+              showCollapseControl={true}
+              dragHandle="container"
+              subItems={
+                child.children
+                  ? renderSubItems(child.children, level + 1, [
+                      ...parentPath,
+                      index,
+                    ])
+                  : undefined
+              }
+            >
+              <Text variant="body" context="neutral">
+                {child.id}
+              </Text>
+              <Text context="neutral-secondary">
+                 (Level {level}
+                {level > 0
+                  ? ", not draggable, not hoverable, not selectable"
+                  : ""}
+                )
+              </Text>
+            </ListItem>
+          ))}
+        </ListContainer>
+      )
+    }
+
+    return (
+      <div className="sb-column sb-gap-16">
+        <ListContext
+          items={items}
+          selectedItems={selectedItems}
+          selectionMode="multi"
+          onItemsChange={setItems}
+          onSelectionChange={setSelectedItems}
+        >
+          <ListContainer>
+            {items.map((item, index) => (
+              <ListItem
+                key={item.id}
+                id={item.id}
+                draggable={true}
+                acceptsChildren={true}
+                selectable={true}
+                selectionScope="item"
+                showCollapseControl={true}
+                hoverable={true}
+                dragHandle="container"
                 subItems={
                   item.children
                     ? renderSubItems(item.children, 1, [index])
