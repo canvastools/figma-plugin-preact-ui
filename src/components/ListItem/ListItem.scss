@@ -1,4 +1,4 @@
-@use "../../variables.scss" as *;
+@use "../../shared.scss" as *;
 
 .ListItem {
   $parent: &;
@@ -14,7 +14,7 @@
     flex-direction: row;
     justify-content: flex-start;
     align-items: stretch;
-    padding: var(--pui-space-100) var(--pui-space-400);
+    padding: var(--pui-spacing-100) var(--pui-spacing-400);
     outline-width: 1px;
     outline-color: transparent;
     outline-style: solid;
@@ -35,12 +35,12 @@
     justify-content: flex-start;
     align-items: center;
     min-height: 24px;
-    padding-left: calc(var(--pui-space-400) * var(--level));
+    padding-left: calc(var(--pui-spacing-400) * var(--level));
   }
 
   &__drag-handle {
     position: absolute;
-    left: calc(var(--pui-space-400) * var(--level));
+    left: calc(var(--pui-spacing-400) * var(--level));
     top: 0;
     height: 100%;
     width: 16px;
@@ -69,7 +69,7 @@
 
   &__collapse-toggle {
     position: absolute;
-    left: calc(var(--pui-space-400) * var(--level));
+    left: calc(var(--pui-spacing-400) * var(--level));
     top: 0;
     height: 100%;
     width: 16px;
@@ -147,13 +147,13 @@
     display: none;
     position: absolute;
     left: calc(
-      (var(--level) + 1) * var(--pui-space-400) - var(--pui-space-400)
+      (var(--level) + 1) * var(--pui-spacing-400) - var(--pui-spacing-400)
     );
     right: 0;
     height: 2px;
     background-color: var(--pui-color-neutral-border-drop-position);
     width: calc(
-      100% + var(--pui-space-400) - var(--level) * var(--pui-space-400)
+      100% + var(--pui-spacing-400) - var(--level) * var(--pui-spacing-400)
     );
     z-index: 1;
     pointer-events: none;
@@ -161,21 +161,22 @@
 
   &_drag-above > &__content > &__children::before {
     display: block;
-    top: calc(var(--pui-space-100) * -1 - 1px);
+    top: calc(var(--pui-spacing-100) * -1 - 1px);
   }
 
   &_drag-below > &__content > &__children::before,
   &_drag-inside > &__content > &__children::before {
     display: block;
-    bottom: calc(var(--pui-space-100) * -1 - 1px);
+    bottom: calc(var(--pui-spacing-100) * -1 - 1px);
   }
 
   &_drag-inside > &__content > &__children::before {
     left: calc(
-      (var(--level) + 2) * var(--pui-space-400) - var(--pui-space-400)
+      (var(--level) + 2) * var(--pui-spacing-400) - var(--pui-spacing-400)
     );
     width: calc(
-      100% + var(--pui-space-400) - (var(--level) + 1) * var(--pui-space-400)
+      100% + var(--pui-spacing-400) - (var(--level) + 1) *
+        var(--pui-spacing-400)
     );
     pointer-events: none;
   }
@@ -219,12 +220,12 @@
   /* Collapsable + draggable */
 
   &_collapsable:is(&_draggable):is(&_dragHandle-default) &__content {
-    padding-left: calc(var(--pui-space-400) * 2);
+    padding-left: calc(var(--pui-spacing-400) * 2);
   }
 
   &_collapsable:is(&_draggable):is(&_dragHandle-default)
     &__content
     > &__collapse-toggle {
-    left: calc(var(--pui-space-400) * var(--level) + var(--pui-space-400));
+    left: calc(var(--pui-spacing-400) * var(--level) + var(--pui-spacing-400));
   }
 }

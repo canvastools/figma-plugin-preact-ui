@@ -1,4 +1,4 @@
-@use "../../variables.scss" as *;
+@use "../../shared.scss" as *;
 @use "../../mixins.scss" as *;
 
 @mixin ButtonIcon_style-outlined($context, $modifiers) {
@@ -83,7 +83,7 @@
 .ButtonIcon {
   $parent: &;
 
-  padding: 0 var(--pui-space-100);
+  padding: 0 var(--pui-spacing-100);
   border-radius: var(--pui-radius-medium);
   border: none;
   width: 24px;

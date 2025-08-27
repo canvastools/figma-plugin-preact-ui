@@ -1,27 +1,27 @@
-@use "../../variables.scss" as *;
+@use "../../shared.scss" as *;
 
 .TabList {
   $parent: &;
 
   position: relative;
   display: flex;
-  margin: 0 calc(var(--pui-space-200) * -2);
+  margin: 0 calc(var(--pui-spacing-200) * -2);
 
   -webkit-mask-image: linear-gradient(
     to right,
-    transparent var(--pui-space-200),
-    black calc(var(--pui-space-200) * 2),
-    black calc(100% - var(--pui-space-200) * 2),
-    transparent calc(100% - var(--pui-space-200))
+    transparent var(--pui-spacing-200),
+    black calc(var(--pui-spacing-200) * 2),
+    black calc(100% - var(--pui-spacing-200) * 2),
+    transparent calc(100% - var(--pui-spacing-200))
   );
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-size: 100% 100%;
   mask-image: linear-gradient(
     to right,
-    transparent var(--pui-space-200),
-    black calc(var(--pui-space-200) * 2),
-    black calc(100% - var(--pui-space-200) * 2),
-    transparent calc(100% - var(--pui-space-200))
+    transparent var(--pui-spacing-200),
+    black calc(var(--pui-spacing-200) * 2),
+    black calc(100% - var(--pui-spacing-200) * 2),
+    transparent calc(100% - var(--pui-spacing-200))
   );
   mask-repeat: no-repeat;
   mask-size: 100% 100%;
@@ -30,9 +30,9 @@
     display: flex;
     flex-flow: row nowrap;
     flex: 1 1 auto;
-    gap: var(--pui-space-100);
-    padding: 0 var(--pui-space-200);
-    margin: 0 var(--pui-space-200);
+    gap: var(--pui-spacing-100);
+    padding: 0 var(--pui-spacing-200);
+    margin: 0 var(--pui-spacing-200);
     overflow-x: auto;
     scrollbar-width: none;
   }

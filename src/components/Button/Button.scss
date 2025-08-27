@@ -1,4 +1,4 @@
-@use "../../variables.scss" as *;
+@use "../../shared.scss" as *;
 @use "../../mixins.scss" as *;
 
 @mixin Button_style-filled($context, $modifiers) {
@@ -97,7 +97,7 @@
 .Button {
   $parent: &;
 
-  padding: 0 var(--pui-space-100);
+  padding: 0 var(--pui-spacing-100);
   border-radius: var(--pui-radius-medium);
   border: none;
   width: fit-content;
@@ -113,7 +113,7 @@
   }
 
   &__children {
-    padding: 0 var(--pui-space-100);
+    padding: 0 var(--pui-spacing-100);
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;

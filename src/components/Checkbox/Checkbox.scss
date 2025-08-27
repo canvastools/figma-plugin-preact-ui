@@ -1,4 +1,4 @@
-@use "../../variables.scss" as *;
+@use "../../shared.scss" as *;
 @use "../../mixins.scss" as *;
 
 .Checkbox {
@@ -8,7 +8,7 @@
   width: fit-content;
   display: flex;
   align-items: flex-start;
-  gap: var(--pui-space-200);
+  gap: var(--pui-spacing-200);
 
   @include curson-feedback;
 

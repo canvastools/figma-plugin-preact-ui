@@ -1,3 +1,7 @@
+export { figmaLight, figmaDark, spacing, radius } from "./themes"
+
+// Components
+
 export { Avatar } from "./components/Avatar/Avatar"
 export type { AvatarProps } from "./components/Avatar/Avatar.types"
 

@@ -1,4 +1,4 @@
-@use "../../variables.scss" as *;
+@use "../../shared.scss" as *;
 
 @mixin Icon_style($context, $modifiers) {
   &_context-#{$context}-#{$modifiers} {

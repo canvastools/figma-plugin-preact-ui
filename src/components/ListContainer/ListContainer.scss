@@ -1,3 +1,5 @@
+@use "../../shared.scss" as *;
+
 .ListContainer {
   width: 100%;
   position: relative;
@@ -6,9 +8,9 @@
 
   &__end-dropzone {
     position: absolute;
-    width: calc(100% - var(--pui-space-400));
+    width: calc(100% - var(--pui-spacing-400));
     bottom: -1px;
-    left: var(--pui-space-400);
+    left: var(--pui-spacing-400);
     height: 2px;
     pointer-events: auto;
 

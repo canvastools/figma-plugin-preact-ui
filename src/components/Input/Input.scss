@@ -1,4 +1,4 @@
-@use "../../variables.scss" as *;
+@use "../../shared.scss" as *;
 @use "../../mixins.scss" as *;
 
 .Input {
@@ -40,7 +40,7 @@
     border: none;
     outline: none;
     background-color: transparent;
-    padding: 0 var(--pui-space-200);
+    padding: 0 var(--pui-spacing-200);
 
     @include typography-styles;
     @include typography-body-medium;

@@ -1,4 +1,4 @@
-@use "../../variables.scss" as *;
+@use "../../shared.scss" as *;
 
 @mixin Badge_style-filled($context, $modifiers) {
   &_context-#{$context}-#{$modifiers} {
@@ -39,7 +39,7 @@
   }
 
   &__children {
-    padding: 0 var(--pui-space-100);
+    padding: 0 var(--pui-spacing-100);
   }
 
   &_prefix &__children {

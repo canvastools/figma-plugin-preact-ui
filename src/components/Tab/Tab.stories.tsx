@@ -252,7 +252,7 @@ export const Suffix: Story = {
               variant="default"
               value="tab-1"
               suffix={
-                <div style={{ paddingLeft: "var(--pui-space-100)" }}>
+                <div style={{ paddingLeft: "var(--pui-spacing-100)" }}>
                   <Badge
                     context={activeTab === "tab-1" ? "neutral" : "brand"}
                     contextModifiers="default"
@@ -268,7 +268,7 @@ export const Suffix: Story = {
               variant="default"
               value="tab-2"
               suffix={
-                <div style={{ paddingLeft: "var(--pui-space-100)" }}>
+                <div style={{ paddingLeft: "var(--pui-spacing-100)" }}>
                   <Badge
                     context={activeTab === "tab-2" ? "neutral" : "brand"}
                     contextModifiers="default"
@@ -288,7 +288,7 @@ export const Suffix: Story = {
               variant="single"
               value="tab-1"
               suffix={
-                <div style={{ paddingLeft: "var(--pui-space-100)" }}>
+                <div style={{ paddingLeft: "var(--pui-spacing-100)" }}>
                   <Badge context="neutral" contextModifiers="default">
                     1
                   </Badge>

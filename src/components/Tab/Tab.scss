@@ -1,4 +1,4 @@
-@use "../../variables.scss" as *;
+@use "../../shared.scss" as *;
 @use "../../mixins.scss" as *;
 
 .Tab {
@@ -44,7 +44,7 @@
   }
 
   &__children {
-    padding: 0 var(--pui-space-200);
+    padding: 0 var(--pui-spacing-200);
   }
 
   &_prefix &__children {
@@ -56,7 +56,7 @@
   }
 
   &_suffix {
-    padding-right: var(--pui-space-200);
+    padding-right: var(--pui-spacing-200);
   }
 
   &_variant {
