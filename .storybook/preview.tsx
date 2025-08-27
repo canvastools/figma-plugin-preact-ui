@@ -6,6 +6,62 @@ import "./fonts.css"
 import "./viewport.css"
 import "./docs.css"
 
+// Load dist/style.css via a dynamic <link> and live-reload it when the file changes
+if (typeof window !== "undefined") {
+  const LINK_ID = "dist-style-css-link"
+  const baseCssUrl = new URL("../dist/style.css", import.meta.url).pathname
+
+  function setLinkHref(version) {
+    let link = document.getElementById(LINK_ID) as HTMLLinkElement | null
+    if (!link) {
+      link = document.createElement("link")
+      link.id = LINK_ID
+      link.rel = "stylesheet"
+      document.head.appendChild(link)
+    }
+    link.href = `${baseCssUrl}?v=${version}`
+  }
+
+  async function fetchSignature() {
+    try {
+      // Try lightweight HEAD first
+      const head = await fetch(`${baseCssUrl}?sig=${Date.now()}`, {
+        method: "HEAD",
+        cache: "no-store",
+      })
+      const len = head.headers.get("content-length") || ""
+      const mod = head.headers.get("last-modified") || ""
+      const sigHead = `${len}:${mod}`
+      if (sigHead !== ":") return sigHead
+      // Fallback to GET and hash if headers are absent
+      const res = await fetch(`${baseCssUrl}?sig=${Date.now()}`, {
+        cache: "no-store",
+      })
+      const text = await res.text()
+      let hash = 0
+      for (let i = 0; i < text.length; i++)
+        hash = (hash * 31 + text.charCodeAt(i)) | 0
+      return `${text.length}:${hash}`
+    } catch (_) {
+      return null
+    }
+  }
+
+  ;(async () => {
+    setLinkHref(Date.now())
+    let lastSig = await fetchSignature()
+    if (import.meta.env.DEV) {
+      setInterval(async () => {
+        const sig = await fetchSignature()
+        if (sig && lastSig && sig !== lastSig) {
+          setLinkHref(Date.now())
+        }
+        if (sig) lastSig = sig
+      }, 1000)
+    }
+  })()
+}
+
 const preview: Preview = {
   parameters: {
     options: {
