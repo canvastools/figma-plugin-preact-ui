@@ -17,6 +17,15 @@ const meta: Meta<typeof Checkbox> = {
     checked: {
       control: { type: "boolean" },
     },
+    defaultChecked: {
+      control: { type: "boolean" },
+      description: "Initial checked state for uncontrolled mode.",
+      table: {
+        type: {
+          summary: "boolean",
+        },
+      },
+    },
     mixed: {
       control: { type: "boolean" },
     },
@@ -46,12 +55,44 @@ export const Demo: Story = {
   args: {
     className: "",
     checked: false,
+    defaultChecked: false,
     mixed: false,
     disabled: false,
     label: "Checkbox",
     onChange: fn(),
   },
   render: (args) => <Checkbox {...args} />,
+}
+
+export const Uncontrolled: Story = {
+  tags: ["!dev"],
+  parameters: {
+    controls: { disable: true },
+  },
+  render: () => (
+    <div className="sb-row sb-gap-16">
+      <Checkbox checked={true} label="Checked True" />
+    </div>
+  ),
+}
+
+export const Controlled: Story = {
+  tags: ["!dev"],
+  parameters: {
+    controls: { disable: true },
+  },
+  render: () => {
+    const [isChecked, setIsChecked] = useState(false)
+    return (
+      <div className="sb-row sb-gap-16">
+        <Checkbox
+          checked={isChecked}
+          label="Checked True"
+          onChange={(args) => setIsChecked(args.checked)}
+        />
+      </div>
+    )
+  },
 }
 
 export const Checked: Story = {
@@ -61,14 +102,21 @@ export const Checked: Story = {
   },
   render: () => (
     <div className="sb-row sb-gap-16">
-      <div className="sb-column sb-gap-16">
-        <Checkbox checked={true} label="Checked True" />
-        <Checkbox checked={false} label="Checked False" />
-      </div>
-      <div className="sb-column sb-gap-16">
-        <Checkbox checked={true} mixed={true} label="Checkbox True Mixed" />
-        <Checkbox checked={false} mixed={true} label="Checkbox False Mixed" />
-      </div>
+      <Checkbox checked={true} label="Checked True" />
+      <Checkbox checked={false} label="Checked False" />
+    </div>
+  ),
+}
+
+export const Mixed: Story = {
+  tags: ["!dev"],
+  parameters: {
+    controls: { disable: true },
+  },
+  render: () => (
+    <div className="sb-row sb-gap-16">
+      <Checkbox checked={true} mixed={true} label="Checkbox True Mixed" />
+      <Checkbox checked={false} mixed={true} label="Checkbox False Mixed" />
     </div>
   ),
 }

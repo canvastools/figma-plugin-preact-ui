@@ -1,4 +1,4 @@
-import { useState } from "preact/hooks"
+import { useEffect, useState } from "preact/hooks"
 import { bem, typedForwardRef } from "../../utils"
 
 import type { CheckboxProps } from "./Checkbox.types"
@@ -13,6 +13,7 @@ const CheckboxComponent = (
   {
     className,
     checked,
+    defaultChecked,
     mixed,
     disabled,
     label,
@@ -21,7 +22,16 @@ const CheckboxComponent = (
   }: CheckboxProps,
   ref: preact.Ref<HTMLInputElement>
 ) => {
-  const [isChecked, setIsChecked] = useState(checked)
+  const isControlled = checked !== undefined
+  const [isChecked, setIsChecked] = useState<boolean>(
+    isControlled ? Boolean(checked) : Boolean(defaultChecked)
+  )
+
+  useEffect(() => {
+    if (isControlled) {
+      setIsChecked(Boolean(checked))
+    }
+  }, [isControlled, checked])
 
   const _className = bem("Checkbox", undefined, {
     checked: isChecked,
@@ -36,7 +46,11 @@ const CheckboxComponent = (
       return
     }
     event.stopPropagation()
-    onChange?.({ event, checked: !isChecked })
+    const nextChecked = !isChecked
+    if (!isControlled) {
+      setIsChecked(nextChecked)
+    }
+    onChange?.({ event, checked: nextChecked })
   }
 
   const handleChange = (
@@ -46,8 +60,20 @@ const CheckboxComponent = (
       event.preventDefault?.()
       return
     }
+    const nextChecked = (event.currentTarget as HTMLInputElement).checked
+    if (!isControlled) {
+      setIsChecked(nextChecked)
+    }
+    onChange?.({
+      event: event as unknown as MouseEvent,
+      checked: nextChecked,
+    })
+  }
+
+  const handleInputClick = (
+    event: preact.JSX.TargetedMouseEvent<HTMLInputElement>
+  ) => {
     event.stopPropagation()
-    onChange?.({ event: event as unknown as MouseEvent, checked: !isChecked })
   }
 
   return (
@@ -59,6 +85,7 @@ const CheckboxComponent = (
           ref={ref}
           checked={isChecked}
           disabled={disabled}
+          onClick={handleInputClick}
           onChange={handleChange}
         />
         {isChecked && !mixed && <Icon glyph="check" size={16} />}
