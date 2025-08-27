@@ -171,8 +171,8 @@ export const Prefix: Story = {
       <div className="sb-column sb-gap-16">
         <TabContext
           defaultValue="tab-1"
-          onChange={(value) => {
-            setActiveTab(value)
+          onChange={(args) => {
+            setActiveTab(args.value)
           }}
         >
           <TabList>
@@ -220,8 +220,8 @@ export const Suffix: Story = {
       <div className="sb-column sb-gap-16">
         <TabContext
           defaultValue="tab-1"
-          onChange={(value) => {
-            setActiveTab(value)
+          onChange={(args) => {
+            setActiveTab(args.value)
           }}
         >
           <TabList>

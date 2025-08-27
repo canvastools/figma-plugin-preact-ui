@@ -37,6 +37,14 @@ const TabComponent = (
     onClick?.({ event, value })
   }
 
+  const Content = () => (
+    <div className="Tab__content">
+      {prefix && <div className="Tab__prefix">{prefix}</div>}
+      {children && <div className="Tab__children">{children}</div>}
+      {suffix && <div className="Tab__suffix">{suffix}</div>}
+    </div>
+  )
+
   return (
     <button
       className={[_className, className].join(" ").trim()}
@@ -44,18 +52,21 @@ const TabComponent = (
       {...rest}
       onClick={handleClick}
     >
-      <Text
-        variant="body"
-        size="medium"
-        strong={value === activeValue}
-        context="inherit"
-      >
-        <div className="Tab__content">
-          {prefix && <div className="Tab__prefix">{prefix}</div>}
-          {children && <div className="Tab__children">{children}</div>}
-          {suffix && <div className="Tab__suffix">{suffix}</div>}
-        </div>
-      </Text>
+      <div className="Tab__container Tab__container_fake">
+        <Text variant="body" size="medium" strong={true} context="inherit">
+          <Content />
+        </Text>
+      </div>
+      <div className="Tab__container Tab__container_real">
+        <Text
+          variant="body"
+          size="medium"
+          strong={value === activeValue}
+          context="inherit"
+        >
+          <Content />
+        </Text>
+      </div>
     </button>
   )
 }

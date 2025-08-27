@@ -4,6 +4,7 @@
 .Tab {
   $parent: &;
 
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14,6 +15,27 @@
   padding: 0;
 
   @include focus-visible(-1px);
+
+  &__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &_fake {
+      position: relative;
+      opacity: 0;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    &_real {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+  }
 
   &__content {
     display: flex;
