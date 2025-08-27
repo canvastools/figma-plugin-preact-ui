@@ -1,4 +1,4 @@
-@use "../../variables.scss" as *;
+@use "../../shared.scss" as *;
 
 .Avatar {
   $parent: &;
@@ -10,7 +10,6 @@
   overflow: hidden;
   position: relative;
   background-color: var(--pui-color-neutral-inverted-bg-default);
-  color: var(--pui-color-neutral-inverted-text-default);
 
   &__children {
     display: flex;

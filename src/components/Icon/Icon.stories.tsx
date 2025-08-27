@@ -19,23 +19,27 @@ const meta: Meta<typeof Icon> = {
     },
     context: {
       control: { type: "radio" },
+      options: ["neutral", "brand", "danger", "warning", "success"],
+      defaultValue: { summary: "neutral" },
+    },
+    contextModifiers: {
+      control: { type: "radio" },
       options: [
-        "inherit",
-        "neutral",
-        "neutral-secondary",
-        "neutral-brand",
-        "neutral-danger",
-        "neutral-warning",
-        "neutral-success",
-        "neutral-inverted",
+        "default",
+        "secondary",
         "brand",
         "danger",
         "warning",
         "success",
       ],
-      defaultValue: { summary: "inherit" },
-      description:
-        "The `inherit` value makes the icon use the colours defined by its parent styles.",
+      defaultValue: { summary: "default" },
+    },
+    disabled: {
+      control: { type: "boolean" },
+    },
+    fill: {
+      control: { type: "color" },
+      description: "Overrides the context color.",
     },
     variant: {
       control: { type: "select" },
@@ -50,6 +54,16 @@ const meta: Meta<typeof Icon> = {
       defaultValue: { summary: "24" },
       description: "The size of the icon container.",
     },
+    interactive: {
+      control: { type: "boolean" },
+      description:
+        "Allows using colours for interactive states within the context.",
+    },
+    selected: {
+      control: { type: "boolean" },
+      description:
+        "Enables the modifier for the selected state. Only works if interactive is enabled.",
+    },
   },
 }
 
@@ -60,8 +74,10 @@ export const Demo: Story = {
   tags: ["!autodocs"],
   args: {
     className: "",
-    glyph: "help",
+    glyph: "link",
     context: "neutral",
+    contextModifiers: "default",
+    disabled: false,
     variant: "default",
     size: 24,
   },
@@ -75,41 +91,39 @@ const glyphCombinations = (glyph: string) => {
     meta.argTypes.size.options.map((j) => [i, j])
   )
 
-  const validCombinations = combinations.filter(([variant, size]) => {
+  return combinations.map(([variant, size]) => {
     try {
-      return glyphs[glyph]({ variant, size })
+      // Probe support for this size/variant pair
+      // @ts-ignore-next-line
+      glyphs[glyph]({ variant, size })
+
+      return (
+        <td style={{ verticalAlign: "top", width: "100%", padding: "16px" }}>
+          <Text context="neutral" contextModifiers="secondary">
+            {size}, {variant}
+          </Text>
+          <br />
+          <Icon
+            glyph={glyph as keyof typeof glyphs}
+            // @ts-ignore-next-line
+            variant={variant}
+            // @ts-ignore-next-line
+            size={size}
+            context="neutral"
+          />
+        </td>
+      )
     } catch (e) {
-      return false
+      return (
+        <td style={{ verticalAlign: "top", width: "100%", padding: "16px" }}>
+          {" "}
+          <Text context="neutral" contextModifiers="danger">
+            {size}, {variant}
+          </Text>
+        </td>
+      )
     }
   })
-
-  return validCombinations.map(([variant, size]) => (
-    <div
-      className="sb-row sb-gap-8 sb-width-full"
-      style={{ justifyContent: "space-between", alignItems: "center" }}
-    >
-      <Text
-        context={
-          variant == "default" && size == 24 ? "neutral" : "neutral-secondary"
-        }
-      >
-        {glyph} ({size}, {variant})
-      </Text>
-      <div
-        style={{
-          backgroundColor: "var(--pui-color-neutral-bg-secondary)",
-          width: "fit-content",
-        }}
-      >
-        <Icon
-          glyph={glyph as keyof typeof glyphs}
-          variant={variant}
-          size={size}
-          context="neutral"
-        />
-      </div>
-    </div>
-  ))
 }
 
 export const Glyphs: Story = {
@@ -118,30 +132,119 @@ export const Glyphs: Story = {
     controls: { disable: true },
   },
   render: () => (
-    <div
-      className="sb-row sb-gap-16"
-      style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(3, 1fr)",
-        gridTemplateRows: "repeat(auto, 1fr)",
-        gridColumnGap: "0px",
-        gridRowGap: "0px",
-      }}
-    >
+    <table className="sb-column sb-gap-16">
       {Object.keys(glyphs).map((glyph) => {
         return (
-          <div
-            className="sb-column sb-gap-16 sb-grid-cell-border"
+          <tr
             style={{
-              padding: "20px",
+              borderBottom: "1px solid var(--pui-color-neutral-border-default)",
             }}
           >
+            <td style={{ width: "100%" }}>
+              <Text variant="heading">{glyph}</Text>
+            </td>
+
             {glyphCombinations(glyph)}
-          </div>
+          </tr>
         )
       })}
-    </div>
+    </table>
   ),
+}
+
+const contextCombinations = () => {
+  const validCombinations = {
+    neutral: [
+      ["default", false, false],
+      ["default", true, false],
+      ["default", true, true],
+
+      ["secondary", false, false],
+
+      ["brand", false, false],
+      ["brand", true, false],
+
+      ["danger", false, false],
+      ["danger", true, false],
+
+      ["warning", false, false],
+      ["success", false, false],
+    ],
+    "neutral-inverted": [
+      ["default", false, false],
+      ["default", true, false],
+    ],
+    brand: [
+      ["default", false, false],
+      ["default", true, false],
+    ],
+    danger: [
+      ["default", false, false],
+      ["default", true, false],
+    ],
+    warning: [["default", false, false]],
+    success: [
+      ["default", false, false],
+      ["default", true, false],
+    ],
+  }
+
+  return Object.keys(validCombinations).map((context) => (
+    <div className="sb-column sb-gap-16">
+      {validCombinations[context].map(([modifier, interactive, selected]) => (
+        <div
+          className="sb-row sb-gap-16 sb-width-full sb-padding-16"
+          style={{
+            backgroundColor: `var(--pui-color-${context}-bg-default${
+              interactive ? "-interactive" : ""
+            }${selected ? "-selected" : ""})`,
+            alignItems: "center",
+          }}
+        >
+          <div style={{ width: "100%" }}>
+            <Text
+              context={context as any}
+              contextModifiers={modifier as any}
+              interactive={interactive as any}
+              selected={selected as any}
+            >
+              {context}
+              {modifier === "default" ? "" : `-${modifier}`}
+              {interactive ? ", interactive" : ""}{" "}
+              {selected ? ", selected" : ""}
+            </Text>
+          </div>
+          <Icon
+            glyph="link"
+            variant="default"
+            size={24}
+            context={context as any}
+            contextModifiers={modifier as any}
+            interactive={interactive as any}
+            selected={selected as any}
+          />
+          <Icon
+            glyph="link"
+            variant="scaled"
+            size={24}
+            context={context as any}
+            contextModifiers={modifier as any}
+            interactive={interactive as any}
+            selected={selected as any}
+          />
+          <Icon
+            glyph="link"
+            variant="default"
+            size={16}
+            context={context as any}
+            contextModifiers={modifier as any}
+            interactive={interactive as any}
+            selected={selected as any}
+          />
+        </div>
+      ))}
+    </div>
+  ))
 }
 
 export const Context: Story = {
@@ -150,55 +253,35 @@ export const Context: Story = {
     controls: { disable: true },
   },
   render: () => (
+    <div className="sb-column sb-gap-16">{contextCombinations()}</div>
+  ),
+}
+
+export const Fill: Story = {
+  tags: ["!dev"],
+  parameters: {
+    controls: { disable: true },
+  },
+  render: () => (
     <div className="sb-row sb-gap-16">
-      <div className="sb-column sb-gap-16 sb-padding-24">
-        <Icon glyph="help" context="neutral" />
-        <Icon glyph="help" context="neutral-secondary" />
-        <Icon glyph="help" context="neutral-brand" />
-        <Icon glyph="help" context="neutral-danger" />
-        <Icon glyph="help" context="neutral-warning" />
-        <Icon glyph="help" context="neutral-success" />
-      </div>
-      <div
-        className="sb-column sb-gap-16 sb-padding-24"
-        style={{
-          backgroundColor: "var(--pui-color-neutral-inverted-bg-default)",
-        }}
-      >
-        <Icon glyph="help" context="neutral-inverted" />
-      </div>
-      <div
-        className="sb-column sb-gap-16 sb-padding-24"
-        style={{
-          backgroundColor: "var(--pui-color-brand-bg-default)",
-        }}
-      >
-        <Icon glyph="help" context="brand" />
-      </div>
-      <div
-        className="sb-column sb-gap-16 sb-padding-24"
-        style={{
-          backgroundColor: "var(--pui-color-danger-bg-default)",
-        }}
-      >
-        <Icon glyph="help" context="danger" />
-      </div>
-      <div
-        className="sb-column sb-gap-16 sb-padding-24"
-        style={{
-          backgroundColor: "var(--pui-color-warning-bg-default)",
-        }}
-      >
-        <Icon glyph="help" context="warning" />
-      </div>
-      <div
-        className="sb-column sb-gap-16 sb-padding-24"
-        style={{
-          backgroundColor: "var(--pui-color-success-bg-default)",
-        }}
-      >
-        <Icon glyph="help" context="success" />
-      </div>
+      <Icon glyph="link" fill="#00FF00" />
+    </div>
+  ),
+}
+
+export const Disabled: Story = {
+  tags: ["!dev"],
+  parameters: {
+    controls: { disable: true },
+  },
+  render: () => (
+    <div className="sb-row sb-gap-16">
+      <Icon
+        glyph="link"
+        context="neutral"
+        contextModifiers="default"
+        disabled
+      />
     </div>
   ),
 }
@@ -210,8 +293,8 @@ export const Variant: Story = {
   },
   render: () => (
     <div className="sb-row sb-gap-16">
-      <Icon glyph="help" variant="default" context="neutral" />
-      <Icon glyph="help" variant="scaled" context="neutral" />
+      <Icon glyph="link" variant="default" context="neutral" />
+      <Icon glyph="link" variant="scaled" context="neutral" />
     </div>
   ),
 }
@@ -223,8 +306,8 @@ export const Size: Story = {
   },
   render: () => (
     <div className="sb-row sb-gap-16">
-      <Icon glyph="help" size={24} context="neutral" />
-      <Icon glyph="help" size={16} context="neutral" />
+      <Icon glyph="link" size={24} context="neutral" />
+      <Icon glyph="link" size={16} context="neutral" />
     </div>
   ),
 }
@@ -278,7 +361,7 @@ export const ErrorHandling: Story = {
   render: () => {
     return (
       <div className="sb-column sb-gap-16">
-        <Icon glyph="help" size={16} variant="scaled"></Icon>
+        <Icon glyph="link" size={16} variant="scaled"></Icon>
       </div>
     )
   },

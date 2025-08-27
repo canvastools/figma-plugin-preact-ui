@@ -37,6 +37,29 @@ const TabComponent = (
     onClick?.({ event, value })
   }
 
+  type ContentProps = { fake?: boolean }
+
+  const Content = ({ fake = false }: ContentProps) => (
+    <div className="Tab__content">
+      {prefix && <div className="Tab__prefix">{prefix}</div>}
+      {children && (
+        <div className="Tab__children">
+          <Text
+            variant="body"
+            size="medium"
+            strong={fake}
+            context="neutral"
+            contextModifiers="default"
+            interactive
+          >
+            {children}
+          </Text>
+        </div>
+      )}
+      {suffix && <div className="Tab__suffix">{suffix}</div>}
+    </div>
+  )
+
   return (
     <button
       className={[_className, className].join(" ").trim()}
@@ -44,18 +67,12 @@ const TabComponent = (
       {...rest}
       onClick={handleClick}
     >
-      <Text
-        variant="body"
-        size="medium"
-        strong={value === activeValue}
-        context="inherit"
-      >
-        <div className="Tab__content">
-          {prefix && <div className="Tab__prefix">{prefix}</div>}
-          {children && <div className="Tab__children">{children}</div>}
-          {suffix && <div className="Tab__suffix">{suffix}</div>}
-        </div>
-      </Text>
+      <div className="Tab__container Tab__container_fake">
+        <Content fake />
+      </div>
+      <div className="Tab__container Tab__container_real">
+        <Content />
+      </div>
     </button>
   )
 }

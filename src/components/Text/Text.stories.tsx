@@ -12,23 +12,27 @@ const meta: Meta<typeof Text> = {
     },
     context: {
       control: { type: "radio" },
+      options: ["neutral", "brand", "danger", "warning", "success"],
+      defaultValue: { summary: "neutral" },
+    },
+    contextModifiers: {
+      control: { type: "radio" },
       options: [
-        "inherit",
-        "neutral",
-        "neutral-secondary",
-        "neutral-brand",
-        "neutral-danger",
-        "neutral-warning",
-        "neutral-success",
-        "neutral-inverted",
+        "default",
+        "secondary",
         "brand",
         "danger",
         "warning",
         "success",
       ],
-      defaultValue: { summary: "inherit" },
-      description:
-        "The `inherit` value makes the text use the colours defined by its parent styles.",
+      defaultValue: { summary: "default" },
+    },
+    disabled: {
+      control: { type: "boolean" },
+    },
+    fill: {
+      control: { type: "color" },
+      description: "Overrides the context color.",
     },
     variant: {
       control: { type: "radio" },
@@ -68,6 +72,8 @@ export const Demo: Story = {
   args: {
     className: "",
     context: "neutral",
+    contextModifiers: "default",
+    disabled: false,
     variant: "body",
     size: "medium",
     strong: false,
@@ -77,230 +83,134 @@ export const Demo: Story = {
   },
 }
 
+const contextCombinations = () => {
+  const validCombinations = {
+    neutral: [
+      ["default", false, false],
+      ["default", true, false],
+      ["default", true, true],
+
+      ["secondary", false, false],
+
+      ["brand", false, false],
+      ["brand", true, false],
+
+      ["danger", false, false],
+      ["danger", true, false],
+
+      ["warning", false, false],
+      ["success", false, false],
+    ],
+    "neutral-inverted": [
+      ["default", false, false],
+      ["default", true, false],
+    ],
+    brand: [
+      ["default", false, false],
+      ["default", true, false],
+    ],
+    danger: [
+      ["default", false, false],
+      ["default", true, false],
+    ],
+    warning: [["default", false, false]],
+    success: [
+      ["default", false, false],
+      ["default", true, false],
+    ],
+  }
+
+  return Object.keys(validCombinations).map((context) => (
+    <div className="sb-column sb-gap-16">
+      {validCombinations[context].map(([modifier, interactive, selected]) => (
+        <div
+          className="sb-column sb-gap-8 sb-width-full sb-padding-16"
+          style={{
+            backgroundColor: `var(--pui-color-${context}-bg-default${
+              interactive ? "-interactive" : ""
+            }${selected ? "-selected" : ""})`,
+          }}
+        >
+          <Text
+            variant="heading"
+            context={context as any}
+            contextModifiers={modifier as any}
+            interactive={interactive as any}
+            selected={selected as any}
+          >
+            {context}
+            {modifier === "default" ? "" : `-${modifier}`}
+            {interactive ? ", interactive" : ""} {selected ? ", selected" : ""}
+          </Text>
+          <Text
+            variant="body"
+            context={context as any}
+            contextModifiers={modifier as any}
+            interactive={interactive as any}
+            selected={selected as any}
+          >
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry's standard dummy text
+            ever since the 1500s, when an unknown printer took a galley of type
+            and scrambled it to make a type specimen book.
+          </Text>
+        </div>
+      ))}
+    </div>
+  ))
+}
+
 export const Context: Story = {
   tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },
   render: () => (
+    <div className="sb-column sb-gap-16">{contextCombinations()}</div>
+  ),
+}
+
+export const Disabled: Story = {
+  tags: ["!dev"],
+  parameters: {
+    controls: { disable: true },
+  },
+  render: () => (
     <div className="sb-column sb-gap-16">
-      <div className="sb-column sb-gap-16 sb-padding-24">
-        <Text variant="heading" context="inherit">
-          Inherit
-        </Text>
-        <Text variant="body" context="inherit">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book. It has survived not only
-          five centuries, but also the leap into electronic typesetting,
-          remaining essentially unchanged. It was popularised in the 1960s with
-          the release of Letraset sheets containing Lorem Ipsum passages, and
-          more recently with desktop publishing software like Aldus PageMaker
-          including versions of Lorem Ipsum.
-        </Text>
-      </div>
-      <div className="sb-column sb-gap-16 sb-padding-24">
-        <Text variant="heading" context="neutral">
-          Neutral Primary
-        </Text>
-        <Text variant="body" context="neutral">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book. It has survived not only
-          five centuries, but also the leap into electronic typesetting,
-          remaining essentially unchanged. It was popularised in the 1960s with
-          the release of Letraset sheets containing Lorem Ipsum passages, and
-          more recently with desktop publishing software like Aldus PageMaker
-          including versions of Lorem Ipsum.
-        </Text>
-      </div>
-      <div className="sb-column sb-gap-16 sb-padding-24">
-        <Text variant="heading" context="neutral-secondary">
-          Neutral Secondary
-        </Text>
-        <Text variant="body" context="neutral-secondary">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book. It has survived not only
-          five centuries, but also the leap into electronic typesetting,
-          remaining essentially unchanged. It was popularised in the 1960s with
-          the release of Letraset sheets containing Lorem Ipsum passages, and
-          more recently with desktop publishing software like Aldus PageMaker
-          including versions of Lorem Ipsum.
-        </Text>
-      </div>
-      <div className="sb-column sb-gap-16 sb-padding-24">
-        <Text variant="heading" context="neutral-brand">
-          Brand Primary
-        </Text>
-        <Text variant="body" context="neutral-brand">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book. It has survived not only
-          five centuries, but also the leap into electronic typesetting,
-          remaining essentially unchanged. It was popularised in the 1960s with
-          the release of Letraset sheets containing Lorem Ipsum passages, and
-          more recently with desktop publishing software like Aldus PageMaker
-          including versions of Lorem Ipsum.
-        </Text>
-      </div>
-      <div className="sb-column sb-gap-16 sb-padding-24">
-        <Text variant="heading" context="neutral-danger">
-          Danger Primary
-        </Text>
-        <Text variant="body" context="neutral-danger">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book. It has survived not only
-          five centuries, but also the leap into electronic typesetting,
-          remaining essentially unchanged. It was popularised in the 1960s with
-          the release of Letraset sheets containing Lorem Ipsum passages, and
-          more recently with desktop publishing software like Aldus PageMaker
-          including versions of Lorem Ipsum.
-        </Text>
-      </div>
-      <div className="sb-column sb-gap-16 sb-padding-24">
-        <Text variant="heading" context="neutral-warning">
-          Warning Primary
-        </Text>
-        <Text variant="body" context="neutral-warning">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book. It has survived not only
-          five centuries, but also the leap into electronic typesetting,
-          remaining essentially unchanged. It was popularised in the 1960s with
-          the release of Letraset sheets containing Lorem Ipsum passages, and
-          more recently with desktop publishing software like Aldus PageMaker
-          including versions of Lorem Ipsum.
-        </Text>
-      </div>
-      <div className="sb-column sb-gap-16 sb-padding-24">
-        <Text variant="heading" context="neutral-success">
-          Success Primary
-        </Text>
-        <Text variant="body" context="neutral-success">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book. It has survived not only
-          five centuries, but also the leap into electronic typesetting,
-          remaining essentially unchanged. It was popularised in the 1960s with
-          the release of Letraset sheets containing Lorem Ipsum passages, and
-          more recently with desktop publishing software like Aldus PageMaker
-          including versions of Lorem Ipsum.
-        </Text>
-      </div>
-      <div
-        className="sb-column sb-gap-16 sb-padding-24"
-        style={{
-          backgroundColor: "var(--pui-color-neutral-inverted-bg-default)",
-        }}
-      >
-        <Text variant="heading" context="neutral-inverted">
-          Neutral Inverted
-        </Text>
-        <Text variant="body" context="neutral-inverted">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book. It has survived not only
-          five centuries, but also the leap into electronic typesetting,
-          remaining essentially unchanged. It was popularised in the 1960s with
-          the release of Letraset sheets containing Lorem Ipsum passages, and
-          more recently with desktop publishing software like Aldus PageMaker
-          including versions of Lorem Ipsum.
-        </Text>
-      </div>
-      <div
-        className="sb-column sb-gap-16 sb-padding-24"
-        style={{
-          backgroundColor: "var(--pui-color-brand-bg-default)",
-        }}
-      >
-        <Text variant="heading" context="brand">
-          Brand Primary
-        </Text>
-        <Text variant="body" context="brand">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book. It has survived not only
-          five centuries, but also the leap into electronic typesetting,
-          remaining essentially unchanged. It was popularised in the 1960s with
-          the release of Letraset sheets containing Lorem Ipsum passages, and
-          more recently with desktop publishing software like Aldus PageMaker
-          including versions of Lorem Ipsum.
-        </Text>
-      </div>
-      <div
-        className="sb-column sb-gap-16 sb-padding-24"
-        style={{
-          backgroundColor: "var(--pui-color-danger-bg-default)",
-        }}
-      >
-        <Text variant="heading" context="danger">
-          Brand Danger
-        </Text>
-        <Text variant="body" context="danger">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book. It has survived not only
-          five centuries, but also the leap into electronic typesetting,
-          remaining essentially unchanged. It was popularised in the 1960s with
-          the release of Letraset sheets containing Lorem Ipsum passages, and
-          more recently with desktop publishing software like Aldus PageMaker
-          including versions of Lorem Ipsum.
-        </Text>
-      </div>
-      <div
-        className="sb-column sb-gap-16 sb-padding-24"
-        style={{
-          backgroundColor: "var(--pui-color-warning-bg-default)",
-        }}
-      >
-        <Text variant="heading" context="warning">
-          Brand Warning
-        </Text>
-        <Text variant="body" context="warning">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book. It has survived not only
-          five centuries, but also the leap into electronic typesetting,
-          remaining essentially unchanged. It was popularised in the 1960s with
-          the release of Letraset sheets containing Lorem Ipsum passages, and
-          more recently with desktop publishing software like Aldus PageMaker
-          including versions of Lorem Ipsum.
-        </Text>
-      </div>
-      <div
-        className="sb-column sb-gap-16 sb-padding-24"
-        style={{
-          backgroundColor: "var(--pui-color-success-bg-default)",
-        }}
-      >
-        <Text variant="heading" context="success">
-          Success Primary
-        </Text>
-        <Text variant="body" context="success">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book. It has survived not only
-          five centuries, but also the leap into electronic typesetting,
-          remaining essentially unchanged. It was popularised in the 1960s with
-          the release of Letraset sheets containing Lorem Ipsum passages, and
-          more recently with desktop publishing software like Aldus PageMaker
-          including versions of Lorem Ipsum.
-        </Text>
-      </div>
+      <Text variant="heading" context="neutral" disabled>
+        Heading
+      </Text>
+      <Text variant="body" context="neutral" disabled>
+        Lorem Ipsum is simply dummy text of the printing and typesetting
+        industry. Lorem Ipsum has been the industry's standard dummy text ever
+        since the 1500s, when an unknown printer took a galley of type and
+        scrambled it to make a type specimen book.
+      </Text>
+    </div>
+  ),
+}
+
+export const Fill: Story = {
+  tags: ["!dev"],
+  parameters: {
+    controls: { disable: true },
+  },
+  render: () => (
+    <div className="sb-column sb-gap-16">
+      <Text variant="heading" context="neutral" fill="#00FF00">
+        Heading
+      </Text>
+      <Text variant="body" context="neutral" fill="#00FF00">
+        Lorem Ipsum is simply dummy text of the printing and typesetting
+        industry. Lorem Ipsum has been the industry's standard dummy text ever
+        since the 1500s, when an unknown printer took a galley of type and
+        scrambled it to make a type specimen book. It has survived not only five
+        centuries, but also the leap into electronic typesetting, remaining
+        essentially unchanged. It was popularised in the 1960s with the release
+        of Letraset sheets containing Lorem Ipsum passages, and more recently
+        with desktop publishing software like Aldus PageMaker including versions
+        of Lorem Ipsum.
+      </Text>
     </div>
   ),
 }

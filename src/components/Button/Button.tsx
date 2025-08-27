@@ -11,6 +11,8 @@ const ButtonComponent = (
   {
     className,
     context = "neutral",
+    contextModifiers = "default",
+    ghost,
     size = "medium",
     fullWidth,
     disabled,
@@ -23,7 +25,8 @@ const ButtonComponent = (
   ref: preact.Ref<HTMLButtonElement>
 ) => {
   const _className = bem("Button", undefined, {
-    context,
+    context: `${context}-${contextModifiers}`,
+    ghost: Boolean(ghost),
     size,
     fullWidth,
     disabled,
@@ -48,13 +51,23 @@ const ButtonComponent = (
       disabled={disabled}
       onClick={handleClick}
     >
-      <Text variant="body" size="medium" context="inherit">
-        <div className="Button__content">
-          {prefix && <div className="Button__prefix">{prefix}</div>}
-          {children && <div className="Button__children">{children}</div>}
-          {suffix && <div className="Button__suffix">{suffix}</div>}
-        </div>
-      </Text>
+      <div className="Button__content">
+        {prefix && <div className="Button__prefix">{prefix}</div>}
+        {children && (
+          <div className="Button__children">
+            <Text
+              variant="body"
+              size="medium"
+              context={context}
+              contextModifiers={contextModifiers}
+              disabled={disabled}
+            >
+              {children}
+            </Text>
+          </div>
+        )}
+        {suffix && <div className="Button__suffix">{suffix}</div>}
+      </div>
     </button>
   )
 }

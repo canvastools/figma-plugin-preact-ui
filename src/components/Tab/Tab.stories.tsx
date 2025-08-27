@@ -106,9 +106,9 @@ export const Demo: Story = {
             </Tab>
           </TabList>
           <br />
-          <TabPanel value="tab-1">Tab 1 Content</TabPanel>
-          <TabPanel value="tab-2">Tab 2 Content</TabPanel>
-          <TabPanel value="tab-3">Tab 3 Content</TabPanel>
+          <TabPanel value="tab-1">Tab 1 Panel</TabPanel>
+          <TabPanel value="tab-2">Tab 2 Panel</TabPanel>
+          <TabPanel value="tab-3">Tab 3 Panel</TabPanel>
         </TabContext>
       )
     } else {
@@ -171,22 +171,38 @@ export const Prefix: Story = {
       <div className="sb-column sb-gap-16">
         <TabContext
           defaultValue="tab-1"
-          onChange={(value) => {
-            setActiveTab(value)
+          onChange={(args) => {
+            setActiveTab(args.value)
           }}
         >
           <TabList>
             <Tab
               variant="default"
               value="tab-1"
-              prefix={<Icon glyph="settings" variant="scaled" />}
+              prefix={
+                <Icon
+                  glyph="settings"
+                  variant="scaled"
+                  context="neutral"
+                  contextModifiers="default"
+                  interactive
+                />
+              }
             >
               First Tab
             </Tab>
             <Tab
               variant="default"
               value="tab-2"
-              prefix={<Icon glyph="search" variant="scaled" />}
+              prefix={
+                <Icon
+                  glyph="search"
+                  variant="scaled"
+                  context="neutral"
+                  contextModifiers="default"
+                  interactive
+                />
+              }
             >
               Second Tab
             </Tab>
@@ -197,7 +213,14 @@ export const Prefix: Story = {
             <Tab
               variant="single"
               value="tab-1"
-              prefix={<Icon glyph="settings" variant="scaled" />}
+              prefix={
+                <Icon
+                  glyph="settings"
+                  variant="scaled"
+                  context="neutral"
+                  contextModifiers="default"
+                />
+              }
             >
               Single
             </Tab>
@@ -220,8 +243,8 @@ export const Suffix: Story = {
       <div className="sb-column sb-gap-16">
         <TabContext
           defaultValue="tab-1"
-          onChange={(value) => {
-            setActiveTab(value)
+          onChange={(args) => {
+            setActiveTab(args.value)
           }}
         >
           <TabList>
@@ -229,9 +252,10 @@ export const Suffix: Story = {
               variant="default"
               value="tab-1"
               suffix={
-                <div style={{ paddingLeft: "var(--pui-space-100)" }}>
+                <div style={{ paddingLeft: "var(--pui-spacing-100)" }}>
                   <Badge
-                    context={activeTab === "tab-1" ? "neutral-brand" : "brand"}
+                    context={activeTab === "tab-1" ? "neutral" : "brand"}
+                    contextModifiers="default"
                   >
                     1
                   </Badge>
@@ -244,9 +268,10 @@ export const Suffix: Story = {
               variant="default"
               value="tab-2"
               suffix={
-                <div style={{ paddingLeft: "var(--pui-space-100)" }}>
+                <div style={{ paddingLeft: "var(--pui-spacing-100)" }}>
                   <Badge
-                    context={activeTab === "tab-2" ? "neutral-brand" : "brand"}
+                    context={activeTab === "tab-2" ? "neutral" : "brand"}
+                    contextModifiers="default"
                   >
                     2
                   </Badge>
@@ -263,8 +288,10 @@ export const Suffix: Story = {
               variant="single"
               value="tab-1"
               suffix={
-                <div style={{ paddingLeft: "var(--pui-space-100)" }}>
-                  <Badge context="neutral-brand">1</Badge>
+                <div style={{ paddingLeft: "var(--pui-spacing-100)" }}>
+                  <Badge context="neutral" contextModifiers="default">
+                    1
+                  </Badge>
                 </div>
               }
             >

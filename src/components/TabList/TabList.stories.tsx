@@ -50,9 +50,9 @@ export const Demo: Story = {
         <Tab value="tab-3">Tab 3</Tab>
       </TabList>
       <br />
-      <TabPanel value="tab-1">Tab 1 Content</TabPanel>
-      <TabPanel value="tab-2">Tab 2 Content</TabPanel>
-      <TabPanel value="tab-3">Tab 3 Content</TabPanel>
+      <TabPanel value="tab-1">Tab 1 Panel</TabPanel>
+      <TabPanel value="tab-2">Tab 2 Panel</TabPanel>
+      <TabPanel value="tab-3">Tab 3 Panel</TabPanel>
     </TabContext>
   ),
 }
@@ -80,21 +80,21 @@ export const HorizontalScroll: Story = {
           <Tab value="tab-15">Fifteenth Tab</Tab>
         </TabList>
         <br />
-        <TabPanel value="tab-1">Tab 1 Content</TabPanel>
-        <TabPanel value="tab-2">Tab 2 Content</TabPanel>
-        <TabPanel value="tab-3">Tab 3 Content</TabPanel>
-        <TabPanel value="tab-4">Tab 4 Content</TabPanel>
-        <TabPanel value="tab-5">Tab 5 Content</TabPanel>
-        <TabPanel value="tab-6">Tab 6 Content</TabPanel>
-        <TabPanel value="tab-7">Tab 7 Content</TabPanel>
-        <TabPanel value="tab-8">Tab 8 Content</TabPanel>
-        <TabPanel value="tab-9">Tab 9 Content</TabPanel>
-        <TabPanel value="tab-10">Tab 10 Content</TabPanel>
-        <TabPanel value="tab-11">Tab 11 Content</TabPanel>
-        <TabPanel value="tab-12">Tab 12 Content</TabPanel>
-        <TabPanel value="tab-13">Tab 13 Content</TabPanel>
-        <TabPanel value="tab-14">Tab 14 Content</TabPanel>
-        <TabPanel value="tab-15">Tab 15 Content</TabPanel>
+        <TabPanel value="tab-1">Tab 1 Panel</TabPanel>
+        <TabPanel value="tab-2">Tab 2 Panel</TabPanel>
+        <TabPanel value="tab-3">Tab 3 Panel</TabPanel>
+        <TabPanel value="tab-4">Tab 4 Panel</TabPanel>
+        <TabPanel value="tab-5">Tab 5 Panel</TabPanel>
+        <TabPanel value="tab-6">Tab 6 Panel</TabPanel>
+        <TabPanel value="tab-7">Tab 7 Panel</TabPanel>
+        <TabPanel value="tab-8">Tab 8 Panel</TabPanel>
+        <TabPanel value="tab-9">Tab 9 Panel</TabPanel>
+        <TabPanel value="tab-10">Tab 10 Panel</TabPanel>
+        <TabPanel value="tab-11">Tab 11 Panel</TabPanel>
+        <TabPanel value="tab-12">Tab 12 Panel</TabPanel>
+        <TabPanel value="tab-13">Tab 13 Panel</TabPanel>
+        <TabPanel value="tab-14">Tab 14 Panel</TabPanel>
+        <TabPanel value="tab-15">Tab 15 Panel</TabPanel>
       </TabContext>
     )
   },

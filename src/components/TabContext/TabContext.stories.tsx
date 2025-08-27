@@ -75,9 +75,9 @@ export const Demo: Story = {
         <Tab value="tab-3">Tab 3</Tab>
       </TabList>
       <br />
-      <TabPanel value="tab-1">Tab 1 Content</TabPanel>
-      <TabPanel value="tab-2">Tab 2 Content</TabPanel>
-      <TabPanel value="tab-3">Tab 3 Content</TabPanel>
+      <TabPanel value="tab-1">Tab 1 Panel</TabPanel>
+      <TabPanel value="tab-2">Tab 2 Panel</TabPanel>
+      <TabPanel value="tab-3">Tab 3 Panel</TabPanel>
     </TabContext>
   ),
 }
@@ -93,9 +93,9 @@ export const Uncontrolled: Story = {
           <Tab value="tab-3">Third Tab</Tab>
         </TabList>
         <br />
-        <TabPanel value="tab-1">Tab 1 Content</TabPanel>
-        <TabPanel value="tab-2">Tab 2 Content</TabPanel>
-        <TabPanel value="tab-3">Tab 3 Content</TabPanel>
+        <TabPanel value="tab-1">Tab 1 Panel</TabPanel>
+        <TabPanel value="tab-2">Tab 2 Panel</TabPanel>
+        <TabPanel value="tab-3">Tab 3 Panel</TabPanel>
       </TabContext>
     )
   },
@@ -119,9 +119,9 @@ export const Controlled: Story = {
           <Tab value="tab-3">Third Tab</Tab>
         </TabList>
         <br />
-        <TabPanel value="tab-1">Tab 1 Content</TabPanel>
-        <TabPanel value="tab-2">Tab 2 Content</TabPanel>
-        <TabPanel value="tab-3">Tab 3 Content</TabPanel>
+        <TabPanel value="tab-1">Tab 1 Panel</TabPanel>
+        <TabPanel value="tab-2">Tab 2 Panel</TabPanel>
+        <TabPanel value="tab-3">Tab 3 Panel</TabPanel>
       </TabContext>
     )
   },

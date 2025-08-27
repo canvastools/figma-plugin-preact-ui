@@ -145,7 +145,11 @@ export const Demo: Story = {
           <ListContainer>
             {items.map((item) => (
               <ListItem id={item.id} draggable={true} selectable={true}>
-                <Text variant="body" context="neutral">
+                <Text
+                  variant="body"
+                  context="neutral"
+                  contextModifiers="default"
+                >
                   {item.id}
                 </Text>
               </ListItem>
@@ -191,10 +195,13 @@ export const NoSelection: Story = {
                   : undefined
               }
             >
-              <Text variant="body" context="neutral">
+              <Text variant="body" context="neutral" contextModifiers="default">
                 {child.id}
               </Text>
-              <Text context="neutral-secondary"> (Level {level})</Text>
+              {" "}
+              <Text context="neutral" contextModifiers="secondary">
+                (Level {level})
+              </Text>
             </ListItem>
           ))}
         </ListContainer>
@@ -227,10 +234,17 @@ export const NoSelection: Story = {
                   item.children ? renderSubItems(item.children, 1) : undefined
                 }
               >
-                <Text variant="body" context="neutral">
+                <Text
+                  variant="body"
+                  context="neutral"
+                  contextModifiers="default"
+                >
                   {item.id}
                 </Text>
-                <Text context="neutral-secondary"> (Level 0)</Text>
+                {" "}
+                <Text context="neutral" contextModifiers="secondary">
+                  (Level 0)
+                </Text>
               </ListItem>
             ))}
           </ListContainer>
@@ -274,10 +288,13 @@ export const SingleSelection: Story = {
                   : undefined
               }
             >
-              <Text variant="body" context="neutral">
+              <Text variant="body" context="neutral" contextModifiers="default">
                 {child.id}
               </Text>
-              <Text context="neutral-secondary"> (Level {level})</Text>
+              {" "}
+              <Text context="neutral" contextModifiers="secondary">
+                (Level {level})
+              </Text>
             </ListItem>
           ))}
         </ListContainer>
@@ -310,10 +327,17 @@ export const SingleSelection: Story = {
                   item.children ? renderSubItems(item.children, 1) : undefined
                 }
               >
-                <Text variant="body" context="neutral">
+                <Text
+                  variant="body"
+                  context="neutral"
+                  contextModifiers="default"
+                >
                   {item.id}
                 </Text>
-                <Text context="neutral-secondary"> (Level 0)</Text>
+                {" "}
+                <Text context="neutral" contextModifiers="secondary">
+                  (Level 0)
+                </Text>
               </ListItem>
             ))}
           </ListContainer>
@@ -357,10 +381,13 @@ export const MultiSelection: Story = {
                   : undefined
               }
             >
-              <Text variant="body" context="neutral">
+              <Text variant="body" context="neutral" contextModifiers="default">
                 {child.id}
               </Text>
-              <Text context="neutral-secondary"> (Level {level})</Text>
+              {" "}
+              <Text context="neutral" contextModifiers="secondary">
+                (Level {level})
+              </Text>
             </ListItem>
           ))}
         </ListContainer>
@@ -394,10 +421,17 @@ export const MultiSelection: Story = {
                   item.children ? renderSubItems(item.children, 1) : undefined
                 }
               >
-                <Text variant="body" context="neutral">
+                <Text
+                  variant="body"
+                  context="neutral"
+                  contextModifiers="default"
+                >
                   {item.id}
                 </Text>
-                <Text context="neutral-secondary"> (Level 0)</Text>
+                {" "}
+                <Text context="neutral" contextModifiers="secondary">
+                  (Level 0)
+                </Text>
               </ListItem>
             ))}
           </ListContainer>

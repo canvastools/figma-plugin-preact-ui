@@ -93,10 +93,13 @@ export const Demo: Story = {
         >
           <ListContainer {...args}>
             {items.map((item) => {
-              console.log(item)
               return (
                 <ListItem id={item.id} draggable={true} selectable={true}>
-                  <Text variant="body" context="neutral">
+                  <Text
+                    variant="body"
+                    context="neutral"
+                    contextModifiers="default"
+                  >
                     {item.id}
                   </Text>
                 </ListItem>

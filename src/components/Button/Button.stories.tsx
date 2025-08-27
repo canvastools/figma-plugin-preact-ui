@@ -15,19 +15,16 @@ const meta: Meta<typeof Button> = {
     },
     context: {
       control: { type: "radio" },
-      options: [
-        "neutral",
-        "neutral-ghost",
-        "neutral-brand",
-        "neutral-brand-ghost",
-        "neutral-danger",
-        "neutral-danger-ghost",
-        "neutral-inverted",
-        "brand",
-        "danger",
-        "success",
-      ],
+      options: ["neutral", "brand", "danger", "success"],
       defaultValue: { summary: "neutral" },
+    },
+    contextModifiers: {
+      control: { type: "radio" },
+      options: ["default", "secondary", "brand", "danger", "success"],
+      defaultValue: { summary: "default" },
+    },
+    ghost: {
+      control: { type: "boolean" },
     },
     size: {
       control: { type: "radio" },
@@ -87,6 +84,7 @@ export const Demo: Story = {
   args: {
     className: "",
     context: "neutral",
+    contextModifiers: "default",
     size: "medium",
     disabled: false,
     fullWidth: false,
@@ -103,16 +101,36 @@ export const Context: Story = {
   },
   render: () => (
     <div className="sb-column sb-gap-16">
-      <Button context="neutral">Neutral</Button>
-      <Button context="neutral-ghost">Neutral Ghost</Button>
-      <Button context="neutral-brand">Neutral Brand</Button>
-      <Button context="neutral-brand-ghost">Neutral Brand Ghost</Button>
-      <Button context="neutral-danger">Neutral Danger</Button>
-      <Button context="neutral-danger-ghost">Neutral Danger Ghost</Button>
-      <Button context="neutral-inverted">Neutral Inverted</Button>
-      <Button context="brand">Brand</Button>
-      <Button context="danger">Danger</Button>
-      <Button context="success">Success</Button>
+      <Button context="neutral" contextModifiers="default">
+        Neutral
+      </Button>
+      <Button context="neutral" contextModifiers="default" ghost>
+        Neutral Ghost
+      </Button>
+      <Button context="neutral" contextModifiers="brand">
+        Neutral Brand
+      </Button>
+      <Button context="neutral" contextModifiers="brand" ghost>
+        Neutral Brand Ghost
+      </Button>
+      <Button context="neutral" contextModifiers="danger">
+        Neutral Danger
+      </Button>
+      <Button context="neutral" contextModifiers="danger" ghost>
+        Neutral Danger Ghost
+      </Button>
+      <Button context="neutral-inverted" contextModifiers="default">
+        Neutral Inverted
+      </Button>
+      <Button context="brand" contextModifiers="default">
+        Brand
+      </Button>
+      <Button context="danger" contextModifiers="default">
+        Danger
+      </Button>
+      <Button context="success" contextModifiers="default">
+        Success
+      </Button>
     </div>
   ),
 }
@@ -125,67 +143,71 @@ export const Size: Story = {
   render: () => (
     <div className="sb-row sb-gap-16">
       <div className="sb-column sb-gap-16">
-        <Button context="neutral" size="medium">
-          Neutral Medium
+        <Button context="neutral" contextModifiers="default">
+          Neutral
         </Button>
-        <Button context="neutral-ghost" size="medium">
-          Neutral Ghost Medium
+        <Button context="neutral" contextModifiers="default" ghost>
+          Neutral Ghost
         </Button>
-        <Button context="neutral-brand" size="medium">
-          Neutral Brand Medium
+        <Button context="neutral" contextModifiers="brand">
+          Neutral Brand
         </Button>
-        <Button context="neutral-brand-ghost" size="medium">
-          Neutral Brand Ghost Medium
+        <Button context="neutral" contextModifiers="brand" ghost>
+          Neutral Brand Ghost
         </Button>
-        <Button context="neutral-danger" size="medium">
-          Neutral Danger Medium
+        <Button context="neutral" contextModifiers="danger">
+          Neutral Danger
         </Button>
-        <Button context="neutral-danger-ghost" size="medium">
+        <Button context="neutral" contextModifiers="danger" ghost>
           Neutral Danger Ghost
         </Button>
-        <Button context="neutral-inverted" size="medium">
-          Neutral Inverted Medium
+        <Button context="neutral-inverted" contextModifiers="default">
+          Neutral Inverted
         </Button>
-        <Button context="brand" size="medium">
-          Brand Medium
+        <Button context="brand" contextModifiers="default">
+          Brand
         </Button>
-        <Button context="danger" size="medium">
-          Danger Medium
+        <Button context="danger" contextModifiers="default">
+          Danger
         </Button>
-        <Button context="success" size="medium">
-          Success Medium
+        <Button context="success" contextModifiers="default">
+          Success
         </Button>
       </div>
       <div className="sb-column sb-gap-16">
-        <Button context="neutral" size="large">
-          Neutral Large
+        <Button context="neutral" contextModifiers="default" size="large">
+          Neutral
         </Button>
-        <Button context="neutral-ghost" size="large">
-          Neutral Ghost Large
+        <Button context="neutral" contextModifiers="default" ghost size="large">
+          Neutral Ghost
         </Button>
-        <Button context="neutral-brand" size="large">
-          Neutral Brand Large
+        <Button context="neutral" contextModifiers="brand" size="large">
+          Neutral Brand
         </Button>
-        <Button context="neutral-brand-ghost" size="large">
-          Neutral Brand Ghost Large
+        <Button context="neutral" contextModifiers="brand" ghost size="large">
+          Neutral Brand Ghost
         </Button>
-        <Button context="neutral-danger" size="large">
-          Neutral Danger Large
+        <Button context="neutral" contextModifiers="danger" size="large">
+          Neutral Danger
         </Button>
-        <Button context="neutral-danger-ghost" size="large">
-          Neutral Danger Ghost Large
+        <Button context="neutral" contextModifiers="danger" ghost size="large">
+          Neutral Danger Ghost
         </Button>
-        <Button context="neutral-inverted" size="large">
-          Neutral Inverted Large
+        <Button
+          context="neutral-inverted"
+          contextModifiers="default"
+          size="large"
+        >
+          Neutral Inverted
         </Button>
-        <Button context="brand" size="large">
-          Brand Large
+        <Button context="brand" contextModifiers="default" size="large">
+          Brand
         </Button>
-        <Button context="danger" size="large">
-          Danger Large
+        <Button context="danger" contextModifiers="default" size="large">
+          Danger
         </Button>
-        <Button context="success" size="large">
-          Success Large
+        <Button context="success" contextModifiers="default" size="large">
+          Success
         </Button>
       </div>
     </div>
@@ -200,67 +222,120 @@ export const Disabled: Story = {
   render: () => (
     <div className="sb-row sb-gap-16">
       <div className="sb-column sb-gap-16">
-        <Button context="neutral" size="medium" disabled>
-          Neutral Medium
+        <Button context="neutral" contextModifiers="default" disabled>
+          Neutral
         </Button>
-        <Button context="neutral-ghost" size="medium" disabled>
-          Neutral Ghost Medium
+        <Button context="neutral" contextModifiers="default" ghost disabled>
+          Neutral Ghost
         </Button>
-        <Button context="neutral-brand" size="medium" disabled>
-          Neutral Brand Medium
+        <Button context="neutral" contextModifiers="brand" disabled>
+          Neutral Brand
         </Button>
-        <Button context="neutral-brand-ghost" size="medium" disabled>
-          Neutral Brand Ghost Medium
+        <Button context="neutral" contextModifiers="brand" ghost disabled>
+          Neutral Brand Ghost
         </Button>
-        <Button context="neutral-danger" size="medium" disabled>
-          Neutral Danger Medium
+        <Button context="neutral" contextModifiers="danger" disabled>
+          Neutral Danger
         </Button>
-        <Button context="neutral-danger-ghost" size="medium" disabled>
+        <Button context="neutral" contextModifiers="danger" ghost disabled>
           Neutral Danger Ghost
         </Button>
-        <Button context="neutral-inverted" size="medium" disabled>
-          Neutral Inverted Medium
+        <Button context="neutral-inverted" contextModifiers="default" disabled>
+          Neutral Inverted
         </Button>
-        <Button context="brand" size="medium" disabled>
-          Brand Medium
+        <Button context="brand" contextModifiers="default" disabled>
+          Brand
         </Button>
-        <Button context="danger" size="medium" disabled>
-          Danger Medium
+        <Button context="danger" contextModifiers="default" disabled>
+          Danger
         </Button>
-        <Button context="success" size="medium" disabled>
-          Success Medium
+        <Button context="success" contextModifiers="default" disabled>
+          Success
         </Button>
       </div>
       <div className="sb-column sb-gap-16">
-        <Button context="neutral" size="large" disabled>
-          Neutral Large
+        <Button
+          context="neutral"
+          contextModifiers="default"
+          size="large"
+          disabled
+        >
+          Neutral
         </Button>
-        <Button context="neutral-ghost" size="large" disabled>
-          Neutral Ghost Large
+        <Button
+          context="neutral"
+          contextModifiers="default"
+          ghost
+          size="large"
+          disabled
+        >
+          Neutral Ghost
         </Button>
-        <Button context="neutral-brand" size="large" disabled>
-          Neutral Brand Large
+        <Button
+          context="neutral"
+          contextModifiers="brand"
+          size="large"
+          disabled
+        >
+          Neutral Brand
         </Button>
-        <Button context="neutral-brand-ghost" size="large" disabled>
-          Neutral Brand Ghost Large
+        <Button
+          context="neutral"
+          contextModifiers="brand"
+          ghost
+          size="large"
+          disabled
+        >
+          Neutral Brand Ghost
         </Button>
-        <Button context="neutral-danger" size="large" disabled>
-          Neutral Danger Large
+        <Button
+          context="neutral"
+          contextModifiers="danger"
+          size="large"
+          disabled
+        >
+          Neutral Danger
         </Button>
-        <Button context="neutral-danger-ghost" size="large" disabled>
-          Neutral Danger Ghost Large
+        <Button
+          context="neutral"
+          contextModifiers="danger"
+          ghost
+          size="large"
+          disabled
+        >
+          Neutral Danger Ghost
         </Button>
-        <Button context="neutral-inverted" size="large" disabled>
-          Neutral Inverted Large
+        <Button
+          context="neutral-inverted"
+          contextModifiers="default"
+          size="large"
+          disabled
+        >
+          Neutral Inverted
         </Button>
-        <Button context="brand" size="large" disabled>
-          Brand Large
+        <Button
+          context="brand"
+          contextModifiers="default"
+          size="large"
+          disabled
+        >
+          Brand
         </Button>
-        <Button context="danger" size="large" disabled>
-          Danger Large
+        <Button
+          context="danger"
+          contextModifiers="default"
+          size="large"
+          disabled
+        >
+          Danger
         </Button>
-        <Button context="success" size="large" disabled>
-          Success Large
+        <Button
+          context="success"
+          contextModifiers="default"
+          size="large"
+          disabled
+        >
+          Success
         </Button>
       </div>
     </div>
@@ -275,67 +350,120 @@ export const FullWidth: Story = {
   render: () => (
     <div className="sb-row sb-gap-16">
       <div className="sb-column sb-gap-16">
-        <Button context="neutral" size="medium" fullWidth>
-          Neutral Medium
+        <Button context="neutral" contextModifiers="default" fullWidth>
+          Neutral
         </Button>
-        <Button context="neutral-ghost" size="medium" fullWidth>
-          Neutral Ghost Medium
+        <Button context="neutral" contextModifiers="default" ghost fullWidth>
+          Neutral Ghost
         </Button>
-        <Button context="neutral-brand" size="medium" fullWidth>
-          Neutral Brand Medium
+        <Button context="neutral" contextModifiers="brand" fullWidth>
+          Neutral Brand
         </Button>
-        <Button context="neutral-brand-ghost" size="medium" fullWidth>
-          Neutral Brand Ghost Medium
+        <Button context="neutral" contextModifiers="brand" ghost fullWidth>
+          Neutral Brand Ghost
         </Button>
-        <Button context="neutral-danger" size="medium" fullWidth>
-          Neutral Danger Medium
+        <Button context="neutral" contextModifiers="danger" fullWidth>
+          Neutral Danger
         </Button>
-        <Button context="neutral-danger-ghost" size="medium" fullWidth>
+        <Button context="neutral" contextModifiers="danger" ghost fullWidth>
           Neutral Danger Ghost
         </Button>
-        <Button context="neutral-inverted" size="medium" fullWidth>
-          Neutral Inverted Medium
+        <Button context="neutral-inverted" contextModifiers="default" fullWidth>
+          Neutral Inverted
         </Button>
-        <Button context="brand" size="medium" fullWidth>
-          Brand Medium
+        <Button context="brand" contextModifiers="default" fullWidth>
+          Brand
         </Button>
-        <Button context="danger" size="medium" fullWidth>
-          Danger Medium
+        <Button context="danger" contextModifiers="default" fullWidth>
+          Danger
         </Button>
-        <Button context="success" size="medium" fullWidth>
-          Success Medium
+        <Button context="success" contextModifiers="default" fullWidth>
+          Success
         </Button>
       </div>
       <div className="sb-column sb-gap-16">
-        <Button context="neutral" size="large" fullWidth>
-          Neutral Large
+        <Button
+          context="neutral"
+          contextModifiers="default"
+          size="large"
+          fullWidth
+        >
+          Neutral
         </Button>
-        <Button context="neutral-ghost" size="large" fullWidth>
-          Neutral Ghost Large
+        <Button
+          context="neutral"
+          contextModifiers="default"
+          ghost
+          size="large"
+          fullWidth
+        >
+          Neutral Ghost
         </Button>
-        <Button context="neutral-brand" size="large" fullWidth>
-          Neutral Brand Large
+        <Button
+          context="neutral"
+          contextModifiers="brand"
+          size="large"
+          fullWidth
+        >
+          Neutral Brand
         </Button>
-        <Button context="neutral-brand-ghost" size="large" fullWidth>
-          Neutral Brand Ghost Large
+        <Button
+          context="neutral"
+          contextModifiers="brand"
+          ghost
+          size="large"
+          fullWidth
+        >
+          Neutral Brand Ghost
         </Button>
-        <Button context="neutral-danger" size="large" fullWidth>
-          Neutral Danger Large
+        <Button
+          context="neutral"
+          contextModifiers="danger"
+          size="large"
+          fullWidth
+        >
+          Neutral Danger
         </Button>
-        <Button context="neutral-danger-ghost" size="large" fullWidth>
-          Neutral Danger Ghost Large
+        <Button
+          context="neutral"
+          contextModifiers="danger"
+          ghost
+          size="large"
+          fullWidth
+        >
+          Neutral Danger Ghost
         </Button>
-        <Button context="neutral-inverted" size="large" fullWidth>
-          Neutral Inverted Large
+        <Button
+          context="neutral-inverted"
+          contextModifiers="default"
+          size="large"
+          fullWidth
+        >
+          Neutral Inverted
         </Button>
-        <Button context="brand" size="large" fullWidth>
-          Brand Large
+        <Button
+          context="brand"
+          contextModifiers="default"
+          size="large"
+          fullWidth
+        >
+          Brand
         </Button>
-        <Button context="danger" size="large" fullWidth>
-          Danger Large
+        <Button
+          context="danger"
+          contextModifiers="default"
+          size="large"
+          fullWidth
+        >
+          Danger
         </Button>
-        <Button context="success" size="large" fullWidth>
-          Success Large
+        <Button
+          context="success"
+          contextModifiers="default"
+          size="large"
+          fullWidth
+        >
+          Success
         </Button>
       </div>
     </div>
@@ -356,145 +484,321 @@ export const Prefix: Story = {
       <div className="sb-column sb-gap-16">
         <Button
           context="neutral"
-          size="medium"
-          prefix={<Icon glyph="help" variant="scaled" />}
+          contextModifiers="default"
+          prefix={
+            <Icon
+              glyph="help"
+              variant="scaled"
+              context="neutral"
+              contextModifiers="default"
+              interactive
+            />
+          }
         >
-          Neutral Medium
+          Neutral
         </Button>
         <Button
-          context="neutral-ghost"
-          size="medium"
-          prefix={<Icon glyph="help" variant="scaled" />}
+          context="neutral"
+          contextModifiers="default"
+          ghost
+          prefix={
+            <Icon
+              glyph="help"
+              variant="scaled"
+              context="neutral"
+              contextModifiers="default"
+              interactive
+            />
+          }
         >
-          Neutral Ghost Medium
+          Neutral Ghost
         </Button>
         <Button
-          context="neutral-brand"
-          size="medium"
-          prefix={<Icon glyph="help" variant="scaled" />}
+          context="neutral"
+          contextModifiers="brand"
+          prefix={
+            <Icon
+              glyph="help"
+              variant="scaled"
+              context="neutral"
+              contextModifiers="brand"
+              interactive
+            />
+          }
         >
-          Neutral Brand Medium
+          Neutral Brand
         </Button>
         <Button
-          context="neutral-brand-ghost"
-          size="medium"
-          prefix={<Icon glyph="help" variant="scaled" />}
+          context="neutral"
+          contextModifiers="brand"
+          ghost
+          prefix={
+            <Icon
+              glyph="help"
+              variant="scaled"
+              context="neutral"
+              contextModifiers="brand"
+              interactive
+            />
+          }
         >
-          Neutral Brand Ghost Medium
+          Neutral Brand Ghost
         </Button>
         <Button
-          context="neutral-danger"
-          size="medium"
-          prefix={<Icon glyph="help" variant="scaled" />}
+          context="neutral"
+          contextModifiers="danger"
+          prefix={
+            <Icon
+              glyph="help"
+              variant="scaled"
+              context="neutral"
+              contextModifiers="danger"
+              interactive
+            />
+          }
         >
-          Neutral Danger Medium
+          Neutral Danger
         </Button>
         <Button
-          context="neutral-danger-ghost"
-          size="medium"
-          prefix={<Icon glyph="help" variant="scaled" />}
+          context="neutral"
+          contextModifiers="danger"
+          ghost
+          prefix={
+            <Icon
+              glyph="help"
+              variant="scaled"
+              context="neutral"
+              contextModifiers="danger"
+              interactive
+            />
+          }
         >
           Neutral Danger Ghost
         </Button>
         <Button
           context="neutral-inverted"
-          size="medium"
-          prefix={<Icon glyph="help" variant="scaled" />}
+          contextModifiers="default"
+          prefix={
+            <Icon
+              glyph="help"
+              variant="scaled"
+              context="neutral-inverted"
+              contextModifiers="default"
+              interactive
+            />
+          }
         >
-          Neutral Inverted Medium
+          Neutral Inverted
         </Button>
         <Button
           context="brand"
-          size="medium"
-          prefix={<Icon glyph="help" variant="scaled" />}
+          contextModifiers="default"
+          prefix={
+            <Icon
+              glyph="help"
+              variant="scaled"
+              context="brand"
+              contextModifiers="default"
+              interactive
+            />
+          }
         >
-          Brand Medium
+          Brand
         </Button>
         <Button
           context="danger"
-          size="medium"
-          prefix={<Icon glyph="help" variant="scaled" />}
+          contextModifiers="default"
+          prefix={
+            <Icon
+              glyph="help"
+              variant="scaled"
+              context="danger"
+              contextModifiers="default"
+              interactive
+            />
+          }
         >
-          Danger Medium
+          Danger
         </Button>
         <Button
           context="success"
-          size="medium"
-          prefix={<Icon glyph="help" variant="scaled" />}
+          contextModifiers="default"
+          prefix={
+            <Icon
+              glyph="help"
+              variant="scaled"
+              context="success"
+              contextModifiers="default"
+              interactive
+            />
+          }
         >
-          Success Medium
+          Success
         </Button>
       </div>
       <div className="sb-column sb-gap-16">
         <Button
           context="neutral"
+          contextModifiers="default"
           size="large"
-          prefix={<Icon glyph="help" variant="scaled" />}
+          prefix={
+            <Icon
+              glyph="help"
+              variant="scaled"
+              context="neutral"
+              contextModifiers="default"
+              interactive
+            />
+          }
         >
-          Neutral Large
+          Neutral
         </Button>
         <Button
-          context="neutral-ghost"
+          context="neutral"
+          contextModifiers="default"
+          ghost
           size="large"
-          prefix={<Icon glyph="help" variant="scaled" />}
+          prefix={
+            <Icon
+              glyph="help"
+              variant="scaled"
+              context="neutral"
+              contextModifiers="default"
+              interactive
+            />
+          }
         >
-          Neutral Ghost Large
+          Neutral Ghost
         </Button>
         <Button
-          context="neutral-brand"
+          context="neutral"
+          contextModifiers="brand"
           size="large"
-          prefix={<Icon glyph="help" variant="scaled" />}
+          prefix={
+            <Icon
+              glyph="help"
+              variant="scaled"
+              context="neutral"
+              contextModifiers="brand"
+              interactive
+            />
+          }
         >
-          Neutral Brand Large
+          Neutral Brand
         </Button>
         <Button
-          context="neutral-brand-ghost"
+          context="neutral"
+          contextModifiers="brand"
+          ghost
           size="large"
-          prefix={<Icon glyph="help" variant="scaled" />}
+          prefix={
+            <Icon
+              glyph="help"
+              variant="scaled"
+              context="neutral"
+              contextModifiers="brand"
+              interactive
+            />
+          }
         >
-          Neutral Brand Ghost Large
+          Neutral Brand Ghost
         </Button>
         <Button
-          context="neutral-danger"
+          context="neutral"
+          contextModifiers="danger"
           size="large"
-          prefix={<Icon glyph="help" variant="scaled" />}
+          prefix={
+            <Icon
+              glyph="help"
+              variant="scaled"
+              context="neutral"
+              contextModifiers="danger"
+              interactive
+            />
+          }
         >
-          Neutral Danger Large
+          Neutral Danger
         </Button>
         <Button
-          context="neutral-danger-ghost"
+          context="neutral"
+          contextModifiers="danger"
+          ghost
           size="large"
-          prefix={<Icon glyph="help" variant="scaled" />}
+          prefix={
+            <Icon
+              glyph="help"
+              variant="scaled"
+              context="neutral"
+              contextModifiers="danger"
+              interactive
+            />
+          }
         >
-          Neutral Danger Ghost Large
+          Neutral Danger Ghost
         </Button>
         <Button
           context="neutral-inverted"
+          contextModifiers="default"
           size="large"
-          prefix={<Icon glyph="help" variant="scaled" />}
+          prefix={
+            <Icon
+              glyph="help"
+              variant="scaled"
+              context="neutral-inverted"
+              contextModifiers="default"
+              interactive
+            />
+          }
         >
-          Neutral Inverted Large
+          Neutral Inverted
         </Button>
         <Button
           context="brand"
+          contextModifiers="default"
           size="large"
-          prefix={<Icon glyph="help" variant="scaled" />}
+          prefix={
+            <Icon
+              glyph="help"
+              variant="scaled"
+              context="brand"
+              contextModifiers="default"
+              interactive
+            />
+          }
         >
-          Brand Large
+          Brand
         </Button>
         <Button
           context="danger"
+          contextModifiers="default"
           size="large"
-          prefix={<Icon glyph="help" variant="scaled" />}
+          prefix={
+            <Icon
+              glyph="help"
+              variant="scaled"
+              context="danger"
+              contextModifiers="default"
+              interactive
+            />
+          }
         >
-          Danger Large
+          Danger
         </Button>
         <Button
           context="success"
+          contextModifiers="default"
           size="large"
-          prefix={<Icon glyph="help" variant="scaled" />}
+          prefix={
+            <Icon
+              glyph="help"
+              variant="scaled"
+              context="success"
+              contextModifiers="default"
+              interactive
+            />
+          }
         >
-          Success Large
+          Success
         </Button>
       </div>
     </div>
@@ -509,150 +813,327 @@ export const Suffix: Story = {
       defaultViewport: "large",
     },
   },
+
   render: () => (
     <div className="sb-row sb-gap-16">
       <div className="sb-column sb-gap-16">
         <Button
           context="neutral"
-          size="medium"
-          suffix={<Icon glyph="help" variant="scaled" />}
+          contextModifiers="default"
+          suffix={
+            <Icon
+              glyph="help"
+              variant="scaled"
+              context="neutral"
+              contextModifiers="default"
+              interactive
+            />
+          }
         >
-          Neutral Medium
+          Neutral
         </Button>
         <Button
-          context="neutral-ghost"
-          size="medium"
-          suffix={<Icon glyph="help" variant="scaled" />}
+          context="neutral"
+          contextModifiers="default"
+          ghost
+          suffix={
+            <Icon
+              glyph="help"
+              variant="scaled"
+              context="neutral"
+              contextModifiers="default"
+              interactive
+            />
+          }
         >
-          Neutral Ghost Medium
+          Neutral Ghost
         </Button>
         <Button
-          context="neutral-brand"
-          size="medium"
-          suffix={<Icon glyph="help" variant="scaled" />}
+          context="neutral"
+          contextModifiers="brand"
+          suffix={
+            <Icon
+              glyph="help"
+              variant="scaled"
+              context="neutral"
+              contextModifiers="brand"
+              interactive
+            />
+          }
         >
-          Neutral Brand Medium
+          Neutral Brand
         </Button>
         <Button
-          context="neutral-brand-ghost"
-          size="medium"
-          suffix={<Icon glyph="help" variant="scaled" />}
+          context="neutral"
+          contextModifiers="brand"
+          ghost
+          suffix={
+            <Icon
+              glyph="help"
+              variant="scaled"
+              context="neutral"
+              contextModifiers="brand"
+              interactive
+            />
+          }
         >
-          Neutral Brand Ghost Medium
+          Neutral Brand Ghost
         </Button>
         <Button
-          context="neutral-danger"
-          size="medium"
-          suffix={<Icon glyph="help" variant="scaled" />}
+          context="neutral"
+          contextModifiers="danger"
+          suffix={
+            <Icon
+              glyph="help"
+              variant="scaled"
+              context="neutral"
+              contextModifiers="danger"
+              interactive
+            />
+          }
         >
-          Neutral Danger Medium
+          Neutral Danger
         </Button>
         <Button
-          context="neutral-danger-ghost"
-          size="medium"
-          suffix={<Icon glyph="help" variant="scaled" />}
+          context="neutral"
+          contextModifiers="danger"
+          ghost
+          suffix={
+            <Icon
+              glyph="help"
+              variant="scaled"
+              context="neutral"
+              contextModifiers="danger"
+              interactive
+            />
+          }
         >
           Neutral Danger Ghost
         </Button>
         <Button
           context="neutral-inverted"
-          size="medium"
-          suffix={<Icon glyph="help" variant="scaled" />}
+          contextModifiers="default"
+          suffix={
+            <Icon
+              glyph="help"
+              variant="scaled"
+              context="neutral-inverted"
+              contextModifiers="default"
+              interactive
+            />
+          }
         >
-          Neutral Inverted Medium
+          Neutral Inverted
         </Button>
         <Button
           context="brand"
-          size="medium"
-          suffix={<Icon glyph="help" variant="scaled" />}
+          contextModifiers="default"
+          suffix={
+            <Icon
+              glyph="help"
+              variant="scaled"
+              context="brand"
+              contextModifiers="default"
+              interactive
+            />
+          }
         >
-          Brand Medium
+          Brand
         </Button>
         <Button
           context="danger"
-          size="medium"
-          suffix={<Icon glyph="help" variant="scaled" />}
+          contextModifiers="default"
+          suffix={
+            <Icon
+              glyph="help"
+              variant="scaled"
+              context="danger"
+              contextModifiers="default"
+              interactive
+            />
+          }
         >
-          Danger Medium
+          Danger
         </Button>
         <Button
           context="success"
-          size="medium"
-          suffix={<Icon glyph="help" variant="scaled" />}
+          contextModifiers="default"
+          suffix={
+            <Icon
+              glyph="help"
+              variant="scaled"
+              context="success"
+              contextModifiers="default"
+              interactive
+            />
+          }
         >
-          Success Medium
+          Success
         </Button>
       </div>
       <div className="sb-column sb-gap-16">
         <Button
           context="neutral"
+          contextModifiers="default"
           size="large"
-          suffix={<Icon glyph="help" variant="scaled" />}
+          suffix={
+            <Icon
+              glyph="help"
+              variant="scaled"
+              context="neutral"
+              contextModifiers="default"
+              interactive
+            />
+          }
         >
-          Neutral Large
+          Neutral
         </Button>
         <Button
-          context="neutral-ghost"
+          context="neutral"
+          contextModifiers="default"
+          ghost
           size="large"
-          suffix={<Icon glyph="help" variant="scaled" />}
+          suffix={
+            <Icon
+              glyph="help"
+              variant="scaled"
+              context="neutral"
+              contextModifiers="default"
+              interactive
+            />
+          }
         >
-          Neutral Ghost Large
+          Neutral Ghost
         </Button>
         <Button
-          context="neutral-brand"
+          context="neutral"
+          contextModifiers="brand"
           size="large"
-          suffix={<Icon glyph="help" variant="scaled" />}
+          suffix={
+            <Icon
+              glyph="help"
+              variant="scaled"
+              context="neutral"
+              contextModifiers="brand"
+              interactive
+            />
+          }
         >
-          Neutral Brand Large
+          Neutral Brand
         </Button>
         <Button
-          context="neutral-brand-ghost"
+          context="neutral"
+          contextModifiers="brand"
+          ghost
           size="large"
-          suffix={<Icon glyph="help" variant="scaled" />}
+          suffix={
+            <Icon
+              glyph="help"
+              variant="scaled"
+              context="neutral"
+              contextModifiers="brand"
+              interactive
+            />
+          }
         >
-          Neutral Brand Ghost Large
+          Neutral Brand Ghost
         </Button>
         <Button
-          context="neutral-danger"
+          context="neutral"
+          contextModifiers="danger"
           size="large"
-          suffix={<Icon glyph="help" variant="scaled" />}
+          suffix={
+            <Icon
+              glyph="help"
+              variant="scaled"
+              context="neutral"
+              contextModifiers="danger"
+              interactive
+            />
+          }
         >
-          Neutral Danger Large
+          Neutral Danger
         </Button>
         <Button
-          context="neutral-danger-ghost"
+          context="neutral"
+          contextModifiers="danger"
+          ghost
           size="large"
-          suffix={<Icon glyph="help" variant="scaled" />}
+          suffix={
+            <Icon
+              glyph="help"
+              variant="scaled"
+              context="neutral"
+              contextModifiers="danger"
+              interactive
+            />
+          }
         >
-          Neutral Danger Ghost Large
+          Neutral Danger Ghost
         </Button>
         <Button
           context="neutral-inverted"
+          contextModifiers="default"
           size="large"
-          suffix={<Icon glyph="help" variant="scaled" />}
+          suffix={
+            <Icon
+              glyph="help"
+              variant="scaled"
+              context="neutral-inverted"
+              contextModifiers="default"
+              interactive
+            />
+          }
         >
-          Neutral Inverted Large
+          Neutral Inverted
         </Button>
         <Button
           context="brand"
+          contextModifiers="default"
           size="large"
-          suffix={<Icon glyph="help" variant="scaled" />}
+          suffix={
+            <Icon
+              glyph="help"
+              variant="scaled"
+              context="brand"
+              contextModifiers="default"
+              interactive
+            />
+          }
         >
-          Brand Large
+          Brand
         </Button>
         <Button
           context="danger"
+          contextModifiers="default"
           size="large"
-          suffix={<Icon glyph="help" variant="scaled" />}
+          suffix={
+            <Icon
+              glyph="help"
+              variant="scaled"
+              context="danger"
+              contextModifiers="default"
+              interactive
+            />
+          }
         >
-          Danger Large
+          Danger
         </Button>
         <Button
           context="success"
+          contextModifiers="default"
           size="large"
-          suffix={<Icon glyph="help" variant="scaled" />}
+          suffix={
+            <Icon
+              glyph="help"
+              variant="scaled"
+              context="success"
+              contextModifiers="default"
+              interactive
+            />
+          }
         >
-          Success Large
+          Success
         </Button>
       </div>
     </div>
@@ -672,7 +1153,13 @@ export const CustomIcon: Story = {
   },
   render: () => {
     const customIcon = (
-      <Icon glyph="help" variant="scaled">
+      <Icon
+        glyph="help"
+        variant="scaled"
+        context="success"
+        contextModifiers="default"
+        interactive
+      >
         <svg
           width="24"
           height="24"
@@ -692,7 +1179,12 @@ export const CustomIcon: Story = {
 
     return (
       <div className="sb-column sb-gap-16">
-        <Button context="success" size="large" suffix={customIcon}>
+        <Button
+          context="success"
+          contextModifiers="default"
+          size="large"
+          suffix={customIcon}
+        >
           Custom Icon
         </Button>
       </div>

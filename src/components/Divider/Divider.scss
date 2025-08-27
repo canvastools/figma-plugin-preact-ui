@@ -1,4 +1,4 @@
-@use "../../variables.scss" as *;
+@use "../../shared.scss" as *;
 
 .Divider {
   $parent: &;
@@ -19,7 +19,7 @@
     }
 
     &-inset {
-      padding: 0 var(--pui-space-400);
+      padding: 0 var(--pui-spacing-400);
     }
   }
 }

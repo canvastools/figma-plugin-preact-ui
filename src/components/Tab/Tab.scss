@@ -1,9 +1,10 @@
-@use "../../variables.scss" as *;
+@use "../../shared.scss" as *;
 @use "../../mixins.scss" as *;
 
 .Tab {
   $parent: &;
 
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -15,6 +16,27 @@
 
   @include focus-visible(-1px);
 
+  &__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &_fake {
+      position: relative;
+      opacity: 0;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    &_real {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
   &__content {
     display: flex;
     justify-content: center;
@@ -22,7 +44,7 @@
   }
 
   &__children {
-    padding: 0 var(--pui-space-200);
+    padding: 0 var(--pui-spacing-200);
   }
 
   &_prefix &__children {
@@ -34,30 +56,28 @@
   }
 
   &_suffix {
-    padding-right: var(--pui-space-200);
+    padding-right: var(--pui-spacing-200);
   }
 
   &_variant {
     &-default {
       border: none;
-      background-color: var(--pui-color-neutral-bg-interactive);
-      color: var(--pui-color-neutral-text-interactive);
+      background-color: var(--pui-color-neutral-bg-default-interactive);
       @include curson-feedback;
 
       &:hover {
-        background-color: var(--pui-color-neutral-bg-interactive-hover);
+        background-color: var(--pui-color-neutral-bg-default-interactive-hover);
       }
 
       &#{$parent}_selected,
       &#{$parent}_selected:hover {
-        background-color: var(--pui-color-neutral-bg-interactive-hover);
+        background-color: var(--pui-color-neutral-bg-default-interactive-hover);
       }
     }
 
     &-single {
       border: none;
-      background-color: var(--pui-color-neutral-bg-interactive);
-      color: var(--pui-color-neutral-text-interactive);
+      background-color: unset;
 
       cursor: auto;
     }

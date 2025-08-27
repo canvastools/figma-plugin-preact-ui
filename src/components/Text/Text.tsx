@@ -8,7 +8,12 @@ import "./Text.scss"
 const TextComponent = (
   {
     className,
-    context = "inherit",
+    context = "neutral",
+    contextModifiers = "default",
+    disabled,
+    interactive,
+    selected,
+    fill,
     variant = "body",
     size = "medium",
     strong,
@@ -19,7 +24,12 @@ const TextComponent = (
   ref: preact.Ref<HTMLDivElement>
 ) => {
   const _className = bem("Text", undefined, {
-    context,
+    ...(!fill && {
+      context: `${context}-${contextModifiers}`,
+      disabled,
+      interactive,
+      selected,
+    }),
     variant,
     size,
     strong,
@@ -31,6 +41,9 @@ const TextComponent = (
       className={[_className, className].join(" ").trim()}
       ref={ref}
       {...rest}
+      style={{
+        ...(fill && { color: fill }),
+      }}
     >
       {children}
     </div>

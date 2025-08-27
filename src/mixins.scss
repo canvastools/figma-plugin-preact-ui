@@ -1,4 +1,4 @@
-@use "./variables.scss" as *;
+/* Focus */
 
 @mixin focus-visible($offset: 1px) {
   &:focus-visible {
@@ -16,6 +16,55 @@
   }
 }
 
+/* Cursor */
+
 @mixin curson-feedback {
   cursor: auto;
+}
+
+/* Typography */
+
+@mixin typography-styles {
+  font-family: "Inter", sans-serif;
+}
+
+@mixin typography-header-small {
+  font-size: 11px;
+  line-height: 24px;
+  letter-spacing: -0.005em;
+  font-weight: 550;
+}
+
+@mixin typography-header-medium {
+  font-size: 13px;
+  line-height: 25px;
+  letter-spacing: -0.01em;
+  font-weight: 550;
+}
+
+@mixin typography-header-large {
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: -0.015em;
+}
+
+@mixin typography-body-small {
+  font-size: 9px;
+  line-height: 14px;
+  letter-spacing: 0.01em;
+  font-weight: 450;
+}
+
+@mixin typography-body-medium {
+  font-size: 11px;
+  line-height: 17px;
+  letter-spacing: 0.01em;
+  font-weight: 450;
+}
+
+@mixin typography-body-large {
+  font-size: 13px;
+  line-height: 22px;
+  letter-spacing: 0.005em;
+  font-weight: 450;
 }

@@ -11,6 +11,7 @@ const BadgeComponent = (
   {
     className,
     context = "neutral",
+    contextModifiers = "default",
     prefix,
     suffix,
     children,
@@ -19,7 +20,7 @@ const BadgeComponent = (
   ref: preact.Ref<HTMLDivElement>
 ) => {
   const _className = bem("Badge", undefined, {
-    context,
+    context: `${context}-${contextModifiers}`,
     prefix: Boolean(prefix),
     suffix: Boolean(suffix),
   })
@@ -30,13 +31,22 @@ const BadgeComponent = (
       ref={ref}
       {...rest}
     >
-      <Text variant="body" size="medium" context="inherit">
-        <div className="Badge__content">
-          {prefix && <div className="Badge__prefix">{prefix}</div>}
-          {children && <div className="Badge__children">{children}</div>}
-          {suffix && <div className="Badge__suffix">{suffix}</div>}
-        </div>
-      </Text>
+      <div className="Badge__content">
+        {prefix && <div className="Badge__prefix">{prefix}</div>}
+        {children && (
+          <div className="Badge__children">
+            <Text
+              variant="body"
+              size="medium"
+              context={context}
+              contextModifiers={contextModifiers}
+            >
+              {children}
+            </Text>
+          </div>
+        )}
+        {suffix && <div className="Badge__suffix">{suffix}</div>}
+      </div>
     </div>
   )
 }

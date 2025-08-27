@@ -7,7 +7,6 @@ const config: StorybookConfig = {
     "@storybook/addon-essentials",
     "@chromatic-com/storybook",
     "@storybook/addon-interactions",
-    "storybook-addon-sass-postcss",
   ],
   framework: {
     name: "@storybook/preact-vite",
@@ -18,6 +17,25 @@ const config: StorybookConfig = {
   },
   typescript: {
     check: true,
+  },
+  viteFinal: async (config) => {
+    // Ignore all SCSS imports by mapping them to a virtual JS module
+    config.plugins = config.plugins || []
+    const VIRTUAL_PREFIX = "\0virtual-empty-scss:"
+    config.plugins.push({
+      name: "ignore-all-scss",
+      enforce: "pre",
+      resolveId(id) {
+        if (id.includes(".scss")) return VIRTUAL_PREFIX + id
+        return null
+      },
+      load(id) {
+        if (id.startsWith(VIRTUAL_PREFIX)) return "export default {}\n"
+        return null
+      },
+    })
+
+    return config
   },
 }
 export default config

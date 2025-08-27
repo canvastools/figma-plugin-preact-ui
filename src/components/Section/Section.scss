@@ -1,11 +1,11 @@
-@use "../../variables.scss" as *;
+@use "../../shared.scss" as *;
 
 .Section {
   $parent: &;
 
   width: 100%;
   display: flex;
-  padding: var(--pui-space-200) var(--pui-space-400);
+  padding: var(--pui-spacing-200) var(--pui-spacing-400);
 
   &__children {
     display: flex;
