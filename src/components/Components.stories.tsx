@@ -21,8 +21,8 @@ const meta: Meta = {
   parameters: {
     docs: {
       description: {
-        component: `Getting started: https://github.com/canvastools/figma-plugin-preact-ui<br/><br/>
-        A single canvas to preview all components in their default state.`,
+        component: `Getting started: https://github.com/canvastools/figma-plugin-preact-ui/blob/main/README.md<br/><br/>
+        Preview all components in their default state 👇`,
       },
     },
   },

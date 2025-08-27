@@ -1,0 +1,88 @@
+@use "../../variables.scss" as *;
+@use "../../mixins.scss" as *;
+
+.Input {
+  $parent: &;
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 24px;
+
+  border-radius: var(--pui-radius-medium);
+  overflow: hidden;
+
+  outline-width: 1px;
+  outline-style: solid;
+  outline-color: transparent;
+  outline-offset: -1px;
+  background-color: var(--pui-color-neutral-bg-secondary-interactive);
+
+  &_focused {
+    outline-color: var(--pui-color-neutral-border-default-interactive-selected);
+  }
+
+  &_error {
+    outline-color: var(
+      --pui-color-neutral-border-default-interactive-selected-error
+    );
+  }
+
+  &:hover > &__suffix,
+  &:focus-within > &__suffix {
+    display: flex;
+  }
+
+  &__input-native {
+    align-self: stretch;
+    height: 100%;
+    width: 100%;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    padding: 0 var(--pui-space-200);
+
+    @include typography-styles;
+    @include typography-body-medium;
+
+    color: var(--pui-color-neutral-text-default-interactive);
+
+    @include curson-feedback;
+
+    &::placeholder {
+      color: var(--pui-color-neutral-text-secondary-interactive);
+    }
+  }
+
+  &_prefix &__input-native {
+    padding-left: 0;
+  }
+
+  &_suffix &__input-native {
+    padding-right: 0;
+  }
+
+  &__prefix {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: stretch;
+  }
+
+  &__suffix {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    align-self: stretch;
+  }
+
+  &_disabled {
+    cursor: auto;
+    background-color: var(--pui-color-disabled-bg-default);
+    color: var(--pui-color-disabled-text-default);
+  }
+
+  &_disabled &__input-native {
+    color: var(--pui-color-disabled-text-default);
+  }
+}

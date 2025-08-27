@@ -3,7 +3,6 @@ import { Meta, StoryObj } from "@storybook/preact"
 import { Section } from "./Section"
 
 import { Text } from "../Text/Text"
-import { Divider } from "../Divider/Divider"
 
 const meta: Meta<typeof Section> = {
   title: "Components/Section",
@@ -33,10 +32,14 @@ export const Demo: Story = {
     children: "Section",
   },
   render: (args) => (
-    <div className="sb-column">
-      <Divider variant="full" />
+    <div className="sb-column sb-container">
       <Section>
-        <Text context="neutral" variant="body" size="medium">
+        <Text
+          context="neutral"
+          contextModifiers="default"
+          variant="body"
+          size="medium"
+        >
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
           minim veniam, quis nostrud exercitation ullamco laboris nisi ut
@@ -46,7 +49,6 @@ export const Demo: Story = {
           culpa qui officia deserunt mollit anim id est laborum.
         </Text>
       </Section>
-      <Divider variant="full" />
     </div>
   ),
 }

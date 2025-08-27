@@ -4,7 +4,7 @@ import { useState } from "preact/hooks"
 
 import { Checkbox } from "./Checkbox"
 
-import { Icon } from "../Icon/Icon"
+import { Text } from "../Text/Text"
 
 const meta: Meta<typeof Checkbox> = {
   title: "Components/Checkbox",
@@ -54,7 +54,6 @@ export const Demo: Story = {
   tags: ["!autodocs"],
   args: {
     className: "",
-    checked: false,
     defaultChecked: false,
     mixed: false,
     disabled: false,
@@ -71,7 +70,7 @@ export const Uncontrolled: Story = {
   },
   render: () => (
     <div className="sb-row sb-gap-16">
-      <Checkbox checked={true} label="Checked True" />
+      <Checkbox defaultChecked={true} label="Checked True" />
     </div>
   ),
 }
@@ -84,7 +83,8 @@ export const Controlled: Story = {
   render: () => {
     const [isChecked, setIsChecked] = useState(false)
     return (
-      <div className="sb-row sb-gap-16">
+      <div className="sb-column sb-gap-16">
+        <Text>Value: {isChecked ? "true" : "false"}</Text>
         <Checkbox
           checked={isChecked}
           label="Checked True"
@@ -102,8 +102,8 @@ export const Checked: Story = {
   },
   render: () => (
     <div className="sb-row sb-gap-16">
-      <Checkbox checked={true} label="Checked True" />
-      <Checkbox checked={false} label="Checked False" />
+      <Checkbox defaultChecked={true} label="Checked True" />
+      <Checkbox defaultChecked={false} label="Checked False" />
     </div>
   ),
 }
@@ -115,8 +115,16 @@ export const Mixed: Story = {
   },
   render: () => (
     <div className="sb-row sb-gap-16">
-      <Checkbox checked={true} mixed={true} label="Checkbox True Mixed" />
-      <Checkbox checked={false} mixed={true} label="Checkbox False Mixed" />
+      <Checkbox
+        defaultChecked={true}
+        mixed={true}
+        label="Checkbox True Mixed"
+      />
+      <Checkbox
+        defaultChecked={false}
+        mixed={true}
+        label="Checkbox False Mixed"
+      />
     </div>
   ),
 }
@@ -129,8 +137,16 @@ export const Disabled: Story = {
   render: () => (
     <div className="sb-row sb-gap-16">
       <div className="sb-column sb-gap-16">
-        <Checkbox checked={true} disabled label="Checked True Disabled" />
-        <Checkbox checked={false} disabled label="Checked False Disabled" />
+        <Checkbox
+          defaultChecked={true}
+          disabled
+          label="Checked True Disabled"
+        />
+        <Checkbox
+          defaultChecked={false}
+          disabled
+          label="Checked False Disabled"
+        />
       </div>
       <div className="sb-column sb-gap-16">
         <Checkbox

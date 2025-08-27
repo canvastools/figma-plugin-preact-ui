@@ -37,10 +37,25 @@ const TabComponent = (
     onClick?.({ event, value })
   }
 
-  const Content = () => (
+  type ContentProps = { fake?: boolean }
+
+  const Content = ({ fake = false }: ContentProps) => (
     <div className="Tab__content">
       {prefix && <div className="Tab__prefix">{prefix}</div>}
-      {children && <div className="Tab__children">{children}</div>}
+      {children && (
+        <div className="Tab__children">
+          <Text
+            variant="body"
+            size="medium"
+            strong={fake}
+            context="neutral"
+            contextModifiers="default"
+            interactive
+          >
+            {children}
+          </Text>
+        </div>
+      )}
       {suffix && <div className="Tab__suffix">{suffix}</div>}
     </div>
   )
@@ -53,19 +68,10 @@ const TabComponent = (
       onClick={handleClick}
     >
       <div className="Tab__container Tab__container_fake">
-        <Text variant="body" size="medium" strong={true} context="inherit">
-          <Content />
-        </Text>
+        <Content fake />
       </div>
       <div className="Tab__container Tab__container_real">
-        <Text
-          variant="body"
-          size="medium"
-          strong={value === activeValue}
-          context="inherit"
-        >
-          <Content />
-        </Text>
+        <Content />
       </div>
     </button>
   )

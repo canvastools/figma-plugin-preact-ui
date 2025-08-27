@@ -5,6 +5,7 @@ import { useState } from "preact/hooks"
 import { ButtonIcon } from "./ButtonIcon"
 
 import { Icon } from "../Icon/Icon"
+import { Input } from "../Input/Input"
 
 const meta: Meta<typeof ButtonIcon> = {
   title: "Components/ButtonIcon",
@@ -16,8 +17,19 @@ const meta: Meta<typeof ButtonIcon> = {
     },
     context: {
       control: { type: "radio" },
-      options: ["neutral", "neutral-ghost"],
+      options: ["neutral"],
       defaultValue: { summary: "neutral" },
+    },
+    contextModifiers: {
+      control: { type: "radio" },
+      options: ["default"],
+      defaultValue: { summary: "default" },
+    },
+    ghost: {
+      control: { type: "boolean" },
+    },
+    translucent: {
+      control: { type: "boolean" },
     },
     disabled: {
       control: { type: "boolean" },
@@ -51,8 +63,11 @@ export const Demo: Story = {
   args: {
     className: "",
     context: "neutral",
+    contextModifiers: "default",
+    ghost: false,
+    translucent: false,
     disabled: false,
-    children: <Icon glyph="help" />,
+    children: <Icon glyph="help" context="neutral" interactive />,
     onClick: fn(),
   },
   render: (args) => <ButtonIcon {...args} />,
@@ -65,11 +80,21 @@ export const Context: Story = {
   },
   render: () => (
     <div className="sb-column sb-gap-16">
-      <ButtonIcon context="neutral">
-        <Icon glyph="help" />
+      <ButtonIcon context="neutral" contextModifiers="default">
+        <Icon
+          glyph="help"
+          context="neutral"
+          contextModifiers="default"
+          interactive
+        />
       </ButtonIcon>
-      <ButtonIcon context="neutral-ghost">
-        <Icon glyph="help" />
+      <ButtonIcon context="neutral" contextModifiers="default" ghost>
+        <Icon
+          glyph="help"
+          context="neutral"
+          contextModifiers="default"
+          interactive
+        />
       </ButtonIcon>
     </div>
   ),
@@ -82,12 +107,46 @@ export const Disabled: Story = {
   },
   render: () => (
     <div className="sb-column sb-gap-16">
-      <ButtonIcon context="neutral" disabled>
-        <Icon glyph="help" />
+      <ButtonIcon context="neutral" contextModifiers="default" disabled>
+        <Icon
+          glyph="help"
+          context="neutral"
+          contextModifiers="default"
+          disabled
+        />
       </ButtonIcon>
-      <ButtonIcon context="neutral-ghost" disabled>
-        <Icon glyph="help" />
+      <ButtonIcon context="neutral" contextModifiers="default" disabled ghost>
+        <Icon
+          glyph="help"
+          context="neutral"
+          contextModifiers="default"
+          disabled
+        />
       </ButtonIcon>
+    </div>
+  ),
+}
+
+export const Translucent: Story = {
+  tags: ["!dev"],
+  parameters: {
+    controls: { disable: true },
+    docs: {
+      description: {
+        story: "A special variant used inside inputs.",
+      },
+    },
+  },
+  render: () => (
+    <div className="sb-column sb-gap-16" style={{ width: "30%" }}>
+      <Input
+        placeholder="Placeholder"
+        suffix={
+          <ButtonIcon context="neutral" contextModifiers="default" translucent>
+            <Icon glyph="link" variant="scaled" context="neutral" />
+          </ButtonIcon>
+        }
+      />
     </div>
   ),
 }
@@ -105,8 +164,13 @@ export const CustomIcon: Story = {
   },
   render: () => (
     <div className="sb-column sb-gap-16">
-      <ButtonIcon context="neutral">
-        <Icon size={24}>
+      <ButtonIcon context="neutral" contextModifiers="default">
+        <Icon
+          context="neutral"
+          contextModifiers="default"
+          size={24}
+          interactive
+        >
           <svg
             width="24"
             height="24"
@@ -123,8 +187,13 @@ export const CustomIcon: Story = {
           </svg>
         </Icon>
       </ButtonIcon>
-      <ButtonIcon context="neutral-ghost">
-        <Icon size={24}>
+      <ButtonIcon context="neutral" contextModifiers="default" ghost>
+        <Icon
+          context="neutral"
+          contextModifiers="default"
+          size={24}
+          interactive
+        >
           <svg
             width="24"
             height="24"

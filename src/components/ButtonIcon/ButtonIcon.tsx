@@ -11,6 +11,9 @@ const ButtonIconComponent = (
   {
     className,
     context = "neutral",
+    contextModifiers = "default",
+    ghost,
+    translucent,
     disabled,
     children,
     onClick,
@@ -19,7 +22,9 @@ const ButtonIconComponent = (
   ref: preact.Ref<HTMLButtonElement>
 ) => {
   const _className = bem("ButtonIcon", undefined, {
-    context,
+    context: `${context}-${contextModifiers}`,
+    ghost,
+    translucent,
     disabled,
   })
 
@@ -40,11 +45,7 @@ const ButtonIconComponent = (
       disabled={disabled}
       onClick={handleClick}
     >
-      {children && (
-        <Text variant="body" size="medium" context="inherit">
-          {children && <div className="ButtonIcon__children">{children}</div>}
-        </Text>
-      )}
+      {children && <div className="ButtonIcon__children">{children}</div>}
     </button>
   )
 }

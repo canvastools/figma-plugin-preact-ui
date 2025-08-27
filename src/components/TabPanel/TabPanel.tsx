@@ -7,8 +7,6 @@ import "./TabPanel.scss"
 
 import { useTabContext } from "../TabContext/TabContext"
 
-import { Text } from "../Text/Text"
-
 /* --- */
 
 const TabPanelComponent = (
@@ -29,9 +27,7 @@ const TabPanelComponent = (
       ref={ref}
       {...rest}
     >
-      <Text variant="body" size="medium">
-        <div className="TabPanel__children">{children}</div>
-      </Text>
+      <div className="TabPanel__children">{children}</div>
     </div>
   )
 }

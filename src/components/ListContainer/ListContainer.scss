@@ -10,11 +10,11 @@
     bottom: -1px;
     left: var(--pui-space-400);
     height: 2px;
+    pointer-events: auto;
 
     &-active {
-      background-color: var(
-        --pui-color-neutral-border-interactive-drop-position
-      );
+      background-color: var(--pui-color-neutral-border-drop-position);
+      pointer-events: auto;
     }
   }
 }

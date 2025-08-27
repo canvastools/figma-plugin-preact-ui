@@ -5,6 +5,7 @@ import { useState } from "preact/hooks"
 import { ButtonIconToggle } from "./ButtonIconToggle"
 
 import { Icon } from "../Icon/Icon"
+import { Text } from "../Text/Text"
 
 const meta: Meta<typeof ButtonIconToggle> = {
   title: "Components/ButtonIconToggle",
@@ -16,8 +17,16 @@ const meta: Meta<typeof ButtonIconToggle> = {
     },
     context: {
       control: { type: "radio" },
-      options: ["neutral", "neutral-ghost"],
+      options: ["neutral"],
       defaultValue: { summary: "neutral" },
+    },
+    contextModifiers: {
+      control: { type: "radio" },
+      options: ["default"],
+      defaultValue: { summary: "default" },
+    },
+    ghost: {
+      control: { type: "boolean" },
     },
     defaultSelected: {
       control: { type: "boolean" },
@@ -64,9 +73,17 @@ export const Demo: Story = {
   args: {
     className: "",
     context: "neutral",
+    contextModifiers: "default",
     defaultSelected: false,
     disabled: false,
-    children: <Icon glyph="help" />,
+    children: (
+      <Icon
+        glyph="help"
+        context="neutral"
+        contextModifiers="default"
+        interactive
+      />
+    ),
     onChange: fn(),
   },
   render: (args) => <ButtonIconToggle {...args} />,
@@ -79,8 +96,13 @@ export const Uncontrolled: Story = {
   },
   render: () => (
     <div className="sb-column sb-gap-16">
-      <ButtonIconToggle context="neutral">
-        <Icon glyph="help" />
+      <ButtonIconToggle context="neutral" contextModifiers="default">
+        <Icon
+          glyph="help"
+          context="neutral"
+          contextModifiers="default"
+          interactive
+        />
       </ButtonIconToggle>
     </div>
   ),
@@ -95,13 +117,23 @@ export const Controlled: Story = {
     const [isSelected, setIsSelected] = useState(false)
 
     return (
-      <ButtonIconToggle
-        context="neutral"
-        selected={isSelected}
-        onChange={(args) => setIsSelected(args.selected)}
-      >
-        <Icon glyph="help" />
-      </ButtonIconToggle>
+      <div className="sb-column sb-gap-16">
+        <Text>Value: {isSelected ? "true" : "false"}</Text>
+        <ButtonIconToggle
+          selected={isSelected}
+          onChange={(args) => setIsSelected(args.selected)}
+          context="neutral"
+          contextModifiers="default"
+        >
+          <Icon
+            glyph="help"
+            context="neutral"
+            contextModifiers="default"
+            interactive
+            selected={isSelected}
+          />
+        </ButtonIconToggle>
+      </div>
     )
   },
 }
@@ -118,18 +150,33 @@ export const Context: Story = {
     return (
       <div className="sb-column sb-gap-16">
         <ButtonIconToggle
-          context="neutral"
           selected={isSelected_1}
           onChange={(args) => setIsSelected_1(args.selected)}
+          context="neutral"
+          contextModifiers="default"
         >
-          <Icon glyph="help" />
+          <Icon
+            glyph="help"
+            context="neutral"
+            contextModifiers="default"
+            interactive
+            selected={isSelected_1}
+          />
         </ButtonIconToggle>
         <ButtonIconToggle
-          context="neutral-ghost"
+          context="neutral"
+          contextModifiers="default"
+          ghost
           selected={isSelected_2}
           onChange={(args) => setIsSelected_2(args.selected)}
         >
-          <Icon glyph="help" />
+          <Icon
+            glyph="help"
+            context="neutral"
+            contextModifiers="default"
+            interactive
+            selected={isSelected_2}
+          />
         </ButtonIconToggle>
       </div>
     )
@@ -143,11 +190,26 @@ export const Disabled: Story = {
   },
   render: () => (
     <div className="sb-column sb-gap-16">
-      <ButtonIconToggle context="neutral" disabled>
-        <Icon glyph="help" />
+      <ButtonIconToggle context="neutral" contextModifiers="default" disabled>
+        <Icon
+          glyph="help"
+          context="neutral"
+          contextModifiers="default"
+          disabled
+        />
       </ButtonIconToggle>
-      <ButtonIconToggle context="neutral-ghost" disabled>
-        <Icon glyph="help" />
+      <ButtonIconToggle
+        context="neutral"
+        contextModifiers="default"
+        disabled
+        ghost
+      >
+        <Icon
+          glyph="help"
+          context="neutral"
+          contextModifiers="default"
+          disabled
+        />
       </ButtonIconToggle>
     </div>
   ),
@@ -166,8 +228,13 @@ export const CustomIcon: Story = {
   },
   render: () => (
     <div className="sb-column sb-gap-16">
-      <ButtonIconToggle context="neutral">
-        <Icon size={24}>
+      <ButtonIconToggle context="neutral" contextModifiers="default">
+        <Icon
+          size={24}
+          context="neutral"
+          contextModifiers="default"
+          interactive
+        >
           <svg
             width="24"
             height="24"
@@ -184,8 +251,13 @@ export const CustomIcon: Story = {
           </svg>
         </Icon>
       </ButtonIconToggle>
-      <ButtonIconToggle context="neutral-ghost">
-        <Icon size={24}>
+      <ButtonIconToggle context="neutral" contextModifiers="default" ghost>
+        <Icon
+          size={24}
+          context="neutral"
+          contextModifiers="default"
+          interactive
+        >
           <svg
             width="24"
             height="24"

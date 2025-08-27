@@ -88,15 +88,41 @@ const CheckboxComponent = (
           onClick={handleInputClick}
           onChange={handleChange}
         />
-        {isChecked && !mixed && <Icon glyph="check" size={16} />}
-        {isChecked && mixed && <Icon glyph="mixed" size={16} />}
+        {isChecked && !mixed && (
+          <div className="Checkbox__icon">
+            <Icon
+              glyph="check"
+              context="brand"
+              contextModifiers="default"
+              interactive
+              size={16}
+            />
+          </div>
+        )}
+        {isChecked && mixed && (
+          <div className="Checkbox__icon">
+            <Icon
+              glyph="mixed"
+              context="brand"
+              contextModifiers="default"
+              interactive
+              size={16}
+            />
+          </div>
+        )}
       </div>
       {label && (
-        <Text variant="body" size="medium" context="inherit">
-          <div className="Checkbox__label" onClick={handleClick}>
+        <div className="Checkbox__label" onClick={handleClick}>
+          <Text
+            variant="body"
+            size="medium"
+            context="neutral"
+            contextModifiers="default"
+            disabled={disabled}
+          >
             {label}
-          </div>
-        </Text>
+          </Text>
+        </div>
       )}
     </div>
   )

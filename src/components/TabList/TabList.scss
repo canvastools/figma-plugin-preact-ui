@@ -5,37 +5,26 @@
 
   position: relative;
   display: flex;
-  margin: 0 calc(var(--pui-space-200) * -1);
+  margin: 0 calc(var(--pui-space-200) * -2);
 
-  &__overflow {
-    &-left {
-      position: absolute;
-      width: var(--pui-space-200);
-      top: 0;
-      bottom: 0;
-      left: 0;
-
-      background: linear-gradient(
-        to left,
-        transparent,
-        var(--pui-color-neutral-bg-default)
-      );
-    }
-
-    &-right {
-      position: absolute;
-      width: var(--pui-space-200);
-      top: 0;
-      bottom: 0;
-      right: 0;
-
-      background: linear-gradient(
-        to right,
-        transparent,
-        var(--pui-color-neutral-bg-default)
-      );
-    }
-  }
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent var(--pui-space-200),
+    black calc(var(--pui-space-200) * 2),
+    black calc(100% - var(--pui-space-200) * 2),
+    transparent calc(100% - var(--pui-space-200))
+  );
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-image: linear-gradient(
+    to right,
+    transparent var(--pui-space-200),
+    black calc(var(--pui-space-200) * 2),
+    black calc(100% - var(--pui-space-200) * 2),
+    transparent calc(100% - var(--pui-space-200))
+  );
+  mask-repeat: no-repeat;
+  mask-size: 100% 100%;
 
   &__children {
     display: flex;
@@ -43,6 +32,7 @@
     flex: 1 1 auto;
     gap: var(--pui-space-100);
     padding: 0 var(--pui-space-200);
+    margin: 0 var(--pui-space-200);
     overflow-x: auto;
     scrollbar-width: none;
   }

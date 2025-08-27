@@ -33,7 +33,6 @@ const AvatarComponent = (
       {...rest}
       style={{
         backgroundColor: fillBg,
-        color: fillText,
       }}
     >
       {imageSrc && (
@@ -44,7 +43,9 @@ const AvatarComponent = (
           variant="body"
           size={size === "small" ? "small" : "large"}
           strong
-          context="inherit"
+          context="neutral-inverted"
+          contextModifiers="default"
+          fill={fillText}
         >
           <div className="Avatar__children">{children}</div>
         </Text>

@@ -1,26 +1,22 @@
 @use "../../variables.scss" as *;
 
-@mixin Badge_context-filled($class, $context, $modifiers) {
-  &-#{$class} {
+@mixin Badge_style-filled($context, $modifiers) {
+  &_context-#{$context}-#{$modifiers} {
     background-color: var(--pui-color-#{$context}-bg-#{$modifiers});
     color: var(--pui-color-#{$context}-text-#{$modifiers});
-
-    & .Icon {
-      color: var(--pui-color-#{$context}-icon-#{$modifiers});
-    }
   }
 }
 
-@mixin Badge_context-outlined($class, $context, $modifiers) {
-  &-#{$class} {
-    background-color: var(--pui-color-#{$context}-bg-#{$modifiers});
+@mixin Badge_style-outlined($context, $modifiers) {
+  &_context-#{$context}-#{$modifiers} {
+    @if $modifiers != "default" or $modifiers != "secondary" {
+      background-color: var(--pui-color-#{$context}-bg-default);
+    } @else {
+      background-color: var(--pui-color-#{$context}-bg-#{$modifiers});
+    }
+
     box-shadow: inset 0 0 0 1px
       var(--pui-color-#{$context}-border-#{$modifiers});
-    color: var(--pui-color-#{$context}-text-#{$modifiers});
-
-    & .Icon {
-      color: var(--pui-color-#{$context}-icon-#{$modifiers});
-    }
   }
 }
 
@@ -54,25 +50,15 @@
     padding-right: 0;
   }
 
-  &_context {
-    @include Badge_context-outlined("neutral", "neutral", "default");
-    @include Badge_context-outlined(
-      "neutral-secondary",
-      "neutral",
-      "secondary"
-    );
-    @include Badge_context-outlined("neutral-brand", "neutral", "brand");
-    @include Badge_context-outlined("neutral-danger", "neutral", "danger");
-    @include Badge_context-outlined("neutral-warning", "neutral", "warning");
-    @include Badge_context-outlined("neutral-success", "neutral", "success");
-    @include Badge_context-filled(
-      "neutral-inverted",
-      "neutral-inverted",
-      "default"
-    );
-    @include Badge_context-filled("brand", "brand", "default");
-    @include Badge_context-filled("danger", "danger", "default");
-    @include Badge_context-filled("warning", "warning", "default");
-    @include Badge_context-filled("success", "success", "default");
-  }
+  @include Badge_style-outlined("neutral", "default");
+  @include Badge_style-outlined("neutral", "secondary");
+  @include Badge_style-outlined("neutral", "brand");
+  @include Badge_style-outlined("neutral", "danger");
+  @include Badge_style-outlined("neutral", "warning");
+  @include Badge_style-outlined("neutral", "success");
+  @include Badge_style-filled("neutral-inverted", "default");
+  @include Badge_style-filled("brand", "default");
+  @include Badge_style-filled("danger", "default");
+  @include Badge_style-filled("warning", "default");
+  @include Badge_style-filled("success", "default");
 }

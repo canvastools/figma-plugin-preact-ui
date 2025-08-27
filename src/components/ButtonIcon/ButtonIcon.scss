@@ -1,42 +1,81 @@
 @use "../../variables.scss" as *;
 @use "../../mixins.scss" as *;
 
-@mixin ButtonIcon_context($class, $context, $modifiers) {
-  &-#{$class} {
-    background-color: var(--pui-color-#{$context}-bg-#{$modifiers});
-    color: var(--pui-color-#{$context}-text-#{$modifiers});
+@mixin ButtonIcon_style-outlined($context, $modifiers) {
+  &_context-#{$context}-#{$modifiers} {
+    background-color: var(--pui-color-#{$context}-bg-#{$modifiers}-interactive);
     box-shadow: inset 0 0 0 1px
-      var(--pui-color-#{$context}-border-#{$modifiers});
-
-    & .Icon {
-      color: var(--pui-color-#{$context}-icon-#{$modifiers});
-    }
+      var(--pui-color-#{$context}-border-#{$modifiers}-interactive);
 
     &:hover {
-      background-color: var(--pui-color-#{$context}-bg-#{$modifiers}-hover);
+      @if $modifiers == "default" {
+        background-color: var(
+          --pui-color-#{$context}-bg-#{$modifiers}-interactive-hover
+        );
+      } @else {
+        background-color: var(
+          --pui-color-#{$context}-bg-#{$modifiers}-interactive-hover
+        );
+      }
     }
 
     &:active {
-      background-color: var(--pui-color-#{$context}-bg-#{$modifiers}-pressed);
+      @if $modifiers == "default" {
+        background-color: var(
+          --pui-color-#{$context}-bg-#{$modifiers}-interactive-pressed
+        );
+      } @else {
+        background-color: var(
+          --pui-color-#{$context}-bg-#{$modifiers}-interactive-pressed
+        );
+      }
     }
   }
 }
 
-@mixin ButtonIcon_context-ghost($class, $context, $modifiers) {
-  &-#{$class} {
-    background-color: var(--pui-color-#{$context}-bg-#{$modifiers});
-    color: var(--pui-color-#{$context}-text-#{$modifiers});
-
-    & .Icon {
-      color: var(--pui-color-#{$context}-icon-#{$modifiers});
-    }
+@mixin ButtonIcon_style-ghost($context, $modifiers) {
+  &_context-#{$context}-#{$modifiers}.ButtonIcon_ghost {
+    background-color: transparent;
+    box-shadow: none;
 
     &:hover {
-      background-color: var(--pui-color-#{$context}-bg-#{$modifiers}-hover);
+      @if $modifiers == "default" {
+        background-color: var(
+          --pui-color-#{$context}-bg-#{$modifiers}-interactive-hover
+        );
+      } @else {
+        background-color: var(
+          --pui-color-#{$context}-bg-#{$modifiers}-interactive-hover
+        );
+      }
     }
 
     &:active {
-      background-color: var(--pui-color-#{$context}-bg-#{$modifiers}-pressed);
+      @if $modifiers == "default" {
+        background-color: var(
+          --pui-color-#{$context}-bg-#{$modifiers}-interactive-pressed
+        );
+      } @else {
+        background-color: var(
+          --pui-color-#{$context}-bg-#{$modifiers}-interactive-pressed
+        );
+      }
+    }
+  }
+}
+
+@mixin ButtonIcon_style-translucent($context, $modifiers) {
+  &_context-#{$context}-#{$modifiers}.ButtonIcon_translucent {
+    background-color: transparent;
+    box-shadow: none;
+    opacity: 0.64;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    &:active {
+      opacity: 1;
     }
   }
 }
@@ -50,8 +89,8 @@
   width: 24px;
   height: 24px;
   overflow: hidden;
-  @include curson-feedback;
 
+  @include curson-feedback;
   @include focus-visible;
 
   &__children {
@@ -63,32 +102,22 @@
     white-space: nowrap;
   }
 
-  &_context {
-    @include ButtonIcon_context("neutral", "neutral", "interactive");
-    @include ButtonIcon_context-ghost(
-      "neutral-ghost",
-      "neutral",
-      "interactive"
-    );
-  }
+  @include ButtonIcon_style-outlined("neutral", "default");
+  @include ButtonIcon_style-ghost("neutral", "default");
+  @include ButtonIcon_style-translucent("neutral", "default");
 
   &_disabled {
-    cursor: auto;
+    cursor: auto !important;
 
-    background-color: var(--pui-color-disabled-bg-default);
-    color: var(--pui-color-disabled-text-default);
-    box-shadow: none;
-
-    & .Icon {
-      color: var(--pui-color-disabled-icon-default);
-    }
+    background-color: var(--pui-color-disabled-bg-default) !important;
+    box-shadow: none !important;
 
     &:hover {
-      background-color: var(--pui-color-disabled-bg-default);
+      background-color: var(--pui-color-disabled-bg-default) !important;
     }
 
     &:active {
-      background-color: var(--pui-color-disabled-bg-default);
+      background-color: var(--pui-color-disabled-bg-default) !important;
     }
   }
 }

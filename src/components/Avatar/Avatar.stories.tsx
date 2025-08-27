@@ -196,7 +196,7 @@ export const Fill: Story = {
   },
   render: () => (
     <div className="sb-column sb-gap-16">
-      <Avatar fillBg="var(--pui-color-brand-bg-default)" fillText="#fff">
+      <Avatar fillBg="var(--pui-color-brand-bg-default)" fillText="#ffff00">
         A
       </Avatar>
     </div>

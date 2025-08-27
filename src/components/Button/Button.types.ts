@@ -1,16 +1,14 @@
 export interface ButtonProps {
   className?: string
-  context?:
-    | "neutral"
-    | "neutral-ghost"
-    | "neutral-brand"
-    | "neutral-brand-ghost"
-    | "neutral-danger"
-    | "neutral-danger-ghost"
-    | "neutral-inverted"
+  context?: "neutral" | "neutral-inverted" | "brand" | "danger" | "success"
+  contextModifiers?:
+    | "default"
+    | "secondary"
     | "brand"
     | "danger"
+    | "warning"
     | "success"
+  ghost?: boolean
   size?: "medium" | "large"
   disabled?: boolean
   fullWidth?: boolean

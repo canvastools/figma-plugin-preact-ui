@@ -219,6 +219,18 @@ const ListItemComponent = (
       }
 
       const target = e.currentTarget as HTMLElement
+      // If this item is a child of a parent that disallows children, suppress any inter-child zones
+      const parentItemEl = target
+        .closest(".ListItem")
+        ?.parentElement?.closest(".ListItem") as HTMLElement | null
+      const parentAccepts = parentItemEl
+        ? parentItemEl.getAttribute("data-accepts-children") !== "false"
+        : true
+      if (parentItemEl && !parentAccepts) {
+        setIsDragOver(false)
+        setDragPosition(null)
+        return
+      }
       const content = target.querySelector(
         ".ListItem__content"
       ) as HTMLElement | null
@@ -257,7 +269,12 @@ const ListItemComponent = (
           else if (inBottomBand) nextPos = "below"
           else if (acceptsChildren) nextPos = "inside"
           else nextPos = dropY2 < r.height / 2 ? "above" : "below"
-          if (nextPos === "below" && hasChildren && !effectiveCollapsed)
+          if (
+            nextPos === "below" &&
+            hasChildren &&
+            !effectiveCollapsed &&
+            acceptsChildren
+          )
             nextPos = "inside"
           if (nextPos !== dragPosition) setDragPosition(nextPos)
 
@@ -265,7 +282,8 @@ const ListItemComponent = (
           const parentItem = containerEl?.closest(
             ".ListItem"
           ) as HTMLElement | null
-          const desiredEl = nextPos === "inside" ? t : parentItem || null
+          const desiredEl =
+            nextPos === "inside" && acceptsChildren ? t : parentItem || null
           if (dropParentRef.current !== desiredEl) {
             if (dropParentRef.current) {
               dropParentRef.current.classList.remove("ListItem_drop-parent")
@@ -349,6 +367,7 @@ const ListItemComponent = (
       onDragLeave={handleDragLeave}
       data-nesting-level={nestingLevel}
       data-item-id={id}
+      data-accepts-children={acceptsChildren ? "true" : "false"}
       style={`--level: ${nestingLevel}`}
     >
       <div
@@ -386,6 +405,8 @@ const ListItemComponent = (
             }}
           >
             <Icon
+              context="neutral"
+              contextModifiers="secondary"
               glyph={effectiveCollapsed ? "chevronRight" : "chevronDown"}
               size={16}
             />
@@ -398,7 +419,12 @@ const ListItemComponent = (
             onDragStart={handleDragHandleDragStart}
             onDragEnd={handleDragHandleDragEnd}
           >
-            <Icon glyph="dragHandle" size={16} />
+            <Icon
+              glyph="dragHandle"
+              context="neutral"
+              contextModifiers="secondary"
+              size={16}
+            />
           </div>
         )}
         {children && <div className="ListItem__children">{children}</div>}

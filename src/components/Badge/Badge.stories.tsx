@@ -14,20 +14,20 @@ const meta: Meta<typeof Badge> = {
     },
     context: {
       control: { type: "radio" },
+      options: ["neutral", "brand", "danger", "warning", "success"],
+      defaultValue: { summary: "neutral" },
+    },
+    contextModifiers: {
+      control: { type: "radio" },
       options: [
-        "neutral",
-        "neutral-secondary",
-        "neutral-brand",
-        "neutral-danger",
-        "neutral-warning",
-        "neutral-success",
-        "neutral-inverted",
+        "default",
+        "secondary",
         "brand",
         "danger",
         "warning",
         "success",
       ],
-      defaultValue: { summary: "neutral" },
+      defaultValue: { summary: "default" },
     },
     prefix: {
       table: {
@@ -66,6 +66,7 @@ export const Demo: Story = {
   args: {
     className: "",
     context: "neutral",
+    contextModifiers: "default",
     children: "Badge",
   },
   render: (args) => <Badge {...args} />,
@@ -79,11 +80,21 @@ export const Variant: Story = {
   render: () => (
     <div className="sb-column sb-gap-16">
       <Badge context="neutral">Neutral</Badge>
-      <Badge context="neutral-secondary">Neutral Secondary</Badge>
-      <Badge context="neutral-brand">Brand Secondary</Badge>
-      <Badge context="neutral-danger">Danger</Badge>
-      <Badge context="neutral-warning">Warning</Badge>
-      <Badge context="neutral-success">Success</Badge>
+      <Badge context="neutral" contextModifiers="secondary">
+        Neutral Secondary
+      </Badge>
+      <Badge context="neutral" contextModifiers="brand">
+        Neutral Brand
+      </Badge>
+      <Badge context="neutral" contextModifiers="danger">
+        Neutral Danger
+      </Badge>
+      <Badge context="neutral" contextModifiers="warning">
+        Neutral Warning
+      </Badge>
+      <Badge context="neutral" contextModifiers="success">
+        Neutral Success
+      </Badge>
       <Badge context="neutral-inverted">Neutral Inverted</Badge>
       <Badge context="brand">Brand</Badge>
       <Badge context="danger">Danger</Badge>
@@ -102,52 +113,110 @@ export const Prefix: Story = {
   render: () => (
     <div className="sb-column sb-gap-16">
       <div className="sb-column sb-gap-16">
-        <Badge context="neutral" prefix={<Icon glyph="help" size={16} />}>
+        <Badge
+          context="neutral"
+          prefix={<Icon glyph="help" size={16} context="neutral" />}
+        >
           Neutral
         </Badge>
         <Badge
-          context="neutral-secondary"
-          prefix={<Icon glyph="help" size={16} />}
+          context="neutral"
+          contextModifiers="secondary"
+          prefix={
+            <Icon
+              glyph="help"
+              size={16}
+              context="neutral"
+              contextModifiers="secondary"
+            />
+          }
         >
           Neutral Secondary
         </Badge>
-        <Badge context="neutral-brand" prefix={<Icon glyph="help" size={16} />}>
+        <Badge
+          context="neutral"
+          contextModifiers="brand"
+          prefix={
+            <Icon
+              glyph="help"
+              size={16}
+              context="neutral"
+              contextModifiers="brand"
+            />
+          }
+        >
           Neutral Brand
         </Badge>
         <Badge
-          context="neutral-danger"
-          prefix={<Icon glyph="help" size={16} />}
+          context="neutral"
+          contextModifiers="danger"
+          prefix={
+            <Icon
+              glyph="help"
+              size={16}
+              context="neutral"
+              contextModifiers="danger"
+            />
+          }
         >
           Neutral Danger
         </Badge>
         <Badge
-          context="neutral-warning"
-          prefix={<Icon glyph="help" size={16} />}
+          context="neutral"
+          contextModifiers="warning"
+          prefix={
+            <Icon
+              glyph="help"
+              size={16}
+              context="neutral"
+              contextModifiers="warning"
+            />
+          }
         >
           Neutral Warning
         </Badge>
         <Badge
-          context="neutral-success"
-          prefix={<Icon glyph="help" size={16} />}
+          context="neutral"
+          contextModifiers="success"
+          prefix={
+            <Icon
+              glyph="help"
+              size={16}
+              context="neutral"
+              contextModifiers="success"
+            />
+          }
         >
           Neutral Success
         </Badge>
         <Badge
           context="neutral-inverted"
-          prefix={<Icon glyph="help" size={16} />}
+          prefix={<Icon glyph="help" size={16} context="neutral-inverted" />}
         >
           Neutral Inverted
         </Badge>
-        <Badge context="brand" prefix={<Icon glyph="help" size={16} />}>
+        <Badge
+          context="brand"
+          prefix={<Icon glyph="help" size={16} context="brand" />}
+        >
           Brand
         </Badge>
-        <Badge context="danger" prefix={<Icon glyph="help" size={16} />}>
+        <Badge
+          context="danger"
+          prefix={<Icon glyph="help" size={16} context="danger" />}
+        >
           Danger
         </Badge>
-        <Badge context="warning" prefix={<Icon glyph="help" size={16} />}>
+        <Badge
+          context="warning"
+          prefix={<Icon glyph="help" size={16} context="warning" />}
+        >
           Warning
         </Badge>
-        <Badge context="success" prefix={<Icon glyph="help" size={16} />}>
+        <Badge
+          context="success"
+          prefix={<Icon glyph="help" size={16} context="success" />}
+        >
           Success
         </Badge>
       </div>
@@ -164,52 +233,110 @@ export const Suffix: Story = {
   render: () => (
     <div className="sb-column sb-gap-16">
       <div className="sb-column sb-gap-16">
-        <Badge context="neutral" suffix={<Icon glyph="help" size={16} />}>
+        <Badge
+          context="neutral"
+          suffix={<Icon glyph="help" size={16} context="neutral" />}
+        >
           Neutral
         </Badge>
         <Badge
-          context="neutral-secondary"
-          suffix={<Icon glyph="help" size={16} />}
+          context="neutral"
+          contextModifiers="secondary"
+          suffix={
+            <Icon
+              glyph="help"
+              size={16}
+              context="neutral"
+              contextModifiers="secondary"
+            />
+          }
         >
           Neutral Secondary
         </Badge>
-        <Badge context="neutral-brand" suffix={<Icon glyph="help" size={16} />}>
+        <Badge
+          context="neutral"
+          contextModifiers="brand"
+          suffix={
+            <Icon
+              glyph="help"
+              size={16}
+              context="neutral"
+              contextModifiers="brand"
+            />
+          }
+        >
           Neutral Brand
         </Badge>
         <Badge
-          context="neutral-danger"
-          suffix={<Icon glyph="help" size={16} />}
+          context="neutral"
+          contextModifiers="danger"
+          suffix={
+            <Icon
+              glyph="help"
+              size={16}
+              context="neutral"
+              contextModifiers="danger"
+            />
+          }
         >
           Neutral Danger
         </Badge>
         <Badge
-          context="neutral-warning"
-          suffix={<Icon glyph="help" size={16} />}
+          context="neutral"
+          contextModifiers="warning"
+          suffix={
+            <Icon
+              glyph="help"
+              size={16}
+              context="neutral"
+              contextModifiers="warning"
+            />
+          }
         >
           Neutral Warning
         </Badge>
         <Badge
-          context="neutral-success"
-          suffix={<Icon glyph="help" size={16} />}
+          context="neutral"
+          contextModifiers="success"
+          suffix={
+            <Icon
+              glyph="help"
+              size={16}
+              context="neutral"
+              contextModifiers="success"
+            />
+          }
         >
           Neutral Success
         </Badge>
         <Badge
           context="neutral-inverted"
-          suffix={<Icon glyph="help" size={16} />}
+          suffix={<Icon glyph="help" size={16} context="neutral-inverted" />}
         >
           Neutral Inverted
         </Badge>
-        <Badge context="brand" suffix={<Icon glyph="help" size={16} />}>
+        <Badge
+          context="brand"
+          suffix={<Icon glyph="help" size={16} context="brand" />}
+        >
           Brand
         </Badge>
-        <Badge context="danger" suffix={<Icon glyph="help" size={16} />}>
+        <Badge
+          context="danger"
+          suffix={<Icon glyph="help" size={16} context="danger" />}
+        >
           Danger
         </Badge>
-        <Badge context="warning" suffix={<Icon glyph="help" size={16} />}>
+        <Badge
+          context="warning"
+          suffix={<Icon glyph="help" size={16} context="warning" />}
+        >
           Warning
         </Badge>
-        <Badge context="success" suffix={<Icon glyph="help" size={16} />}>
+        <Badge
+          context="success"
+          suffix={<Icon glyph="help" size={16} context="success" />}
+        >
           Success
         </Badge>
       </div>

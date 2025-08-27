@@ -58,6 +58,8 @@ const ListContainerComponent = (
       for (let i = 0; i < childElements.length; i++) {
         const child = childElements[i]
         if (child.classList.contains("ListItem_drag-over")) {
+          const acceptsAttr = child.getAttribute("data-accepts-children")
+          const acceptsChildren = acceptsAttr !== "false"
           if (child.classList.contains("ListItem_drag-above")) {
             dragPosition = "above"
             targetIndex = i
@@ -66,7 +68,7 @@ const ListContainerComponent = (
             const hasSubItems =
               child.querySelector(".ListItem__sub-items") !== null
             const isCollapsed = child.classList.contains("ListItem_collapsed")
-            if (hasSubItems && !isCollapsed) {
+            if (hasSubItems && !isCollapsed && acceptsChildren) {
               dragPosition = "inside"
               insideTargetIndex = i
               targetIndex = 0
@@ -75,9 +77,18 @@ const ListContainerComponent = (
               targetIndex = i + 1
             }
           } else if (child.classList.contains("ListItem_drag-inside")) {
-            dragPosition = "inside"
-            insideTargetIndex = i
-            targetIndex = 0
+            const acceptsAttr2 = child.getAttribute("data-accepts-children")
+            const acceptsChildren2 = acceptsAttr2 !== "false"
+            if (acceptsChildren2) {
+              dragPosition = "inside"
+              insideTargetIndex = i
+              targetIndex = 0
+            } else {
+              // Fallback: treat inside as below when item cannot accept children
+              dragPosition = "below"
+              insideTargetIndex = null
+              targetIndex = i + 1
+            }
           }
           break
         }

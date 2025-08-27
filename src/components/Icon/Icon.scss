@@ -1,12 +1,18 @@
 @use "../../variables.scss" as *;
 
-@mixin Icon_context($class, $context, $modifiers) {
-  &-#{$class} {
-    @if $context == "inherit" {
-      color: inherit;
-    } @else {
-      color: var(--pui-color-#{$context}-icon-#{$modifiers});
+@mixin Icon_style($context, $modifiers) {
+  &_context-#{$context}-#{$modifiers} {
+    &.Icon_interactive {
+      color: var(--pui-color-#{$context}-icon-#{$modifiers}-interactive);
     }
+
+    &.Icon_selected {
+      color: var(
+        --pui-color-#{$context}-icon-#{$modifiers}-interactive-selected
+      );
+    }
+
+    color: var(--pui-color-#{$context}-icon-#{$modifiers});
   }
 }
 
@@ -33,18 +39,28 @@
     }
   }
 
-  &_context {
-    @include Icon_context("inherit", "inherit", "");
-    @include Icon_context("neutral", "neutral", "default");
-    @include Icon_context("neutral-secondary", "neutral", "secondary");
-    @include Icon_context("neutral-brand", "neutral", "brand");
-    @include Icon_context("neutral-danger", "neutral", "danger");
-    @include Icon_context("neutral-warning", "neutral", "warning");
-    @include Icon_context("neutral-success", "neutral", "success");
-    @include Icon_context("neutral-inverted", "neutral-inverted", "default");
-    @include Icon_context("brand", "brand", "default");
-    @include Icon_context("danger", "danger", "default");
-    @include Icon_context("warning", "warning", "default");
-    @include Icon_context("success", "success", "default");
+  @include Icon_style("neutral", "default");
+  @include Icon_style("neutral", "secondary");
+  @include Icon_style("neutral", "brand");
+  @include Icon_style("neutral", "danger");
+  @include Icon_style("neutral", "warning");
+  @include Icon_style("neutral", "success");
+  @include Icon_style("neutral-inverted", "default");
+  @include Icon_style("brand", "default");
+  @include Icon_style("danger", "default");
+  @include Icon_style("warning", "default");
+  @include Icon_style("success", "default");
+  @include Icon_style("disabled", "default");
+
+  &_disabled {
+    &.Icon_interactive {
+      color: var(--pui-color-disabled-icon-default);
+    }
+
+    &.Icon_selected {
+      color: var(--pui-color-disabled-icon-default);
+    }
+
+    color: var(--pui-color-disabled-icon-default);
   }
 }

@@ -1,81 +1,81 @@
 @use "../../variables.scss" as *;
+@use "../../mixins.scss" as *;
 
-@mixin Text_context($class, $context, $modifiers) {
-  &-#{$class} {
-    @if $context == "inherit" {
-      color: inherit;
-    } @else {
-      color: var(--pui-color-#{$context}-text-#{$modifiers});
+@mixin Text_style($context, $modifiers) {
+  &_context-#{$context}-#{$modifiers} {
+    &.Text_interactive {
+      color: var(--pui-color-#{$context}-text-#{$modifiers}-interactive);
     }
+
+    &.Text_selected {
+      color: var(
+        --pui-color-#{$context}-text-#{$modifiers}-interactive-selected
+      );
+    }
+
+    color: var(--pui-color-#{$context}-text-#{$modifiers});
   }
 }
 
 .Text {
   $parent: &;
 
-  font-family: "Inter", sans-serif;
+  @include typography-styles;
   user-select: none;
 
-  &_context {
-    @include Text_context("inherit", "inherit", "");
-    @include Text_context("neutral", "neutral", "default");
-    @include Text_context("neutral-secondary", "neutral", "secondary");
-    @include Text_context("neutral-brand", "neutral", "brand");
-    @include Text_context("neutral-danger", "neutral", "danger");
-    @include Text_context("neutral-warning", "neutral", "warning");
-    @include Text_context("neutral-success", "neutral", "success");
-    @include Text_context("neutral-inverted", "neutral-inverted", "default");
-    @include Text_context("brand", "brand", "default");
-    @include Text_context("danger", "danger", "default");
-    @include Text_context("warning", "warning", "default");
-    @include Text_context("success", "success", "default");
+  @include Text_style("neutral", "default");
+  @include Text_style("neutral", "secondary");
+  @include Text_style("neutral", "brand");
+  @include Text_style("neutral", "danger");
+  @include Text_style("neutral", "warning");
+  @include Text_style("neutral", "success");
+  @include Text_style("neutral-inverted", "default");
+  @include Text_style("brand", "default");
+  @include Text_style("danger", "default");
+  @include Text_style("warning", "default");
+  @include Text_style("success", "default");
+
+  &_disabled {
+    &.Text_interactive {
+      color: var(--pui-color-disabled-text-default) !important;
+    }
+
+    &.Text_selected {
+      color: var(--pui-color-disabled-text-default) !important;
+    }
+
+    color: var(--pui-color-disabled-text-default) !important;
   }
 
   &_variant {
     &-heading {
-      font-weight: 550;
-
       &#{$parent}_size {
         &-small {
-          font-size: 11px;
-          line-height: 24px;
-          letter-spacing: -0.005em;
+          @include typography-header-small;
         }
 
         &-medium {
-          font-size: 13px;
-          line-height: 25px;
-          letter-spacing: -0.01em;
+          @include typography-header-medium;
         }
 
         &-large {
-          font-size: 24px;
-          line-height: 32px;
-          letter-spacing: -0.015em;
+          @include typography-header-large;
         }
       }
     }
 
     &-body {
-      font-weight: 450;
-
       &#{$parent}_size {
         &-small {
-          font-size: 9px;
-          line-height: 14px;
-          letter-spacing: 0.01em;
+          @include typography-body-small;
         }
 
         &-medium {
-          font-size: 11px;
-          line-height: 17px;
-          letter-spacing: 0.01em;
+          @include typography-body-medium;
         }
 
         &-large {
-          font-size: 13px;
-          line-height: 22px;
-          letter-spacing: 0.005em;
+          @include typography-body-large;
         }
       }
     }

@@ -9,6 +9,7 @@ import { ListItem } from "./ListItem"
 import type { ListItemData } from "../ListContext/ListContext.types"
 
 import { Text } from "../Text/Text"
+// import { Input } from "../Input/Input"
 
 const meta: Meta<typeof ListItem> = {
   title: "Components/ListItem",
@@ -222,10 +223,13 @@ export const Demo: Story = {
                   : undefined
               }
             >
-              <Text variant="body" context="neutral">
+              <Text variant="body" context="neutral" contextModifiers="default">
                 {child.id}
               </Text>
-              <Text context="neutral-secondary"> (Level {level})</Text>
+              {" "}
+              <Text context="neutral" contextModifiers="secondary">
+                (Level {level})
+              </Text>
             </ListItem>
           ))}
         </ListContainer>
@@ -255,10 +259,17 @@ export const Demo: Story = {
                   item.children ? renderSubItems(item.children, 1) : undefined
                 }
               >
-                <Text variant="body" context="neutral">
+                <Text
+                  variant="body"
+                  context="neutral"
+                  contextModifiers="default"
+                >
                   {item.id}
                 </Text>
-                <Text context="neutral-secondary"> (Level 0)</Text>
+                {" "}
+                <Text context="neutral" contextModifiers="secondary">
+                  (Level 0)
+                </Text>
               </ListItem>
             ))}
           </ListContainer>
@@ -304,10 +315,11 @@ export const Draggable: Story = {
                   : undefined
               }
             >
-              <Text variant="body" context="neutral">
+              <Text variant="body" context="neutral" contextModifiers="default">
                 {child.id}
               </Text>
-              <Text context="neutral-secondary">
+              {" "}
+              <Text context="neutral" contextModifiers="secondary">
                  (Level {level}{" "}
                 {level > 1
                   ? ", not draggable, not hoverable, not selectable"
@@ -347,10 +359,17 @@ export const Draggable: Story = {
                   item.children ? renderSubItems(item.children, 1) : undefined
                 }
               >
-                <Text variant="body" context="neutral">
+                <Text
+                  variant="body"
+                  context="neutral"
+                  contextModifiers="default"
+                >
                   {item.id}
                 </Text>
-                <Text context="neutral-secondary"> (Level 0)</Text>
+                {" "}
+                <Text context="neutral" contextModifiers="secondary">
+                  (Level 0)
+                </Text>
               </ListItem>
             ))}
           </ListContainer>
@@ -401,10 +420,13 @@ export const DragHandleContainer: Story = {
                   : undefined
               }
             >
-              <Text variant="body" context="neutral">
+              <Text variant="body" context="neutral" contextModifiers="default">
                 {child.id}
               </Text>
-              <Text context="neutral-secondary"> (Level {level})</Text>
+              {" "}
+              <Text context="neutral" contextModifiers="secondary">
+                (Level {level})
+              </Text>
             </ListItem>
           ))}
         </ListContainer>
@@ -439,10 +461,17 @@ export const DragHandleContainer: Story = {
                   item.children ? renderSubItems(item.children, 1) : undefined
                 }
               >
-                <Text variant="body" context="neutral">
+                <Text
+                  variant="body"
+                  context="neutral"
+                  contextModifiers="default"
+                >
                   {item.id}
                 </Text>
-                <Text context="neutral-secondary"> (Level 0)</Text>
+                {" "}
+                <Text context="neutral" contextModifiers="secondary">
+                  (Level 0)
+                </Text>
               </ListItem>
             ))}
           </ListContainer>
@@ -492,11 +521,12 @@ export const AcceptsChildren: Story = {
                   : undefined
               }
             >
-              <Text variant="body" context="neutral">
+              <Text variant="body" context="neutral" contextModifiers="default">
                 {child.id}
               </Text>
-              <Text context="neutral-secondary">
-                 (Level {level} {level > 1 ? ", no children" : ""})
+              {" "}
+              <Text context="neutral" contextModifiers="secondary">
+                (Level {level} {level > 1 ? ", no children" : ""})
               </Text>
             </ListItem>
           ))}
@@ -531,10 +561,17 @@ export const AcceptsChildren: Story = {
                   item.children ? renderSubItems(item.children, 1) : undefined
                 }
               >
-                <Text variant="body" context="neutral">
+                <Text
+                  variant="body"
+                  context="neutral"
+                  contextModifiers="default"
+                >
                   {item.id}
                 </Text>
-                <Text context="neutral-secondary"> (Level 0)</Text>
+                {" "}
+                <Text context="neutral" contextModifiers="secondary">
+                  (Level 0)
+                </Text>
               </ListItem>
             ))}
           </ListContainer>
@@ -580,10 +617,11 @@ export const Selectable: Story = {
                   : undefined
               }
             >
-              <Text variant="body" context="neutral">
+              <Text variant="body" context="neutral" contextModifiers="default">
                 {child.id}
               </Text>
-              <Text context="neutral-secondary">
+              {" "}
+              <Text context="neutral" contextModifiers="secondary">
                  (Level {level}{" "}
                 {level > 1
                   ? ", not draggable, not hoverable, not selectable"
@@ -623,10 +661,17 @@ export const Selectable: Story = {
                   item.children ? renderSubItems(item.children, 1) : undefined
                 }
               >
-                <Text variant="body" context="neutral">
+                <Text
+                  variant="body"
+                  context="neutral"
+                  contextModifiers="default"
+                >
                   {item.id}
                 </Text>
-                <Text context="neutral-secondary"> (Level 0)</Text>
+                {" "}
+                <Text context="neutral" contextModifiers="secondary">
+                  (Level 0)
+                </Text>
               </ListItem>
             ))}
           </ListContainer>
@@ -676,10 +721,13 @@ export const SelectionScope: Story = {
                   : undefined
               }
             >
-              <Text variant="body" context="neutral">
+              <Text variant="body" context="neutral" contextModifiers="default">
                 {child.id}
               </Text>
-              <Text context="neutral-secondary"> (Level {level})</Text>
+              {" "}
+              <Text context="neutral" contextModifiers="secondary">
+                (Level {level})
+              </Text>
             </ListItem>
           ))}
         </ListContainer>
@@ -713,10 +761,17 @@ export const SelectionScope: Story = {
                   item.children ? renderSubItems(item.children, 1) : undefined
                 }
               >
-                <Text variant="body" context="neutral">
+                <Text
+                  variant="body"
+                  context="neutral"
+                  contextModifiers="default"
+                >
                   {item.id}
                 </Text>
-                <Text context="neutral-secondary"> (Level 0)</Text>
+                {" "}
+                <Text context="neutral" contextModifiers="secondary">
+                  (Level 0)
+                </Text>
               </ListItem>
             ))}
           </ListContainer>
@@ -766,10 +821,11 @@ export const Hoverable: Story = {
                   : undefined
               }
             >
-              <Text variant="body" context="neutral">
+              <Text variant="body" context="neutral" contextModifiers="default">
                 {child.id}
               </Text>
-              <Text context="neutral-secondary">
+              {" "}
+              <Text context="neutral" contextModifiers="secondary">
                  (Level {level}{" "}
                 {level > 1
                   ? ", not draggable, not hoverable, not selectable"
@@ -811,10 +867,17 @@ export const Hoverable: Story = {
                     : undefined
                 }
               >
-                <Text variant="body" context="neutral">
+                <Text
+                  variant="body"
+                  context="neutral"
+                  contextModifiers="default"
+                >
                   {item.id}
                 </Text>
-                <Text context="neutral-secondary"> (Level 0)</Text>
+                {" "}
+                <Text context="neutral" contextModifiers="secondary">
+                  (Level 0)
+                </Text>
               </ListItem>
             ))}
           </ListContainer>
@@ -865,10 +928,11 @@ export const CollapsableWithDragHandle: Story = {
                   : undefined
               }
             >
-              <Text variant="body" context="neutral">
+              <Text variant="body" context="neutral" contextModifiers="default">
                 {child.id}
               </Text>
-              <Text context="neutral-secondary">
+              {" "}
+              <Text context="neutral" contextModifiers="secondary">
                  (Level {level}
                 {level > 0
                   ? ", not draggable, not hoverable, not selectable"
@@ -911,10 +975,17 @@ export const CollapsableWithDragHandle: Story = {
                     : undefined
                 }
               >
-                <Text variant="body" context="neutral">
+                <Text
+                  variant="body"
+                  context="neutral"
+                  contextModifiers="default"
+                >
                   {item.id}
                 </Text>
-                <Text context="neutral-secondary"> (Level 0)</Text>
+                {" "}
+                <Text context="neutral" contextModifiers="secondary">
+                  (Level 0)
+                </Text>
               </ListItem>
             ))}
           </ListContainer>
@@ -960,10 +1031,11 @@ export const CollapsableWithDraggableContainer: Story = {
                   : undefined
               }
             >
-              <Text variant="body" context="neutral">
+              <Text variant="body" context="neutral" contextModifiers="default">
                 {child.id}
               </Text>
-              <Text context="neutral-secondary">
+              {" "}
+              <Text context="neutral" contextModifiers="secondary">
                  (Level {level}
                 {level > 0
                   ? ", not draggable, not hoverable, not selectable"
@@ -1007,10 +1079,17 @@ export const CollapsableWithDraggableContainer: Story = {
                     : undefined
                 }
               >
-                <Text variant="body" context="neutral">
+                <Text
+                  variant="body"
+                  context="neutral"
+                  contextModifiers="default"
+                >
                   {item.id}
                 </Text>
-                <Text context="neutral-secondary"> (Level 0)</Text>
+                {" "}
+                <Text context="neutral" contextModifiers="secondary">
+                  (Level 0)
+                </Text>
               </ListItem>
             ))}
           </ListContainer>
@@ -1020,92 +1099,104 @@ export const CollapsableWithDraggableContainer: Story = {
   },
 }
 
-export const Content: Story = {
-  tags: ["!dev"],
-  parameters: {
-    controls: { disable: true },
-  },
-  render: () => {
-    const [items, setItems] = useState(sampleItems)
-    const [selectedItems, setSelectedItems] = useState<string[]>([])
+// export const Content: Story = {
+//   tags: ["!dev"],
+//   parameters: {
+//     controls: { disable: true },
+//   },
+//   render: () => {
+//     const [items, setItems] = useState(sampleItems)
+//     const [selectedItems, setSelectedItems] = useState<string[]>([])
 
-    const renderSubItems = (
-      children: any[],
-      level: number,
-      parentPath: number[] = []
-    ) => {
-      if (!children || children.length === 0) return null
+//     const renderSubItems = (
+//       children: any[],
+//       level: number,
+//       parentPath: number[] = []
+//     ) => {
+//       if (!children || children.length === 0) return null
 
-      return (
-        <ListContainer>
-          {children.map((child) => (
-            <ListItem
-              key={child.id}
-              id={child.id}
-              nestingLevel={level}
-              draggable={true}
-              acceptsChildren={true}
-              selectable={true}
-              selectionScope="item"
-              hoverable={true}
-              showCollapseControl={true}
-              subItems={
-                child.children
-                  ? renderSubItems(child.children, level + 1)
-                  : undefined
-              }
-            >
-              <Text variant="body" context="neutral">
-                {child.id}
-              </Text>
-              <Text context="neutral-secondary">Level {level}</Text>
-              <input type="text" />
-            </ListItem>
-          ))}
-        </ListContainer>
-      )
-    }
+//       return (
+//         <ListContainer>
+//           {children.map((child) => (
+//             <ListItem
+//               key={child.id}
+//               id={child.id}
+//               nestingLevel={level}
+//               draggable={true}
+//               acceptsChildren={true}
+//               selectable={true}
+//               selectionScope="withDescendants"
+//               dragHandle="container"
+//               hoverable={true}
+//               showCollapseControl={true}
+//               subItems={
+//                 child.children
+//                   ? renderSubItems(child.children, level + 1)
+//                   : undefined
+//               }
+//             >
+//               <Text variant="body" context="neutral"
+//                 contextModifiers="default"
+//               >
+//                 {child.id}
+//               </Text>
+//               <Text context="neutral" contextModifiers="secondary">
+//                 Level {level}
+//               </Text>
+//               {" "}
+//               <Input />
+//             </ListItem>
+//           ))}
+//         </ListContainer>
+//       )
+//     }
 
-    return (
-      <div className="sb-column sb-gap-16">
-        <ListContext
-          items={items}
-          selectedItems={selectedItems}
-          selectionMode="multi"
-          onItemsChange={(change) => {
-            setItems(change.items)
-          }}
-          onSelectionChange={(change) => {
-            setSelectedItems(change.selectedItems)
-          }}
-        >
-          <ListContainer>
-            {items.map((item, index) => (
-              <ListItem
-                key={item.id}
-                id={item.id}
-                draggable={true}
-                acceptsChildren={true}
-                selectable={true}
-                selectionScope="item"
-                showCollapseControl={true}
-                hoverable={true}
-                subItems={
-                  item.children
-                    ? renderSubItems(item.children, 1, [index])
-                    : undefined
-                }
-              >
-                <Text variant="body" context="neutral">
-                  {item.id}
-                </Text>
-                <Text context="neutral-secondary"> (Level 0)</Text>
-                <input type="color" />
-              </ListItem>
-            ))}
-          </ListContainer>
-        </ListContext>
-      </div>
-    )
-  },
-}
+//     return (
+//       <div className="sb-column sb-gap-16">
+//         <ListContext
+//           items={items}
+//           selectedItems={selectedItems}
+//           selectionMode="multi"
+//           onItemsChange={(change) => {
+//             setItems(change.items)
+//           }}
+//           onSelectionChange={(change) => {
+//             setSelectedItems(change.selectedItems)
+//           }}
+//         >
+//           <ListContainer>
+//             {items.map((item, index) => (
+//               <ListItem
+//                 key={item.id}
+//                 id={item.id}
+//                 draggable={true}
+//                 dragHandle="container"
+//                 acceptsChildren={true}
+//                 selectable={true}
+//                 selectionScope="withDescendants"
+//                 showCollapseControl={true}
+//                 hoverable={true}
+//                 subItems={
+//                   item.children
+//                     ? renderSubItems(item.children, 1, [index])
+//                     : undefined
+//                 }
+//               >
+//                 <Text variant="body" context="neutral"
+//                   contextModifiers="default"
+//                 >
+//                   {item.id}
+//                 </Text>
+//                 <Text context="neutral" contextModifiers="secondary">
+//                   (Level 0)
+//                 </Text>
+//                 {" "}
+//                 <Input />
+//               </ListItem>
+//             ))}
+//           </ListContainer>
+//         </ListContext>
+//       </div>
+//     )
+//   },
+// }

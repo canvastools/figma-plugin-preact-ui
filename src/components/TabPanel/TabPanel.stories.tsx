@@ -56,13 +56,13 @@ export const Demo: Story = {
       </TabList>
       <br />
       <TabPanel {...args} value="tab-1">
-        Tab 1 Content
+        Tab 1 Panel
       </TabPanel>
       <TabPanel {...args} value="tab-2">
-        Tab 2 Content
+        Tab 2 Panel
       </TabPanel>
       <TabPanel {...args} value="tab-3">
-        Tab 3 Content
+        Tab 3 Panel
       </TabPanel>
     </TabContext>
   ),

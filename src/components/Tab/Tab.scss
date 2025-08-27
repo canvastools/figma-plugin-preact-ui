@@ -62,24 +62,22 @@
   &_variant {
     &-default {
       border: none;
-      background-color: var(--pui-color-neutral-bg-interactive);
-      color: var(--pui-color-neutral-text-interactive);
+      background-color: var(--pui-color-neutral-bg-default-interactive);
       @include curson-feedback;
 
       &:hover {
-        background-color: var(--pui-color-neutral-bg-interactive-hover);
+        background-color: var(--pui-color-neutral-bg-default-interactive-hover);
       }
 
       &#{$parent}_selected,
       &#{$parent}_selected:hover {
-        background-color: var(--pui-color-neutral-bg-interactive-hover);
+        background-color: var(--pui-color-neutral-bg-default-interactive-hover);
       }
     }
 
     &-single {
       border: none;
-      background-color: var(--pui-color-neutral-bg-interactive);
-      color: var(--pui-color-neutral-text-interactive);
+      background-color: unset;
 
       cursor: auto;
     }

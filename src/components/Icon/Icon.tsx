@@ -10,7 +10,12 @@ const IconComponent = (
   {
     className,
     glyph,
-    context = "inherit",
+    context = "neutral",
+    contextModifiers = "default",
+    disabled,
+    interactive,
+    selected,
+    fill,
     variant = "default",
     size = 24,
     children,
@@ -20,7 +25,13 @@ const IconComponent = (
 ) => {
   const _className = bem("Icon", undefined, {
     glyph,
-    context,
+    ...(!fill && {
+      context: `${context}-${contextModifiers}`,
+      disabled,
+      interactive,
+      selected,
+    }),
+    fill,
     variant,
     size: size.toString(),
   })
@@ -36,7 +47,13 @@ const IconComponent = (
   }
 
   return (
-    <div className={[_className, className].join(" ").trim()} {...rest}>
+    <div
+      className={[_className, className].join(" ").trim()}
+      {...rest}
+      style={{
+        ...(fill && { color: fill }),
+      }}
+    >
       {content}
     </div>
   )
