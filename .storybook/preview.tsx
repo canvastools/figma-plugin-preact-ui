@@ -63,16 +63,27 @@ const preview: Preview = {
         dynamicTitle: true,
       },
     },
+    debug: {
+      description: "Debug background",
+      defaultValue: "false",
+      toolbar: {
+        title: "Debug background",
+        icon: "contrast",
+        items: ["true", "false"],
+        dynamicTitle: true,
+      },
+    },
   },
   decorators: [
     (story, context) => {
       const theme = context.globals.theme || "light"
       const padding = context.globals.padding || "true"
+      const debug = context.globals.debug || "false"
 
       return (
         <div
           id="storybook-viewport"
-          class={`figma-${theme} viewport-padding-${padding}`}
+          class={`figma-${theme} viewport-padding-${padding} viewport-debug-bg-${debug}`}
         >
           {story()}
         </div>
