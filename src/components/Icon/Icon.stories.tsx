@@ -42,7 +42,7 @@ const meta: Meta<typeof Icon> = {
       description: "Overrides the context color.",
     },
     variant: {
-      control: { type: "select" },
+      control: { type: "radio" },
       options: ["default", "scaled"],
       defaultValue: { summary: "default" },
       description:
