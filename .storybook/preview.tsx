@@ -95,7 +95,7 @@ const preview: Preview = {
           },
         },
       },
-      defaultViewport: "medium",
+      defaultViewport: "large",
     },
   },
   globalTypes: {
