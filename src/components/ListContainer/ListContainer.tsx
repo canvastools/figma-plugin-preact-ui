@@ -15,10 +15,24 @@ const ListContainerComponent = (
   }: ListContainerProps & { nestingLevel?: number },
   ref: preact.Ref<HTMLDivElement>
 ) => {
-  const { reorderItems, registerRootElement, items, getPathForId } =
-    useListContext()
+  const { reorderItems, registerRootElement, getPathForId } = useListContext()
   const rootRef = useRef<HTMLDivElement | null>(null)
   const endZoneDropParentRef = useRef<HTMLElement | null>(null)
+
+  // Ensure every container exposes its nesting level via CSS var --level (root=0)
+  useEffect(() => {
+    const el = rootRef.current
+    if (!el) return
+    const parentItemEl = el.closest(".ListItem") as HTMLElement | null
+    const parentLevelAttr = parentItemEl?.getAttribute("data-nesting-level")
+    const parentLevel = parentLevelAttr ? parseInt(parentLevelAttr, 10) : 0
+    const level = parentItemEl ? parentLevel + 1 : 0
+    try {
+      el.style.setProperty("--level", String(level))
+    } catch {
+      // ignore style errors
+    }
+  }, [rootRef])
   // const idToPathLocal = useRef<Map<string, number[]>>(new Map())
 
   useEffect(() => registerRootElement?.(rootRef.current), [registerRootElement])
@@ -149,9 +163,8 @@ const ListContainerComponent = (
     e.preventDefault()
     e.stopPropagation()
     e.dataTransfer!.dropEffect = "move"
-    ;(e.currentTarget as HTMLElement).classList.add(
-      "ListContainer__end-dropzone-active"
-    )
+    const endZoneTarget = e.currentTarget as HTMLElement
+    endZoneTarget.classList.add("ListContainer__end-dropzone-active")
     // Highlight the related parent ListItem (if any)
     const endZoneEl = e.currentTarget as HTMLElement
     const containerEl = endZoneEl.parentElement as HTMLElement | null
@@ -169,9 +182,8 @@ const ListContainerComponent = (
   const handleEndZoneDrop = (e: DragEvent) => {
     e.preventDefault()
     e.stopPropagation()
-    ;(e.currentTarget as HTMLElement).classList.remove(
-      "ListContainer__end-dropzone-active"
-    )
+    const endZoneTarget = e.currentTarget as HTMLElement
+    endZoneTarget.classList.remove("ListContainer__end-dropzone-active")
     // Clear highlight on drop
     if (endZoneDropParentRef.current) {
       endZoneDropParentRef.current.classList.remove("ListItem_drop-parent")
@@ -223,9 +235,8 @@ const ListContainerComponent = (
   }
 
   const handleEndZoneDragLeave = (e: DragEvent) => {
-    ;(e.currentTarget as HTMLElement).classList.remove(
-      "ListContainer__end-dropzone-active"
-    )
+    const endZoneTarget = e.currentTarget as HTMLElement
+    endZoneTarget.classList.remove("ListContainer__end-dropzone-active")
     if (endZoneDropParentRef.current) {
       endZoneDropParentRef.current.classList.remove("ListItem_drop-parent")
       endZoneDropParentRef.current = null
