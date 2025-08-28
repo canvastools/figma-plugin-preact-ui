@@ -4,7 +4,6 @@ import { TabContext } from "../TabContext/TabContext"
 import { TabPanel } from "./TabPanel"
 import { TabList } from "../TabList/TabList"
 import { Tab } from "../Tab/Tab"
-import { FullWidth } from "components/Button/Button.stories"
 
 const meta: Meta<typeof TabPanel> = {
   title: "Components/TabPanel",

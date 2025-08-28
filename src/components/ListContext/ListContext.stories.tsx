@@ -123,7 +123,7 @@ export const Demo: Story = {
     onItemsChange: fn(),
     onSelectionChange: fn(),
   },
-  render: (args: any) => {
+  render: (args) => {
     const [items, setItems] = useState(sampleItems)
     const [selectedItems, setSelectedItems] = useState<string[]>([])
 
@@ -132,13 +132,16 @@ export const Demo: Story = {
         <ListContext
           items={items}
           selectedItems={selectedItems}
+          // @ts-expect-error: Storybook types hack
           selectionMode={args.selectionMode}
           onItemsChange={(change) => {
             setItems(change.items)
+            //@ts-expect-error: Storybook types hack
             args.onItemsChange?.(change)
           }}
           onSelectionChange={(change) => {
             setSelectedItems(change.selectedItems)
+            //@ts-expect-error: Storybook types hack
             args.onSelectionChange?.(change)
           }}
         >
@@ -174,7 +177,7 @@ export const NoSelection: Story = {
     const [items, setItems] = useState(sampleItems)
     const [selectedItems, setSelectedItems] = useState<string[]>([])
 
-    const renderSubItems = (children: any[], level: number) => {
+    const renderSubItems = (children, level: number) => {
       if (!children || children.length === 0) return null
 
       return (
@@ -266,7 +269,7 @@ export const SingleSelection: Story = {
     const [items, setItems] = useState(sampleItems)
     const [selectedItems, setSelectedItems] = useState<string[]>([])
 
-    const renderSubItems = (children: any[], level: number) => {
+    const renderSubItems = (children, level: number) => {
       if (!children || children.length === 0) return null
 
       return (
@@ -358,7 +361,7 @@ export const MultiSelection: Story = {
     const [items, setItems] = useState(sampleItems)
     const [selectedItems, setSelectedItems] = useState<string[]>([])
 
-    const renderSubItems = (children: any[], level: number) => {
+    const renderSubItems = (children, level: number) => {
       if (!children || children.length === 0) return null
 
       return (
@@ -405,7 +408,7 @@ export const MultiSelection: Story = {
           }}
         >
           <ListContainer>
-            {items.map((item, index) => (
+            {items.map((item) => (
               <ListItem
                 key={item.id}
                 id={item.id}

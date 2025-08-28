@@ -1,6 +1,7 @@
 import { Meta, StoryObj } from "@storybook/preact"
 
 import { Text } from "./Text"
+import type { TextProps } from "./Text.types"
 
 const meta: Meta<typeof Text> = {
   title: "Components/Text",
@@ -133,10 +134,10 @@ const contextCombinations = () => {
         >
           <Text
             variant="heading"
-            context={context as any}
-            contextModifiers={modifier as any}
-            interactive={interactive as any}
-            selected={selected as any}
+            context={context as TextProps["context"]}
+            contextModifiers={modifier as TextProps["contextModifiers"]}
+            interactive={interactive as TextProps["interactive"]}
+            selected={selected as TextProps["selected"]}
           >
             {context}
             {modifier === "default" ? "" : `-${modifier}`}
@@ -144,10 +145,10 @@ const contextCombinations = () => {
           </Text>
           <Text
             variant="body"
-            context={context as any}
-            contextModifiers={modifier as any}
-            interactive={interactive as any}
-            selected={selected as any}
+            context={context as TextProps["context"]}
+            contextModifiers={modifier as TextProps["contextModifiers"]}
+            interactive={interactive as TextProps["interactive"]}
+            selected={selected as TextProps["selected"]}
           >
             Lorem Ipsum is simply dummy text of the printing and typesetting
             industry. Lorem Ipsum has been the industry's standard dummy text

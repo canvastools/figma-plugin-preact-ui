@@ -1,4 +1,4 @@
-import { bem, typedForwardRef } from "../../utils"
+import { typedForwardRef } from "../../utils"
 import { useState, useEffect } from "preact/hooks"
 import { cloneElement, toChildArray } from "preact"
 import type { VNode } from "preact"
@@ -62,7 +62,7 @@ const ButtonIconToggleComponent = (
     >
       {toChildArray(children).map((child) => {
         if (typeof child === "object" && child !== null) {
-          const maybeVNode = child as VNode<any>
+          const maybeVNode = child as VNode
           if (maybeVNode.type === Icon) {
             return cloneElement(maybeVNode, {
               ...maybeVNode.props,

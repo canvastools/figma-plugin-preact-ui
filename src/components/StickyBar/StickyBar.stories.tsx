@@ -40,7 +40,7 @@ export const Demo: Story = {
     position: "top",
     children: "StickyBar",
   },
-  render: (args: any) => (
+  render: (args) => (
     <div
       className="sb-column sb-container"
       style={{
@@ -50,11 +50,19 @@ export const Demo: Story = {
         position: "relative",
       }}
     >
-      {args.position == "top" ? (
-        <StickyBar position="top">
-          <Text>{args.children}</Text>
-        </StickyBar>
-      ) : null}
+      {
+        // @ts-expect-error: Storybook types hack
+        args.position == "top" ? (
+          <StickyBar position="top">
+            <Text>
+              {
+                // @ts-expect-error: Storybook types hack
+                args.children
+              }
+            </Text>
+          </StickyBar>
+        ) : null
+      }
       <Text
         context="neutral"
         contextModifiers="default"
@@ -81,11 +89,19 @@ export const Demo: Story = {
         dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
         proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
       </Text>
-      {args.position == "bottom" ? (
-        <StickyBar position="bottom">
-          <Text>{args.children}</Text>
-        </StickyBar>
-      ) : null}
+      {
+        // @ts-expect-error: Storybook types hack
+        args.position == "bottom" ? (
+          <StickyBar position="bottom">
+            <Text>
+              {
+                // @ts-expect-error: Storybook types hack
+                args.children
+              }
+            </Text>
+          </StickyBar>
+        ) : null
+      }
     </div>
   ),
 }

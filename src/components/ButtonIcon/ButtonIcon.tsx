@@ -3,8 +3,6 @@ import { bem, typedForwardRef } from "../../utils"
 import type { ButtonIconProps } from "./ButtonIcon.types"
 import "./ButtonIcon.scss"
 
-import { Text } from "../Text/Text"
-
 /* --- */
 
 const ButtonIconComponent = (

@@ -91,9 +91,7 @@ const InputComponent = (
     }
   }
 
-  const handleDoubleClick = (
-    event: preact.JSX.TargetedMouseEvent<HTMLInputElement>
-  ) => {
+  const handleDoubleClick = () => {
     if (focusOnDoubleClick) {
       inputRef.current?.focus()
     }
@@ -107,7 +105,7 @@ const InputComponent = (
         ref={(el) => {
           inputRef.current = el
           if (typeof ref === "function") ref(el)
-          else if (ref) (ref as any).current = el
+          else if (ref && typeof ref === "object") ref.current = el
         }}
         type="text"
         disabled={disabled}

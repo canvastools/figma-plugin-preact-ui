@@ -90,7 +90,8 @@ export const Demo: Story = {
     variant: "default",
     onClick: fn(),
   },
-  render: (args: any) => {
+  render: (args) => {
+    // @ts-expect-error: Storybook types hack
     if (args.variant === "default") {
       return (
         <TabContext defaultValue="tab-1">
@@ -135,7 +136,7 @@ export const Variant: Story = {
       },
     },
   },
-  render: (args) => (
+  render: () => (
     <div className="sb-column sb-gap-16">
       <TabContext defaultValue="tab-1">
         <TabList>
@@ -162,13 +163,13 @@ export const Prefix: Story = {
   parameters: {
     controls: { disable: true },
   },
-  render: (args) => {
+  render: () => {
     const [activeTab, setActiveTab] = useState("tab-1")
 
     return (
       <div className="sb-column sb-gap-16">
         <TabContext
-          defaultValue="tab-1"
+          value={activeTab}
           onChange={(args) => {
             setActiveTab(args.value)
           }}
@@ -233,13 +234,13 @@ export const Suffix: Story = {
   parameters: {
     controls: { disable: true },
   },
-  render: (args) => {
+  render: () => {
     const [activeTab, setActiveTab] = useState("tab-1")
 
     return (
       <div className="sb-column sb-gap-16">
         <TabContext
-          defaultValue="tab-1"
+          value={activeTab}
           onChange={(args) => {
             setActiveTab(args.value)
           }}

@@ -67,8 +67,8 @@ export const Demo: Story = {
   args: {
     onChange: fn(),
   },
-  render: (args: any) => (
-    <TabContext defaultValue="tab-1" onChange={args.onChange}>
+  render: (args) => (
+    <TabContext {...args} defaultValue="tab-1">
       <TabList>
         <Tab value="tab-1">Tab 1</Tab>
         <Tab value="tab-2">Tab 2</Tab>

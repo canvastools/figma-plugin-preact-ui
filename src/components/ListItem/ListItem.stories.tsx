@@ -211,7 +211,7 @@ export const Demo: Story = {
     const [items, setItems] = useState(sampleItems)
     const [selectedItems, setSelectedItems] = useState<string[]>([])
 
-    const renderSubItems = (children: any[], level: number) => {
+    const renderSubItems = (children, level: number) => {
       if (!children || children.length === 0) return null
 
       return (
@@ -255,7 +255,7 @@ export const Demo: Story = {
           }}
         >
           <ListContainer>
-            {items.map((item, index) => (
+            {items.map((item) => (
               <ListItem
                 {...args}
                 key={item.id}
@@ -298,7 +298,7 @@ export const Draggable: Story = {
     const [items, setItems] = useState(sampleItems)
     const [selectedItems, setSelectedItems] = useState<string[]>([])
 
-    const renderSubItems = (children: any[], level: number) => {
+    const renderSubItems = (children, level: number) => {
       if (!children || children.length === 0) return null
 
       return (
@@ -324,7 +324,7 @@ export const Draggable: Story = {
               </Text>
               {" "}
               <Text context="neutral" contextModifiers="secondary">
-                 (Level {level}{" "}
+                (Level {level}{" "}
                 {level > 1
                   ? ", not draggable, not hoverable, not selectable"
                   : ""}
@@ -350,7 +350,7 @@ export const Draggable: Story = {
           }}
         >
           <ListContainer>
-            {items.map((item, index) => (
+            {items.map((item) => (
               <ListItem
                 key={item.id}
                 id={item.id}
@@ -397,11 +397,7 @@ export const DragHandleContainer: Story = {
     const [items, setItems] = useState(sampleItems)
     const [selectedItems, setSelectedItems] = useState<string[]>([])
 
-    const renderSubItems = (
-      children: any[],
-      level: number,
-      parentPath: number[] = []
-    ) => {
+    const renderSubItems = (children, level: number) => {
       if (!children || children.length === 0) return null
 
       return (
@@ -450,7 +446,7 @@ export const DragHandleContainer: Story = {
           }}
         >
           <ListContainer>
-            {items.map((item, index) => (
+            {items.map((item) => (
               <ListItem
                 key={item.id}
                 id={item.id}
@@ -498,11 +494,7 @@ export const AcceptsChildren: Story = {
     const [items, setItems] = useState(sampleItems)
     const [selectedItems, setSelectedItems] = useState<string[]>([])
 
-    const renderSubItems = (
-      children: any[],
-      level: number,
-      parentPath: number[] = []
-    ) => {
+    const renderSubItems = (children, level: number) => {
       if (!children || children.length === 0) return null
 
       return (
@@ -550,7 +542,7 @@ export const AcceptsChildren: Story = {
           }}
         >
           <ListContainer>
-            {items.map((item, index) => (
+            {items.map((item) => (
               <ListItem
                 key={item.id}
                 id={item.id}
@@ -597,7 +589,7 @@ export const Selectable: Story = {
     const [items, setItems] = useState(sampleItems)
     const [selectedItems, setSelectedItems] = useState<string[]>([])
 
-    const renderSubItems = (children: any[], level: number) => {
+    const renderSubItems = (children, level: number) => {
       if (!children || children.length === 0) return null
 
       return (
@@ -623,7 +615,7 @@ export const Selectable: Story = {
               </Text>
               {" "}
               <Text context="neutral" contextModifiers="secondary">
-                 (Level {level}{" "}
+                (Level {level}{" "}
                 {level > 1
                   ? ", not draggable, not hoverable, not selectable"
                   : ""}
@@ -649,7 +641,7 @@ export const Selectable: Story = {
           }}
         >
           <ListContainer>
-            {items.map((item, index) => (
+            {items.map((item) => (
               <ListItem
                 key={item.id}
                 id={item.id}
@@ -696,11 +688,7 @@ export const SelectionScope: Story = {
     const [items, setItems] = useState(sampleItems)
     const [selectedItems, setSelectedItems] = useState<string[]>([])
 
-    const renderSubItems = (
-      children: any[],
-      level: number,
-      parentPath: number[] = []
-    ) => {
+    const renderSubItems = (children, level: number) => {
       if (!children || children.length === 0) return null
 
       return (
@@ -748,7 +736,7 @@ export const SelectionScope: Story = {
           }}
         >
           <ListContainer>
-            {items.map((item, index) => (
+            {items.map((item) => (
               <ListItem
                 key={item.id}
                 id={item.id}
@@ -795,11 +783,7 @@ export const Hoverable: Story = {
     const [items, setItems] = useState(sampleItems)
     const [selectedItems, setSelectedItems] = useState<string[]>([])
 
-    const renderSubItems = (
-      children: any[],
-      level: number,
-      parentPath: number[] = []
-    ) => {
+    const renderSubItems = (children, level: number) => {
       if (!children || children.length === 0) return null
 
       return (
@@ -825,7 +809,7 @@ export const Hoverable: Story = {
               </Text>
               {" "}
               <Text context="neutral" contextModifiers="secondary">
-                 (Level {level}{" "}
+                (Level {level}{" "}
                 {level > 1
                   ? ", not draggable, not hoverable, not selectable"
                   : ""}
@@ -851,7 +835,7 @@ export const Hoverable: Story = {
           }}
         >
           <ListContainer>
-            {items.map((item, index) => (
+            {items.map((item) => (
               <ListItem
                 key={item.id}
                 id={item.id}
@@ -861,9 +845,7 @@ export const Hoverable: Story = {
                 selectionScope="item"
                 hoverable={true}
                 subItems={
-                  item.children
-                    ? renderSubItems(item.children, 1, [index])
-                    : undefined
+                  item.children ? renderSubItems(item.children, 1) : undefined
                 }
               >
                 <Text
@@ -900,11 +882,7 @@ export const CollapsableWithDragHandle: Story = {
     const [items, setItems] = useState(sampleItems)
     const [selectedItems, setSelectedItems] = useState<string[]>([])
 
-    const renderSubItems = (
-      children: any[],
-      level: number,
-      parentPath: number[] = []
-    ) => {
+    const renderSubItems = (children, level: number) => {
       if (!children || children.length === 0) return null
 
       return (
@@ -931,7 +909,7 @@ export const CollapsableWithDragHandle: Story = {
               </Text>
               {" "}
               <Text context="neutral" contextModifiers="secondary">
-                 (Level {level}
+                (Level {level}
                 {level > 1
                   ? ", not draggable, not hoverable, not selectable"
                   : ""}
@@ -957,7 +935,7 @@ export const CollapsableWithDragHandle: Story = {
           }}
         >
           <ListContainer>
-            {items.map((item, index) => (
+            {items.map((item) => (
               <ListItem
                 key={item.id}
                 id={item.id}
@@ -968,9 +946,7 @@ export const CollapsableWithDragHandle: Story = {
                 showCollapseControl={true}
                 hoverable={true}
                 subItems={
-                  item.children
-                    ? renderSubItems(item.children, 1, [index])
-                    : undefined
+                  item.children ? renderSubItems(item.children, 1) : undefined
                 }
               >
                 <Text
@@ -1001,11 +977,7 @@ export const CollapsableWithDraggableContainer: Story = {
     const [items, setItems] = useState(sampleItems)
     const [selectedItems, setSelectedItems] = useState<string[]>([])
 
-    const renderSubItems = (
-      children: any[],
-      level: number,
-      parentPath: number[] = []
-    ) => {
+    const renderSubItems = (children, level: number) => {
       if (!children || children.length === 0) return null
 
       return (
@@ -1033,7 +1005,7 @@ export const CollapsableWithDraggableContainer: Story = {
               </Text>
               {" "}
               <Text context="neutral" contextModifiers="secondary">
-                 (Level {level}
+                (Level {level}
                 {level > 1
                   ? ", not draggable, not hoverable, not selectable"
                   : ""}
@@ -1059,7 +1031,7 @@ export const CollapsableWithDraggableContainer: Story = {
           }}
         >
           <ListContainer>
-            {items.map((item, index) => (
+            {items.map((item) => (
               <ListItem
                 key={item.id}
                 id={item.id}
@@ -1071,9 +1043,7 @@ export const CollapsableWithDraggableContainer: Story = {
                 hoverable={true}
                 dragHandle="container"
                 subItems={
-                  item.children
-                    ? renderSubItems(item.children, 1, [index])
-                    : undefined
+                  item.children ? renderSubItems(item.children, 1) : undefined
                 }
               >
                 <Text
@@ -1109,11 +1079,7 @@ export const Content: Story = {
     const [items, setItems] = useState(sampleItems)
     const [selectedItems, setSelectedItems] = useState<string[]>([])
 
-    const renderSubItems = (
-      children: any[],
-      level: number,
-      parentPath: number[] = []
-    ) => {
+    const renderSubItems = (children, level: number) => {
       if (!children || children.length === 0) return null
 
       return (
@@ -1173,7 +1139,7 @@ export const Content: Story = {
           }}
         >
           <ListContainer>
-            {items.map((item, index) => (
+            {items.map((item) => (
               <ListItem
                 key={item.id}
                 id={item.id}
@@ -1184,9 +1150,7 @@ export const Content: Story = {
                 showCollapseControl={true}
                 hoverable={true}
                 subItems={
-                  item.children
-                    ? renderSubItems(item.children, 1, [index])
-                    : undefined
+                  item.children ? renderSubItems(item.children, 1) : undefined
                 }
               >
                 <Input defaultValue={item.id} ghost focusOnDoubleClick />
@@ -1200,7 +1164,7 @@ export const Content: Story = {
                   }}
                 >
                   <Text context="neutral" contextModifiers="secondary">
-                     Ghost + Double click focus
+                    Ghost + Double click focus
                   </Text>
                   <Button>Action</Button>
                   <ButtonIconToggle>

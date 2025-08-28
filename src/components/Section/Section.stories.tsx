@@ -31,7 +31,7 @@ export const Demo: Story = {
     className: "",
     children: "Section",
   },
-  render: (args) => (
+  render: () => (
     <div className="sb-column sb-container">
       <Section>
         <Text

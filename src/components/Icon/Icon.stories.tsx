@@ -4,6 +4,7 @@ import { Icon } from "./Icon"
 import { glyphs } from "./glyphs"
 
 import { Text } from "../Text/Text"
+import type { TextProps } from "../Text/Text.types"
 
 const meta: Meta<typeof Icon> = {
   title: "Components/Icon",
@@ -85,16 +86,16 @@ export const Demo: Story = {
 }
 
 const glyphCombinations = (glyph: string) => {
-  // @ts-ignore-next-line
+  // @ts-expect-error: Storybook types hack
   const combinations = meta.argTypes.variant.options.flatMap((i) =>
-    // @ts-ignore-next-line
+    // @ts-expect-error: Storybook types hack
     meta.argTypes.size.options.map((j) => [i, j])
   )
 
   return combinations.map(([variant, size]) => {
     try {
       // Probe support for this size/variant pair
-      // @ts-ignore-next-line
+
       glyphs[glyph]({ variant, size })
 
       return (
@@ -105,9 +106,7 @@ const glyphCombinations = (glyph: string) => {
           <br />
           <Icon
             glyph={glyph as keyof typeof glyphs}
-            // @ts-ignore-next-line
             variant={variant}
-            // @ts-ignore-next-line
             size={size}
             context="neutral"
           />
@@ -202,10 +201,10 @@ const contextCombinations = () => {
         >
           <div style={{ width: "100%" }}>
             <Text
-              context={context as any}
-              contextModifiers={modifier as any}
-              interactive={interactive as any}
-              selected={selected as any}
+              context={context as TextProps["context"]}
+              contextModifiers={modifier as TextProps["contextModifiers"]}
+              interactive={interactive as TextProps["interactive"]}
+              selected={selected as TextProps["selected"]}
             >
               {context}
               {modifier === "default" ? "" : `-${modifier}`}
@@ -217,28 +216,28 @@ const contextCombinations = () => {
             glyph="link"
             variant="default"
             size={24}
-            context={context as any}
-            contextModifiers={modifier as any}
-            interactive={interactive as any}
-            selected={selected as any}
+            context={context as TextProps["context"]}
+            contextModifiers={modifier as TextProps["contextModifiers"]}
+            interactive={interactive as TextProps["interactive"]}
+            selected={selected as TextProps["selected"]}
           />
           <Icon
             glyph="link"
             variant="scaled"
             size={24}
-            context={context as any}
-            contextModifiers={modifier as any}
-            interactive={interactive as any}
-            selected={selected as any}
+            context={context as TextProps["context"]}
+            contextModifiers={modifier as TextProps["contextModifiers"]}
+            interactive={interactive as TextProps["interactive"]}
+            selected={selected as TextProps["selected"]}
           />
           <Icon
             glyph="link"
             variant="default"
             size={16}
-            context={context as any}
-            contextModifiers={modifier as any}
-            interactive={interactive as any}
-            selected={selected as any}
+            context={context as TextProps["context"]}
+            contextModifiers={modifier as TextProps["contextModifiers"]}
+            interactive={interactive as TextProps["interactive"]}
+            selected={selected as TextProps["selected"]}
           />
         </div>
       ))}

@@ -49,6 +49,7 @@ const IconComponent = (
   return (
     <div
       className={[_className, className].join(" ").trim()}
+      ref={ref}
       {...rest}
       style={{
         ...(fill && { color: fill }),

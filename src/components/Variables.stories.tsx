@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from "@storybook/preact"
 
 import { figmaLight, figmaDark } from "../themes"
-import type { ColorTokenTree } from "../themes"
+import type { ColorTokenTree, ColorTokenBranch } from "../themes"
 
 import { Text } from "./Text/Text"
 import { Icon } from "./Icon/Icon"
@@ -37,7 +37,7 @@ const copyToClipboard = (text: string) => {
 type ThemeMap = Record<string, ColorTokenTree>
 
 function flattenTokens(
-  obj: Record<string, any>,
+  obj: ColorTokenBranch,
   path: string[] = []
 ): Record<string, string> {
   const result: Record<string, string> = {}

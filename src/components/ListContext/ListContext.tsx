@@ -389,7 +389,7 @@ const ListContext = ({
 
       // Adjust target path (for INSIDE drops) when the target item index shifts
       // due to removing dragged items from the same container (parent path)
-      let adjustedTargetPath = [...normalizedTargetPath]
+      const adjustedTargetPath = [...normalizedTargetPath]
       if (adjustedTargetPath.length > 0) {
         const parentOfTargetItemPath = adjustedTargetPath.slice(
           0,

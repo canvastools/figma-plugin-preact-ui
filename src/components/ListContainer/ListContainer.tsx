@@ -18,7 +18,7 @@ const ListContainerComponent = (
   const { reorderItems, registerRootElement, items, getPathForId } =
     useListContext()
   const rootRef = useRef<HTMLDivElement | null>(null)
-  const idToPathLocal = useRef<Map<string, number[]>>(new Map())
+  // const idToPathLocal = useRef<Map<string, number[]>>(new Map())
 
   useEffect(() => registerRootElement?.(rootRef.current), [registerRootElement])
 

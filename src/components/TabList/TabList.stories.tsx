@@ -1,6 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/preact"
-import { fn } from "@storybook/test"
-import { useState } from "preact/hooks"
 
 import { TabContext } from "../TabContext/TabContext"
 import { TabPanel } from "../TabPanel/TabPanel"

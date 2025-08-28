@@ -1,6 +1,5 @@
 import { Meta, StoryObj } from "@storybook/preact"
 import { fn } from "@storybook/test"
-import { useState } from "preact/hooks"
 
 import { ButtonIcon } from "./ButtonIcon"
 
