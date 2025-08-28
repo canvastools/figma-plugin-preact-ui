@@ -51,6 +51,9 @@ export type { SectionProps } from "./components/Section/Section.types"
 export { Spinner } from "./components/Spinner/Spinner"
 export type { SpinnerProps } from "./components/Spinner/Spinner.types"
 
+export { StickyBar } from "./components/StickyBar/StickyBar"
+export type { StickyBarProps } from "./components/StickyBar/StickyBar.types"
+
 export { Tab } from "./components/Tab/Tab"
 export type { TabProps } from "./components/Tab/Tab.types"
 
