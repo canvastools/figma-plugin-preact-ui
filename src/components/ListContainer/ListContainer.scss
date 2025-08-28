@@ -8,14 +8,15 @@
 
   &__end-dropzone {
     position: absolute;
-    width: calc(100% - var(--pui-spacing-400));
+    width: calc(100% - var(--pui-spacing-400) * (var(--level) + 1));
     bottom: -1px;
-    left: var(--pui-spacing-400);
-    height: 2px;
+    left: calc((var(--level) + 1) * var(--pui-spacing-400));
+    height: 8px;
     pointer-events: auto;
+    z-index: var(--level);
 
     &-active {
-      background-color: var(--pui-color-neutral-border-drop-position);
+      box-shadow: inset 0 -2px 0 0 var(--pui-color-neutral-border-drop-position);
       pointer-events: auto;
     }
   }
