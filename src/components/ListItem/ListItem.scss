@@ -49,21 +49,16 @@
     justify-content: center;
     z-index: 1;
     user-select: none;
-
     opacity: 0;
     cursor: grab;
 
     &:active {
       cursor: grabbing;
     }
+  }
 
-    &:hover {
-      opacity: 1;
-    }
-
-    & .Icon {
-      pointer-events: none;
-    }
+  &__content:hover > &__drag-handle {
+    opacity: 1;
   }
 
   &__collapse-toggle {
@@ -76,10 +71,6 @@
     align-items: center;
     justify-content: center;
     z-index: 1;
-
-    & .Icon {
-      pointer-events: none;
-    }
   }
 
   /* Variant */

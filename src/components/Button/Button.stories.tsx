@@ -533,59 +533,6 @@ export const Grouped: Story = {
           Grouped left
         </Button>
       </div>
-      <div className="sb-row">
-        <Button
-          context="neutral"
-          contextModifiers="default"
-          fullWidth
-          grouped="right"
-        >
-          Grouped right
-        </Button>
-        <Button
-          context="neutral"
-          contextModifiers="default"
-          fullWidth
-          grouped="both"
-        >
-          Grouped both
-        </Button>
-        <Button
-          context="brand"
-          contextModifiers="default"
-          fullWidth
-          grouped="left"
-          ghost
-        >
-          Grouped left
-        </Button>
-      </div>
-      <div className="sb-row">
-        <Button
-          context="neutral"
-          contextModifiers="brand"
-          fullWidth
-          grouped="right"
-        >
-          Grouped right
-        </Button>
-        <Button
-          context="neutral"
-          contextModifiers="brand"
-          fullWidth
-          grouped="both"
-        >
-          Grouped both
-        </Button>
-        <Button
-          context="brand"
-          contextModifiers="default"
-          fullWidth
-          grouped="left"
-        >
-          Grouped left
-        </Button>
-      </div>
     </div>
   ),
 }

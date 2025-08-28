@@ -86,14 +86,15 @@ const InputComponent = (
   const handleClick = (
     event: preact.JSX.TargetedMouseEvent<HTMLInputElement>
   ) => {
-    event.stopPropagation()
+    if (!focusOnDoubleClick) {
+      event.stopPropagation()
+    }
   }
 
   const handleDoubleClick = (
     event: preact.JSX.TargetedMouseEvent<HTMLInputElement>
   ) => {
     if (focusOnDoubleClick) {
-      event.stopPropagation()
       inputRef.current?.focus()
     }
   }

@@ -11,12 +11,12 @@ const meta: Meta<typeof Avatar> = {
       control: { type: "text" },
     },
     size: {
-      control: { type: "select" },
+      control: { type: "radio" },
       options: ["small", "medium", "large"],
       defaultValue: { summary: "medium" },
     },
     shape: {
-      control: { type: "select" },
+      control: { type: "radio" },
       options: ["circle", "square"],
       defaultValue: { summary: "circle" },
     },

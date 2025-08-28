@@ -158,7 +158,7 @@
   }
 
   &_fullWidth {
-    width: 100%;
+    width: auto;
   }
 
   @include Button_style-outlined("neutral", "default");

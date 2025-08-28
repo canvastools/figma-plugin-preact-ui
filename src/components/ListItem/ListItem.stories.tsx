@@ -60,7 +60,7 @@ const meta: Meta<typeof ListItem> = {
       control: { type: "boolean" },
     },
     dragHandle: {
-      control: { type: "select" },
+      control: { type: "radio" },
       options: ["default", "container"],
       defaultValue: { summary: "default" },
       description:
@@ -93,7 +93,7 @@ const meta: Meta<typeof ListItem> = {
       description: "Indicates if the item can be selected.",
     },
     selectionScope: {
-      control: { type: "select" },
+      control: { type: "radio" },
       options: ["item", "withDescendants"],
       defaultValue: { summary: "item" },
       description:
