@@ -29,6 +29,9 @@ export type { DividerProps } from "./components/Divider/Divider.types"
 export { Icon } from "./components/Icon/Icon"
 export type { IconProps } from "./components/Icon/Icon.types"
 
+export { Input } from "./components/Input/Input"
+export type { InputProps } from "./components/Input/Input.types"
+
 export { ListContainer } from "./components/ListContainer/ListContainer"
 export type { ListContainerProps } from "./components/ListContainer/ListContainer.types"
 

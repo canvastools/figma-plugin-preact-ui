@@ -32,6 +32,9 @@ const meta: Meta<typeof Input> = {
         },
       },
     },
+    ghost: {
+      control: { type: "boolean" },
+    },
     error: {
       control: { type: "boolean" },
     },
@@ -55,6 +58,11 @@ const meta: Meta<typeof Input> = {
       },
       description: "Element inserted after value. Visible on hover/focus.",
       control: { disable: true },
+    },
+
+    focusOnDoubleClick: {
+      control: { type: "boolean" },
+      description: "Enables double-click focus",
     },
     onChange: {
       action: "changed",
@@ -97,6 +105,7 @@ export const Demo: Story = {
     className: "",
     placeholder: "Placeholder",
     defaultValue: "",
+    ghost: false,
     error: false,
     disabled: false,
     onChange: fn(),
@@ -111,7 +120,6 @@ export const Demo: Story = {
 }
 
 export const Uncontrolled: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },
@@ -123,7 +131,6 @@ export const Uncontrolled: Story = {
 }
 
 export const Controlled: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },
@@ -139,7 +146,6 @@ export const Controlled: Story = {
 }
 
 export const Placeholder: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },
@@ -151,8 +157,18 @@ export const Placeholder: Story = {
   ),
 }
 
+export const Ghost: Story = {
+  parameters: {
+    controls: { disable: true },
+  },
+  render: () => (
+    <div className="sb-column sb-gap-16" style={{ width: "30%" }}>
+      <Input defaultValue="Default Value" ghost />
+    </div>
+  ),
+}
+
 export const Disabled: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },
@@ -166,7 +182,6 @@ export const Disabled: Story = {
 }
 
 export const Prefix: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },
@@ -209,7 +224,6 @@ export const Prefix: Story = {
 }
 
 export const Suffix: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },

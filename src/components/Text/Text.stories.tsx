@@ -161,7 +161,6 @@ const contextCombinations = () => {
 }
 
 export const Context: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },
@@ -171,7 +170,6 @@ export const Context: Story = {
 }
 
 export const Disabled: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },
@@ -191,7 +189,6 @@ export const Disabled: Story = {
 }
 
 export const Fill: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },
@@ -216,7 +213,6 @@ export const Fill: Story = {
 }
 
 export const Type: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },
@@ -241,7 +237,6 @@ export const Type: Story = {
 }
 
 export const Size: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
     viewport: {
@@ -305,7 +300,6 @@ export const Size: Story = {
 }
 
 export const Strong: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },
@@ -339,7 +333,6 @@ export const Strong: Story = {
 }
 
 export const Align: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },

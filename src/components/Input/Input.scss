@@ -8,6 +8,8 @@
   display: flex;
   align-items: center;
   height: 24px;
+  flex: 1 1 100%;
+  width: 100%;
 
   border-radius: var(--pui-radius-medium);
   overflow: hidden;
@@ -18,19 +20,24 @@
   outline-offset: -1px;
   background-color: var(--pui-color-neutral-bg-secondary-interactive);
 
-  &_focused {
+  &:hover {
+    outline-color: var(--pui-color-neutral-border-default-interactive);
+  }
+
+  &:hover > &__suffix,
+  &:focus-within > &__suffix {
+    display: flex;
+  }
+
+  &_focused,
+  &:hover:is(:focus-within) {
     outline-color: var(--pui-color-neutral-border-default-interactive-selected);
   }
 
   &_error {
     outline-color: var(
       --pui-color-neutral-border-default-interactive-selected-error
-    );
-  }
-
-  &:hover > &__suffix,
-  &:focus-within > &__suffix {
-    display: flex;
+    ) !important;
   }
 
   &__input-native {
@@ -41,12 +48,10 @@
     outline: none;
     background-color: transparent;
     padding: 0 var(--pui-spacing-200);
+    color: var(--pui-color-neutral-text-default-interactive);
 
     @include typography-styles;
     @include typography-body-medium;
-
-    color: var(--pui-color-neutral-text-default-interactive);
-
     @include curson-feedback;
 
     &::placeholder {
@@ -79,10 +84,33 @@
   &_disabled {
     cursor: auto;
     background-color: var(--pui-color-disabled-bg-default);
-    color: var(--pui-color-disabled-text-default);
   }
 
   &_disabled &__input-native {
     color: var(--pui-color-disabled-text-default);
+  }
+
+  // Ghost
+
+  &_ghost {
+    background-color: transparent;
+
+    &:hover {
+      outline-color: transparent;
+    }
+  }
+
+  &_ghost:is(&_focused),
+  &_ghost:hover:is(:focus-within) {
+    background-color: var(--pui-color-neutral-bg-default);
+  }
+
+  &_ghost:is(&_disabled) {
+    background-color: transparent;
+    color: var(--pui-color-disabled-text-default);
+  }
+
+  &_ghost:is(&_disabled) &__input-native {
+    color: var(--pui-color-neutral-text-default);
   }
 }

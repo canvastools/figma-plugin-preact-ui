@@ -10,6 +10,7 @@ export interface ButtonProps {
     | "success"
   ghost?: boolean
   size?: "medium" | "large"
+  grouped?: "none" | "left" | "right" | "both"
   disabled?: boolean
   fullWidth?: boolean
   prefix?: preact.ComponentChildren

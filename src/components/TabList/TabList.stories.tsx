@@ -58,7 +58,6 @@ export const Demo: Story = {
 }
 
 export const HorizontalScroll: Story = {
-  tags: ["!dev"],
   render: () => {
     return (
       <TabContext defaultValue="tab-1">

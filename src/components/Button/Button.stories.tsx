@@ -31,6 +31,11 @@ const meta: Meta<typeof Button> = {
       options: ["medium", "large"],
       defaultValue: { summary: "medium" },
     },
+    grouped: {
+      control: { type: "radio" },
+      options: ["none", "left", "right", "both"],
+      defaultValue: { summary: "none" },
+    },
     disabled: {
       control: { type: "boolean" },
     },
@@ -86,6 +91,7 @@ export const Demo: Story = {
     context: "neutral",
     contextModifiers: "default",
     size: "medium",
+    grouped: "none",
     disabled: false,
     fullWidth: false,
     children: "Button",
@@ -95,7 +101,6 @@ export const Demo: Story = {
 }
 
 export const Context: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },
@@ -136,7 +141,6 @@ export const Context: Story = {
 }
 
 export const Size: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },
@@ -215,7 +219,6 @@ export const Size: Story = {
 }
 
 export const Disabled: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },
@@ -343,7 +346,6 @@ export const Disabled: Story = {
 }
 
 export const FullWidth: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },
@@ -470,8 +472,125 @@ export const FullWidth: Story = {
   ),
 }
 
+export const Grouped: Story = {
+  parameters: {
+    controls: { disable: true },
+  },
+  render: () => (
+    <div className="sb-column sb-gap-16">
+      <div className="sb-row">
+        <Button
+          context="neutral"
+          contextModifiers="default"
+          fullWidth
+          grouped="right"
+        >
+          Grouped right
+        </Button>
+        <Button
+          context="neutral"
+          contextModifiers="default"
+          fullWidth
+          grouped="both"
+        >
+          Grouped both
+        </Button>
+        <Button
+          context="neutral"
+          contextModifiers="default"
+          fullWidth
+          grouped="left"
+        >
+          Grouped left
+        </Button>
+      </div>
+      <div className="sb-row">
+        <Button
+          context="neutral"
+          contextModifiers="default"
+          fullWidth
+          grouped="right"
+          size="large"
+        >
+          Grouped right
+        </Button>
+        <Button
+          context="neutral"
+          contextModifiers="default"
+          fullWidth
+          grouped="both"
+          size="large"
+        >
+          Grouped both
+        </Button>
+        <Button
+          context="neutral"
+          contextModifiers="default"
+          fullWidth
+          grouped="left"
+          size="large"
+        >
+          Grouped left
+        </Button>
+      </div>
+      <div className="sb-row">
+        <Button
+          context="neutral"
+          contextModifiers="default"
+          fullWidth
+          grouped="right"
+        >
+          Grouped right
+        </Button>
+        <Button
+          context="neutral"
+          contextModifiers="default"
+          fullWidth
+          grouped="both"
+        >
+          Grouped both
+        </Button>
+        <Button
+          context="brand"
+          contextModifiers="default"
+          fullWidth
+          grouped="left"
+          ghost
+        >
+          Grouped left
+        </Button>
+      </div>
+      <div className="sb-row">
+        <Button
+          context="neutral"
+          contextModifiers="brand"
+          fullWidth
+          grouped="right"
+        >
+          Grouped right
+        </Button>
+        <Button
+          context="neutral"
+          contextModifiers="brand"
+          fullWidth
+          grouped="both"
+        >
+          Grouped both
+        </Button>
+        <Button
+          context="brand"
+          contextModifiers="default"
+          fullWidth
+          grouped="left"
+        >
+          Grouped left
+        </Button>
+      </div>
+    </div>
+  ),
+}
+
 export const Prefix: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
     viewport: {
@@ -806,7 +925,6 @@ export const Prefix: Story = {
 }
 
 export const Suffix: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
     viewport: {
@@ -1141,7 +1259,6 @@ export const Suffix: Story = {
 }
 
 export const CustomIcon: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
     docs: {

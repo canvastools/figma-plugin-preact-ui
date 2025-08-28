@@ -127,7 +127,6 @@ const glyphCombinations = (glyph: string) => {
 }
 
 export const Glyphs: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },
@@ -248,7 +247,6 @@ const contextCombinations = () => {
 }
 
 export const Context: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },
@@ -258,7 +256,6 @@ export const Context: Story = {
 }
 
 export const Fill: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },
@@ -270,7 +267,6 @@ export const Fill: Story = {
 }
 
 export const Disabled: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },
@@ -287,7 +283,6 @@ export const Disabled: Story = {
 }
 
 export const Variant: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },
@@ -300,7 +295,6 @@ export const Variant: Story = {
 }
 
 export const Size: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },
@@ -313,7 +307,6 @@ export const Size: Story = {
 }
 
 export const CustomGlyph: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
     docs: {
@@ -348,7 +341,6 @@ export const CustomGlyph: Story = {
 }
 
 export const ErrorHandling: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
     docs: {

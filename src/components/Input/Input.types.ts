@@ -3,10 +3,12 @@ export interface InputProps {
   placeholder?: string
   defaultValue?: string
   value?: string
+  ghost?: boolean
   error?: boolean
   disabled?: boolean
   prefix?: preact.ComponentChildren
   suffix?: preact.ComponentChildren
+  focusOnDoubleClick?: boolean
   onChange?: (args: { event: MouseEvent; value: string }) => void
   onBlur?: (args: { event: MouseEvent; value: string }) => void
   onFocus?: (args: { event: MouseEvent; value: string }) => void

@@ -1,11 +1,9 @@
-import { useEffect, useState } from "preact/hooks"
+import { useEffect, useRef, useState } from "preact/hooks"
 
 import { bem, typedForwardRef } from "../../utils"
 
 import type { InputProps } from "./Input.types"
 import "./Input.scss"
-
-import { Text } from "../Text/Text"
 
 /* --- */
 
@@ -15,10 +13,12 @@ const InputComponent = (
     placeholder,
     value,
     defaultValue,
+    ghost,
     error,
     disabled,
     prefix,
     suffix,
+    focusOnDoubleClick,
     onChange,
     onBlur,
     onFocus,
@@ -31,6 +31,8 @@ const InputComponent = (
     Boolean(value ?? defaultValue ?? "")
   )
 
+  const inputRef = useRef<HTMLInputElement>(null)
+
   useEffect(() => {
     if (value !== undefined) {
       setHasContent(value.length > 0)
@@ -40,6 +42,7 @@ const InputComponent = (
   const _className = bem("Input", undefined, {
     filled: hasContent,
     disabled,
+    ghost,
     prefix: Boolean(prefix),
     suffix: Boolean(suffix),
     focused: isFocused,
@@ -86,12 +89,25 @@ const InputComponent = (
     event.stopPropagation()
   }
 
+  const handleDoubleClick = (
+    event: preact.JSX.TargetedMouseEvent<HTMLInputElement>
+  ) => {
+    if (focusOnDoubleClick) {
+      event.stopPropagation()
+      inputRef.current?.focus()
+    }
+  }
+
   return (
     <div className={[_className, className].join(" ").trim()} {...rest}>
       {prefix && <div className="Input__prefix">{prefix}</div>}
       <input
         className="Input__input-native"
-        ref={ref}
+        ref={(el) => {
+          inputRef.current = el
+          if (typeof ref === "function") ref(el)
+          else if (ref) (ref as any).current = el
+        }}
         type="text"
         disabled={disabled}
         placeholder={placeholder}
@@ -101,6 +117,12 @@ const InputComponent = (
         onBlur={handleBlur}
         onFocus={handleFocus}
         onClick={handleClick}
+        onDblClick={handleDoubleClick}
+        onMouseDown={(e) => {
+          if (focusOnDoubleClick) {
+            e.preventDefault()
+          }
+        }}
       />
       {suffix && <div className="Input__suffix">{suffix}</div>}
     </div>

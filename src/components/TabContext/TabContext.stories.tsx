@@ -83,7 +83,6 @@ export const Demo: Story = {
 }
 
 export const Uncontrolled: Story = {
-  tags: ["!dev"],
   render: () => {
     return (
       <TabContext defaultValue="tab-1">
@@ -102,7 +101,6 @@ export const Uncontrolled: Story = {
 }
 
 export const Controlled: Story = {
-  tags: ["!dev"],
   render: () => {
     const [activeTab, setActiveTab] = useState("tab-2")
 

@@ -64,7 +64,6 @@ export const Demo: Story = {
 }
 
 export const Uncontrolled: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },
@@ -76,7 +75,6 @@ export const Uncontrolled: Story = {
 }
 
 export const Controlled: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },
@@ -96,7 +94,6 @@ export const Controlled: Story = {
 }
 
 export const Checked: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },
@@ -109,7 +106,6 @@ export const Checked: Story = {
 }
 
 export const Mixed: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },
@@ -130,7 +126,6 @@ export const Mixed: Story = {
 }
 
 export const Disabled: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },
@@ -167,7 +162,6 @@ export const Disabled: Story = {
 }
 
 export const Label: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },

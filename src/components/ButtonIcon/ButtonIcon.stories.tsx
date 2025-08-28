@@ -74,7 +74,6 @@ export const Demo: Story = {
 }
 
 export const Context: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },
@@ -101,7 +100,6 @@ export const Context: Story = {
 }
 
 export const Disabled: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },
@@ -128,7 +126,6 @@ export const Disabled: Story = {
 }
 
 export const Translucent: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
     docs: {
@@ -152,7 +149,6 @@ export const Translucent: Story = {
 }
 
 export const CustomIcon: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
     docs: {

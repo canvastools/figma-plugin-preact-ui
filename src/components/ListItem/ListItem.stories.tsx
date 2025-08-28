@@ -9,7 +9,12 @@ import { ListItem } from "./ListItem"
 import type { ListItemData } from "../ListContext/ListContext.types"
 
 import { Text } from "../Text/Text"
-// import { Input } from "../Input/Input"
+import { Input } from "../Input/Input"
+import { Checkbox } from "../Checkbox/Checkbox"
+import { Icon } from "../Icon/Icon"
+import { Button } from "../Button/Button"
+import { ButtonIcon } from "../ButtonIcon/ButtonIcon"
+import { ButtonIconToggle } from "../ButtonIconToggle/ButtonIconToggle"
 
 const meta: Meta<typeof ListItem> = {
   title: "Components/ListItem",
@@ -280,7 +285,6 @@ export const Demo: Story = {
 }
 
 export const Draggable: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
     docs: {
@@ -380,7 +384,6 @@ export const Draggable: Story = {
 }
 
 export const DragHandleContainer: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
     docs: {
@@ -482,7 +485,6 @@ export const DragHandleContainer: Story = {
 }
 
 export const AcceptsChildren: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
     docs: {
@@ -582,7 +584,6 @@ export const AcceptsChildren: Story = {
 }
 
 export const Selectable: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
     docs: {
@@ -682,7 +683,6 @@ export const Selectable: Story = {
 }
 
 export const SelectionScope: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
     docs: {
@@ -782,7 +782,6 @@ export const SelectionScope: Story = {
 }
 
 export const Hoverable: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
     docs: {
@@ -888,7 +887,6 @@ export const Hoverable: Story = {
 }
 
 export const CollapsableWithDragHandle: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
     docs: {
@@ -916,11 +914,11 @@ export const CollapsableWithDragHandle: Story = {
               key={child.id}
               id={child.id}
               nestingLevel={level}
-              draggable={level > 0 ? false : true}
+              draggable={level > 1 ? false : true}
               acceptsChildren={true}
-              selectable={level > 0 ? false : true}
+              selectable={level > 1 ? false : true}
               selectionScope="item"
-              hoverable={level > 0 ? false : true}
+              hoverable={level > 1 ? false : true}
               showCollapseControl={true}
               subItems={
                 child.children
@@ -934,7 +932,7 @@ export const CollapsableWithDragHandle: Story = {
               {" "}
               <Text context="neutral" contextModifiers="secondary">
                  (Level {level}
-                {level > 0
+                {level > 1
                   ? ", not draggable, not hoverable, not selectable"
                   : ""}
                 )
@@ -996,7 +994,6 @@ export const CollapsableWithDragHandle: Story = {
 }
 
 export const CollapsableWithDraggableContainer: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },
@@ -1018,11 +1015,11 @@ export const CollapsableWithDraggableContainer: Story = {
               key={child.id}
               id={child.id}
               nestingLevel={level}
-              draggable={level > 0 ? false : true}
+              draggable={level > 1 ? false : true}
               acceptsChildren={true}
-              selectable={level > 0 ? false : true}
+              selectable={level > 1 ? false : true}
               selectionScope="item"
-              hoverable={level > 0 ? false : true}
+              hoverable={level > 1 ? false : true}
               showCollapseControl={true}
               dragHandle="container"
               subItems={
@@ -1037,7 +1034,7 @@ export const CollapsableWithDraggableContainer: Story = {
               {" "}
               <Text context="neutral" contextModifiers="secondary">
                  (Level {level}
-                {level > 0
+                {level > 1
                   ? ", not draggable, not hoverable, not selectable"
                   : ""}
                 )
@@ -1099,104 +1096,122 @@ export const CollapsableWithDraggableContainer: Story = {
   },
 }
 
-// export const Content: Story = {
-//   tags: ["!dev"],
-//   parameters: {
-//     controls: { disable: true },
-//   },
-//   render: () => {
-//     const [items, setItems] = useState(sampleItems)
-//     const [selectedItems, setSelectedItems] = useState<string[]>([])
+export const Content: Story = {
+  parameters: {
+    controls: { disable: true },
+    docs: {
+      description: {
+        story: "Various content test.",
+      },
+    },
+  },
+  render: () => {
+    const [items, setItems] = useState(sampleItems)
+    const [selectedItems, setSelectedItems] = useState<string[]>([])
 
-//     const renderSubItems = (
-//       children: any[],
-//       level: number,
-//       parentPath: number[] = []
-//     ) => {
-//       if (!children || children.length === 0) return null
+    const renderSubItems = (
+      children: any[],
+      level: number,
+      parentPath: number[] = []
+    ) => {
+      if (!children || children.length === 0) return null
 
-//       return (
-//         <ListContainer>
-//           {children.map((child) => (
-//             <ListItem
-//               key={child.id}
-//               id={child.id}
-//               nestingLevel={level}
-//               draggable={true}
-//               acceptsChildren={true}
-//               selectable={true}
-//               selectionScope="withDescendants"
-//               dragHandle="container"
-//               hoverable={true}
-//               showCollapseControl={true}
-//               subItems={
-//                 child.children
-//                   ? renderSubItems(child.children, level + 1)
-//                   : undefined
-//               }
-//             >
-//               <Text variant="body" context="neutral"
-//                 contextModifiers="default"
-//               >
-//                 {child.id}
-//               </Text>
-//               <Text context="neutral" contextModifiers="secondary">
-//                 Level {level}
-//               </Text>
-//               {" "}
-//               <Input />
-//             </ListItem>
-//           ))}
-//         </ListContainer>
-//       )
-//     }
+      return (
+        <ListContainer>
+          {children.map((child) => (
+            <ListItem
+              key={child.id}
+              id={child.id}
+              nestingLevel={level}
+              draggable={true}
+              acceptsChildren={true}
+              selectable={true}
+              selectionScope="withDescendants"
+              hoverable={true}
+              showCollapseControl={true}
+              subItems={
+                child.children
+                  ? renderSubItems(child.children, level + 1)
+                  : undefined
+              }
+            >
+              <Input defaultValue={child.id} />
+              <div
+                style={{
+                  paddingLeft: 16,
+                  width: 400,
+                  display: "flex",
+                  gap: 8,
+                  alignItems: "center",
+                }}
+              >
+                <Checkbox label="Label" />
+                <ButtonIcon ghost>
+                  <Icon glyph="settings" variant="scaled" />
+                </ButtonIcon>
+                <ButtonIconToggle ghost>
+                  <Icon glyph="link" variant="scaled" />
+                </ButtonIconToggle>
+              </div>
+            </ListItem>
+          ))}
+        </ListContainer>
+      )
+    }
 
-//     return (
-//       <div className="sb-column sb-gap-16">
-//         <ListContext
-//           items={items}
-//           selectedItems={selectedItems}
-//           selectionMode="multi"
-//           onItemsChange={(change) => {
-//             setItems(change.items)
-//           }}
-//           onSelectionChange={(change) => {
-//             setSelectedItems(change.selectedItems)
-//           }}
-//         >
-//           <ListContainer>
-//             {items.map((item, index) => (
-//               <ListItem
-//                 key={item.id}
-//                 id={item.id}
-//                 draggable={true}
-//                 dragHandle="container"
-//                 acceptsChildren={true}
-//                 selectable={true}
-//                 selectionScope="withDescendants"
-//                 showCollapseControl={true}
-//                 hoverable={true}
-//                 subItems={
-//                   item.children
-//                     ? renderSubItems(item.children, 1, [index])
-//                     : undefined
-//                 }
-//               >
-//                 <Text variant="body" context="neutral"
-//                   contextModifiers="default"
-//                 >
-//                   {item.id}
-//                 </Text>
-//                 <Text context="neutral" contextModifiers="secondary">
-//                   (Level 0)
-//                 </Text>
-//                 {" "}
-//                 <Input />
-//               </ListItem>
-//             ))}
-//           </ListContainer>
-//         </ListContext>
-//       </div>
-//     )
-//   },
-// }
+    return (
+      <div className="sb-column sb-gap-16">
+        <ListContext
+          items={items}
+          selectedItems={selectedItems}
+          selectionMode="multi"
+          onItemsChange={(change) => {
+            setItems(change.items)
+          }}
+          onSelectionChange={(change) => {
+            setSelectedItems(change.selectedItems)
+          }}
+        >
+          <ListContainer>
+            {items.map((item, index) => (
+              <ListItem
+                key={item.id}
+                id={item.id}
+                draggable={true}
+                acceptsChildren={true}
+                selectable={true}
+                selectionScope="withDescendants"
+                showCollapseControl={true}
+                hoverable={true}
+                subItems={
+                  item.children
+                    ? renderSubItems(item.children, 1, [index])
+                    : undefined
+                }
+              >
+                <Input defaultValue={item.id} ghost focusOnDoubleClick />
+                <div
+                  style={{
+                    paddingLeft: 16,
+                    width: 400,
+                    display: "flex",
+                    gap: 8,
+                    alignItems: "center",
+                  }}
+                >
+                  <Text context="neutral" contextModifiers="secondary">
+                     Ghost + Double click focus
+                  </Text>
+                  <Button>Action</Button>
+                  <ButtonIconToggle>
+                    <Icon glyph="link" variant="scaled" />
+                  </ButtonIconToggle>
+                </div>
+              </ListItem>
+            ))}
+          </ListContainer>
+        </ListContext>
+      </div>
+    )
+  },
+}

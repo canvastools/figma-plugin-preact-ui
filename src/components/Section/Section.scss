@@ -3,6 +3,7 @@
 .Section {
   $parent: &;
 
+  flex: 0 0 100%;
   width: 100%;
   display: flex;
   padding: var(--pui-spacing-200) var(--pui-spacing-400);

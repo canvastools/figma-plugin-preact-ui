@@ -34,7 +34,6 @@ export const Demo: Story = {
 }
 
 export const Variant: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },

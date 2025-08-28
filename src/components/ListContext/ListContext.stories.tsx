@@ -162,7 +162,6 @@ export const Demo: Story = {
 }
 
 export const NoSelection: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
     docs: {
@@ -255,7 +254,6 @@ export const NoSelection: Story = {
 }
 
 export const SingleSelection: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
     docs: {
@@ -348,7 +346,6 @@ export const SingleSelection: Story = {
 }
 
 export const MultiSelection: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
     docs: {

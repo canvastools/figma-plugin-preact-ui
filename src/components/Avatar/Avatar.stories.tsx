@@ -79,7 +79,6 @@ export const Demo: Story = {
 }
 
 export const Size: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },
@@ -108,7 +107,6 @@ export const Size: Story = {
 }
 
 export const Shape: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },
@@ -177,7 +175,6 @@ export const Shape: Story = {
 }
 
 export const ImageSrc: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },
@@ -190,7 +187,6 @@ export const ImageSrc: Story = {
 }
 
 export const Fill: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
   },
