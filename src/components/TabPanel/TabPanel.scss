@@ -7,4 +7,11 @@
   flex-flow: column nowrap;
   flex: 1 1 100%;
   width: 100%;
+
+  &_fullHeight,
+  &_fullHeight &__children {
+    flex: 1;
+    display: flex;
+    flex-flow: column nowrap;
+  }
 }
