@@ -45,12 +45,14 @@ body * {
   display: flex;
   flex-flow: column nowrap;
   width: 100%;
+  position: relative;
 }
 
 .sb-row {
   display: flex;
   flex-flow: row nowrap;
   width: 100%;
+  position: relative;
 }
 
 .sb-gap-8 {
