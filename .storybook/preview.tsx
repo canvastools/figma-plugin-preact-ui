@@ -1,6 +1,8 @@
 // @ts-nocheck
 
 import type { Preview } from "@storybook/preact"
+import { useEffect, useState } from "preact/hooks"
+import { addons } from "@storybook/preview-api"
 
 import "./fonts.css"
 import "./viewport.css"
@@ -91,7 +93,7 @@ const preview: Preview = {
           name: "800",
           styles: {
             width: "800px",
-            height: "400px",
+            height: "600px",
           },
         },
       },
@@ -109,41 +111,41 @@ const preview: Preview = {
         dynamicTitle: true,
       },
     },
-    padding: {
-      description: "Viewport padding",
-      defaultValue: "true",
+    background: {
+      description: "Background",
+      defaultValue: "primary",
       toolbar: {
-        title: "Padding",
-        icon: "outline",
-        items: ["true", "false"],
-        dynamicTitle: true,
-      },
-    },
-    debug: {
-      description: "Debug background",
-      defaultValue: "false",
-      toolbar: {
-        title: "Debug background",
+        title: "Background",
         icon: "contrast",
-        items: ["true", "false"],
+        items: ["primary", "secondary", "contrast"],
         dynamicTitle: true,
       },
     },
   },
   decorators: [
     (story, context) => {
-      const theme = context.globals.theme || "light"
-      const padding = context.globals.padding || "true"
-      const debug = context.globals.debug || "false"
+      const ViewportDecorator = () => {
+        const theme = context.globals.theme || "light"
+        const background = context.globals.background || "primary"
+        const defaultViewport =
+          context.parameters?.viewport?.defaultViewport || "large"
+        const [viewport, setViewport] = useState(defaultViewport)
 
-      return (
-        <div
-          id="storybook-viewport"
-          class={`figma-${theme} viewport-padding-${padding} viewport-debug-bg-${debug}`}
-        >
-          {story()}
-        </div>
-      )
+        useEffect(() => {
+          setViewport(context.globals.viewport || "large")
+        }, [context])
+
+        return (
+          <div
+            id="storybook-viewport"
+            class={`figma-${theme} viewport-bg-${background} viewport-${viewport}`}
+          >
+            {story()}
+          </div>
+        )
+      }
+
+      return <ViewportDecorator />
     },
   ],
 }
