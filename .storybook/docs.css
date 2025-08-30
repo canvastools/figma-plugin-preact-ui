@@ -12,3 +12,11 @@
   line-height: 13px;
   max-width: 100%;
 }
+
+#storybook-docs .experimental {
+  background-color: #fffbde;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #e1d894;
+  width: 100%;
+}

@@ -55,6 +55,9 @@ body * {
   background-color: var(--pui-color-neutral-bg-default);
   overflow: hidden;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.24);
+  display: flex;
+  flex-flow: column nowrap;
+  height: 100%;
 }
 
 .viewport-large .sb-plugin-window::before {
