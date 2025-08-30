@@ -414,8 +414,8 @@ const ListItemComponent = (
             }}
           >
             <Icon
-              context="neutral"
-              contextModifiers="secondary"
+              intent="neutral"
+              intentModifiers="secondary"
               glyph={effectiveCollapsed ? "chevronRight" : "chevronDown"}
               size={16}
             />
@@ -430,8 +430,8 @@ const ListItemComponent = (
           >
             <Icon
               glyph="dragHandle"
-              context="neutral"
-              contextModifiers="secondary"
+              intent="neutral"
+              intentModifiers="secondary"
               size={16}
             />
           </div>

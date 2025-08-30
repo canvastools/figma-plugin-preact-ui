@@ -1,13 +1,13 @@
 export interface BadgeProps {
   className?: string
-  context?:
+  intent?:
     | "neutral"
     | "neutral-inverted"
     | "brand"
     | "danger"
     | "warning"
     | "success"
-  contextModifiers?:
+  intentModifiers?:
     | "default"
     | "secondary"
     | "brand"

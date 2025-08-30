@@ -1,18 +1,18 @@
 @use "../../shared.scss" as *;
 
-@mixin Icon_style($context, $modifiers) {
-  &_context-#{$context}-#{$modifiers} {
+@mixin Icon_intent($intent, $modifiers) {
+  &_intent-#{$intent}-#{$modifiers} {
     &.Icon_interactive {
-      color: var(--pui-color-#{$context}-icon-#{$modifiers}-interactive);
+      color: var(--pui-color-#{$intent}-icon-#{$modifiers}-interactive);
     }
 
     &.Icon_selected {
       color: var(
-        --pui-color-#{$context}-icon-#{$modifiers}-interactive-selected
+        --pui-color-#{$intent}-icon-#{$modifiers}-interactive-selected
       );
     }
 
-    color: var(--pui-color-#{$context}-icon-#{$modifiers});
+    color: var(--pui-color-#{$intent}-icon-#{$modifiers});
   }
 }
 
@@ -39,18 +39,18 @@
     }
   }
 
-  @include Icon_style("neutral", "default");
-  @include Icon_style("neutral", "secondary");
-  @include Icon_style("neutral", "brand");
-  @include Icon_style("neutral", "danger");
-  @include Icon_style("neutral", "warning");
-  @include Icon_style("neutral", "success");
-  @include Icon_style("neutral-inverted", "default");
-  @include Icon_style("brand", "default");
-  @include Icon_style("danger", "default");
-  @include Icon_style("warning", "default");
-  @include Icon_style("success", "default");
-  @include Icon_style("disabled", "default");
+  @include Icon_intent("neutral", "default");
+  @include Icon_intent("neutral", "secondary");
+  @include Icon_intent("neutral", "brand");
+  @include Icon_intent("neutral", "danger");
+  @include Icon_intent("neutral", "warning");
+  @include Icon_intent("neutral", "success");
+  @include Icon_intent("neutral-inverted", "default");
+  @include Icon_intent("brand", "default");
+  @include Icon_intent("danger", "default");
+  @include Icon_intent("warning", "default");
+  @include Icon_intent("success", "default");
+  @include Icon_intent("disabled", "default");
 
   &_disabled {
     &.Icon_interactive {

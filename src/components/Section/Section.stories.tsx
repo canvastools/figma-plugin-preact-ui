@@ -8,9 +8,21 @@ const meta: Meta<typeof Section> = {
   title: "Components/Section",
   component: Section,
   tags: ["autodocs"],
+  parameters: {
+    docs: {
+      description: {
+        component: "A component that creates a section with built-in padding.",
+      },
+    },
+  },
   argTypes: {
     className: {
       control: { type: "text" },
+    },
+    fullHeight: {
+      control: { type: "boolean" },
+      description:
+        "Set the height to 100% to occupy the entire height in flex containers.",
     },
     children: {
       control: { disable: true },
@@ -28,18 +40,18 @@ type Story = StoryObj<typeof Section>
 
 export const Demo: Story = {
   args: {
-    className: "",
-    children: "Section",
+    className: "sb-container",
+    fullHeight: false,
   },
-  render: () => (
-    <div className="sb-column sb-container">
-      <Section>
-        <Text
-          context="neutral"
-          contextModifiers="default"
-          variant="body"
-          size="medium"
-        >
+  parameters: {
+    viewport: {
+      defaultViewport: "large",
+    },
+  },
+  render: (args) => (
+    <div className="sb-column sb-height-300">
+      <Section {...args}>
+        <Text>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
           minim veniam, quis nostrud exercitation ullamco laboris nisi ut

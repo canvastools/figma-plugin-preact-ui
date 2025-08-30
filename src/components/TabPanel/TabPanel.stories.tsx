@@ -5,6 +5,9 @@ import { TabPanel } from "./TabPanel"
 import { TabList } from "../TabList/TabList"
 import { Tab } from "../Tab/Tab"
 
+import { Section } from "../Section/Section"
+import { Text } from "../Text/Text"
+
 const meta: Meta<typeof TabPanel> = {
   title: "Components/TabPanel",
   component: TabPanel,
@@ -19,7 +22,7 @@ const meta: Meta<typeof TabPanel> = {
   },
   argTypes: {
     className: {
-      control: { type: "string" },
+      control: { type: "text" },
     },
     value: {
       table: {
@@ -27,7 +30,7 @@ const meta: Meta<typeof TabPanel> = {
           summary: "string",
         },
       },
-      description: "Value of the tab panel for any mode.",
+      description: "Value of the tab panel for controlled/uncontrolled mode.",
     },
     fullHeight: {
       control: { type: "boolean" },
@@ -49,36 +52,36 @@ export default meta
 type Story = StoryObj<typeof TabPanel>
 
 export const Demo: Story = {
+  parameters: {
+    viewport: {
+      defaultViewport: "large",
+    },
+  },
   args: {
-    className: "",
+    className: "sb-container",
     fullHeight: false,
   },
   render: (args) => (
-    <div
-      className="sb-column sb-gap-16 sb-container"
-      style={{ width: 300, height: 300 }}
-    >
+    <div className="sb-column sb-width-full sb-height-300">
       <TabContext defaultValue="tab-1">
-        <TabList>
-          <Tab value="tab-1">Tab 1</Tab>
-          <Tab value="tab-2">Tab 2</Tab>
-          <Tab value="tab-3">Tab 3</Tab>
-        </TabList>
-        <TabPanel {...args} value="tab-1">
-          <div style={{ backgroundColor: "yellow", height: "100%" }}>
-            Tab 1 Panel
-          </div>
-        </TabPanel>
-        <TabPanel {...args} value="tab-2">
-          <div style={{ backgroundColor: "yellow", height: "100%" }}>
-            Tab 2 Panel
-          </div>
-        </TabPanel>
-        <TabPanel {...args} value="tab-3">
-          <div style={{ backgroundColor: "yellow", height: "100%" }}>
-            Tab 3 Panel
-          </div>
-        </TabPanel>
+        <Section>
+          <TabList>
+            <Tab value="tab-1">Tab 1</Tab>
+            <Tab value="tab-2">Tab 2</Tab>
+            <Tab value="tab-3">Tab 3</Tab>
+          </TabList>
+        </Section>
+        <Section fullHeight>
+          <TabPanel {...args} value="tab-1">
+            <Text>Tab 1 Panel</Text>
+          </TabPanel>
+          <TabPanel {...args} value="tab-2">
+            <Text>Tab 2 Panel</Text>
+          </TabPanel>
+          <TabPanel {...args} value="tab-3">
+            <Text>Tab 3 Panel</Text>
+          </TabPanel>
+        </Section>
       </TabContext>
     </div>
   ),

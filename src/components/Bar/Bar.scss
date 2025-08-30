@@ -1,0 +1,19 @@
+@use "../../shared.scss" as *;
+
+.Bar {
+  $parent: &;
+
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  background-color: var(--pui-color-neutral-bg-default);
+
+  &_borderTop {
+    box-shadow: 0 -1px 0 0 var(--pui-color-neutral-border-default);
+  }
+
+  &_borderBottom {
+    box-shadow: 0 1px 0 0 var(--pui-color-neutral-border-default);
+  }
+}

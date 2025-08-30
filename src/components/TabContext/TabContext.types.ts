@@ -7,6 +7,6 @@ export interface TabContextValue {
 export interface TabContextProps {
   defaultValue?: string
   value?: string
-  onChange?: (args: { value: string }) => void
   children: preact.ComponentChildren
+  onChange?: (args: { value: string }) => void
 }

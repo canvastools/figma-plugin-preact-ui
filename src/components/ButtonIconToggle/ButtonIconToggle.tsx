@@ -14,12 +14,13 @@ import { Icon } from "../Icon/Icon"
 const ButtonIconToggleComponent = (
   {
     className,
-    context = "neutral",
+    intent,
     ghost,
-    defaultSelected,
-    selected: controlledSelected,
     disabled,
     children,
+
+    defaultSelected,
+    selected: controlledSelected,
     onChange,
     ...rest
   }: ButtonIconToggleProps,
@@ -54,7 +55,7 @@ const ButtonIconToggleComponent = (
         .join(" ")
         .trim()}
       ref={ref}
-      context={context}
+      intent={intent}
       ghost={ghost}
       disabled={disabled}
       {...rest}

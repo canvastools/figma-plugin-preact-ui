@@ -3,6 +3,8 @@
 .Divider {
   $parent: &;
 
+  flex-shrink: 0;
+  height: 1px;
   width: 100%;
   display: flex;
   overflow: hidden;

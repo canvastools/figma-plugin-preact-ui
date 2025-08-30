@@ -5,6 +5,9 @@ import { TabPanel } from "../TabPanel/TabPanel"
 import { TabList } from "./TabList"
 import { Tab } from "../Tab/Tab"
 
+import { Section } from "../Section/Section"
+import { Text } from "../Text/Text"
+
 const meta: Meta<typeof TabList> = {
   title: "Components/TabList",
   component: TabList,
@@ -12,13 +15,14 @@ const meta: Meta<typeof TabList> = {
   parameters: {
     docs: {
       description: {
-        component: "A wrapper component for &lt;Tab&gt; components.",
+        component:
+          "A wrapper component for aligning a list of &lt;Tab&gt; components.",
       },
     },
   },
   argTypes: {
     className: {
-      control: { type: "string" },
+      control: { type: "text" },
     },
     children: {
       table: {
@@ -37,62 +41,72 @@ type Story = StoryObj<typeof TabList>
 
 export const Demo: Story = {
   tags: ["!autodocs"],
+  parameters: {
+    viewport: {
+      defaultViewport: "large",
+    },
+  },
   args: {
-    className: "",
+    className: "sb-container-inset",
   },
   render: (args) => (
-    <TabContext defaultValue="tab-1">
-      <TabList {...args}>
-        <Tab value="tab-1">Tab 1</Tab>
-        <Tab value="tab-2">Tab 2</Tab>
-        <Tab value="tab-3">Tab 3</Tab>
-      </TabList>
-      <br />
-      <TabPanel value="tab-1">Tab 1 Panel</TabPanel>
-      <TabPanel value="tab-2">Tab 2 Panel</TabPanel>
-      <TabPanel value="tab-3">Tab 3 Panel</TabPanel>
-    </TabContext>
+    <div className="sb-column sb-width-full">
+      <TabContext defaultValue="tab-1">
+        <Section>
+          <TabList {...args}>
+            <Tab value="tab-1">Tab 1</Tab>
+            <Tab value="tab-2">Tab 2</Tab>
+            <Tab value="tab-3">Tab 3</Tab>
+          </TabList>
+        </Section>
+        <Section>
+          <TabPanel value="tab-1">
+            <Text>Tab 1 Panel</Text>
+          </TabPanel>
+          <TabPanel value="tab-2">
+            <Text>Tab 2 Panel</Text>
+          </TabPanel>
+          <TabPanel value="tab-3">
+            <Text>Tab 3 Panel</Text>
+          </TabPanel>
+        </Section>
+      </TabContext>
+    </div>
   ),
 }
 
 export const HorizontalScroll: Story = {
+  parameters: {
+    controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
+  },
   render: () => {
     return (
-      <TabContext defaultValue="tab-1">
-        <TabList>
-          <Tab value="tab-1">First Tab</Tab>
-          <Tab value="tab-2">Second Tab</Tab>
-          <Tab value="tab-3">Third Tab</Tab>
-          <Tab value="tab-4">Fourth Tab</Tab>
-          <Tab value="tab-5">Fifth Tab</Tab>
-          <Tab value="tab-6">Sixth Tab</Tab>
-          <Tab value="tab-7">Seventh Tab</Tab>
-          <Tab value="tab-8">Eighth Tab</Tab>
-          <Tab value="tab-9">Ninth Tab</Tab>
-          <Tab value="tab-10">Tenth Tab</Tab>
-          <Tab value="tab-11">Eleventh Tab</Tab>
-          <Tab value="tab-12">Twelfth Tab</Tab>
-          <Tab value="tab-13">Thirteenth Tab</Tab>
-          <Tab value="tab-14">Fourteenth Tab</Tab>
-          <Tab value="tab-15">Fifteenth Tab</Tab>
-        </TabList>
-        <br />
-        <TabPanel value="tab-1">Tab 1 Panel</TabPanel>
-        <TabPanel value="tab-2">Tab 2 Panel</TabPanel>
-        <TabPanel value="tab-3">Tab 3 Panel</TabPanel>
-        <TabPanel value="tab-4">Tab 4 Panel</TabPanel>
-        <TabPanel value="tab-5">Tab 5 Panel</TabPanel>
-        <TabPanel value="tab-6">Tab 6 Panel</TabPanel>
-        <TabPanel value="tab-7">Tab 7 Panel</TabPanel>
-        <TabPanel value="tab-8">Tab 8 Panel</TabPanel>
-        <TabPanel value="tab-9">Tab 9 Panel</TabPanel>
-        <TabPanel value="tab-10">Tab 10 Panel</TabPanel>
-        <TabPanel value="tab-11">Tab 11 Panel</TabPanel>
-        <TabPanel value="tab-12">Tab 12 Panel</TabPanel>
-        <TabPanel value="tab-13">Tab 13 Panel</TabPanel>
-        <TabPanel value="tab-14">Tab 14 Panel</TabPanel>
-        <TabPanel value="tab-15">Tab 15 Panel</TabPanel>
-      </TabContext>
+      <div className="sb-column sb-width-full">
+        <TabContext defaultValue="tab-1">
+          <Section>
+            <TabList>
+              <Tab value="tab-1">First Tab</Tab>
+              <Tab value="tab-2">Second Tab</Tab>
+              <Tab value="tab-3">Third Tab</Tab>
+              <Tab value="tab-4">Fourth Tab</Tab>
+              <Tab value="tab-5">Fifth Tab</Tab>
+              <Tab value="tab-6">Sixth Tab</Tab>
+              <Tab value="tab-7">Seventh Tab</Tab>
+              <Tab value="tab-8">Eighth Tab</Tab>
+              <Tab value="tab-9">Ninth Tab</Tab>
+              <Tab value="tab-10">Tenth Tab</Tab>
+              <Tab value="tab-11">Eleventh Tab</Tab>
+              <Tab value="tab-12">Twelfth Tab</Tab>
+              <Tab value="tab-13">Thirteenth Tab</Tab>
+              <Tab value="tab-14">Fourteenth Tab</Tab>
+              <Tab value="tab-15">Fifteenth Tab</Tab>
+            </TabList>
+          </Section>
+        </TabContext>
+      </div>
     )
   },
 }

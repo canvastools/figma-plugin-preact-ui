@@ -10,13 +10,13 @@ import { Text } from "../Text/Text"
 const ButtonComponent = (
   {
     className,
-    context = "neutral",
-    contextModifiers = "default",
+    intent = "neutral",
+    intentModifiers = "default",
     ghost,
     size = "medium",
     grouped = "none",
-    fullWidth,
     disabled,
+    fullWidth,
     prefix,
     suffix,
     children,
@@ -26,13 +26,13 @@ const ButtonComponent = (
   ref: preact.Ref<HTMLButtonElement>
 ) => {
   const _className = bem("Button", undefined, {
-    context: `${context}-${contextModifiers}`,
+    intent: `${intent}-${intentModifiers}`,
     ghost: Boolean(ghost),
     size,
     grouped: Boolean(grouped),
     groupedPosition: grouped,
-    fullWidth,
     disabled,
+    fullWidth,
     prefix: Boolean(prefix),
     suffix: Boolean(suffix),
   })
@@ -61,8 +61,8 @@ const ButtonComponent = (
             <Text
               variant="body"
               size="medium"
-              context={context}
-              contextModifiers={contextModifiers}
+              intent={intent}
+              intentModifiers={intentModifiers}
               disabled={disabled}
             >
               {children}

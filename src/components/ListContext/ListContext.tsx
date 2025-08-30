@@ -198,34 +198,6 @@ const ListContext = ({
     ]
   )
 
-  const selectAll = useCallback(() => {
-    const allItemIds: string[] = []
-    const collectIds = (items: ListItemData[]) => {
-      items.forEach((item) => {
-        allItemIds.push(item.id)
-        if (item.children) {
-          collectIds(item.children)
-        }
-      })
-    }
-    collectIds(currentItems)
-    setSelection(allItemIds, true)
-  }, [currentItems, setSelection])
-
-  const deselectAll = useCallback(() => {
-    const allItemIds: string[] = []
-    const collectIds = (items: ListItemData[]) => {
-      items.forEach((item) => {
-        allItemIds.push(item.id)
-        if (item.children) {
-          collectIds(item.children)
-        }
-      })
-    }
-    collectIds(currentItems)
-    setSelection(allItemIds, false)
-  }, [currentItems, setSelection])
-
   const reorderItems = useCallback(
     (itemIds: string[], targetIndex: number, targetParentPath?: number[]) => {
       if (itemIds.length === 0) return
@@ -519,8 +491,6 @@ const ListContext = ({
     setSelection,
     setExactSelection,
     toggleSelect,
-    selectAll,
-    deselectAll,
     reorderItems,
     selectionMode,
     registerRootElement,

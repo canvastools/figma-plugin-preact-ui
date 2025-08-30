@@ -43,8 +43,8 @@ const AvatarComponent = (
           variant="body"
           size={size === "small" ? "small" : "large"}
           strong
-          context="neutral-inverted"
-          contextModifiers="default"
+          intent="neutral-inverted"
+          intentModifiers="default"
           fill={fillText}
         >
           <div className="Avatar__children">{children}</div>

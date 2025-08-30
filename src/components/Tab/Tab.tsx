@@ -48,8 +48,8 @@ const TabComponent = (
             variant="body"
             size="medium"
             strong={fake || value === activeValue}
-            context="neutral"
-            contextModifiers="default"
+            intent="neutral"
+            intentModifiers="default"
             interactive
           >
             {children}

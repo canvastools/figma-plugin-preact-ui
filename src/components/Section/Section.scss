@@ -5,12 +5,11 @@
 
   width: 100%;
   display: flex;
+  flex-flow: column nowrap;
   padding: var(--pui-spacing-200) var(--pui-spacing-400);
   position: relative;
 
-  &__children {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
+  &_fullHeight {
+    flex: 1;
   }
 }

@@ -6,8 +6,11 @@ import { Tab } from "./Tab"
 import { TabContext } from "../TabContext/TabContext"
 import { TabList } from "../TabList/TabList"
 import { TabPanel } from "../TabPanel/TabPanel"
+
 import { Badge } from "../Badge/Badge"
 import { Icon } from "../Icon/Icon"
+import { Section } from "../Section/Section"
+import { Text } from "../Text/Text"
 
 const meta: Meta<typeof Tab> = {
   title: "Components/Tab",
@@ -32,7 +35,7 @@ const meta: Meta<typeof Tab> = {
           summary: "string",
         },
       },
-      description: "Value of the tab panel for any mode.",
+      description: "Value of the tab.",
     },
     variant: {
       control: { type: "radio" },
@@ -42,7 +45,7 @@ const meta: Meta<typeof Tab> = {
     prefix: {
       table: {
         type: {
-          summary: "string | number | JSX.Element",
+          summary: "JSX.Element",
         },
       },
       description: "Element inserted before children.",
@@ -51,7 +54,7 @@ const meta: Meta<typeof Tab> = {
     suffix: {
       table: {
         type: {
-          summary: "string | number | JSX.Element",
+          summary: "JSX.Element",
         },
       },
       description: "Element inserted after children.",
@@ -90,37 +93,57 @@ export const Demo: Story = {
     variant: "default",
     onClick: fn(),
   },
+  parameters: {
+    viewport: {
+      defaultViewport: "large",
+    },
+  },
   render: (args) => {
     // @ts-expect-error: Storybook types hack
     if (args.variant === "default") {
       return (
-        <TabContext defaultValue="tab-1">
-          <TabList>
-            <Tab {...args} value="tab-1">
-              Tab 1
-            </Tab>
-            <Tab {...args} value="tab-2">
-              Tab 2
-            </Tab>
-            <Tab {...args} value="tab-3">
-              Tab 3
-            </Tab>
-          </TabList>
-          <br />
-          <TabPanel value="tab-1">Tab 1 Panel</TabPanel>
-          <TabPanel value="tab-2">Tab 2 Panel</TabPanel>
-          <TabPanel value="tab-3">Tab 3 Panel</TabPanel>
-        </TabContext>
+        <div className="sb-column sb-width-full">
+          <TabContext defaultValue="tab-1">
+            <Section>
+              <TabList>
+                <Tab {...args} value="tab-1">
+                  Tab 1
+                </Tab>
+                <Tab {...args} value="tab-2">
+                  Tab 2
+                </Tab>
+                <Tab {...args} value="tab-3">
+                  Tab 3
+                </Tab>
+              </TabList>
+            </Section>
+            <Section>
+              <TabPanel value="tab-1">
+                <Text>Tab 1 Panel</Text>
+              </TabPanel>
+              <TabPanel value="tab-2">
+                <Text>Tab 2 Panel</Text>
+              </TabPanel>
+              <TabPanel value="tab-3">
+                <Text>Tab 3 Panel</Text>
+              </TabPanel>
+            </Section>
+          </TabContext>
+        </div>
       )
     } else {
       return (
-        <TabContext value="tab-1">
-          <TabList>
-            <Tab {...args} value="tab-1" variant="single">
-              Tab 1
-            </Tab>
-          </TabList>
-        </TabContext>
+        <div className="sb-column sb-width-full">
+          <TabContext value="tab-1">
+            <Section>
+              <TabList>
+                <Tab {...args} value="tab-1" variant="single">
+                  Single
+                </Tab>
+              </TabList>
+            </Section>
+          </TabContext>
+        </div>
       )
     }
   },
@@ -135,25 +158,32 @@ export const Variant: Story = {
           "The 'single' variant can essentially act as a heading in cases where tabs may replace the heading.",
       },
     },
+    viewport: {
+      defaultViewport: "large",
+    },
   },
   render: () => (
-    <div className="sb-column sb-gap-16">
+    <div className="sb-column sb-width-full">
       <TabContext defaultValue="tab-1">
-        <TabList>
-          <Tab variant="default" value="tab-1">
-            First Tab
-          </Tab>
-          <Tab variant="default" value="tab-2">
-            Seconda Tab
-          </Tab>
-        </TabList>
+        <Section>
+          <TabList>
+            <Tab variant="default" value="tab-1">
+              First Tab
+            </Tab>
+            <Tab variant="default" value="tab-2">
+              Second Tab
+            </Tab>
+          </TabList>
+        </Section>
       </TabContext>
       <TabContext value="tab-1">
-        <TabList>
-          <Tab variant="single" value="tab-1">
-            Single
-          </Tab>
-        </TabList>
+        <Section>
+          <TabList>
+            <Tab variant="single" value="tab-1">
+              Single
+            </Tab>
+          </TabList>
+        </Section>
       </TabContext>
     </div>
   ),
@@ -162,68 +192,76 @@ export const Variant: Story = {
 export const Prefix: Story = {
   parameters: {
     controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
   },
   render: () => {
     const [activeTab, setActiveTab] = useState("tab-1")
 
     return (
-      <div className="sb-column sb-gap-16">
+      <div className="sb-column sb-width-full">
         <TabContext
           value={activeTab}
           onChange={(args) => {
             setActiveTab(args.value)
           }}
         >
-          <TabList>
-            <Tab
-              variant="default"
-              value="tab-1"
-              prefix={
-                <Icon
-                  glyph="settings"
-                  variant="scaled"
-                  context="neutral"
-                  contextModifiers="default"
-                  interactive
-                />
-              }
-            >
-              First Tab
-            </Tab>
-            <Tab
-              variant="default"
-              value="tab-2"
-              prefix={
-                <Icon
-                  glyph="search"
-                  variant="scaled"
-                  context="neutral"
-                  contextModifiers="default"
-                  interactive
-                />
-              }
-            >
-              Second Tab
-            </Tab>
-          </TabList>
+          <Section>
+            <TabList>
+              <Tab
+                variant="default"
+                value="tab-1"
+                prefix={
+                  <Icon
+                    glyph="settings"
+                    variant="scaled"
+                    intent="neutral"
+                    intentModifiers="default"
+                    interactive
+                  />
+                }
+              >
+                First Tab
+              </Tab>
+              <Tab
+                variant="default"
+                value="tab-2"
+                prefix={
+                  <Icon
+                    glyph="search"
+                    variant="scaled"
+                    intent="neutral"
+                    intentModifiers="default"
+                    interactive
+                  />
+                }
+              >
+                Second Tab
+              </Tab>
+            </TabList>
+          </Section>
         </TabContext>
+
         <TabContext defaultValue="tab-1">
-          <TabList>
-            <Tab
-              variant="single"
-              value="tab-1"
-              prefix={
-                <Icon
-                  glyph="settings"
-                  variant="scaled"
-                  context="neutral"
-                  contextModifiers="default"
-                />
-              }
-            >
-              Single
-            </Tab>
-          </TabList>
+          <Section>
+            <TabList>
+              <Tab
+                variant="single"
+                value="tab-1"
+                prefix={
+                  <Icon
+                    glyph="settings"
+                    variant="scaled"
+                    intent="neutral"
+                    intentModifiers="default"
+                  />
+                }
+              >
+                Single
+              </Tab>
+            </TabList>
+          </Section>
         </TabContext>
       </div>
     )
@@ -233,69 +271,77 @@ export const Prefix: Story = {
 export const Suffix: Story = {
   parameters: {
     controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
   },
   render: () => {
     const [activeTab, setActiveTab] = useState("tab-1")
 
     return (
-      <div className="sb-column sb-gap-16">
+      <div className="sb-column sb-width-full">
         <TabContext
           value={activeTab}
           onChange={(args) => {
             setActiveTab(args.value)
           }}
         >
-          <TabList>
-            <Tab
-              variant="default"
-              value="tab-1"
-              suffix={
-                <div style={{ paddingLeft: "var(--pui-spacing-100)" }}>
-                  <Badge
-                    context={activeTab === "tab-1" ? "neutral" : "brand"}
-                    contextModifiers="default"
-                  >
-                    1
-                  </Badge>
-                </div>
-              }
-            >
-              First Tab
-            </Tab>
-            <Tab
-              variant="default"
-              value="tab-2"
-              suffix={
-                <div style={{ paddingLeft: "var(--pui-spacing-100)" }}>
-                  <Badge
-                    context={activeTab === "tab-2" ? "neutral" : "brand"}
-                    contextModifiers="default"
-                  >
-                    2
-                  </Badge>
-                </div>
-              }
-            >
-              Second Tab
-            </Tab>
-          </TabList>
+          <Section>
+            <TabList>
+              <Tab
+                variant="default"
+                value="tab-1"
+                suffix={
+                  <div style={{ paddingLeft: "var(--pui-spacing-100)" }}>
+                    <Badge
+                      intent={activeTab === "tab-1" ? "neutral" : "brand"}
+                      intentModifiers="default"
+                    >
+                      1
+                    </Badge>
+                  </div>
+                }
+              >
+                First Tab
+              </Tab>
+              <Tab
+                variant="default"
+                value="tab-2"
+                suffix={
+                  <div style={{ paddingLeft: "var(--pui-spacing-100)" }}>
+                    <Badge
+                      intent={activeTab === "tab-2" ? "neutral" : "brand"}
+                      intentModifiers="default"
+                    >
+                      2
+                    </Badge>
+                  </div>
+                }
+              >
+                Second Tab
+              </Tab>
+            </TabList>
+          </Section>
         </TabContext>
+
         <TabContext defaultValue="tab-1">
-          <TabList>
-            <Tab
-              variant="single"
-              value="tab-1"
-              suffix={
-                <div style={{ paddingLeft: "var(--pui-spacing-100)" }}>
-                  <Badge context="neutral" contextModifiers="default">
-                    1
-                  </Badge>
-                </div>
-              }
-            >
-              Single
-            </Tab>
-          </TabList>
+          <Section>
+            <TabList>
+              <Tab
+                variant="single"
+                value="tab-1"
+                suffix={
+                  <div style={{ paddingLeft: "var(--pui-spacing-100)" }}>
+                    <Badge intent="neutral" intentModifiers="default">
+                      1
+                    </Badge>
+                  </div>
+                }
+              >
+                Single
+              </Tab>
+            </TabList>
+          </Section>
         </TabContext>
       </div>
     )

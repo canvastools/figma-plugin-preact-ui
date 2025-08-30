@@ -1,7 +1,7 @@
 export interface ButtonProps {
   className?: string
-  context?: "neutral" | "neutral-inverted" | "brand" | "danger" | "success"
-  contextModifiers?:
+  intent?: "neutral" | "neutral-inverted" | "brand" | "danger" | "success"
+  intentModifiers?:
     | "default"
     | "secondary"
     | "brand"
