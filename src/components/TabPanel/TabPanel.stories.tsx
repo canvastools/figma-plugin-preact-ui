@@ -5,6 +5,7 @@ import { TabPanel } from "./TabPanel"
 import { TabList } from "../TabList/TabList"
 import { Tab } from "../Tab/Tab"
 
+import { Stack } from "../Stack/Stack"
 import { Section } from "../Section/Section"
 import { Text } from "../Text/Text"
 
@@ -35,7 +36,7 @@ const meta: Meta<typeof TabPanel> = {
     fullHeight: {
       control: { type: "boolean" },
       description:
-        "Set the height to 100% to occupy the entire height in flex containers.",
+        "Set the height to 100% to occupy the entire height in flex containers. May requires &lt;ScrollContainer/&gt; to be used as it uses `overflow: hidden`.",
     },
     children: {
       table: {
@@ -71,17 +72,15 @@ export const Demo: Story = {
             <Tab value="tab-3">Tab 3</Tab>
           </TabList>
         </Section>
-        <Section fullHeight>
-          <TabPanel {...args} value="tab-1">
-            <Text>Tab 1 Panel</Text>
-          </TabPanel>
-          <TabPanel {...args} value="tab-2">
-            <Text>Tab 2 Panel</Text>
-          </TabPanel>
-          <TabPanel {...args} value="tab-3">
-            <Text>Tab 3 Panel</Text>
-          </TabPanel>
-        </Section>
+        <TabPanel {...args} value="tab-1">
+          <Text>Tab 1 Panel</Text>
+        </TabPanel>
+        <TabPanel {...args} value="tab-2">
+          <Text>Tab 2 Panel</Text>
+        </TabPanel>
+        <TabPanel {...args} value="tab-3">
+          <Text>Tab 3 Panel</Text>
+        </TabPanel>
       </TabContext>
     </div>
   ),
