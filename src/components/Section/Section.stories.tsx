@@ -1,5 +1,7 @@
 import { Meta, StoryObj } from "@storybook/preact"
 
+import { spacing } from "../../themes"
+
 import { Section } from "./Section"
 
 import { Text } from "../Text/Text"
@@ -18,6 +20,22 @@ const meta: Meta<typeof Section> = {
   argTypes: {
     className: {
       control: { type: "text" },
+    },
+    padding: {
+      control: { disable: true },
+      description: `Custom padding for the section. Using the spacing variables names.
+      <pre>
+  padding?: {
+    top?: SectionPadding
+    right?: SectionPadding
+    bottom?: SectionPadding
+    left?: SectionPadding
+  }</pre>`,
+      table: {
+        type: {
+          summary: "SectionPadding = keyof typeof spacing.variables",
+        },
+      },
     },
     children: {
       control: { disable: true },

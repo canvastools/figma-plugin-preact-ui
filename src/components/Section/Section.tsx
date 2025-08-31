@@ -6,10 +6,15 @@ import "./Section.scss"
 /* --- */
 
 const SectionComponent = (
-  { className, children, ...rest }: SectionProps,
+  { className, children, padding, ...rest }: SectionProps,
   ref: preact.Ref<HTMLDivElement>
 ) => {
-  const _className = bem("Section", undefined, undefined)
+  const _className = bem("Section", undefined, {
+    ...(padding && padding.top && { paddingTop: String(padding.top) }),
+    ...(padding && padding.right && { paddingRight: String(padding.right) }),
+    ...(padding && padding.bottom && { paddingBottom: String(padding.bottom) }),
+    ...(padding && padding.left && { paddingLeft: String(padding.left) }),
+  })
 
   return (
     <div
