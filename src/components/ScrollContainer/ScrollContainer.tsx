@@ -26,6 +26,11 @@ const ScrollContainerComponent = (
 
   const _className = bem("ScrollContainer", undefined, undefined)
 
+  useEffect(() => {
+    const el = rootRef.current
+    if (el) onScroll({ target: el } as unknown as Event)
+  }, [])
+
   return (
     <div
       className={[_className, className].join(" ").trim()}

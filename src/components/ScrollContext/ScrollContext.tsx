@@ -40,15 +40,19 @@ const ScrollContext = ({
 
     const maxScrollTop = target.scrollHeight - target.clientHeight
     lastKnownMaxScrollTopRef.current = maxScrollTop
-    const atTop = maxScrollTop <= 0 || target.scrollTop <= 0
-    const atBottom = maxScrollTop > 0 && target.scrollTop >= maxScrollTop
-    const newPositionY: number = atTop
-      ? 0
-      : atBottom
-      ? maxScrollTop
-      : target.scrollTop
-    setIsAtTop(atTop)
-    setIsAtBottom(atBottom)
+    const hasScrollable = maxScrollTop > 0
+    let atTop = false
+    let atBottom = false
+    let newPositionY: number
+    if (!hasScrollable) {
+      newPositionY = 0
+    } else {
+      atTop = target.scrollTop <= 0
+      atBottom = target.scrollTop >= maxScrollTop
+      newPositionY = atTop ? 0 : atBottom ? maxScrollTop : target.scrollTop
+    }
+    setIsAtTop(hasScrollable ? atTop : true)
+    setIsAtBottom(hasScrollable ? atBottom : true)
 
     if (controlledPositionY === undefined) {
       setInternalPositionY(newPositionY)
@@ -59,11 +63,10 @@ const ScrollContext = ({
 
   const updatePositionY = (positionY: number) => {
     setInternalPositionY(positionY)
-    setIsAtTop(positionY === 0)
     const max = lastKnownMaxScrollTopRef.current
-    if (typeof max === "number") {
-      setIsAtBottom(positionY >= max && max > 0)
-    }
+    const hasScrollable = typeof max === "number" && max > 0
+    setIsAtTop(hasScrollable ? positionY === 0 : true)
+    setIsAtBottom(hasScrollable ? positionY >= (max as number) : true)
   }
 
   useEffect(() => {
