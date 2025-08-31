@@ -11,10 +11,14 @@ import { Checked as CheckboxChecked } from "./Checkbox/Checkbox.stories"
 import { Variant as DividerVariant } from "./Divider/Divider.stories"
 import { Glyphs as IconGlyphs } from "./Icon/Icon.stories"
 import { Prefix as InputPrefix } from "./Input/Input.stories"
+import { Demo as ScrollContextDemo } from "./ScrollContext/ScrollContext.stories"
 import { Demo as SectionDemo } from "./Section/Section.stories"
+import { Demo as SpacerDemo } from "./Spacing/Spacing.stories"
 import { Demo as SpinnerDemo } from "./Spinner/Spinner.stories"
+import { Demo as StackDemo } from "./Stack/Stack.stories"
 import { Demo as TabDemo } from "./Tab/Tab.stories"
 import { Size as TextSize } from "./Text/Text.stories"
+import { Demo as WindowResizerDemo } from "./WindowResizer/WindowResizer.stories"
 
 import {
   Avatar,
@@ -41,6 +45,7 @@ import {
   TabList,
   TabPanel,
   Text,
+  WindowResizer,
 } from "../"
 
 import type { ListItemData } from "../"
@@ -89,6 +94,11 @@ export const _1: Story = {
   tags: ["!autodocs"],
   globals: {
     background: "secondary",
+  },
+  parameters: {
+    viewport: {
+      defaultViewport: "large",
+    },
   },
   render: () => {
     const [items, setItems] = useState(sampleItemsPlain)
@@ -142,8 +152,7 @@ export const _1: Story = {
 
             <TabPanel value="tab-1" fullHeight>
               <ScrollContainer>
-                <Section>
-                  <Spacing size="100" />
+                <Section padding={{ bottom: "400" }}>
                   <Stack direction="row" spacing="200" y="center">
                     <Text variant="heading">This is demo</Text>
                     <Badge intentModifiers="success">New!</Badge>
@@ -158,10 +167,9 @@ export const _1: Story = {
                     demonstrates the intended look and consistency of the
                     interface once assembled into a real plugin environment.
                   </Text>
-                  <Spacing size="100" />
                 </Section>
                 <Divider />
-                <Section>
+                <Section padding={{ right: "200" }}>
                   <Stack direction="row" spacing="200">
                     <Text variant="heading" size="small" fullWidth>
                       To-do list
@@ -226,6 +234,13 @@ export const _1: Story = {
             </TabPanel>
           </TabContext>
         </ScrollContext>
+        <WindowResizer
+          minWidth={380}
+          minHeight={480}
+          maxWidth={800}
+          maxHeight={600}
+          onResize={() => {}}
+        />
       </div>
     )
   },
@@ -241,8 +256,12 @@ export const _Checkbox = CheckboxChecked
 export const _Divider = DividerVariant
 export const _Icon = IconGlyphs
 export const _Input = InputPrefix
+export const _ScrollContext = ScrollContextDemo
 export const _Section = SectionDemo
+export const _Spacing = SpacerDemo
 export const _Spinner = SpinnerDemo
+export const _Stack = StackDemo
 TabDemo.tags = []
 export const _Tab = TabDemo
 export const _Text = TextSize
+export const _WindowResizer = WindowResizerDemo
