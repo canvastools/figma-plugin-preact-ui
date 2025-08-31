@@ -29,13 +29,17 @@ const ScrollContext = ({
     useState<number>(defaultPositionY)
   const [isAtTop, setIsAtTop] = useState<boolean>(defaultPositionY === 0)
   const [isAtBottom, setIsAtBottom] = useState<boolean>(false)
+
   const lastKnownMaxScrollTopRef = useRef<number | null>(null)
 
   const currentPositionY =
     controlledPositionY !== undefined ? controlledPositionY : internalPositionY
 
   const handleScroll = (event: Event) => {
-    const target = event.target as HTMLElement
+    const target =
+      ((event as { currentTarget?: EventTarget | null })
+        .currentTarget as HTMLElement | null) || (event.target as HTMLElement)
+
     if (!target) return
 
     const maxScrollTop = target.scrollHeight - target.clientHeight
@@ -44,6 +48,7 @@ const ScrollContext = ({
     let atTop = false
     let atBottom = false
     let newPositionY: number
+
     if (!hasScrollable) {
       newPositionY = 0
     } else {
@@ -51,6 +56,7 @@ const ScrollContext = ({
       atBottom = target.scrollTop >= maxScrollTop
       newPositionY = atTop ? 0 : atBottom ? maxScrollTop : target.scrollTop
     }
+
     setIsAtTop(hasScrollable ? atTop : true)
     setIsAtBottom(hasScrollable ? atBottom : true)
 

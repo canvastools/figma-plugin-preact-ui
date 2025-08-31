@@ -1,6 +1,6 @@
 import { bem, typedForwardRef } from "../../utils"
 import { useScrollContext } from "../ScrollContext/ScrollContext"
-import { useEffect, useRef } from "preact/hooks"
+import { useEffect, useRef, useState } from "preact/hooks"
 
 import type { ScrollContainerProps } from "./ScrollContainer.types"
 import "./ScrollContainer.scss"
@@ -11,14 +11,30 @@ const ScrollContainerComponent = (
   { className, children, ...rest }: ScrollContainerProps,
   ref: preact.Ref<HTMLDivElement>
 ) => {
-  const { onScroll, positionY } = useScrollContext()
+  const { onScroll, positionY, isAtTop, isAtBottom } = useScrollContext()
+
   const rootRef = useRef<HTMLDivElement | null>(null)
+  const contentRef = useRef<HTMLDivElement | null>(null)
+  const trackRef = useRef<HTMLDivElement | null>(null)
+
+  const [thumbState, setThumbState] = useState({ top: 0, height: 24 })
+  const [isDragging, setIsDragging] = useState(false)
+  const [hasScrollable, setHasScrollable] = useState(false)
+
+  const dragOffsetRef = useRef<number>(0)
+  const isDraggingRef = useRef<boolean>(false)
+  const prevUserSelectRef = useRef<string>("")
 
   useEffect(() => {
-    const el = rootRef.current
+    const el = contentRef.current
     if (!el || typeof positionY !== "number") return
     try {
-      if (el.scrollTop !== positionY) el.scrollTop = positionY
+      const maxScrollTop = Math.max(0, el.scrollHeight - el.clientHeight)
+      const clamped = Math.max(0, Math.min(positionY, maxScrollTop))
+      if (el.scrollTop !== clamped) el.scrollTop = clamped
+
+      onScroll({ target: el, currentTarget: el } as unknown as Event)
+      recomputeThumb()
     } catch {
       // ignore DOM write issues
     }
@@ -26,10 +42,121 @@ const ScrollContainerComponent = (
 
   const _className = bem("ScrollContainer", undefined, undefined)
 
+  const recomputeThumb = () => {
+    const el = contentRef.current
+    const track = trackRef.current
+    if (!el || !track) return
+
+    const maxScrollTop = Math.max(0, el.scrollHeight - el.clientHeight)
+    const hasScrollable = maxScrollTop > 0
+    const visibleRatio = hasScrollable ? el.clientHeight / el.scrollHeight : 1
+    const trackLength = track.clientHeight - 8
+    const thumbHeight = Math.max(24, Math.round(trackLength * visibleRatio))
+    const available = trackLength - thumbHeight
+    const top = hasScrollable
+      ? Math.round((available * el.scrollTop) / maxScrollTop)
+      : 0
+
+    setThumbState({ top, height: thumbHeight })
+    setHasScrollable(hasScrollable)
+  }
+
   useEffect(() => {
-    const el = rootRef.current
-    if (el) onScroll({ target: el } as unknown as Event)
+    recomputeThumb()
+  }, [isAtTop, isAtBottom])
+
+  useEffect(() => {
+    const el = contentRef.current
+    if (!el) return
+
+    const handler = () => recomputeThumb()
+    const resizeObs = new ResizeObserver(handler)
+    resizeObs.observe(el)
+    if (trackRef.current) resizeObs.observe(trackRef.current)
+
+    return () => resizeObs.disconnect()
   }, [])
+
+  useEffect(() => {
+    recomputeThumb()
+    const rafId = requestAnimationFrame(() => recomputeThumb())
+    return () => cancelAnimationFrame(rafId)
+  }, [])
+
+  useEffect(() => {
+    const onWinResize = () => {
+      requestAnimationFrame(() => recomputeThumb())
+    }
+    window.addEventListener("resize", onWinResize)
+    return () => window.removeEventListener("resize", onWinResize)
+  }, [])
+
+  const handleScroll = (e: Event) => {
+    onScroll(e)
+    recomputeThumb()
+  }
+
+  const handleThumbMouseDown = (e: MouseEvent) => {
+    if (e.button !== 0) return
+
+    e.preventDefault()
+    setIsDragging(true)
+    isDraggingRef.current = true
+
+    recomputeThumb()
+
+    const startY = (e as MouseEvent).clientY
+    dragOffsetRef.current =
+      startY -
+      (trackRef.current!.getBoundingClientRect().top + thumbState.top + 2)
+
+    prevUserSelectRef.current = document.body.style.userSelect
+    document.body.style.userSelect = "none"
+
+    window.addEventListener("mousemove", handleThumbMouseMove as any)
+    window.addEventListener("mouseup", handleThumbMouseUp as any)
+  }
+
+  const handleThumbMouseMove = (e: MouseEvent) => {
+    if (!isDraggingRef.current) return
+
+    const el = contentRef.current
+    const track = trackRef.current
+
+    if (!el || !track) return
+
+    const maxScrollTop = Math.max(0, el.scrollHeight - el.clientHeight)
+
+    if (maxScrollTop <= 0) return
+
+    const trackRect = track.getBoundingClientRect()
+    const y =
+      (e as MouseEvent).clientY - trackRect.top - 2 - dragOffsetRef.current
+    const trackLength = track.clientHeight - 4
+    const thumbHeight = thumbState.height
+    const available = trackLength - thumbHeight
+    if (available <= 0) return
+    const clamped = Math.max(0, Math.min(available, y))
+    const scrollTop = Math.round((clamped * maxScrollTop) / available)
+    if (el.scrollTop !== scrollTop) {
+      el.scrollTop = scrollTop
+      onScroll({ target: el, currentTarget: el } as unknown as Event)
+      recomputeThumb()
+    }
+  }
+
+  const handleThumbMouseUp = () => {
+    setIsDragging(false)
+    isDraggingRef.current = false
+    document.body.style.userSelect = prevUserSelectRef.current
+    window.removeEventListener("mousemove", handleThumbMouseMove as any)
+    window.removeEventListener("mouseup", handleThumbMouseUp as any)
+  }
+
+  const _classNameTrack = bem("ScrollContainer", "track", {
+    noScroll: !hasScrollable,
+    dragging: isDragging,
+  })
 
   return (
     <div
@@ -39,10 +166,25 @@ const ScrollContainerComponent = (
         if (typeof ref === "function") ref(node as HTMLDivElement)
         else if (ref) (ref as preact.RefObject<HTMLDivElement>).current = node
       }}
-      onScroll={(e) => onScroll(e as unknown as Event)}
       {...rest}
     >
-      {children}
+      <div
+        className="ScrollContainer__content"
+        ref={contentRef}
+        onScroll={(e) => handleScroll(e as unknown as Event)}
+      >
+        {children}
+      </div>
+      <div className={_classNameTrack} ref={trackRef}>
+        <div
+          className="ScrollContainer__thumb"
+          style={{
+            height: `${thumbState.height}px`,
+            transform: `translateY(${thumbState.top}px)`,
+          }}
+          onMouseDown={(e) => handleThumbMouseDown(e as unknown as MouseEvent)}
+        />
+      </div>
     </div>
   )
 }
