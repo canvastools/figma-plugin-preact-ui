@@ -132,8 +132,13 @@ const preview: Preview = {
         const [viewport, setViewport] = useState(defaultViewport)
 
         useEffect(() => {
-          setViewport(context.globals.viewport || "large")
-        }, [context])
+          const rawViewport = (context.globals as any)?.viewport
+          const nextViewport =
+            rawViewport && rawViewport !== "reset"
+              ? rawViewport
+              : defaultViewport
+          setViewport(nextViewport)
+        }, [context.globals?.viewport, defaultViewport])
 
         return (
           <div
