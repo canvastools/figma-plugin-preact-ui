@@ -54,7 +54,7 @@ const meta: Meta<typeof Stack> = {
     fullHeight: {
       control: { type: "boolean" },
       description:
-        "Set the height to 100% to occupy the entire height in flex containers.",
+        "Set the height to 100% to occupy the entire height in flex containers. May requires &lt;ScrollContainer/&gt; to be used as it uses `overflow: hidden`.",
     },
     fullWidth: {
       control: { type: "boolean" },

@@ -19,11 +19,6 @@ const meta: Meta<typeof Section> = {
     className: {
       control: { type: "text" },
     },
-    fullHeight: {
-      control: { type: "boolean" },
-      description:
-        "Set the height to 100% to occupy the entire height in flex containers.",
-    },
     children: {
       control: { disable: true },
       table: {
@@ -41,7 +36,6 @@ type Story = StoryObj<typeof Section>
 export const Demo: Story = {
   args: {
     className: "sb-container",
-    fullHeight: false,
   },
   parameters: {
     viewport: {

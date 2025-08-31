@@ -6,12 +6,10 @@ import "./Section.scss"
 /* --- */
 
 const SectionComponent = (
-  { className, fullHeight, children, ...rest }: SectionProps,
+  { className, children, ...rest }: SectionProps,
   ref: preact.Ref<HTMLDivElement>
 ) => {
-  const _className = bem("Section", undefined, {
-    fullHeight,
-  })
+  const _className = bem("Section", undefined, undefined)
 
   return (
     <div
