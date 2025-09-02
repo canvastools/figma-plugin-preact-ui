@@ -430,8 +430,7 @@ const ListItemComponent = (
           >
             <Icon
               glyph="dragHandle"
-              intent="neutral"
-              intentModifiers="secondary"
+              fill="var(--pui-color-neutral-icon-tertiary)"
               size={16}
             />
           </div>
