@@ -24,6 +24,7 @@ const ScrollContainerComponent = (
   const dragOffsetRef = useRef<number>(0)
   const isDraggingRef = useRef<boolean>(false)
   const prevUserSelectRef = useRef<string>("")
+  const rafIdRef = useRef<number | null>(null)
 
   useEffect(() => {
     const el = contentRef.current
@@ -32,9 +33,9 @@ const ScrollContainerComponent = (
       const maxScrollTop = Math.max(0, el.scrollHeight - el.clientHeight)
       const clamped = Math.max(0, Math.min(positionY, maxScrollTop))
       if (el.scrollTop !== clamped) el.scrollTop = clamped
-
-      onScroll({ target: el, currentTarget: el } as unknown as Event)
-      recomputeThumb()
+      // Let the native scroll event drive updates; schedule geometry recompute
+      // and avoid extra onScroll calls during controlled updates
+      scheduleRecomputeThumb()
     } catch {
       // ignore DOM write issues
     }
@@ -61,8 +62,16 @@ const ScrollContainerComponent = (
     setHasScrollable(hasScrollable)
   }
 
+  const scheduleRecomputeThumb = () => {
+    if (rafIdRef.current != null) return
+    rafIdRef.current = requestAnimationFrame(() => {
+      rafIdRef.current = null
+      recomputeThumb()
+    })
+  }
+
   useEffect(() => {
-    recomputeThumb()
+    scheduleRecomputeThumb()
   }, [isAtTop, isAtBottom])
 
   useEffect(() => {
@@ -93,7 +102,7 @@ const ScrollContainerComponent = (
 
   const handleScroll = (e: Event) => {
     onScroll(e)
-    recomputeThumb()
+    scheduleRecomputeThumb()
   }
 
   const handleThumbMouseDown = (e: MouseEvent) => {
@@ -136,12 +145,13 @@ const ScrollContainerComponent = (
     const thumbHeight = thumbState.height
     const available = trackLength - thumbHeight
     if (available <= 0) return
+    e.preventDefault()
     const clamped = Math.max(0, Math.min(available, y))
     const scrollTop = Math.round((clamped * maxScrollTop) / available)
     if (el.scrollTop !== scrollTop) {
       el.scrollTop = scrollTop
-      onScroll({ target: el, currentTarget: el } as unknown as Event)
-      recomputeThumb()
+      // Scroll event will trigger handleScroll; just schedule geometry update
+      scheduleRecomputeThumb()
     }
   }
 

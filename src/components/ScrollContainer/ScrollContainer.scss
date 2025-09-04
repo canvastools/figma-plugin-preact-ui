@@ -42,7 +42,8 @@
     }
   }
 
-  &:hover .ScrollContainer__track:not(.ScrollContainer__track_noScroll) {
+  &:hover .ScrollContainer__track:not(.ScrollContainer__track_noScroll),
+  & .ScrollContainer__track_dragging {
     display: block;
   }
 
