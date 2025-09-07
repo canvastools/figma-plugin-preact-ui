@@ -14,6 +14,7 @@
   $parent: &;
 
   display: flex;
+  flex-shrink: 0;
 
   @include Spacing_size(100, "row");
   @include Spacing_size(100, "column");

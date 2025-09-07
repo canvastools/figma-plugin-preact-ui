@@ -61,7 +61,6 @@ export const Demo: Story = {
             // @ts-expect-error - Storybook types hack
             args.direction
           }
-          spacing={400}
         >
           <Avatar>A</Avatar>
           <Spacing {...args} />
