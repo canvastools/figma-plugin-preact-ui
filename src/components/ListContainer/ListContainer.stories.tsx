@@ -8,16 +8,17 @@ import { ListItem } from "../ListItem/ListItem"
 import type { ListItemData } from "../ListContext/ListContext.types"
 
 import { Text } from "../Text/Text"
+import { Section } from "../Section/Section"
 
 const meta: Meta<typeof ListContainer> = {
-  title: "Components/ListContainer",
+  title: "Experimental/ListContainer ⚠️",
   component: ListContainer,
   tags: ["autodocs"],
   parameters: {
     docs: {
       description: {
         component:
-          "A container component for &lt;ListItem&gt; components. Every level of nesting must be wrapped in a &lt;ListContainer&gt; component.",
+          "<div class='experimental'>Experimental! API may change in future versions.</div> A container component for &lt;ListItem&gt; components. Every level of nesting must be wrapped in a &lt;ListContainer&gt; component.",
       },
     },
   },
@@ -74,39 +75,40 @@ export const Demo: Story = {
   args: {
     className: "",
   },
+  parameters: {
+    viewport: {
+      defaultViewport: "large",
+    },
+  },
   render: (args) => {
     const [items, setItems] = useState(sampleItems)
     const [selectedItems, setSelectedItems] = useState<string[]>([])
 
     return (
-      <div className="sb-column sb-gap-16">
-        <ListContext
-          items={items}
-          selectedItems={selectedItems}
-          selectionMode="multi"
-          onItemsChange={(change) => {
-            setItems(change.items)
-          }}
-          onSelectionChange={(change) => {
-            setSelectedItems(change.selectedItems)
-          }}
-        >
-          <ListContainer {...args}>
-            {items.map((item) => {
-              return (
-                <ListItem id={item.id} draggable={true} selectable={true}>
-                  <Text
-                    variant="body"
-                    context="neutral"
-                    contextModifiers="default"
-                  >
-                    {item.id}
-                  </Text>
-                </ListItem>
-              )
-            })}
-          </ListContainer>
-        </ListContext>
+      <div className="sb-column sb-width-full">
+        <Section>
+          <ListContext
+            items={items}
+            selectedItems={selectedItems}
+            selectionMode="multi"
+            onItemsChange={(change) => {
+              setItems(change.items)
+            }}
+            onSelectionChange={(change) => {
+              setSelectedItems(change.selectedItems)
+            }}
+          >
+            <ListContainer {...args}>
+              {items.map((item) => {
+                return (
+                  <ListItem id={item.id} draggable={true} selectable={true}>
+                    <Text>{item.id}</Text>
+                  </ListItem>
+                )
+              })}
+            </ListContainer>
+          </ListContext>
+        </Section>
       </div>
     )
   },

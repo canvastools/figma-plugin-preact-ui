@@ -10,8 +10,8 @@ import { Text } from "../Text/Text"
 const BadgeComponent = (
   {
     className,
-    context = "neutral",
-    contextModifiers = "default",
+    intent = "neutral",
+    intentModifiers = "default",
     prefix,
     suffix,
     children,
@@ -20,7 +20,7 @@ const BadgeComponent = (
   ref: preact.Ref<HTMLDivElement>
 ) => {
   const _className = bem("Badge", undefined, {
-    context: `${context}-${contextModifiers}`,
+    intent: `${intent}-${intentModifiers}`,
     prefix: Boolean(prefix),
     suffix: Boolean(suffix),
   })
@@ -38,8 +38,8 @@ const BadgeComponent = (
             <Text
               variant="body"
               size="medium"
-              context={context}
-              contextModifiers={contextModifiers}
+              intent={intent}
+              intentModifiers={intentModifiers}
             >
               {children}
             </Text>

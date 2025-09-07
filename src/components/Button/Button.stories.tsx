@@ -4,6 +4,8 @@ import { fn } from "@storybook/test"
 import { Button } from "./Button"
 
 import { Icon } from "../Icon/Icon"
+import { Section } from "../Section/Section"
+import { Stack } from "../Stack/Stack"
 
 const meta: Meta<typeof Button> = {
   title: "Components/Button",
@@ -13,12 +15,12 @@ const meta: Meta<typeof Button> = {
     className: {
       control: { type: "text" },
     },
-    context: {
+    intent: {
       control: { type: "radio" },
       options: ["neutral", "brand", "danger", "success"],
       defaultValue: { summary: "neutral" },
     },
-    contextModifiers: {
+    intentModifiers: {
       control: { type: "radio" },
       options: ["default", "secondary", "brand", "danger", "success"],
       defaultValue: { summary: "default" },
@@ -31,6 +33,11 @@ const meta: Meta<typeof Button> = {
       options: ["medium", "large"],
       defaultValue: { summary: "medium" },
     },
+    grouped: {
+      control: { type: "radio" },
+      options: ["none", "left", "right", "both"],
+      defaultValue: { summary: "none" },
+    },
     disabled: {
       control: { type: "boolean" },
     },
@@ -40,7 +47,7 @@ const meta: Meta<typeof Button> = {
     prefix: {
       table: {
         type: {
-          summary: "string | number | JSX.Element",
+          summary: "JSX.Element",
         },
       },
       description: "Element inserted before children.",
@@ -49,7 +56,7 @@ const meta: Meta<typeof Button> = {
     suffix: {
       table: {
         type: {
-          summary: "string | number | JSX.Element",
+          summary: "JSX.Element",
         },
       },
       description: "Element inserted after children.",
@@ -83,395 +90,503 @@ export const Demo: Story = {
   tags: ["!autodocs"],
   args: {
     className: "",
-    context: "neutral",
-    contextModifiers: "default",
+    intent: "neutral",
+    intentModifiers: "default",
     size: "medium",
+    grouped: "none",
     disabled: false,
     fullWidth: false,
     children: "Button",
     onClick: fn(),
   },
-  render: (args) => <Button {...args} />,
+  parameters: {
+    viewport: {
+      defaultViewport: "large",
+    },
+  },
+  render: (args) => (
+    <div className="sb-column sb-width-full">
+      <Section>
+        <Button {...args} />
+      </Section>
+    </div>
+  ),
 }
 
-export const Context: Story = {
-  tags: ["!dev"],
+export const Intent: Story = {
   parameters: {
     controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
   },
   render: () => (
-    <div className="sb-column sb-gap-16">
-      <Button context="neutral" contextModifiers="default">
-        Neutral
-      </Button>
-      <Button context="neutral" contextModifiers="default" ghost>
-        Neutral Ghost
-      </Button>
-      <Button context="neutral" contextModifiers="brand">
-        Neutral Brand
-      </Button>
-      <Button context="neutral" contextModifiers="brand" ghost>
-        Neutral Brand Ghost
-      </Button>
-      <Button context="neutral" contextModifiers="danger">
-        Neutral Danger
-      </Button>
-      <Button context="neutral" contextModifiers="danger" ghost>
-        Neutral Danger Ghost
-      </Button>
-      <Button context="neutral-inverted" contextModifiers="default">
-        Neutral Inverted
-      </Button>
-      <Button context="brand" contextModifiers="default">
-        Brand
-      </Button>
-      <Button context="danger" contextModifiers="default">
-        Danger
-      </Button>
-      <Button context="success" contextModifiers="default">
-        Success
-      </Button>
+    <div className="sb-column sb-width-full">
+      <Section>
+        <Stack spacing={400}>
+          <Button intent="neutral" intentModifiers="default">
+            Neutral
+          </Button>
+          <Button intent="neutral" intentModifiers="default" ghost>
+            Neutral Ghost
+          </Button>
+          <Button intent="neutral" intentModifiers="brand">
+            Neutral Brand
+          </Button>
+          <Button intent="neutral" intentModifiers="brand" ghost>
+            Neutral Brand Ghost
+          </Button>
+          <Button intent="neutral" intentModifiers="danger">
+            Neutral Danger
+          </Button>
+          <Button intent="neutral" intentModifiers="danger" ghost>
+            Neutral Danger Ghost
+          </Button>
+          <Button intent="neutral-inverted" intentModifiers="default">
+            Neutral Inverted
+          </Button>
+          <Button intent="brand" intentModifiers="default">
+            Brand
+          </Button>
+          <Button intent="danger" intentModifiers="default">
+            Danger
+          </Button>
+          <Button intent="success" intentModifiers="default">
+            Success
+          </Button>
+        </Stack>
+      </Section>
     </div>
   ),
 }
 
 export const Size: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
   },
   render: () => (
-    <div className="sb-row sb-gap-16">
-      <div className="sb-column sb-gap-16">
-        <Button context="neutral" contextModifiers="default">
-          Neutral
-        </Button>
-        <Button context="neutral" contextModifiers="default" ghost>
-          Neutral Ghost
-        </Button>
-        <Button context="neutral" contextModifiers="brand">
-          Neutral Brand
-        </Button>
-        <Button context="neutral" contextModifiers="brand" ghost>
-          Neutral Brand Ghost
-        </Button>
-        <Button context="neutral" contextModifiers="danger">
-          Neutral Danger
-        </Button>
-        <Button context="neutral" contextModifiers="danger" ghost>
-          Neutral Danger Ghost
-        </Button>
-        <Button context="neutral-inverted" contextModifiers="default">
-          Neutral Inverted
-        </Button>
-        <Button context="brand" contextModifiers="default">
-          Brand
-        </Button>
-        <Button context="danger" contextModifiers="default">
-          Danger
-        </Button>
-        <Button context="success" contextModifiers="default">
-          Success
-        </Button>
-      </div>
-      <div className="sb-column sb-gap-16">
-        <Button context="neutral" contextModifiers="default" size="large">
-          Neutral
-        </Button>
-        <Button context="neutral" contextModifiers="default" ghost size="large">
-          Neutral Ghost
-        </Button>
-        <Button context="neutral" contextModifiers="brand" size="large">
-          Neutral Brand
-        </Button>
-        <Button context="neutral" contextModifiers="brand" ghost size="large">
-          Neutral Brand Ghost
-        </Button>
-        <Button context="neutral" contextModifiers="danger" size="large">
-          Neutral Danger
-        </Button>
-        <Button context="neutral" contextModifiers="danger" ghost size="large">
-          Neutral Danger Ghost
-        </Button>
-        <Button
-          context="neutral-inverted"
-          contextModifiers="default"
-          size="large"
-        >
-          Neutral Inverted
-        </Button>
-        <Button context="brand" contextModifiers="default" size="large">
-          Brand
-        </Button>
-        <Button context="danger" contextModifiers="default" size="large">
-          Danger
-        </Button>
-        <Button context="success" contextModifiers="default" size="large">
-          Success
-        </Button>
-      </div>
+    <div className="sb-row sb-width-full">
+      <Section>
+        <Stack spacing={400}>
+          <Button intent="neutral" intentModifiers="default">
+            Neutral
+          </Button>
+          <Button intent="neutral" intentModifiers="default" ghost>
+            Neutral Ghost
+          </Button>
+          <Button intent="neutral" intentModifiers="brand">
+            Neutral Brand
+          </Button>
+          <Button intent="neutral" intentModifiers="brand" ghost>
+            Neutral Brand Ghost
+          </Button>
+          <Button intent="neutral" intentModifiers="danger">
+            Neutral Danger
+          </Button>
+          <Button intent="neutral" intentModifiers="danger" ghost>
+            Neutral Danger Ghost
+          </Button>
+          <Button intent="neutral-inverted" intentModifiers="default">
+            Neutral Inverted
+          </Button>
+          <Button intent="brand" intentModifiers="default">
+            Brand
+          </Button>
+          <Button intent="danger" intentModifiers="default">
+            Danger
+          </Button>
+          <Button intent="success" intentModifiers="default">
+            Success
+          </Button>
+        </Stack>
+      </Section>
+      <Section>
+        <Stack spacing={400}>
+          <Button intent="neutral" intentModifiers="default" size="large">
+            Neutral
+          </Button>
+          <Button intent="neutral" intentModifiers="default" ghost size="large">
+            Neutral Ghost
+          </Button>
+          <Button intent="neutral" intentModifiers="brand" size="large">
+            Neutral Brand
+          </Button>
+          <Button intent="neutral" intentModifiers="brand" ghost size="large">
+            Neutral Brand Ghost
+          </Button>
+          <Button intent="neutral" intentModifiers="danger" size="large">
+            Neutral Danger
+          </Button>
+          <Button intent="neutral" intentModifiers="danger" ghost size="large">
+            Neutral Danger Ghost
+          </Button>
+          <Button
+            intent="neutral-inverted"
+            intentModifiers="default"
+            size="large"
+          >
+            Neutral Inverted
+          </Button>
+          <Button intent="brand" intentModifiers="default" size="large">
+            Brand
+          </Button>
+          <Button intent="danger" intentModifiers="default" size="large">
+            Danger
+          </Button>
+          <Button intent="success" intentModifiers="default" size="large">
+            Success
+          </Button>
+        </Stack>
+      </Section>
     </div>
   ),
 }
 
 export const Disabled: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
   },
   render: () => (
     <div className="sb-row sb-gap-16">
-      <div className="sb-column sb-gap-16">
-        <Button context="neutral" contextModifiers="default" disabled>
-          Neutral
-        </Button>
-        <Button context="neutral" contextModifiers="default" ghost disabled>
-          Neutral Ghost
-        </Button>
-        <Button context="neutral" contextModifiers="brand" disabled>
-          Neutral Brand
-        </Button>
-        <Button context="neutral" contextModifiers="brand" ghost disabled>
-          Neutral Brand Ghost
-        </Button>
-        <Button context="neutral" contextModifiers="danger" disabled>
-          Neutral Danger
-        </Button>
-        <Button context="neutral" contextModifiers="danger" ghost disabled>
-          Neutral Danger Ghost
-        </Button>
-        <Button context="neutral-inverted" contextModifiers="default" disabled>
-          Neutral Inverted
-        </Button>
-        <Button context="brand" contextModifiers="default" disabled>
-          Brand
-        </Button>
-        <Button context="danger" contextModifiers="default" disabled>
-          Danger
-        </Button>
-        <Button context="success" contextModifiers="default" disabled>
-          Success
-        </Button>
-      </div>
-      <div className="sb-column sb-gap-16">
-        <Button
-          context="neutral"
-          contextModifiers="default"
-          size="large"
-          disabled
-        >
-          Neutral
-        </Button>
-        <Button
-          context="neutral"
-          contextModifiers="default"
-          ghost
-          size="large"
-          disabled
-        >
-          Neutral Ghost
-        </Button>
-        <Button
-          context="neutral"
-          contextModifiers="brand"
-          size="large"
-          disabled
-        >
-          Neutral Brand
-        </Button>
-        <Button
-          context="neutral"
-          contextModifiers="brand"
-          ghost
-          size="large"
-          disabled
-        >
-          Neutral Brand Ghost
-        </Button>
-        <Button
-          context="neutral"
-          contextModifiers="danger"
-          size="large"
-          disabled
-        >
-          Neutral Danger
-        </Button>
-        <Button
-          context="neutral"
-          contextModifiers="danger"
-          ghost
-          size="large"
-          disabled
-        >
-          Neutral Danger Ghost
-        </Button>
-        <Button
-          context="neutral-inverted"
-          contextModifiers="default"
-          size="large"
-          disabled
-        >
-          Neutral Inverted
-        </Button>
-        <Button
-          context="brand"
-          contextModifiers="default"
-          size="large"
-          disabled
-        >
-          Brand
-        </Button>
-        <Button
-          context="danger"
-          contextModifiers="default"
-          size="large"
-          disabled
-        >
-          Danger
-        </Button>
-        <Button
-          context="success"
-          contextModifiers="default"
-          size="large"
-          disabled
-        >
-          Success
-        </Button>
-      </div>
+      <Section>
+        <Stack spacing={400}>
+          <Button intent="neutral" intentModifiers="default" disabled>
+            Neutral
+          </Button>
+          <Button intent="neutral" intentModifiers="default" ghost disabled>
+            Neutral Ghost
+          </Button>
+          <Button intent="neutral" intentModifiers="brand" disabled>
+            Neutral Brand
+          </Button>
+          <Button intent="neutral" intentModifiers="brand" ghost disabled>
+            Neutral Brand Ghost
+          </Button>
+          <Button intent="neutral" intentModifiers="danger" disabled>
+            Neutral Danger
+          </Button>
+          <Button intent="neutral" intentModifiers="danger" ghost disabled>
+            Neutral Danger Ghost
+          </Button>
+          <Button intent="neutral-inverted" intentModifiers="default" disabled>
+            Neutral Inverted
+          </Button>
+          <Button intent="brand" intentModifiers="default" disabled>
+            Brand
+          </Button>
+          <Button intent="danger" intentModifiers="default" disabled>
+            Danger
+          </Button>
+          <Button intent="success" intentModifiers="default" disabled>
+            Success
+          </Button>
+        </Stack>
+      </Section>
+      <Section>
+        <Stack spacing={400}>
+          <Button
+            intent="neutral"
+            intentModifiers="default"
+            size="large"
+            disabled
+          >
+            Neutral
+          </Button>
+          <Button
+            intent="neutral"
+            intentModifiers="default"
+            ghost
+            size="large"
+            disabled
+          >
+            Neutral Ghost
+          </Button>
+          <Button
+            intent="neutral"
+            intentModifiers="brand"
+            size="large"
+            disabled
+          >
+            Neutral Brand
+          </Button>
+          <Button
+            intent="neutral"
+            intentModifiers="brand"
+            ghost
+            size="large"
+            disabled
+          >
+            Neutral Brand Ghost
+          </Button>
+          <Button
+            intent="neutral"
+            intentModifiers="danger"
+            size="large"
+            disabled
+          >
+            Neutral Danger
+          </Button>
+          <Button
+            intent="neutral"
+            intentModifiers="danger"
+            ghost
+            size="large"
+            disabled
+          >
+            Neutral Danger Ghost
+          </Button>
+          <Button
+            intent="neutral-inverted"
+            intentModifiers="default"
+            size="large"
+            disabled
+          >
+            Neutral Inverted
+          </Button>
+          <Button
+            intent="brand"
+            intentModifiers="default"
+            size="large"
+            disabled
+          >
+            Brand
+          </Button>
+          <Button
+            intent="danger"
+            intentModifiers="default"
+            size="large"
+            disabled
+          >
+            Danger
+          </Button>
+          <Button
+            intent="success"
+            intentModifiers="default"
+            size="large"
+            disabled
+          >
+            Success
+          </Button>
+        </Stack>
+      </Section>
     </div>
   ),
 }
 
 export const FullWidth: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
   },
   render: () => (
-    <div className="sb-row sb-gap-16">
-      <div className="sb-column sb-gap-16">
-        <Button context="neutral" contextModifiers="default" fullWidth>
-          Neutral
-        </Button>
-        <Button context="neutral" contextModifiers="default" ghost fullWidth>
-          Neutral Ghost
-        </Button>
-        <Button context="neutral" contextModifiers="brand" fullWidth>
-          Neutral Brand
-        </Button>
-        <Button context="neutral" contextModifiers="brand" ghost fullWidth>
-          Neutral Brand Ghost
-        </Button>
-        <Button context="neutral" contextModifiers="danger" fullWidth>
-          Neutral Danger
-        </Button>
-        <Button context="neutral" contextModifiers="danger" ghost fullWidth>
-          Neutral Danger Ghost
-        </Button>
-        <Button context="neutral-inverted" contextModifiers="default" fullWidth>
-          Neutral Inverted
-        </Button>
-        <Button context="brand" contextModifiers="default" fullWidth>
-          Brand
-        </Button>
-        <Button context="danger" contextModifiers="default" fullWidth>
-          Danger
-        </Button>
-        <Button context="success" contextModifiers="default" fullWidth>
-          Success
-        </Button>
-      </div>
-      <div className="sb-column sb-gap-16">
-        <Button
-          context="neutral"
-          contextModifiers="default"
-          size="large"
-          fullWidth
-        >
-          Neutral
-        </Button>
-        <Button
-          context="neutral"
-          contextModifiers="default"
-          ghost
-          size="large"
-          fullWidth
-        >
-          Neutral Ghost
-        </Button>
-        <Button
-          context="neutral"
-          contextModifiers="brand"
-          size="large"
-          fullWidth
-        >
-          Neutral Brand
-        </Button>
-        <Button
-          context="neutral"
-          contextModifiers="brand"
-          ghost
-          size="large"
-          fullWidth
-        >
-          Neutral Brand Ghost
-        </Button>
-        <Button
-          context="neutral"
-          contextModifiers="danger"
-          size="large"
-          fullWidth
-        >
-          Neutral Danger
-        </Button>
-        <Button
-          context="neutral"
-          contextModifiers="danger"
-          ghost
-          size="large"
-          fullWidth
-        >
-          Neutral Danger Ghost
-        </Button>
-        <Button
-          context="neutral-inverted"
-          contextModifiers="default"
-          size="large"
-          fullWidth
-        >
-          Neutral Inverted
-        </Button>
-        <Button
-          context="brand"
-          contextModifiers="default"
-          size="large"
-          fullWidth
-        >
-          Brand
-        </Button>
-        <Button
-          context="danger"
-          contextModifiers="default"
-          size="large"
-          fullWidth
-        >
-          Danger
-        </Button>
-        <Button
-          context="success"
-          contextModifiers="default"
-          size="large"
-          fullWidth
-        >
-          Success
-        </Button>
-      </div>
+    <div className="sb-row sb-width-full">
+      <Section>
+        <Stack spacing={400}>
+          <Button intent="neutral" intentModifiers="default" fullWidth>
+            Neutral
+          </Button>
+          <Button intent="neutral" intentModifiers="default" ghost fullWidth>
+            Neutral Ghost
+          </Button>
+          <Button intent="neutral" intentModifiers="brand" fullWidth>
+            Neutral Brand
+          </Button>
+          <Button intent="neutral" intentModifiers="brand" ghost fullWidth>
+            Neutral Brand Ghost
+          </Button>
+          <Button intent="neutral" intentModifiers="danger" fullWidth>
+            Neutral Danger
+          </Button>
+          <Button intent="neutral" intentModifiers="danger" ghost fullWidth>
+            Neutral Danger Ghost
+          </Button>
+          <Button intent="neutral-inverted" intentModifiers="default" fullWidth>
+            Neutral Inverted
+          </Button>
+          <Button intent="brand" intentModifiers="default" fullWidth>
+            Brand
+          </Button>
+          <Button intent="danger" intentModifiers="default" fullWidth>
+            Danger
+          </Button>
+          <Button intent="success" intentModifiers="default" fullWidth>
+            Success
+          </Button>
+        </Stack>
+      </Section>
+      <Section>
+        <Stack spacing={400}>
+          <Button
+            intent="neutral"
+            intentModifiers="default"
+            size="large"
+            fullWidth
+          >
+            Neutral
+          </Button>
+          <Button
+            intent="neutral"
+            intentModifiers="default"
+            ghost
+            size="large"
+            fullWidth
+          >
+            Neutral Ghost
+          </Button>
+          <Button
+            intent="neutral"
+            intentModifiers="brand"
+            size="large"
+            fullWidth
+          >
+            Neutral Brand
+          </Button>
+          <Button
+            intent="neutral"
+            intentModifiers="brand"
+            ghost
+            size="large"
+            fullWidth
+          >
+            Neutral Brand Ghost
+          </Button>
+          <Button
+            intent="neutral"
+            intentModifiers="danger"
+            size="large"
+            fullWidth
+          >
+            Neutral Danger
+          </Button>
+          <Button
+            intent="neutral"
+            intentModifiers="danger"
+            ghost
+            size="large"
+            fullWidth
+          >
+            Neutral Danger Ghost
+          </Button>
+          <Button
+            intent="neutral-inverted"
+            intentModifiers="default"
+            size="large"
+            fullWidth
+          >
+            Neutral Inverted
+          </Button>
+          <Button
+            intent="brand"
+            intentModifiers="default"
+            size="large"
+            fullWidth
+          >
+            Brand
+          </Button>
+          <Button
+            intent="danger"
+            intentModifiers="default"
+            size="large"
+            fullWidth
+          >
+            Danger
+          </Button>
+          <Button
+            intent="success"
+            intentModifiers="default"
+            size="large"
+            fullWidth
+          >
+            Success
+          </Button>
+        </Stack>
+      </Section>
+    </div>
+  ),
+}
+
+export const Grouped: Story = {
+  parameters: {
+    controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
+  },
+  render: () => (
+    <div className="sb-column sb-width-full">
+      <Section>
+        <Stack direction="row">
+          <Button
+            intent="neutral"
+            intentModifiers="default"
+            fullWidth
+            grouped="right"
+          >
+            Grouped right
+          </Button>
+          <Button
+            intent="neutral"
+            intentModifiers="default"
+            fullWidth
+            grouped="both"
+          >
+            Grouped both
+          </Button>
+          <Button
+            intent="neutral"
+            intentModifiers="default"
+            fullWidth
+            grouped="left"
+          >
+            Grouped left
+          </Button>
+        </Stack>
+      </Section>
+
+      <Section>
+        <Stack direction="row">
+          <Button
+            intent="neutral"
+            intentModifiers="default"
+            fullWidth
+            grouped="right"
+            size="large"
+          >
+            Grouped right
+          </Button>
+          <Button
+            intent="neutral"
+            intentModifiers="default"
+            fullWidth
+            grouped="both"
+            size="large"
+          >
+            Grouped both
+          </Button>
+          <Button
+            intent="neutral"
+            intentModifiers="default"
+            fullWidth
+            grouped="left"
+            size="large"
+          >
+            Grouped left
+          </Button>
+        </Stack>
+      </Section>
     </div>
   ),
 }
 
 export const Prefix: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
     viewport: {
@@ -480,668 +595,673 @@ export const Prefix: Story = {
   },
 
   render: () => (
-    <div className="sb-row sb-gap-16">
-      <div className="sb-column sb-gap-16">
-        <Button
-          context="neutral"
-          contextModifiers="default"
-          prefix={
-            <Icon
-              glyph="help"
-              variant="scaled"
-              context="neutral"
-              contextModifiers="default"
-              interactive
-            />
-          }
-        >
-          Neutral
-        </Button>
-        <Button
-          context="neutral"
-          contextModifiers="default"
-          ghost
-          prefix={
-            <Icon
-              glyph="help"
-              variant="scaled"
-              context="neutral"
-              contextModifiers="default"
-              interactive
-            />
-          }
-        >
-          Neutral Ghost
-        </Button>
-        <Button
-          context="neutral"
-          contextModifiers="brand"
-          prefix={
-            <Icon
-              glyph="help"
-              variant="scaled"
-              context="neutral"
-              contextModifiers="brand"
-              interactive
-            />
-          }
-        >
-          Neutral Brand
-        </Button>
-        <Button
-          context="neutral"
-          contextModifiers="brand"
-          ghost
-          prefix={
-            <Icon
-              glyph="help"
-              variant="scaled"
-              context="neutral"
-              contextModifiers="brand"
-              interactive
-            />
-          }
-        >
-          Neutral Brand Ghost
-        </Button>
-        <Button
-          context="neutral"
-          contextModifiers="danger"
-          prefix={
-            <Icon
-              glyph="help"
-              variant="scaled"
-              context="neutral"
-              contextModifiers="danger"
-              interactive
-            />
-          }
-        >
-          Neutral Danger
-        </Button>
-        <Button
-          context="neutral"
-          contextModifiers="danger"
-          ghost
-          prefix={
-            <Icon
-              glyph="help"
-              variant="scaled"
-              context="neutral"
-              contextModifiers="danger"
-              interactive
-            />
-          }
-        >
-          Neutral Danger Ghost
-        </Button>
-        <Button
-          context="neutral-inverted"
-          contextModifiers="default"
-          prefix={
-            <Icon
-              glyph="help"
-              variant="scaled"
-              context="neutral-inverted"
-              contextModifiers="default"
-              interactive
-            />
-          }
-        >
-          Neutral Inverted
-        </Button>
-        <Button
-          context="brand"
-          contextModifiers="default"
-          prefix={
-            <Icon
-              glyph="help"
-              variant="scaled"
-              context="brand"
-              contextModifiers="default"
-              interactive
-            />
-          }
-        >
-          Brand
-        </Button>
-        <Button
-          context="danger"
-          contextModifiers="default"
-          prefix={
-            <Icon
-              glyph="help"
-              variant="scaled"
-              context="danger"
-              contextModifiers="default"
-              interactive
-            />
-          }
-        >
-          Danger
-        </Button>
-        <Button
-          context="success"
-          contextModifiers="default"
-          prefix={
-            <Icon
-              glyph="help"
-              variant="scaled"
-              context="success"
-              contextModifiers="default"
-              interactive
-            />
-          }
-        >
-          Success
-        </Button>
-      </div>
-      <div className="sb-column sb-gap-16">
-        <Button
-          context="neutral"
-          contextModifiers="default"
-          size="large"
-          prefix={
-            <Icon
-              glyph="help"
-              variant="scaled"
-              context="neutral"
-              contextModifiers="default"
-              interactive
-            />
-          }
-        >
-          Neutral
-        </Button>
-        <Button
-          context="neutral"
-          contextModifiers="default"
-          ghost
-          size="large"
-          prefix={
-            <Icon
-              glyph="help"
-              variant="scaled"
-              context="neutral"
-              contextModifiers="default"
-              interactive
-            />
-          }
-        >
-          Neutral Ghost
-        </Button>
-        <Button
-          context="neutral"
-          contextModifiers="brand"
-          size="large"
-          prefix={
-            <Icon
-              glyph="help"
-              variant="scaled"
-              context="neutral"
-              contextModifiers="brand"
-              interactive
-            />
-          }
-        >
-          Neutral Brand
-        </Button>
-        <Button
-          context="neutral"
-          contextModifiers="brand"
-          ghost
-          size="large"
-          prefix={
-            <Icon
-              glyph="help"
-              variant="scaled"
-              context="neutral"
-              contextModifiers="brand"
-              interactive
-            />
-          }
-        >
-          Neutral Brand Ghost
-        </Button>
-        <Button
-          context="neutral"
-          contextModifiers="danger"
-          size="large"
-          prefix={
-            <Icon
-              glyph="help"
-              variant="scaled"
-              context="neutral"
-              contextModifiers="danger"
-              interactive
-            />
-          }
-        >
-          Neutral Danger
-        </Button>
-        <Button
-          context="neutral"
-          contextModifiers="danger"
-          ghost
-          size="large"
-          prefix={
-            <Icon
-              glyph="help"
-              variant="scaled"
-              context="neutral"
-              contextModifiers="danger"
-              interactive
-            />
-          }
-        >
-          Neutral Danger Ghost
-        </Button>
-        <Button
-          context="neutral-inverted"
-          contextModifiers="default"
-          size="large"
-          prefix={
-            <Icon
-              glyph="help"
-              variant="scaled"
-              context="neutral-inverted"
-              contextModifiers="default"
-              interactive
-            />
-          }
-        >
-          Neutral Inverted
-        </Button>
-        <Button
-          context="brand"
-          contextModifiers="default"
-          size="large"
-          prefix={
-            <Icon
-              glyph="help"
-              variant="scaled"
-              context="brand"
-              contextModifiers="default"
-              interactive
-            />
-          }
-        >
-          Brand
-        </Button>
-        <Button
-          context="danger"
-          contextModifiers="default"
-          size="large"
-          prefix={
-            <Icon
-              glyph="help"
-              variant="scaled"
-              context="danger"
-              contextModifiers="default"
-              interactive
-            />
-          }
-        >
-          Danger
-        </Button>
-        <Button
-          context="success"
-          contextModifiers="default"
-          size="large"
-          prefix={
-            <Icon
-              glyph="help"
-              variant="scaled"
-              context="success"
-              contextModifiers="default"
-              interactive
-            />
-          }
-        >
-          Success
-        </Button>
-      </div>
+    <div className="sb-row sb-width-full">
+      <Section>
+        <Stack spacing={400}>
+          <Button
+            intent="neutral"
+            intentModifiers="default"
+            prefix={
+              <Icon
+                glyph="link"
+                variant="scaled"
+                intent="neutral"
+                intentModifiers="default"
+                interactive
+              />
+            }
+          >
+            Neutral
+          </Button>
+          <Button
+            intent="neutral"
+            intentModifiers="default"
+            ghost
+            prefix={
+              <Icon
+                glyph="link"
+                variant="scaled"
+                intent="neutral"
+                intentModifiers="default"
+                interactive
+              />
+            }
+          >
+            Neutral Ghost
+          </Button>
+          <Button
+            intent="neutral"
+            intentModifiers="brand"
+            prefix={
+              <Icon
+                glyph="link"
+                variant="scaled"
+                intent="neutral"
+                intentModifiers="brand"
+                interactive
+              />
+            }
+          >
+            Neutral Brand
+          </Button>
+          <Button
+            intent="neutral"
+            intentModifiers="brand"
+            ghost
+            prefix={
+              <Icon
+                glyph="link"
+                variant="scaled"
+                intent="neutral"
+                intentModifiers="brand"
+                interactive
+              />
+            }
+          >
+            Neutral Brand Ghost
+          </Button>
+          <Button
+            intent="neutral"
+            intentModifiers="danger"
+            prefix={
+              <Icon
+                glyph="link"
+                variant="scaled"
+                intent="neutral"
+                intentModifiers="danger"
+                interactive
+              />
+            }
+          >
+            Neutral Danger
+          </Button>
+          <Button
+            intent="neutral"
+            intentModifiers="danger"
+            ghost
+            prefix={
+              <Icon
+                glyph="link"
+                variant="scaled"
+                intent="neutral"
+                intentModifiers="danger"
+                interactive
+              />
+            }
+          >
+            Neutral Danger Ghost
+          </Button>
+          <Button
+            intent="neutral-inverted"
+            intentModifiers="default"
+            prefix={
+              <Icon
+                glyph="link"
+                variant="scaled"
+                intent="neutral-inverted"
+                intentModifiers="default"
+                interactive
+              />
+            }
+          >
+            Neutral Inverted
+          </Button>
+          <Button
+            intent="brand"
+            intentModifiers="default"
+            prefix={
+              <Icon
+                glyph="link"
+                variant="scaled"
+                intent="brand"
+                intentModifiers="default"
+                interactive
+              />
+            }
+          >
+            Brand
+          </Button>
+          <Button
+            intent="danger"
+            intentModifiers="default"
+            prefix={
+              <Icon
+                glyph="link"
+                variant="scaled"
+                intent="danger"
+                intentModifiers="default"
+                interactive
+              />
+            }
+          >
+            Danger
+          </Button>
+          <Button
+            intent="success"
+            intentModifiers="default"
+            prefix={
+              <Icon
+                glyph="link"
+                variant="scaled"
+                intent="success"
+                intentModifiers="default"
+                interactive
+              />
+            }
+          >
+            Success
+          </Button>
+        </Stack>
+      </Section>
+      <Section>
+        <Stack spacing={400}>
+          <Button
+            intent="neutral"
+            intentModifiers="default"
+            size="large"
+            prefix={
+              <Icon
+                glyph="link"
+                variant="scaled"
+                intent="neutral"
+                intentModifiers="default"
+                interactive
+              />
+            }
+          >
+            Neutral
+          </Button>
+          <Button
+            intent="neutral"
+            intentModifiers="default"
+            ghost
+            size="large"
+            prefix={
+              <Icon
+                glyph="link"
+                variant="scaled"
+                intent="neutral"
+                intentModifiers="default"
+                interactive
+              />
+            }
+          >
+            Neutral Ghost
+          </Button>
+          <Button
+            intent="neutral"
+            intentModifiers="brand"
+            size="large"
+            prefix={
+              <Icon
+                glyph="link"
+                variant="scaled"
+                intent="neutral"
+                intentModifiers="brand"
+                interactive
+              />
+            }
+          >
+            Neutral Brand
+          </Button>
+          <Button
+            intent="neutral"
+            intentModifiers="brand"
+            ghost
+            size="large"
+            prefix={
+              <Icon
+                glyph="link"
+                variant="scaled"
+                intent="neutral"
+                intentModifiers="brand"
+                interactive
+              />
+            }
+          >
+            Neutral Brand Ghost
+          </Button>
+          <Button
+            intent="neutral"
+            intentModifiers="danger"
+            size="large"
+            prefix={
+              <Icon
+                glyph="link"
+                variant="scaled"
+                intent="neutral"
+                intentModifiers="danger"
+                interactive
+              />
+            }
+          >
+            Neutral Danger
+          </Button>
+          <Button
+            intent="neutral"
+            intentModifiers="danger"
+            ghost
+            size="large"
+            prefix={
+              <Icon
+                glyph="link"
+                variant="scaled"
+                intent="neutral"
+                intentModifiers="danger"
+                interactive
+              />
+            }
+          >
+            Neutral Danger Ghost
+          </Button>
+          <Button
+            intent="neutral-inverted"
+            intentModifiers="default"
+            size="large"
+            prefix={
+              <Icon
+                glyph="link"
+                variant="scaled"
+                intent="neutral-inverted"
+                intentModifiers="default"
+                interactive
+              />
+            }
+          >
+            Neutral Inverted
+          </Button>
+          <Button
+            intent="brand"
+            intentModifiers="default"
+            size="large"
+            prefix={
+              <Icon
+                glyph="link"
+                variant="scaled"
+                intent="brand"
+                intentModifiers="default"
+                interactive
+              />
+            }
+          >
+            Brand
+          </Button>
+          <Button
+            intent="danger"
+            intentModifiers="default"
+            size="large"
+            prefix={
+              <Icon
+                glyph="link"
+                variant="scaled"
+                intent="danger"
+                intentModifiers="default"
+                interactive
+              />
+            }
+          >
+            Danger
+          </Button>
+          <Button
+            intent="success"
+            intentModifiers="default"
+            size="large"
+            prefix={
+              <Icon
+                glyph="link"
+                variant="scaled"
+                intent="success"
+                intentModifiers="default"
+                interactive
+              />
+            }
+          >
+            Success
+          </Button>
+        </Stack>
+      </Section>
     </div>
   ),
 }
 
 export const Suffix: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
     viewport: {
       defaultViewport: "large",
     },
   },
-
   render: () => (
-    <div className="sb-row sb-gap-16">
-      <div className="sb-column sb-gap-16">
-        <Button
-          context="neutral"
-          contextModifiers="default"
-          suffix={
-            <Icon
-              glyph="help"
-              variant="scaled"
-              context="neutral"
-              contextModifiers="default"
-              interactive
-            />
-          }
-        >
-          Neutral
-        </Button>
-        <Button
-          context="neutral"
-          contextModifiers="default"
-          ghost
-          suffix={
-            <Icon
-              glyph="help"
-              variant="scaled"
-              context="neutral"
-              contextModifiers="default"
-              interactive
-            />
-          }
-        >
-          Neutral Ghost
-        </Button>
-        <Button
-          context="neutral"
-          contextModifiers="brand"
-          suffix={
-            <Icon
-              glyph="help"
-              variant="scaled"
-              context="neutral"
-              contextModifiers="brand"
-              interactive
-            />
-          }
-        >
-          Neutral Brand
-        </Button>
-        <Button
-          context="neutral"
-          contextModifiers="brand"
-          ghost
-          suffix={
-            <Icon
-              glyph="help"
-              variant="scaled"
-              context="neutral"
-              contextModifiers="brand"
-              interactive
-            />
-          }
-        >
-          Neutral Brand Ghost
-        </Button>
-        <Button
-          context="neutral"
-          contextModifiers="danger"
-          suffix={
-            <Icon
-              glyph="help"
-              variant="scaled"
-              context="neutral"
-              contextModifiers="danger"
-              interactive
-            />
-          }
-        >
-          Neutral Danger
-        </Button>
-        <Button
-          context="neutral"
-          contextModifiers="danger"
-          ghost
-          suffix={
-            <Icon
-              glyph="help"
-              variant="scaled"
-              context="neutral"
-              contextModifiers="danger"
-              interactive
-            />
-          }
-        >
-          Neutral Danger Ghost
-        </Button>
-        <Button
-          context="neutral-inverted"
-          contextModifiers="default"
-          suffix={
-            <Icon
-              glyph="help"
-              variant="scaled"
-              context="neutral-inverted"
-              contextModifiers="default"
-              interactive
-            />
-          }
-        >
-          Neutral Inverted
-        </Button>
-        <Button
-          context="brand"
-          contextModifiers="default"
-          suffix={
-            <Icon
-              glyph="help"
-              variant="scaled"
-              context="brand"
-              contextModifiers="default"
-              interactive
-            />
-          }
-        >
-          Brand
-        </Button>
-        <Button
-          context="danger"
-          contextModifiers="default"
-          suffix={
-            <Icon
-              glyph="help"
-              variant="scaled"
-              context="danger"
-              contextModifiers="default"
-              interactive
-            />
-          }
-        >
-          Danger
-        </Button>
-        <Button
-          context="success"
-          contextModifiers="default"
-          suffix={
-            <Icon
-              glyph="help"
-              variant="scaled"
-              context="success"
-              contextModifiers="default"
-              interactive
-            />
-          }
-        >
-          Success
-        </Button>
-      </div>
-      <div className="sb-column sb-gap-16">
-        <Button
-          context="neutral"
-          contextModifiers="default"
-          size="large"
-          suffix={
-            <Icon
-              glyph="help"
-              variant="scaled"
-              context="neutral"
-              contextModifiers="default"
-              interactive
-            />
-          }
-        >
-          Neutral
-        </Button>
-        <Button
-          context="neutral"
-          contextModifiers="default"
-          ghost
-          size="large"
-          suffix={
-            <Icon
-              glyph="help"
-              variant="scaled"
-              context="neutral"
-              contextModifiers="default"
-              interactive
-            />
-          }
-        >
-          Neutral Ghost
-        </Button>
-        <Button
-          context="neutral"
-          contextModifiers="brand"
-          size="large"
-          suffix={
-            <Icon
-              glyph="help"
-              variant="scaled"
-              context="neutral"
-              contextModifiers="brand"
-              interactive
-            />
-          }
-        >
-          Neutral Brand
-        </Button>
-        <Button
-          context="neutral"
-          contextModifiers="brand"
-          ghost
-          size="large"
-          suffix={
-            <Icon
-              glyph="help"
-              variant="scaled"
-              context="neutral"
-              contextModifiers="brand"
-              interactive
-            />
-          }
-        >
-          Neutral Brand Ghost
-        </Button>
-        <Button
-          context="neutral"
-          contextModifiers="danger"
-          size="large"
-          suffix={
-            <Icon
-              glyph="help"
-              variant="scaled"
-              context="neutral"
-              contextModifiers="danger"
-              interactive
-            />
-          }
-        >
-          Neutral Danger
-        </Button>
-        <Button
-          context="neutral"
-          contextModifiers="danger"
-          ghost
-          size="large"
-          suffix={
-            <Icon
-              glyph="help"
-              variant="scaled"
-              context="neutral"
-              contextModifiers="danger"
-              interactive
-            />
-          }
-        >
-          Neutral Danger Ghost
-        </Button>
-        <Button
-          context="neutral-inverted"
-          contextModifiers="default"
-          size="large"
-          suffix={
-            <Icon
-              glyph="help"
-              variant="scaled"
-              context="neutral-inverted"
-              contextModifiers="default"
-              interactive
-            />
-          }
-        >
-          Neutral Inverted
-        </Button>
-        <Button
-          context="brand"
-          contextModifiers="default"
-          size="large"
-          suffix={
-            <Icon
-              glyph="help"
-              variant="scaled"
-              context="brand"
-              contextModifiers="default"
-              interactive
-            />
-          }
-        >
-          Brand
-        </Button>
-        <Button
-          context="danger"
-          contextModifiers="default"
-          size="large"
-          suffix={
-            <Icon
-              glyph="help"
-              variant="scaled"
-              context="danger"
-              contextModifiers="default"
-              interactive
-            />
-          }
-        >
-          Danger
-        </Button>
-        <Button
-          context="success"
-          contextModifiers="default"
-          size="large"
-          suffix={
-            <Icon
-              glyph="help"
-              variant="scaled"
-              context="success"
-              contextModifiers="default"
-              interactive
-            />
-          }
-        >
-          Success
-        </Button>
-      </div>
+    <div className="sb-row sb-width-full">
+      <Section>
+        <Stack spacing={400}>
+          <Button
+            intent="neutral"
+            intentModifiers="default"
+            suffix={
+              <Icon
+                glyph="link"
+                variant="scaled"
+                intent="neutral"
+                intentModifiers="default"
+                interactive
+              />
+            }
+          >
+            Neutral
+          </Button>
+          <Button
+            intent="neutral"
+            intentModifiers="default"
+            ghost
+            suffix={
+              <Icon
+                glyph="link"
+                variant="scaled"
+                intent="neutral"
+                intentModifiers="default"
+                interactive
+              />
+            }
+          >
+            Neutral Ghost
+          </Button>
+          <Button
+            intent="neutral"
+            intentModifiers="brand"
+            suffix={
+              <Icon
+                glyph="link"
+                variant="scaled"
+                intent="neutral"
+                intentModifiers="brand"
+                interactive
+              />
+            }
+          >
+            Neutral Brand
+          </Button>
+          <Button
+            intent="neutral"
+            intentModifiers="brand"
+            ghost
+            suffix={
+              <Icon
+                glyph="link"
+                variant="scaled"
+                intent="neutral"
+                intentModifiers="brand"
+                interactive
+              />
+            }
+          >
+            Neutral Brand Ghost
+          </Button>
+          <Button
+            intent="neutral"
+            intentModifiers="danger"
+            suffix={
+              <Icon
+                glyph="link"
+                variant="scaled"
+                intent="neutral"
+                intentModifiers="danger"
+                interactive
+              />
+            }
+          >
+            Neutral Danger
+          </Button>
+          <Button
+            intent="neutral"
+            intentModifiers="danger"
+            ghost
+            suffix={
+              <Icon
+                glyph="link"
+                variant="scaled"
+                intent="neutral"
+                intentModifiers="danger"
+                interactive
+              />
+            }
+          >
+            Neutral Danger Ghost
+          </Button>
+          <Button
+            intent="neutral-inverted"
+            intentModifiers="default"
+            suffix={
+              <Icon
+                glyph="link"
+                variant="scaled"
+                intent="neutral-inverted"
+                intentModifiers="default"
+                interactive
+              />
+            }
+          >
+            Neutral Inverted
+          </Button>
+          <Button
+            intent="brand"
+            intentModifiers="default"
+            suffix={
+              <Icon
+                glyph="link"
+                variant="scaled"
+                intent="brand"
+                intentModifiers="default"
+                interactive
+              />
+            }
+          >
+            Brand
+          </Button>
+          <Button
+            intent="danger"
+            intentModifiers="default"
+            suffix={
+              <Icon
+                glyph="link"
+                variant="scaled"
+                intent="danger"
+                intentModifiers="default"
+                interactive
+              />
+            }
+          >
+            Danger
+          </Button>
+          <Button
+            intent="success"
+            intentModifiers="default"
+            suffix={
+              <Icon
+                glyph="link"
+                variant="scaled"
+                intent="success"
+                intentModifiers="default"
+                interactive
+              />
+            }
+          >
+            Success
+          </Button>
+        </Stack>
+      </Section>
+      <Section>
+        <Stack spacing={400}>
+          <Button
+            intent="neutral"
+            intentModifiers="default"
+            size="large"
+            suffix={
+              <Icon
+                glyph="link"
+                variant="scaled"
+                intent="neutral"
+                intentModifiers="default"
+                interactive
+              />
+            }
+          >
+            Neutral
+          </Button>
+          <Button
+            intent="neutral"
+            intentModifiers="default"
+            ghost
+            size="large"
+            suffix={
+              <Icon
+                glyph="link"
+                variant="scaled"
+                intent="neutral"
+                intentModifiers="default"
+                interactive
+              />
+            }
+          >
+            Neutral Ghost
+          </Button>
+          <Button
+            intent="neutral"
+            intentModifiers="brand"
+            size="large"
+            suffix={
+              <Icon
+                glyph="link"
+                variant="scaled"
+                intent="neutral"
+                intentModifiers="brand"
+                interactive
+              />
+            }
+          >
+            Neutral Brand
+          </Button>
+          <Button
+            intent="neutral"
+            intentModifiers="brand"
+            ghost
+            size="large"
+            suffix={
+              <Icon
+                glyph="link"
+                variant="scaled"
+                intent="neutral"
+                intentModifiers="brand"
+                interactive
+              />
+            }
+          >
+            Neutral Brand Ghost
+          </Button>
+          <Button
+            intent="neutral"
+            intentModifiers="danger"
+            size="large"
+            suffix={
+              <Icon
+                glyph="link"
+                variant="scaled"
+                intent="neutral"
+                intentModifiers="danger"
+                interactive
+              />
+            }
+          >
+            Neutral Danger
+          </Button>
+          <Button
+            intent="neutral"
+            intentModifiers="danger"
+            ghost
+            size="large"
+            suffix={
+              <Icon
+                glyph="link"
+                variant="scaled"
+                intent="neutral"
+                intentModifiers="danger"
+                interactive
+              />
+            }
+          >
+            Neutral Danger Ghost
+          </Button>
+          <Button
+            intent="neutral-inverted"
+            intentModifiers="default"
+            size="large"
+            suffix={
+              <Icon
+                glyph="link"
+                variant="scaled"
+                intent="neutral-inverted"
+                intentModifiers="default"
+                interactive
+              />
+            }
+          >
+            Neutral Inverted
+          </Button>
+          <Button
+            intent="brand"
+            intentModifiers="default"
+            size="large"
+            suffix={
+              <Icon
+                glyph="link"
+                variant="scaled"
+                intent="brand"
+                intentModifiers="default"
+                interactive
+              />
+            }
+          >
+            Brand
+          </Button>
+          <Button
+            intent="danger"
+            intentModifiers="default"
+            size="large"
+            suffix={
+              <Icon
+                glyph="link"
+                variant="scaled"
+                intent="danger"
+                intentModifiers="default"
+                interactive
+              />
+            }
+          >
+            Danger
+          </Button>
+          <Button
+            intent="success"
+            intentModifiers="default"
+            size="large"
+            suffix={
+              <Icon
+                glyph="link"
+                variant="scaled"
+                intent="success"
+                intentModifiers="default"
+                interactive
+              />
+            }
+          >
+            Success
+          </Button>
+        </Stack>
+      </Section>
     </div>
   ),
 }
 
 export const CustomIcon: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
     docs: {
@@ -1150,14 +1270,17 @@ export const CustomIcon: Story = {
           "The icon’s colours are overridden automatically when using the &lt;Icon&gt; component and SVGs must use the 'currentColor' value for all colour properties",
       },
     },
+    viewport: {
+      defaultViewport: "large",
+    },
   },
   render: () => {
     const customIcon = (
       <Icon
-        glyph="help"
+        glyph="link"
         variant="scaled"
-        context="success"
-        contextModifiers="default"
+        intent="success"
+        intentModifiers="default"
         interactive
       >
         <svg
@@ -1178,15 +1301,17 @@ export const CustomIcon: Story = {
     )
 
     return (
-      <div className="sb-column sb-gap-16">
-        <Button
-          context="success"
-          contextModifiers="default"
-          size="large"
-          suffix={customIcon}
-        >
-          Custom Icon
-        </Button>
+      <div className="sb-column sb-width-full">
+        <Section>
+          <Button
+            intent="success"
+            intentModifiers="default"
+            size="large"
+            suffix={customIcon}
+          >
+            Custom Icon
+          </Button>
+        </Section>
       </div>
     )
   },

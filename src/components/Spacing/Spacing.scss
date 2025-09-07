@@ -1,0 +1,36 @@
+@use "../../shared.scss" as *;
+
+@mixin Spacing_size($spacing, $direction) {
+  &_size-#{$spacing}.Spacing_direction-#{$direction} {
+    @if $direction == "column" {
+      height: var(--pui-spacing-#{$spacing});
+    } @else {
+      width: var(--pui-spacing-#{$spacing});
+    }
+  }
+}
+
+.Spacing {
+  $parent: &;
+
+  display: flex;
+  flex-shrink: 0;
+
+  @include Spacing_size(100, "row");
+  @include Spacing_size(100, "column");
+
+  @include Spacing_size(200, "row");
+  @include Spacing_size(200, "column");
+
+  @include Spacing_size(400, "row");
+  @include Spacing_size(400, "column");
+
+  @include Spacing_size(600, "row");
+  @include Spacing_size(600, "column");
+
+  @include Spacing_size(800, "row");
+  @include Spacing_size(800, "column");
+
+  @include Spacing_size(1000, "row");
+  @include Spacing_size(1000, "column");
+}

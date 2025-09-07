@@ -1,20 +1,20 @@
 @use "../../shared.scss" as *;
 @use "../../mixins.scss" as *;
 
-@mixin ButtonIcon_style-outlined($context, $modifiers) {
-  &_context-#{$context}-#{$modifiers} {
-    background-color: var(--pui-color-#{$context}-bg-#{$modifiers}-interactive);
+@mixin ButtonIcon_intent-outlined($intent, $modifiers) {
+  &_intent-#{$intent}-#{$modifiers} {
+    background-color: var(--pui-color-#{$intent}-bg-#{$modifiers}-interactive);
     box-shadow: inset 0 0 0 1px
-      var(--pui-color-#{$context}-border-#{$modifiers}-interactive);
+      var(--pui-color-#{$intent}-border-#{$modifiers}-interactive);
 
     &:hover {
       @if $modifiers == "default" {
         background-color: var(
-          --pui-color-#{$context}-bg-#{$modifiers}-interactive-hover
+          --pui-color-#{$intent}-bg-#{$modifiers}-interactive-hover
         );
       } @else {
         background-color: var(
-          --pui-color-#{$context}-bg-#{$modifiers}-interactive-hover
+          --pui-color-#{$intent}-bg-#{$modifiers}-interactive-hover
         );
       }
     }
@@ -22,30 +22,30 @@
     &:active {
       @if $modifiers == "default" {
         background-color: var(
-          --pui-color-#{$context}-bg-#{$modifiers}-interactive-pressed
+          --pui-color-#{$intent}-bg-#{$modifiers}-interactive-pressed
         );
       } @else {
         background-color: var(
-          --pui-color-#{$context}-bg-#{$modifiers}-interactive-pressed
+          --pui-color-#{$intent}-bg-#{$modifiers}-interactive-pressed
         );
       }
     }
   }
 }
 
-@mixin ButtonIcon_style-ghost($context, $modifiers) {
-  &_context-#{$context}-#{$modifiers}.ButtonIcon_ghost {
+@mixin ButtonIcon_intent-ghost($intent, $modifiers) {
+  &_intent-#{$intent}-#{$modifiers}.ButtonIcon_ghost {
     background-color: transparent;
     box-shadow: none;
 
     &:hover {
       @if $modifiers == "default" {
         background-color: var(
-          --pui-color-#{$context}-bg-#{$modifiers}-interactive-hover
+          --pui-color-#{$intent}-bg-#{$modifiers}-interactive-hover
         );
       } @else {
         background-color: var(
-          --pui-color-#{$context}-bg-#{$modifiers}-interactive-hover
+          --pui-color-#{$intent}-bg-#{$modifiers}-interactive-hover
         );
       }
     }
@@ -53,19 +53,19 @@
     &:active {
       @if $modifiers == "default" {
         background-color: var(
-          --pui-color-#{$context}-bg-#{$modifiers}-interactive-pressed
+          --pui-color-#{$intent}-bg-#{$modifiers}-interactive-pressed
         );
       } @else {
         background-color: var(
-          --pui-color-#{$context}-bg-#{$modifiers}-interactive-pressed
+          --pui-color-#{$intent}-bg-#{$modifiers}-interactive-pressed
         );
       }
     }
   }
 }
 
-@mixin ButtonIcon_style-translucent($context, $modifiers) {
-  &_context-#{$context}-#{$modifiers}.ButtonIcon_translucent {
+@mixin ButtonIcon_intent-translucent($intent, $modifiers) {
+  &_intent-#{$intent}-#{$modifiers}.ButtonIcon_translucent {
     background-color: transparent;
     box-shadow: none;
     opacity: 0.64;
@@ -86,8 +86,7 @@
   padding: 0 var(--pui-spacing-100);
   border-radius: var(--pui-radius-medium);
   border: none;
-  width: 24px;
-  height: 24px;
+  flex: 0 0 auto;
   overflow: hidden;
 
   @include curson-feedback;
@@ -102,9 +101,40 @@
     white-space: nowrap;
   }
 
-  @include ButtonIcon_style-outlined("neutral", "default");
-  @include ButtonIcon_style-ghost("neutral", "default");
-  @include ButtonIcon_style-translucent("neutral", "default");
+  &_size {
+    &-medium {
+      width: 24px;
+      height: 24px;
+    }
+    &-large {
+      width: 32px;
+      height: 32px;
+    }
+  }
+
+  &_groupedPosition {
+    &-left {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    &-right {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    &-both {
+      border-radius: 0;
+    }
+  }
+
+  &_grouped + &_grouped {
+    margin-left: -1px;
+  }
+
+  @include ButtonIcon_intent-outlined("neutral", "default");
+  @include ButtonIcon_intent-ghost("neutral", "default");
+  @include ButtonIcon_intent-translucent("neutral", "default");
 
   &_disabled {
     cursor: auto !important;

@@ -19,8 +19,6 @@ export interface ListContextValue {
   ) => () => void
   getPathForId?: (id: string) => number[] | null
   registerItemPath?: (id: string, path: number[]) => () => void
-  selectAll: () => void
-  deselectAll: () => void
   reorderItems: (
     itemIds: string[],
     targetIndex: number,

@@ -1,19 +1,19 @@
 @use "../../shared.scss" as *;
 @use "../../mixins.scss" as *;
 
-@mixin Text_style($context, $modifiers) {
-  &_context-#{$context}-#{$modifiers} {
+@mixin Text_intent($intent, $modifiers) {
+  &_intent-#{$intent}-#{$modifiers} {
     &.Text_interactive {
-      color: var(--pui-color-#{$context}-text-#{$modifiers}-interactive);
+      color: var(--pui-color-#{$intent}-text-#{$modifiers}-interactive);
     }
 
     &.Text_selected {
       color: var(
-        --pui-color-#{$context}-text-#{$modifiers}-interactive-selected
+        --pui-color-#{$intent}-text-#{$modifiers}-interactive-selected
       );
     }
 
-    color: var(--pui-color-#{$context}-text-#{$modifiers});
+    color: var(--pui-color-#{$intent}-text-#{$modifiers});
   }
 }
 
@@ -23,17 +23,17 @@
   @include typography-styles;
   user-select: none;
 
-  @include Text_style("neutral", "default");
-  @include Text_style("neutral", "secondary");
-  @include Text_style("neutral", "brand");
-  @include Text_style("neutral", "danger");
-  @include Text_style("neutral", "warning");
-  @include Text_style("neutral", "success");
-  @include Text_style("neutral-inverted", "default");
-  @include Text_style("brand", "default");
-  @include Text_style("danger", "default");
-  @include Text_style("warning", "default");
-  @include Text_style("success", "default");
+  @include Text_intent("neutral", "default");
+  @include Text_intent("neutral", "secondary");
+  @include Text_intent("neutral", "brand");
+  @include Text_intent("neutral", "danger");
+  @include Text_intent("neutral", "warning");
+  @include Text_intent("neutral", "success");
+  @include Text_intent("neutral-inverted", "default");
+  @include Text_intent("brand", "default");
+  @include Text_intent("danger", "default");
+  @include Text_intent("warning", "default");
+  @include Text_intent("success", "default");
 
   &_disabled {
     &.Text_interactive {
@@ -81,8 +81,12 @@
     }
   }
 
+  &_fullWidth {
+    width: 100%;
+  }
+
   &_strong {
-    font-weight: 550;
+    font-weight: 550 !important;
   }
 
   &_align {

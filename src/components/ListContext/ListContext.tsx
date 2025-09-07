@@ -5,6 +5,7 @@ import {
   useEffect,
   useCallback,
   useRef,
+  useMemo,
 } from "preact/hooks"
 import type {
   ListContextValue,
@@ -49,9 +50,13 @@ const ListContext = ({
 
   // Use controlled values when available, otherwise use internal state
   const currentItems = isItemsControlled ? controlledItems : internalItems
-  const currentSelectedItems = isSelectionControlled
-    ? new Set(controlledSelectedItems)
-    : internalSelectedItems
+  const currentSelectedItems = useMemo(
+    () =>
+      isSelectionControlled
+        ? new Set(controlledSelectedItems)
+        : internalSelectedItems,
+    [isSelectionControlled, controlledSelectedItems, internalSelectedItems]
+  )
 
   // Track anchor for range-selection and the root elements for outside-click detection
   const lastSelectedAnchorRef = useRef<string | null>(null)
@@ -74,12 +79,7 @@ const ListContext = ({
       }
       onSelectionChange?.({ selectedItems: Array.from(newSelectedItems) })
     },
-    [
-      currentSelectedItems,
-      controlledSelectedItems,
-      onSelectionChange,
-      isSelectionControlled,
-    ]
+    [currentSelectedItems, onSelectionChange, isSelectionControlled]
   )
 
   // Replace selection with exactly these ids (uncontrolled or via callback)
@@ -107,31 +107,6 @@ const ListContext = ({
       return result
     },
     []
-  )
-
-  const collectDescendantIds = useCallback(
-    (rootId: string): string[] => {
-      const ids: string[] = []
-      const walk = (nodes: ListItemData[]) => {
-        nodes.forEach((n) => {
-          if (n.id === rootId) {
-            const addAll = (children?: ListItemData[]) => {
-              if (!children) return
-              children.forEach((c) => {
-                ids.push(c.id)
-                addAll(c.children)
-              })
-            }
-            addAll(n.children)
-          } else if (n.children) {
-            walk(n.children)
-          }
-        })
-      }
-      walk(currentItems)
-      return ids
-    },
-    [currentItems]
   )
 
   const toggleSelect = useCallback(
@@ -220,37 +195,8 @@ const ListContext = ({
       onSelectionChange,
       currentItems,
       flattenItemsDepthFirst,
-      collectDescendantIds,
     ]
   )
-
-  const selectAll = useCallback(() => {
-    const allItemIds: string[] = []
-    const collectIds = (items: ListItemData[]) => {
-      items.forEach((item) => {
-        allItemIds.push(item.id)
-        if (item.children) {
-          collectIds(item.children)
-        }
-      })
-    }
-    collectIds(currentItems)
-    setSelection(allItemIds, true)
-  }, [currentItems, setSelection])
-
-  const deselectAll = useCallback(() => {
-    const allItemIds: string[] = []
-    const collectIds = (items: ListItemData[]) => {
-      items.forEach((item) => {
-        allItemIds.push(item.id)
-        if (item.children) {
-          collectIds(item.children)
-        }
-      })
-    }
-    collectIds(currentItems)
-    setSelection(allItemIds, false)
-  }, [currentItems, setSelection])
 
   const reorderItems = useCallback(
     (itemIds: string[], targetIndex: number, targetParentPath?: number[]) => {
@@ -389,7 +335,7 @@ const ListContext = ({
 
       // Adjust target path (for INSIDE drops) when the target item index shifts
       // due to removing dragged items from the same container (parent path)
-      let adjustedTargetPath = [...normalizedTargetPath]
+      const adjustedTargetPath = [...normalizedTargetPath]
       if (adjustedTargetPath.length > 0) {
         const parentOfTargetItemPath = adjustedTargetPath.slice(
           0,
@@ -545,8 +491,6 @@ const ListContext = ({
     setSelection,
     setExactSelection,
     toggleSelect,
-    selectAll,
-    deselectAll,
     reorderItems,
     selectionMode,
     registerRootElement,

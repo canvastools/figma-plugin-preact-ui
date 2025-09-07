@@ -8,9 +8,32 @@ const meta: Meta<typeof Section> = {
   title: "Components/Section",
   component: Section,
   tags: ["autodocs"],
+  parameters: {
+    docs: {
+      description: {
+        component: "A component that creates a section with built-in padding.",
+      },
+    },
+  },
   argTypes: {
     className: {
       control: { type: "text" },
+    },
+    padding: {
+      control: { disable: true },
+      description: `Custom padding for the section. Using the spacing variables names.
+      <pre>
+  padding?: {
+    top?: SectionPadding
+    right?: SectionPadding
+    bottom?: SectionPadding
+    left?: SectionPadding
+  }</pre>`,
+      table: {
+        type: {
+          summary: "SectionPadding = keyof typeof spacing.variables",
+        },
+      },
     },
     children: {
       control: { disable: true },
@@ -28,18 +51,17 @@ type Story = StoryObj<typeof Section>
 
 export const Demo: Story = {
   args: {
-    className: "",
-    children: "Section",
+    className: "sb-container",
+  },
+  parameters: {
+    viewport: {
+      defaultViewport: "large",
+    },
   },
   render: (args) => (
-    <div className="sb-column sb-container">
-      <Section>
-        <Text
-          context="neutral"
-          contextModifiers="default"
-          variant="body"
-          size="medium"
-        >
+    <div className="sb-column sb-height-300">
+      <Section {...args}>
+        <Text>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
           minim veniam, quis nostrud exercitation ullamco laboris nisi ut

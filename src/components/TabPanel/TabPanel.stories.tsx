@@ -5,6 +5,9 @@ import { TabPanel } from "./TabPanel"
 import { TabList } from "../TabList/TabList"
 import { Tab } from "../Tab/Tab"
 
+import { Section } from "../Section/Section"
+import { Text } from "../Text/Text"
+
 const meta: Meta<typeof TabPanel> = {
   title: "Components/TabPanel",
   component: TabPanel,
@@ -19,7 +22,7 @@ const meta: Meta<typeof TabPanel> = {
   },
   argTypes: {
     className: {
-      control: { type: "string" },
+      control: { type: "text" },
     },
     value: {
       table: {
@@ -27,7 +30,12 @@ const meta: Meta<typeof TabPanel> = {
           summary: "string",
         },
       },
-      description: "Value of the tab panel for any mode.",
+      description: "Value of the tab panel for controlled/uncontrolled mode.",
+    },
+    fullHeight: {
+      control: { type: "boolean" },
+      description:
+        "Set the height to 100% to occupy the entire height in flex containers. May requires &lt;ScrollContainer/&gt; to be used as it uses `overflow: hidden`.",
     },
     children: {
       table: {
@@ -44,26 +52,35 @@ export default meta
 type Story = StoryObj<typeof TabPanel>
 
 export const Demo: Story = {
+  parameters: {
+    viewport: {
+      defaultViewport: "large",
+    },
+  },
   args: {
-    className: "",
+    className: "sb-container",
+    fullHeight: false,
   },
   render: (args) => (
-    <TabContext defaultValue="tab-1">
-      <TabList>
-        <Tab value="tab-1">Tab 1</Tab>
-        <Tab value="tab-2">Tab 2</Tab>
-        <Tab value="tab-3">Tab 3</Tab>
-      </TabList>
-      <br />
-      <TabPanel {...args} value="tab-1">
-        Tab 1 Panel
-      </TabPanel>
-      <TabPanel {...args} value="tab-2">
-        Tab 2 Panel
-      </TabPanel>
-      <TabPanel {...args} value="tab-3">
-        Tab 3 Panel
-      </TabPanel>
-    </TabContext>
+    <div className="sb-column sb-width-full sb-height-300">
+      <TabContext defaultValue="tab-1">
+        <Section>
+          <TabList>
+            <Tab value="tab-1">Tab 1</Tab>
+            <Tab value="tab-2">Tab 2</Tab>
+            <Tab value="tab-3">Tab 3</Tab>
+          </TabList>
+        </Section>
+        <TabPanel {...args} value="tab-1">
+          <Text>Tab 1 Panel</Text>
+        </TabPanel>
+        <TabPanel {...args} value="tab-2">
+          <Text>Tab 2 Panel</Text>
+        </TabPanel>
+        <TabPanel {...args} value="tab-3">
+          <Text>Tab 3 Panel</Text>
+        </TabPanel>
+      </TabContext>
+    </div>
   ),
 }

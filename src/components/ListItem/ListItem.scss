@@ -48,23 +48,17 @@
     align-items: center;
     justify-content: center;
     z-index: 1;
-
-    cursor: grab;
     user-select: none;
-
-    & .Icon {
-      color: var(--pui-color-neutral-icon-secondary);
-      opacity: 0;
-      pointer-events: none;
-    }
+    opacity: 0;
+    cursor: grab;
 
     &:active {
       cursor: grabbing;
     }
+  }
 
-    &:hover .Icon {
-      opacity: 1;
-    }
+  &__content:hover > &__drag-handle {
+    opacity: 1;
   }
 
   &__collapse-toggle {
@@ -77,11 +71,6 @@
     align-items: center;
     justify-content: center;
     z-index: 1;
-
-    & .Icon {
-      color: var(--pui-color-neutral-icon-secondary);
-      pointer-events: none;
-    }
   }
 
   /* Variant */
@@ -102,10 +91,6 @@
     background-color: var(--pui-color-neutral-bg-default-interactive-selected);
   }
 
-  &_selected:is(&_selectable) > &__content .Input {
-    outline-color: var(--pui-color-neutral-border-default-interactive-selected);
-  }
-
   /* Selection of descendants */
 
   &_selected:is(&_selectable):is(&_selection-scope-descendants)
@@ -118,6 +103,20 @@
     background-color: var(
       --pui-color-neutral-bg-secondary-interactive-selected
     );
+  }
+
+  /* Selection overrides */
+
+  &_selected:is(&_selectable) > &__content .Input:not(.Input_ghost) {
+    outline-color: var(--pui-color-neutral-border-default-interactive-selected);
+  }
+
+  &_selected:is(&_selectable)
+    > &__content
+    .Checkbox:not(.Checkbox_checked)
+    .Checkbox__input {
+    box-shadow: inset 0 0 0 1px
+      var(--pui-color-neutral-border-default-interactive-selected);
   }
 
   /* Hoverable */

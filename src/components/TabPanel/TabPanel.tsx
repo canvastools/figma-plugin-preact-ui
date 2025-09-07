@@ -10,7 +10,7 @@ import { useTabContext } from "../TabContext/TabContext"
 /* --- */
 
 const TabPanelComponent = (
-  { className, value, children, ...rest }: TabPanelProps,
+  { className, value, fullHeight, children, ...rest }: TabPanelProps,
   ref: preact.Ref<HTMLDivElement>
 ) => {
   const { value: activeValue } = useTabContext()
@@ -19,6 +19,7 @@ const TabPanelComponent = (
 
   const _className = bem("TabPanel", undefined, {
     selected: value === activeValue,
+    fullHeight,
   })
 
   return (

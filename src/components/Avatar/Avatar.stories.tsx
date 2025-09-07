@@ -2,6 +2,9 @@ import { Meta, StoryObj } from "@storybook/preact"
 
 import { Avatar } from "./Avatar"
 
+import { Section } from "../Section/Section"
+import { Stack } from "../Stack/Stack"
+
 const meta: Meta<typeof Avatar> = {
   title: "Components/Avatar",
   component: Avatar,
@@ -11,12 +14,12 @@ const meta: Meta<typeof Avatar> = {
       control: { type: "text" },
     },
     size: {
-      control: { type: "select" },
+      control: { type: "radio" },
       options: ["small", "medium", "large"],
       defaultValue: { summary: "medium" },
     },
     shape: {
-      control: { type: "select" },
+      control: { type: "radio" },
       options: ["circle", "square"],
       defaultValue: { summary: "circle" },
     },
@@ -75,130 +78,169 @@ export const Demo: Story = {
     imageSrc: "",
     children: "A",
   },
-  render: (args) => <Avatar {...args} />,
+  parameters: {
+    viewport: {
+      defaultViewport: "large",
+    },
+  },
+  render: (args) => (
+    <div className="sb-column sb-width-full">
+      <Section>
+        <Avatar {...args} />
+      </Section>
+    </div>
+  ),
 }
 
 export const Size: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
   },
   render: () => (
-    <div className="sb-column sb-gap-16">
-      <div className="sb-row sb-gap-16">
-        <Avatar imageSrc="https://thispersondoesnotexist.com/" size="small">
-          A
-        </Avatar>
-        <Avatar size="small">A</Avatar>
-      </div>
-      <div className="sb-row sb-gap-16">
-        <Avatar imageSrc="https://thispersondoesnotexist.com/" size="medium">
-          A
-        </Avatar>
-        <Avatar size="medium">A</Avatar>
-      </div>
-      <div className="sb-row sb-gap-16">
-        <Avatar imageSrc="https://thispersondoesnotexist.com/" size="large">
-          A
-        </Avatar>
-        <Avatar size="large">A</Avatar>
-      </div>
+    <div className="sb-column sb-width-full">
+      <Section>
+        <Stack spacing={400}>
+          <Stack direction="row" spacing={400}>
+            <Avatar imageSrc="https://thispersondoesnotexist.com/" size="small">
+              A
+            </Avatar>
+            <Avatar size="small">A</Avatar>
+          </Stack>
+          <Stack direction="row" spacing={400}>
+            <Avatar
+              imageSrc="https://thispersondoesnotexist.com/"
+              size="medium"
+            >
+              A
+            </Avatar>
+            <Avatar size="medium">A</Avatar>
+          </Stack>
+          <Stack direction="row" spacing={400}>
+            <Avatar imageSrc="https://thispersondoesnotexist.com/" size="large">
+              A
+            </Avatar>
+            <Avatar size="large">A</Avatar>
+          </Stack>
+        </Stack>
+      </Section>
     </div>
   ),
 }
 
 export const Shape: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
   },
   render: () => (
-    <div className="sb-row sb-gap-16">
-      <div className="sb-column sb-gap-16">
-        <div className="sb-row sb-gap-16">
-          <Avatar imageSrc="https://thispersondoesnotexist.com/" size="small">
-            A
-          </Avatar>
-          <Avatar size="small">A</Avatar>
-        </div>
-        <div className="sb-row sb-gap-16">
-          <Avatar imageSrc="https://thispersondoesnotexist.com/" size="medium">
-            A
-          </Avatar>
-          <Avatar size="medium">A</Avatar>
-        </div>
-        <div className="sb-row sb-gap-16">
-          <Avatar imageSrc="https://thispersondoesnotexist.com/" size="large">
-            A
-          </Avatar>
-          <Avatar size="large">A</Avatar>
-        </div>
-      </div>
-      <div className="sb-column sb-gap-16">
-        <div className="sb-row sb-gap-16">
-          <Avatar
-            imageSrc="https://thispersondoesnotexist.com/"
-            size="small"
-            shape="square"
-          >
-            A
-          </Avatar>
-          <Avatar size="small" shape="square">
-            A
-          </Avatar>
-        </div>
-        <div className="sb-row sb-gap-16">
-          <Avatar
-            imageSrc="https://thispersondoesnotexist.com/"
-            size="medium"
-            shape="square"
-          >
-            A
-          </Avatar>
-          <Avatar size="medium" shape="square">
-            A
-          </Avatar>
-        </div>
-        <div className="sb-row sb-gap-16">
-          <Avatar
-            imageSrc="https://thispersondoesnotexist.com/"
-            size="large"
-            shape="square"
-          >
-            A
-          </Avatar>
-          <Avatar size="large" shape="square">
-            A
-          </Avatar>
-        </div>
-      </div>
+    <div className="sb-row sb-width-full">
+      <Section>
+        <Stack spacing={400}>
+          <Stack direction="row" spacing={400}>
+            <Avatar imageSrc="https://thispersondoesnotexist.com/" size="small">
+              A
+            </Avatar>
+            <Avatar size="small">A</Avatar>
+          </Stack>
+          <Stack direction="row" spacing={400}>
+            <Avatar
+              imageSrc="https://thispersondoesnotexist.com/"
+              size="medium"
+            >
+              A
+            </Avatar>
+            <Avatar size="medium">A</Avatar>
+          </Stack>
+          <Stack direction="row" spacing={400}>
+            <Avatar imageSrc="https://thispersondoesnotexist.com/" size="large">
+              A
+            </Avatar>
+            <Avatar size="large">A</Avatar>
+          </Stack>
+        </Stack>
+      </Section>
+      <Section>
+        <Stack spacing={400}>
+          <Stack direction="row" spacing={400}>
+            <Avatar
+              imageSrc="https://thispersondoesnotexist.com/"
+              size="small"
+              shape="square"
+            >
+              A
+            </Avatar>
+            <Avatar size="small" shape="square">
+              A
+            </Avatar>
+          </Stack>
+          <Stack direction="row" spacing={400}>
+            <Avatar
+              imageSrc="https://thispersondoesnotexist.com/"
+              size="medium"
+              shape="square"
+            >
+              A
+            </Avatar>
+            <Avatar size="medium" shape="square">
+              A
+            </Avatar>
+          </Stack>
+          <Stack direction="row" spacing={400}>
+            <Avatar
+              imageSrc="https://thispersondoesnotexist.com/"
+              size="large"
+              shape="square"
+            >
+              A
+            </Avatar>
+            <Avatar size="large" shape="square">
+              A
+            </Avatar>
+          </Stack>
+        </Stack>
+      </Section>
     </div>
   ),
 }
 
 export const ImageSrc: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
   },
   render: () => (
-    <div className="sb-column sb-gap-16">
-      <Avatar imageSrc="https://thispersondoesnotexist.com/">A</Avatar>
-      <Avatar>A</Avatar>
+    <div className="sb-column sb-width-full">
+      <Section>
+        <Stack spacing={400}>
+          <Avatar imageSrc="https://thispersondoesnotexist.com/">A</Avatar>
+          <Avatar>A</Avatar>
+        </Stack>
+      </Section>
     </div>
   ),
 }
 
 export const Fill: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
   },
   render: () => (
-    <div className="sb-column sb-gap-16">
-      <Avatar fillBg="var(--pui-color-brand-bg-default)" fillText="#ffff00">
-        A
-      </Avatar>
+    <div className="sb-column sb-width-full">
+      <Section>
+        <Avatar fillBg="var(--pui-color-brand-bg-default)" fillText="#ffff00">
+          A
+        </Avatar>
+      </Section>
     </div>
   ),
 }

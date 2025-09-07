@@ -4,6 +4,8 @@ import { fn } from "@storybook/test"
 
 import { Input } from "./Input"
 
+import { Section } from "../Section/Section"
+import { Stack } from "../Stack/Stack"
 import { Icon } from "../Icon/Icon"
 import { Text } from "../Text/Text"
 import { ButtonIcon } from "../ButtonIcon/ButtonIcon"
@@ -32,6 +34,9 @@ const meta: Meta<typeof Input> = {
         },
       },
     },
+    ghost: {
+      control: { type: "boolean" },
+    },
     error: {
       control: { type: "boolean" },
     },
@@ -41,7 +46,7 @@ const meta: Meta<typeof Input> = {
     prefix: {
       table: {
         type: {
-          summary: "string | number | JSX.Element",
+          summary: "JSX.Element",
         },
       },
       description: "Element inserted before value.",
@@ -50,11 +55,15 @@ const meta: Meta<typeof Input> = {
     suffix: {
       table: {
         type: {
-          summary: "string | number | JSX.Element",
+          summary: "JSX.Element",
         },
       },
       description: "Element inserted after value. Visible on hover/focus.",
       control: { disable: true },
+    },
+    focusOnDoubleClick: {
+      control: { type: "boolean" },
+      description: "Enables double-click focus",
     },
     onChange: {
       action: "changed",
@@ -86,6 +95,16 @@ const meta: Meta<typeof Input> = {
         },
       },
     },
+    onKeyDown: {
+      action: "keydown",
+      description:
+        "Callback function that is called when the input is keyed down.",
+      table: {
+        type: {
+          summary: "(args: { event: KeyboardEvent; value: string }) => void",
+        },
+      },
+    },
   },
 }
 export default meta
@@ -97,162 +116,234 @@ export const Demo: Story = {
     className: "",
     placeholder: "Placeholder",
     defaultValue: "",
+    ghost: false,
     error: false,
     disabled: false,
+    focusOnDoubleClick: false,
     onChange: fn(),
     onBlur: fn(),
     onFocus: fn(),
+    onKeyDown: fn(),
+  },
+  parameters: {
+    viewport: {
+      defaultViewport: "large",
+    },
   },
   render: (args) => (
     <div className="sb-column sb-gap-16" style={{ width: "30%" }}>
-      <Input {...args} />
+      <Section>
+        <Input {...args} />
+      </Section>
     </div>
   ),
 }
 
 export const Uncontrolled: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
   },
   render: () => (
-    <div className="sb-column sb-gap-16" style={{ width: "30%" }}>
-      <Input defaultValue="Default Value" />
+    <div className="sb-column sb-width-full sb-width-300">
+      <Section>
+        <Input defaultValue="Default Value" />
+      </Section>
     </div>
   ),
 }
 
 export const Controlled: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
   },
   render: () => {
     const [value, setValue] = useState("")
     return (
-      <div className="sb-column sb-gap-16" style={{ width: "30%" }}>
-        <Text>Value: {value}</Text>
-        <Input value={value} onChange={(args) => setValue(args.value)} />
+      <div className="sb-column sb-width-full sb-width-300">
+        <Section>
+          <Text>Value: {value}</Text>
+        </Section>
+        <Section>
+          <Input value={value} onChange={(args) => setValue(args.value)} />
+        </Section>
       </div>
     )
   },
 }
 
 export const Placeholder: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
   },
   render: () => (
-    <div className="sb-column sb-gap-16" style={{ width: "30%" }}>
-      <Input />
-      <Input placeholder="Placeholder" />
+    <div className="sb-column sb-width-full sb-width-300">
+      <Section>
+        <Stack spacing={400}>
+          <Input />
+          <Input placeholder="Placeholder" />
+        </Stack>
+      </Section>
+    </div>
+  ),
+}
+
+export const Ghost: Story = {
+  parameters: {
+    controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
+  },
+  render: () => (
+    <div className="sb-column sb-width-full sb-width-300">
+      <Section>
+        <Input defaultValue="Default Value" ghost />
+      </Section>
     </div>
   ),
 }
 
 export const Disabled: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
   },
   render: () => (
-    <div className="sb-column sb-gap-16" style={{ width: "30%" }}>
-      <Input disabled />
-      <Input disabled placeholder="Placeholder" />
-      <Input disabled defaultValue="Default Value" />
+    <div className="sb-column sb-width-full sb-width-300">
+      <Section>
+        <Stack spacing={400}>
+          <Input disabled />
+          <Input disabled placeholder="Placeholder" />
+          <Input disabled defaultValue="Default Value" />
+        </Stack>
+      </Section>
     </div>
   ),
 }
 
 export const Prefix: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
   },
   render: () => (
-    <div className="sb-column sb-gap-16" style={{ width: "30%" }}>
-      <Input
-        prefix={
-          <Icon
-            glyph="search"
-            context="neutral"
-            contextModifiers="secondary"
-            variant="scaled"
+    <div className="sb-column sb-width-full sb-width-300">
+      <Section>
+        <Stack spacing={400}>
+          <Input
+            prefix={
+              <Icon
+                glyph="search"
+                intent="neutral"
+                intentModifiers="secondary"
+                variant="scaled"
+              />
+            }
           />
-        }
-      />
-      <Input
-        placeholder="Placeholder"
-        prefix={
-          <Icon
-            glyph="search"
-            context="neutral"
-            contextModifiers="secondary"
-            variant="scaled"
+          <Input
+            placeholder="Placeholder"
+            prefix={
+              <Icon
+                glyph="search"
+                intent="neutral"
+                intentModifiers="secondary"
+                variant="scaled"
+              />
+            }
           />
-        }
-      />
-      <Input
-        defaultValue="Default Value"
-        prefix={
-          <Icon
-            glyph="search"
-            context="neutral"
-            contextModifiers="secondary"
-            variant="scaled"
+          <Input
+            defaultValue="Default Value"
+            prefix={
+              <Icon
+                glyph="search"
+                intent="neutral"
+                intentModifiers="secondary"
+                variant="scaled"
+              />
+            }
           />
-        }
-      />
+        </Stack>
+      </Section>
     </div>
   ),
 }
 
 export const Suffix: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
   },
   render: () => (
-    <div className="sb-column sb-gap-16" style={{ width: "30%" }}>
-      <Input
-        suffix={
-          <ButtonIcon context="neutral" contextModifiers="default" translucent>
-            <Icon
-              glyph="link"
-              context="neutral"
-              contextModifiers="default"
-              variant="scaled"
-            />
-          </ButtonIcon>
-        }
-      />
-      <Input
-        placeholder="Placeholder"
-        suffix={
-          <ButtonIcon context="neutral" contextModifiers="default" translucent>
-            <Icon
-              glyph="link"
-              context="neutral"
-              contextModifiers="default"
-              variant="scaled"
-            />
-          </ButtonIcon>
-        }
-      />
-      <Input
-        defaultValue="Default Value"
-        suffix={
-          <ButtonIcon context="neutral" contextModifiers="default" translucent>
-            <Icon
-              glyph="link"
-              context="neutral"
-              contextModifiers="default"
-              variant="scaled"
-            />
-          </ButtonIcon>
-        }
-      />
+    <div className="sb-column sb-width-full sb-width-300">
+      <Section>
+        <Stack spacing={400}>
+          <Input
+            suffix={
+              <ButtonIcon
+                intent="neutral"
+                intentModifiers="default"
+                translucent
+              >
+                <Icon
+                  glyph="link"
+                  intent="neutral"
+                  intentModifiers="default"
+                  variant="scaled"
+                />
+              </ButtonIcon>
+            }
+          />
+          <Input
+            placeholder="Placeholder"
+            suffix={
+              <ButtonIcon
+                intent="neutral"
+                intentModifiers="default"
+                translucent
+              >
+                <Icon
+                  glyph="link"
+                  intent="neutral"
+                  intentModifiers="default"
+                  variant="scaled"
+                />
+              </ButtonIcon>
+            }
+          />
+          <Input
+            defaultValue="Default Value"
+            suffix={
+              <ButtonIcon
+                intent="neutral"
+                intentModifiers="default"
+                translucent
+              >
+                <Icon
+                  glyph="link"
+                  intent="neutral"
+                  intentModifiers="default"
+                  variant="scaled"
+                />
+              </ButtonIcon>
+            }
+          />
+        </Stack>
+      </Section>
     </div>
   ),
 }

@@ -30,18 +30,29 @@ export const Demo: Story = {
     className: "",
     variant: "full",
   },
-  render: (args) => <Divider {...args} />,
+  parameters: {
+    viewport: {
+      defaultViewport: "large",
+    },
+  },
+  render: (args) => (
+    <div className="sb-column sb-width-full">
+      <Divider {...args} />
+    </div>
+  ),
 }
 
 export const Variant: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
   },
   render: () => (
     <div className="sb-column">
       <Section>
-        <Text context="neutral" variant="body" size="medium">
+        <Text>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
           minim veniam, quis nostrud exercitation ullamco laboris nisi ut
@@ -53,7 +64,7 @@ export const Variant: Story = {
       </Section>
       <Divider variant="full" />
       <Section>
-        <Text context="neutral" variant="body" size="medium">
+        <Text>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
           minim veniam, quis nostrud exercitation ullamco laboris nisi ut
@@ -65,7 +76,7 @@ export const Variant: Story = {
       </Section>
       <Divider variant="inset" />
       <Section>
-        <Text context="neutral" variant="body" size="medium">
+        <Text>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
           minim veniam, quis nostrud exercitation ullamco laboris nisi ut

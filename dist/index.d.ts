@@ -1,5 +1,22 @@
 import * as preact$1 from 'preact';
 
+declare const figmaLight: ColorTokenTree;
+
+declare const figmaDark: ColorTokenTree;
+
+declare const spacing: ColorTokenTree;
+
+declare const radius: ColorTokenTree;
+
+type ColorTokenBranch = {
+    [key: string]: string | ColorTokenBranch;
+};
+type ColorTokenTree = {
+    class: string;
+    prefix?: string;
+    variables: ColorTokenBranch;
+};
+
 interface AvatarProps {
     className?: string;
     size?: "small" | "medium" | "large";
@@ -16,7 +33,8 @@ declare const Avatar: (props: AvatarProps & {
 
 interface BadgeProps {
     className?: string;
-    context?: "neutral" | "neutral-secondary" | "neutral-brand" | "neutral-danger" | "neutral-warning" | "neutral-success" | "neutral-inverted" | "brand" | "danger" | "warning" | "success";
+    intent?: "neutral" | "neutral-inverted" | "brand" | "danger" | "warning" | "success";
+    intentModifiers?: "default" | "secondary" | "brand" | "danger" | "warning" | "success";
     prefix?: preact.ComponentChildren;
     suffix?: preact.ComponentChildren;
     children?: preact.ComponentChildren;
@@ -26,10 +44,24 @@ declare const Badge: (props: BadgeProps & {
     ref?: preact$1.Ref<HTMLDivElement> | undefined;
 }) => preact$1.VNode;
 
+interface BarProps {
+    className?: string;
+    borderTop?: boolean;
+    borderBottom?: boolean;
+    children?: preact.ComponentChildren;
+}
+
+declare const Bar: (props: BarProps & {
+    ref?: preact$1.Ref<HTMLDivElement> | undefined;
+}) => preact$1.VNode;
+
 interface ButtonProps {
     className?: string;
-    context?: "neutral" | "neutral-ghost" | "neutral-brand" | "neutral-brand-ghost" | "neutral-danger" | "neutral-danger-ghost" | "neutral-inverted" | "brand" | "danger" | "success";
+    intent?: "neutral" | "neutral-inverted" | "brand" | "danger" | "success";
+    intentModifiers?: "default" | "secondary" | "brand" | "danger" | "warning" | "success";
+    ghost?: boolean;
     size?: "medium" | "large";
+    grouped?: "none" | "left" | "right" | "both";
     disabled?: boolean;
     fullWidth?: boolean;
     prefix?: preact.ComponentChildren;
@@ -46,7 +78,12 @@ declare const Button: (props: ButtonProps & {
 
 interface ButtonIconProps {
     className?: string;
-    context?: "neutral" | "neutral-ghost";
+    intent?: "neutral";
+    intentModifiers?: "default";
+    ghost?: boolean;
+    size?: "medium" | "large";
+    grouped?: "none" | "left" | "right" | "both";
+    translucent?: boolean;
     disabled?: boolean;
     children?: preact.ComponentChildren;
     onClick?: (args: {
@@ -75,6 +112,7 @@ type CheckboxValue = boolean;
 interface CheckboxProps {
     className?: string;
     checked?: CheckboxValue;
+    defaultChecked?: CheckboxValue;
     mixed?: boolean;
     disabled?: boolean;
     label?: string;
@@ -98,19 +136,34 @@ declare const Divider: (props: DividerProps & {
 }) => preact$1.VNode;
 
 declare const glyphs: {
+    adjust: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
+    ai: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
     check: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
     chevronDown: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
     chevronRight: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
     close: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
+    copy: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
     dragHandle: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
+    duplicate: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
     help: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
+    home: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
+    imports: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
+    info: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
+    insert: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
+    filter: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
+    filterFilled: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
     link: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
     minus: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
     mixed: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
     more: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
     plus: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
     search: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
+    select: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
     settings: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
+    updates: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
+    viewGrid: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
+    viewList: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
+    warning: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
 };
 
 interface GlyphProps {
@@ -120,7 +173,12 @@ interface GlyphProps {
 interface IconProps {
     className?: string;
     glyph?: keyof typeof glyphs;
-    context?: "inherit" | "neutral" | "neutral-secondary" | "neutral-brand" | "neutral-danger" | "neutral-warning" | "neutral-success" | "neutral-inverted" | "brand" | "danger" | "warning" | "success";
+    intent?: "neutral" | "neutral-inverted" | "brand" | "danger" | "warning" | "success";
+    intentModifiers?: "default" | "secondary" | "brand" | "danger" | "warning" | "success";
+    disabled?: boolean;
+    interactive?: boolean;
+    selected?: boolean;
+    fill?: string;
     variant?: "default" | "scaled";
     size?: 16 | 24;
     children?: preact.ComponentChildren;
@@ -128,6 +186,39 @@ interface IconProps {
 
 declare const Icon: (props: IconProps & {
     ref?: preact$1.Ref<HTMLDivElement> | undefined;
+}) => preact$1.VNode;
+
+interface InputProps {
+    className?: string;
+    placeholder?: string;
+    defaultValue?: string;
+    value?: string;
+    ghost?: boolean;
+    error?: boolean;
+    disabled?: boolean;
+    prefix?: preact.ComponentChildren;
+    suffix?: preact.ComponentChildren;
+    focusOnDoubleClick?: boolean;
+    onChange?: (args: {
+        event: MouseEvent;
+        value: string;
+    }) => void;
+    onBlur?: (args: {
+        event: MouseEvent;
+        value: string;
+    }) => void;
+    onFocus?: (args: {
+        event: MouseEvent;
+        value: string;
+    }) => void;
+    onKeyDown?: (args: {
+        event: KeyboardEvent;
+        value: string;
+    }) => void;
+}
+
+declare const Input: (props: InputProps & {
+    ref?: preact$1.Ref<HTMLInputElement> | undefined;
 }) => preact$1.VNode;
 
 interface ListContainerProps {
@@ -159,8 +250,6 @@ interface ListContextValue {
     }) => () => void;
     getPathForId?: (id: string) => number[] | null;
     registerItemPath?: (id: string, path: number[]) => () => void;
-    selectAll: () => void;
-    deselectAll: () => void;
     reorderItems: (itemIds: string[], targetIndex: number, targetParentPath?: number[]) => void;
     selectionMode: "none" | "single" | "multi";
     registerRootElement?: (el: HTMLElement | null) => () => void;
@@ -179,6 +268,7 @@ interface ListContextProps {
     children: preact.ComponentChildren;
 }
 
+declare const useListContext: () => ListContextValue;
 declare const ListContext: ({ items: controlledItems, selectedItems: controlledSelectedItems, selectionMode, onItemsChange, onSelectionChange, children, }: ListContextProps) => preact$1.JSX.Element;
 
 interface ListItemProps {
@@ -216,12 +306,57 @@ declare const ListItem: (props: ListItemProps & {
     ref?: preact$1.Ref<HTMLDivElement> | undefined;
 }) => preact$1.VNode;
 
+interface ScrollContextValue {
+    positionY: number;
+    isAtTop: boolean;
+    isAtBottom: boolean;
+    onScroll: (event: Event) => void;
+    setPositionY: (positionY: number) => void;
+}
+interface ScrollContextProps {
+    defaultPositionY?: number;
+    positionY?: number;
+    onScroll?: (args: {
+        positionY: number;
+    }) => void;
+    children: preact.ComponentChildren;
+}
+
+declare const useScrollContext: () => ScrollContextValue;
+declare const ScrollContext: ({ defaultPositionY, positionY: controlledPositionY, onScroll, children, }: ScrollContextProps) => preact$1.JSX.Element;
+
+interface ScrollContainerProps {
+    className?: string;
+    children: preact.ComponentChildren;
+}
+
+declare const ScrollContainer: (props: ScrollContainerProps & {
+    ref?: preact$1.Ref<HTMLDivElement> | undefined;
+}) => preact$1.VNode;
+
+type SectionPadding = keyof typeof spacing.variables;
 interface SectionProps {
     className?: string;
+    padding?: {
+        top?: SectionPadding;
+        right?: SectionPadding;
+        bottom?: SectionPadding;
+        left?: SectionPadding;
+    };
     children?: preact.ComponentChildren;
 }
 
 declare const Section: (props: SectionProps & {
+    ref?: preact$1.Ref<HTMLDivElement> | undefined;
+}) => preact$1.VNode;
+
+interface SpacingProps {
+    className?: string;
+    size?: keyof typeof spacing.variables;
+    direction?: "row" | "column";
+}
+
+declare const Spacing: (props: SpacingProps & {
     ref?: preact$1.Ref<HTMLDivElement> | undefined;
 }) => preact$1.VNode;
 
@@ -230,6 +365,21 @@ interface SpinnerProps {
 }
 
 declare const Spinner: (props: SpinnerProps & {
+    ref?: preact$1.Ref<HTMLDivElement> | undefined;
+}) => preact$1.VNode;
+
+interface StackProps {
+    className?: string;
+    direction?: "row" | "row-reverse" | "column" | "column-reverse";
+    spacing?: keyof typeof spacing.variables;
+    x?: "start" | "center" | "end";
+    y?: "start" | "center" | "end";
+    fullHeight?: boolean;
+    fullWidth?: boolean;
+    children?: preact.ComponentChildren;
+}
+
+declare const Stack: (props: StackProps & {
     ref?: preact$1.Ref<HTMLDivElement> | undefined;
 }) => preact$1.VNode;
 
@@ -258,12 +408,13 @@ interface TabContextValue {
 interface TabContextProps {
     defaultValue?: string;
     value?: string;
+    children: preact.ComponentChildren;
     onChange?: (args: {
         value: string;
     }) => void;
-    children: preact.ComponentChildren;
 }
 
+declare const useTabContext: () => TabContextValue;
 declare const TabContext: ({ defaultValue, value: controlledValue, onChange, children, }: TabContextProps) => preact$1.JSX.Element;
 
 interface TabListProps {
@@ -278,6 +429,7 @@ declare const TabList: (props: TabListProps & {
 interface TabPanelProps {
     className?: string;
     value: string;
+    fullHeight?: boolean;
     children: preact.ComponentChildren;
 }
 
@@ -287,11 +439,17 @@ declare const TabPanel: (props: TabPanelProps & {
 
 interface TextProps {
     className?: string;
-    context?: "inherit" | "neutral" | "neutral-secondary" | "neutral-brand" | "neutral-danger" | "neutral-warning" | "neutral-success" | "neutral-inverted" | "brand" | "danger" | "warning" | "success";
+    intent?: "neutral" | "neutral-inverted" | "brand" | "danger" | "warning" | "success";
+    intentModifiers?: "default" | "secondary" | "brand" | "danger" | "warning" | "success";
+    disabled?: boolean;
+    interactive?: boolean;
+    selected?: boolean;
+    fill?: string;
     variant?: "heading" | "body";
     size?: "small" | "medium" | "large";
     strong?: boolean;
     align?: "left" | "center" | "right";
+    fullWidth?: boolean;
     children: preact.ComponentChildren;
 }
 
@@ -299,5 +457,21 @@ declare const Text: (props: TextProps & {
     ref?: preact$1.Ref<HTMLDivElement> | undefined;
 }) => preact$1.VNode;
 
-export { Avatar, Badge, Button, ButtonIcon, ButtonIconToggle, Checkbox, Divider, Icon, ListContainer, ListContext, ListItem, Section, Spinner, Tab, TabContext, TabList, TabPanel, Text };
-export type { AvatarProps, BadgeProps, ButtonIconProps, ButtonIconToggleProps, ButtonProps, CheckboxProps, CheckboxValue, DividerProps, IconProps, ListContainerProps, ListContextProps, ListContextValue, ListItemData, ListItemProps, SectionProps, SpinnerProps, TabContextProps, TabContextValue, TabListProps, TabPanelProps, TabProps, TextProps };
+interface WindowResizerProps {
+    className?: string;
+    minWidth: number;
+    minHeight: number;
+    maxWidth: number;
+    maxHeight: number;
+    onResize: (args: {
+        width: number;
+        height: number;
+    }) => void;
+}
+
+declare const WindowResizer: (props: WindowResizerProps & {
+    ref?: preact$1.Ref<HTMLDivElement> | undefined;
+}) => preact$1.VNode;
+
+export { Avatar, Badge, Bar, Button, ButtonIcon, ButtonIconToggle, Checkbox, Divider, Icon, Input, ListContainer, ListContext, ListItem, ScrollContainer, ScrollContext, Section, Spacing, Spinner, Stack, Tab, TabContext, TabList, TabPanel, Text, WindowResizer, figmaDark, figmaLight, radius, spacing, useListContext, useScrollContext, useTabContext };
+export type { AvatarProps, BadgeProps, BarProps, ButtonIconProps, ButtonIconToggleProps, ButtonProps, CheckboxProps, CheckboxValue, DividerProps, IconProps, InputProps, ListContainerProps, ListContextProps, ListContextValue, ListItemData, ListItemProps, ScrollContainerProps, ScrollContextProps, ScrollContextValue, SectionPadding, SectionProps, SpacingProps, SpinnerProps, StackProps, TabContextProps, TabContextValue, TabListProps, TabPanelProps, TabProps, TextProps, WindowResizerProps };

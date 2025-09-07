@@ -1,0 +1,102 @@
+@use "../../shared.scss" as *;
+
+@mixin Stack_spacing($spacing) {
+  &_spacing-#{$spacing} {
+    gap: var(--pui-spacing-#{$spacing});
+  }
+}
+
+.Stack {
+  $parent: &;
+
+  position: relative;
+  display: flex;
+
+  &_direction {
+    &-row {
+      flex-flow: row nowrap;
+    }
+
+    &-column {
+      flex-flow: column nowrap;
+    }
+
+    &-row-reverse {
+      flex-flow: row-reverse nowrap;
+    }
+
+    &-column-reverse {
+      flex-flow: column-reverse nowrap;
+    }
+  }
+
+  &_fullHeight {
+    flex: 1;
+    overflow: hidden;
+  }
+
+  &_fullWidth {
+    width: 100%;
+  }
+
+  @include Stack_spacing(100);
+  @include Stack_spacing(200);
+  @include Stack_spacing(400);
+  @include Stack_spacing(600);
+  @include Stack_spacing(800);
+  @include Stack_spacing(1000);
+
+  &_direction-row,
+  &_direction-row-reverse {
+    &#{$parent}_x-start {
+      justify-content: flex-start;
+    }
+
+    &#{$parent}_x-center {
+      justify-content: center;
+    }
+
+    &#{$parent}_x-end {
+      justify-content: flex-end;
+    }
+
+    &#{$parent}_y-start {
+      align-items: flex-start;
+    }
+
+    &#{$parent}_y-center {
+      align-items: center;
+    }
+
+    &#{$parent}_y-end {
+      align-items: flex-end;
+    }
+  }
+
+  &_direction-column,
+  &_direction-column-reverse {
+    &#{$parent}_x-start {
+      align-items: flex-start;
+    }
+
+    &#{$parent}_x-center {
+      align-items: center;
+    }
+
+    &#{$parent}_x-end {
+      align-items: flex-end;
+    }
+
+    &#{$parent}_y-start {
+      justify-content: flex-start;
+    }
+
+    &#{$parent}_y-center {
+      justify-content: center;
+    }
+
+    &#{$parent}_y-end {
+      justify-content: flex-end;
+    }
+  }
+}

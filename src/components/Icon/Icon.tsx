@@ -10,8 +10,8 @@ const IconComponent = (
   {
     className,
     glyph,
-    context = "neutral",
-    contextModifiers = "default",
+    intent = "neutral",
+    intentModifiers = "default",
     disabled,
     interactive,
     selected,
@@ -26,7 +26,7 @@ const IconComponent = (
   const _className = bem("Icon", undefined, {
     glyph,
     ...(!fill && {
-      context: `${context}-${contextModifiers}`,
+      intent: `${intent}-${intentModifiers}`,
       disabled,
       interactive,
       selected,
@@ -49,6 +49,7 @@ const IconComponent = (
   return (
     <div
       className={[_className, className].join(" ").trim()}
+      ref={ref}
       {...rest}
       style={{
         ...(fill && { color: fill }),

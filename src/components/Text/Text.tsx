@@ -8,8 +8,8 @@ import "./Text.scss"
 const TextComponent = (
   {
     className,
-    context = "neutral",
-    contextModifiers = "default",
+    intent = "neutral",
+    intentModifiers = "default",
     disabled,
     interactive,
     selected,
@@ -18,6 +18,7 @@ const TextComponent = (
     size = "medium",
     strong,
     align = "left",
+    fullWidth,
     children,
     ...rest
   }: TextProps,
@@ -25,7 +26,7 @@ const TextComponent = (
 ) => {
   const _className = bem("Text", undefined, {
     ...(!fill && {
-      context: `${context}-${contextModifiers}`,
+      intent: `${intent}-${intentModifiers}`,
       disabled,
       interactive,
       selected,
@@ -34,6 +35,7 @@ const TextComponent = (
     size,
     strong,
     align,
+    fullWidth,
   })
 
   return (

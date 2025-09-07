@@ -3,6 +3,7 @@ import { useListContext } from "../ListContext/ListContext"
 import { useState, useEffect, useRef } from "preact/hooks"
 
 import type { ListItemProps } from "./ListItem.types"
+import type { ListItemData } from "../ListContext/ListContext.types"
 import "./ListItem.scss"
 
 import { Icon } from "../Icon/Icon"
@@ -119,7 +120,7 @@ const ListItemComponent = (
       document.removeEventListener("resetDragStates", handleResetDragStates)
       unregister?.()
     }
-  }, [])
+  }, [id, registerItemMeta, selectable, selectionScope])
 
   const _className = bem("ListItem", undefined, {
     dragHandle,
@@ -165,11 +166,11 @@ const ListItemComponent = (
 
   const collectDescendantsForLocal = (rootId: string): string[] => {
     const ids: string[] = []
-    const walk = (nodes: any[]): boolean => {
+    const walk = (nodes: ListItemData[]): boolean => {
       for (let i = 0; i < nodes.length; i++) {
         const n = nodes[i]
         if (n.id === rootId) {
-          const addAll = (children?: any[]) => {
+          const addAll = (children?: ListItemData[]) => {
             if (!children) return
             for (let j = 0; j < children.length; j++) {
               const c = children[j]
@@ -184,7 +185,7 @@ const ListItemComponent = (
       }
       return false
     }
-    walk(items as any)
+    walk(items as ListItemData[])
     return ids
   }
 
@@ -198,14 +199,17 @@ const ListItemComponent = (
       // Ignore self-hover: if dragging this item (or multi-drag including this id), do not show styles
       let draggedIds: string[] = []
       // Prefer global cache set on dragstart to work around browsers that hide dataTransfer on dragover
-      const globalIds = (window as any).__puiDraggingIds as string[] | undefined
+      const globalIds = (window as { __puiDraggingIds?: string[] })
+        .__puiDraggingIds
       if (Array.isArray(globalIds)) draggedIds = globalIds
       const json = e.dataTransfer?.getData("application/json")
       if (json) {
         try {
           const parsed = JSON.parse(json)
           if (parsed && Array.isArray(parsed.ids)) draggedIds = parsed.ids
-        } catch {}
+        } catch {
+          // Ignore JSON parse errors
+        }
       }
       if (draggedIds.length === 0) {
         const plain = e.dataTransfer?.getData("text/plain")
@@ -234,8 +238,7 @@ const ListItemComponent = (
       const content = target.querySelector(
         ".ListItem__content"
       ) as HTMLElement | null
-      let rect: DOMRect | undefined
-      rect = content?.getBoundingClientRect()
+      const rect: DOMRect | undefined = content?.getBoundingClientRect()
       if (!rect) return
       // Only apply zones when hovering over the content block, not full item height
       if (e.clientY < rect.top || e.clientY > rect.bottom) {
@@ -325,13 +328,17 @@ const ListItemComponent = (
       const payload = { ids }
       try {
         e.dataTransfer?.setData("application/json", JSON.stringify(payload))
-      } catch {}
+      } catch {
+        // Ignore setData errors
+      }
       e.dataTransfer?.setData("text/plain", ids[0])
-      ;(window as any).__puiDraggingIds = ids
+      ;(window as { __puiDraggingIds?: string[] }).__puiDraggingIds = ids
       // Hide default drag preview
       try {
         e.dataTransfer?.setDragImage(dragImage as HTMLElement, 0, 0)
-      } catch {}
+      } catch {
+        // Ignore setDragImage errors
+      }
       onDragStart?.({ event: e })
     }
   }
@@ -342,8 +349,10 @@ const ListItemComponent = (
       setDragPosition(null)
       setIsDragging(false)
       try {
-        delete (window as any).__puiDraggingIds
-      } catch {}
+        delete (window as { __puiDraggingIds?: string[] }).__puiDraggingIds
+      } catch {
+        // Ignore delete errors
+      }
       // Remove drop-parent class from self and parent
       if (dropParentRef.current) {
         dropParentRef.current.classList.remove("ListItem_drop-parent")
@@ -358,8 +367,8 @@ const ListItemComponent = (
       className={[_className, className].join(" ").trim()}
       ref={(node) => {
         selfRef.current = node
-        if (typeof ref === "function") ref(node as any)
-        else if (ref) (ref as any).current = node
+        if (typeof ref === "function") ref(node as HTMLDivElement)
+        else if (ref) (ref as preact.RefObject<HTMLDivElement>).current = node
       }}
       key={id}
       {...rest}
@@ -376,12 +385,12 @@ const ListItemComponent = (
         draggable={Boolean(draggable && dragHandle === "container")}
         onDragStart={
           dragHandle === "container" && draggable
-            ? (handleDragHandleDragStart as any)
+            ? handleDragHandleDragStart
             : undefined
         }
         onDragEnd={
           dragHandle === "container" && draggable
-            ? (handleDragHandleDragEnd as any)
+            ? handleDragHandleDragEnd
             : undefined
         }
       >
@@ -405,8 +414,8 @@ const ListItemComponent = (
             }}
           >
             <Icon
-              context="neutral"
-              contextModifiers="secondary"
+              intent="neutral"
+              intentModifiers="secondary"
               glyph={effectiveCollapsed ? "chevronRight" : "chevronDown"}
               size={16}
             />
@@ -421,8 +430,7 @@ const ListItemComponent = (
           >
             <Icon
               glyph="dragHandle"
-              context="neutral"
-              contextModifiers="secondary"
+              fill="var(--pui-color-neutral-icon-tertiary)"
               size={16}
             />
           </div>

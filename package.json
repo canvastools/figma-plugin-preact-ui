@@ -1,6 +1,6 @@
 {
   "name": "figma-plugin-preact-ui",
-  "version": "1.0.0",
+  "version": "0.2.0",
   "description": "Preact UI library inspired by Figma's UI3, designed for plugin development.",
   "keywords": [
     "figma",
@@ -57,7 +57,7 @@
   "scripts": {
     "build": "vite build",
     "watch": "vite build --watch",
-    "prod": "vite build && tsc -p tsconfig.types.json && node ./scripts/clean-scss-imports.js && rollup -c rollup.config.dts.js && rm -rf dist/tmp-types",
+    "prod": "vite build && tsc -p tsconfig.types.json && node ./scripts/clean-scss-imports.js && rollup -c rollup.config.dts.js && rm -rf dist/tmp-types && tsc && eslint . || true",
     "lint": "tsc && eslint . || true",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",

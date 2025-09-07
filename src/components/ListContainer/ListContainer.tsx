@@ -15,10 +15,25 @@ const ListContainerComponent = (
   }: ListContainerProps & { nestingLevel?: number },
   ref: preact.Ref<HTMLDivElement>
 ) => {
-  const { reorderItems, registerRootElement, items, getPathForId } =
-    useListContext()
+  const { reorderItems, registerRootElement, getPathForId } = useListContext()
   const rootRef = useRef<HTMLDivElement | null>(null)
-  const idToPathLocal = useRef<Map<string, number[]>>(new Map())
+  const endZoneDropParentRef = useRef<HTMLElement | null>(null)
+
+  // Ensure every container exposes its nesting level via CSS var --level (root=0)
+  useEffect(() => {
+    const el = rootRef.current
+    if (!el) return
+    const parentItemEl = el.closest(".ListItem") as HTMLElement | null
+    const parentLevelAttr = parentItemEl?.getAttribute("data-nesting-level")
+    const parentLevel = parentLevelAttr ? parseInt(parentLevelAttr, 10) : 0
+    const level = parentItemEl ? parentLevel + 1 : 0
+    try {
+      el.style.setProperty("--level", String(level))
+    } catch {
+      // ignore style errors
+    }
+  }, [rootRef])
+  // const idToPathLocal = useRef<Map<string, number[]>>(new Map())
 
   useEffect(() => registerRootElement?.(rootRef.current), [registerRootElement])
 
@@ -31,7 +46,8 @@ const ListContainerComponent = (
     e.preventDefault()
     e.stopPropagation()
     let itemIds: string[] | null = null
-    const globalIds = (window as any).__puiDraggingIds as string[] | undefined
+    const globalIds = (window as { __puiDraggingIds?: string[] })
+      .__puiDraggingIds
     if (Array.isArray(globalIds)) itemIds = globalIds
     const json = e.dataTransfer?.getData("application/json")
     if (json) {
@@ -40,7 +56,9 @@ const ListContainerComponent = (
         if (parsed && Array.isArray(parsed.ids)) {
           itemIds = parsed.ids
         }
-      } catch {}
+      } catch {
+        // Ignore JSON parse errors
+      }
     }
     if (!itemIds) {
       const itemId = e.dataTransfer?.getData("text/plain")
@@ -53,7 +71,6 @@ const ListContainerComponent = (
 
       let targetIndex = childElements.length
       let dragPosition: "above" | "below" | "inside" = "below"
-      let insideTargetIndex: number | null = null
 
       for (let i = 0; i < childElements.length; i++) {
         const child = childElements[i]
@@ -70,7 +87,6 @@ const ListContainerComponent = (
             const isCollapsed = child.classList.contains("ListItem_collapsed")
             if (hasSubItems && !isCollapsed && acceptsChildren) {
               dragPosition = "inside"
-              insideTargetIndex = i
               targetIndex = 0
             } else {
               dragPosition = "below"
@@ -81,12 +97,10 @@ const ListContainerComponent = (
             const acceptsChildren2 = acceptsAttr2 !== "false"
             if (acceptsChildren2) {
               dragPosition = "inside"
-              insideTargetIndex = i
               targetIndex = 0
             } else {
               // Fallback: treat inside as below when item cannot accept children
               dragPosition = "below"
-              insideTargetIndex = null
               targetIndex = i + 1
             }
           }
@@ -149,26 +163,44 @@ const ListContainerComponent = (
     e.preventDefault()
     e.stopPropagation()
     e.dataTransfer!.dropEffect = "move"
-    ;(e.currentTarget as HTMLElement).classList.add(
-      "ListContainer__end-dropzone-active"
-    )
+    const endZoneTarget = e.currentTarget as HTMLElement
+    endZoneTarget.classList.add("ListContainer__end-dropzone-active")
+    // Highlight the related parent ListItem (if any)
+    const endZoneEl = e.currentTarget as HTMLElement
+    const containerEl = endZoneEl.parentElement as HTMLElement | null
+    const parentItemEl = containerEl?.closest(".ListItem") as HTMLElement | null
+    const desiredEl = parentItemEl || null
+    if (endZoneDropParentRef.current !== desiredEl) {
+      if (endZoneDropParentRef.current) {
+        endZoneDropParentRef.current.classList.remove("ListItem_drop-parent")
+      }
+      if (desiredEl) desiredEl.classList.add("ListItem_drop-parent")
+      endZoneDropParentRef.current = desiredEl
+    }
   }
 
   const handleEndZoneDrop = (e: DragEvent) => {
     e.preventDefault()
     e.stopPropagation()
-    ;(e.currentTarget as HTMLElement).classList.remove(
-      "ListContainer__end-dropzone-active"
-    )
+    const endZoneTarget = e.currentTarget as HTMLElement
+    endZoneTarget.classList.remove("ListContainer__end-dropzone-active")
+    // Clear highlight on drop
+    if (endZoneDropParentRef.current) {
+      endZoneDropParentRef.current.classList.remove("ListItem_drop-parent")
+      endZoneDropParentRef.current = null
+    }
     let itemIds: string[] | null = null
-    const globalIds = (window as any).__puiDraggingIds as string[] | undefined
+    const globalIds = (window as { __puiDraggingIds?: string[] })
+      .__puiDraggingIds
     if (Array.isArray(globalIds)) itemIds = globalIds
     const json = e.dataTransfer?.getData("application/json")
     if (json) {
       try {
         const parsed = JSON.parse(json)
         if (parsed && Array.isArray(parsed.ids)) itemIds = parsed.ids
-      } catch {}
+      } catch {
+        // Ignore JSON parse errors
+      }
     }
     if (!itemIds) {
       const itemId = e.dataTransfer?.getData("text/plain")
@@ -178,16 +210,37 @@ const ListContainerComponent = (
     if (itemIds && itemIds.length) {
       const resetDragStatesEvent = new CustomEvent("resetDragStates")
       document.dispatchEvent(resetDragStatesEvent)
-      // Always insert at the end of root level
-      const rootCount = Array.isArray(items) ? items.length : 0
-      reorderItems(itemIds, rootCount, undefined)
+
+      // Determine which level this end-dropzone belongs to
+      const endZoneEl = e.currentTarget as HTMLElement
+      const containerEl = endZoneEl.parentElement as HTMLElement | null
+      // Count direct child items in this container to append at the end of this level
+      const childCount = containerEl
+        ? Array.from(containerEl.children).filter((el) =>
+            (el as HTMLElement).classList?.contains("ListItem")
+          ).length
+        : 0
+      // If this container is nested under a ListItem, append inside that item's children
+      const parentItemEl = containerEl?.closest(
+        ".ListItem"
+      ) as HTMLElement | null
+      const parentId = parentItemEl?.getAttribute("data-item-id") || null
+      const parentPath = parentId ? getPathForId?.(parentId) || [] : []
+
+      const targetPath = parentId ? parentPath : undefined
+      const targetIndex = childCount
+
+      reorderItems(itemIds, targetIndex, targetPath)
     }
   }
 
   const handleEndZoneDragLeave = (e: DragEvent) => {
-    ;(e.currentTarget as HTMLElement).classList.remove(
-      "ListContainer__end-dropzone-active"
-    )
+    const endZoneTarget = e.currentTarget as HTMLElement
+    endZoneTarget.classList.remove("ListContainer__end-dropzone-active")
+    if (endZoneDropParentRef.current) {
+      endZoneDropParentRef.current.classList.remove("ListItem_drop-parent")
+      endZoneDropParentRef.current = null
+    }
   }
 
   const _className = bem("ListContainer", undefined, undefined)
@@ -197,8 +250,8 @@ const ListContainerComponent = (
       className={[_className, className].join(" ").trim()}
       ref={(node) => {
         rootRef.current = node
-        if (typeof ref === "function") ref(node as any)
-        else if (ref) (ref as any).current = node
+        if (typeof ref === "function") ref(node as HTMLDivElement)
+        else if (ref) (ref as preact.RefObject<HTMLDivElement>).current = node
       }}
       {...rest}
       onDragOver={handleDragOver}

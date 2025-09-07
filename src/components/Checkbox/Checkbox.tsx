@@ -92,8 +92,8 @@ const CheckboxComponent = (
           <div className="Checkbox__icon">
             <Icon
               glyph="check"
-              context="brand"
-              contextModifiers="default"
+              intent="brand"
+              intentModifiers="default"
               interactive
               size={16}
             />
@@ -103,8 +103,8 @@ const CheckboxComponent = (
           <div className="Checkbox__icon">
             <Icon
               glyph="mixed"
-              context="brand"
-              contextModifiers="default"
+              intent="brand"
+              intentModifiers="default"
               interactive
               size={16}
             />
@@ -113,15 +113,7 @@ const CheckboxComponent = (
       </div>
       {label && (
         <div className="Checkbox__label" onClick={handleClick}>
-          <Text
-            variant="body"
-            size="medium"
-            context="neutral"
-            contextModifiers="default"
-            disabled={disabled}
-          >
-            {label}
-          </Text>
+          <Text disabled={disabled}>{label}</Text>
         </div>
       )}
     </div>

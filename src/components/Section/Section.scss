@@ -1,16 +1,53 @@
 @use "../../shared.scss" as *;
 
+@mixin Section_padding($side, $padding) {
+  &-#{$padding} {
+    padding-#{$side}: var(--pui-spacing-#{$padding});
+  }
+}
+
 .Section {
   $parent: &;
 
   width: 100%;
   display: flex;
+  flex-flow: column nowrap;
   padding: var(--pui-spacing-200) var(--pui-spacing-400);
+  position: relative;
 
-  &__children {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    overflow-x: hidden;
+  &_paddingTop {
+    @include Section_padding("top", "100");
+    @include Section_padding("top", "200");
+    @include Section_padding("top", "400");
+    @include Section_padding("top", "600");
+    @include Section_padding("top", "800");
+    @include Section_padding("top", "1000");
+  }
+
+  &_paddingRight {
+    @include Section_padding("right", "100");
+    @include Section_padding("right", "200");
+    @include Section_padding("right", "400");
+    @include Section_padding("right", "600");
+    @include Section_padding("right", "800");
+    @include Section_padding("right", "1000");
+  }
+
+  &_paddingBottom {
+    @include Section_padding("bottom", "100");
+    @include Section_padding("bottom", "200");
+    @include Section_padding("bottom", "400");
+    @include Section_padding("bottom", "600");
+    @include Section_padding("bottom", "800");
+    @include Section_padding("bottom", "1000");
+  }
+
+  &_paddingLeft {
+    @include Section_padding("left", "100");
+    @include Section_padding("left", "200");
+    @include Section_padding("left", "400");
+    @include Section_padding("left", "600");
+    @include Section_padding("left", "800");
+    @include Section_padding("left", "1000");
   }
 }

@@ -4,6 +4,8 @@ import { Icon } from "./Icon"
 import { glyphs } from "./glyphs"
 
 import { Text } from "../Text/Text"
+import type { TextProps } from "../Text/Text.types"
+import { Section } from "../Section/Section"
 
 const meta: Meta<typeof Icon> = {
   title: "Components/Icon",
@@ -17,12 +19,12 @@ const meta: Meta<typeof Icon> = {
       control: { type: "select" },
       options: Object.keys(glyphs),
     },
-    context: {
+    intent: {
       control: { type: "radio" },
       options: ["neutral", "brand", "danger", "warning", "success"],
       defaultValue: { summary: "neutral" },
     },
-    contextModifiers: {
+    intentModifiers: {
       control: { type: "radio" },
       options: [
         "default",
@@ -37,12 +39,22 @@ const meta: Meta<typeof Icon> = {
     disabled: {
       control: { type: "boolean" },
     },
+    interactive: {
+      control: { type: "boolean" },
+      description:
+        "Allows using colours for interactive states within the intent.",
+    },
+    selected: {
+      control: { type: "boolean" },
+      description:
+        "Enables the modifier for the selected state. Only works if interactive is enabled.",
+    },
     fill: {
       control: { type: "color" },
-      description: "Overrides the context color.",
+      description: "Overrides the intent color.",
     },
     variant: {
-      control: { type: "select" },
+      control: { type: "radio" },
       options: ["default", "scaled"],
       defaultValue: { summary: "default" },
       description:
@@ -53,16 +65,6 @@ const meta: Meta<typeof Icon> = {
       options: [16, 24],
       defaultValue: { summary: "24" },
       description: "The size of the icon container.",
-    },
-    interactive: {
-      control: { type: "boolean" },
-      description:
-        "Allows using colours for interactive states within the context.",
-    },
-    selected: {
-      control: { type: "boolean" },
-      description:
-        "Enables the modifier for the selected state. Only works if interactive is enabled.",
     },
   },
 }
@@ -75,49 +77,58 @@ export const Demo: Story = {
   args: {
     className: "",
     glyph: "link",
-    context: "neutral",
-    contextModifiers: "default",
+    intent: "neutral",
+    intentModifiers: "default",
     disabled: false,
+    interactive: false,
+    selected: false,
     variant: "default",
     size: 24,
   },
-  render: (args) => <Icon {...args} />,
+  parameters: {
+    viewport: {
+      defaultViewport: "large",
+    },
+  },
+  render: (args) => (
+    <div className="sb-column sb-width-full">
+      <Section>
+        <Icon {...args} />
+      </Section>
+    </div>
+  ),
 }
 
 const glyphCombinations = (glyph: string) => {
-  // @ts-ignore-next-line
+  // @ts-expect-error: Storybook types hack
   const combinations = meta.argTypes.variant.options.flatMap((i) =>
-    // @ts-ignore-next-line
+    // @ts-expect-error: Storybook types hack
     meta.argTypes.size.options.map((j) => [i, j])
   )
 
   return combinations.map(([variant, size]) => {
     try {
       // Probe support for this size/variant pair
-      // @ts-ignore-next-line
       glyphs[glyph]({ variant, size })
 
       return (
         <td style={{ verticalAlign: "top", width: "100%", padding: "16px" }}>
-          <Text context="neutral" contextModifiers="secondary">
+          <Text intent="neutral" intentModifiers="secondary">
             {size}, {variant}
           </Text>
           <br />
           <Icon
             glyph={glyph as keyof typeof glyphs}
-            // @ts-ignore-next-line
             variant={variant}
-            // @ts-ignore-next-line
             size={size}
-            context="neutral"
+            intent="neutral"
           />
         </td>
       )
     } catch (e) {
       return (
         <td style={{ verticalAlign: "top", width: "100%", padding: "16px" }}>
-          {" "}
-          <Text context="neutral" contextModifiers="danger">
+          <Text intent="neutral" intentModifiers="danger">
             {size}, {variant}
           </Text>
         </td>
@@ -127,9 +138,11 @@ const glyphCombinations = (glyph: string) => {
 }
 
 export const Glyphs: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
   },
   render: () => (
     <table className="sb-column sb-gap-16">
@@ -140,7 +153,7 @@ export const Glyphs: Story = {
               borderBottom: "1px solid var(--pui-color-neutral-border-default)",
             }}
           >
-            <td style={{ width: "100%" }}>
+            <td className="sb-width-full">
               <Text variant="heading">{glyph}</Text>
             </td>
 
@@ -152,7 +165,7 @@ export const Glyphs: Story = {
   ),
 }
 
-const contextCombinations = () => {
+const intentCombinations = () => {
   const validCombinations = {
     neutral: [
       ["default", false, false],
@@ -189,26 +202,26 @@ const contextCombinations = () => {
     ],
   }
 
-  return Object.keys(validCombinations).map((context) => (
-    <div className="sb-column sb-gap-16">
-      {validCombinations[context].map(([modifier, interactive, selected]) => (
+  return Object.keys(validCombinations).map((intent) => (
+    <div className="sb-column sb-width-full sb-gap-16">
+      {validCombinations[intent].map(([modifier, interactive, selected]) => (
         <div
           className="sb-row sb-gap-16 sb-width-full sb-padding-16"
           style={{
-            backgroundColor: `var(--pui-color-${context}-bg-default${
+            backgroundColor: `var(--pui-color-${intent}-bg-default${
               interactive ? "-interactive" : ""
             }${selected ? "-selected" : ""})`,
             alignItems: "center",
           }}
         >
-          <div style={{ width: "100%" }}>
+          <div className="sb-width-full">
             <Text
-              context={context as any}
-              contextModifiers={modifier as any}
-              interactive={interactive as any}
-              selected={selected as any}
+              intent={intent as TextProps["intent"]}
+              intentModifiers={modifier as TextProps["intentModifiers"]}
+              interactive={interactive as TextProps["interactive"]}
+              selected={selected as TextProps["selected"]}
             >
-              {context}
+              {intent}
               {modifier === "default" ? "" : `-${modifier}`}
               {interactive ? ", interactive" : ""}{" "}
               {selected ? ", selected" : ""}
@@ -218,28 +231,28 @@ const contextCombinations = () => {
             glyph="link"
             variant="default"
             size={24}
-            context={context as any}
-            contextModifiers={modifier as any}
-            interactive={interactive as any}
-            selected={selected as any}
+            intent={intent as TextProps["intent"]}
+            intentModifiers={modifier as TextProps["intentModifiers"]}
+            interactive={interactive as TextProps["interactive"]}
+            selected={selected as TextProps["selected"]}
           />
           <Icon
             glyph="link"
             variant="scaled"
             size={24}
-            context={context as any}
-            contextModifiers={modifier as any}
-            interactive={interactive as any}
-            selected={selected as any}
+            intent={intent as TextProps["intent"]}
+            intentModifiers={modifier as TextProps["intentModifiers"]}
+            interactive={interactive as TextProps["interactive"]}
+            selected={selected as TextProps["selected"]}
           />
           <Icon
             glyph="link"
             variant="default"
             size={16}
-            context={context as any}
-            contextModifiers={modifier as any}
-            interactive={interactive as any}
-            selected={selected as any}
+            intent={intent as TextProps["intent"]}
+            intentModifiers={modifier as TextProps["intentModifiers"]}
+            interactive={interactive as TextProps["interactive"]}
+            selected={selected as TextProps["selected"]}
           />
         </div>
       ))}
@@ -247,86 +260,95 @@ const contextCombinations = () => {
   ))
 }
 
-export const Context: Story = {
-  tags: ["!dev"],
+export const Intent: Story = {
   parameters: {
     controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
   },
   render: () => (
-    <div className="sb-column sb-gap-16">{contextCombinations()}</div>
+    <div className="sb-column sb-width-full sb-gap-16">
+      {intentCombinations()}
+    </div>
   ),
 }
 
 export const Fill: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
   },
   render: () => (
-    <div className="sb-row sb-gap-16">
+    <div className="sb-row sb-width-full sb-gap-16">
       <Icon glyph="link" fill="#00FF00" />
     </div>
   ),
 }
 
 export const Disabled: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
   },
   render: () => (
     <div className="sb-row sb-gap-16">
-      <Icon
-        glyph="link"
-        context="neutral"
-        contextModifiers="default"
-        disabled
-      />
+      <Icon glyph="link" intent="neutral" intentModifiers="default" disabled />
     </div>
   ),
 }
 
 export const Variant: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
   },
   render: () => (
     <div className="sb-row sb-gap-16">
-      <Icon glyph="link" variant="default" context="neutral" />
-      <Icon glyph="link" variant="scaled" context="neutral" />
+      <Icon glyph="link" variant="default" intent="neutral" />
+      <Icon glyph="link" variant="scaled" intent="neutral" />
     </div>
   ),
 }
 
 export const Size: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
   },
   render: () => (
     <div className="sb-row sb-gap-16">
-      <Icon glyph="link" size={24} context="neutral" />
-      <Icon glyph="link" size={16} context="neutral" />
+      <Icon glyph="link" size={24} intent="neutral" />
+      <Icon glyph="link" size={16} intent="neutral" />
     </div>
   ),
 }
 
 export const CustomGlyph: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
     docs: {
       description: {
         story:
-          "A custom SVG must use the 'currentColor' value for all colour properties in order to inherit the component’s context.",
+          "A custom SVG must use the 'currentColor' value for all colour properties in order to inherit the component’s intent.",
       },
+    },
+    viewport: {
+      defaultViewport: "large",
     },
   },
   render: () => {
     return (
       <div className="sb-column sb-gap-16">
-        <Icon size={24} context="neutral">
+        <Icon size={24} intent="neutral">
           <svg
             width="24"
             height="24"
@@ -348,7 +370,6 @@ export const CustomGlyph: Story = {
 }
 
 export const ErrorHandling: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
     docs: {
@@ -356,6 +377,9 @@ export const ErrorHandling: Story = {
         story:
           "Some property combinations may not have corresponding glyphs. In such cases, an error is thrown.",
       },
+    },
+    viewport: {
+      defaultViewport: "large",
     },
   },
   render: () => {

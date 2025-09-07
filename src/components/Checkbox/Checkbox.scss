@@ -4,9 +4,8 @@
 .Checkbox {
   $parent: &;
 
-  flex: 0 0 auto;
-  width: fit-content;
   display: flex;
+  flex: 0 0 auto;
   align-items: flex-start;
   gap: var(--pui-spacing-200);
 
@@ -23,6 +22,8 @@
 
   &__input {
     flex: 0 0 16px;
+    width: 16px;
+    min-width: 16px;
     height: 16px;
     position: relative;
     background-color: var(--pui-color-neutral-bg-secondary-interactive);
@@ -61,5 +62,9 @@
     #{$parent}__label {
       color: var(--pui-color-disabled-text-default);
     }
+  }
+
+  &__label {
+    flex: 1 0 auto;
   }
 }

@@ -1,4 +1,4 @@
-import { bem, typedForwardRef } from "../../utils"
+import { typedForwardRef } from "../../utils"
 import { useState, useEffect } from "preact/hooks"
 import { cloneElement, toChildArray } from "preact"
 import type { VNode } from "preact"
@@ -14,12 +14,13 @@ import { Icon } from "../Icon/Icon"
 const ButtonIconToggleComponent = (
   {
     className,
-    context = "neutral",
+    intent,
     ghost,
-    defaultSelected,
-    selected: controlledSelected,
     disabled,
     children,
+
+    defaultSelected,
+    selected: controlledSelected,
     onChange,
     ...rest
   }: ButtonIconToggleProps,
@@ -54,7 +55,7 @@ const ButtonIconToggleComponent = (
         .join(" ")
         .trim()}
       ref={ref}
-      context={context}
+      intent={intent}
       ghost={ghost}
       disabled={disabled}
       {...rest}
@@ -62,7 +63,7 @@ const ButtonIconToggleComponent = (
     >
       {toChildArray(children).map((child) => {
         if (typeof child === "object" && child !== null) {
-          const maybeVNode = child as VNode<any>
+          const maybeVNode = child as VNode
           if (maybeVNode.type === Icon) {
             return cloneElement(maybeVNode, {
               ...maybeVNode.props,

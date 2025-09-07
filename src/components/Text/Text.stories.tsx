@@ -1,6 +1,9 @@
 import { Meta, StoryObj } from "@storybook/preact"
 
 import { Text } from "./Text"
+import type { TextProps } from "./Text.types"
+
+import { Section } from "../Section/Section"
 
 const meta: Meta<typeof Text> = {
   title: "Components/Text",
@@ -10,12 +13,12 @@ const meta: Meta<typeof Text> = {
     className: {
       control: { type: "text" },
     },
-    context: {
+    intent: {
       control: { type: "radio" },
       options: ["neutral", "brand", "danger", "warning", "success"],
       defaultValue: { summary: "neutral" },
     },
-    contextModifiers: {
+    intentModifiers: {
       control: { type: "radio" },
       options: [
         "default",
@@ -30,9 +33,19 @@ const meta: Meta<typeof Text> = {
     disabled: {
       control: { type: "boolean" },
     },
+    interactive: {
+      control: { type: "boolean" },
+      description:
+        "Allows using colours for interactive states within the intent.",
+    },
+    selected: {
+      control: { type: "boolean" },
+      description:
+        "Enables the modifier for the selected state. Only works if interactive is enabled.",
+    },
     fill: {
       control: { type: "color" },
-      description: "Overrides the context color.",
+      description: "Overrides the intent color.",
     },
     variant: {
       control: { type: "radio" },
@@ -45,13 +58,16 @@ const meta: Meta<typeof Text> = {
       defaultValue: { summary: "medium" },
     },
     strong: {
-      description: "This property visually affects only the body context.",
+      description: "This property visually affects only the body intent.",
       control: { type: "boolean" },
     },
     align: {
       control: { type: "radio" },
       options: ["left", "center", "right"],
       defaultValue: { summary: "left" },
+    },
+    fullWidth: {
+      control: { type: "boolean" },
     },
     children: {
       table: {
@@ -71,9 +87,11 @@ export const Demo: Story = {
   tags: ["!autodocs"],
   args: {
     className: "",
-    context: "neutral",
-    contextModifiers: "default",
+    intent: "neutral",
+    intentModifiers: "default",
     disabled: false,
+    interactive: false,
+    selected: false,
     variant: "body",
     size: "medium",
     strong: false,
@@ -81,9 +99,24 @@ export const Demo: Story = {
     children:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
   },
+  parameters: {
+    viewport: {
+      defaultViewport: "large",
+    },
+  },
+  render: (args) => (
+    <div className="sb-column sb-width-full">
+      <Section>
+        <Text {...args}>
+          {/* @ts-expect-error - Storybook types hack */}
+          {args.children}
+        </Text>
+      </Section>
+    </div>
+  ),
 }
 
-const contextCombinations = () => {
+const intentCombinations = () => {
   const validCombinations = {
     neutral: [
       ["default", false, false],
@@ -120,34 +153,34 @@ const contextCombinations = () => {
     ],
   }
 
-  return Object.keys(validCombinations).map((context) => (
+  return Object.keys(validCombinations).map((intent) => (
     <div className="sb-column sb-gap-16">
-      {validCombinations[context].map(([modifier, interactive, selected]) => (
+      {validCombinations[intent].map(([modifier, interactive, selected]) => (
         <div
           className="sb-column sb-gap-8 sb-width-full sb-padding-16"
           style={{
-            backgroundColor: `var(--pui-color-${context}-bg-default${
+            backgroundColor: `var(--pui-color-${intent}-bg-default${
               interactive ? "-interactive" : ""
             }${selected ? "-selected" : ""})`,
           }}
         >
           <Text
             variant="heading"
-            context={context as any}
-            contextModifiers={modifier as any}
-            interactive={interactive as any}
-            selected={selected as any}
+            intent={intent as TextProps["intent"]}
+            intentModifiers={modifier as TextProps["intentModifiers"]}
+            interactive={interactive as TextProps["interactive"]}
+            selected={selected as TextProps["selected"]}
           >
-            {context}
+            {intent}
             {modifier === "default" ? "" : `-${modifier}`}
             {interactive ? ", interactive" : ""} {selected ? ", selected" : ""}
           </Text>
           <Text
             variant="body"
-            context={context as any}
-            contextModifiers={modifier as any}
-            interactive={interactive as any}
-            selected={selected as any}
+            intent={intent as TextProps["intent"]}
+            intentModifiers={modifier as TextProps["intentModifiers"]}
+            interactive={interactive as TextProps["interactive"]}
+            selected={selected as TextProps["selected"]}
           >
             Lorem Ipsum is simply dummy text of the printing and typesetting
             industry. Lorem Ipsum has been the industry's standard dummy text
@@ -160,27 +193,31 @@ const contextCombinations = () => {
   ))
 }
 
-export const Context: Story = {
-  tags: ["!dev"],
+export const Intent: Story = {
   parameters: {
     controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
   },
   render: () => (
-    <div className="sb-column sb-gap-16">{contextCombinations()}</div>
+    <div className="sb-column sb-gap-16">{intentCombinations()}</div>
   ),
 }
 
 export const Disabled: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
   },
   render: () => (
     <div className="sb-column sb-gap-16">
-      <Text variant="heading" context="neutral" disabled>
+      <Text variant="heading" intent="neutral" disabled>
         Heading
       </Text>
-      <Text variant="body" context="neutral" disabled>
+      <Text variant="body" intent="neutral" disabled>
         Lorem Ipsum is simply dummy text of the printing and typesetting
         industry. Lorem Ipsum has been the industry's standard dummy text ever
         since the 1500s, when an unknown printer took a galley of type and
@@ -191,16 +228,16 @@ export const Disabled: Story = {
 }
 
 export const Fill: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
   },
   render: () => (
     <div className="sb-column sb-gap-16">
-      <Text variant="heading" context="neutral" fill="#00FF00">
-        Heading
-      </Text>
-      <Text variant="body" context="neutral" fill="#00FF00">
+      <Text fill="#00FF00">Heading</Text>
+      <Text fill="#00FF00">
         Lorem Ipsum is simply dummy text of the printing and typesetting
         industry. Lorem Ipsum has been the industry's standard dummy text ever
         since the 1500s, when an unknown printer took a galley of type and
@@ -216,16 +253,18 @@ export const Fill: Story = {
 }
 
 export const Type: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
   },
   render: () => (
     <div className="sb-column sb-gap-16">
-      <Text variant="heading" context="neutral">
+      <Text variant="heading" intent="neutral">
         Heading
       </Text>
-      <Text variant="body" context="neutral">
+      <Text variant="body" intent="neutral">
         Lorem Ipsum is simply dummy text of the printing and typesetting
         industry. Lorem Ipsum has been the industry's standard dummy text ever
         since the 1500s, when an unknown printer took a galley of type and
@@ -241,7 +280,6 @@ export const Type: Story = {
 }
 
 export const Size: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
     viewport: {
@@ -251,10 +289,10 @@ export const Size: Story = {
   render: () => (
     <div className="sb-row sb-gap-16">
       <div className="sb-column sb-gap-16">
-        <Text variant="heading" context="neutral" size="large">
+        <Text variant="heading" intent="neutral" size="large">
           Heading Large
         </Text>
-        <Text variant="body" context="neutral" size="large">
+        <Text variant="body" intent="neutral" size="large">
           Lorem Ipsum is simply dummy text of the printing and typesetting
           industry. Lorem Ipsum has been the industry's standard dummy text ever
           since the 1500s, when an unknown printer took a galley of type and
@@ -268,10 +306,10 @@ export const Size: Story = {
       </div>
 
       <div className="sb-column sb-gap-16">
-        <Text variant="heading" context="neutral" size="medium">
+        <Text variant="heading" intent="neutral" size="medium">
           Heading Medium
         </Text>
-        <Text variant="body" context="neutral" size="medium">
+        <Text variant="body" intent="neutral" size="medium">
           Lorem Ipsum is simply dummy text of the printing and typesetting
           industry. Lorem Ipsum has been the industry's standard dummy text ever
           since the 1500s, when an unknown printer took a galley of type and
@@ -285,10 +323,10 @@ export const Size: Story = {
       </div>
 
       <div className="sb-column sb-gap-16">
-        <Text variant="heading" context="neutral" size="small">
+        <Text variant="heading" intent="neutral" size="small">
           Heading Small
         </Text>
-        <Text variant="body" context="neutral" size="small">
+        <Text variant="body" intent="neutral" size="small">
           Lorem Ipsum is simply dummy text of the printing and typesetting
           industry. Lorem Ipsum has been the industry's standard dummy text ever
           since the 1500s, when an unknown printer took a galley of type and
@@ -305,32 +343,34 @@ export const Size: Story = {
 }
 
 export const Strong: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
   },
   render: () => (
     <div className="sb-column sb-gap-16">
       <div className="sb-row sb-gap-16">
-        <Text variant="body" context="neutral" size="large">
+        <Text variant="body" intent="neutral" size="large">
           Body Large
         </Text>
-        <Text variant="body" context="neutral" size="medium">
+        <Text variant="body" intent="neutral" size="medium">
           Body Medium
         </Text>
-        <Text variant="body" context="neutral" size="small">
+        <Text variant="body" intent="neutral" size="small">
           Body Small
         </Text>
       </div>
 
       <div className="sb-row sb-gap-16">
-        <Text variant="body" context="neutral" size="large" strong>
+        <Text variant="body" intent="neutral" size="large" strong>
           Body Large Strong
         </Text>
-        <Text variant="body" context="neutral" size="medium" strong>
+        <Text variant="body" intent="neutral" size="medium" strong>
           Body Medium Strong
         </Text>
-        <Text variant="body" context="neutral" size="small" strong>
+        <Text variant="body" intent="neutral" size="small" strong>
           Body Small Strong
         </Text>
       </div>
@@ -339,16 +379,18 @@ export const Strong: Story = {
 }
 
 export const Align: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
   },
   render: () => (
     <div className="sb-column sb-gap-16">
       <div className="sb-column sb-gap-16">
         <Text
           variant="heading"
-          context="neutral"
+          intent="neutral"
           size="large"
           align="left"
           className="sb-width-full"
@@ -357,7 +399,7 @@ export const Align: Story = {
         </Text>
         <Text
           variant="heading"
-          context="neutral"
+          intent="neutral"
           size="medium"
           align="center"
           className="sb-width-full"
@@ -366,7 +408,7 @@ export const Align: Story = {
         </Text>
         <Text
           variant="heading"
-          context="neutral"
+          intent="neutral"
           size="small"
           align="right"
           className="sb-width-full"
@@ -375,7 +417,7 @@ export const Align: Story = {
         </Text>
         <Text
           variant="body"
-          context="neutral"
+          intent="neutral"
           size="large"
           align="left"
           className="sb-width-full"
@@ -384,7 +426,7 @@ export const Align: Story = {
         </Text>
         <Text
           variant="body"
-          context="neutral"
+          intent="neutral"
           size="medium"
           align="center"
           className="sb-width-full"
@@ -393,7 +435,7 @@ export const Align: Story = {
         </Text>
         <Text
           variant="body"
-          context="neutral"
+          intent="neutral"
           size="small"
           align="right"
           className="sb-width-full"
@@ -405,7 +447,7 @@ export const Align: Story = {
       <div className="sb-column sb-gap-16">
         <Text
           variant="body"
-          context="neutral"
+          intent="neutral"
           size="large"
           strong
           align="left"
@@ -415,7 +457,7 @@ export const Align: Story = {
         </Text>
         <Text
           variant="body"
-          context="neutral"
+          intent="neutral"
           size="medium"
           strong
           align="center"
@@ -425,7 +467,7 @@ export const Align: Story = {
         </Text>
         <Text
           variant="body"
-          context="neutral"
+          intent="neutral"
           size="small"
           strong
           align="right"

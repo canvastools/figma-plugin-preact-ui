@@ -1,7 +1,7 @@
 export interface ButtonProps {
   className?: string
-  context?: "neutral" | "neutral-inverted" | "brand" | "danger" | "success"
-  contextModifiers?:
+  intent?: "neutral" | "neutral-inverted" | "brand" | "danger" | "success"
+  intentModifiers?:
     | "default"
     | "secondary"
     | "brand"
@@ -10,6 +10,7 @@ export interface ButtonProps {
     | "success"
   ghost?: boolean
   size?: "medium" | "large"
+  grouped?: "none" | "left" | "right" | "both"
   disabled?: boolean
   fullWidth?: boolean
   prefix?: preact.ComponentChildren

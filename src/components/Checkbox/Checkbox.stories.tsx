@@ -5,6 +5,8 @@ import { useState } from "preact/hooks"
 import { Checkbox } from "./Checkbox"
 
 import { Text } from "../Text/Text"
+import { Section } from "../Section/Section"
+import { Stack } from "../Stack/Stack"
 
 const meta: Meta<typeof Checkbox> = {
   title: "Components/Checkbox",
@@ -60,121 +62,162 @@ export const Demo: Story = {
     label: "Checkbox",
     onChange: fn(),
   },
-  render: (args) => <Checkbox {...args} />,
+  parameters: {
+    viewport: {
+      defaultViewport: "large",
+    },
+  },
+  render: (args) => (
+    <div className="sb-column sb-width-full">
+      <Section>
+        <Checkbox {...args} />
+      </Section>
+    </div>
+  ),
 }
 
 export const Uncontrolled: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
   },
   render: () => (
-    <div className="sb-row sb-gap-16">
-      <Checkbox defaultChecked={true} label="Checked True" />
+    <div className="sb-column sb-width-full">
+      <Section>
+        <Checkbox defaultChecked={true} label="Checked True" />
+      </Section>
     </div>
   ),
 }
 
 export const Controlled: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
   },
   render: () => {
     const [isChecked, setIsChecked] = useState(false)
     return (
-      <div className="sb-column sb-gap-16">
-        <Text>Value: {isChecked ? "true" : "false"}</Text>
-        <Checkbox
-          checked={isChecked}
-          label="Checked True"
-          onChange={(args) => setIsChecked(args.checked)}
-        />
+      <div className="sb-column sb-width-full">
+        <Section>
+          <Text>Value: {isChecked ? "true" : "false"}</Text>
+        </Section>
+        <Section>
+          <Checkbox
+            checked={isChecked}
+            label="Checked True"
+            onChange={(args) => setIsChecked(args.checked)}
+          />
+        </Section>
       </div>
     )
   },
 }
 
 export const Checked: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
   },
   render: () => (
-    <div className="sb-row sb-gap-16">
-      <Checkbox defaultChecked={true} label="Checked True" />
-      <Checkbox defaultChecked={false} label="Checked False" />
+    <div className="sb-column sb-width-full">
+      <Section>
+        <Stack spacing={400}>
+          <Checkbox defaultChecked={true} label="Checked True" />
+          <Checkbox defaultChecked={false} label="Checked False" />
+        </Stack>
+      </Section>
     </div>
   ),
 }
 
 export const Mixed: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
   },
   render: () => (
-    <div className="sb-row sb-gap-16">
-      <Checkbox
-        defaultChecked={true}
-        mixed={true}
-        label="Checkbox True Mixed"
-      />
-      <Checkbox
-        defaultChecked={false}
-        mixed={true}
-        label="Checkbox False Mixed"
-      />
+    <div className="sb-column sb-width-full">
+      <Section>
+        <Stack spacing={400}>
+          <Checkbox
+            defaultChecked={true}
+            mixed={true}
+            label="Checkbox True Mixed"
+          />
+          <Checkbox
+            defaultChecked={false}
+            mixed={true}
+            label="Checkbox False Mixed"
+          />
+        </Stack>
+      </Section>
     </div>
   ),
 }
 
 export const Disabled: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
   },
   render: () => (
-    <div className="sb-row sb-gap-16">
-      <div className="sb-column sb-gap-16">
-        <Checkbox
-          defaultChecked={true}
-          disabled
-          label="Checked True Disabled"
-        />
-        <Checkbox
-          defaultChecked={false}
-          disabled
-          label="Checked False Disabled"
-        />
-      </div>
-      <div className="sb-column sb-gap-16">
-        <Checkbox
-          checked={true}
-          disabled
-          mixed
-          label="Checkbox True Mixed Disabled"
-        />
-        <Checkbox
-          checked={false}
-          disabled
-          mixed
-          label="Checkbox False Mixed Disabled"
-        />
-      </div>
+    <div className="sb-column sb-width-full">
+      <Section>
+        <Stack spacing={400}>
+          <Checkbox
+            defaultChecked={true}
+            disabled
+            label="Checked True Disabled"
+          />
+          <Checkbox
+            defaultChecked={false}
+            disabled
+            label="Checked False Disabled"
+          />
+          <Checkbox
+            checked={true}
+            disabled
+            mixed
+            label="Checkbox True Mixed Disabled"
+          />
+          <Checkbox
+            checked={false}
+            disabled
+            mixed
+            label="Checkbox False Mixed Disabled"
+          />
+        </Stack>
+      </Section>
     </div>
   ),
 }
 
 export const Label: Story = {
-  tags: ["!dev"],
   parameters: {
     controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
   },
   render: () => (
-    <div className="sb-column sb-gap-16">
-      <Checkbox label="Labelled" />
-      <Checkbox />
+    <div className="sb-column sb-width-full">
+      <Section>
+        <Stack spacing={400}>
+          <Checkbox label="Labelled" />
+          <Checkbox />
+        </Stack>
+      </Section>
     </div>
   ),
 }

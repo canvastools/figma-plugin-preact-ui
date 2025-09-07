@@ -7,6 +7,11 @@ import { TabPanel } from "../TabPanel/TabPanel"
 import { TabList } from "../TabList/TabList"
 import { Tab } from "../Tab/Tab"
 
+import { Text } from "../Text/Text"
+import { Section } from "../Section/Section"
+import { Button } from "../Button/Button"
+import { Stack } from "../Stack/Stack"
+
 const meta: Meta<typeof TabContext> = {
   title: "Components/TabContext",
   component: TabContext,
@@ -14,7 +19,8 @@ const meta: Meta<typeof TabContext> = {
   parameters: {
     docs: {
       description: {
-        component: "A wrapper component that manages tab states.",
+        component:
+          "A wrapper component that manages tab states. It must wrap all tab-related components.",
       },
     },
   },
@@ -56,6 +62,22 @@ const meta: Meta<typeof TabContext> = {
         },
       },
     },
+    useTabContext: {
+      table: {
+        type: {
+          summary: `Hook`,
+        },
+      },
+      description: `Use this hook inside a child component to access the context. <br/>
+        <pre>
+        interface TabContextValue {
+          value: string
+          onChange: (value: string) => void
+          setValue: (value: string) => void
+        }
+        </pre>
+        `,
+    },
   },
 }
 
@@ -67,62 +89,124 @@ export const Demo: Story = {
   args: {
     onChange: fn(),
   },
-  render: (args: any) => (
-    <TabContext defaultValue="tab-1" onChange={args.onChange}>
-      <TabList>
-        <Tab value="tab-1">Tab 1</Tab>
-        <Tab value="tab-2">Tab 2</Tab>
-        <Tab value="tab-3">Tab 3</Tab>
-      </TabList>
-      <br />
-      <TabPanel value="tab-1">Tab 1 Panel</TabPanel>
-      <TabPanel value="tab-2">Tab 2 Panel</TabPanel>
-      <TabPanel value="tab-3">Tab 3 Panel</TabPanel>
-    </TabContext>
+  parameters: {
+    viewport: {
+      defaultViewport: "large",
+    },
+  },
+  render: (args) => (
+    <div className="sb-column sb-width-full sb-container">
+      <TabContext {...args} defaultValue="tab-1">
+        <Section>
+          <TabList>
+            <Tab value="tab-1">Tab 1</Tab>
+            <Tab value="tab-2">Tab 2</Tab>
+            <Tab value="tab-3">Tab 3</Tab>
+          </TabList>
+        </Section>
+        <Section>
+          <TabPanel value="tab-1">
+            <Text>Tab 1 Panel</Text>
+          </TabPanel>
+          <TabPanel value="tab-2">
+            <Text>Tab 2 Panel</Text>
+          </TabPanel>
+          <TabPanel value="tab-3">
+            <Text>Tab 3 Panel</Text>
+          </TabPanel>
+        </Section>
+      </TabContext>
+    </div>
   ),
 }
 
 export const Uncontrolled: Story = {
-  tags: ["!dev"],
+  parameters: {
+    controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
+  },
   render: () => {
     return (
-      <TabContext defaultValue="tab-1">
-        <TabList>
-          <Tab value="tab-1">First Tab</Tab>
-          <Tab value="tab-2">Second Tab</Tab>
-          <Tab value="tab-3">Third Tab</Tab>
-        </TabList>
-        <br />
-        <TabPanel value="tab-1">Tab 1 Panel</TabPanel>
-        <TabPanel value="tab-2">Tab 2 Panel</TabPanel>
-        <TabPanel value="tab-3">Tab 3 Panel</TabPanel>
-      </TabContext>
+      <div className="sb-column sb-width-full">
+        <TabContext defaultValue="tab-1">
+          <Section>
+            <TabList>
+              <Tab value="tab-1">First Tab</Tab>
+              <Tab value="tab-2">Second Tab</Tab>
+              <Tab value="tab-3">Third Tab</Tab>
+            </TabList>
+          </Section>
+          <Section>
+            <TabPanel value="tab-1">
+              <Text>Tab 1 Panel</Text>
+            </TabPanel>
+            <TabPanel value="tab-2">
+              <Text>Tab 2 Panel</Text>
+            </TabPanel>
+            <TabPanel value="tab-3">
+              <Text>Tab 3 Panel</Text>
+            </TabPanel>
+          </Section>
+        </TabContext>
+      </div>
     )
   },
 }
 
 export const Controlled: Story = {
-  tags: ["!dev"],
+  parameters: {
+    controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
+  },
   render: () => {
-    const [activeTab, setActiveTab] = useState("tab-2")
+    const [activeTab, setActiveTab] = useState("tab-1")
 
     return (
-      <TabContext
-        value={activeTab}
-        onChange={(args) => {
-          setActiveTab(args.value)
-        }}
-      >
-        <TabList>
-          <Tab value="tab-1">First Tab</Tab>
-          <Tab value="tab-2">Second Tab</Tab>
-          <Tab value="tab-3">Third Tab</Tab>
-        </TabList>
-        <br />
-        <TabPanel value="tab-1">Tab 1 Panel</TabPanel>
-        <TabPanel value="tab-2">Tab 2 Panel</TabPanel>
-        <TabPanel value="tab-3">Tab 3 Panel</TabPanel>
-      </TabContext>
+      <div className="sb-column sb-width-full">
+        <Section>
+          <Stack direction="row" spacing={400} y="center">
+            <Text>Active Tab: {activeTab}</Text>
+            <Button onClick={() => setActiveTab("tab-1")}>
+              Set to First Tab
+            </Button>
+            <Button onClick={() => setActiveTab("tab-2")}>
+              Set to Second Tab
+            </Button>
+            <Button onClick={() => setActiveTab("tab-3")}>
+              Set to Third Tab
+            </Button>
+          </Stack>
+        </Section>
+        <TabContext
+          value={activeTab}
+          onChange={(args) => {
+            setActiveTab(args.value)
+          }}
+        >
+          <Section>
+            <TabList>
+              <Tab value="tab-1">First Tab</Tab>
+              <Tab value="tab-2">Second Tab</Tab>
+              <Tab value="tab-3">Third Tab</Tab>
+            </TabList>
+          </Section>
+          <Section>
+            <TabPanel value="tab-1">
+              <Text>Tab 1 Panel</Text>
+            </TabPanel>
+            <TabPanel value="tab-2">
+              <Text>Tab 2 Panel</Text>
+            </TabPanel>
+            <TabPanel value="tab-3">
+              <Text>Tab 3 Panel</Text>
+            </TabPanel>
+          </Section>
+        </TabContext>
+      </div>
     )
   },
 }

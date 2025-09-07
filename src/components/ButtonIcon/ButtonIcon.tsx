@@ -3,16 +3,16 @@ import { bem, typedForwardRef } from "../../utils"
 import type { ButtonIconProps } from "./ButtonIcon.types"
 import "./ButtonIcon.scss"
 
-import { Text } from "../Text/Text"
-
 /* --- */
 
 const ButtonIconComponent = (
   {
     className,
-    context = "neutral",
-    contextModifiers = "default",
+    intent = "neutral",
+    intentModifiers = "default",
     ghost,
+    size = "medium",
+    grouped = "none",
     translucent,
     disabled,
     children,
@@ -22,8 +22,11 @@ const ButtonIconComponent = (
   ref: preact.Ref<HTMLButtonElement>
 ) => {
   const _className = bem("ButtonIcon", undefined, {
-    context: `${context}-${contextModifiers}`,
+    intent: `${intent}-${intentModifiers}`,
     ghost,
+    size,
+    grouped: Boolean(grouped),
+    groupedPosition: grouped,
     translucent,
     disabled,
   })

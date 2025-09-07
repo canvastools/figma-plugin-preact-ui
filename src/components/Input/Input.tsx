@@ -1,11 +1,9 @@
-import { useEffect, useState } from "preact/hooks"
+import { useEffect, useRef, useState } from "preact/hooks"
 
 import { bem, typedForwardRef } from "../../utils"
 
 import type { InputProps } from "./Input.types"
 import "./Input.scss"
-
-import { Text } from "../Text/Text"
 
 /* --- */
 
@@ -15,13 +13,16 @@ const InputComponent = (
     placeholder,
     value,
     defaultValue,
+    ghost,
     error,
     disabled,
     prefix,
     suffix,
+    focusOnDoubleClick,
     onChange,
     onBlur,
     onFocus,
+    onKeyDown,
     ...rest
   }: InputProps,
   ref: preact.Ref<HTMLInputElement>
@@ -30,6 +31,8 @@ const InputComponent = (
   const [hasContent, setHasContent] = useState<boolean>(
     Boolean(value ?? defaultValue ?? "")
   )
+
+  const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     if (value !== undefined) {
@@ -40,6 +43,7 @@ const InputComponent = (
   const _className = bem("Input", undefined, {
     filled: hasContent,
     disabled,
+    ghost,
     prefix: Boolean(prefix),
     suffix: Boolean(suffix),
     focused: isFocused,
@@ -80,10 +84,28 @@ const InputComponent = (
     })
   }
 
+  const handleKeyDown = (
+    event: preact.JSX.TargetedKeyboardEvent<HTMLInputElement>
+  ) => {
+    event.stopPropagation()
+    onKeyDown?.({
+      event: event as unknown as KeyboardEvent,
+      value: event.currentTarget.value,
+    })
+  }
+
   const handleClick = (
     event: preact.JSX.TargetedMouseEvent<HTMLInputElement>
   ) => {
-    event.stopPropagation()
+    if (!focusOnDoubleClick) {
+      event.stopPropagation()
+    }
+  }
+
+  const handleDoubleClick = () => {
+    if (focusOnDoubleClick) {
+      inputRef.current?.focus()
+    }
   }
 
   return (
@@ -91,7 +113,11 @@ const InputComponent = (
       {prefix && <div className="Input__prefix">{prefix}</div>}
       <input
         className="Input__input-native"
-        ref={ref}
+        ref={(el) => {
+          inputRef.current = el
+          if (typeof ref === "function") ref(el)
+          else if (ref && typeof ref === "object") ref.current = el
+        }}
         type="text"
         disabled={disabled}
         placeholder={placeholder}
@@ -100,7 +126,14 @@ const InputComponent = (
         onChange={handleChange}
         onBlur={handleBlur}
         onFocus={handleFocus}
+        onKeyDown={handleKeyDown}
         onClick={handleClick}
+        onDblClick={handleDoubleClick}
+        onMouseDown={(e) => {
+          if (focusOnDoubleClick) {
+            e.preventDefault()
+          }
+        }}
       />
       {suffix && <div className="Input__suffix">{suffix}</div>}
     </div>

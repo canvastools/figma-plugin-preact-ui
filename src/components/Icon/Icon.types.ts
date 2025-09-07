@@ -8,14 +8,14 @@ export interface GlyphProps {
 export interface IconProps {
   className?: string
   glyph?: keyof typeof glyphs
-  context?:
+  intent?:
     | "neutral"
     | "neutral-inverted"
     | "brand"
     | "danger"
     | "warning"
     | "success"
-  contextModifiers?:
+  intentModifiers?:
     | "default"
     | "secondary"
     | "brand"

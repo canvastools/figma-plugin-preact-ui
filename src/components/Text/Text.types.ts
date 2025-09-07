@@ -1,13 +1,13 @@
 export interface TextProps {
   className?: string
-  context?:
+  intent?:
     | "neutral"
     | "neutral-inverted"
     | "brand"
     | "danger"
     | "warning"
     | "success"
-  contextModifiers?:
+  intentModifiers?:
     | "default"
     | "secondary"
     | "brand"
@@ -22,5 +22,6 @@ export interface TextProps {
   size?: "small" | "medium" | "large"
   strong?: boolean
   align?: "left" | "center" | "right"
+  fullWidth?: boolean
   children: preact.ComponentChildren
 }
