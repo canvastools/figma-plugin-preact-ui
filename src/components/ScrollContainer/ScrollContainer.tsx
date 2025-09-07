@@ -25,6 +25,7 @@ const ScrollContainerComponent = (
   const isDraggingRef = useRef<boolean>(false)
   const prevUserSelectRef = useRef<string>("")
   const rafIdRef = useRef<number | null>(null)
+  const stickToBottomRef = useRef<boolean>(false)
 
   useEffect(() => {
     const el = contentRef.current
@@ -78,7 +79,13 @@ const ScrollContainerComponent = (
     const el = contentRef.current
     if (!el) return
 
-    const handler = () => recomputeThumb()
+    const handler = () => {
+      if (stickToBottomRef.current) {
+        const maxScrollTop = Math.max(0, el.scrollHeight - el.clientHeight)
+        el.scrollTop = maxScrollTop
+      }
+      recomputeThumb()
+    }
     const resizeObs = new ResizeObserver(handler)
     resizeObs.observe(el)
     if (trackRef.current) resizeObs.observe(trackRef.current)
@@ -92,6 +99,21 @@ const ScrollContainerComponent = (
     return () => cancelAnimationFrame(rafId)
   }, [])
 
+  // Observe DOM mutations and keep pinned to bottom if needed
+  useEffect(() => {
+    const el = contentRef.current
+    if (!el) return
+    const mo = new MutationObserver(() => {
+      if (stickToBottomRef.current) {
+        const maxScrollTop = Math.max(0, el.scrollHeight - el.clientHeight)
+        el.scrollTop = maxScrollTop
+      }
+      scheduleRecomputeThumb()
+    })
+    mo.observe(el, { childList: true, subtree: true, characterData: true })
+    return () => mo.disconnect()
+  }, [])
+
   useEffect(() => {
     const onWinResize = () => {
       requestAnimationFrame(() => recomputeThumb())
@@ -102,6 +124,12 @@ const ScrollContainerComponent = (
 
   const handleScroll = (e: Event) => {
     onScroll(e)
+    const el = contentRef.current
+    if (el) {
+      const maxScrollTop = Math.max(0, el.scrollHeight - el.clientHeight)
+      stickToBottomRef.current =
+        maxScrollTop > 0 && Math.abs(maxScrollTop - el.scrollTop) <= 1
+    }
     scheduleRecomputeThumb()
   }
 
