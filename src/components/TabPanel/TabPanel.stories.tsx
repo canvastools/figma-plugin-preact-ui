@@ -5,7 +5,6 @@ import { TabPanel } from "./TabPanel"
 import { TabList } from "../TabList/TabList"
 import { Tab } from "../Tab/Tab"
 
-import { Stack } from "../Stack/Stack"
 import { Section } from "../Section/Section"
 import { Text } from "../Text/Text"
 

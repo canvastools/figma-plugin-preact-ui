@@ -1,7 +1,5 @@
 import { Meta, StoryObj } from "@storybook/preact"
 
-import { spacing } from "../../themes"
-
 import { Section } from "./Section"
 
 import { Text } from "../Text/Text"

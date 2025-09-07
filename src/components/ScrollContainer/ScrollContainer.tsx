@@ -1,6 +1,6 @@
 import { bem, typedForwardRef } from "../../utils"
 import { useScrollContext } from "../ScrollContext/ScrollContext"
-import { useEffect, useRef, useState } from "preact/hooks"
+import { useCallback, useEffect, useRef, useState } from "preact/hooks"
 
 import type { ScrollContainerProps } from "./ScrollContainer.types"
 import "./ScrollContainer.scss"
@@ -27,24 +27,11 @@ const ScrollContainerComponent = (
   const rafIdRef = useRef<number | null>(null)
   const stickToBottomRef = useRef<boolean>(false)
 
-  useEffect(() => {
-    const el = contentRef.current
-    if (!el || typeof positionY !== "number") return
-    try {
-      const maxScrollTop = Math.max(0, el.scrollHeight - el.clientHeight)
-      const clamped = Math.max(0, Math.min(positionY, maxScrollTop))
-      if (el.scrollTop !== clamped) el.scrollTop = clamped
-      // Let the native scroll event drive updates; schedule geometry recompute
-      // and avoid extra onScroll calls during controlled updates
-      scheduleRecomputeThumb()
-    } catch {
-      // ignore DOM write issues
-    }
-  }, [positionY])
+  // positionY controlled scroll sync (declared after scheduleRecomputeThumb to satisfy lints)
 
   const _className = bem("ScrollContainer", undefined, undefined)
 
-  const recomputeThumb = () => {
+  const recomputeThumb = useCallback(() => {
     const el = contentRef.current
     const track = trackRef.current
     if (!el || !track) return
@@ -61,19 +48,35 @@ const ScrollContainerComponent = (
 
     setThumbState({ top, height: thumbHeight })
     setHasScrollable(hasScrollable)
-  }
+  }, [])
 
-  const scheduleRecomputeThumb = () => {
+  const scheduleRecomputeThumb = useCallback(() => {
     if (rafIdRef.current != null) return
     rafIdRef.current = requestAnimationFrame(() => {
       rafIdRef.current = null
       recomputeThumb()
     })
-  }
+  }, [recomputeThumb])
+
+  // positionY controlled scroll sync (declared after scheduleRecomputeThumb to satisfy lints)
+  useEffect(() => {
+    const el = contentRef.current
+    if (!el || typeof positionY !== "number") return
+    try {
+      const maxScrollTop = Math.max(0, el.scrollHeight - el.clientHeight)
+      const clamped = Math.max(0, Math.min(positionY, maxScrollTop))
+      if (el.scrollTop !== clamped) el.scrollTop = clamped
+      // Let the native scroll event drive updates; schedule geometry recompute
+      // and avoid extra onScroll calls during controlled updates
+      scheduleRecomputeThumb()
+    } catch {
+      // ignore DOM write issues
+    }
+  }, [positionY, scheduleRecomputeThumb])
 
   useEffect(() => {
     scheduleRecomputeThumb()
-  }, [isAtTop, isAtBottom])
+  }, [isAtTop, isAtBottom, scheduleRecomputeThumb])
 
   useEffect(() => {
     const el = contentRef.current
@@ -91,13 +94,13 @@ const ScrollContainerComponent = (
     if (trackRef.current) resizeObs.observe(trackRef.current)
 
     return () => resizeObs.disconnect()
-  }, [])
+  }, [recomputeThumb])
 
   useEffect(() => {
     recomputeThumb()
     const rafId = requestAnimationFrame(() => recomputeThumb())
     return () => cancelAnimationFrame(rafId)
-  }, [])
+  }, [recomputeThumb])
 
   // Observe DOM mutations and keep pinned to bottom if needed
   useEffect(() => {
@@ -112,7 +115,7 @@ const ScrollContainerComponent = (
     })
     mo.observe(el, { childList: true, subtree: true, characterData: true })
     return () => mo.disconnect()
-  }, [])
+  }, [scheduleRecomputeThumb])
 
   useEffect(() => {
     const onWinResize = () => {
@@ -120,7 +123,7 @@ const ScrollContainerComponent = (
     }
     window.addEventListener("resize", onWinResize)
     return () => window.removeEventListener("resize", onWinResize)
-  }, [])
+  }, [recomputeThumb])
 
   const handleScroll = (e: Event) => {
     onScroll(e)
@@ -150,8 +153,8 @@ const ScrollContainerComponent = (
     prevUserSelectRef.current = document.body.style.userSelect
     document.body.style.userSelect = "none"
 
-    window.addEventListener("mousemove", handleThumbMouseMove as any)
-    window.addEventListener("mouseup", handleThumbMouseUp as any)
+    window.addEventListener("mousemove", handleThumbMouseMove)
+    window.addEventListener("mouseup", handleThumbMouseUp)
   }
 
   const handleThumbMouseMove = (e: MouseEvent) => {
@@ -187,8 +190,8 @@ const ScrollContainerComponent = (
     setIsDragging(false)
     isDraggingRef.current = false
     document.body.style.userSelect = prevUserSelectRef.current
-    window.removeEventListener("mousemove", handleThumbMouseMove as any)
-    window.removeEventListener("mouseup", handleThumbMouseUp as any)
+    window.removeEventListener("mousemove", handleThumbMouseMove)
+    window.removeEventListener("mouseup", handleThumbMouseUp)
   }
 
   const _classNameTrack = bem("ScrollContainer", "track", {

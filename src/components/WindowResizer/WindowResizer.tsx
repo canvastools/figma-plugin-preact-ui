@@ -86,7 +86,7 @@ const WindowResizerComponent = (
       document.removeEventListener("mousemove", onMouseMove)
       document.removeEventListener("mouseup", onMouseUp)
     }
-  }, [])
+  }, [minWidth, minHeight, maxWidth, maxHeight, onResize])
 
   return (
     <div
