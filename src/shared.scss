@@ -5,3 +5,26 @@
   font-family: "Inter";
   font-style: normal;
 }
+
+body {
+  display: flex;
+  flex-flow: column nowrap;
+  background-color: var(--pui-color-neutral-bg-default);
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+#root {
+  position: relative;
+  flex: 1 1 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  width: 100%;
+  overflow: hidden;
+}
+
+.text-no-wrap {
+  white-space: nowrap;
+}
