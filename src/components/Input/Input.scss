@@ -82,11 +82,14 @@
 
   &_disabled {
     cursor: auto;
-    background-color: var(--pui-color-disabled-bg-default);
+    background-color: var(--pui-color-disabled-bg-secondary);
+    outline-width: 1px;
+    outline-style: solid;
+    outline-color: var(--pui-color-disabled-border-secondary);
   }
 
   &_disabled &__input-native {
-    color: var(--pui-color-disabled-text-default);
+    color: var(--pui-color-disabled-text-secondary);
   }
 
   // Ghost
@@ -106,10 +109,10 @@
 
   &_ghost:is(&_disabled) {
     background-color: transparent;
-    color: var(--pui-color-disabled-text-default);
+    color: var(--pui-color-disabled-text-secondary);
   }
 
   &_ghost:is(&_disabled) &__input-native {
-    color: var(--pui-color-neutral-text-default);
+    color: var(--pui-color-neutral-text-secondary);
   }
 }

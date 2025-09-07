@@ -130,7 +130,11 @@ const colorTokensList = () => {
                   height: 24,
                   borderRadius: 5,
                   backgroundColor: `var(--pui-color-${token})`,
-                  boxShadow: "inset 0 0 0 1px rgba(0, 0, 0, 0.1)",
+                  boxShadow: `inset 0 0 0 1px ${
+                    theme === "figmaLight"
+                      ? "rgba(0, 0, 0, 0.1)"
+                      : "rgba(255, 255, 255, 0.1)"
+                  }`,
                 }}
               ></div>
               <div

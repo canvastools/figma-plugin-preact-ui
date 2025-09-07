@@ -39,7 +39,7 @@
   }
 
   &__children {
-    padding: 0 var(--pui-spacing-100);
+    padding: 1px var(--pui-spacing-100) 0;
   }
 
   &_prefix &__children {
