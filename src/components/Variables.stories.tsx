@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from "@storybook/preact"
 
-import { figmaLight, figmaDark } from "../themes"
+import { figmaLight, figmaDark, spacing, radius } from "../themes"
 import type { ColorTokenTree, ColorTokenBranch } from "../themes"
 
 import { Text } from "./Text/Text"
@@ -55,7 +55,6 @@ function flattenTokens(
 function buildTokenMatrix(themes: ThemeMap) {
   const flattened: Record<string, Record<string, string | undefined>> = {}
 
-  // пройтись по темам и собрать плоские токены
   for (const [themeName, theme] of Object.entries(themes)) {
     const flat = flattenTokens(theme.variables)
     for (const [token, value] of Object.entries(flat)) {
@@ -64,7 +63,6 @@ function buildTokenMatrix(themes: ThemeMap) {
     }
   }
 
-  // добить undefined для отсутствующих
   const themeNames = Object.keys(themes)
   for (const token of Object.keys(flattened)) {
     for (const themeName of themeNames) {
@@ -151,6 +149,122 @@ const colorTokensList = () => {
   ))
 }
 
+const spacingTokensList = () => {
+  const tokenMatrix: Record<string, string | ColorTokenBranch> = {}
+
+  for (const [token, value] of Object.entries(spacing.variables)) {
+    tokenMatrix[token] = value
+  }
+
+  return Object.keys(tokenMatrix).map((token) => (
+    <tr
+      style={{
+        borderBottom: "1px solid var(--pui-color-neutral-border-default)",
+      }}
+    >
+      <td
+        style={{
+          padding: 16,
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", width: "100%" }}>
+          <ButtonIcon onClick={() => copyToClipboard(`--pui-spacing-${token}`)}>
+            <Icon glyph="copy" variant="scaled" />
+          </ButtonIcon>
+
+          <div
+            style={{
+              width: "100%",
+              paddingLeft: 16,
+            }}
+          >
+            <Text strong>--pui-spacing-{token}</Text>
+          </div>
+        </div>
+      </td>
+      <td
+        style={{
+          padding: 16,
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", width: "100%" }}>
+          <ButtonIcon
+            onClick={() => copyToClipboard(tokenMatrix[token] as string)}
+          >
+            <Icon glyph="copy" variant="scaled" />
+          </ButtonIcon>
+          <div
+            style={{
+              width: "100%",
+              paddingLeft: 16,
+            }}
+          >
+            <Text strong>{tokenMatrix[token]}</Text>
+          </div>
+        </div>
+      </td>
+    </tr>
+  ))
+}
+
+const radiusTokensList = () => {
+  const tokenMatrix: Record<string, string | ColorTokenBranch> = {}
+
+  for (const [token, value] of Object.entries(radius.variables)) {
+    tokenMatrix[token] = value
+  }
+
+  return Object.keys(tokenMatrix).map((token) => (
+    <tr
+      style={{
+        borderBottom: "1px solid var(--pui-color-neutral-border-default)",
+      }}
+    >
+      <td
+        style={{
+          padding: 16,
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", width: "100%" }}>
+          <ButtonIcon onClick={() => copyToClipboard(`--pui-spacing-${token}`)}>
+            <Icon glyph="copy" variant="scaled" />
+          </ButtonIcon>
+
+          <div
+            style={{
+              width: "100%",
+              paddingLeft: 16,
+            }}
+          >
+            <Text strong>--pui-spacing-{token}</Text>
+          </div>
+        </div>
+      </td>
+      <td
+        style={{
+          padding: 16,
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", width: "100%" }}>
+          <ButtonIcon
+            onClick={() => copyToClipboard(tokenMatrix[token] as string)}
+          >
+            <Icon glyph="copy" variant="scaled" />
+          </ButtonIcon>
+          <div
+            style={{
+              width: "100%",
+              paddingLeft: 16,
+            }}
+          >
+            <Text strong>{tokenMatrix[token]}</Text>
+          </div>
+        </div>
+      </td>
+    </tr>
+  ))
+}
+
 export const _1: Story = {
   tags: ["!dev"],
   parameters: {
@@ -163,7 +277,7 @@ export const _1: Story = {
       <Text variant="heading" size="large">
         Colors
       </Text>
-      <table style={{ borderCollapse: "collapse" }}>
+      <table style={{ borderCollapse: "collapse", marginBottom: 24 }}>
         <tr
           style={{
             borderBottom: "1px solid var(--pui-color-neutral-border-default)",
@@ -192,6 +306,50 @@ export const _1: Story = {
           </td>
         </tr>
         {colorTokensList()}
+      </table>
+      <Text variant="heading" size="large">
+        Spacing
+      </Text>
+      <table style={{ borderCollapse: "collapse", marginBottom: 24 }}>
+        <tr
+          style={{
+            borderBottom: "1px solid var(--pui-color-neutral-border-default)",
+          }}
+        >
+          <td style={{ padding: 16 }}>
+            <Text strong>Token name</Text>
+          </td>
+          <td
+            style={{
+              padding: 16,
+            }}
+          >
+            <Text strong>Value</Text>
+          </td>
+        </tr>
+        {spacingTokensList()}
+      </table>
+      <Text variant="heading" size="large">
+        Radius
+      </Text>
+      <table style={{ borderCollapse: "collapse", marginBottom: 24 }}>
+        <tr
+          style={{
+            borderBottom: "1px solid var(--pui-color-neutral-border-default)",
+          }}
+        >
+          <td style={{ padding: 16 }}>
+            <Text strong>Token name</Text>
+          </td>
+          <td
+            style={{
+              padding: 16,
+            }}
+          >
+            <Text strong>Value</Text>
+          </td>
+        </tr>
+        {radiusTokensList()}
       </table>
     </div>
   ),
