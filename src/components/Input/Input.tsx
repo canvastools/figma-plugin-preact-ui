@@ -22,6 +22,7 @@ const InputComponent = (
     onChange,
     onBlur,
     onFocus,
+    onKeyDown,
     ...rest
   }: InputProps,
   ref: preact.Ref<HTMLInputElement>
@@ -83,6 +84,16 @@ const InputComponent = (
     })
   }
 
+  const handleKeyDown = (
+    event: preact.JSX.TargetedKeyboardEvent<HTMLInputElement>
+  ) => {
+    event.stopPropagation()
+    onKeyDown?.({
+      event: event as unknown as KeyboardEvent,
+      value: event.currentTarget.value,
+    })
+  }
+
   const handleClick = (
     event: preact.JSX.TargetedMouseEvent<HTMLInputElement>
   ) => {
@@ -115,6 +126,7 @@ const InputComponent = (
         onChange={handleChange}
         onBlur={handleBlur}
         onFocus={handleFocus}
+        onKeyDown={handleKeyDown}
         onClick={handleClick}
         onDblClick={handleDoubleClick}
         onMouseDown={(e) => {

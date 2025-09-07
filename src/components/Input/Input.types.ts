@@ -12,4 +12,5 @@ export interface InputProps {
   onChange?: (args: { event: MouseEvent; value: string }) => void
   onBlur?: (args: { event: MouseEvent; value: string }) => void
   onFocus?: (args: { event: MouseEvent; value: string }) => void
+  onKeyDown?: (args: { event: KeyboardEvent; value: string }) => void
 }

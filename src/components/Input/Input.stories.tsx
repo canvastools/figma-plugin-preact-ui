@@ -95,6 +95,16 @@ const meta: Meta<typeof Input> = {
         },
       },
     },
+    onKeyDown: {
+      action: "keydown",
+      description:
+        "Callback function that is called when the input is keyed down.",
+      table: {
+        type: {
+          summary: "(args: { event: KeyboardEvent; value: string }) => void",
+        },
+      },
+    },
   },
 }
 export default meta
@@ -113,6 +123,7 @@ export const Demo: Story = {
     onChange: fn(),
     onBlur: fn(),
     onFocus: fn(),
+    onKeyDown: fn(),
   },
   parameters: {
     viewport: {
