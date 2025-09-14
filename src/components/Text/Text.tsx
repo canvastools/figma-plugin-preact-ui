@@ -19,6 +19,7 @@ const TextComponent = (
     strong,
     align = "left",
     fullWidth,
+    noWrap,
     children,
     ...rest
   }: TextProps,
@@ -36,6 +37,7 @@ const TextComponent = (
     strong,
     align,
     fullWidth,
+    noWrap,
   })
 
   return (

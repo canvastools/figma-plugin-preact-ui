@@ -85,6 +85,10 @@
     width: 100%;
   }
 
+  &_noWrap {
+    white-space: nowrap;
+  }
+
   &_strong {
     font-weight: 550 !important;
   }
