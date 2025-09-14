@@ -98,3 +98,17 @@ export type { TextProps } from "./components/Text/Text.types"
 
 export { WindowResizer } from "./components/WindowResizer/WindowResizer"
 export type { WindowResizerProps } from "./components/WindowResizer/WindowResizer.types"
+
+// Hooks
+
+export { useStringValidator } from "./hooks/useStringValidator/useStringValidator"
+export type {
+  StringValidationConfig,
+  StringValidationError,
+} from "./hooks/useStringValidator/useStringValidator"
+
+export { useNumberValidator } from "./hooks/useNumberValidator/useNumberValidator"
+export type {
+  NumberValidationConfig,
+  NumberValidationError,
+} from "./hooks/useNumberValidator/useNumberValidator"
