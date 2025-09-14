@@ -139,6 +139,11 @@ const meta: Meta<typeof ListItem> = {
         },
       },
     },
+    reducedPaddingRight: {
+      control: { type: "boolean" },
+      description:
+        "Indicates if the item has reduced padding on the right. For pixel perfect vertical alignment with ghost-like buttons.",
+    },
     subItems: {
       control: { disable: true },
       description: "&lt;ListContainer&gt; with &lt;ListItem&gt; components.",
@@ -1075,6 +1080,7 @@ export const Children: Story = {
                   ? renderSubItems(child.children, level + 1)
                   : undefined
               }
+              reducedPaddingRight={true}
             >
               <Stack direction="row" spacing={200} y="center" fullWidth>
                 <Input defaultValue={child.id} />

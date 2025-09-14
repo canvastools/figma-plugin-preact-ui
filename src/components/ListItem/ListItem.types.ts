@@ -17,4 +17,5 @@ export interface ListItemProps {
   onCollapsedChange?: (args: { event: MouseEvent; collapsed: boolean }) => void
   subItems?: preact.ComponentChildren
   children?: preact.ComponentChildren
+  reducedPaddingRight?: boolean
 }

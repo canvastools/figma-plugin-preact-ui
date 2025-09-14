@@ -30,6 +30,7 @@ const ListItemComponent = (
     onSelect,
     subItems,
     children,
+    reducedPaddingRight,
     ...rest
   }: ListItemProps,
   ref: preact.Ref<HTMLDivElement>
@@ -139,6 +140,7 @@ const ListItemComponent = (
     "drag-inside": dragPosition === "inside",
     "drag-self": dragPosition === "self",
     dragging: isDragging,
+    "reduced-padding-right": reducedPaddingRight,
   })
 
   const handleClick = (e: MouseEvent) => {
