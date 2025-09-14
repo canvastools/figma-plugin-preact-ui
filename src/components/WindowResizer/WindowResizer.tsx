@@ -69,6 +69,8 @@ const WindowResizerComponent = (
     }
 
     const onMouseDown = (e: MouseEvent) => {
+      e.preventDefault()
+
       startX = e.clientX
       startY = e.clientY
 
