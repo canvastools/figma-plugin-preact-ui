@@ -131,7 +131,7 @@ export const Demo: Story = {
     },
   },
   render: (args) => (
-    <div className="sb-column sb-gap-16" style={{ width: "30%" }}>
+    <div className="sb-column sb-width-300">
       <Section>
         <Input {...args} />
       </Section>
@@ -147,7 +147,7 @@ export const Uncontrolled: Story = {
     },
   },
   render: () => (
-    <div className="sb-column sb-width-full sb-width-300">
+    <div className="sb-column sb-width-300">
       <Section>
         <Input defaultValue="Default Value" />
       </Section>
@@ -165,7 +165,7 @@ export const Controlled: Story = {
   render: () => {
     const [value, setValue] = useState("")
     return (
-      <div className="sb-column sb-width-full sb-width-300">
+      <div className="sb-column sb-width-300">
         <Section>
           <Text>Value: {value}</Text>
         </Section>
@@ -185,7 +185,7 @@ export const Placeholder: Story = {
     },
   },
   render: () => (
-    <div className="sb-column sb-width-full sb-width-300">
+    <div className="sb-column sb-width-300">
       <Section>
         <Stack spacing={400}>
           <Input />
@@ -204,7 +204,7 @@ export const Ghost: Story = {
     },
   },
   render: () => (
-    <div className="sb-column sb-width-full sb-width-300">
+    <div className="sb-column sb-width-300">
       <Section>
         <Input defaultValue="Default Value" ghost />
       </Section>
@@ -220,7 +220,7 @@ export const Disabled: Story = {
     },
   },
   render: () => (
-    <div className="sb-column sb-width-full sb-width-300">
+    <div className="sb-column sb-width-300">
       <Section>
         <Stack spacing={400}>
           <Input disabled />
@@ -240,7 +240,7 @@ export const Prefix: Story = {
     },
   },
   render: () => (
-    <div className="sb-column sb-width-full sb-width-300">
+    <div className="sb-column sb-width-300">
       <Section>
         <Stack spacing={400}>
           <Input
@@ -289,7 +289,7 @@ export const Suffix: Story = {
     },
   },
   render: () => (
-    <div className="sb-column sb-width-full sb-width-300">
+    <div className="sb-column sb-width-300">
       <Section>
         <Stack spacing={400}>
           <Input
