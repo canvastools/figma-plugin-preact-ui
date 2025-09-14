@@ -302,7 +302,7 @@ export const Translucent: Story = {
     },
   },
   render: () => (
-    <div className="sb-column sb-width-full sb-width-300">
+    <div className="sb-column sb-width-300">
       <Section>
         <Input
           placeholder="Placeholder"
