@@ -25,6 +25,8 @@ const figmaDark: ColorTokenTree = {
         "danger-interactive": "#2C2C2C",
         "danger-interactive-hover": "#60332A",
         "danger-interactive-pressed": "#864537",
+
+        swatch: "#FFFFFF",
       },
       text: {
         default: "#ffffff",
@@ -82,6 +84,8 @@ const figmaDark: ColorTokenTree = {
 
         "drop-position": "#ffffff",
         "drop-position-restricted": "#D4583B",
+
+        swatch: "#00000000",
       },
     },
     "neutral-inverted": {
