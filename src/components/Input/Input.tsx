@@ -11,6 +11,7 @@ const InputComponent = (
   {
     className,
     placeholder,
+    type = "text",
     value,
     defaultValue,
     ghost,
@@ -118,7 +119,7 @@ const InputComponent = (
           if (typeof ref === "function") ref(el)
           else if (ref && typeof ref === "object") ref.current = el
         }}
-        type="text"
+        type={type}
         disabled={disabled}
         placeholder={placeholder}
         value={value !== undefined ? value : undefined}

@@ -1,5 +1,6 @@
 export interface InputProps {
   className?: string
+  type?: "text" | "number"
   placeholder?: string
   defaultValue?: string
   value?: string

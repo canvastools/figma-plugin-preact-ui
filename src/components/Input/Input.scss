@@ -56,6 +56,12 @@
     &::placeholder {
       color: var(--pui-color-neutral-text-secondary-interactive);
     }
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
   }
 
   &_prefix &__input-native {

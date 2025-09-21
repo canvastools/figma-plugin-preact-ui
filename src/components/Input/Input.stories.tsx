@@ -21,6 +21,10 @@ const meta: Meta<typeof Input> = {
     placeholder: {
       control: { type: "text" },
     },
+    type: {
+      control: { type: "select", options: ["text", "number"] },
+      defaultValue: { summary: "text" },
+    },
     defaultValue: {
       control: { type: "text" },
       description: "Initial value for uncontrolled mode.",
