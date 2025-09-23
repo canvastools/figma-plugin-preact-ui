@@ -26,6 +26,9 @@ export type {
   CheckboxValue,
 } from "./components/Checkbox/Checkbox.types"
 
+export { ColorSwatch } from "./components/ColorSwatch/ColorSwatch"
+export type { ColorSwatchProps } from "./components/ColorSwatch/ColorSwatch.types"
+
 export { Divider } from "./components/Divider/Divider"
 export type { DividerProps } from "./components/Divider/Divider.types"
 
@@ -50,6 +53,9 @@ export type {
 
 export { ListItem } from "./components/ListItem/ListItem"
 export type { ListItemProps } from "./components/ListItem/ListItem.types"
+
+export { Popover } from "./components/Popover/Popover"
+export type { PopoverProps } from "./components/Popover/Popover.types"
 
 export {
   ScrollContext,
