@@ -37,9 +37,9 @@ const TabComponent = (
     onClick?.({ event, value })
   }
 
-  type ContentProps = { fake?: boolean }
+  type ContentProps = { fake?: boolean; selected: boolean }
 
-  const Content = ({ fake = false }: ContentProps) => (
+  const Content = ({ fake = false, selected = false }: ContentProps) => (
     <div className="Tab__content">
       {prefix && <div className="Tab__prefix">{prefix}</div>}
       {children && (
@@ -49,7 +49,7 @@ const TabComponent = (
             size="medium"
             strong={fake || value === activeValue}
             intent="neutral"
-            intentModifiers="default"
+            intentModifiers={selected ? "default" : "secondary"}
             interactive
           >
             {children}
@@ -68,10 +68,10 @@ const TabComponent = (
       onClick={handleClick}
     >
       <div className="Tab__container Tab__container_fake">
-        <Content fake />
+        <Content fake selected={value === activeValue} />
       </div>
       <div className="Tab__container Tab__container_real">
-        <Content />
+        <Content selected={value === activeValue} />
       </div>
     </button>
   )

@@ -54,7 +54,7 @@
     @include curson-feedback;
 
     &::placeholder {
-      color: var(--pui-color-neutral-text-secondary-interactive);
+      color: var(--pui-color-neutral-text-placeholder);
     }
 
     &::-webkit-outer-spin-button,

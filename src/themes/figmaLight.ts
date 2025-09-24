@@ -34,7 +34,9 @@ const figmaLight: ColorTokenTree = {
         "default-interactive-selected": "#007be5",
 
         secondary: "#7d7d7d",
-        "secondary-interactive": "#ababab",
+        "secondary-interactive": "#7d7d7d",
+
+        placeholder: "#808080",
 
         brand: "#007be5",
         "brand-interactive": "#007be5",

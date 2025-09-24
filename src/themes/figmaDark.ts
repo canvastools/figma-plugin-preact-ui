@@ -34,7 +34,9 @@ const figmaDark: ColorTokenTree = {
         "default-interactive-selected": "#7CC4F8",
 
         secondary: "#C0C0C0",
-        "secondary-interactive": "#808080",
+        "secondary-interactive": "#C0C0C0",
+
+        placeholder: "#808080",
 
         brand: "#7CC4F8",
         "brand-interactive": "#7CC4F8",
