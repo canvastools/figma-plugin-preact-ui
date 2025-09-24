@@ -87,6 +87,11 @@ const figmaLight: ColorTokenTree = {
 
         swatch: "#0000001A",
       },
+      shadow: {
+        "popover-hard": "#00000029",
+        "popover-soft": "#0000003d",
+        "popover-glare": "#0000000a",
+      },
     },
     "neutral-inverted": {
       bg: {
