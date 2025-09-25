@@ -143,6 +143,11 @@ const meta: Meta<typeof ListItem> = {
       control: { type: "boolean" },
       description:
         "Indicates if the item has reduced padding on the right. For pixel perfect vertical alignment with ghost-like buttons.",
+      table: {
+        type: {
+          summary: "boolean",
+        },
+      },
     },
     subItems: {
       control: { disable: true },

@@ -24,9 +24,19 @@ const meta: Meta<typeof ColorSwatch> = {
     },
     hex: {
       control: { type: "color" },
+      table: {
+        type: {
+          summary: "HEX | RGB | RGBA | var()",
+        },
+      },
     },
     imageSrc: {
       control: { type: "text" },
+      table: {
+        type: {
+          summary: "string",
+        },
+      },
       description: "Image source URL. Applies only to the image variant.",
     },
   },

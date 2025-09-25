@@ -27,6 +27,11 @@ const meta: Meta<typeof Button> = {
     },
     ghost: {
       control: { type: "boolean" },
+      table: {
+        type: {
+          summary: "boolean",
+        },
+      },
     },
     size: {
       control: { type: "radio" },

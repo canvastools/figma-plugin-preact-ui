@@ -46,6 +46,11 @@ const meta: Meta<typeof Text> = {
     fill: {
       control: { type: "color" },
       description: "Overrides the intent color.",
+      table: {
+        type: {
+          summary: "HEX | RGB | RGBA | var()",
+        },
+      },
     },
     variant: {
       control: { type: "radio" },
@@ -68,6 +73,13 @@ const meta: Meta<typeof Text> = {
     },
     fullWidth: {
       control: { type: "boolean" },
+      description:
+        "Whether the text should take the full width of its container.",
+      table: {
+        type: {
+          summary: "boolean",
+        },
+      },
     },
     children: {
       table: {

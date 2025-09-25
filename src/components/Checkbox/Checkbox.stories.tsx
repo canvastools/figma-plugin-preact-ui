@@ -18,6 +18,11 @@ const meta: Meta<typeof Checkbox> = {
     },
     checked: {
       control: { type: "boolean" },
+      table: {
+        type: {
+          summary: "boolean",
+        },
+      },
     },
     defaultChecked: {
       control: { type: "boolean" },

@@ -52,6 +52,11 @@ const meta: Meta<typeof Icon> = {
     fill: {
       control: { type: "color" },
       description: "Overrides the intent color.",
+      table: {
+        type: {
+          summary: "HEX | RGB | RGBA | var()",
+        },
+      },
     },
     variant: {
       control: { type: "radio" },

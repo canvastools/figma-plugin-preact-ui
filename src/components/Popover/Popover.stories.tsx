@@ -27,10 +27,21 @@ const meta: Meta<typeof Popover> = {
     },
     open: {
       control: { disable: true },
+      description: "Whether the popover is open.",
+      table: {
+        type: {
+          summary: "boolean",
+        },
+      },
     },
     anchor: {
       control: { disable: true },
       description: "Element's ref the popover should anchor to.",
+      table: {
+        type: {
+          summary: "HTMLElement",
+        },
+      },
     },
     position: {
       control: { type: "radio" },
@@ -49,11 +60,21 @@ const meta: Meta<typeof Popover> = {
       control: { type: "number" },
       defaultValue: { summary: 8 },
       description: "Horizontal gap between popover and anchor when anchored.",
+      table: {
+        type: {
+          summary: "number",
+        },
+      },
     },
     offsetY: {
       control: { type: "number" },
       defaultValue: { summary: 0 },
       description: "Vertical gap between popover and anchor when anchored.",
+      table: {
+        type: {
+          summary: "number",
+        },
+      },
     },
     children: {
       control: { disable: true },

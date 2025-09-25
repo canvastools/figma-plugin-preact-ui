@@ -24,6 +24,11 @@ const meta: Meta<typeof Input> = {
     type: {
       control: { type: "select", options: ["text", "number"] },
       defaultValue: { summary: "text" },
+      table: {
+        type: {
+          summary: "string",
+        },
+      },
     },
     defaultValue: {
       control: { type: "text" },

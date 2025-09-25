@@ -60,6 +60,11 @@ const meta: Meta<typeof Stack> = {
       control: { type: "boolean" },
       description:
         "Set the width to 100% to occupy the entire width in container.",
+      table: {
+        type: {
+          summary: "boolean",
+        },
+      },
     },
     children: {
       control: { disable: true },
