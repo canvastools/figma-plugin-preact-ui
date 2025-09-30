@@ -3,12 +3,9 @@
 .Popover {
   $parent: &;
 
-  flex-shrink: 0;
-  flex-grow: 0;
   display: flex;
   flex-flow: column nowrap;
   overflow: hidden;
-  z-index: 2000;
 
   background-color: var(--pui-color-neutral-bg-default);
   border-radius: var(--pui-radius-large);
