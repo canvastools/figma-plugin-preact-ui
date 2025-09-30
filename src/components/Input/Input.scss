@@ -80,10 +80,18 @@
   }
 
   &__suffix {
-    display: none;
+    display: flex;
     justify-content: center;
     align-items: center;
     align-self: stretch;
+  }
+
+  &_suffixOnHover &__suffix {
+    display: none;
+  }
+
+  &_suffixOnHover:hover &__suffix {
+    display: flex;
   }
 
   &_disabled {
@@ -96,6 +104,26 @@
 
   &_disabled &__input-native {
     color: var(--pui-color-disabled-text-secondary);
+  }
+
+  &_groupedPosition {
+    &-left {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    &-right {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    &-both {
+      border-radius: 0;
+    }
+  }
+
+  &_grouped + &_grouped {
+    margin-left: 1px;
   }
 
   // Ghost

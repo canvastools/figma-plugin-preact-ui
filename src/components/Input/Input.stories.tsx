@@ -46,6 +46,14 @@ const meta: Meta<typeof Input> = {
     ghost: {
       control: { type: "boolean" },
     },
+    grouped: {
+      control: { type: "select", options: ["none", "left", "right", "both"] },
+      table: {
+        type: {
+          summary: "string",
+        },
+      },
+    },
     error: {
       control: { type: "boolean" },
     },
@@ -69,6 +77,10 @@ const meta: Meta<typeof Input> = {
       },
       description: "Element inserted after value. Visible on hover/focus.",
       control: { disable: true },
+    },
+    suffixOnHover: {
+      control: { type: "boolean" },
+      description: "Whether the suffix should be visible on hover.",
     },
     focusOnDoubleClick: {
       control: { type: "boolean" },
@@ -221,6 +233,35 @@ export const Ghost: Story = {
   ),
 }
 
+export const Grouped: Story = {
+  parameters: {
+    controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
+  },
+  render: () => (
+    <div className="sb-column sb-width-300">
+      <Section>
+        <Stack spacing={400}>
+          <Text>Grouped</Text>
+          <Stack spacing={0} direction="row">
+            <Input defaultValue="Default Value" grouped="right" />
+            <Input defaultValue="Default Value" grouped="both" />
+            <Input defaultValue="Default Value" grouped="left" />
+          </Stack>
+          <Text>Grouped with .InputGrouped class wrapper</Text>
+          <Stack spacing={0} direction="row" className="InputGrouped">
+            <Input defaultValue="Default Value" grouped="right" />
+            <Input defaultValue="Default Value" grouped="both" />
+            <Input defaultValue="Default Value" grouped="left" />
+          </Stack>
+        </Stack>
+      </Section>
+    </div>
+  ),
+}
+
 export const Disabled: Story = {
   parameters: {
     controls: { disable: true },
@@ -335,7 +376,8 @@ export const Suffix: Story = {
             }
           />
           <Input
-            defaultValue="Default Value"
+            defaultValue="Suffix on hover"
+            suffixOnHover
             suffix={
               <ButtonIcon
                 intent="neutral"
