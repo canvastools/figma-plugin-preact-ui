@@ -14,6 +14,7 @@ export interface TextProps {
     | "danger"
     | "warning"
     | "success"
+    | "fixed"
   disabled?: boolean
   interactive?: boolean
   selected?: boolean

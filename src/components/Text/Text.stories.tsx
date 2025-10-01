@@ -27,6 +27,7 @@ const meta: Meta<typeof Text> = {
         "danger",
         "warning",
         "success",
+        "fixed",
       ],
       defaultValue: { summary: "default" },
     },
@@ -149,6 +150,7 @@ const intentCombinations = () => {
     "neutral-inverted": [
       ["default", false, false],
       ["default", true, false],
+      ["fixed", false, false],
     ],
     brand: [
       ["default", false, false],
@@ -171,9 +173,11 @@ const intentCombinations = () => {
         <div
           className="sb-column sb-gap-8 sb-width-full sb-padding-16"
           style={{
-            backgroundColor: `var(--pui-color-${intent}-bg-default${
-              interactive ? "-interactive" : ""
-            }${selected ? "-selected" : ""})`,
+            backgroundColor: `var(--pui-color-${intent}-bg-${
+              modifier === "fixed" ? "fixed" : "default"
+            }${interactive ? "-interactive" : ""}${
+              selected ? "-selected" : ""
+            })`,
           }}
         >
           <Text
