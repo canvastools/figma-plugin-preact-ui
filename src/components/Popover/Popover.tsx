@@ -16,6 +16,7 @@ const PopoverComponent = (
   ref: preact.Ref<HTMLDivElement>
 ) => {
   const _className = bem("Popover", undefined, undefined)
+
   return (
     <div
       className={[_className, className].join(" ").trim()}
