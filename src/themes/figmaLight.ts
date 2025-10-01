@@ -89,11 +89,6 @@ const figmaLight: ColorTokenTree = {
 
         swatch: "#0000001A",
       },
-      shadow: {
-        "popover-hard": "#00000029",
-        "popover-soft": "#0000003d",
-        "popover-glare": "#0000000a",
-      },
     },
     "neutral-inverted": {
       bg: {
@@ -101,10 +96,12 @@ const figmaLight: ColorTokenTree = {
         "default-interactive": "#2c2c2c",
         "default-interactive-hover": "#5c5c5c",
         "default-interactive-pressed": "#808080",
+        fixed: "#1e1e1e",
       },
       text: {
         default: "#ffffff",
         "default-interactive": "#ffffff",
+        fixed: "#ffffff",
       },
       icon: {
         default: "#ffffff",
@@ -205,6 +202,15 @@ const figmaLight: ColorTokenTree = {
       border: {
         focus: "#0d99ff",
       },
+    },
+    shadow: {
+      "popover-hard": "#0000003d",
+      "popover-soft": "#00000029",
+      "popover-glare": "#0000000a",
+
+      "tooltip-hard": "#0000001a",
+      "tooltip-soft": "#0000001f",
+      "tooltip-glare": "#ffffff14",
     },
   },
 }
