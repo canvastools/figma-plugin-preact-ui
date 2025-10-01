@@ -102,7 +102,8 @@
     outline-color: var(--pui-color-disabled-border-secondary);
   }
 
-  &_disabled &__input-native {
+  &_disabled &__input-native,
+  &_disabled #{ $parent }__input-native::placeholder {
     color: var(--pui-color-disabled-text-secondary);
   }
 
