@@ -117,7 +117,6 @@ export const Demo: Story = {
       />
     ),
     onChange: fn(),
-    onClick: fn(),
   },
   parameters: {
     viewport: {
