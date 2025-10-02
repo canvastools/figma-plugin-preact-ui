@@ -6,7 +6,13 @@ import "./Bar.scss"
 /* --- */
 
 const BarComponent = (
-  { className, borderTop, borderBottom, children, ...rest }: BarProps,
+  {
+    className,
+    borderTop = false,
+    borderBottom = false,
+    children,
+    ...rest
+  }: BarProps,
   ref: preact.Ref<HTMLDivElement>
 ) => {
   const _className = bem("Bar", undefined, {

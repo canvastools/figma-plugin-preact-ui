@@ -27,6 +27,7 @@ const meta: Meta<typeof Button> = {
     },
     ghost: {
       control: { type: "boolean" },
+      defaultValue: { summary: false },
       table: {
         type: {
           summary: "boolean",
@@ -45,9 +46,11 @@ const meta: Meta<typeof Button> = {
     },
     disabled: {
       control: { type: "boolean" },
+      defaultValue: { summary: false },
     },
     fullWidth: {
       control: { type: "boolean" },
+      defaultValue: { summary: false },
     },
     prefix: {
       table: {

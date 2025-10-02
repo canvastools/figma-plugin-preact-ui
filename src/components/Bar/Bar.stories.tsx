@@ -25,9 +25,11 @@ const meta: Meta<typeof Bar> = {
     },
     borderTop: {
       control: { type: "boolean" },
+      defaultValue: { summary: false },
     },
     borderBottom: {
       control: { type: "boolean" },
+      defaultValue: { summary: false },
     },
     children: {
       control: { disable: true },

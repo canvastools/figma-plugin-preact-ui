@@ -14,12 +14,12 @@ import { Icon } from "../Icon/Icon"
 const ButtonIconToggleComponent = (
   {
     className,
-    intent,
-    ghost,
-    disabled,
+    intent = "neutral",
+    intentModifiers = "default",
+    ghost = false,
+    disabled = false,
     children,
-
-    defaultSelected,
+    defaultSelected = false,
     selected: controlledSelected,
     onChange,
     ...rest
@@ -56,6 +56,7 @@ const ButtonIconToggleComponent = (
         .trim()}
       ref={ref}
       intent={intent}
+      intentModifiers={intentModifiers}
       ghost={ghost}
       disabled={disabled}
       {...rest}

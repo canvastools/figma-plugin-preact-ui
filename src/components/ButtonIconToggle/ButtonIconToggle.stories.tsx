@@ -35,8 +35,13 @@ const meta: Meta<typeof ButtonIconToggle> = {
       options: ["default"],
       defaultValue: { summary: "default" },
     },
+    translucent: {
+      control: { type: "boolean" },
+      defaultValue: { summary: false },
+    },
     ghost: {
       control: { type: "boolean" },
+      defaultValue: { summary: false },
     },
     size: {
       control: { type: "radio" },
@@ -51,6 +56,7 @@ const meta: Meta<typeof ButtonIconToggle> = {
     defaultSelected: {
       control: { type: "boolean" },
       description: "Initial value for uncontrolled mode.",
+      defaultValue: { summary: false },
     },
     selected: {
       control: { disable: true },
@@ -63,6 +69,7 @@ const meta: Meta<typeof ButtonIconToggle> = {
     },
     disabled: {
       control: { type: "boolean" },
+      defaultValue: { summary: false },
     },
     children: {
       table: {

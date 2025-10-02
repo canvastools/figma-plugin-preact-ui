@@ -28,6 +28,7 @@ const meta: Meta<typeof ButtonIcon> = {
     },
     ghost: {
       control: { type: "boolean" },
+      defaultValue: { summary: false },
     },
     size: {
       control: { type: "radio" },
@@ -41,9 +42,11 @@ const meta: Meta<typeof ButtonIcon> = {
     },
     translucent: {
       control: { type: "boolean" },
+      defaultValue: { summary: false },
     },
     disabled: {
       control: { type: "boolean" },
+      defaultValue: { summary: false },
     },
     children: {
       table: {

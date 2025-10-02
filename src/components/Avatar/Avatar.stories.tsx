@@ -26,6 +26,7 @@ const meta: Meta<typeof Avatar> = {
     imageSrc: {
       control: { type: "text" },
       description: "Image source URL.",
+      defaultValue: { summary: "undefined | null" },
     },
     fillBg: {
       table: {
