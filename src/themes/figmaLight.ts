@@ -197,7 +197,7 @@ const figmaLight: ColorTokenTree = {
     system: {
       bg: {
         scrollbar: "#D4D4D4",
-        resizer: "#D4D4D4",
+        resizer: "#A8A8A8",
       },
       border: {
         focus: "#0d99ff",
