@@ -208,8 +208,8 @@ const figmaDark: ColorTokenTree = {
       "popover-soft": "#0000008f",
       "popover-glare": "#ffffff14",
 
-      "tooltip-hard": "#0000001a",
-      "tooltip-soft": "#0000001f",
+      "tooltip-hard": "#0000008a",
+      "tooltip-soft": "#00000052",
       "tooltip-glare": "#ffffff14",
     },
   },
