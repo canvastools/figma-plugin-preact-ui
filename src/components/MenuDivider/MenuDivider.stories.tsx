@@ -9,6 +9,13 @@ const meta: Meta<typeof MenuDivider> = {
   title: "Components/MenuDivider",
   component: MenuDivider,
   tags: ["autodocs"],
+  parameters: {
+    docs: {
+      description: {
+        component: "Used within &lt;MenuContainer/&gt;.",
+      },
+    },
+  },
   argTypes: {
     className: {
       control: { type: "text" },
