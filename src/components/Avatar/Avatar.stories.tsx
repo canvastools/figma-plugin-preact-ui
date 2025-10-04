@@ -2,7 +2,6 @@ import { Meta, StoryObj } from "@storybook/preact"
 
 import { Avatar } from "./Avatar"
 
-import { Section } from "../Section/Section"
 import { Stack } from "../Stack/Stack"
 
 const meta: Meta<typeof Avatar> = {
@@ -86,9 +85,7 @@ export const Demo: Story = {
   },
   render: (args) => (
     <div className="sb-column sb-width-full">
-      <Section>
-        <Avatar {...args} />
-      </Section>
+      <Avatar {...args} />
     </div>
   ),
 }
@@ -102,31 +99,26 @@ export const Size: Story = {
   },
   render: () => (
     <div className="sb-column sb-width-full">
-      <Section>
-        <Stack spacing={400}>
-          <Stack direction="row" spacing={400}>
-            <Avatar imageSrc="https://thispersondoesnotexist.com/" size="small">
-              A
-            </Avatar>
-            <Avatar size="small">A</Avatar>
-          </Stack>
-          <Stack direction="row" spacing={400}>
-            <Avatar
-              imageSrc="https://thispersondoesnotexist.com/"
-              size="medium"
-            >
-              A
-            </Avatar>
-            <Avatar size="medium">A</Avatar>
-          </Stack>
-          <Stack direction="row" spacing={400}>
-            <Avatar imageSrc="https://thispersondoesnotexist.com/" size="large">
-              A
-            </Avatar>
-            <Avatar size="large">A</Avatar>
-          </Stack>
+      <Stack spacing={400}>
+        <Stack direction="row" spacing={400}>
+          <Avatar imageSrc="https://thispersondoesnotexist.com/" size="small">
+            A
+          </Avatar>
+          <Avatar size="small">A</Avatar>
         </Stack>
-      </Section>
+        <Stack direction="row" spacing={400}>
+          <Avatar imageSrc="https://thispersondoesnotexist.com/" size="medium">
+            A
+          </Avatar>
+          <Avatar size="medium">A</Avatar>
+        </Stack>
+        <Stack direction="row" spacing={400}>
+          <Avatar imageSrc="https://thispersondoesnotexist.com/" size="large">
+            A
+          </Avatar>
+          <Avatar size="large">A</Avatar>
+        </Stack>
+      </Stack>
     </div>
   ),
 }
@@ -140,7 +132,7 @@ export const Shape: Story = {
   },
   render: () => (
     <div className="sb-row sb-width-full">
-      <Section>
+      <Stack spacing={400} direction="row">
         <Stack spacing={400}>
           <Stack direction="row" spacing={400}>
             <Avatar imageSrc="https://thispersondoesnotexist.com/" size="small">
@@ -164,8 +156,7 @@ export const Shape: Story = {
             <Avatar size="large">A</Avatar>
           </Stack>
         </Stack>
-      </Section>
-      <Section>
+
         <Stack spacing={400}>
           <Stack direction="row" spacing={400}>
             <Avatar
@@ -204,7 +195,7 @@ export const Shape: Story = {
             </Avatar>
           </Stack>
         </Stack>
-      </Section>
+      </Stack>
     </div>
   ),
 }
@@ -218,12 +209,10 @@ export const ImageSrc: Story = {
   },
   render: () => (
     <div className="sb-column sb-width-full">
-      <Section>
-        <Stack spacing={400}>
-          <Avatar imageSrc="https://thispersondoesnotexist.com/">A</Avatar>
-          <Avatar>A</Avatar>
-        </Stack>
-      </Section>
+      <Stack spacing={400}>
+        <Avatar imageSrc="https://thispersondoesnotexist.com/">A</Avatar>
+        <Avatar>A</Avatar>
+      </Stack>
     </div>
   ),
 }
@@ -237,11 +226,9 @@ export const Fill: Story = {
   },
   render: () => (
     <div className="sb-column sb-width-full">
-      <Section>
-        <Avatar fillBg="var(--pui-color-brand-bg-default)" fillText="#ffff00">
-          A
-        </Avatar>
-      </Section>
+      <Avatar fillBg="var(--pui-color-brand-bg-default)" fillText="#ffff00">
+        A
+      </Avatar>
     </div>
   ),
 }

@@ -13,9 +13,9 @@ const CheckboxComponent = (
   {
     className,
     checked,
-    defaultChecked,
-    mixed,
-    disabled,
+    defaultChecked = false,
+    mixed = false,
+    disabled = false,
     label,
     onChange,
     ...rest

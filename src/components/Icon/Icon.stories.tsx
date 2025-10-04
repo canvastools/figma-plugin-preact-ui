@@ -46,14 +46,17 @@ const meta: Meta<typeof Icon> = {
     },
     disabled: {
       control: { type: "boolean" },
+      defaultValue: { summary: false },
     },
     interactive: {
       control: { type: "boolean" },
+      defaultValue: { summary: false },
       description:
         "Allows using colours for interactive states within the intent.",
     },
     selected: {
       control: { type: "boolean" },
+      defaultValue: { summary: false },
       description:
         "Enables the modifier for the selected state. Only works if interactive is enabled.",
     },

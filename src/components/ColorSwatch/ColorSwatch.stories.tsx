@@ -3,7 +3,6 @@ import { Meta, StoryObj } from "@storybook/preact"
 import { ColorSwatch } from "./ColorSwatch"
 
 import { Stack } from "../Stack/Stack"
-import { Section } from "../Section/Section"
 
 const meta: Meta<typeof ColorSwatch> = {
   title: "Components/ColorSwatch",
@@ -32,7 +31,7 @@ const meta: Meta<typeof ColorSwatch> = {
       },
     },
     imageSrc: {
-      control: { type: "text" },
+      control: { disable: true },
       table: {
         type: {
           summary: "string",
@@ -61,9 +60,7 @@ export const Demo: Story = {
   },
   render: (args) => (
     <div className="sb-column sb-width-full">
-      <Section>
-        <ColorSwatch {...args} />
-      </Section>
+      <ColorSwatch {...args} />
     </div>
   ),
 }
@@ -77,14 +74,12 @@ export const Variant: Story = {
   },
   render: () => (
     <div className="sb-column">
-      <Section>
-        <Stack spacing={400} direction="row">
-          <ColorSwatch variant="fill" />
-          <ColorSwatch variant="fill" hex="#FF0000" />
-          <ColorSwatch variant="fill" hex="#FF00004D" />
-          <ColorSwatch variant="image" imageSrc="https://placehold.co/48x48" />
-        </Stack>
-      </Section>
+      <Stack spacing={400} direction="row">
+        <ColorSwatch variant="fill" />
+        <ColorSwatch variant="fill" hex="#FF0000" />
+        <ColorSwatch variant="fill" hex="#FF00004D" />
+        <ColorSwatch variant="image" imageSrc="https://placehold.co/48x48" />
+      </Stack>
     </div>
   ),
 }
@@ -98,29 +93,24 @@ export const Size: Story = {
   },
   render: () => (
     <div className="sb-column">
-      <Section>
-        <Stack spacing={400}>
-          <Stack spacing={400} direction="row">
-            <ColorSwatch variant="fill" size="small" />
-            <ColorSwatch variant="fill" hex="#FF0000" size="small" />
-            <ColorSwatch variant="fill" hex="#FF00004D" size="small" />
-            <ColorSwatch
-              variant="image"
-              imageSrc="https://placehold.co/48x48"
-              size="small"
-            />
-          </Stack>
-          <Stack spacing={400} direction="row">
-            <ColorSwatch variant="fill" />
-            <ColorSwatch variant="fill" hex="#FF0000" />
-            <ColorSwatch variant="fill" hex="#FF00004D" />
-            <ColorSwatch
-              variant="image"
-              imageSrc="https://placehold.co/48x48"
-            />
-          </Stack>
+      <Stack spacing={400}>
+        <Stack spacing={400} direction="row">
+          <ColorSwatch variant="fill" size="small" />
+          <ColorSwatch variant="fill" hex="#FF0000" size="small" />
+          <ColorSwatch variant="fill" hex="#FF00004D" size="small" />
+          <ColorSwatch
+            variant="image"
+            imageSrc="https://placehold.co/48x48"
+            size="small"
+          />
         </Stack>
-      </Section>
+        <Stack spacing={400} direction="row">
+          <ColorSwatch variant="fill" />
+          <ColorSwatch variant="fill" hex="#FF0000" />
+          <ColorSwatch variant="fill" hex="#FF00004D" />
+          <ColorSwatch variant="image" imageSrc="https://placehold.co/48x48" />
+        </Stack>
+      </Stack>
     </div>
   ),
 }
