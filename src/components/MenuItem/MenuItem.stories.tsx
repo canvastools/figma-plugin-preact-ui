@@ -15,7 +15,7 @@ const meta: Meta<typeof MenuItem> = {
   parameters: {
     docs: {
       description: {
-        component: "Always used within &lt;MenuContainer/&gt;.",
+        component: "Used within &lt;MenuContainer/&gt;.",
       },
     },
   },
