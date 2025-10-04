@@ -3,6 +3,7 @@ export interface TextProps {
   intent?:
     | "neutral"
     | "neutral-inverted"
+    | "neutral-inverted-fixed"
     | "brand"
     | "danger"
     | "warning"
@@ -14,7 +15,6 @@ export interface TextProps {
     | "danger"
     | "warning"
     | "success"
-    | "fixed"
   disabled?: boolean
   interactive?: boolean
   selected?: boolean

@@ -30,7 +30,7 @@
   @include Text_intent("neutral", "warning");
   @include Text_intent("neutral", "success");
   @include Text_intent("neutral-inverted", "default");
-  @include Text_intent("neutral-inverted", "fixed");
+  @include Text_intent("neutral-inverted-fixed", "default");
   @include Text_intent("brand", "default");
   @include Text_intent("danger", "default");
   @include Text_intent("warning", "default");

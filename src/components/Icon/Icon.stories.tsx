@@ -21,7 +21,15 @@ const meta: Meta<typeof Icon> = {
     },
     intent: {
       control: { type: "radio" },
-      options: ["neutral", "brand", "danger", "warning", "success"],
+      options: [
+        "neutral",
+        "neutral-inverted",
+        "neutral-inverted-fixed",
+        "brand",
+        "danger",
+        "warning",
+        "success",
+      ],
       defaultValue: { summary: "neutral" },
     },
     intentModifiers: {
@@ -172,6 +180,7 @@ export const Glyphs: Story = {
 
 const intentCombinations = () => {
   const validCombinations = {
+    // intent, interactive, selected
     neutral: [
       ["default", false, false],
       ["default", true, false],
@@ -189,6 +198,10 @@ const intentCombinations = () => {
       ["success", false, false],
     ],
     "neutral-inverted": [
+      ["default", false, false],
+      ["default", true, false],
+    ],
+    "neutral-inverted-fixed": [
       ["default", false, false],
       ["default", true, false],
     ],

@@ -11,6 +11,7 @@ export interface IconProps {
   intent?:
     | "neutral"
     | "neutral-inverted"
+    | "neutral-inverted-fixed"
     | "brand"
     | "danger"
     | "warning"

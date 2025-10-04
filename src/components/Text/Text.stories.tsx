@@ -15,7 +15,15 @@ const meta: Meta<typeof Text> = {
     },
     intent: {
       control: { type: "radio" },
-      options: ["neutral", "brand", "danger", "warning", "success"],
+      options: [
+        "neutral",
+        "neutral-inverted",
+        "neutral-inverted-fixed",
+        "brand",
+        "danger",
+        "warning",
+        "success",
+      ],
       defaultValue: { summary: "neutral" },
     },
     intentModifiers: {
@@ -27,7 +35,6 @@ const meta: Meta<typeof Text> = {
         "danger",
         "warning",
         "success",
-        "fixed",
       ],
       defaultValue: { summary: "default" },
     },
@@ -132,6 +139,7 @@ export const Demo: Story = {
 const intentCombinations = () => {
   const validCombinations = {
     neutral: [
+      // intent, interactive, selected
       ["default", false, false],
       ["default", true, false],
       ["default", true, true],
@@ -150,7 +158,10 @@ const intentCombinations = () => {
     "neutral-inverted": [
       ["default", false, false],
       ["default", true, false],
-      ["fixed", false, false],
+    ],
+    "neutral-inverted-fixed": [
+      ["default", false, false],
+      ["default", true, false],
     ],
     brand: [
       ["default", false, false],
