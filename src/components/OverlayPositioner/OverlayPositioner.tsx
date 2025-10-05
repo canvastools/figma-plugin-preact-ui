@@ -47,6 +47,20 @@ const computePlacement = (
 
   const computeFor = (p: string): { coords: Coords; arrow: ArrowData } => {
     switch (p) {
+      case "over": {
+        const left = Math.max(
+          edgePadding,
+          Math.min(vw - w - edgePadding, Math.round(rect.left + paddingX))
+        )
+        const top = Math.max(
+          edgePadding,
+          Math.min(vh - h - edgePadding, Math.round(rect.top + paddingY))
+        )
+        return {
+          coords: { left, top },
+          arrow: { left: 0, top: 0, side: "top" },
+        }
+      }
       case "top": {
         const left = Math.max(
           edgePadding,
@@ -313,6 +327,7 @@ const OverlayPositionerComponent = ({
   paddingY = 0,
   edgePadding = 0,
   trigger = "click",
+  visibilityDelay = 0,
   open,
   defaultOpen = false,
   closeOnOutsideClick = true,
@@ -458,7 +473,12 @@ const OverlayPositionerComponent = ({
     if (trigger === "click") {
       const onClick = (e: MouseEvent) => {
         e.preventDefault()
-        setInternalOpen((v) => !v)
+        const delay = Math.max(0, visibilityDelay)
+        if (delay === 0) {
+          setInternalOpen((v) => !v)
+        } else {
+          window.setTimeout(() => setInternalOpen((v) => !v), delay)
+        }
       }
 
       anchorEl.addEventListener("click", onClick)
@@ -467,9 +487,21 @@ const OverlayPositionerComponent = ({
     }
 
     if (trigger === "hover") {
-      const onEnterAnchor = () => setInternalOpen(true)
-      const onLeaveAnchor = () => setInternalOpen(false)
-      const onEnterOverlay = () => setInternalOpen(false)
+      const onEnterAnchor = () => {
+        const delay = Math.max(0, visibilityDelay)
+        if (delay === 0) setInternalOpen(true)
+        else window.setTimeout(() => setInternalOpen(true), delay)
+      }
+      const onLeaveAnchor = () => {
+        const delay = Math.max(0, visibilityDelay)
+        if (delay === 0) setInternalOpen(false)
+        else window.setTimeout(() => setInternalOpen(false), delay)
+      }
+      const onEnterOverlay = () => {
+        const delay = Math.max(0, visibilityDelay)
+        if (delay === 0) setInternalOpen(false)
+        else window.setTimeout(() => setInternalOpen(false), delay)
+      }
 
       anchorEl.addEventListener("mouseenter", onEnterAnchor)
       anchorEl.addEventListener("mouseleave", onLeaveAnchor)
@@ -499,6 +531,8 @@ const OverlayPositionerComponent = ({
   if (!isOpen) return null
 
   const arrowComponent = (() => {
+    if (placement === "over") return null
+
     if (!arrow || !isReady || !arrowData) return null
     const styleArrow: preact.JSX.CSSProperties = {
       position: "absolute",

@@ -59,6 +59,7 @@ const meta: Meta<typeof OverlayPositioner> = {
     placement: {
       control: { type: "radio" },
       options: [
+        "over",
         "top",
         "top-left",
         "top-right",
@@ -79,6 +80,7 @@ const meta: Meta<typeof OverlayPositioner> = {
       control: { type: "radio" },
       options: [
         false,
+        "over",
         "top",
         "top-left",
         "top-right",
@@ -112,6 +114,11 @@ const meta: Meta<typeof OverlayPositioner> = {
           summary: "string",
         },
       },
+    },
+    visibilityDelay: {
+      control: { type: "number" },
+      defaultValue: { summary: 0 },
+      description: "Delay in milliseconds before showing the overlay.",
     },
     paddingX: {
       control: { type: "number" },
@@ -188,6 +195,7 @@ export const Demo: Story = {
     placement: "bottom",
     placementFallback: false,
     trigger: "click",
+    visibilityDelay: 0,
     paddingX: 0,
     paddingY: 0,
     edgePadding: 0,
@@ -824,6 +832,39 @@ export const CloseOnOutsideClick: Story = {
                 </Stack>
               </Section>
             </Popover>
+          </OverlayPositioner>
+        </Stack>
+      </div>
+    )
+  },
+}
+
+export const VisibilityDelay: Story = {
+  parameters: {
+    controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
+  },
+  render: () => {
+    const anchorRef = useRef<HTMLDivElement | null>(null)
+
+    return (
+      <div className="sb-column sb-width-full">
+        <Stack spacing={200}>
+          <Text ref={anchorRef as any}>Hover delay 480ms</Text>
+          <OverlayPositioner
+            anchorRef={anchorRef}
+            trigger="hover"
+            visibilityDelay={480}
+            arrow={true}
+            paddingY={12}
+          >
+            <Tooltip>
+              <Text intent="neutral-inverted-fixed" noWrap>
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+              </Text>
+            </Tooltip>
           </OverlayPositioner>
         </Stack>
       </div>

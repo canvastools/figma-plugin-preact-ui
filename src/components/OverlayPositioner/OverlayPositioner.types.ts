@@ -1,4 +1,5 @@
 export type OverlayPlacement =
+  | "over"
   | "top"
   | "top-left"
   | "top-right"
@@ -20,6 +21,7 @@ export interface OverlayPositionerProps {
   placement?: OverlayPlacement
   placementFallback?: false | OverlayPlacement[]
   trigger?: "click" | "hover"
+  visibilityDelay?: number
   paddingX?: number
   paddingY?: number
   edgePadding?: number
