@@ -10,6 +10,7 @@ import { Icon } from "../../index"
 import { Badge } from "../../index"
 import { Stack } from "../../index"
 import { Text } from "../../index"
+import { glyphs } from "../../index"
 
 const meta: Meta<typeof MenuItemOption> = {
   title: "Components/MenuItemOption",
@@ -198,7 +199,12 @@ export const Suffix: Story = {
         <MenuItemOption
           reducedPaddingRight
           suffix={
-            <Icon glyph="ai" size={16} intent="neutral-inverted" interactive />
+            <Icon
+              glyph={glyphs.ai}
+              size={16}
+              intent="neutral-inverted"
+              interactive
+            />
           }
         >
           Menu Item
@@ -214,7 +220,7 @@ export const Suffix: Story = {
           reducedPaddingRight
           suffix={
             <Icon
-              glyph="link"
+              glyph={glyphs.link}
               size={16}
               intent="neutral-inverted"
               interactive

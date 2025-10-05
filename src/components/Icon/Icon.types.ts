@@ -1,13 +1,13 @@
-import { glyphs } from "./glyphs"
-
 export interface GlyphProps {
   variant: IconProps["variant"]
   size: number
 }
 
+export type Glyph = (props: GlyphProps) => preact.VNode
+
 export interface IconProps {
   className?: string
-  glyph?: keyof typeof glyphs
+  glyph?: Glyph
   intent?:
     | "neutral"
     | "neutral-inverted"

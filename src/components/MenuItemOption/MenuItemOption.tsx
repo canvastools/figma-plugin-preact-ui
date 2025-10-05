@@ -8,6 +8,7 @@ import "./MenuItemOption.scss"
 
 import { Text } from "../../index"
 import { Icon } from "../../index"
+import { glyphs } from "../../index"
 
 /* --- */
 
@@ -82,7 +83,7 @@ const MenuItemOptionComponent = (
     >
       <div className="MenuItemOption__content">
         <div className="MenuItemOption__selection">
-          {isSelected && <Icon glyph="check" size={16} intent="brand" />}
+          {isSelected && <Icon glyph={glyphs.check} size={16} intent="brand" />}
         </div>
         <div className="MenuItemOption__content-container">
           {children && (

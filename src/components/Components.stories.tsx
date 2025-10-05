@@ -1,6 +1,8 @@
 import { Meta, StoryObj } from "@storybook/preact"
 import { useState } from "preact/hooks"
 
+import { glyphs } from "../index"
+
 import { Shape as AvatarShape } from "./Avatar/Avatar.stories"
 import { Prefix as BadgePrefix } from "./Badge/Badge.stories"
 import { StickySimulation as StickyBarPosition } from "./Bar/Bar.stories"
@@ -119,7 +121,7 @@ export const _1: Story = {
 
               <Stack direction="row" spacing="200">
                 <ButtonIcon ghost>
-                  <Icon glyph="settings" variant="scaled" />
+                  <Icon glyph={glyphs.settings} variant="scaled" />
                 </ButtonIcon>
                 <Avatar>M</Avatar>
               </Stack>
@@ -180,14 +182,14 @@ export const _1: Story = {
                         onChange={() => setView("viewList")}
                         selected={view === "viewList"}
                       >
-                        <Icon glyph="viewList" />
+                        <Icon glyph={glyphs.viewList} />
                       </ButtonIconToggle>
                       <ButtonIconToggle
                         ghost
                         onChange={() => setView("viewGrid")}
                         selected={view === "viewGrid"}
                       >
-                        <Icon glyph="viewGrid" />
+                        <Icon glyph={glyphs.viewGrid} />
                       </ButtonIconToggle>
                     </Stack>
                   </Stack>

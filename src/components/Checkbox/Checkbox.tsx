@@ -6,6 +6,7 @@ import "./Checkbox.scss"
 
 import { Text } from "../../index"
 import { Icon } from "../../index"
+import { glyphs } from "../../index"
 
 /* --- */
 
@@ -91,7 +92,7 @@ const CheckboxComponent = (
         {isChecked && !mixed && (
           <div className="Checkbox__icon">
             <Icon
-              glyph="check"
+              glyph={glyphs.check}
               intent="brand"
               intentModifiers="default"
               interactive
@@ -102,7 +103,7 @@ const CheckboxComponent = (
         {isChecked && mixed && (
           <div className="Checkbox__icon">
             <Icon
-              glyph="mixed"
+              glyph={glyphs.mixed}
               intent="brand"
               intentModifiers="default"
               interactive

@@ -11,6 +11,7 @@ import { Badge } from "../../index"
 import { Icon } from "../../index"
 import { Section } from "../../index"
 import { Text } from "../../index"
+import { glyphs } from "../../index"
 
 const meta: Meta<typeof Tab> = {
   title: "Components/Tab",
@@ -213,7 +214,7 @@ export const Prefix: Story = {
                 value="tab-1"
                 prefix={
                   <Icon
-                    glyph="settings"
+                    glyph={glyphs.settings}
                     variant="scaled"
                     intent="neutral"
                     intentModifiers="default"
@@ -228,7 +229,7 @@ export const Prefix: Story = {
                 value="tab-2"
                 prefix={
                   <Icon
-                    glyph="search"
+                    glyph={glyphs.search}
                     variant="scaled"
                     intent="neutral"
                     intentModifiers="default"
@@ -250,7 +251,7 @@ export const Prefix: Story = {
                 value="tab-1"
                 prefix={
                   <Icon
-                    glyph="settings"
+                    glyph={glyphs.settings}
                     variant="scaled"
                     intent="neutral"
                     intentModifiers="default"

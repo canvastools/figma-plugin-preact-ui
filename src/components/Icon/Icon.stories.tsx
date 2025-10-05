@@ -1,8 +1,8 @@
 import { Meta, StoryObj } from "@storybook/preact"
 
 import { Icon } from "./Icon"
-import { glyphs } from "./glyphs"
 
+import { glyphs } from "../../index"
 import { Text } from "../../index"
 import type { TextProps } from "../../index"
 import { Section } from "../../index"
@@ -18,6 +18,11 @@ const meta: Meta<typeof Icon> = {
     glyph: {
       control: { type: "select" },
       options: Object.keys(glyphs),
+      table: {
+        type: {
+          summary: "JSX.Element",
+        },
+      },
     },
     intent: {
       control: { type: "radio" },
@@ -106,13 +111,18 @@ export const Demo: Story = {
       defaultViewport: "large",
     },
   },
-  render: (args) => (
-    <div className="sb-column sb-width-full">
-      <Section>
-        <Icon {...args} />
-      </Section>
-    </div>
-  ),
+  render: (args: any) => {
+    const { glyph, ...rest } = args as {
+      glyph: keyof typeof glyphs
+    } & import("./Icon.types").IconProps
+    return (
+      <div className="sb-column sb-width-full">
+        <Section>
+          <Icon {...rest} glyph={glyphs[glyph]} />
+        </Section>
+      </div>
+    )
+  },
 }
 
 const glyphCombinations = (glyph: string) => {
@@ -125,7 +135,7 @@ const glyphCombinations = (glyph: string) => {
   return combinations.map(([variant, size]) => {
     try {
       // Probe support for this size/variant pair
-      glyphs[glyph]({ variant, size })
+      glyphs[glyph as keyof typeof glyphs]!({ variant, size })
 
       return (
         <td style={{ verticalAlign: "top", width: "100%", padding: "16px" }}>
@@ -134,7 +144,7 @@ const glyphCombinations = (glyph: string) => {
           </Text>
           <br />
           <Icon
-            glyph={glyph as keyof typeof glyphs}
+            glyph={glyphs[glyph as keyof typeof glyphs]}
             variant={variant}
             size={size}
             intent="neutral"
@@ -252,7 +262,7 @@ const intentCombinations = () => {
             </Text>
           </div>
           <Icon
-            glyph="link"
+            glyph={glyphs.link}
             variant="default"
             size={24}
             intent={intent as TextProps["intent"]}
@@ -261,7 +271,7 @@ const intentCombinations = () => {
             selected={selected as TextProps["selected"]}
           />
           <Icon
-            glyph="link"
+            glyph={glyphs.link}
             variant="scaled"
             size={24}
             intent={intent as TextProps["intent"]}
@@ -270,7 +280,7 @@ const intentCombinations = () => {
             selected={selected as TextProps["selected"]}
           />
           <Icon
-            glyph="link"
+            glyph={glyphs.link}
             variant="default"
             size={16}
             intent={intent as TextProps["intent"]}
@@ -307,7 +317,7 @@ export const Fill: Story = {
   },
   render: () => (
     <div className="sb-row sb-width-full sb-gap-16">
-      <Icon glyph="link" fill="#00FF00" />
+      <Icon glyph={glyphs.link} fill="#00FF00" />
     </div>
   ),
 }
@@ -321,7 +331,12 @@ export const Disabled: Story = {
   },
   render: () => (
     <div className="sb-row sb-gap-16">
-      <Icon glyph="link" intent="neutral" intentModifiers="default" disabled />
+      <Icon
+        glyph={glyphs.link}
+        intent="neutral"
+        intentModifiers="default"
+        disabled
+      />
     </div>
   ),
 }
@@ -335,8 +350,8 @@ export const Variant: Story = {
   },
   render: () => (
     <div className="sb-row sb-gap-16">
-      <Icon glyph="link" variant="default" intent="neutral" />
-      <Icon glyph="link" variant="scaled" intent="neutral" />
+      <Icon glyph={glyphs.link} variant="default" intent="neutral" />
+      <Icon glyph={glyphs.link} variant="scaled" intent="neutral" />
     </div>
   ),
 }
@@ -350,8 +365,8 @@ export const Size: Story = {
   },
   render: () => (
     <div className="sb-row sb-gap-16">
-      <Icon glyph="link" size={24} intent="neutral" />
-      <Icon glyph="link" size={16} intent="neutral" />
+      <Icon glyph={glyphs.link} size={24} intent="neutral" />
+      <Icon glyph={glyphs.link} size={16} intent="neutral" />
     </div>
   ),
 }
@@ -409,7 +424,7 @@ export const ErrorHandling: Story = {
   render: () => {
     return (
       <div className="sb-column sb-gap-16">
-        <Icon glyph="link" size={16} variant="scaled"></Icon>
+        <Icon glyph={glyphs.link} size={16} variant="scaled"></Icon>
       </div>
     )
   },

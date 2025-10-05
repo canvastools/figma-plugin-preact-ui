@@ -3,9 +3,10 @@ import { Meta, StoryObj } from "@storybook/preact"
 import { figmaLight, figmaDark, spacing, radius } from "../themes"
 import type { ColorTokenTree, ColorTokenBranch } from "../themes"
 
-import { Text } from "./Text/Text"
-import { Icon } from "./Icon/Icon"
-import { ButtonIcon } from "./ButtonIcon/ButtonIcon"
+import { Text } from "../index"
+import { Icon } from "../index"
+import { ButtonIcon } from "../index"
+import { glyphs } from "../index"
 
 const meta: Meta = {
   title: "Overview/Variables",
@@ -91,7 +92,7 @@ const colorTokensList = () => {
       >
         <div style={{ display: "flex", alignItems: "center", width: "100%" }}>
           <ButtonIcon onClick={() => copyToClipboard(`--pui-color-${token}`)}>
-            <Icon glyph="copy" variant="scaled" />
+            <Icon glyph={glyphs.copy} variant="scaled" />
           </ButtonIcon>
 
           <div
@@ -119,7 +120,7 @@ const colorTokensList = () => {
                   copyToClipboard(tokenMatrix[token][theme] as string)
                 }
               >
-                <Icon glyph="copy" variant="scaled" />
+                <Icon glyph={glyphs.copy} variant="scaled" />
               </ButtonIcon>
               <div
                 className={themeClassName[theme]}
@@ -173,7 +174,7 @@ const spacingTokensList = () => {
       >
         <div style={{ display: "flex", alignItems: "center", width: "100%" }}>
           <ButtonIcon onClick={() => copyToClipboard(`--pui-spacing-${token}`)}>
-            <Icon glyph="copy" variant="scaled" />
+            <Icon glyph={glyphs.copy} variant="scaled" />
           </ButtonIcon>
 
           <div
@@ -195,7 +196,7 @@ const spacingTokensList = () => {
           <ButtonIcon
             onClick={() => copyToClipboard(tokenMatrix[token] as string)}
           >
-            <Icon glyph="copy" variant="scaled" />
+            <Icon glyph={glyphs.copy} variant="scaled" />
           </ButtonIcon>
           <div
             style={{
@@ -231,7 +232,7 @@ const radiusTokensList = () => {
       >
         <div style={{ display: "flex", alignItems: "center", width: "100%" }}>
           <ButtonIcon onClick={() => copyToClipboard(`--pui-spacing-${token}`)}>
-            <Icon glyph="copy" variant="scaled" />
+            <Icon glyph={glyphs.copy} variant="scaled" />
           </ButtonIcon>
 
           <div
@@ -253,7 +254,7 @@ const radiusTokensList = () => {
           <ButtonIcon
             onClick={() => copyToClipboard(tokenMatrix[token] as string)}
           >
-            <Icon glyph="copy" variant="scaled" />
+            <Icon glyph={glyphs.copy} variant="scaled" />
           </ButtonIcon>
           <div
             style={{
