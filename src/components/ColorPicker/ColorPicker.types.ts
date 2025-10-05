@@ -9,7 +9,7 @@ export interface ColorPickerProps {
   className?: string
   defaultType?: "rgba" | "hex" | "hexAlpha"
   types?: ("rgba" | "hex" | "hexAlpha")[]
-  value?: Color
+  value?: Color | null
   controls?: boolean
   onChange?: (args: { rgba: Color; hex: string; opacity: number }) => void
 }

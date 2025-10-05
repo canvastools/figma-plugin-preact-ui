@@ -40,6 +40,8 @@ import {
   Divider,
   Icon,
   Input,
+  ColorPicker,
+  ColorSwatch,
   ListContainer,
   ListContext,
   ListItem,
@@ -55,15 +57,17 @@ import {
   Spacing,
   Spinner,
   Stack,
+  Popover,
   Tab,
   TabContext,
   TabList,
   TabPanel,
   Text,
   WindowResizer,
+  colorToHexAlpha,
 } from "../"
 
-import type { ListItemData } from "../"
+import type { ListItemData, Color } from "../"
 
 import { useScrollContext } from "../"
 
@@ -179,14 +183,65 @@ export const _1: Story = {
     }
 
     const BottomBar = () => {
+      const [openColorPicker, setOpenColorPicker] = useState(false)
       const { isAtBottom } = useScrollContext()
+      const anchorRef = useRef<HTMLDivElement | null>(null)
+      const [color, setColor] = useState<Color>({
+        r: 255,
+        g: 0,
+        b: 0,
+        a: 1,
+      })
 
       return (
         <Bar borderTop={!isAtBottom}>
           <Section>
             <Stack direction="row" spacing="200">
-              <Input placeholder="Type a new to-do" />
+              <Input
+                placeholder="Type a new to-do"
+                prefix={
+                  <div
+                    style={{ padding: "0 8px 0 4px" }}
+                    ref={anchorRef}
+                    onClick={() => setOpenColorPicker(true)}
+                  >
+                    <ColorSwatch size="small" hex={colorToHexAlpha(color)} />
+                  </div>
+                }
+              />
               <Button intent="brand">Add</Button>
+              <OverlayPositioner
+                anchorRef={anchorRef}
+                placement="over"
+                open={openColorPicker}
+                onClose={() => setOpenColorPicker(false)}
+              >
+                <Popover>
+                  <Bar borderBottom>
+                    <Section padding={{ right: "200" }}>
+                      <Stack direction="row" spacing="200" y="center">
+                        <Text fullWidth strong>
+                          Color Picker
+                        </Text>
+                        <ButtonIcon
+                          ghost
+                          onClick={() => setOpenColorPicker(false)}
+                        >
+                          <Icon glyph={glyphs.close} />
+                        </ButtonIcon>
+                      </Stack>
+                    </Section>
+                  </Bar>
+                  <Section>
+                    <Spacing size="100" />
+                    <ColorPicker
+                      value={color}
+                      onChange={(color) => setColor(color.rgba)}
+                    />
+                    <Spacing size="100" />
+                  </Section>
+                </Popover>
+              </OverlayPositioner>
             </Stack>
           </Section>
         </Bar>

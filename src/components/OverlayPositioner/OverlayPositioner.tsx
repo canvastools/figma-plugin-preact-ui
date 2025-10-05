@@ -459,7 +459,10 @@ const OverlayPositionerComponent = ({
       if (!overlay || !target || !anchorEl) return
       const insideOverlay = overlay.contains(target)
       const insideAnchor = anchorEl.contains(target as Node)
-      if (!insideOverlay && !insideAnchor) {
+      const insideAnyOverlay = (target as HTMLElement | null)?.closest
+        ? Boolean((target as HTMLElement).closest(".OverlayPositioner"))
+        : false
+      if (!insideOverlay && !insideAnchor && !insideAnyOverlay) {
         if (isControlled) onClose?.()
         else setInternalOpen(false)
       }

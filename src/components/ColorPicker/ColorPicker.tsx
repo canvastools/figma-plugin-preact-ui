@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "preact/hooks"
+import { useEffect, useMemo, useRef, useState } from "preact/hooks"
 import {
   bem,
   typedForwardRef,
@@ -89,7 +89,7 @@ const ControlsRgba = ({
 
   useEffect(() => {
     setRgbaValue(color)
-  }, [color.r, color.g, color.b, color.a])
+  }, [color])
 
   const { getErrorCode: getErrorCodeRgbaValue } = useNumberValidator({
     required: true,
@@ -495,17 +495,53 @@ const ColorPickerComponent = (
   const currentColor = isControlled && value ? value : internalColor
   const currentType: ColorPickerType = internalType
 
-  const setNextColor = (next: Color) => {
-    const normalized: Color = { ...next, a: roundAlpha(clamp(next.a, 0, 1)) }
-    if (!isControlled) {
-      setInternalColor(normalized)
+  // --- High-frequency update scheduler (one update per frame) ---
+  const pendingColorRef = useRef<Color | null>(null)
+  const rafIdRef = useRef<number | null>(null)
+
+  const areColorsEqual = (a: Color, b: Color) =>
+    a.r === b.r && a.g === b.g && a.b === b.b && a.a === b.a
+
+  const flushPendingColor = () => {
+    const next = pendingColorRef.current
+    pendingColorRef.current = null
+    rafIdRef.current = null
+    if (!next) return
+
+    const normalized: Color = {
+      ...next,
+      a: roundAlpha(clamp(next.a, 0, 1)),
     }
+
+    if (!isControlled) {
+      if (!areColorsEqual(normalized, internalColor)) {
+        setInternalColor(normalized)
+      }
+    }
+
     onChange?.({
       rgba: normalized,
       hex: colorToHex(normalized),
       opacity: normalized.a,
     })
   }
+
+  const scheduleNextColor = (next: Color) => {
+    pendingColorRef.current = next
+    if (rafIdRef.current == null) {
+      rafIdRef.current = window.requestAnimationFrame(flushPendingColor)
+    }
+  }
+
+  useEffect(() => {
+    return () => {
+      if (rafIdRef.current != null) {
+        cancelAnimationFrame(rafIdRef.current)
+        rafIdRef.current = null
+      }
+      pendingColorRef.current = null
+    }
+  }, [])
 
   const _className = bem("ColorPicker", undefined, {
     type: currentType,
@@ -537,7 +573,7 @@ const ColorPickerComponent = (
           onChange={(hex) => {
             const nextColor = hexToColor(hex, currentColor.a)
             if (nextColor) {
-              setNextColor(nextColor)
+              scheduleNextColor(nextColor)
             }
           }}
         />
@@ -548,7 +584,7 @@ const ColorPickerComponent = (
           onChange={(hex8) => {
             const nextColor = hexAlphaToColor(hex8)
             if (nextColor) {
-              setNextColor(nextColor)
+              scheduleNextColor(nextColor)
             }
           }}
         />
@@ -557,7 +593,7 @@ const ColorPickerComponent = (
         <RgbaColorPicker
           color={currentColor}
           onChange={(e) => {
-            setNextColor(e)
+            scheduleNextColor(e)
           }}
         />
       )}
@@ -566,7 +602,7 @@ const ColorPickerComponent = (
           {currentType === "hex" && (
             <ControlsHex
               color={currentColor}
-              setColor={setNextColor}
+              setColor={scheduleNextColor}
               type={currentType as ColorPickerType}
               setType={setInternalType as (t: ColorPickerType) => void}
               options={computedOptions}
@@ -575,7 +611,7 @@ const ColorPickerComponent = (
           {currentType === "hexAlpha" && (
             <ControlsHexAlpha
               color={currentColor}
-              setColor={setNextColor}
+              setColor={scheduleNextColor}
               type={currentType as ColorPickerType}
               setType={setInternalType as (t: ColorPickerType) => void}
               options={computedOptions}
@@ -584,7 +620,7 @@ const ColorPickerComponent = (
           {currentType === "rgba" && (
             <ControlsRgba
               color={currentColor}
-              setColor={setNextColor}
+              setColor={scheduleNextColor}
               type={currentType as ColorPickerType}
               setType={setInternalType as (t: ColorPickerType) => void}
               options={computedOptions}

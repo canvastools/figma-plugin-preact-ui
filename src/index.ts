@@ -27,7 +27,10 @@ export type {
 } from "./components/Checkbox/Checkbox.types"
 
 export { ColorPicker } from "./components/ColorPicker/ColorPicker"
-export type { ColorPickerProps } from "./components/ColorPicker/ColorPicker.types"
+export type {
+  ColorPickerProps,
+  Color,
+} from "./components/ColorPicker/ColorPicker.types"
 
 export { ColorSwatch } from "./components/ColorSwatch/ColorSwatch"
 export type { ColorSwatchProps } from "./components/ColorSwatch/ColorSwatch.types"
