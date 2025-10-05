@@ -111,7 +111,8 @@ export const Demo: Story = {
       defaultViewport: "large",
     },
   },
-  render: (args: any) => {
+  render: (args) => {
+    // @ts-expect-error: Storybook types hack
     const { glyph, ...rest } = args as {
       glyph: keyof typeof glyphs
     } & import("./Icon.types").IconProps

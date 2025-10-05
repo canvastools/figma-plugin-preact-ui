@@ -149,7 +149,7 @@ export const Placement: Story = {
       <div className="sb-column sb-width-full">
         <Stack direction="row" spacing={400}>
           <Stack spacing={200}>
-            <Button ref={anchorRefTopLeft as any}>Top Left</Button>
+            <Button ref={anchorRefTopLeft}>Top Left</Button>
             <OverlayPositioner
               anchorRef={anchorRefTopLeft}
               placement="top-left"
@@ -168,7 +168,7 @@ export const Placement: Story = {
               </Popover>
             </OverlayPositioner>
 
-            <Button ref={anchorRefTop as any}>Top</Button>
+            <Button ref={anchorRefTop}>Top</Button>
             <OverlayPositioner
               anchorRef={anchorRefTop}
               placement="top"
@@ -187,7 +187,7 @@ export const Placement: Story = {
               </Popover>
             </OverlayPositioner>
 
-            <Button ref={anchorRefTopEnd as any}>Top Right</Button>
+            <Button ref={anchorRefTopEnd}>Top Right</Button>
             <OverlayPositioner
               anchorRef={anchorRefTopEnd}
               placement="top-right"
@@ -208,7 +208,7 @@ export const Placement: Story = {
           </Stack>
 
           <Stack spacing={200}>
-            <Button ref={anchorRefBottomLeft as any}>Bottom Left</Button>
+            <Button ref={anchorRefBottomLeft}>Bottom Left</Button>
             <OverlayPositioner
               anchorRef={anchorRefBottomLeft}
               placement="bottom-left"
@@ -227,7 +227,7 @@ export const Placement: Story = {
               </Popover>
             </OverlayPositioner>
 
-            <Button ref={anchorRefBottom as any}>Bottom</Button>
+            <Button ref={anchorRefBottom}>Bottom</Button>
             <OverlayPositioner
               anchorRef={anchorRefBottom}
               placement="bottom"
@@ -246,7 +246,7 @@ export const Placement: Story = {
               </Popover>
             </OverlayPositioner>
 
-            <Button ref={anchorRefBottomEnd as any}>Bottom Right</Button>
+            <Button ref={anchorRefBottomEnd}>Bottom Right</Button>
             <OverlayPositioner
               anchorRef={anchorRefBottomEnd}
               placement="bottom-right"
@@ -267,7 +267,7 @@ export const Placement: Story = {
           </Stack>
 
           <Stack spacing={200}>
-            <Button ref={anchorRefLeftTop as any}>Left Top</Button>
+            <Button ref={anchorRefLeftTop}>Left Top</Button>
             <OverlayPositioner
               anchorRef={anchorRefLeftTop}
               placement="left-top"
@@ -285,7 +285,7 @@ export const Placement: Story = {
                 </Section>
               </Popover>
             </OverlayPositioner>
-            <Button ref={anchorRefLeft as any}>Left</Button>
+            <Button ref={anchorRefLeft}>Left</Button>
             <OverlayPositioner
               anchorRef={anchorRefLeft}
               placement="left"
@@ -303,7 +303,7 @@ export const Placement: Story = {
                 </Section>
               </Popover>
             </OverlayPositioner>
-            <Button ref={anchorRefLeftBottom as any}>Left Bottom</Button>
+            <Button ref={anchorRefLeftBottom}>Left Bottom</Button>
             <OverlayPositioner
               anchorRef={anchorRefLeftBottom}
               placement="left-bottom"
@@ -324,7 +324,7 @@ export const Placement: Story = {
           </Stack>
 
           <Stack spacing={200}>
-            <Button ref={anchorRefRightTop as any}>Right Top</Button>
+            <Button ref={anchorRefRightTop}>Right Top</Button>
             <OverlayPositioner
               anchorRef={anchorRefRightTop}
               placement="right-top"
@@ -343,7 +343,7 @@ export const Placement: Story = {
               </Popover>
             </OverlayPositioner>
 
-            <Button ref={anchorRefRight as any}>Right</Button>
+            <Button ref={anchorRefRight}>Right</Button>
             <OverlayPositioner
               anchorRef={anchorRefRight}
               placement="right"
@@ -362,7 +362,7 @@ export const Placement: Story = {
               </Popover>
             </OverlayPositioner>
 
-            <Button ref={anchorRefRightBottom as any}>Right Bottom</Button>
+            <Button ref={anchorRefRightBottom}>Right Bottom</Button>
             <OverlayPositioner
               anchorRef={anchorRefRightBottom}
               placement="right-bottom"

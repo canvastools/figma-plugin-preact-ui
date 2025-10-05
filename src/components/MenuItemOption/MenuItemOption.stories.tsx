@@ -102,7 +102,7 @@ export const Demo: Story = {
   tags: ["!autodocs"],
   args: {
     className: "",
-    defaultSelected: false,
+    defaultSelected: true,
     disabled: false,
     onChange: fn(),
   },
@@ -142,7 +142,7 @@ export const Controlled: Story = {
     },
   },
   render: () => {
-    const [selected, setSelected] = useState(false)
+    const [selected, setSelected] = useState(true)
 
     return (
       <div className="sb-column sb-width-full">
@@ -171,7 +171,9 @@ export const Disabled: Story = {
   render: () => (
     <div className="sb-column sb-width-full">
       <MenuContainer width={208}>
-        <MenuItemOption disabled>Menu Item Option</MenuItemOption>
+        <MenuItemOption defaultSelected disabled>
+          Menu Item Option
+        </MenuItemOption>
       </MenuContainer>
     </div>
   ),
@@ -198,6 +200,7 @@ export const Suffix: Story = {
         </MenuItemOption>
         <MenuItemOption
           reducedPaddingRight
+          defaultSelected
           suffix={
             <Icon
               glyph={glyphs.ai}

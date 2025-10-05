@@ -6,6 +6,9 @@ import { ColorPicker } from "./ColorPicker"
 
 import { Text } from "../../index"
 import { Stack } from "../../index"
+import { ColorSwatch } from "../../index"
+
+import { colorToHexAlpha } from "../../index"
 
 const meta: Meta<typeof ColorPicker> = {
   title: "Components/ColorPicker",
@@ -123,6 +126,7 @@ export const Controlled: Story = {
           <Text>
             Value: {color.hex}, {color.opacity}
           </Text>
+          <ColorSwatch hex={colorToHexAlpha(color.rgba)} />
           <ColorPicker
             defaultType="hex"
             value={color.rgba}

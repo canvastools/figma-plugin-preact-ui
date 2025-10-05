@@ -214,7 +214,7 @@ export const Demo: Story = {
 
     return (
       <div className="sb-column sb-width-full">
-        <Button ref={anchorRef as any}>Show Popover</Button>
+        <Button ref={anchorRef}>Show Popover</Button>
 
         <OverlayPositioner anchorRef={anchorRef} {...args}>
           <Popover width={300}>
@@ -246,7 +246,7 @@ export const Uncontrolled: Story = {
 
     return (
       <div className="sb-column sb-width-full">
-        <Button ref={anchorRef as any}>Show Popover</Button>
+        <Button ref={anchorRef}>Show Popover</Button>
         <OverlayPositioner
           anchorRef={anchorRef}
           defaultOpen={false}
@@ -284,7 +284,7 @@ export const Controlled: Story = {
       <div className="sb-column sb-width-full">
         <Stack spacing={200}>
           <Text>Overlay visibility: {open ? "Open" : "Closed"}</Text>
-          <Button ref={anchorRef as any} onClick={() => setOpen((v) => !v)}>
+          <Button ref={anchorRef} onClick={() => setOpen((v) => !v)}>
             Show Popover
           </Button>
 
@@ -340,7 +340,7 @@ export const Placement: Story = {
       <div className="sb-column sb-width-full">
         <Stack direction="row" spacing={400}>
           <Stack spacing={200}>
-            <Button ref={anchorRefTopLeft as any}>Top Left</Button>
+            <Button ref={anchorRefTopLeft}>Top Left</Button>
             <OverlayPositioner
               anchorRef={anchorRefTopLeft}
               placement="top-left"
@@ -359,7 +359,7 @@ export const Placement: Story = {
               </Popover>
             </OverlayPositioner>
 
-            <Button ref={anchorRefTop as any}>Top</Button>
+            <Button ref={anchorRefTop}>Top</Button>
             <OverlayPositioner
               anchorRef={anchorRefTop}
               placement="top"
@@ -378,7 +378,7 @@ export const Placement: Story = {
               </Popover>
             </OverlayPositioner>
 
-            <Button ref={anchorRefTopEnd as any}>Top Right</Button>
+            <Button ref={anchorRefTopEnd}>Top Right</Button>
             <OverlayPositioner
               anchorRef={anchorRefTopEnd}
               placement="top-right"
@@ -399,7 +399,7 @@ export const Placement: Story = {
           </Stack>
 
           <Stack spacing={200}>
-            <Button ref={anchorRefBottomLeft as any}>Bottom Left</Button>
+            <Button ref={anchorRefBottomLeft}>Bottom Left</Button>
             <OverlayPositioner
               anchorRef={anchorRefBottomLeft}
               placement="bottom-left"
@@ -418,7 +418,7 @@ export const Placement: Story = {
               </Popover>
             </OverlayPositioner>
 
-            <Button ref={anchorRefBottom as any}>Bottom</Button>
+            <Button ref={anchorRefBottom}>Bottom</Button>
             <OverlayPositioner
               anchorRef={anchorRefBottom}
               placement="bottom"
@@ -437,7 +437,7 @@ export const Placement: Story = {
               </Popover>
             </OverlayPositioner>
 
-            <Button ref={anchorRefBottomEnd as any}>Bottom Right</Button>
+            <Button ref={anchorRefBottomEnd}>Bottom Right</Button>
             <OverlayPositioner
               anchorRef={anchorRefBottomEnd}
               placement="bottom-right"
@@ -458,7 +458,7 @@ export const Placement: Story = {
           </Stack>
 
           <Stack spacing={200}>
-            <Button ref={anchorRefLeftTop as any}>Left Top</Button>
+            <Button ref={anchorRefLeftTop}>Left Top</Button>
             <OverlayPositioner
               anchorRef={anchorRefLeftTop}
               placement="left-top"
@@ -477,7 +477,7 @@ export const Placement: Story = {
               </Popover>
             </OverlayPositioner>
 
-            <Button ref={anchorRefLeft as any}>Left</Button>
+            <Button ref={anchorRefLeft}>Left</Button>
             <OverlayPositioner
               anchorRef={anchorRefLeft}
               placement="left"
@@ -496,7 +496,7 @@ export const Placement: Story = {
               </Popover>
             </OverlayPositioner>
 
-            <Button ref={anchorRefLeftBottom as any}>Left Bottom</Button>
+            <Button ref={anchorRefLeftBottom}>Left Bottom</Button>
             <OverlayPositioner
               anchorRef={anchorRefLeftBottom}
               placement="left-bottom"
@@ -517,7 +517,7 @@ export const Placement: Story = {
           </Stack>
 
           <Stack spacing={200}>
-            <Button ref={anchorRefRightTop as any}>Right Top</Button>
+            <Button ref={anchorRefRightTop}>Right Top</Button>
             <OverlayPositioner
               anchorRef={anchorRefRightTop}
               placement="right-top"
@@ -536,7 +536,7 @@ export const Placement: Story = {
               </Popover>
             </OverlayPositioner>
 
-            <Button ref={anchorRefRight as any}>Right</Button>
+            <Button ref={anchorRefRight}>Right</Button>
             <OverlayPositioner
               anchorRef={anchorRefRight}
               placement="right"
@@ -555,7 +555,7 @@ export const Placement: Story = {
               </Popover>
             </OverlayPositioner>
 
-            <Button ref={anchorRefRightBottom as any}>Right Bottom</Button>
+            <Button ref={anchorRefRightBottom}>Right Bottom</Button>
             <OverlayPositioner
               anchorRef={anchorRefRightBottom}
               placement="right-bottom"
@@ -594,7 +594,7 @@ export const Trigger: Story = {
     return (
       <div className="sb-column sb-width-full">
         <Stack spacing={200}>
-          <Button ref={anchorRefClick as any}>Click</Button>
+          <Button ref={anchorRefClick}>Click</Button>
           <OverlayPositioner
             anchorRef={anchorRefClick}
             trigger="click"
@@ -613,7 +613,7 @@ export const Trigger: Story = {
             </Popover>
           </OverlayPositioner>
 
-          <Button ref={anchorRefHover as any}>Hover</Button>
+          <Button ref={anchorRefHover}>Hover</Button>
           <OverlayPositioner
             anchorRef={anchorRefHover}
             trigger="hover"
@@ -651,7 +651,7 @@ export const Padding: Story = {
     return (
       <div className="sb-column sb-width-full">
         <Stack spacing={200}>
-          <Button ref={anchorRefNoPadding as any}>Padding 0, 0</Button>
+          <Button ref={anchorRefNoPadding}>Padding 0, 0</Button>
           <OverlayPositioner
             anchorRef={anchorRefNoPadding}
             placement="bottom-left"
@@ -671,7 +671,7 @@ export const Padding: Story = {
             </Popover>
           </OverlayPositioner>
 
-          <Button ref={anchorRefPadding as any}>Padding 24, 24</Button>
+          <Button ref={anchorRefPadding}>Padding 24, 24</Button>
           <OverlayPositioner
             anchorRef={anchorRefPadding}
             placement="bottom-left"
@@ -710,7 +710,7 @@ export const EdgePadding: Story = {
     return (
       <div className="sb-column sb-width-full">
         <Stack spacing={200}>
-          <Button ref={anchorRefNoPadding as any}>Edge Padding 0</Button>
+          <Button ref={anchorRefNoPadding}>Edge Padding 0</Button>
           <OverlayPositioner
             anchorRef={anchorRefNoPadding}
             edgePadding={0}
@@ -729,7 +729,7 @@ export const EdgePadding: Story = {
             </Popover>
           </OverlayPositioner>
 
-          <Button ref={anchorRefPadding as any}>Edge Padding 80</Button>
+          <Button ref={anchorRefPadding}>Edge Padding 80</Button>
           <OverlayPositioner
             anchorRef={anchorRefPadding}
             edgePadding={80}
@@ -771,7 +771,7 @@ export const CloseOnOutsideClick: Story = {
       <div className="sb-column sb-width-full">
         <Stack spacing={200}>
           <Button
-            ref={anchorRefTrue as any}
+            ref={anchorRefTrue}
             onClick={() => setOpenOutsideClickTrue((v) => !v)}
           >
             Close On Outside Click True
@@ -803,7 +803,7 @@ export const CloseOnOutsideClick: Story = {
           </OverlayPositioner>
 
           <Button
-            ref={anchorRefFalse as any}
+            ref={anchorRefFalse}
             onClick={() => setOpenOutsideClickFalse((v) => !v)}
           >
             Close On Outside Click False
@@ -852,7 +852,7 @@ export const VisibilityDelay: Story = {
     return (
       <div className="sb-column sb-width-full">
         <Stack spacing={200}>
-          <Text ref={anchorRef as any}>Hover delay 480ms</Text>
+          <Text ref={anchorRef}>Hover delay 480ms</Text>
           <OverlayPositioner
             anchorRef={anchorRef}
             trigger="hover"
@@ -880,12 +880,12 @@ export const Arrow: Story = {
     },
   },
   render: () => {
-    const anchorRefTooltip = useRef<HTMLDivElement | null>(null)
+    const anchorRefTooltip = useRef<HTMLButtonElement | null>(null)
 
     return (
       <div className="sb-column sb-width-full">
         <Stack spacing={200}>
-          <Button ref={anchorRefTooltip as any}>Tooltip</Button>
+          <Button ref={anchorRefTooltip}>Tooltip</Button>
           <OverlayPositioner
             anchorRef={anchorRefTooltip}
             arrow={true}

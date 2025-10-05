@@ -346,6 +346,14 @@ const OverlayPositionerComponent = ({
   const isOpen = isControlled ? (open as boolean) : internalOpen
   const rafRef = useRef<number | null>(null)
 
+  const resolvedPlacementFallback = useMemo<false | string[] | undefined>(
+    () =>
+      placementFallback && Array.isArray(placementFallback)
+        ? placementFallback
+        : false,
+    [placementFallback]
+  )
+
   const recompute = useMemo(
     () => () => {
       const vw = window.innerWidth
@@ -373,9 +381,7 @@ const OverlayPositionerComponent = ({
         w,
         h,
         placement,
-        placementFallback && Array.isArray(placementFallback)
-          ? placementFallback
-          : false,
+        resolvedPlacementFallback,
         paddingX,
         paddingY,
         edgePadding,
@@ -391,9 +397,7 @@ const OverlayPositionerComponent = ({
       paddingX,
       paddingY,
       edgePadding,
-      Array.isArray(placementFallback)
-        ? placementFallback.join(",")
-        : String(placementFallback ?? "default"),
+      resolvedPlacementFallback,
     ]
   )
 
@@ -418,7 +422,9 @@ const OverlayPositionerComponent = ({
       try {
         ro = new ResizeObserver(() => recompute())
         ro.observe(el)
-      } catch {}
+      } catch {
+        // ResizeObserver not supported; skip observing overlay size
+      }
     }
 
     return () => {
@@ -515,7 +521,7 @@ const OverlayPositionerComponent = ({
         overlayEl?.removeEventListener("mouseenter", onEnterOverlay)
       }
     }
-  }, [isControlled, trigger, anchorRef])
+  }, [isControlled, trigger, anchorRef, visibilityDelay])
 
   const style: preact.JSX.CSSProperties = {
     top: `${coords.top}px`,

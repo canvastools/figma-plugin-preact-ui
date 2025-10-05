@@ -1,4 +1,4 @@
-import { useEffect, useState } from "preact/hooks"
+import { useEffect, useMemo, useState } from "preact/hooks"
 import {
   bem,
   typedForwardRef,
@@ -285,7 +285,7 @@ const ControlsHex = ({
 
   useEffect(() => {
     setHexValue(colorToHex(color).slice(1))
-  }, [color.r, color.g, color.b])
+  }, [color])
 
   const { getErrorCode: getErrorCodeHexValue } = useStringValidator({
     required: true,
@@ -347,7 +347,7 @@ const ControlsHexAlpha = ({
 
   useEffect(() => {
     setHexValue(colorToHex(color).slice(1))
-  }, [color.r, color.g, color.b])
+  }, [color])
 
   const { getErrorCode: getErrorCodeHexValue } = useStringValidator({
     required: true,
@@ -457,10 +457,13 @@ const ColorPickerComponent = (
   )
 
   // compute allowed types list
-  const allowedTypes: ColorPickerType[] =
-    types && types.length
-      ? (types as ColorPickerType[])
-      : (["hex", "hexAlpha", "rgba"] as ColorPickerType[])
+  const allowedTypes: ColorPickerType[] = useMemo(
+    () =>
+      types && types.length
+        ? (types as ColorPickerType[])
+        : (["hex", "hexAlpha", "rgba"] as ColorPickerType[]),
+    [types]
+  )
 
   // Picker type state (uncontrolled by design, syncs from prop when it changes)
   const [internalType, setInternalType] = useState<ColorPickerType>(() =>
@@ -474,8 +477,12 @@ const ColorPickerComponent = (
       // ensure new reference for downstream effects
       setInternalColor({ r: value.r, g: value.g, b: value.b, a: value.a })
     }
-  }, [isControlled, value?.r, value?.g, value?.b, value?.a])
+  }, [isControlled, value])
 
+  const allowedTypesKey = useMemo(
+    () => (allowedTypes && allowedTypes.length ? allowedTypes.join("|") : ""),
+    [allowedTypes]
+  )
   useEffect(() => {
     const nextType = (allowedTypes as ColorPickerType[]).includes(
       defaultType as ColorPickerType
@@ -483,7 +490,7 @@ const ColorPickerComponent = (
       ? (defaultType as ColorPickerType)
       : allowedTypes[0]
     setInternalType(nextType)
-  }, [defaultType, allowedTypes.join("|")])
+  }, [defaultType, allowedTypesKey, allowedTypes])
 
   const currentColor = isControlled && value ? value : internalColor
   const currentType: ColorPickerType = internalType

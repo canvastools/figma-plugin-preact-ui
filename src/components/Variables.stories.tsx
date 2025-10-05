@@ -4,6 +4,7 @@ import { figmaLight, figmaDark, spacing, radius } from "../themes"
 import type { ColorTokenTree, ColorTokenBranch } from "../themes"
 
 import { Text } from "../index"
+import { ColorSwatch } from "../index"
 import { Icon } from "../index"
 import { ButtonIcon } from "../index"
 import { glyphs } from "../index"
@@ -23,11 +24,6 @@ const meta: Meta = {
 
 export default meta
 type Story = StoryObj<typeof meta>
-
-const themeClassName = {
-  figmaLight: "figma-light",
-  figmaDark: "figma-dark",
-}
 
 const copyToClipboard = (text: string) => {
   if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -113,7 +109,12 @@ const colorTokensList = () => {
         >
           {tokenMatrix[token][theme] ? (
             <div
-              style={{ display: "flex", alignItems: "center", width: "100%" }}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                width: "100%",
+                gap: 16,
+              }}
             >
               <ButtonIcon
                 onClick={() =>
@@ -122,22 +123,7 @@ const colorTokensList = () => {
               >
                 <Icon glyph={glyphs.copy} variant="scaled" />
               </ButtonIcon>
-              <div
-                className={themeClassName[theme]}
-                style={{
-                  flex: "0 0 auto",
-                  marginLeft: 16,
-                  width: 24,
-                  height: 24,
-                  borderRadius: 5,
-                  backgroundColor: `var(--pui-color-${token})`,
-                  boxShadow: `inset 0 0 0 1px ${
-                    theme === "figmaLight"
-                      ? "rgba(0, 0, 0, 0.1)"
-                      : "rgba(255, 255, 255, 0.1)"
-                  }`,
-                }}
-              ></div>
+              <ColorSwatch hex={tokenMatrix[token][theme]} />
               <div
                 style={{
                   width: "100%",

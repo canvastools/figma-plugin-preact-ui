@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from "@storybook/preact"
-import { useRef, useState } from "preact/hooks"
+import { useRef } from "preact/hooks"
 
 import { Tooltip } from "./Tooltip"
 
@@ -141,7 +141,7 @@ export const Placement: Story = {
       <div className="sb-column sb-width-full">
         <Stack direction="row" spacing={400}>
           <Stack spacing={200}>
-            <Text ref={anchorRefTopLeft as any}>Top Left</Text>
+            <Text ref={anchorRefTopLeft}>Top Left</Text>
             <OverlayPositioner
               anchorRef={anchorRefTopLeft}
               placement="top-left"
@@ -156,7 +156,7 @@ export const Placement: Story = {
               </Tooltip>
             </OverlayPositioner>
 
-            <Text ref={anchorRefTop as any}>Top</Text>
+            <Text ref={anchorRefTop}>Top</Text>
             <OverlayPositioner
               anchorRef={anchorRefTop}
               placement="top"
@@ -171,7 +171,7 @@ export const Placement: Story = {
               </Tooltip>
             </OverlayPositioner>
 
-            <Text ref={anchorRefTopEnd as any}>Top Right</Text>
+            <Text ref={anchorRefTopEnd}>Top Right</Text>
             <OverlayPositioner
               anchorRef={anchorRefTopEnd}
               placement="top-right"
@@ -188,7 +188,7 @@ export const Placement: Story = {
           </Stack>
 
           <Stack spacing={200}>
-            <Text ref={anchorRefBottomLeft as any}>Bottom Left</Text>
+            <Text ref={anchorRefBottomLeft}>Bottom Left</Text>
             <OverlayPositioner
               anchorRef={anchorRefBottomLeft}
               placement="bottom-left"
@@ -203,7 +203,7 @@ export const Placement: Story = {
               </Tooltip>
             </OverlayPositioner>
 
-            <Text ref={anchorRefBottom as any}>Bottom</Text>
+            <Text ref={anchorRefBottom}>Bottom</Text>
             <OverlayPositioner
               anchorRef={anchorRefBottom}
               placement="bottom"
@@ -218,7 +218,7 @@ export const Placement: Story = {
               </Tooltip>
             </OverlayPositioner>
 
-            <Text ref={anchorRefBottomEnd as any}>Bottom Right</Text>
+            <Text ref={anchorRefBottomEnd}>Bottom Right</Text>
             <OverlayPositioner
               anchorRef={anchorRefBottomEnd}
               placement="bottom-right"
@@ -235,7 +235,7 @@ export const Placement: Story = {
           </Stack>
 
           <Stack spacing={200}>
-            <Text ref={anchorRefLeftTop as any}>Left Top</Text>
+            <Text ref={anchorRefLeftTop}>Left Top</Text>
             <OverlayPositioner
               anchorRef={anchorRefLeftTop}
               placement="left-top"
@@ -251,7 +251,7 @@ export const Placement: Story = {
               </Tooltip>
             </OverlayPositioner>
 
-            <Text ref={anchorRefLeft as any}>Left</Text>
+            <Text ref={anchorRefLeft}>Left</Text>
             <OverlayPositioner
               anchorRef={anchorRefLeft}
               placement="left"
@@ -266,7 +266,7 @@ export const Placement: Story = {
               </Tooltip>
             </OverlayPositioner>
 
-            <Text ref={anchorRefLeftBottom as any}>Left Bottom</Text>
+            <Text ref={anchorRefLeftBottom}>Left Bottom</Text>
             <OverlayPositioner
               anchorRef={anchorRefLeftBottom}
               placement="left-bottom"
@@ -284,7 +284,7 @@ export const Placement: Story = {
           </Stack>
 
           <Stack spacing={200}>
-            <Text ref={anchorRefRightTop as any}>Right Top</Text>
+            <Text ref={anchorRefRightTop}>Right Top</Text>
             <OverlayPositioner
               anchorRef={anchorRefRightTop}
               placement="right-top"
@@ -300,7 +300,7 @@ export const Placement: Story = {
               </Tooltip>
             </OverlayPositioner>
 
-            <Text ref={anchorRefRight as any}>Right</Text>
+            <Text ref={anchorRefRight}>Right</Text>
             <OverlayPositioner
               anchorRef={anchorRefRight}
               placement="right"
@@ -315,7 +315,7 @@ export const Placement: Story = {
               </Tooltip>
             </OverlayPositioner>
 
-            <Text ref={anchorRefRightBottom as any}>Right Bottom</Text>
+            <Text ref={anchorRefRightBottom}>Right Bottom</Text>
             <OverlayPositioner
               anchorRef={anchorRefRightBottom}
               placement="right-bottom"
