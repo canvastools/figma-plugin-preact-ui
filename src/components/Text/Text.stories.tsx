@@ -204,11 +204,9 @@ const intentCombinations = () => {
         <div
           className="sb-column sb-gap-8 sb-width-full sb-padding-16"
           style={{
-            backgroundColor: `var(--pui-color-${intent}-bg-${
-              modifier === "fixed" ? "fixed" : "default"
-            }${interactive ? "-interactive" : ""}${
-              selected ? "-selected" : ""
-            })`,
+            backgroundColor: `var(--pui-color-${intent}-bg-default${
+              interactive ? "-interactive" : ""
+            }${selected ? "-selected" : ""})`,
           }}
         >
           <Text
