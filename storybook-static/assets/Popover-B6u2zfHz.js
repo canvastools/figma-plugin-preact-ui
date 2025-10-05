@@ -1,0 +1,1 @@
+import{u as m}from"./hooks.module-Dxk9uxGs.js";import{t as p,b as v}from"./typedForwardRef-Bwgl65_g.js";const d=({className:r,width:o="auto",height:t="auto",children:a,...e},s)=>{const i=v("Popover",void 0,void 0);return m("div",{className:[i,r].join(" ").trim(),ref:s,style:{width:o==="auto"?void 0:o,height:t==="auto"?void 0:t},...e,children:a})},c=p(d);export{c as P};
