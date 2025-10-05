@@ -12,8 +12,8 @@ const StackComponent = (
     spacing,
     x = "start",
     y = "start",
-    fullHeight,
-    fullWidth,
+    fullHeight = false,
+    fullWidth = false,
     children,
     ...rest
   }: StackProps,

@@ -4,13 +4,12 @@ import { fn } from "@storybook/test"
 import { useState } from "preact/hooks"
 
 import { ListContext } from "./ListContext"
-import { ListContainer } from "../ListContainer/ListContainer"
-import { ListItem } from "../ListItem/ListItem"
 import type { ListItemData } from "./ListContext.types"
 
-import { Text } from "../Text/Text"
-import { Stack } from "../Stack/Stack"
-import { Section } from "../Section/Section"
+import { ListContainer } from "../../index"
+import { ListItem } from "../../index"
+import { Text } from "../../index"
+import { Stack } from "../../index"
 
 const meta: Meta<typeof ListContext> = {
   title: "Experimental/ListContext ⚠️",
@@ -57,7 +56,7 @@ const meta: Meta<typeof ListContext> = {
     onItemsChange: {
       action: "itemsChange",
       description:
-        "Callback function that is called when the item order or structure is changed. Returns an array of items.",
+        "Callback when the item order or structure is changed. Returns an array of items.",
       table: {
         type: {
           summary: "(args: { items: ListItemData[] }) => void",
@@ -67,7 +66,7 @@ const meta: Meta<typeof ListContext> = {
     onSelectionChange: {
       action: "selectionChange",
       description:
-        "Callback function that is called when the selection is changed. Returns an array of selected items IDs.",
+        "Callback when the selection is changed. Returns an array of selected items IDs.",
       table: {
         type: {
           summary: "(args: { selectedItems: string[] }) => void",
@@ -172,32 +171,30 @@ export const Demo: Story = {
 
     return (
       <div className="sb-column sb-gap-16">
-        <Section>
-          <ListContext
-            items={items}
-            selectedItems={selectedItems}
-            // @ts-expect-error: Storybook types hack
-            selectionMode={args.selectionMode}
-            onItemsChange={(change) => {
-              setItems(change.items)
-              //@ts-expect-error: Storybook types hack
-              args.onItemsChange?.(change)
-            }}
-            onSelectionChange={(change) => {
-              setSelectedItems(change.selectedItems)
-              //@ts-expect-error: Storybook types hack
-              args.onSelectionChange?.(change)
-            }}
-          >
-            <ListContainer>
-              {items.map((item) => (
-                <ListItem id={item.id} draggable={true} selectable={true}>
-                  <Text>{item.id}</Text>
-                </ListItem>
-              ))}
-            </ListContainer>
-          </ListContext>
-        </Section>
+        <ListContext
+          items={items}
+          selectedItems={selectedItems}
+          // @ts-expect-error: Storybook types hack
+          selectionMode={args.selectionMode}
+          onItemsChange={(change) => {
+            setItems(change.items)
+            //@ts-expect-error: Storybook types hack
+            args.onItemsChange?.(change)
+          }}
+          onSelectionChange={(change) => {
+            setSelectedItems(change.selectedItems)
+            //@ts-expect-error: Storybook types hack
+            args.onSelectionChange?.(change)
+          }}
+        >
+          <ListContainer>
+            {items.map((item) => (
+              <ListItem id={item.id} draggable={true} selectable={true}>
+                <Text>{item.id}</Text>
+              </ListItem>
+            ))}
+          </ListContainer>
+        </ListContext>
       </div>
     )
   },
@@ -251,40 +248,38 @@ export const NoSelection: Story = {
 
     return (
       <div className="sb-column sb-gap-16">
-        <Section>
-          <ListContext
-            items={items}
-            selectedItems={selectedItems}
-            selectionMode="none"
-            onItemsChange={(change) => {
-              setItems(change.items)
-            }}
-            onSelectionChange={(change) => {
-              setSelectedItems(change.selectedItems)
-            }}
-          >
-            <ListContainer>
-              {items.map((item) => (
-                <ListItem
-                  key={item.id}
-                  id={item.id}
-                  draggable={true}
-                  selectable={true}
-                  acceptsChildren={true}
-                  hoverable={true}
-                  subItems={
-                    item.children ? renderSubItems(item.children, 1) : undefined
-                  }
-                >
-                  <Stack direction="row" spacing={200}>
-                    <Text>{item.id}</Text>
-                    <Text intentModifiers="secondary">(Level 0)</Text>
-                  </Stack>
-                </ListItem>
-              ))}
-            </ListContainer>
-          </ListContext>
-        </Section>
+        <ListContext
+          items={items}
+          selectedItems={selectedItems}
+          selectionMode="none"
+          onItemsChange={(change) => {
+            setItems(change.items)
+          }}
+          onSelectionChange={(change) => {
+            setSelectedItems(change.selectedItems)
+          }}
+        >
+          <ListContainer>
+            {items.map((item) => (
+              <ListItem
+                key={item.id}
+                id={item.id}
+                draggable={true}
+                selectable={true}
+                acceptsChildren={true}
+                hoverable={true}
+                subItems={
+                  item.children ? renderSubItems(item.children, 1) : undefined
+                }
+              >
+                <Stack direction="row" spacing={200}>
+                  <Text>{item.id}</Text>
+                  <Text intentModifiers="secondary">(Level 0)</Text>
+                </Stack>
+              </ListItem>
+            ))}
+          </ListContainer>
+        </ListContext>
       </div>
     )
   },
@@ -338,40 +333,38 @@ export const SingleSelection: Story = {
 
     return (
       <div className="sb-column sb-gap-16">
-        <Section>
-          <ListContext
-            items={items}
-            selectedItems={selectedItems}
-            selectionMode="single"
-            onItemsChange={(change) => {
-              setItems(change.items)
-            }}
-            onSelectionChange={(change) => {
-              setSelectedItems(change.selectedItems)
-            }}
-          >
-            <ListContainer>
-              {items.map((item) => (
-                <ListItem
-                  key={item.id}
-                  id={item.id}
-                  draggable={true}
-                  selectable={true}
-                  acceptsChildren={true}
-                  hoverable={true}
-                  subItems={
-                    item.children ? renderSubItems(item.children, 1) : undefined
-                  }
-                >
-                  <Stack direction="row" spacing={200}>
-                    <Text>{item.id}</Text>
-                    <Text intentModifiers="secondary">(Level 0)</Text>
-                  </Stack>
-                </ListItem>
-              ))}
-            </ListContainer>
-          </ListContext>
-        </Section>
+        <ListContext
+          items={items}
+          selectedItems={selectedItems}
+          selectionMode="single"
+          onItemsChange={(change) => {
+            setItems(change.items)
+          }}
+          onSelectionChange={(change) => {
+            setSelectedItems(change.selectedItems)
+          }}
+        >
+          <ListContainer>
+            {items.map((item) => (
+              <ListItem
+                key={item.id}
+                id={item.id}
+                draggable={true}
+                selectable={true}
+                acceptsChildren={true}
+                hoverable={true}
+                subItems={
+                  item.children ? renderSubItems(item.children, 1) : undefined
+                }
+              >
+                <Stack direction="row" spacing={200}>
+                  <Text>{item.id}</Text>
+                  <Text intentModifiers="secondary">(Level 0)</Text>
+                </Stack>
+              </ListItem>
+            ))}
+          </ListContainer>
+        </ListContext>
       </div>
     )
   },
@@ -425,41 +418,39 @@ export const MultiSelection: Story = {
 
     return (
       <div className="sb-column sb-width-full">
-        <Section>
-          <ListContext
-            items={items}
-            selectedItems={selectedItems}
-            selectionMode="multi"
-            onItemsChange={(change) => {
-              setItems(change.items)
-            }}
-            onSelectionChange={(change) => {
-              setSelectedItems(change.selectedItems)
-            }}
-          >
-            <ListContainer>
-              {items.map((item) => (
-                <ListItem
-                  key={item.id}
-                  id={item.id}
-                  draggable={true}
-                  selectable={true}
-                  acceptsChildren={true}
-                  nestingLevel={0}
-                  hoverable={true}
-                  subItems={
-                    item.children ? renderSubItems(item.children, 1) : undefined
-                  }
-                >
-                  <Stack direction="row" spacing={200}>
-                    <Text>{item.id}</Text>
-                    <Text intentModifiers="secondary">(Level 0)</Text>
-                  </Stack>
-                </ListItem>
-              ))}
-            </ListContainer>
-          </ListContext>
-        </Section>
+        <ListContext
+          items={items}
+          selectedItems={selectedItems}
+          selectionMode="multi"
+          onItemsChange={(change) => {
+            setItems(change.items)
+          }}
+          onSelectionChange={(change) => {
+            setSelectedItems(change.selectedItems)
+          }}
+        >
+          <ListContainer>
+            {items.map((item) => (
+              <ListItem
+                key={item.id}
+                id={item.id}
+                draggable={true}
+                selectable={true}
+                acceptsChildren={true}
+                nestingLevel={0}
+                hoverable={true}
+                subItems={
+                  item.children ? renderSubItems(item.children, 1) : undefined
+                }
+              >
+                <Stack direction="row" spacing={200}>
+                  <Text>{item.id}</Text>
+                  <Text intentModifiers="secondary">(Level 0)</Text>
+                </Stack>
+              </ListItem>
+            ))}
+          </ListContainer>
+        </ListContext>
       </div>
     )
   },

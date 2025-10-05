@@ -3,9 +3,9 @@ import { fn } from "@storybook/test"
 
 import { Button } from "./Button"
 
-import { Icon } from "../Icon/Icon"
-import { Section } from "../Section/Section"
-import { Stack } from "../Stack/Stack"
+import { Icon } from "../../index"
+import { Stack } from "../../index"
+import { glyphs } from "../../index"
 
 const meta: Meta<typeof Button> = {
   title: "Components/Button",
@@ -17,7 +17,7 @@ const meta: Meta<typeof Button> = {
     },
     intent: {
       control: { type: "radio" },
-      options: ["neutral", "brand", "danger", "success"],
+      options: ["neutral", "neutral-inverted", "brand", "danger", "success"],
       defaultValue: { summary: "neutral" },
     },
     intentModifiers: {
@@ -27,6 +27,12 @@ const meta: Meta<typeof Button> = {
     },
     ghost: {
       control: { type: "boolean" },
+      defaultValue: { summary: false },
+      table: {
+        type: {
+          summary: "boolean",
+        },
+      },
     },
     size: {
       control: { type: "radio" },
@@ -40,9 +46,11 @@ const meta: Meta<typeof Button> = {
     },
     disabled: {
       control: { type: "boolean" },
+      defaultValue: { summary: false },
     },
     fullWidth: {
       control: { type: "boolean" },
+      defaultValue: { summary: false },
     },
     prefix: {
       table: {
@@ -73,8 +81,7 @@ const meta: Meta<typeof Button> = {
     },
     onClick: {
       action: "clicked",
-      description:
-        "Callback function that is called when the button is clicked.",
+      description: "Callback when the button is clicked.",
       table: {
         type: {
           summary: "(args: {event: MouseEvent}) => void",
@@ -94,6 +101,7 @@ export const Demo: Story = {
     intentModifiers: "default",
     size: "medium",
     grouped: "none",
+    ghost: false,
     disabled: false,
     fullWidth: false,
     children: "Button",
@@ -106,9 +114,7 @@ export const Demo: Story = {
   },
   render: (args) => (
     <div className="sb-column sb-width-full">
-      <Section>
-        <Button {...args} />
-      </Section>
+      <Button {...args} />
     </div>
   ),
 }
@@ -122,40 +128,38 @@ export const Intent: Story = {
   },
   render: () => (
     <div className="sb-column sb-width-full">
-      <Section>
-        <Stack spacing={400}>
-          <Button intent="neutral" intentModifiers="default">
-            Neutral
-          </Button>
-          <Button intent="neutral" intentModifiers="default" ghost>
-            Neutral Ghost
-          </Button>
-          <Button intent="neutral" intentModifiers="brand">
-            Neutral Brand
-          </Button>
-          <Button intent="neutral" intentModifiers="brand" ghost>
-            Neutral Brand Ghost
-          </Button>
-          <Button intent="neutral" intentModifiers="danger">
-            Neutral Danger
-          </Button>
-          <Button intent="neutral" intentModifiers="danger" ghost>
-            Neutral Danger Ghost
-          </Button>
-          <Button intent="neutral-inverted" intentModifiers="default">
-            Neutral Inverted
-          </Button>
-          <Button intent="brand" intentModifiers="default">
-            Brand
-          </Button>
-          <Button intent="danger" intentModifiers="default">
-            Danger
-          </Button>
-          <Button intent="success" intentModifiers="default">
-            Success
-          </Button>
-        </Stack>
-      </Section>
+      <Stack spacing={400}>
+        <Button intent="neutral" intentModifiers="default">
+          Neutral
+        </Button>
+        <Button intent="neutral" intentModifiers="default" ghost>
+          Neutral Ghost
+        </Button>
+        <Button intent="neutral" intentModifiers="brand">
+          Neutral Brand
+        </Button>
+        <Button intent="neutral" intentModifiers="brand" ghost>
+          Neutral Brand Ghost
+        </Button>
+        <Button intent="neutral" intentModifiers="danger">
+          Neutral Danger
+        </Button>
+        <Button intent="neutral" intentModifiers="danger" ghost>
+          Neutral Danger Ghost
+        </Button>
+        <Button intent="neutral-inverted" intentModifiers="default">
+          Neutral Inverted
+        </Button>
+        <Button intent="brand" intentModifiers="default">
+          Brand
+        </Button>
+        <Button intent="danger" intentModifiers="default">
+          Danger
+        </Button>
+        <Button intent="success" intentModifiers="default">
+          Success
+        </Button>
+      </Stack>
     </div>
   ),
 }
@@ -169,7 +173,7 @@ export const Size: Story = {
   },
   render: () => (
     <div className="sb-row sb-width-full">
-      <Section>
+      <Stack spacing={400} direction="row">
         <Stack spacing={400}>
           <Button intent="neutral" intentModifiers="default">
             Neutral
@@ -202,45 +206,56 @@ export const Size: Story = {
             Success
           </Button>
         </Stack>
-      </Section>
-      <Section>
+
         <Stack spacing={400}>
-          <Button intent="neutral" intentModifiers="default" size="large">
-            Neutral
-          </Button>
-          <Button intent="neutral" intentModifiers="default" ghost size="large">
-            Neutral Ghost
-          </Button>
-          <Button intent="neutral" intentModifiers="brand" size="large">
-            Neutral Brand
-          </Button>
-          <Button intent="neutral" intentModifiers="brand" ghost size="large">
-            Neutral Brand Ghost
-          </Button>
-          <Button intent="neutral" intentModifiers="danger" size="large">
-            Neutral Danger
-          </Button>
-          <Button intent="neutral" intentModifiers="danger" ghost size="large">
-            Neutral Danger Ghost
-          </Button>
-          <Button
-            intent="neutral-inverted"
-            intentModifiers="default"
-            size="large"
-          >
-            Neutral Inverted
-          </Button>
-          <Button intent="brand" intentModifiers="default" size="large">
-            Brand
-          </Button>
-          <Button intent="danger" intentModifiers="default" size="large">
-            Danger
-          </Button>
-          <Button intent="success" intentModifiers="default" size="large">
-            Success
-          </Button>
+          <Stack spacing={400}>
+            <Button intent="neutral" intentModifiers="default" size="large">
+              Neutral
+            </Button>
+            <Button
+              intent="neutral"
+              intentModifiers="default"
+              ghost
+              size="large"
+            >
+              Neutral Ghost
+            </Button>
+            <Button intent="neutral" intentModifiers="brand" size="large">
+              Neutral Brand
+            </Button>
+            <Button intent="neutral" intentModifiers="brand" ghost size="large">
+              Neutral Brand Ghost
+            </Button>
+            <Button intent="neutral" intentModifiers="danger" size="large">
+              Neutral Danger
+            </Button>
+            <Button
+              intent="neutral"
+              intentModifiers="danger"
+              ghost
+              size="large"
+            >
+              Neutral Danger Ghost
+            </Button>
+            <Button
+              intent="neutral-inverted"
+              intentModifiers="default"
+              size="large"
+            >
+              Neutral Inverted
+            </Button>
+            <Button intent="brand" intentModifiers="default" size="large">
+              Brand
+            </Button>
+            <Button intent="danger" intentModifiers="default" size="large">
+              Danger
+            </Button>
+            <Button intent="success" intentModifiers="default" size="large">
+              Success
+            </Button>
+          </Stack>
         </Stack>
-      </Section>
+      </Stack>
     </div>
   ),
 }
@@ -254,7 +269,7 @@ export const Disabled: Story = {
   },
   render: () => (
     <div className="sb-row sb-gap-16">
-      <Section>
+      <Stack spacing={400} direction="row">
         <Stack spacing={400}>
           <Button intent="neutral" intentModifiers="default" disabled>
             Neutral
@@ -287,8 +302,7 @@ export const Disabled: Story = {
             Success
           </Button>
         </Stack>
-      </Section>
-      <Section>
+
         <Stack spacing={400}>
           <Button
             intent="neutral"
@@ -374,7 +388,7 @@ export const Disabled: Story = {
             Success
           </Button>
         </Stack>
-      </Section>
+      </Stack>
     </div>
   ),
 }
@@ -388,7 +402,7 @@ export const FullWidth: Story = {
   },
   render: () => (
     <div className="sb-row sb-width-full">
-      <Section>
+      <Stack spacing={400} direction="row">
         <Stack spacing={400}>
           <Button intent="neutral" intentModifiers="default" fullWidth>
             Neutral
@@ -421,8 +435,7 @@ export const FullWidth: Story = {
             Success
           </Button>
         </Stack>
-      </Section>
-      <Section>
+
         <Stack spacing={400}>
           <Button
             intent="neutral"
@@ -508,7 +521,7 @@ export const FullWidth: Story = {
             Success
           </Button>
         </Stack>
-      </Section>
+      </Stack>
     </div>
   ),
 }
@@ -522,7 +535,7 @@ export const Grouped: Story = {
   },
   render: () => (
     <div className="sb-column sb-width-full">
-      <Section>
+      <Stack spacing={400} direction="row">
         <Stack direction="row">
           <Button
             intent="neutral"
@@ -549,9 +562,7 @@ export const Grouped: Story = {
             Grouped left
           </Button>
         </Stack>
-      </Section>
 
-      <Section>
         <Stack direction="row">
           <Button
             intent="neutral"
@@ -581,7 +592,7 @@ export const Grouped: Story = {
             Grouped left
           </Button>
         </Stack>
-      </Section>
+      </Stack>
     </div>
   ),
 }
@@ -596,14 +607,14 @@ export const Prefix: Story = {
 
   render: () => (
     <div className="sb-row sb-width-full">
-      <Section>
+      <Stack spacing={400} direction="row">
         <Stack spacing={400}>
           <Button
             intent="neutral"
             intentModifiers="default"
             prefix={
               <Icon
-                glyph="link"
+                glyph={glyphs.link}
                 variant="scaled"
                 intent="neutral"
                 intentModifiers="default"
@@ -619,7 +630,7 @@ export const Prefix: Story = {
             ghost
             prefix={
               <Icon
-                glyph="link"
+                glyph={glyphs.link}
                 variant="scaled"
                 intent="neutral"
                 intentModifiers="default"
@@ -634,7 +645,7 @@ export const Prefix: Story = {
             intentModifiers="brand"
             prefix={
               <Icon
-                glyph="link"
+                glyph={glyphs.link}
                 variant="scaled"
                 intent="neutral"
                 intentModifiers="brand"
@@ -650,7 +661,7 @@ export const Prefix: Story = {
             ghost
             prefix={
               <Icon
-                glyph="link"
+                glyph={glyphs.link}
                 variant="scaled"
                 intent="neutral"
                 intentModifiers="brand"
@@ -665,7 +676,7 @@ export const Prefix: Story = {
             intentModifiers="danger"
             prefix={
               <Icon
-                glyph="link"
+                glyph={glyphs.link}
                 variant="scaled"
                 intent="neutral"
                 intentModifiers="danger"
@@ -681,7 +692,7 @@ export const Prefix: Story = {
             ghost
             prefix={
               <Icon
-                glyph="link"
+                glyph={glyphs.link}
                 variant="scaled"
                 intent="neutral"
                 intentModifiers="danger"
@@ -696,7 +707,7 @@ export const Prefix: Story = {
             intentModifiers="default"
             prefix={
               <Icon
-                glyph="link"
+                glyph={glyphs.link}
                 variant="scaled"
                 intent="neutral-inverted"
                 intentModifiers="default"
@@ -711,7 +722,7 @@ export const Prefix: Story = {
             intentModifiers="default"
             prefix={
               <Icon
-                glyph="link"
+                glyph={glyphs.link}
                 variant="scaled"
                 intent="brand"
                 intentModifiers="default"
@@ -726,7 +737,7 @@ export const Prefix: Story = {
             intentModifiers="default"
             prefix={
               <Icon
-                glyph="link"
+                glyph={glyphs.link}
                 variant="scaled"
                 intent="danger"
                 intentModifiers="default"
@@ -741,7 +752,7 @@ export const Prefix: Story = {
             intentModifiers="default"
             prefix={
               <Icon
-                glyph="link"
+                glyph={glyphs.link}
                 variant="scaled"
                 intent="success"
                 intentModifiers="default"
@@ -752,8 +763,7 @@ export const Prefix: Story = {
             Success
           </Button>
         </Stack>
-      </Section>
-      <Section>
+
         <Stack spacing={400}>
           <Button
             intent="neutral"
@@ -761,7 +771,7 @@ export const Prefix: Story = {
             size="large"
             prefix={
               <Icon
-                glyph="link"
+                glyph={glyphs.link}
                 variant="scaled"
                 intent="neutral"
                 intentModifiers="default"
@@ -778,7 +788,7 @@ export const Prefix: Story = {
             size="large"
             prefix={
               <Icon
-                glyph="link"
+                glyph={glyphs.link}
                 variant="scaled"
                 intent="neutral"
                 intentModifiers="default"
@@ -794,7 +804,7 @@ export const Prefix: Story = {
             size="large"
             prefix={
               <Icon
-                glyph="link"
+                glyph={glyphs.link}
                 variant="scaled"
                 intent="neutral"
                 intentModifiers="brand"
@@ -811,7 +821,7 @@ export const Prefix: Story = {
             size="large"
             prefix={
               <Icon
-                glyph="link"
+                glyph={glyphs.link}
                 variant="scaled"
                 intent="neutral"
                 intentModifiers="brand"
@@ -827,7 +837,7 @@ export const Prefix: Story = {
             size="large"
             prefix={
               <Icon
-                glyph="link"
+                glyph={glyphs.link}
                 variant="scaled"
                 intent="neutral"
                 intentModifiers="danger"
@@ -844,7 +854,7 @@ export const Prefix: Story = {
             size="large"
             prefix={
               <Icon
-                glyph="link"
+                glyph={glyphs.link}
                 variant="scaled"
                 intent="neutral"
                 intentModifiers="danger"
@@ -860,7 +870,7 @@ export const Prefix: Story = {
             size="large"
             prefix={
               <Icon
-                glyph="link"
+                glyph={glyphs.link}
                 variant="scaled"
                 intent="neutral-inverted"
                 intentModifiers="default"
@@ -876,7 +886,7 @@ export const Prefix: Story = {
             size="large"
             prefix={
               <Icon
-                glyph="link"
+                glyph={glyphs.link}
                 variant="scaled"
                 intent="brand"
                 intentModifiers="default"
@@ -892,7 +902,7 @@ export const Prefix: Story = {
             size="large"
             prefix={
               <Icon
-                glyph="link"
+                glyph={glyphs.link}
                 variant="scaled"
                 intent="danger"
                 intentModifiers="default"
@@ -908,7 +918,7 @@ export const Prefix: Story = {
             size="large"
             prefix={
               <Icon
-                glyph="link"
+                glyph={glyphs.link}
                 variant="scaled"
                 intent="success"
                 intentModifiers="default"
@@ -919,7 +929,7 @@ export const Prefix: Story = {
             Success
           </Button>
         </Stack>
-      </Section>
+      </Stack>
     </div>
   ),
 }
@@ -933,14 +943,14 @@ export const Suffix: Story = {
   },
   render: () => (
     <div className="sb-row sb-width-full">
-      <Section>
+      <Stack spacing={400} direction="row">
         <Stack spacing={400}>
           <Button
             intent="neutral"
             intentModifiers="default"
             suffix={
               <Icon
-                glyph="link"
+                glyph={glyphs.link}
                 variant="scaled"
                 intent="neutral"
                 intentModifiers="default"
@@ -956,7 +966,7 @@ export const Suffix: Story = {
             ghost
             suffix={
               <Icon
-                glyph="link"
+                glyph={glyphs.link}
                 variant="scaled"
                 intent="neutral"
                 intentModifiers="default"
@@ -971,7 +981,7 @@ export const Suffix: Story = {
             intentModifiers="brand"
             suffix={
               <Icon
-                glyph="link"
+                glyph={glyphs.link}
                 variant="scaled"
                 intent="neutral"
                 intentModifiers="brand"
@@ -987,7 +997,7 @@ export const Suffix: Story = {
             ghost
             suffix={
               <Icon
-                glyph="link"
+                glyph={glyphs.link}
                 variant="scaled"
                 intent="neutral"
                 intentModifiers="brand"
@@ -1002,7 +1012,7 @@ export const Suffix: Story = {
             intentModifiers="danger"
             suffix={
               <Icon
-                glyph="link"
+                glyph={glyphs.link}
                 variant="scaled"
                 intent="neutral"
                 intentModifiers="danger"
@@ -1018,7 +1028,7 @@ export const Suffix: Story = {
             ghost
             suffix={
               <Icon
-                glyph="link"
+                glyph={glyphs.link}
                 variant="scaled"
                 intent="neutral"
                 intentModifiers="danger"
@@ -1033,7 +1043,7 @@ export const Suffix: Story = {
             intentModifiers="default"
             suffix={
               <Icon
-                glyph="link"
+                glyph={glyphs.link}
                 variant="scaled"
                 intent="neutral-inverted"
                 intentModifiers="default"
@@ -1048,7 +1058,7 @@ export const Suffix: Story = {
             intentModifiers="default"
             suffix={
               <Icon
-                glyph="link"
+                glyph={glyphs.link}
                 variant="scaled"
                 intent="brand"
                 intentModifiers="default"
@@ -1063,7 +1073,7 @@ export const Suffix: Story = {
             intentModifiers="default"
             suffix={
               <Icon
-                glyph="link"
+                glyph={glyphs.link}
                 variant="scaled"
                 intent="danger"
                 intentModifiers="default"
@@ -1078,7 +1088,7 @@ export const Suffix: Story = {
             intentModifiers="default"
             suffix={
               <Icon
-                glyph="link"
+                glyph={glyphs.link}
                 variant="scaled"
                 intent="success"
                 intentModifiers="default"
@@ -1089,8 +1099,7 @@ export const Suffix: Story = {
             Success
           </Button>
         </Stack>
-      </Section>
-      <Section>
+
         <Stack spacing={400}>
           <Button
             intent="neutral"
@@ -1098,7 +1107,7 @@ export const Suffix: Story = {
             size="large"
             suffix={
               <Icon
-                glyph="link"
+                glyph={glyphs.link}
                 variant="scaled"
                 intent="neutral"
                 intentModifiers="default"
@@ -1115,7 +1124,7 @@ export const Suffix: Story = {
             size="large"
             suffix={
               <Icon
-                glyph="link"
+                glyph={glyphs.link}
                 variant="scaled"
                 intent="neutral"
                 intentModifiers="default"
@@ -1131,7 +1140,7 @@ export const Suffix: Story = {
             size="large"
             suffix={
               <Icon
-                glyph="link"
+                glyph={glyphs.link}
                 variant="scaled"
                 intent="neutral"
                 intentModifiers="brand"
@@ -1148,7 +1157,7 @@ export const Suffix: Story = {
             size="large"
             suffix={
               <Icon
-                glyph="link"
+                glyph={glyphs.link}
                 variant="scaled"
                 intent="neutral"
                 intentModifiers="brand"
@@ -1164,7 +1173,7 @@ export const Suffix: Story = {
             size="large"
             suffix={
               <Icon
-                glyph="link"
+                glyph={glyphs.link}
                 variant="scaled"
                 intent="neutral"
                 intentModifiers="danger"
@@ -1181,7 +1190,7 @@ export const Suffix: Story = {
             size="large"
             suffix={
               <Icon
-                glyph="link"
+                glyph={glyphs.link}
                 variant="scaled"
                 intent="neutral"
                 intentModifiers="danger"
@@ -1197,7 +1206,7 @@ export const Suffix: Story = {
             size="large"
             suffix={
               <Icon
-                glyph="link"
+                glyph={glyphs.link}
                 variant="scaled"
                 intent="neutral-inverted"
                 intentModifiers="default"
@@ -1213,7 +1222,7 @@ export const Suffix: Story = {
             size="large"
             suffix={
               <Icon
-                glyph="link"
+                glyph={glyphs.link}
                 variant="scaled"
                 intent="brand"
                 intentModifiers="default"
@@ -1229,7 +1238,7 @@ export const Suffix: Story = {
             size="large"
             suffix={
               <Icon
-                glyph="link"
+                glyph={glyphs.link}
                 variant="scaled"
                 intent="danger"
                 intentModifiers="default"
@@ -1245,7 +1254,7 @@ export const Suffix: Story = {
             size="large"
             suffix={
               <Icon
-                glyph="link"
+                glyph={glyphs.link}
                 variant="scaled"
                 intent="success"
                 intentModifiers="default"
@@ -1256,7 +1265,7 @@ export const Suffix: Story = {
             Success
           </Button>
         </Stack>
-      </Section>
+      </Stack>
     </div>
   ),
 }
@@ -1277,7 +1286,7 @@ export const CustomIcon: Story = {
   render: () => {
     const customIcon = (
       <Icon
-        glyph="link"
+        glyph={glyphs.link}
         variant="scaled"
         intent="success"
         intentModifiers="default"
@@ -1302,16 +1311,14 @@ export const CustomIcon: Story = {
 
     return (
       <div className="sb-column sb-width-full">
-        <Section>
-          <Button
-            intent="success"
-            intentModifiers="default"
-            size="large"
-            suffix={customIcon}
-          >
-            Custom Icon
-          </Button>
-        </Section>
+        <Button
+          intent="success"
+          intentModifiers="default"
+          size="large"
+          suffix={customIcon}
+        >
+          Custom Icon
+        </Button>
       </div>
     )
   },

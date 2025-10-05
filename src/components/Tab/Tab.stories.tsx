@@ -3,14 +3,15 @@ import { fn } from "@storybook/test"
 import { useState } from "preact/hooks"
 
 import { Tab } from "./Tab"
-import { TabContext } from "../TabContext/TabContext"
-import { TabList } from "../TabList/TabList"
-import { TabPanel } from "../TabPanel/TabPanel"
 
-import { Badge } from "../Badge/Badge"
-import { Icon } from "../Icon/Icon"
-import { Section } from "../Section/Section"
-import { Text } from "../Text/Text"
+import { TabContext } from "../../index"
+import { TabList } from "../../index"
+import { TabPanel } from "../../index"
+import { Badge } from "../../index"
+import { Icon } from "../../index"
+import { Section } from "../../index"
+import { Text } from "../../index"
+import { glyphs } from "../../index"
 
 const meta: Meta<typeof Tab> = {
   title: "Components/Tab",
@@ -40,7 +41,7 @@ const meta: Meta<typeof Tab> = {
     variant: {
       control: { type: "radio" },
       options: ["default", "single"],
-      defaultValue: "default",
+      defaultValue: { summary: "default" },
     },
     prefix: {
       table: {
@@ -71,8 +72,7 @@ const meta: Meta<typeof Tab> = {
     },
     onClick: {
       action: "clicked",
-      description:
-        "Callback function that is called when the tab is clicked. Returns its value.",
+      description: "Callback when the tab is clicked. Returns its value.",
       table: {
         type: {
           summary: "(args: {event: MouseEvent; value: string}) => void",
@@ -214,7 +214,7 @@ export const Prefix: Story = {
                 value="tab-1"
                 prefix={
                   <Icon
-                    glyph="settings"
+                    glyph={glyphs.settings}
                     variant="scaled"
                     intent="neutral"
                     intentModifiers="default"
@@ -229,7 +229,7 @@ export const Prefix: Story = {
                 value="tab-2"
                 prefix={
                   <Icon
-                    glyph="search"
+                    glyph={glyphs.search}
                     variant="scaled"
                     intent="neutral"
                     intentModifiers="default"
@@ -251,7 +251,7 @@ export const Prefix: Story = {
                 value="tab-1"
                 prefix={
                   <Icon
-                    glyph="settings"
+                    glyph={glyphs.settings}
                     variant="scaled"
                     intent="neutral"
                     intentModifiers="default"

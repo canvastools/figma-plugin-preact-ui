@@ -1,0 +1,19 @@
+@use "../../shared.scss" as *;
+
+.Tooltip {
+  $parent: &;
+
+  display: flex;
+  flex-flow: column nowrap;
+  overflow: hidden;
+
+  padding: var(--pui-spacing-100) var(--pui-spacing-200);
+
+  background-color: var(--pui-color-neutral-inverted-fixed-bg-default);
+  border-radius: var(--pui-radius-medium);
+
+  box-shadow: 0 4px 16px 1px var(--pui-color-shadow-tooltip-soft),
+    0 2px 4px 0 var(--pui-color-shadow-tooltip-hard),
+    0 -1px 0 0 var(--pui-color-shadow-tooltip-glare),
+    0 1px 0px 1px var(--pui-color-shadow-tooltip-glare);
+}

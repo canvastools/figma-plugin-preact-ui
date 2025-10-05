@@ -21,6 +21,10 @@
     outline-offset: -1px;
   }
 
+  &_reduced-padding-right &__content {
+    padding-right: var(--pui-spacing-200);
+  }
+
   &__sub-items {
     flex: 1 1 100%;
     display: flex;
@@ -158,6 +162,12 @@
     pointer-events: none;
   }
 
+  &_drag-over:is(&_reduced-padding-right) > &__content > &__children::before {
+    width: calc(
+      100% + var(--pui-spacing-200) - var(--level) * var(--pui-spacing-400)
+    );
+  }
+
   &_drag-above > &__content > &__children::before {
     display: block;
     top: calc(var(--pui-spacing-100) * -1 - 1px);
@@ -178,6 +188,13 @@
         var(--pui-spacing-400)
     );
     pointer-events: none;
+  }
+
+  &_drag-inside:is(&_reduced-padding-right) > &__content > &__children::before {
+    width: calc(
+      100% + var(--pui-spacing-200) - (var(--level) + 1) *
+        var(--pui-spacing-400)
+    );
   }
 
   &_drop-parent > &__content,

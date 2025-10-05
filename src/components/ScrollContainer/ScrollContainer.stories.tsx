@@ -3,11 +3,10 @@ import { useState } from "preact/hooks"
 
 import { ScrollContainer } from "./ScrollContainer"
 
-import { ScrollContext } from "../ScrollContext/ScrollContext"
-
-import { Section } from "../Section/Section"
-import { Text } from "../Text/Text"
-import { Button } from "../Button/Button"
+import { ScrollContext } from "../../index"
+import { Section } from "../../index"
+import { Text } from "../../index"
+import { Button } from "../../index"
 
 const meta: Meta<typeof ScrollContainer> = {
   title: "Layout/ScrollContainer",

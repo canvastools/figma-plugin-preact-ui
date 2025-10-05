@@ -4,8 +4,9 @@ import { bem, typedForwardRef } from "../../utils"
 import type { CheckboxProps } from "./Checkbox.types"
 import "./Checkbox.scss"
 
-import { Text } from "../Text/Text"
-import { Icon } from "../Icon/Icon"
+import { Text } from "../../index"
+import { Icon } from "../../index"
+import { glyphs } from "../../index"
 
 /* --- */
 
@@ -13,9 +14,9 @@ const CheckboxComponent = (
   {
     className,
     checked,
-    defaultChecked,
-    mixed,
-    disabled,
+    defaultChecked = false,
+    mixed = false,
+    disabled = false,
     label,
     onChange,
     ...rest
@@ -91,7 +92,7 @@ const CheckboxComponent = (
         {isChecked && !mixed && (
           <div className="Checkbox__icon">
             <Icon
-              glyph="check"
+              glyph={glyphs.check}
               intent="brand"
               intentModifiers="default"
               interactive
@@ -102,7 +103,7 @@ const CheckboxComponent = (
         {isChecked && mixed && (
           <div className="Checkbox__icon">
             <Icon
-              glyph="mixed"
+              glyph={glyphs.mixed}
               intent="brand"
               intentModifiers="default"
               interactive

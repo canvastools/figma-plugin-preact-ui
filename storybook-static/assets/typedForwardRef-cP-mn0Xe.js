@@ -1,1 +1,0 @@
-import{D as i}from"./compat.module-c0s5p6eE.js";const u=(t,r,c={},f=[])=>{const s=r?`${t}__${r}`:t,e=[s];for(const[n,o]of Object.entries(c))typeof o=="string"?e.push(`${s}_${n}-${o}`):o===!0&&e.push(`${s}_${n}`);return e.concat(f).join(" ")};function $(t){return i(t)}export{u as b,$ as t};

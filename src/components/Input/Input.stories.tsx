@@ -4,11 +4,11 @@ import { fn } from "@storybook/test"
 
 import { Input } from "./Input"
 
-import { Section } from "../Section/Section"
-import { Stack } from "../Stack/Stack"
-import { Icon } from "../Icon/Icon"
-import { Text } from "../Text/Text"
-import { ButtonIcon } from "../ButtonIcon/ButtonIcon"
+import { Stack } from "../../index"
+import { Icon } from "../../index"
+import { Text } from "../../index"
+import { ButtonIcon } from "../../index"
+import { glyphs } from "../../index"
 
 const meta: Meta<typeof Input> = {
   title: "Components/Input",
@@ -20,6 +20,16 @@ const meta: Meta<typeof Input> = {
     },
     placeholder: {
       control: { type: "text" },
+    },
+    type: {
+      control: { type: "radio" },
+      options: ["text", "number"],
+      defaultValue: { summary: "text" },
+      table: {
+        type: {
+          summary: "string",
+        },
+      },
     },
     defaultValue: {
       control: { type: "text" },
@@ -36,12 +46,25 @@ const meta: Meta<typeof Input> = {
     },
     ghost: {
       control: { type: "boolean" },
+      defaultValue: { summary: false },
+    },
+    grouped: {
+      control: { radio: "select" },
+      options: ["none", "left", "right", "both"],
+      defaultValue: { summary: "none" },
+      table: {
+        type: {
+          summary: "string",
+        },
+      },
     },
     error: {
       control: { type: "boolean" },
+      defaultValue: { summary: false },
     },
     disabled: {
       control: { type: "boolean" },
+      defaultValue: { summary: false },
     },
     prefix: {
       table: {
@@ -61,14 +84,19 @@ const meta: Meta<typeof Input> = {
       description: "Element inserted after value. Visible on hover/focus.",
       control: { disable: true },
     },
+    suffixOnHover: {
+      control: { type: "boolean" },
+      defaultValue: { summary: false },
+      description: "Whether the suffix should be visible on hover.",
+    },
     focusOnDoubleClick: {
       control: { type: "boolean" },
+      defaultValue: { summary: false },
       description: "Enables double-click focus",
     },
     onChange: {
       action: "changed",
-      description:
-        "Callback function that is called when the value is changed.",
+      description: "Callback when the value is changed.",
       table: {
         type: {
           summary: "(args: { event: MouseEvent; value: string }) => void",
@@ -77,8 +105,7 @@ const meta: Meta<typeof Input> = {
     },
     onBlur: {
       action: "blurred",
-      description:
-        "Callback function that is called when the input is blurred.",
+      description: "Callback when the input is blurred.",
       table: {
         type: {
           summary: "(args: { event: MouseEvent; value: string }) => void",
@@ -87,8 +114,7 @@ const meta: Meta<typeof Input> = {
     },
     onFocus: {
       action: "focused",
-      description:
-        "Callback function that is called when the input is focused.",
+      description: "Callback when the input is focused.",
       table: {
         type: {
           summary: "(args: { event: MouseEvent; value: string }) => void",
@@ -97,8 +123,7 @@ const meta: Meta<typeof Input> = {
     },
     onKeyDown: {
       action: "keydown",
-      description:
-        "Callback function that is called when the input is keyed down.",
+      description: "Callback when the input is keyed down.",
       table: {
         type: {
           summary: "(args: { event: KeyboardEvent; value: string }) => void",
@@ -114,11 +139,14 @@ export const Demo: Story = {
   tags: ["!autodocs"],
   args: {
     className: "",
+    type: "text",
     placeholder: "Placeholder",
     defaultValue: "",
     ghost: false,
     error: false,
     disabled: false,
+    grouped: "none",
+    suffixOnHover: false,
     focusOnDoubleClick: false,
     onChange: fn(),
     onBlur: fn(),
@@ -131,10 +159,8 @@ export const Demo: Story = {
     },
   },
   render: (args) => (
-    <div className="sb-column sb-gap-16" style={{ width: "30%" }}>
-      <Section>
-        <Input {...args} />
-      </Section>
+    <div className="sb-column sb-width-300">
+      <Input {...args} />
     </div>
   ),
 }
@@ -147,10 +173,8 @@ export const Uncontrolled: Story = {
     },
   },
   render: () => (
-    <div className="sb-column sb-width-full sb-width-300">
-      <Section>
-        <Input defaultValue="Default Value" />
-      </Section>
+    <div className="sb-column sb-width-300">
+      <Input defaultValue="Default Value" />
     </div>
   ),
 }
@@ -165,13 +189,11 @@ export const Controlled: Story = {
   render: () => {
     const [value, setValue] = useState("")
     return (
-      <div className="sb-column sb-width-full sb-width-300">
-        <Section>
+      <div className="sb-column sb-width-300">
+        <Stack spacing={400}>
           <Text>Value: {value}</Text>
-        </Section>
-        <Section>
           <Input value={value} onChange={(args) => setValue(args.value)} />
-        </Section>
+        </Stack>
       </div>
     )
   },
@@ -185,13 +207,11 @@ export const Placeholder: Story = {
     },
   },
   render: () => (
-    <div className="sb-column sb-width-full sb-width-300">
-      <Section>
-        <Stack spacing={400}>
-          <Input />
-          <Input placeholder="Placeholder" />
-        </Stack>
-      </Section>
+    <div className="sb-column sb-width-300">
+      <Stack spacing={400}>
+        <Input />
+        <Input placeholder="Placeholder" />
+      </Stack>
     </div>
   ),
 }
@@ -204,10 +224,35 @@ export const Ghost: Story = {
     },
   },
   render: () => (
-    <div className="sb-column sb-width-full sb-width-300">
-      <Section>
-        <Input defaultValue="Default Value" ghost />
-      </Section>
+    <div className="sb-column sb-width-300">
+      <Input defaultValue="Default Value" ghost />
+    </div>
+  ),
+}
+
+export const Grouped: Story = {
+  parameters: {
+    controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
+  },
+  render: () => (
+    <div className="sb-column sb-width-300">
+      <Stack spacing={400}>
+        <Text>Grouped</Text>
+        <Stack spacing={0} direction="row">
+          <Input defaultValue="Default Value" grouped="right" />
+          <Input defaultValue="Default Value" grouped="both" />
+          <Input defaultValue="Default Value" grouped="left" />
+        </Stack>
+        <Text>Grouped with .InputGrouped class wrapper</Text>
+        <Stack spacing={0} direction="row" className="InputGrouped">
+          <Input defaultValue="Default Value" grouped="right" />
+          <Input defaultValue="Default Value" grouped="both" />
+          <Input defaultValue="Default Value" grouped="left" />
+        </Stack>
+      </Stack>
     </div>
   ),
 }
@@ -220,14 +265,12 @@ export const Disabled: Story = {
     },
   },
   render: () => (
-    <div className="sb-column sb-width-full sb-width-300">
-      <Section>
-        <Stack spacing={400}>
-          <Input disabled />
-          <Input disabled placeholder="Placeholder" />
-          <Input disabled defaultValue="Default Value" />
-        </Stack>
-      </Section>
+    <div className="sb-column sb-width-300">
+      <Stack spacing={400}>
+        <Input disabled />
+        <Input disabled placeholder="Placeholder" />
+        <Input disabled defaultValue="Default Value" />
+      </Stack>
     </div>
   ),
 }
@@ -240,43 +283,41 @@ export const Prefix: Story = {
     },
   },
   render: () => (
-    <div className="sb-column sb-width-full sb-width-300">
-      <Section>
-        <Stack spacing={400}>
-          <Input
-            prefix={
-              <Icon
-                glyph="search"
-                intent="neutral"
-                intentModifiers="secondary"
-                variant="scaled"
-              />
-            }
-          />
-          <Input
-            placeholder="Placeholder"
-            prefix={
-              <Icon
-                glyph="search"
-                intent="neutral"
-                intentModifiers="secondary"
-                variant="scaled"
-              />
-            }
-          />
-          <Input
-            defaultValue="Default Value"
-            prefix={
-              <Icon
-                glyph="search"
-                intent="neutral"
-                intentModifiers="secondary"
-                variant="scaled"
-              />
-            }
-          />
-        </Stack>
-      </Section>
+    <div className="sb-column sb-width-300">
+      <Stack spacing={400}>
+        <Input
+          prefix={
+            <Icon
+              glyph={glyphs.search}
+              intent="neutral"
+              intentModifiers="secondary"
+              variant="scaled"
+            />
+          }
+        />
+        <Input
+          placeholder="Placeholder"
+          prefix={
+            <Icon
+              glyph={glyphs.search}
+              intent="neutral"
+              intentModifiers="secondary"
+              variant="scaled"
+            />
+          }
+        />
+        <Input
+          defaultValue="Default Value"
+          prefix={
+            <Icon
+              glyph={glyphs.search}
+              intent="neutral"
+              intentModifiers="secondary"
+              variant="scaled"
+            />
+          }
+        />
+      </Stack>
     </div>
   ),
 }
@@ -289,61 +330,62 @@ export const Suffix: Story = {
     },
   },
   render: () => (
-    <div className="sb-column sb-width-full sb-width-300">
-      <Section>
-        <Stack spacing={400}>
-          <Input
-            suffix={
-              <ButtonIcon
+    <div className="sb-column sb-width-300">
+      <Stack spacing={400}>
+        <Input
+          suffix={
+            <ButtonIcon intent="neutral" intentModifiers="default" translucent>
+              <Icon
+                glyph={glyphs.link}
                 intent="neutral"
                 intentModifiers="default"
-                translucent
-              >
-                <Icon
-                  glyph="link"
-                  intent="neutral"
-                  intentModifiers="default"
-                  variant="scaled"
-                />
-              </ButtonIcon>
-            }
-          />
-          <Input
-            placeholder="Placeholder"
-            suffix={
-              <ButtonIcon
+                variant="scaled"
+              />
+            </ButtonIcon>
+          }
+        />
+        <Input
+          placeholder="Placeholder"
+          suffix={
+            <ButtonIcon intent="neutral" intentModifiers="default" translucent>
+              <Icon
+                glyph={glyphs.link}
                 intent="neutral"
                 intentModifiers="default"
-                translucent
-              >
-                <Icon
-                  glyph="link"
-                  intent="neutral"
-                  intentModifiers="default"
-                  variant="scaled"
-                />
-              </ButtonIcon>
-            }
-          />
-          <Input
-            defaultValue="Default Value"
-            suffix={
-              <ButtonIcon
+                variant="scaled"
+              />
+            </ButtonIcon>
+          }
+        />
+        <Input
+          defaultValue="Suffix on hover"
+          suffixOnHover
+          suffix={
+            <ButtonIcon intent="neutral" intentModifiers="default" translucent>
+              <Icon
+                glyph={glyphs.link}
                 intent="neutral"
                 intentModifiers="default"
-                translucent
-              >
-                <Icon
-                  glyph="link"
-                  intent="neutral"
-                  intentModifiers="default"
-                  variant="scaled"
-                />
-              </ButtonIcon>
-            }
-          />
-        </Stack>
-      </Section>
+                variant="scaled"
+              />
+            </ButtonIcon>
+          }
+        />
+      </Stack>
+    </div>
+  ),
+}
+
+export const FocusOnDoubleClick: Story = {
+  parameters: {
+    controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
+  },
+  render: () => (
+    <div className="sb-column sb-width-300">
+      <Input focusOnDoubleClick value="Focus on double click" />
     </div>
   ),
 }

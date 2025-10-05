@@ -140,10 +140,40 @@ const preview: Preview = {
           setViewport(nextViewport)
         }, [context.globals?.viewport, defaultViewport])
 
+        useEffect(() => {
+          const themeClass = `figma-${theme}`
+          const removeClasses = ["figma-light", "figma-dark"]
+
+          const applyToTargets = () => {
+            const targets = Array.from(
+              document.querySelectorAll(".sb-show-main, #storybook-root")
+            ) as HTMLElement[]
+            targets.forEach((el) => {
+              removeClasses.forEach((c) => el.classList.remove(c))
+              el.classList.add(themeClass)
+            })
+          }
+
+          applyToTargets()
+
+          const observer = new MutationObserver(() => applyToTargets())
+          observer.observe(document.body, { childList: true, subtree: true })
+
+          return () => {
+            observer.disconnect()
+            const targets = Array.from(
+              document.querySelectorAll(".sb-show-main, #storybook-root")
+            ) as HTMLElement[]
+            targets.forEach((el) => {
+              removeClasses.forEach((c) => el.classList.remove(c))
+            })
+          }
+        }, [theme])
+
         return (
           <div
             id="storybook-viewport"
-            class={`figma-${theme} viewport-bg-${background} viewport-${viewport}`}
+            class={`viewport-bg-${background} viewport-${viewport}`}
           >
             {story()}
           </div>

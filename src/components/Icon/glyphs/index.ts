@@ -1,59 +1,28 @@
-import { adjust } from "./adjust"
-import { ai } from "./ai"
-import { check } from "./check"
-import { chevronDown } from "./chevronDown"
-import { chevronRight } from "./chevronRight"
-import { close } from "./close"
-import { copy } from "./copy"
-import { dragHandle } from "./dragHandle"
-import { duplicate } from "./duplicate"
-import { help } from "./help"
-import { home } from "./home"
-import { imports } from "./imports"
-import { info } from "./info"
-import { insert } from "./insert"
-import { filter } from "./filter"
-import { filterFilled } from "./filterFilled"
-import { link } from "./link"
-import { plus } from "./plus"
-import { minus } from "./minus"
-import { mixed } from "./mixed"
-import { more } from "./more"
-import { search } from "./search"
-import { select } from "./select"
-import { settings } from "./settings"
-import { updates } from "./updates"
-import { viewGrid } from "./viewGrid"
-import { viewList } from "./viewList"
-import { warning } from "./warning"
-
-export const glyphs = {
-  adjust,
-  ai,
-  check,
-  chevronDown,
-  chevronRight,
-  close,
-  copy,
-  dragHandle,
-  duplicate,
-  help,
-  home,
-  imports,
-  info,
-  insert,
-  filter,
-  filterFilled,
-  link,
-  minus,
-  mixed,
-  more,
-  plus,
-  search,
-  select,
-  settings,
-  updates,
-  viewGrid,
-  viewList,
-  warning,
-}
+export { adjust } from "./adjust"
+export { ai } from "./ai"
+export { check } from "./check"
+export { chevronDown } from "./chevronDown"
+export { chevronRight } from "./chevronRight"
+export { close } from "./close"
+export { copy } from "./copy"
+export { dragHandle } from "./dragHandle"
+export { duplicate } from "./duplicate"
+export { help } from "./help"
+export { home } from "./home"
+export { imports } from "./imports"
+export { info } from "./info"
+export { insert } from "./insert"
+export { filter } from "./filter"
+export { filterFilled } from "./filterFilled"
+export { link } from "./link"
+export { plus } from "./plus"
+export { minus } from "./minus"
+export { mixed } from "./mixed"
+export { more } from "./more"
+export { search } from "./search"
+export { select } from "./select"
+export { settings } from "./settings"
+export { updates } from "./updates"
+export { viewGrid } from "./viewGrid"
+export { viewList } from "./viewList"
+export { warning } from "./warning"

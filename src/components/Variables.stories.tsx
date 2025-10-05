@@ -3,9 +3,11 @@ import { Meta, StoryObj } from "@storybook/preact"
 import { figmaLight, figmaDark, spacing, radius } from "../themes"
 import type { ColorTokenTree, ColorTokenBranch } from "../themes"
 
-import { Text } from "./Text/Text"
-import { Icon } from "./Icon/Icon"
-import { ButtonIcon } from "./ButtonIcon/ButtonIcon"
+import { Text } from "../index"
+import { ColorSwatch } from "../index"
+import { Icon } from "../index"
+import { ButtonIcon } from "../index"
+import { glyphs } from "../index"
 
 const meta: Meta = {
   title: "Overview/Variables",
@@ -22,11 +24,6 @@ const meta: Meta = {
 
 export default meta
 type Story = StoryObj<typeof meta>
-
-const themeClassName = {
-  figmaLight: "figma-light",
-  figmaDark: "figma-dark",
-}
 
 const copyToClipboard = (text: string) => {
   if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -91,7 +88,7 @@ const colorTokensList = () => {
       >
         <div style={{ display: "flex", alignItems: "center", width: "100%" }}>
           <ButtonIcon onClick={() => copyToClipboard(`--pui-color-${token}`)}>
-            <Icon glyph="copy" variant="scaled" />
+            <Icon glyph={glyphs.copy} variant="scaled" />
           </ButtonIcon>
 
           <div
@@ -112,31 +109,21 @@ const colorTokensList = () => {
         >
           {tokenMatrix[token][theme] ? (
             <div
-              style={{ display: "flex", alignItems: "center", width: "100%" }}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                width: "100%",
+                gap: 16,
+              }}
             >
               <ButtonIcon
                 onClick={() =>
                   copyToClipboard(tokenMatrix[token][theme] as string)
                 }
               >
-                <Icon glyph="copy" variant="scaled" />
+                <Icon glyph={glyphs.copy} variant="scaled" />
               </ButtonIcon>
-              <div
-                className={themeClassName[theme]}
-                style={{
-                  flex: "0 0 auto",
-                  marginLeft: 16,
-                  width: 24,
-                  height: 24,
-                  borderRadius: 5,
-                  backgroundColor: `var(--pui-color-${token})`,
-                  boxShadow: `inset 0 0 0 1px ${
-                    theme === "figmaLight"
-                      ? "rgba(0, 0, 0, 0.1)"
-                      : "rgba(255, 255, 255, 0.1)"
-                  }`,
-                }}
-              ></div>
+              <ColorSwatch hex={tokenMatrix[token][theme]} />
               <div
                 style={{
                   width: "100%",
@@ -173,7 +160,7 @@ const spacingTokensList = () => {
       >
         <div style={{ display: "flex", alignItems: "center", width: "100%" }}>
           <ButtonIcon onClick={() => copyToClipboard(`--pui-spacing-${token}`)}>
-            <Icon glyph="copy" variant="scaled" />
+            <Icon glyph={glyphs.copy} variant="scaled" />
           </ButtonIcon>
 
           <div
@@ -195,7 +182,7 @@ const spacingTokensList = () => {
           <ButtonIcon
             onClick={() => copyToClipboard(tokenMatrix[token] as string)}
           >
-            <Icon glyph="copy" variant="scaled" />
+            <Icon glyph={glyphs.copy} variant="scaled" />
           </ButtonIcon>
           <div
             style={{
@@ -231,7 +218,7 @@ const radiusTokensList = () => {
       >
         <div style={{ display: "flex", alignItems: "center", width: "100%" }}>
           <ButtonIcon onClick={() => copyToClipboard(`--pui-spacing-${token}`)}>
-            <Icon glyph="copy" variant="scaled" />
+            <Icon glyph={glyphs.copy} variant="scaled" />
           </ButtonIcon>
 
           <div
@@ -253,7 +240,7 @@ const radiusTokensList = () => {
           <ButtonIcon
             onClick={() => copyToClipboard(tokenMatrix[token] as string)}
           >
-            <Icon glyph="copy" variant="scaled" />
+            <Icon glyph={glyphs.copy} variant="scaled" />
           </ButtonIcon>
           <div
             style={{

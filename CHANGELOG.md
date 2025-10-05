@@ -3,6 +3,72 @@
 All notable changes to this project will be documented in this file.  
 This project follows [Semantic Versioning](https://semver.org/).
 
+### 0.3.0 - 5 Oct 2025
+
+**Added:**
+
+- Hooks:
+
+  - useStringValidator
+  - useNumberValidator
+
+- Input:
+
+  - Added the type property with `text` and `number` values.
+  - Added the `suffixOnHover` property to control the visibility of the suffix on hover.
+  - Added the `grouped` property and `.InputGrouped` CSS class.
+
+- Text:
+
+  - Added the value `fixed` for the `intentModifiers` property to support the Tooltip component.
+  - Added the `noWrap` property.
+
+- ListItem (experimental):
+
+  - Added the `reducedPaddingRight` property for pixel-perfect alignment with ghost-style buttons on the right side.
+
+- Components:
+
+  - ColorSwatch
+  - MenuContainer
+  - MenuDivider
+  - MenuItem
+  - MenuItemOption
+  - OverlayPositioner
+  - Popover
+  - Select
+  - Tooltip
+
+**Fixes:**
+
+- Avatar:
+
+  - Fixed type handling of the `imageSrc` property for better compatibility with Figma’s User type.
+  - Fixed visiblity unintended selection styles.
+
+- Icon:
+
+  - Refactored so that it no longer imports all glyphs from the icon package when used in a consumer project.
+
+- ScrollContainer:
+
+  - Fixed layout so it now fully occupies the parent container
+
+- Tab:
+
+  - Fixed colour for the unselected tab.
+
+- Typography:
+
+  - Reduced `body/medium` line-height to 16px to match Figma styles.
+
+- WindowResizer:
+
+  - Fixed flickering of scroll when resizing the window.
+  - Fixed colour contrast.
+
+---
+
 ### 0.2.0 - 7 Sep 2025
 
 **Added:**
@@ -42,6 +108,8 @@ This project follows [Semantic Versioning](https://semver.org/).
   - Spacing
   - Stack
   - WindowResizer
+
+---
 
 ### 0.0.1 - 18 Aug 2024
 

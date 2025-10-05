@@ -13,6 +13,10 @@
     }
 
     color: var(--pui-color-#{$intent}-icon-#{$modifiers});
+
+    &.Icon_disabled {
+      color: var(--pui-color-#{$intent}-icon-disabled) !important;
+    }
   }
 }
 
@@ -46,21 +50,11 @@
   @include Icon_intent("neutral", "warning");
   @include Icon_intent("neutral", "success");
   @include Icon_intent("neutral-inverted", "default");
+  @include Icon_intent("neutral-inverted-fixed", "default");
+  @include Icon_intent("neutral-inverted-fixed", "secondary");
   @include Icon_intent("brand", "default");
   @include Icon_intent("danger", "default");
   @include Icon_intent("warning", "default");
   @include Icon_intent("success", "default");
   @include Icon_intent("disabled", "default");
-
-  &_disabled {
-    &.Icon_interactive {
-      color: var(--pui-color-disabled-icon-default);
-    }
-
-    &.Icon_selected {
-      color: var(--pui-color-disabled-icon-default);
-    }
-
-    color: var(--pui-color-disabled-icon-default);
-  }
 }

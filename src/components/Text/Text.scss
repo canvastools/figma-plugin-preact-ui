@@ -14,6 +14,10 @@
     }
 
     color: var(--pui-color-#{$intent}-text-#{$modifiers});
+
+    &.Text_disabled {
+      color: var(--pui-color-#{$intent}-text-disabled) !important;
+    }
   }
 }
 
@@ -30,22 +34,12 @@
   @include Text_intent("neutral", "warning");
   @include Text_intent("neutral", "success");
   @include Text_intent("neutral-inverted", "default");
+  @include Text_intent("neutral-inverted-fixed", "default");
+  @include Text_intent("neutral-inverted-fixed", "secondary");
   @include Text_intent("brand", "default");
   @include Text_intent("danger", "default");
   @include Text_intent("warning", "default");
   @include Text_intent("success", "default");
-
-  &_disabled {
-    &.Text_interactive {
-      color: var(--pui-color-disabled-text-default) !important;
-    }
-
-    &.Text_selected {
-      color: var(--pui-color-disabled-text-default) !important;
-    }
-
-    color: var(--pui-color-disabled-text-default) !important;
-  }
 
   &_variant {
     &-heading {
@@ -83,6 +77,10 @@
 
   &_fullWidth {
     width: 100%;
+  }
+
+  &_noWrap {
+    white-space: nowrap;
   }
 
   &_strong {

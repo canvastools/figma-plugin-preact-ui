@@ -11,14 +11,17 @@ const InputComponent = (
   {
     className,
     placeholder,
+    type = "text",
     value,
     defaultValue,
-    ghost,
-    error,
-    disabled,
+    ghost = false,
+    grouped = "none",
+    error = false,
+    disabled = false,
     prefix,
     suffix,
-    focusOnDoubleClick,
+    suffixOnHover = false,
+    focusOnDoubleClick = false,
     onChange,
     onBlur,
     onFocus,
@@ -44,8 +47,11 @@ const InputComponent = (
     filled: hasContent,
     disabled,
     ghost,
+    grouped: Boolean(grouped),
+    groupedPosition: grouped,
     prefix: Boolean(prefix),
     suffix: Boolean(suffix),
+    suffixOnHover: Boolean(suffixOnHover),
     focused: isFocused,
     error,
   })
@@ -118,7 +124,7 @@ const InputComponent = (
           if (typeof ref === "function") ref(el)
           else if (ref && typeof ref === "object") ref.current = el
         }}
-        type="text"
+        type={type}
         disabled={disabled}
         placeholder={placeholder}
         value={value !== undefined ? value : undefined}

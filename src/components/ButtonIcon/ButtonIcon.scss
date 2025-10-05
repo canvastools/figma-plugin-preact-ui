@@ -138,16 +138,18 @@
 
   &_disabled {
     cursor: auto !important;
+  }
 
-    background-color: var(--pui-color-disabled-bg-default) !important;
+  &_disabled:is(&_intent-neutral-default) {
+    background-color: var(--pui-color-neutral-bg-disabled) !important;
     box-shadow: none !important;
 
     &:hover {
-      background-color: var(--pui-color-disabled-bg-default) !important;
+      background-color: var(--pui-color-neutral-bg-disabled) !important;
     }
 
     &:active {
-      background-color: var(--pui-color-disabled-bg-default) !important;
+      background-color: var(--pui-color-neutral-bg-disabled) !important;
     }
   }
 }

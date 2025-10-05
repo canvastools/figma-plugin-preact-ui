@@ -3,20 +3,20 @@ import { fn } from "@storybook/test"
 
 import { useState } from "preact/hooks"
 
-import { ListContext } from "../ListContext/ListContext"
-import { ListContainer } from "../ListContainer/ListContainer"
 import { ListItem } from "./ListItem"
-import type { ListItemData } from "../ListContext/ListContext.types"
 
-import { Text } from "../Text/Text"
-import { Input } from "../Input/Input"
-import { Checkbox } from "../Checkbox/Checkbox"
-import { Icon } from "../Icon/Icon"
-import { Button } from "../Button/Button"
-import { ButtonIcon } from "../ButtonIcon/ButtonIcon"
-import { ButtonIconToggle } from "../ButtonIconToggle/ButtonIconToggle"
-import { Section } from "../Section/Section"
-import { Stack } from "../Stack/Stack"
+import { ListContext } from "../../index"
+import { ListContainer } from "../../index"
+import type { ListItemData } from "../../index"
+import { Text } from "../../index"
+import { Input } from "../../index"
+import { Checkbox } from "../../index"
+import { Icon } from "../../index"
+import { Button } from "../../index"
+import { ButtonIcon } from "../../index"
+import { ButtonIconToggle } from "../../index"
+import { Stack } from "../../index"
+import { glyphs } from "../../index"
 
 const meta: Meta<typeof ListItem> = {
   title: "Experimental/ListItem ⚠️",
@@ -44,6 +44,7 @@ const meta: Meta<typeof ListItem> = {
           summary: "boolean",
         },
       },
+      defaultValue: { summary: false },
       control: { disable: true },
       description: "Indicates if the item is nested.",
     },
@@ -60,6 +61,7 @@ const meta: Meta<typeof ListItem> = {
     },
     draggable: {
       control: { type: "boolean" },
+      defaultValue: { summary: false },
     },
     dragHandle: {
       control: { type: "radio" },
@@ -70,7 +72,7 @@ const meta: Meta<typeof ListItem> = {
     },
     onDragStart: {
       action: "dragStart",
-      description: "Callback function that is called when the item is dragged.",
+      description: "Callback when the item is dragged.",
       table: {
         type: {
           summary: "(args: { event: DragEvent }) => void",
@@ -79,7 +81,7 @@ const meta: Meta<typeof ListItem> = {
     },
     onDragEnd: {
       action: "dragEnd",
-      description: "Callback function that is called when the item is dragged.",
+      description: "Callback when the item is dragged.",
       table: {
         type: {
           summary: "(args: { event: DragEvent }) => void",
@@ -88,10 +90,12 @@ const meta: Meta<typeof ListItem> = {
     },
     acceptsChildren: {
       control: { type: "boolean" },
+      defaultValue: { summary: false },
       description: "Indicates if the item can have children.",
     },
     selectable: {
       control: { type: "boolean" },
+      defaultValue: { summary: false },
       description: "Indicates if the item can be selected.",
     },
     selectionScope: {
@@ -103,8 +107,7 @@ const meta: Meta<typeof ListItem> = {
     },
     onSelect: {
       action: "select",
-      description:
-        "Callback function that is called when the item is selected.",
+      description: "Callback when the item is selected.",
       table: {
         type: {
           summary: "(args: { event: MouseEvent; collapsed: boolean }) => void",
@@ -113,6 +116,7 @@ const meta: Meta<typeof ListItem> = {
     },
     hoverable: {
       control: { type: "boolean" },
+      defaultValue: { summary: false },
       description: "Indicates if the item can have hover state.",
     },
     collapsed: {
@@ -126,16 +130,27 @@ const meta: Meta<typeof ListItem> = {
     },
     showCollapseControl: {
       control: { type: "boolean" },
+      defaultValue: { summary: false },
       description:
         "Indicates if the collapse control should be shown and can be used to collapse or expand the item.",
     },
     onCollapsedChange: {
       action: "collapsedChange",
-      description:
-        "Callback function that is called when the item is collapsed or expanded.",
+      description: "Callback when the item is collapsed or expanded.",
       table: {
         type: {
           summary: "(args: { event: MouseEvent; collapsed: boolean }) => void",
+        },
+      },
+    },
+    reducedPaddingRight: {
+      control: { type: "boolean" },
+      defaultValue: { summary: false },
+      description:
+        "Indicates if the item has reduced padding on the right. For pixel perfect vertical alignment with ghost-like buttons.",
+      table: {
+        type: {
+          summary: "boolean",
         },
       },
     },
@@ -206,6 +221,7 @@ export const Demo: Story = {
     selectionScope: "item",
     onSelect: fn(),
     hoverable: true,
+    reducedPaddingRight: false,
     showCollapseControl: false,
     onCollapsedChange: fn(),
   },
@@ -247,37 +263,35 @@ export const Demo: Story = {
 
     return (
       <div className="sb-column sb-width-full">
-        <Section>
-          <ListContext
-            items={items}
-            selectedItems={selectedItems}
-            selectionMode="multi"
-            onItemsChange={(change) => {
-              setItems(change.items)
-            }}
-            onSelectionChange={(change) => {
-              setSelectedItems(change.selectedItems)
-            }}
-          >
-            <ListContainer>
-              {items.map((item) => (
-                <ListItem
-                  {...args}
-                  key={item.id}
-                  id={item.id}
-                  subItems={
-                    item.children ? renderSubItems(item.children, 1) : undefined
-                  }
-                >
-                  <Stack direction="row" spacing={200}>
-                    <Text>{item.id}</Text>
-                    <Text intentModifiers="secondary">(Level 0)</Text>
-                  </Stack>
-                </ListItem>
-              ))}
-            </ListContainer>
-          </ListContext>
-        </Section>
+        <ListContext
+          items={items}
+          selectedItems={selectedItems}
+          selectionMode="multi"
+          onItemsChange={(change) => {
+            setItems(change.items)
+          }}
+          onSelectionChange={(change) => {
+            setSelectedItems(change.selectedItems)
+          }}
+        >
+          <ListContainer>
+            {items.map((item) => (
+              <ListItem
+                {...args}
+                key={item.id}
+                id={item.id}
+                subItems={
+                  item.children ? renderSubItems(item.children, 1) : undefined
+                }
+              >
+                <Stack direction="row" spacing={200}>
+                  <Text>{item.id}</Text>
+                  <Text intentModifiers="secondary">(Level 0)</Text>
+                </Stack>
+              </ListItem>
+            ))}
+          </ListContainer>
+        </ListContext>
       </div>
     )
   },
@@ -339,41 +353,39 @@ export const Draggable: Story = {
 
     return (
       <div className="sb-column sb-width-full">
-        <Section>
-          <ListContext
-            items={items}
-            selectedItems={selectedItems}
-            selectionMode="multi"
-            onItemsChange={(change) => {
-              setItems(change.items)
-            }}
-            onSelectionChange={(change) => {
-              setSelectedItems(change.selectedItems)
-            }}
-          >
-            <ListContainer>
-              {items.map((item) => (
-                <ListItem
-                  key={item.id}
-                  id={item.id}
-                  draggable={true}
-                  acceptsChildren={true}
-                  selectable={true}
-                  selectionScope="item"
-                  hoverable={true}
-                  subItems={
-                    item.children ? renderSubItems(item.children, 1) : undefined
-                  }
-                >
-                  <Stack direction="row" spacing={200}>
-                    <Text>{item.id}</Text>
-                    <Text intentModifiers="secondary">(Level 0)</Text>
-                  </Stack>
-                </ListItem>
-              ))}
-            </ListContainer>
-          </ListContext>
-        </Section>
+        <ListContext
+          items={items}
+          selectedItems={selectedItems}
+          selectionMode="multi"
+          onItemsChange={(change) => {
+            setItems(change.items)
+          }}
+          onSelectionChange={(change) => {
+            setSelectedItems(change.selectedItems)
+          }}
+        >
+          <ListContainer>
+            {items.map((item) => (
+              <ListItem
+                key={item.id}
+                id={item.id}
+                draggable={true}
+                acceptsChildren={true}
+                selectable={true}
+                selectionScope="item"
+                hoverable={true}
+                subItems={
+                  item.children ? renderSubItems(item.children, 1) : undefined
+                }
+              >
+                <Stack direction="row" spacing={200}>
+                  <Text>{item.id}</Text>
+                  <Text intentModifiers="secondary">(Level 0)</Text>
+                </Stack>
+              </ListItem>
+            ))}
+          </ListContainer>
+        </ListContext>
       </div>
     )
   },
@@ -430,42 +442,40 @@ export const DragHandleContainer: Story = {
 
     return (
       <div className="sb-column sb-width-full">
-        <Section>
-          <ListContext
-            items={items}
-            selectedItems={selectedItems}
-            selectionMode="multi"
-            onItemsChange={(change) => {
-              setItems(change.items)
-            }}
-            onSelectionChange={(change) => {
-              setSelectedItems(change.selectedItems)
-            }}
-          >
-            <ListContainer>
-              {items.map((item) => (
-                <ListItem
-                  key={item.id}
-                  id={item.id}
-                  draggable={true}
-                  dragHandle="container"
-                  acceptsChildren={true}
-                  selectable={true}
-                  selectionScope="item"
-                  hoverable={true}
-                  subItems={
-                    item.children ? renderSubItems(item.children, 1) : undefined
-                  }
-                >
-                  <Stack direction="row" spacing={200}>
-                    <Text>{item.id}</Text>
-                    <Text intentModifiers="secondary">(Level 0)</Text>
-                  </Stack>
-                </ListItem>
-              ))}
-            </ListContainer>
-          </ListContext>
-        </Section>
+        <ListContext
+          items={items}
+          selectedItems={selectedItems}
+          selectionMode="multi"
+          onItemsChange={(change) => {
+            setItems(change.items)
+          }}
+          onSelectionChange={(change) => {
+            setSelectedItems(change.selectedItems)
+          }}
+        >
+          <ListContainer>
+            {items.map((item) => (
+              <ListItem
+                key={item.id}
+                id={item.id}
+                draggable={true}
+                dragHandle="container"
+                acceptsChildren={true}
+                selectable={true}
+                selectionScope="item"
+                hoverable={true}
+                subItems={
+                  item.children ? renderSubItems(item.children, 1) : undefined
+                }
+              >
+                <Stack direction="row" spacing={200}>
+                  <Text>{item.id}</Text>
+                  <Text intentModifiers="secondary">(Level 0)</Text>
+                </Stack>
+              </ListItem>
+            ))}
+          </ListContainer>
+        </ListContext>
       </div>
     )
   },
@@ -524,41 +534,39 @@ export const AcceptsChildren: Story = {
 
     return (
       <div className="sb-column sb-width-full">
-        <Section>
-          <ListContext
-            items={items}
-            selectedItems={selectedItems}
-            selectionMode="multi"
-            onItemsChange={(change) => {
-              setItems(change.items)
-            }}
-            onSelectionChange={(change) => {
-              setSelectedItems(change.selectedItems)
-            }}
-          >
-            <ListContainer>
-              {items.map((item) => (
-                <ListItem
-                  key={item.id}
-                  id={item.id}
-                  draggable={true}
-                  acceptsChildren={true}
-                  selectable={true}
-                  selectionScope="item"
-                  hoverable={true}
-                  subItems={
-                    item.children ? renderSubItems(item.children, 1) : undefined
-                  }
-                >
-                  <Stack direction="row" spacing={200}>
-                    <Text>{item.id}</Text>
-                    <Text intentModifiers="secondary">(Level 0)</Text>
-                  </Stack>
-                </ListItem>
-              ))}
-            </ListContainer>
-          </ListContext>
-        </Section>
+        <ListContext
+          items={items}
+          selectedItems={selectedItems}
+          selectionMode="multi"
+          onItemsChange={(change) => {
+            setItems(change.items)
+          }}
+          onSelectionChange={(change) => {
+            setSelectedItems(change.selectedItems)
+          }}
+        >
+          <ListContainer>
+            {items.map((item) => (
+              <ListItem
+                key={item.id}
+                id={item.id}
+                draggable={true}
+                acceptsChildren={true}
+                selectable={true}
+                selectionScope="item"
+                hoverable={true}
+                subItems={
+                  item.children ? renderSubItems(item.children, 1) : undefined
+                }
+              >
+                <Stack direction="row" spacing={200}>
+                  <Text>{item.id}</Text>
+                  <Text intentModifiers="secondary">(Level 0)</Text>
+                </Stack>
+              </ListItem>
+            ))}
+          </ListContainer>
+        </ListContext>
       </div>
     )
   },
@@ -620,41 +628,39 @@ export const Selectable: Story = {
 
     return (
       <div className="sb-column sb-width-full">
-        <Section>
-          <ListContext
-            items={items}
-            selectedItems={selectedItems}
-            selectionMode="multi"
-            onItemsChange={(change) => {
-              setItems(change.items)
-            }}
-            onSelectionChange={(change) => {
-              setSelectedItems(change.selectedItems)
-            }}
-          >
-            <ListContainer>
-              {items.map((item) => (
-                <ListItem
-                  key={item.id}
-                  id={item.id}
-                  draggable={true}
-                  acceptsChildren={true}
-                  selectable={true}
-                  selectionScope="item"
-                  hoverable={true}
-                  subItems={
-                    item.children ? renderSubItems(item.children, 1) : undefined
-                  }
-                >
-                  <Stack direction="row" spacing={200}>
-                    <Text>{item.id}</Text>
-                    <Text intentModifiers="secondary">(Level 0)</Text>
-                  </Stack>
-                </ListItem>
-              ))}
-            </ListContainer>
-          </ListContext>
-        </Section>
+        <ListContext
+          items={items}
+          selectedItems={selectedItems}
+          selectionMode="multi"
+          onItemsChange={(change) => {
+            setItems(change.items)
+          }}
+          onSelectionChange={(change) => {
+            setSelectedItems(change.selectedItems)
+          }}
+        >
+          <ListContainer>
+            {items.map((item) => (
+              <ListItem
+                key={item.id}
+                id={item.id}
+                draggable={true}
+                acceptsChildren={true}
+                selectable={true}
+                selectionScope="item"
+                hoverable={true}
+                subItems={
+                  item.children ? renderSubItems(item.children, 1) : undefined
+                }
+              >
+                <Stack direction="row" spacing={200}>
+                  <Text>{item.id}</Text>
+                  <Text intentModifiers="secondary">(Level 0)</Text>
+                </Stack>
+              </ListItem>
+            ))}
+          </ListContainer>
+        </ListContext>
       </div>
     )
   },
@@ -710,41 +716,39 @@ export const SelectionScope: Story = {
 
     return (
       <div className="sb-column sb-width-full">
-        <Section>
-          <ListContext
-            items={items}
-            selectedItems={selectedItems}
-            selectionMode="multi"
-            onItemsChange={(change) => {
-              setItems(change.items)
-            }}
-            onSelectionChange={(change) => {
-              setSelectedItems(change.selectedItems)
-            }}
-          >
-            <ListContainer>
-              {items.map((item) => (
-                <ListItem
-                  key={item.id}
-                  id={item.id}
-                  draggable={true}
-                  acceptsChildren={true}
-                  selectable={true}
-                  selectionScope="withDescendants"
-                  hoverable={true}
-                  subItems={
-                    item.children ? renderSubItems(item.children, 1) : undefined
-                  }
-                >
-                  <Stack direction="row" spacing={200}>
-                    <Text>{item.id}</Text>
-                    <Text intentModifiers="secondary">(Level 0)</Text>
-                  </Stack>
-                </ListItem>
-              ))}
-            </ListContainer>
-          </ListContext>
-        </Section>
+        <ListContext
+          items={items}
+          selectedItems={selectedItems}
+          selectionMode="multi"
+          onItemsChange={(change) => {
+            setItems(change.items)
+          }}
+          onSelectionChange={(change) => {
+            setSelectedItems(change.selectedItems)
+          }}
+        >
+          <ListContainer>
+            {items.map((item) => (
+              <ListItem
+                key={item.id}
+                id={item.id}
+                draggable={true}
+                acceptsChildren={true}
+                selectable={true}
+                selectionScope="withDescendants"
+                hoverable={true}
+                subItems={
+                  item.children ? renderSubItems(item.children, 1) : undefined
+                }
+              >
+                <Stack direction="row" spacing={200}>
+                  <Text>{item.id}</Text>
+                  <Text intentModifiers="secondary">(Level 0)</Text>
+                </Stack>
+              </ListItem>
+            ))}
+          </ListContainer>
+        </ListContext>
       </div>
     )
   },
@@ -806,41 +810,39 @@ export const Hoverable: Story = {
 
     return (
       <div className="sb-column sb-gap-16">
-        <Section>
-          <ListContext
-            items={items}
-            selectedItems={selectedItems}
-            selectionMode="multi"
-            onItemsChange={(change) => {
-              setItems(change.items)
-            }}
-            onSelectionChange={(change) => {
-              setSelectedItems(change.selectedItems)
-            }}
-          >
-            <ListContainer>
-              {items.map((item) => (
-                <ListItem
-                  key={item.id}
-                  id={item.id}
-                  draggable={true}
-                  acceptsChildren={true}
-                  selectable={true}
-                  selectionScope="item"
-                  hoverable={true}
-                  subItems={
-                    item.children ? renderSubItems(item.children, 1) : undefined
-                  }
-                >
-                  <Stack direction="row" spacing={200}>
-                    <Text>{item.id}</Text>
-                    <Text intentModifiers="secondary">(Level 0)</Text>
-                  </Stack>
-                </ListItem>
-              ))}
-            </ListContainer>
-          </ListContext>
-        </Section>
+        <ListContext
+          items={items}
+          selectedItems={selectedItems}
+          selectionMode="multi"
+          onItemsChange={(change) => {
+            setItems(change.items)
+          }}
+          onSelectionChange={(change) => {
+            setSelectedItems(change.selectedItems)
+          }}
+        >
+          <ListContainer>
+            {items.map((item) => (
+              <ListItem
+                key={item.id}
+                id={item.id}
+                draggable={true}
+                acceptsChildren={true}
+                selectable={true}
+                selectionScope="item"
+                hoverable={true}
+                subItems={
+                  item.children ? renderSubItems(item.children, 1) : undefined
+                }
+              >
+                <Stack direction="row" spacing={200}>
+                  <Text>{item.id}</Text>
+                  <Text intentModifiers="secondary">(Level 0)</Text>
+                </Stack>
+              </ListItem>
+            ))}
+          </ListContainer>
+        </ListContext>
       </div>
     )
   },
@@ -903,42 +905,40 @@ export const CollapsableWithDragHandle: Story = {
 
     return (
       <div className="sb-column sb-width-full">
-        <Section>
-          <ListContext
-            items={items}
-            selectedItems={selectedItems}
-            selectionMode="multi"
-            onItemsChange={(change) => {
-              setItems(change.items)
-            }}
-            onSelectionChange={(change) => {
-              setSelectedItems(change.selectedItems)
-            }}
-          >
-            <ListContainer>
-              {items.map((item) => (
-                <ListItem
-                  key={item.id}
-                  id={item.id}
-                  draggable={true}
-                  acceptsChildren={true}
-                  selectable={true}
-                  selectionScope="item"
-                  showCollapseControl={true}
-                  hoverable={true}
-                  subItems={
-                    item.children ? renderSubItems(item.children, 1) : undefined
-                  }
-                >
-                  <Stack direction="row" spacing={200}>
-                    <Text>{item.id}</Text>
-                    <Text intentModifiers="secondary">(Level 0)</Text>
-                  </Stack>
-                </ListItem>
-              ))}
-            </ListContainer>
-          </ListContext>
-        </Section>
+        <ListContext
+          items={items}
+          selectedItems={selectedItems}
+          selectionMode="multi"
+          onItemsChange={(change) => {
+            setItems(change.items)
+          }}
+          onSelectionChange={(change) => {
+            setSelectedItems(change.selectedItems)
+          }}
+        >
+          <ListContainer>
+            {items.map((item) => (
+              <ListItem
+                key={item.id}
+                id={item.id}
+                draggable={true}
+                acceptsChildren={true}
+                selectable={true}
+                selectionScope="item"
+                showCollapseControl={true}
+                hoverable={true}
+                subItems={
+                  item.children ? renderSubItems(item.children, 1) : undefined
+                }
+              >
+                <Stack direction="row" spacing={200}>
+                  <Text>{item.id}</Text>
+                  <Text intentModifiers="secondary">(Level 0)</Text>
+                </Stack>
+              </ListItem>
+            ))}
+          </ListContainer>
+        </ListContext>
       </div>
     )
   },
@@ -996,43 +996,41 @@ export const CollapsableWithDraggableContainer: Story = {
 
     return (
       <div className="sb-column sb-width-full">
-        <Section>
-          <ListContext
-            items={items}
-            selectedItems={selectedItems}
-            selectionMode="multi"
-            onItemsChange={(change) => {
-              setItems(change.items)
-            }}
-            onSelectionChange={(change) => {
-              setSelectedItems(change.selectedItems)
-            }}
-          >
-            <ListContainer>
-              {items.map((item) => (
-                <ListItem
-                  key={item.id}
-                  id={item.id}
-                  draggable={true}
-                  acceptsChildren={true}
-                  selectable={true}
-                  selectionScope="item"
-                  showCollapseControl={true}
-                  hoverable={true}
-                  dragHandle="container"
-                  subItems={
-                    item.children ? renderSubItems(item.children, 1) : undefined
-                  }
-                >
-                  <Stack direction="row" spacing={200}>
-                    <Text>{item.id}</Text>
-                    <Text intentModifiers="secondary">(Level 0)</Text>
-                  </Stack>
-                </ListItem>
-              ))}
-            </ListContainer>
-          </ListContext>
-        </Section>
+        <ListContext
+          items={items}
+          selectedItems={selectedItems}
+          selectionMode="multi"
+          onItemsChange={(change) => {
+            setItems(change.items)
+          }}
+          onSelectionChange={(change) => {
+            setSelectedItems(change.selectedItems)
+          }}
+        >
+          <ListContainer>
+            {items.map((item) => (
+              <ListItem
+                key={item.id}
+                id={item.id}
+                draggable={true}
+                acceptsChildren={true}
+                selectable={true}
+                selectionScope="item"
+                showCollapseControl={true}
+                hoverable={true}
+                dragHandle="container"
+                subItems={
+                  item.children ? renderSubItems(item.children, 1) : undefined
+                }
+              >
+                <Stack direction="row" spacing={200}>
+                  <Text>{item.id}</Text>
+                  <Text intentModifiers="secondary">(Level 0)</Text>
+                </Stack>
+              </ListItem>
+            ))}
+          </ListContainer>
+        </ListContext>
       </div>
     )
   },
@@ -1075,15 +1073,16 @@ export const Children: Story = {
                   ? renderSubItems(child.children, level + 1)
                   : undefined
               }
+              reducedPaddingRight={true}
             >
               <Stack direction="row" spacing={200} y="center" fullWidth>
                 <Input defaultValue={child.id} />
                 <Checkbox label="Label" />
                 <ButtonIcon ghost>
-                  <Icon glyph="settings" variant="scaled" />
+                  <Icon glyph={glyphs.settings} variant="scaled" />
                 </ButtonIcon>
                 <ButtonIconToggle ghost>
-                  <Icon glyph="link" variant="scaled" />
+                  <Icon glyph={glyphs.link} variant="scaled" />
                 </ButtonIconToggle>
               </Stack>
             </ListItem>
@@ -1094,48 +1093,46 @@ export const Children: Story = {
 
     return (
       <div className="sb-column sb-width-full">
-        <Section>
-          <ListContext
-            items={items}
-            selectedItems={selectedItems}
-            selectionMode="multi"
-            onItemsChange={(change) => {
-              setItems(change.items)
-            }}
-            onSelectionChange={(change) => {
-              setSelectedItems(change.selectedItems)
-            }}
-          >
-            <ListContainer>
-              {items.map((item) => (
-                <ListItem
-                  key={item.id}
-                  id={item.id}
-                  draggable={true}
-                  acceptsChildren={true}
-                  selectable={true}
-                  selectionScope="withDescendants"
-                  showCollapseControl={true}
-                  hoverable={true}
-                  subItems={
-                    item.children ? renderSubItems(item.children, 1) : undefined
-                  }
-                >
-                  <Stack direction="row" spacing={200} y="center" fullWidth>
-                    <Input defaultValue={item.id} ghost focusOnDoubleClick />
-                    <Text intentModifiers="secondary" className="text-no-wrap">
-                      Ghost + Double click focus
-                    </Text>
-                    <Button>Action</Button>
-                    <ButtonIconToggle>
-                      <Icon glyph="link" variant="scaled" />
-                    </ButtonIconToggle>
-                  </Stack>
-                </ListItem>
-              ))}
-            </ListContainer>
-          </ListContext>
-        </Section>
+        <ListContext
+          items={items}
+          selectedItems={selectedItems}
+          selectionMode="multi"
+          onItemsChange={(change) => {
+            setItems(change.items)
+          }}
+          onSelectionChange={(change) => {
+            setSelectedItems(change.selectedItems)
+          }}
+        >
+          <ListContainer>
+            {items.map((item) => (
+              <ListItem
+                key={item.id}
+                id={item.id}
+                draggable={true}
+                acceptsChildren={true}
+                selectable={true}
+                selectionScope="withDescendants"
+                showCollapseControl={true}
+                hoverable={true}
+                subItems={
+                  item.children ? renderSubItems(item.children, 1) : undefined
+                }
+              >
+                <Stack direction="row" spacing={200} y="center" fullWidth>
+                  <Input defaultValue={item.id} ghost focusOnDoubleClick />
+                  <Text intentModifiers="secondary" className="text-no-wrap">
+                    Ghost + Double click focus
+                  </Text>
+                  <Button>Action</Button>
+                  <ButtonIconToggle>
+                    <Icon glyph={glyphs.link} variant="scaled" />
+                  </ButtonIconToggle>
+                </Stack>
+              </ListItem>
+            ))}
+          </ListContainer>
+        </ListContext>
       </div>
     )
   },

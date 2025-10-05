@@ -174,16 +174,91 @@
 
   &_disabled {
     cursor: auto !important;
+  }
 
-    background-color: var(--pui-color-disabled-bg-default) !important;
-    box-shadow: none !important;
+  &_disabled:is(&_intent-neutral-default):not(&_ghost),
+  &_disabled:is(&_intent-neutral-brand):not(&_ghost),
+  &_disabled:is(&_intent-neutral-danger):not(&_ghost) {
+    background-color: var(--pui-color-neutral-bg-disabled) !important;
+    box-shadow: inset 0 0 0 1px var(--pui-color-neutral-border-disabled) !important;
 
     &:hover {
-      background-color: var(--pui-color-disabled-bg-default) !important;
+      background-color: var(--pui-color-neutral-bg-disabled) !important;
     }
 
     &:active {
-      background-color: var(--pui-color-disabled-bg-default) !important;
+      background-color: var(--pui-color-neutral-bg-disabled) !important;
+    }
+  }
+
+  &_disabled:is(&_intent-neutral-default):is(&_ghost),
+  &_disabled:is(&_intent-neutral-brand):is(&_ghost),
+  &_disabled:is(&_intent-neutral-danger):is(&_ghost) {
+    background-color: var(--pui-color-neutral-bg-disabled) !important;
+    box-shadow: none !important;
+
+    &:hover {
+      background-color: var(--pui-color-neutral-bg-disabled) !important;
+    }
+
+    &:active {
+      background-color: var(--pui-color-neutral-bg-disabled) !important;
+    }
+  }
+
+  &_disabled:is(&_intent-neutral-inverted-default) {
+    background-color: var(--pui-color-neutral-inverted-bg-disabled) !important;
+    box-shadow: none !important;
+
+    &:hover {
+      background-color: var(
+        --pui-color-neutral-inverted-bg-disabled
+      ) !important;
+    }
+
+    &:active {
+      background-color: var(
+        --pui-color-neutral-inverted-bg-disabled
+      ) !important;
+    }
+  }
+
+  &_disabled:is(&_intent-brand-default) {
+    background-color: var(--pui-color-brand-bg-disabled) !important;
+    box-shadow: none !important;
+
+    &:hover {
+      background-color: var(--pui-color-brand-bg-disabled) !important;
+    }
+
+    &:active {
+      background-color: var(--pui-color-brand-bg-disabled) !important;
+    }
+  }
+
+  &_disabled:is(&_intent-danger-default) {
+    background-color: var(--pui-color-danger-bg-disabled) !important;
+    box-shadow: none !important;
+
+    &:hover {
+      background-color: var(--pui-color-danger-bg-disabled) !important;
+    }
+
+    &:active {
+      background-color: var(--pui-color-danger-bg-disabled) !important;
+    }
+  }
+
+  &_disabled:is(&_intent-success-default) {
+    background-color: var(--pui-color-success-bg-disabled) !important;
+    box-shadow: none !important;
+
+    &:hover {
+      background-color: var(--pui-color-success-bg-disabled) !important;
+    }
+
+    &:active {
+      background-color: var(--pui-color-success-bg-disabled) !important;
     }
   }
 }

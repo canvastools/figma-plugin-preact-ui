@@ -10,15 +10,16 @@ const TextComponent = (
     className,
     intent = "neutral",
     intentModifiers = "default",
-    disabled,
-    interactive,
-    selected,
+    disabled = false,
+    interactive = false,
+    selected = false,
     fill,
     variant = "body",
     size = "medium",
-    strong,
+    strong = false,
     align = "left",
-    fullWidth,
+    fullWidth = false,
+    noWrap = false,
     children,
     ...rest
   }: TextProps,
@@ -36,6 +37,7 @@ const TextComponent = (
     strong,
     align,
     fullWidth,
+    noWrap,
   })
 
   return (

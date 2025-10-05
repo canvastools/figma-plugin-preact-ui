@@ -3,7 +3,7 @@ import { Meta, StoryObj } from "@storybook/preact"
 import { Text } from "./Text"
 import type { TextProps } from "./Text.types"
 
-import { Section } from "../Section/Section"
+import { Section } from "../../index"
 
 const meta: Meta<typeof Text> = {
   title: "Components/Text",
@@ -15,7 +15,15 @@ const meta: Meta<typeof Text> = {
     },
     intent: {
       control: { type: "radio" },
-      options: ["neutral", "brand", "danger", "warning", "success"],
+      options: [
+        "neutral",
+        "neutral-inverted",
+        "neutral-inverted-fixed",
+        "brand",
+        "danger",
+        "warning",
+        "success",
+      ],
       defaultValue: { summary: "neutral" },
     },
     intentModifiers: {
@@ -32,20 +40,28 @@ const meta: Meta<typeof Text> = {
     },
     disabled: {
       control: { type: "boolean" },
+      defaultValue: { summary: false },
     },
     interactive: {
       control: { type: "boolean" },
+      defaultValue: { summary: false },
       description:
         "Allows using colours for interactive states within the intent.",
     },
     selected: {
       control: { type: "boolean" },
+      defaultValue: { summary: false },
       description:
         "Enables the modifier for the selected state. Only works if interactive is enabled.",
     },
     fill: {
       control: { type: "color" },
       description: "Overrides the intent color.",
+      table: {
+        type: {
+          summary: "HEX | RGB | RGBA | var()",
+        },
+      },
     },
     variant: {
       control: { type: "radio" },
@@ -59,6 +75,7 @@ const meta: Meta<typeof Text> = {
     },
     strong: {
       description: "This property visually affects only the body intent.",
+      defaultValue: { summary: false },
       control: { type: "boolean" },
     },
     align: {
@@ -68,6 +85,24 @@ const meta: Meta<typeof Text> = {
     },
     fullWidth: {
       control: { type: "boolean" },
+      defaultValue: { summary: false },
+      description:
+        "Whether the text should take the full width of its container.",
+      table: {
+        type: {
+          summary: "boolean",
+        },
+      },
+    },
+    noWrap: {
+      control: { type: "boolean" },
+      defaultValue: { summary: false },
+      description: "Whether the text should wrap to the next line.",
+      table: {
+        type: {
+          summary: "boolean",
+        },
+      },
     },
     children: {
       table: {
@@ -95,6 +130,8 @@ export const Demo: Story = {
     variant: "body",
     size: "medium",
     strong: false,
+    fullWidth: false,
+    noWrap: false,
     align: "left",
     children:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
@@ -119,6 +156,7 @@ export const Demo: Story = {
 const intentCombinations = () => {
   const validCombinations = {
     neutral: [
+      // intent, interactive, selected
       ["default", false, false],
       ["default", true, false],
       ["default", true, true],
@@ -137,6 +175,13 @@ const intentCombinations = () => {
     "neutral-inverted": [
       ["default", false, false],
       ["default", true, false],
+    ],
+    "neutral-inverted-fixed": [
+      ["default", false, false],
+      ["default", true, false],
+
+      ["secondary", false, false],
+      ["secondary", true, false],
     ],
     brand: [
       ["default", false, false],
@@ -214,15 +259,101 @@ export const Disabled: Story = {
   },
   render: () => (
     <div className="sb-column sb-gap-16">
-      <Text variant="heading" intent="neutral" disabled>
-        Heading
-      </Text>
-      <Text variant="body" intent="neutral" disabled>
-        Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry. Lorem Ipsum has been the industry's standard dummy text ever
-        since the 1500s, when an unknown printer took a galley of type and
-        scrambled it to make a type specimen book.
-      </Text>
+      <div
+        className="sb-column sb-gap-8 sb-width-full sb-padding-16"
+        style={{ backgroundColor: "var(--pui-color-neutral-bg-disabled)" }}
+      >
+        <Text variant="heading" intent="neutral" disabled>
+          neutral, disabled
+        </Text>
+        <Text variant="body" intent="neutral" disabled>
+          Lorem Ipsum is simply dummy text of the printing and typesetting
+          industry. Lorem Ipsum has been the industry's standard dummy text ever
+          since the 1500s, when an unknown printer took a galley of type and
+          scrambled it to make a type specimen book.
+        </Text>
+      </div>
+      <div
+        className="sb-column sb-gap-8 sb-width-full sb-padding-16"
+        style={{
+          backgroundColor: "var(--pui-color-neutral-inverted-bg-disabled)",
+        }}
+      >
+        <Text variant="heading" intent="neutral-inverted" disabled>
+          neutral-inverted, disabled
+        </Text>
+        <Text variant="body" intent="neutral-inverted" disabled>
+          Lorem Ipsum is simply dummy text of the printing and typesetting
+          industry. Lorem Ipsum has been the industry's standard dummy text ever
+          since the 1500s, when an unknown printer took a galley of type and
+          scrambled it to make a type specimen book.
+        </Text>
+      </div>
+      <div
+        className="sb-column sb-gap-8 sb-width-full sb-padding-16"
+        style={{
+          backgroundColor:
+            "var(--pui-color-neutral-inverted-fixed-bg-disabled)",
+        }}
+      >
+        <Text variant="heading" intent="neutral-inverted-fixed" disabled>
+          neutral-inverted-fixed, disabled
+        </Text>
+        <Text variant="body" intent="neutral-inverted-fixed" disabled>
+          Lorem Ipsum is simply dummy text of the printing and typesetting
+          industry. Lorem Ipsum has been the industry's standard dummy text ever
+          since the 1500s, when an unknown printer took a galley of type and
+          scrambled it to make a type specimen book.
+        </Text>
+      </div>
+      <div
+        className="sb-column sb-gap-8 sb-width-full sb-padding-16"
+        style={{
+          backgroundColor: "var(--pui-color-brand-bg-disabled)",
+        }}
+      >
+        <Text variant="heading" intent="brand" disabled>
+          brand, disabled
+        </Text>
+        <Text variant="body" intent="brand" disabled>
+          Lorem Ipsum is simply dummy text of the printing and typesetting
+          industry. Lorem Ipsum has been the industry's standard dummy text ever
+          since the 1500s, when an unknown printer took a galley of type and
+          scrambled it to make a type specimen book.
+        </Text>
+      </div>
+      <div
+        className="sb-column sb-gap-8 sb-width-full sb-padding-16"
+        style={{
+          backgroundColor: "var(--pui-color-danger-bg-disabled)",
+        }}
+      >
+        <Text variant="heading" intent="danger" disabled>
+          danger, disabled
+        </Text>
+        <Text variant="body" intent="danger" disabled>
+          Lorem Ipsum is simply dummy text of the printing and typesetting
+          industry. Lorem Ipsum has been the industry's standard dummy text ever
+          since the 1500s, when an unknown printer took a galley of type and
+          scrambled it to make a type specimen book.
+        </Text>
+      </div>
+      <div
+        className="sb-column sb-gap-8 sb-width-full sb-padding-16"
+        style={{
+          backgroundColor: "var(--pui-color-success-bg-disabled)",
+        }}
+      >
+        <Text variant="heading" intent="success" disabled>
+          success, disabled
+        </Text>
+        <Text variant="body" intent="success" disabled>
+          Lorem Ipsum is simply dummy text of the printing and typesetting
+          industry. Lorem Ipsum has been the industry's standard dummy text ever
+          since the 1500s, when an unknown printer took a galley of type and
+          scrambled it to make a type specimen book.
+        </Text>
+      </div>
     </div>
   ),
 }

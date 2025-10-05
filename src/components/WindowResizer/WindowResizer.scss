@@ -2,18 +2,28 @@
 
 .WindowResizer {
   position: absolute;
-  right: 1px;
-  bottom: 1px;
-  width: 10px;
-  height: 10px;
+  right: 0px;
+  bottom: 0px;
+  width: 11px;
+  height: 11px;
   z-index: 1000;
-  border-radius: 0 0 12px 0;
-  border-bottom: 2px solid var(--pui-color-system-bg-resizer);
-  border-right: 2px solid var(--pui-color-system-bg-resizer);
+  border-radius: 0;
   cursor: nwse-resize;
-  opacity: 0.36;
+  opacity: 0.5;
 
   &:hover {
     opacity: 1;
+  }
+
+  &:before {
+    content: "";
+    position: absolute;
+    right: 1px;
+    bottom: 1px;
+    width: 8px;
+    height: 8px;
+    border-radius: 0 0 12px;
+    border-bottom: 2px solid var(--pui-color-system-bg-resizer);
+    border-right: 2px solid var(--pui-color-system-bg-resizer);
   }
 }

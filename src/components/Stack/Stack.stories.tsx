@@ -4,8 +4,8 @@ import { spacing } from "../../themes"
 
 import { Stack } from "./Stack"
 
-import { Section } from "../Section/Section"
-import { Avatar } from "../Avatar/Avatar"
+import { Section } from "../../index"
+import { Avatar } from "../../index"
 
 const meta: Meta<typeof Stack> = {
   title: "Layout/Stack",
@@ -53,13 +53,20 @@ const meta: Meta<typeof Stack> = {
     },
     fullHeight: {
       control: { type: "boolean" },
+      defaultValue: { summary: false },
       description:
         "Set the height to 100% to occupy the entire height in flex containers. May requires &lt;ScrollContainer/&gt; to be used as it uses `overflow: hidden`.",
     },
     fullWidth: {
       control: { type: "boolean" },
+      defaultValue: { summary: false },
       description:
         "Set the width to 100% to occupy the entire width in container.",
+      table: {
+        type: {
+          summary: "boolean",
+        },
+      },
     },
     children: {
       control: { disable: true },

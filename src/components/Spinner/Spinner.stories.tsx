@@ -2,8 +2,6 @@ import { Meta, StoryObj } from "@storybook/preact"
 
 import { Spinner } from "./Spinner"
 
-import { Section } from "../Section/Section"
-
 const meta: Meta<typeof Spinner> = {
   title: "Components/Spinner",
   component: Spinner,
@@ -29,9 +27,7 @@ export const Demo: Story = {
   },
   render: (args) => (
     <div className="sb-column sb-width-full">
-      <Section>
-        <Spinner {...args} />
-      </Section>
+      <Spinner {...args} />
     </div>
   ),
 }

@@ -4,9 +4,8 @@ import { useState } from "preact/hooks"
 
 import { Checkbox } from "./Checkbox"
 
-import { Text } from "../Text/Text"
-import { Section } from "../Section/Section"
-import { Stack } from "../Stack/Stack"
+import { Text } from "../../index"
+import { Stack } from "../../index"
 
 const meta: Meta<typeof Checkbox> = {
   title: "Components/Checkbox",
@@ -17,11 +16,17 @@ const meta: Meta<typeof Checkbox> = {
       control: { type: "text" },
     },
     checked: {
-      control: { type: "boolean" },
+      control: { disable: true },
+      table: {
+        type: {
+          summary: "boolean",
+        },
+      },
     },
     defaultChecked: {
       control: { type: "boolean" },
       description: "Initial checked state for uncontrolled mode.",
+      defaultValue: { summary: false },
       table: {
         type: {
           summary: "boolean",
@@ -30,17 +35,18 @@ const meta: Meta<typeof Checkbox> = {
     },
     mixed: {
       control: { type: "boolean" },
+      defaultValue: { summary: false },
     },
     disabled: {
       control: { type: "boolean" },
+      defaultValue: { summary: false },
     },
     label: {
       control: { type: "text" },
     },
     onChange: {
       action: "clicked",
-      description:
-        "Callback function that is called when the checkbox is clicked.",
+      description: "Callback when the checkbox is clicked.",
       table: {
         type: {
           summary: "(args: {event: MouseEvent; checked: boolean}) => void",
@@ -69,9 +75,7 @@ export const Demo: Story = {
   },
   render: (args) => (
     <div className="sb-column sb-width-full">
-      <Section>
-        <Checkbox {...args} />
-      </Section>
+      <Checkbox {...args} />
     </div>
   ),
 }
@@ -85,9 +89,7 @@ export const Uncontrolled: Story = {
   },
   render: () => (
     <div className="sb-column sb-width-full">
-      <Section>
-        <Checkbox defaultChecked={true} label="Checked True" />
-      </Section>
+      <Checkbox defaultChecked={true} label="Checked True" />
     </div>
   ),
 }
@@ -103,16 +105,14 @@ export const Controlled: Story = {
     const [isChecked, setIsChecked] = useState(false)
     return (
       <div className="sb-column sb-width-full">
-        <Section>
+        <Stack spacing={400}>
           <Text>Value: {isChecked ? "true" : "false"}</Text>
-        </Section>
-        <Section>
           <Checkbox
             checked={isChecked}
             label="Checked True"
             onChange={(args) => setIsChecked(args.checked)}
           />
-        </Section>
+        </Stack>
       </div>
     )
   },
@@ -127,12 +127,10 @@ export const Checked: Story = {
   },
   render: () => (
     <div className="sb-column sb-width-full">
-      <Section>
-        <Stack spacing={400}>
-          <Checkbox defaultChecked={true} label="Checked True" />
-          <Checkbox defaultChecked={false} label="Checked False" />
-        </Stack>
-      </Section>
+      <Stack spacing={400}>
+        <Checkbox defaultChecked={true} label="Checked True" />
+        <Checkbox defaultChecked={false} label="Checked False" />
+      </Stack>
     </div>
   ),
 }
@@ -146,20 +144,18 @@ export const Mixed: Story = {
   },
   render: () => (
     <div className="sb-column sb-width-full">
-      <Section>
-        <Stack spacing={400}>
-          <Checkbox
-            defaultChecked={true}
-            mixed={true}
-            label="Checkbox True Mixed"
-          />
-          <Checkbox
-            defaultChecked={false}
-            mixed={true}
-            label="Checkbox False Mixed"
-          />
-        </Stack>
-      </Section>
+      <Stack spacing={400}>
+        <Checkbox
+          defaultChecked={true}
+          mixed={true}
+          label="Checkbox True Mixed"
+        />
+        <Checkbox
+          defaultChecked={false}
+          mixed={true}
+          label="Checkbox False Mixed"
+        />
+      </Stack>
     </div>
   ),
 }
@@ -173,32 +169,30 @@ export const Disabled: Story = {
   },
   render: () => (
     <div className="sb-column sb-width-full">
-      <Section>
-        <Stack spacing={400}>
-          <Checkbox
-            defaultChecked={true}
-            disabled
-            label="Checked True Disabled"
-          />
-          <Checkbox
-            defaultChecked={false}
-            disabled
-            label="Checked False Disabled"
-          />
-          <Checkbox
-            checked={true}
-            disabled
-            mixed
-            label="Checkbox True Mixed Disabled"
-          />
-          <Checkbox
-            checked={false}
-            disabled
-            mixed
-            label="Checkbox False Mixed Disabled"
-          />
-        </Stack>
-      </Section>
+      <Stack spacing={400}>
+        <Checkbox
+          defaultChecked={true}
+          disabled
+          label="Checked True Disabled"
+        />
+        <Checkbox
+          defaultChecked={false}
+          disabled
+          label="Checked False Disabled"
+        />
+        <Checkbox
+          checked={true}
+          disabled
+          mixed
+          label="Checkbox True Mixed Disabled"
+        />
+        <Checkbox
+          checked={false}
+          disabled
+          mixed
+          label="Checkbox False Mixed Disabled"
+        />
+      </Stack>
     </div>
   ),
 }
@@ -212,12 +206,10 @@ export const Label: Story = {
   },
   render: () => (
     <div className="sb-column sb-width-full">
-      <Section>
-        <Stack spacing={400}>
-          <Checkbox label="Labelled" />
-          <Checkbox />
-        </Stack>
-      </Section>
+      <Stack spacing={400}>
+        <Checkbox label="Labelled" />
+        <Checkbox />
+      </Stack>
     </div>
   ),
 }

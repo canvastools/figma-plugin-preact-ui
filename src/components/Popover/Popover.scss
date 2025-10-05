@@ -1,0 +1,16 @@
+@use "../../shared.scss" as *;
+
+.Popover {
+  $parent: &;
+
+  display: flex;
+  flex-flow: column nowrap;
+  overflow: hidden;
+
+  background-color: var(--pui-color-neutral-bg-default);
+  border-radius: var(--pui-radius-large);
+
+  box-shadow: 0 4px 16px 1px var(--pui-color-shadow-popover-soft),
+    0 4px 8px 0 var(--pui-color-shadow-popover-hard),
+    0 -1px 0 0 var(--pui-color-shadow-popover-glare);
+}

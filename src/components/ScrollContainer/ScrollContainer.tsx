@@ -1,9 +1,10 @@
 import { bem, typedForwardRef } from "../../utils"
-import { useScrollContext } from "../ScrollContext/ScrollContext"
 import { useCallback, useEffect, useRef, useState } from "preact/hooks"
 
 import type { ScrollContainerProps } from "./ScrollContainer.types"
 import "./ScrollContainer.scss"
+
+import { useScrollContext } from "../../index"
 
 /* --- */
 

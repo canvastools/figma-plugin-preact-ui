@@ -2,10 +2,10 @@ import { Meta, StoryObj } from "@storybook/preact"
 
 import { Bar } from "./Bar"
 
-import { Text } from "../Text/Text"
-import { Section } from "../Section/Section"
-import { ScrollContext, useScrollContext } from "../ScrollContext/ScrollContext"
-import { ScrollContainer } from "../ScrollContainer/ScrollContainer"
+import { Text } from "../../index"
+import { Section } from "../../index"
+import { ScrollContext, useScrollContext } from "../../index"
+import { ScrollContainer } from "../../index"
 
 const meta: Meta<typeof Bar> = {
   title: "Components/Bar",
@@ -25,9 +25,11 @@ const meta: Meta<typeof Bar> = {
     },
     borderTop: {
       control: { type: "boolean" },
+      defaultValue: { summary: false },
     },
     borderBottom: {
       control: { type: "boolean" },
+      defaultValue: { summary: false },
     },
     children: {
       control: { disable: true },

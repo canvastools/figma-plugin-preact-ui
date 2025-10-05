@@ -3,6 +3,7 @@ export interface TextProps {
   intent?:
     | "neutral"
     | "neutral-inverted"
+    | "neutral-inverted-fixed"
     | "brand"
     | "danger"
     | "warning"
@@ -23,5 +24,6 @@ export interface TextProps {
   strong?: boolean
   align?: "left" | "center" | "right"
   fullWidth?: boolean
+  noWrap?: boolean
   children: preact.ComponentChildren
 }

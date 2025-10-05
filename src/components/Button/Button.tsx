@@ -3,7 +3,7 @@ import { bem, typedForwardRef } from "../../utils"
 import type { ButtonProps } from "./Button.types"
 import "./Button.scss"
 
-import { Text } from "../Text/Text"
+import { Text } from "../../index"
 
 /* --- */
 
@@ -12,11 +12,11 @@ const ButtonComponent = (
     className,
     intent = "neutral",
     intentModifiers = "default",
-    ghost,
+    ghost = false,
     size = "medium",
     grouped = "none",
-    disabled,
-    fullWidth,
+    disabled = false,
+    fullWidth = false,
     prefix,
     suffix,
     children,

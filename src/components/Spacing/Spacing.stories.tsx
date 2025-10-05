@@ -4,9 +4,8 @@ import { spacing } from "../../themes"
 
 import { Spacing } from "./Spacing"
 
-import { Avatar } from "../Avatar/Avatar"
-import { Stack } from "../Stack/Stack"
-import { Section } from "../Section/Section"
+import { Avatar } from "../../index"
+import { Stack } from "../../index"
 
 const meta: Meta<typeof Spacing> = {
   title: "Layout/Spacing",
@@ -55,21 +54,19 @@ export const Demo: Story = {
   },
   render: (args) => (
     <div className="sb-column sb-width-full">
-      <Section>
-        <Stack
-          direction={
-            // @ts-expect-error - Storybook types hack
-            args.direction
-          }
-        >
-          <Avatar>A</Avatar>
-          <Spacing {...args} />
-          <Avatar>B</Avatar>
-          <Spacing {...args} />
-          <Avatar>C</Avatar>
-          <Spacing {...args} />
-        </Stack>
-      </Section>
+      <Stack
+        direction={
+          // @ts-expect-error - Storybook types hack
+          args.direction
+        }
+      >
+        <Avatar>A</Avatar>
+        <Spacing {...args} />
+        <Avatar>B</Avatar>
+        <Spacing {...args} />
+        <Avatar>C</Avatar>
+        <Spacing {...args} />
+      </Stack>
     </div>
   ),
 }

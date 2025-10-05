@@ -2,7 +2,7 @@ import { Meta, StoryObj } from "@storybook/preact"
 
 import { Section } from "./Section"
 
-import { Text } from "../Text/Text"
+import { Text } from "../../index"
 
 const meta: Meta<typeof Section> = {
   title: "Components/Section",

@@ -41,26 +41,29 @@
     z-index: 1;
   }
 
+  &_disabled {
+    #{$parent}__input {
+      background-color: var(--pui-color-neutral-bg-disabled);
+      box-shadow: inset 0 0 0 1px var(--pui-color-neutral-border-disabled);
+    }
+  }
+
   &_checked {
     #{$parent}__input {
       background-color: var(--pui-color-brand-bg-default-interactive);
       box-shadow: inset 0 0 0 1px
         var(--pui-color-brand-border-default-interactive);
     }
-  }
 
-  &_disabled {
-    #{$parent}__input {
-      background-color: var(--pui-color-disabled-bg-default);
-      box-shadow: none;
+    &.Checkbox_disabled {
+      #{$parent}__input {
+        background-color: var(--pui-color-brand-bg-disabled);
+        box-shadow: none;
 
-      & .Icon {
-        color: var(--pui-color-disabled-icon-default);
+        & .Icon {
+          color: var(--pui-color-brand-icon-disabled);
+        }
       }
-    }
-
-    #{$parent}__label {
-      color: var(--pui-color-disabled-text-default);
     }
   }
 

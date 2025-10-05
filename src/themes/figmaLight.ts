@@ -25,6 +25,10 @@ const figmaLight: ColorTokenTree = {
         "danger-interactive": "#ffffff",
         "danger-interactive-hover": "#fff0f0",
         "danger-interactive-pressed": "#ffe2e0",
+
+        swatch: "#ffffff",
+
+        disabled: "#ffffff",
       },
       text: {
         default: "#1a1a1a",
@@ -32,7 +36,9 @@ const figmaLight: ColorTokenTree = {
         "default-interactive-selected": "#007be5",
 
         secondary: "#7d7d7d",
-        "secondary-interactive": "#ababab",
+        "secondary-interactive": "#7d7d7d",
+
+        placeholder: "#808080",
 
         brand: "#007be5",
         "brand-interactive": "#007be5",
@@ -43,6 +49,8 @@ const figmaLight: ColorTokenTree = {
         warning: "#b86200",
 
         success: "#009951",
+
+        disabled: "#b3b3b3",
       },
       icon: {
         default: "#1a1a1a",
@@ -61,6 +69,8 @@ const figmaLight: ColorTokenTree = {
         warning: "#b86200",
 
         success: "#009951",
+
+        disabled: "#b3b3b3",
       },
       border: {
         default: "#e5e5e5",
@@ -82,6 +92,10 @@ const figmaLight: ColorTokenTree = {
 
         "drop-position": "#1a1a1a",
         "drop-position-restricted": "#f24822",
+
+        swatch: "#0000001A",
+
+        disabled: "#e5e5e5",
       },
     },
     "neutral-inverted": {
@@ -90,14 +104,51 @@ const figmaLight: ColorTokenTree = {
         "default-interactive": "#2c2c2c",
         "default-interactive-hover": "#5c5c5c",
         "default-interactive-pressed": "#808080",
+
+        disabled: "#d9d9d9",
       },
       text: {
         default: "#ffffff",
         "default-interactive": "#ffffff",
+
+        disabled: "#ffffff",
       },
       icon: {
         default: "#ffffff",
         "default-interactive": "#ffffff",
+
+        disabled: "#ffffff",
+      },
+    },
+    "neutral-inverted-fixed": {
+      bg: {
+        default: "#1E1E1E",
+        "default-interactive": "#1E1E1E",
+        "default-interactive-hover": "#5c5c5c",
+        "default-interactive-pressed": "#808080",
+
+        disabled: "#1E1E1E",
+      },
+      text: {
+        default: "#ffffff",
+        "default-interactive": "#ffffff",
+
+        secondary: "#BBBBBB",
+        "secondary-interactive": "#BBBBBB",
+
+        disabled: "#808080",
+      },
+      icon: {
+        default: "#ffffff",
+        "default-interactive": "#ffffff",
+
+        secondary: "#BBBBBB",
+        "secondary-interactive": "#BBBBBB",
+
+        disabled: "#808080",
+      },
+      border: {
+        default: "#383838",
       },
     },
     brand: {
@@ -106,14 +157,20 @@ const figmaLight: ColorTokenTree = {
         "default-interactive": "#0d99ff",
         "default-interactive-hover": "#007be5",
         "default-interactive-pressed": "#0768cf",
+
+        disabled: "#d9d9d9",
       },
       text: {
         default: "#ffffff",
         "default-interactive": "#ffffff",
+
+        disabled: "#ffffff",
       },
       icon: {
         default: "#ffffff",
         "default-interactive": "#ffffff",
+
+        disabled: "#ffffff",
       },
       border: {
         "default-interactive": "#007be5",
@@ -125,14 +182,20 @@ const figmaLight: ColorTokenTree = {
         "default-interactive": "#f24822",
         "default-interactive-hover": "#dc3412",
         "default-interactive-pressed": "#bd2915",
+
+        disabled: "#d9d9d9",
       },
       text: {
         default: "#ffffff",
         "default-interactive": "#ffffff",
+
+        disabled: "#ffffff",
       },
       icon: {
         default: "#ffffff",
         "default-interactive": "#ffffff",
+
+        disabled: "#ffffff",
       },
       border: {
         "default-interactive": "#dc3412",
@@ -156,44 +219,46 @@ const figmaLight: ColorTokenTree = {
         "default-interactive": "#14ae5c",
         "default-interactive-hover": "#009951",
         "default-interactive-pressed": "#008043",
+
+        disabled: "#d9d9d9",
       },
       text: {
         default: "#ffffff",
         "default-interactive": "#ffffff",
+
+        disabled: "#ffffff",
       },
       icon: {
         default: "#ffffff",
         "default-interactive": "#ffffff",
+
+        disabled: "#ffffff",
       },
       border: {
         "default-interactive": "#009951",
       },
     },
-    disabled: {
-      bg: {
-        default: "#e6e6e6",
-        secondary: "#ffffff",
-      },
-      text: {
-        default: "#b3b3b3",
-        secondary: "#ababab",
-      },
-      icon: {
-        default: "#b3b3b3",
-        secondary: "#ababab",
-      },
-      border: {
-        secondary: "#e5e5e5",
-      },
-    },
     system: {
       bg: {
         scrollbar: "#D4D4D4",
-        resizer: "#D4D4D4",
+        resizer: "#A8A8A8",
       },
       border: {
         focus: "#0d99ff",
       },
+    },
+    shadow: {
+      "popover-hard": "#0000003d",
+      "popover-soft": "#00000029",
+      "popover-glare": "#0000000a",
+
+      "tooltip-hard": "#0000001a",
+      "tooltip-soft": "#0000001f",
+      "tooltip-glare": "#ffffff14",
+
+      "menu-hard": "#0000008a",
+      "menu-soft": "#00000052",
+      "menu-glare": "#ffffff14",
     },
   },
 }

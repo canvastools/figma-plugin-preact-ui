@@ -6,20 +6,20 @@ import type { VNode } from "preact"
 import type { ButtonIconToggleProps } from "./ButtonIconToggle.types"
 import "./ButtonIconToggle.scss"
 
-import { ButtonIcon } from "../ButtonIcon/ButtonIcon"
-import { Icon } from "../Icon/Icon"
+import { ButtonIcon } from "../../index"
+import { Icon } from "../../index"
 
 /* --- */
 
 const ButtonIconToggleComponent = (
   {
     className,
-    intent,
-    ghost,
-    disabled,
+    intent = "neutral",
+    intentModifiers = "default",
+    ghost = false,
+    disabled = false,
     children,
-
-    defaultSelected,
+    defaultSelected = false,
     selected: controlledSelected,
     onChange,
     ...rest
@@ -56,6 +56,7 @@ const ButtonIconToggleComponent = (
         .trim()}
       ref={ref}
       intent={intent}
+      intentModifiers={intentModifiers}
       ghost={ghost}
       disabled={disabled}
       {...rest}

@@ -3,14 +3,14 @@ import { fn } from "@storybook/test"
 import { useState } from "preact/hooks"
 
 import { TabContext } from "./TabContext"
-import { TabPanel } from "../TabPanel/TabPanel"
-import { TabList } from "../TabList/TabList"
-import { Tab } from "../Tab/Tab"
 
-import { Text } from "../Text/Text"
-import { Section } from "../Section/Section"
-import { Button } from "../Button/Button"
-import { Stack } from "../Stack/Stack"
+import { TabPanel } from "../../index"
+import { TabList } from "../../index"
+import { Tab } from "../../index"
+import { Text } from "../../index"
+import { Section } from "../../index"
+import { Button } from "../../index"
+import { Stack } from "../../index"
 
 const meta: Meta<typeof TabContext> = {
   title: "Components/TabContext",
@@ -31,6 +31,7 @@ const meta: Meta<typeof TabContext> = {
           summary: "string",
         },
       },
+      defaultValue: { summary: "" },
       control: { disable: true },
       description: "Initial value for uncontrolled mode.",
     },
@@ -54,8 +55,7 @@ const meta: Meta<typeof TabContext> = {
     },
     onChange: {
       action: "changed",
-      description:
-        "Callback function that is called when the tab is changed. Returns the new value.",
+      description: "Callback when the tab is changed. Returns the new value.",
       table: {
         type: {
           summary: "(args: {value: string}) => void",

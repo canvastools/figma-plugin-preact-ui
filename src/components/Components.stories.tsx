@@ -1,5 +1,7 @@
 import { Meta, StoryObj } from "@storybook/preact"
-import { useState } from "preact/hooks"
+import { useRef, useState } from "preact/hooks"
+
+import { glyphs } from "../index"
 
 import { Shape as AvatarShape } from "./Avatar/Avatar.stories"
 import { Prefix as BadgePrefix } from "./Badge/Badge.stories"
@@ -8,16 +10,23 @@ import { Prefix as ButtonPrefix } from "./Button/Button.stories"
 import { Intent as ButtonIconIntent } from "./ButtonIcon/ButtonIcon.stories"
 import { Intent as ButtonIconToggleIntent } from "./ButtonIconToggle/ButtonIconToggle.stories"
 import { Checked as CheckboxChecked } from "./Checkbox/Checkbox.stories"
+import { Demo as ColorPickerDemo } from "./ColorPicker/ColorPicker.stories"
 import { Variant as DividerVariant } from "./Divider/Divider.stories"
 import { Glyphs as IconGlyphs } from "./Icon/Icon.stories"
 import { Prefix as InputPrefix } from "./Input/Input.stories"
+import { Demo as MenuDemo } from "./MenuContainer/MenuContainer.stories"
+import { Suffix as MenuItemSuffix } from "./MenuItem/MenuItem.stories"
+import { Suffix as MenuItemOptionSuffix } from "./MenuItemOption/MenuItemOption.stories"
+import { Size as PopoverSize } from "./Popover/Popover.stories"
 import { Demo as ScrollContextDemo } from "./ScrollContext/ScrollContext.stories"
 import { Demo as SectionDemo } from "./Section/Section.stories"
+import { Uncontrolled as SelectDemo } from "./Select/Select.stories"
 import { Demo as SpacerDemo } from "./Spacing/Spacing.stories"
 import { Demo as SpinnerDemo } from "./Spinner/Spinner.stories"
 import { Demo as StackDemo } from "./Stack/Stack.stories"
 import { Demo as TabDemo } from "./Tab/Tab.stories"
 import { Size as TextSize } from "./Text/Text.stories"
+import { Arrow as TooltipDemo } from "./OverlayPositioner/OverlayPositioner.stories"
 import { Demo as WindowResizerDemo } from "./WindowResizer/WindowResizer.stories"
 
 import {
@@ -31,24 +40,34 @@ import {
   Divider,
   Icon,
   Input,
+  ColorPicker,
+  ColorSwatch,
   ListContainer,
   ListContext,
   ListItem,
+  MenuContainer,
+  MenuDivider,
+  MenuItem,
+  MenuItemOption,
+  Select,
   ScrollContainer,
   ScrollContext,
+  OverlayPositioner,
   Section,
   Spacing,
   Spinner,
   Stack,
+  Popover,
   Tab,
   TabContext,
   TabList,
   TabPanel,
   Text,
   WindowResizer,
+  colorToHexAlpha,
 } from "../"
 
-import type { ListItemData } from "../"
+import type { ListItemData, Color } from "../"
 
 import { useScrollContext } from "../"
 
@@ -104,6 +123,8 @@ export const _1: Story = {
     const [items, setItems] = useState(sampleItemsPlain)
     const [selectedItems, setSelectedItems] = useState<string[]>([])
     const [view, setView] = useState<"viewGrid" | "viewList">("viewList")
+    const anchorRefMenu = useRef<HTMLButtonElement | null>(null)
+    const [openMenu, setOpenMenu] = useState(false)
 
     const TopBar = () => {
       const { isAtTop } = useScrollContext()
@@ -118,9 +139,41 @@ export const _1: Story = {
               </TabList>
 
               <Stack direction="row" spacing="200">
-                <ButtonIcon ghost>
-                  <Icon glyph="settings" variant="scaled" />
+                <ButtonIcon
+                  ghost
+                  ref={anchorRefMenu}
+                  onClick={() => setOpenMenu(true)}
+                >
+                  <Icon glyph={glyphs.settings} variant="scaled" />
                 </ButtonIcon>
+
+                <OverlayPositioner
+                  anchorRef={anchorRefMenu}
+                  placement="over"
+                  open={openMenu}
+                  onClose={() => setOpenMenu(false)}
+                >
+                  <MenuContainer>
+                    <MenuItem onClick={() => setOpenMenu(false)}>
+                      Settings
+                    </MenuItem>
+                    <MenuItem onClick={() => setOpenMenu(false)}>Help</MenuItem>
+                    <MenuItem onClick={() => setOpenMenu(false)}>
+                      Logout
+                    </MenuItem>
+                    <MenuDivider />
+                    <MenuItemOption
+                      defaultSelected
+                      onChange={() => setOpenMenu(false)}
+                    >
+                      Light mode
+                    </MenuItemOption>
+                    <MenuItemOption onChange={() => setOpenMenu(false)}>
+                      Dark mode
+                    </MenuItemOption>
+                  </MenuContainer>
+                </OverlayPositioner>
+
                 <Avatar>M</Avatar>
               </Stack>
             </Stack>
@@ -130,14 +183,65 @@ export const _1: Story = {
     }
 
     const BottomBar = () => {
+      const [openColorPicker, setOpenColorPicker] = useState(false)
       const { isAtBottom } = useScrollContext()
+      const anchorRef = useRef<HTMLDivElement | null>(null)
+      const [color, setColor] = useState<Color>({
+        r: 255,
+        g: 0,
+        b: 0,
+        a: 1,
+      })
 
       return (
         <Bar borderTop={!isAtBottom}>
           <Section>
             <Stack direction="row" spacing="200">
-              <Input placeholder="Type a new to-do" />
+              <Input
+                placeholder="Type a new to-do"
+                prefix={
+                  <div
+                    style={{ padding: "0 8px 0 4px" }}
+                    ref={anchorRef}
+                    onClick={() => setOpenColorPicker(true)}
+                  >
+                    <ColorSwatch size="small" hex={colorToHexAlpha(color)} />
+                  </div>
+                }
+              />
               <Button intent="brand">Add</Button>
+              <OverlayPositioner
+                anchorRef={anchorRef}
+                placement="over"
+                open={openColorPicker}
+                onClose={() => setOpenColorPicker(false)}
+              >
+                <Popover>
+                  <Bar borderBottom>
+                    <Section padding={{ right: "200" }}>
+                      <Stack direction="row" spacing="200" y="center">
+                        <Text fullWidth strong>
+                          Color Picker
+                        </Text>
+                        <ButtonIcon
+                          ghost
+                          onClick={() => setOpenColorPicker(false)}
+                        >
+                          <Icon glyph={glyphs.close} />
+                        </ButtonIcon>
+                      </Stack>
+                    </Section>
+                  </Bar>
+                  <Section>
+                    <Spacing size="100" />
+                    <ColorPicker
+                      value={color}
+                      onChange={(color) => setColor(color.rgba)}
+                    />
+                    <Spacing size="100" />
+                  </Section>
+                </Popover>
+              </OverlayPositioner>
             </Stack>
           </Section>
         </Bar>
@@ -174,21 +278,30 @@ export const _1: Story = {
                     <Text variant="heading" size="small" fullWidth>
                       To-do list
                     </Text>
-                    <Stack direction="row" spacing="100">
-                      <ButtonIconToggle
-                        ghost
-                        onChange={() => setView("viewList")}
-                        selected={view === "viewList"}
-                      >
-                        <Icon glyph="viewList" />
-                      </ButtonIconToggle>
-                      <ButtonIconToggle
-                        ghost
-                        onChange={() => setView("viewGrid")}
-                        selected={view === "viewGrid"}
-                      >
-                        <Icon glyph="viewGrid" />
-                      </ButtonIconToggle>
+                    <Stack direction="row" spacing="200">
+                      <Select
+                        options={[
+                          { label: "Incomplete", value: "incomplete" },
+                          { label: "Completed", value: "completed" },
+                        ]}
+                        value={"incomplete"}
+                      />
+                      <Stack direction="row" spacing="100">
+                        <ButtonIconToggle
+                          ghost
+                          onChange={() => setView("viewList")}
+                          selected={view === "viewList"}
+                        >
+                          <Icon glyph={glyphs.viewList} />
+                        </ButtonIconToggle>
+                        <ButtonIconToggle
+                          ghost
+                          onChange={() => setView("viewGrid")}
+                          selected={view === "viewGrid"}
+                        >
+                          <Icon glyph={glyphs.viewGrid} />
+                        </ButtonIconToggle>
+                      </Stack>
                     </Stack>
                   </Stack>
                 </Section>
@@ -253,15 +366,24 @@ export const _Button = ButtonPrefix
 export const _ButtonIcon = ButtonIconIntent
 export const _ButtonIconToggle = ButtonIconToggleIntent
 export const _Checkbox = CheckboxChecked
+ColorPickerDemo.tags = []
+export const _ColorPicker = ColorPickerDemo
 export const _Divider = DividerVariant
 export const _Icon = IconGlyphs
 export const _Input = InputPrefix
+MenuDemo.tags = []
+export const _Menu = MenuDemo
+export const _MenuItem = MenuItemSuffix
+export const _MenuItemOption = MenuItemOptionSuffix
+export const _Popover = PopoverSize
 export const _ScrollContext = ScrollContextDemo
 export const _Section = SectionDemo
+export const _Select = SelectDemo
 export const _Spacing = SpacerDemo
 export const _Spinner = SpinnerDemo
 export const _Stack = StackDemo
 TabDemo.tags = []
 export const _Tab = TabDemo
 export const _Text = TextSize
+export const _Tooltip = TooltipDemo
 export const _WindowResizer = WindowResizerDemo

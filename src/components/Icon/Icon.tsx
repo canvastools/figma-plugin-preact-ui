@@ -1,7 +1,6 @@
 import { bem, typedForwardRef } from "../../utils"
 
 import type { IconProps } from "./Icon.types"
-import { glyphs } from "./glyphs"
 import "./Icon.scss"
 
 /* --- */
@@ -12,9 +11,9 @@ const IconComponent = (
     glyph,
     intent = "neutral",
     intentModifiers = "default",
-    disabled,
-    interactive,
-    selected,
+    disabled = false,
+    interactive = false,
+    selected = false,
     fill,
     variant = "default",
     size = 24,
@@ -24,7 +23,7 @@ const IconComponent = (
   ref: preact.Ref<HTMLDivElement>
 ) => {
   const _className = bem("Icon", undefined, {
-    glyph,
+    // derived styles are driven by intent/variant/size; glyph is a render fn
     ...(!fill && {
       intent: `${intent}-${intentModifiers}`,
       disabled,
@@ -40,8 +39,8 @@ const IconComponent = (
 
   if (children) {
     content = children
-  } else if (glyph && glyphs[glyph]) {
-    content = glyphs[glyph]({ variant, size })
+  } else if (glyph) {
+    content = glyph({ variant, size })
   } else {
     throw new Error(`Icon component error: No valid glyph or children provided`)
   }

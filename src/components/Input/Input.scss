@@ -54,7 +54,13 @@
     @include curson-feedback;
 
     &::placeholder {
-      color: var(--pui-color-neutral-text-secondary-interactive);
+      color: var(--pui-color-neutral-text-placeholder);
+    }
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
     }
   }
 
@@ -74,22 +80,51 @@
   }
 
   &__suffix {
-    display: none;
+    display: flex;
     justify-content: center;
     align-items: center;
     align-self: stretch;
   }
 
-  &_disabled {
-    cursor: auto;
-    background-color: var(--pui-color-disabled-bg-secondary);
-    outline-width: 1px;
-    outline-style: solid;
-    outline-color: var(--pui-color-disabled-border-secondary);
+  &_suffixOnHover &__suffix {
+    display: none;
   }
 
-  &_disabled &__input-native {
-    color: var(--pui-color-disabled-text-secondary);
+  &_suffixOnHover:hover &__suffix {
+    display: flex;
+  }
+
+  &_disabled {
+    cursor: auto;
+    background-color: var(--pui-color-neutral-bg-disabled);
+    outline-width: 1px;
+    outline-style: solid;
+    outline-color: var(--pui-color-neutral-border-disabled);
+  }
+
+  &_disabled &__input-native,
+  &_disabled #{ $parent }__input-native::placeholder {
+    color: var(--pui-color-neutral-text-disabled);
+  }
+
+  &_groupedPosition {
+    &-left {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    &-right {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    &-both {
+      border-radius: 0;
+    }
+  }
+
+  &_grouped + &_grouped {
+    margin-left: 1px;
   }
 
   // Ghost
@@ -109,10 +144,11 @@
 
   &_ghost:is(&_disabled) {
     background-color: transparent;
-    color: var(--pui-color-disabled-text-secondary);
+    color: var(--pui-color-neutral-text-disabled);
+    outline-color: transparent;
   }
 
   &_ghost:is(&_disabled) &__input-native {
-    color: var(--pui-color-neutral-text-secondary);
+    color: var(--pui-color-neutral-text-disabled);
   }
 }

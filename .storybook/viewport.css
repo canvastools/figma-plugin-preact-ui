@@ -132,6 +132,10 @@ body * {
   height: 300px;
 }
 
+.sb-height-600 {
+  height: 600px;
+}
+
 .sb-height-full {
   height: 100%;
 }

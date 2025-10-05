@@ -1,12 +1,13 @@
 import { bem, typedForwardRef } from "../../utils"
-import { useListContext } from "../ListContext/ListContext"
 import { useState, useEffect, useRef } from "preact/hooks"
 
 import type { ListItemProps } from "./ListItem.types"
-import type { ListItemData } from "../ListContext/ListContext.types"
 import "./ListItem.scss"
 
-import { Icon } from "../Icon/Icon"
+import { useListContext } from "../../index"
+import type { ListItemData } from "../../index"
+import { Icon } from "../../index"
+import { glyphs } from "../../index"
 
 /* --- */
 
@@ -14,22 +15,23 @@ const ListItemComponent = (
   {
     className,
     id,
-    isNested,
+    isNested = false,
     nestingLevel = 0,
-    draggable,
+    draggable = false,
     dragHandle = "default",
-    acceptsChildren,
+    acceptsChildren = false,
     selectionScope = "item",
     collapsed,
-    showCollapseControl,
+    showCollapseControl = false,
     onCollapsedChange,
     onDragStart,
     onDragEnd,
-    selectable,
-    hoverable,
+    selectable = false,
+    hoverable = false,
     onSelect,
     subItems,
     children,
+    reducedPaddingRight = false,
     ...rest
   }: ListItemProps,
   ref: preact.Ref<HTMLDivElement>
@@ -139,6 +141,7 @@ const ListItemComponent = (
     "drag-inside": dragPosition === "inside",
     "drag-self": dragPosition === "self",
     dragging: isDragging,
+    "reduced-padding-right": reducedPaddingRight,
   })
 
   const handleClick = (e: MouseEvent) => {
@@ -416,7 +419,9 @@ const ListItemComponent = (
             <Icon
               intent="neutral"
               intentModifiers="secondary"
-              glyph={effectiveCollapsed ? "chevronRight" : "chevronDown"}
+              glyph={
+                effectiveCollapsed ? glyphs.chevronRight : glyphs.chevronDown
+              }
               size={16}
             />
           </div>
@@ -429,7 +434,7 @@ const ListItemComponent = (
             onDragEnd={handleDragHandleDragEnd}
           >
             <Icon
-              glyph="dragHandle"
+              glyph={glyphs.dragHandle}
               fill="var(--pui-color-neutral-icon-tertiary)"
               size={16}
             />
