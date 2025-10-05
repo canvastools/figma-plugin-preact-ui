@@ -37,7 +37,7 @@ export const Demo: Story = {
   },
   render: (args) => (
     <div className="sb-column sb-width-full">
-      <MenuContainer>
+      <MenuContainer width={208}>
         <MenuItem>Menu Item</MenuItem>
         <MenuItem>Menu Item</MenuItem>
         <MenuDivider {...args} />

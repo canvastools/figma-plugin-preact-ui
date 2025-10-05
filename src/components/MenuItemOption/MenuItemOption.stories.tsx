@@ -113,7 +113,7 @@ export const Demo: Story = {
   },
   render: (args) => (
     <div className="sb-column sb-width-full">
-      <MenuContainer>
+      <MenuContainer width={208}>
         <MenuItemOption {...args}>Menu Item Option</MenuItemOption>
       </MenuContainer>
     </div>
@@ -128,7 +128,7 @@ export const Uncontrolled: Story = {
   },
   render: () => (
     <div className="sb-column sb-width-full">
-      <MenuContainer>
+      <MenuContainer width={208}>
         <MenuItemOption defaultSelected={true}>Menu Item Option</MenuItemOption>
       </MenuContainer>
     </div>
@@ -148,7 +148,7 @@ export const Controlled: Story = {
       <div className="sb-column sb-width-full">
         <Stack spacing={200}>
           <Text>Selected: {selected ? "true" : "false"}</Text>
-          <MenuContainer>
+          <MenuContainer width={208}>
             <MenuItemOption
               selected={selected}
               onChange={(e) => setSelected(e.selected)}
@@ -170,7 +170,7 @@ export const Disabled: Story = {
   },
   render: () => (
     <div className="sb-column sb-width-full">
-      <MenuContainer>
+      <MenuContainer width={208}>
         <MenuItemOption disabled>Menu Item Option</MenuItemOption>
       </MenuContainer>
     </div>
@@ -185,7 +185,7 @@ export const Suffix: Story = {
   },
   render: () => (
     <div className="sb-column sb-width-full">
-      <MenuContainer>
+      <MenuContainer width={208}>
         <MenuItemOption
           reducedPaddingRight
           suffix={

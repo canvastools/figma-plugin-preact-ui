@@ -101,7 +101,7 @@ export const Demo: Story = {
   },
   render: (args) => (
     <div className="sb-column sb-width-full">
-      <MenuContainer>
+      <MenuContainer width={208}>
         <MenuItem {...args}>Menu Item</MenuItem>
       </MenuContainer>
     </div>
@@ -116,7 +116,7 @@ export const Disabled: Story = {
   },
   render: () => (
     <div className="sb-column sb-width-full">
-      <MenuContainer>
+      <MenuContainer width={208}>
         <MenuItem disabled>Menu Item</MenuItem>
       </MenuContainer>
     </div>
@@ -131,7 +131,7 @@ export const Prefix: Story = {
   },
   render: () => (
     <div className="sb-column sb-width-full">
-      <MenuContainer>
+      <MenuContainer width={208}>
         <MenuItem
           prefix={
             <Icon
@@ -183,7 +183,7 @@ export const Suffix: Story = {
   },
   render: () => (
     <div className="sb-column sb-width-full">
-      <MenuContainer>
+      <MenuContainer width={208}>
         <MenuItem
           reducedPaddingRight
           suffix={

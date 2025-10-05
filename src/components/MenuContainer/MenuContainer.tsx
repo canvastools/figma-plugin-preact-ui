@@ -8,7 +8,7 @@ import "./MenuContainer.scss"
 const MenuContainerComponent = (
   {
     className,
-    width = 208,
+    width = "auto",
     height = "auto",
     children,
     ...rest
