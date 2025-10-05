@@ -1,0 +1,104 @@
+@use "../../shared.scss" as *;
+@use "../../mixins.scss" as *;
+
+.Select {
+  $parent: &;
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 24px;
+  width: 100%;
+
+  border-radius: var(--pui-radius-medium);
+  overflow: hidden;
+
+  outline-width: 1px;
+  outline-style: solid;
+  outline-offset: -1px;
+  outline-color: var(--pui-color-neutral-border-default-interactive);
+  background-color: var(--pui-color-neutral-bg-default-interactive);
+
+  &_focused,
+  &:hover:is(:focus-within) {
+    outline-color: var(--pui-color-neutral-border-default-interactive-selected);
+    z-index: 1;
+  }
+
+  &_error {
+    outline-color: var(
+      --pui-color-neutral-border-default-interactive-selected-error
+    ) !important;
+  }
+
+  &_groupedPosition {
+    &-left {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    &-right {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    &-both {
+      border-radius: 0;
+    }
+  }
+
+  &_grouped + &_grouped {
+    margin-left: -1px;
+  }
+
+  &__prefix {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: stretch;
+  }
+
+  &__content {
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    flex: 1;
+    padding: 0 var(--pui-spacing-200);
+    white-space: nowrap;
+    overflow: hidden;
+
+    @include typography-styles;
+    @include typography-body-medium;
+    @include curson-feedback;
+
+    color: var(--pui-color-neutral-text-default-interactive);
+
+    .Select:not(.Select_filled) & {
+      color: var(--pui-color-neutral-text-placeholder);
+    }
+  }
+
+  &_prefix &__content {
+    padding-left: 0;
+  }
+
+  &__suffix {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: stretch;
+    padding-right: var(--pui-spacing-100);
+  }
+
+  &_disabled {
+    cursor: auto;
+    background-color: var(--pui-color-neutral-bg-disabled);
+    outline-width: 1px;
+    outline-style: solid;
+    outline-color: var(--pui-color-neutral-border-disabled) !important;
+  }
+
+  &_disabled &__content {
+    color: var(--pui-color-neutral-text-disabled) !important;
+  }
+}
