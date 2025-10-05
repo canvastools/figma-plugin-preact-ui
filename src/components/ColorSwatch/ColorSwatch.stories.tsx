@@ -2,7 +2,7 @@ import { Meta, StoryObj } from "@storybook/preact"
 
 import { ColorSwatch } from "./ColorSwatch"
 
-import { Stack } from "../Stack/Stack"
+import { Stack } from "../../index"
 
 const meta: Meta<typeof ColorSwatch> = {
   title: "Components/ColorSwatch",
