@@ -261,15 +261,101 @@ export const Disabled: Story = {
   },
   render: () => (
     <div className="sb-column sb-gap-16">
-      <Text variant="heading" intent="neutral" disabled>
-        Heading
-      </Text>
-      <Text variant="body" intent="neutral" disabled>
-        Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry. Lorem Ipsum has been the industry's standard dummy text ever
-        since the 1500s, when an unknown printer took a galley of type and
-        scrambled it to make a type specimen book.
-      </Text>
+      <div
+        className="sb-column sb-gap-8 sb-width-full sb-padding-16"
+        style={{ backgroundColor: "var(--pui-color-neutral-bg-disabled)" }}
+      >
+        <Text variant="heading" intent="neutral" disabled>
+          neutral, disabled
+        </Text>
+        <Text variant="body" intent="neutral" disabled>
+          Lorem Ipsum is simply dummy text of the printing and typesetting
+          industry. Lorem Ipsum has been the industry's standard dummy text ever
+          since the 1500s, when an unknown printer took a galley of type and
+          scrambled it to make a type specimen book.
+        </Text>
+      </div>
+      <div
+        className="sb-column sb-gap-8 sb-width-full sb-padding-16"
+        style={{
+          backgroundColor: "var(--pui-color-neutral-inverted-bg-disabled)",
+        }}
+      >
+        <Text variant="heading" intent="neutral-inverted" disabled>
+          neutral-inverted, disabled
+        </Text>
+        <Text variant="body" intent="neutral-inverted" disabled>
+          Lorem Ipsum is simply dummy text of the printing and typesetting
+          industry. Lorem Ipsum has been the industry's standard dummy text ever
+          since the 1500s, when an unknown printer took a galley of type and
+          scrambled it to make a type specimen book.
+        </Text>
+      </div>
+      <div
+        className="sb-column sb-gap-8 sb-width-full sb-padding-16"
+        style={{
+          backgroundColor:
+            "var(--pui-color-neutral-inverted-fixed-bg-disabled)",
+        }}
+      >
+        <Text variant="heading" intent="neutral-inverted-fixed" disabled>
+          neutral-inverted-fixed, disabled
+        </Text>
+        <Text variant="body" intent="neutral-inverted-fixed" disabled>
+          Lorem Ipsum is simply dummy text of the printing and typesetting
+          industry. Lorem Ipsum has been the industry's standard dummy text ever
+          since the 1500s, when an unknown printer took a galley of type and
+          scrambled it to make a type specimen book.
+        </Text>
+      </div>
+      <div
+        className="sb-column sb-gap-8 sb-width-full sb-padding-16"
+        style={{
+          backgroundColor: "var(--pui-color-brand-bg-disabled)",
+        }}
+      >
+        <Text variant="heading" intent="brand" disabled>
+          brand, disabled
+        </Text>
+        <Text variant="body" intent="brand" disabled>
+          Lorem Ipsum is simply dummy text of the printing and typesetting
+          industry. Lorem Ipsum has been the industry's standard dummy text ever
+          since the 1500s, when an unknown printer took a galley of type and
+          scrambled it to make a type specimen book.
+        </Text>
+      </div>
+      <div
+        className="sb-column sb-gap-8 sb-width-full sb-padding-16"
+        style={{
+          backgroundColor: "var(--pui-color-danger-bg-disabled)",
+        }}
+      >
+        <Text variant="heading" intent="danger" disabled>
+          danger, disabled
+        </Text>
+        <Text variant="body" intent="danger" disabled>
+          Lorem Ipsum is simply dummy text of the printing and typesetting
+          industry. Lorem Ipsum has been the industry's standard dummy text ever
+          since the 1500s, when an unknown printer took a galley of type and
+          scrambled it to make a type specimen book.
+        </Text>
+      </div>
+      <div
+        className="sb-column sb-gap-8 sb-width-full sb-padding-16"
+        style={{
+          backgroundColor: "var(--pui-color-success-bg-disabled)",
+        }}
+      >
+        <Text variant="heading" intent="success" disabled>
+          success, disabled
+        </Text>
+        <Text variant="body" intent="success" disabled>
+          Lorem Ipsum is simply dummy text of the printing and typesetting
+          industry. Lorem Ipsum has been the industry's standard dummy text ever
+          since the 1500s, when an unknown printer took a galley of type and
+          scrambled it to make a type specimen book.
+        </Text>
+      </div>
     </div>
   ),
 }

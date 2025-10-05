@@ -330,13 +330,122 @@ export const Disabled: Story = {
     },
   },
   render: () => (
-    <div className="sb-row sb-gap-16">
-      <Icon
-        glyph={glyphs.link}
-        intent="neutral"
-        intentModifiers="default"
-        disabled
-      />
+    <div className="sb-column sb-gap-16">
+      <div
+        className="sb-row sb-gap-8 sb-width-full sb-padding-16"
+        style={{
+          backgroundColor: "var(--pui-color-neutral-bg-disabled)",
+          alignItems: "center",
+        }}
+      >
+        <div className="sb-width-full">
+          <Text intent="neutral" disabled>
+            neutral, disabled
+          </Text>
+        </div>
+        <Icon
+          glyph={glyphs.link}
+          intent="neutral"
+          intentModifiers="default"
+          disabled
+        />
+      </div>
+      <div
+        className="sb-row sb-gap-8 sb-width-full sb-padding-16"
+        style={{
+          backgroundColor: "var(--pui-color-neutral-inverted-bg-disabled)",
+          alignItems: "center",
+        }}
+      >
+        <div className="sb-width-full">
+          <Text intent="neutral-inverted" disabled>
+            neutral-inverted, disabled
+          </Text>
+        </div>
+        <Icon
+          glyph={glyphs.link}
+          intent="neutral-inverted"
+          intentModifiers="default"
+          disabled
+        />
+      </div>
+      <div
+        className="sb-row sb-gap-8 sb-width-full sb-padding-16"
+        style={{
+          backgroundColor:
+            "var(--pui-color-neutral-inverted-fixed-bg-disabled)",
+          alignItems: "center",
+        }}
+      >
+        <div className="sb-width-full">
+          <Text intent="neutral-inverted-fixed" disabled>
+            neutral-inverted-fixed, disabled
+          </Text>
+        </div>
+        <Icon
+          glyph={glyphs.link}
+          intent="neutral-inverted-fixed"
+          intentModifiers="default"
+          disabled
+        />
+      </div>
+      <div
+        className="sb-row sb-gap-8 sb-width-full sb-padding-16"
+        style={{
+          backgroundColor: "var(--pui-color-brand-bg-disabled)",
+          alignItems: "center",
+        }}
+      >
+        <div className="sb-width-full">
+          <Text intent="brand" disabled>
+            brand, disabled
+          </Text>
+        </div>
+        <Icon
+          glyph={glyphs.link}
+          intent="brand"
+          intentModifiers="default"
+          disabled
+        />
+      </div>
+      <div
+        className="sb-row sb-gap-8 sb-width-full sb-padding-16"
+        style={{
+          backgroundColor: "var(--pui-color-danger-bg-disabled)",
+          alignItems: "center",
+        }}
+      >
+        <div className="sb-width-full">
+          <Text intent="danger" disabled>
+            danger, disabled
+          </Text>
+        </div>
+        <Icon
+          glyph={glyphs.link}
+          intent="danger"
+          intentModifiers="default"
+          disabled
+        />
+      </div>
+      <div
+        className="sb-row sb-gap-8 sb-width-full sb-padding-16"
+        style={{
+          backgroundColor: "var(--pui-color-success-bg-disabled)",
+          alignItems: "center",
+        }}
+      >
+        <div className="sb-width-full">
+          <Text intent="success" disabled>
+            success, disabled
+          </Text>
+        </div>
+        <Icon
+          glyph={glyphs.link}
+          intent="success"
+          intentModifiers="default"
+          disabled
+        />
+      </div>
     </div>
   ),
 }

@@ -83,7 +83,15 @@ const MenuItemOptionComponent = (
     >
       <div className="MenuItemOption__content">
         <div className="MenuItemOption__selection">
-          {isSelected && <Icon glyph={glyphs.check} size={16} intent="brand" />}
+          {isSelected && (
+            <Icon
+              glyph={glyphs.check}
+              size={16}
+              intent={isHovered ? "brand" : "neutral-inverted-fixed"}
+              disabled={disabled}
+              interactive={true}
+            />
+          )}
         </div>
         <div className="MenuItemOption__content-container">
           {children && (

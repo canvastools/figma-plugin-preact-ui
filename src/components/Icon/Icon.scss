@@ -13,6 +13,10 @@
     }
 
     color: var(--pui-color-#{$intent}-icon-#{$modifiers});
+
+    &.Icon_disabled {
+      color: var(--pui-color-#{$intent}-icon-disabled) !important;
+    }
   }
 }
 
@@ -53,16 +57,4 @@
   @include Icon_intent("warning", "default");
   @include Icon_intent("success", "default");
   @include Icon_intent("disabled", "default");
-
-  &_disabled {
-    &.Icon_interactive {
-      color: var(--pui-color-disabled-icon-default);
-    }
-
-    &.Icon_selected {
-      color: var(--pui-color-disabled-icon-default);
-    }
-
-    color: var(--pui-color-disabled-icon-default);
-  }
 }

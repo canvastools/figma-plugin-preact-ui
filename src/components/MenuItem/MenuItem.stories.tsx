@@ -137,7 +137,7 @@ export const Prefix: Story = {
             <Icon
               glyph={glyphs.ai}
               size={16}
-              intent="neutral-inverted"
+              intent="neutral-inverted-fixed"
               interactive
             />
           }
@@ -149,7 +149,7 @@ export const Prefix: Story = {
             <Icon
               glyph={glyphs.adjust}
               size={16}
-              intent="neutral-inverted"
+              intent="neutral-inverted-fixed"
               interactive
             />
           }
@@ -162,7 +162,7 @@ export const Prefix: Story = {
             <Icon
               glyph={glyphs.link}
               size={16}
-              intent="neutral-inverted"
+              intent="neutral-inverted-fixed"
               interactive
               disabled
             />
@@ -200,7 +200,7 @@ export const Suffix: Story = {
             <Icon
               glyph={glyphs.ai}
               size={16}
-              intent="neutral-inverted"
+              intent="neutral-inverted-fixed"
               interactive
             />
           }
@@ -220,7 +220,7 @@ export const Suffix: Story = {
             <Icon
               glyph={glyphs.link}
               size={16}
-              intent="neutral-inverted"
+              intent="neutral-inverted-fixed"
               interactive
               disabled
             />

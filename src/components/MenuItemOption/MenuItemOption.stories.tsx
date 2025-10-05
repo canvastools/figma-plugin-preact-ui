@@ -202,7 +202,7 @@ export const Suffix: Story = {
             <Icon
               glyph={glyphs.ai}
               size={16}
-              intent="neutral-inverted"
+              intent="neutral-inverted-fixed"
               interactive
             />
           }
@@ -222,7 +222,7 @@ export const Suffix: Story = {
             <Icon
               glyph={glyphs.link}
               size={16}
-              intent="neutral-inverted"
+              intent="neutral-inverted-fixed"
               interactive
               disabled
             />

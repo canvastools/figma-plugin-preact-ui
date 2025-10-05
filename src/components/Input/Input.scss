@@ -96,15 +96,15 @@
 
   &_disabled {
     cursor: auto;
-    background-color: var(--pui-color-disabled-bg-secondary);
+    background-color: var(--pui-color-neutral-bg-disabled);
     outline-width: 1px;
     outline-style: solid;
-    outline-color: var(--pui-color-disabled-border-secondary);
+    outline-color: var(--pui-color-neutral-border-disabled);
   }
 
   &_disabled &__input-native,
   &_disabled #{ $parent }__input-native::placeholder {
-    color: var(--pui-color-disabled-text-secondary);
+    color: var(--pui-color-neutral-text-disabled);
   }
 
   &_groupedPosition {
@@ -144,10 +144,11 @@
 
   &_ghost:is(&_disabled) {
     background-color: transparent;
-    color: var(--pui-color-disabled-text-secondary);
+    color: var(--pui-color-neutral-text-disabled);
+    outline-color: transparent;
   }
 
   &_ghost:is(&_disabled) &__input-native {
-    color: var(--pui-color-neutral-text-secondary);
+    color: var(--pui-color-neutral-text-disabled);
   }
 }

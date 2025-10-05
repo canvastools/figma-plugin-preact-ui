@@ -26,7 +26,9 @@ const figmaLight: ColorTokenTree = {
         "danger-interactive-hover": "#fff0f0",
         "danger-interactive-pressed": "#ffe2e0",
 
-        swatch: "#FFFFFF",
+        swatch: "#ffffff",
+
+        disabled: "#ffffff",
       },
       text: {
         default: "#1a1a1a",
@@ -47,6 +49,8 @@ const figmaLight: ColorTokenTree = {
         warning: "#b86200",
 
         success: "#009951",
+
+        disabled: "#b3b3b3",
       },
       icon: {
         default: "#1a1a1a",
@@ -65,6 +69,8 @@ const figmaLight: ColorTokenTree = {
         warning: "#b86200",
 
         success: "#009951",
+
+        disabled: "#b3b3b3",
       },
       border: {
         default: "#e5e5e5",
@@ -88,6 +94,8 @@ const figmaLight: ColorTokenTree = {
         "drop-position-restricted": "#f24822",
 
         swatch: "#0000001A",
+
+        disabled: "#e5e5e5",
       },
     },
     "neutral-inverted": {
@@ -96,14 +104,20 @@ const figmaLight: ColorTokenTree = {
         "default-interactive": "#2c2c2c",
         "default-interactive-hover": "#5c5c5c",
         "default-interactive-pressed": "#808080",
+
+        disabled: "#d9d9d9",
       },
       text: {
         default: "#ffffff",
         "default-interactive": "#ffffff",
+
+        disabled: "#ffffff",
       },
       icon: {
         default: "#ffffff",
         "default-interactive": "#ffffff",
+
+        disabled: "#ffffff",
       },
     },
     "neutral-inverted-fixed": {
@@ -113,6 +127,8 @@ const figmaLight: ColorTokenTree = {
         "default-interactive-hover": "#5c5c5c",
         "default-interactive-pressed": "#808080",
         fixed: "#1e1e1e",
+
+        disabled: "#2c2c2c",
       },
       text: {
         default: "#ffffff",
@@ -120,6 +136,8 @@ const figmaLight: ColorTokenTree = {
 
         secondary: "#BBBBBB",
         "secondary-interactive": "#BBBBBB",
+
+        disabled: "#808080",
       },
       icon: {
         default: "#ffffff",
@@ -127,6 +145,8 @@ const figmaLight: ColorTokenTree = {
 
         secondary: "#BBBBBB",
         "secondary-interactive": "#BBBBBB",
+
+        disabled: "#808080",
       },
       border: {
         default: "#383838",
@@ -138,14 +158,20 @@ const figmaLight: ColorTokenTree = {
         "default-interactive": "#0d99ff",
         "default-interactive-hover": "#007be5",
         "default-interactive-pressed": "#0768cf",
+
+        disabled: "#d9d9d9",
       },
       text: {
         default: "#ffffff",
         "default-interactive": "#ffffff",
+
+        disabled: "#ffffff",
       },
       icon: {
         default: "#ffffff",
         "default-interactive": "#ffffff",
+
+        disabled: "#ffffff",
       },
       border: {
         "default-interactive": "#007be5",
@@ -157,14 +183,20 @@ const figmaLight: ColorTokenTree = {
         "default-interactive": "#f24822",
         "default-interactive-hover": "#dc3412",
         "default-interactive-pressed": "#bd2915",
+
+        disabled: "#d9d9d9",
       },
       text: {
         default: "#ffffff",
         "default-interactive": "#ffffff",
+
+        disabled: "#ffffff",
       },
       icon: {
         default: "#ffffff",
         "default-interactive": "#ffffff",
+
+        disabled: "#ffffff",
       },
       border: {
         "default-interactive": "#dc3412",
@@ -188,34 +220,23 @@ const figmaLight: ColorTokenTree = {
         "default-interactive": "#14ae5c",
         "default-interactive-hover": "#009951",
         "default-interactive-pressed": "#008043",
+
+        disabled: "#d9d9d9",
       },
       text: {
         default: "#ffffff",
         "default-interactive": "#ffffff",
+
+        disabled: "#ffffff",
       },
       icon: {
         default: "#ffffff",
         "default-interactive": "#ffffff",
+
+        disabled: "#ffffff",
       },
       border: {
         "default-interactive": "#009951",
-      },
-    },
-    disabled: {
-      bg: {
-        default: "#e6e6e6",
-        secondary: "#ffffff",
-      },
-      text: {
-        default: "#b3b3b3",
-        secondary: "#ababab",
-      },
-      icon: {
-        default: "#b3b3b3",
-        secondary: "#ababab",
-      },
-      border: {
-        secondary: "#e5e5e5",
       },
     },
     system: {
