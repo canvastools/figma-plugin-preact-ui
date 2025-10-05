@@ -24,6 +24,11 @@ const meta: Meta<typeof ColorPicker> = {
       control: { type: "check" },
       options: ["rgba", "hex", "hexAlpha"],
       description: "Allowed color picker modes in the picker.",
+      table: {
+        type: {
+          summary: "string[]",
+        },
+      },
     },
     value: {
       table: {
@@ -70,6 +75,7 @@ export const Demo: Story = {
   args: {
     className: "",
     defaultType: "hex",
+    types: ["rgba", "hex", "hexAlpha"],
     controls: true,
     onChange: fn(),
   },
