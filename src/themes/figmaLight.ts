@@ -96,16 +96,40 @@ const figmaLight: ColorTokenTree = {
         "default-interactive": "#2c2c2c",
         "default-interactive-hover": "#5c5c5c",
         "default-interactive-pressed": "#808080",
+      },
+      text: {
+        default: "#ffffff",
+        "default-interactive": "#ffffff",
+      },
+      icon: {
+        default: "#ffffff",
+        "default-interactive": "#ffffff",
+      },
+    },
+    "neutral-inverted-fixed": {
+      bg: {
+        default: "#2c2c2c",
+        "default-interactive": "#2c2c2c",
+        "default-interactive-hover": "#5c5c5c",
+        "default-interactive-pressed": "#808080",
         fixed: "#1e1e1e",
       },
       text: {
         default: "#ffffff",
         "default-interactive": "#ffffff",
-        fixed: "#ffffff",
+
+        secondary: "#BBBBBB",
+        "secondary-interactive": "#BBBBBB",
       },
       icon: {
         default: "#ffffff",
         "default-interactive": "#ffffff",
+
+        secondary: "#BBBBBB",
+        "secondary-interactive": "#BBBBBB",
+      },
+      border: {
+        default: "#383838",
       },
     },
     brand: {
@@ -211,6 +235,10 @@ const figmaLight: ColorTokenTree = {
       "tooltip-hard": "#0000001a",
       "tooltip-soft": "#0000001f",
       "tooltip-glare": "#ffffff14",
+
+      "menu-hard": "#0000008a",
+      "menu-soft": "#00000052",
+      "menu-glare": "#ffffff14",
     },
   },
 }
