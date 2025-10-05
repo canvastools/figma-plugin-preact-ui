@@ -122,13 +122,12 @@ const figmaDark: ColorTokenTree = {
     },
     "neutral-inverted-fixed": {
       bg: {
-        default: "#2c2c2c",
-        "default-interactive": "#2c2c2c",
+        default: "#1E1E1E",
+        "default-interactive": "#1E1E1E",
         "default-interactive-hover": "#5c5c5c",
         "default-interactive-pressed": "#808080",
-        fixed: "#1e1e1e",
 
-        disabled: "#2c2c2c",
+        disabled: "#1E1E1E",
       },
       text: {
         default: "#ffffff",
