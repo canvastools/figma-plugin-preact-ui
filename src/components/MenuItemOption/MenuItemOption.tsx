@@ -6,8 +6,8 @@ import { override } from "../../utils"
 import type { MenuItemOptionProps } from "./MenuItemOption.types"
 import "./MenuItemOption.scss"
 
-import { Text } from "../Text/Text"
-import { Icon } from "../Icon/Icon"
+import { Text } from "../../index"
+import { Icon } from "../../index"
 
 /* --- */
 
@@ -21,6 +21,7 @@ const MenuItemOptionComponent = (
     className,
     defaultSelected = false,
     selected: controlledSelected,
+    reducedPaddingRight = false,
     disabled = false,
     suffix,
     children,
@@ -39,6 +40,7 @@ const MenuItemOptionComponent = (
     disabled,
     suffix: Boolean(suffix),
     selected: isSelected,
+    reducedPaddingRight,
   })
 
   const handleClick = (event: MouseEvent) => {
@@ -74,7 +76,7 @@ const MenuItemOptionComponent = (
       className={[_className, className].join(" ").trim()}
       ref={ref}
       {...rest}
-      onClick={handleClick as any}
+      onClick={handleClick}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >

@@ -1,15 +1,15 @@
 import { Meta, StoryObj } from "@storybook/preact"
+import { useState } from "preact/hooks"
 
 import { fn } from "@storybook/test"
 
 import { MenuItemOption } from "./MenuItemOption"
 
-import { MenuContainer } from "../MenuContainer/MenuContainer"
-import { Icon } from "../Icon/Icon"
-import { Badge } from "../Badge/Badge"
-import { useState } from "preact/hooks"
-import { Stack } from "../Stack/Stack"
-import { Text } from "../Text/Text"
+import { MenuContainer } from "../../index"
+import { Icon } from "../../index"
+import { Badge } from "../../index"
+import { Stack } from "../../index"
+import { Text } from "../../index"
 
 const meta: Meta<typeof MenuItemOption> = {
   title: "Components/MenuItemOption",
@@ -30,6 +30,7 @@ const meta: Meta<typeof MenuItemOption> = {
     defaultSelected: {
       control: { type: "boolean" },
       defaultValue: { summary: false },
+      description: "Initial value for uncontrolled mode..",
       table: {
         type: {
           summary: "boolean",
@@ -37,8 +38,8 @@ const meta: Meta<typeof MenuItemOption> = {
       },
     },
     selected: {
-      control: { type: "boolean" },
-      defaultValue: { summary: false },
+      control: { disable: true },
+      description: "Controlled selected state.",
       table: {
         type: {
           summary: "boolean",
@@ -48,6 +49,17 @@ const meta: Meta<typeof MenuItemOption> = {
     disabled: {
       control: { type: "boolean" },
       defaultValue: { summary: false },
+      table: {
+        type: {
+          summary: "boolean",
+        },
+      },
+    },
+    reducedPaddingRight: {
+      control: { type: "boolean" },
+      defaultValue: { summary: false },
+      description:
+        "Indicates if the item has reduced padding on the right. For pixel perfect vertical alignment of the icons.",
       table: {
         type: {
           summary: "boolean",
@@ -174,17 +186,32 @@ export const Suffix: Story = {
     <div className="sb-column sb-width-full">
       <MenuContainer>
         <MenuItemOption
+          reducedPaddingRight
+          suffix={
+            <Text intent="neutral-inverted-fixed" intentModifiers="secondary">
+              Action
+            </Text>
+          }
+        >
+          Menu Item
+        </MenuItemOption>
+        <MenuItemOption
+          reducedPaddingRight
           suffix={
             <Icon glyph="ai" size={16} intent="neutral-inverted" interactive />
           }
         >
           Menu Item
         </MenuItemOption>
-        <MenuItemOption suffix={<Badge intent="brand">Badge</Badge>}>
+        <MenuItemOption
+          reducedPaddingRight
+          suffix={<Badge intent="brand">Badge</Badge>}
+        >
           Menu Item
         </MenuItemOption>
         <MenuItemOption
           disabled
+          reducedPaddingRight
           suffix={
             <Icon
               glyph="link"

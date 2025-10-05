@@ -34,8 +34,7 @@ const meta: Meta<WindowResizerProps> = {
     },
     onResize: {
       action: "changed",
-      description:
-        "Callback function that is called when user resizes the window.",
+      description: "Callback when user resizes the window.",
       table: {
         type: {
           summary: "(args: { width: number; height: number }) => void",

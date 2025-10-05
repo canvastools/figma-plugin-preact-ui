@@ -6,8 +6,8 @@ import type { VNode } from "preact"
 import type { ButtonIconToggleProps } from "./ButtonIconToggle.types"
 import "./ButtonIconToggle.scss"
 
-import { ButtonIcon } from "../ButtonIcon/ButtonIcon"
-import { Icon } from "../Icon/Icon"
+import { ButtonIcon } from "../../index"
+import { Icon } from "../../index"
 
 /* --- */
 

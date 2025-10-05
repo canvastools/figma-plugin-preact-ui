@@ -3,7 +3,7 @@ import { bem, typedForwardRef } from "../../utils"
 import type { ButtonProps } from "./Button.types"
 import "./Button.scss"
 
-import { Text } from "../Text/Text"
+import { Text } from "../../index"
 
 /* --- */
 

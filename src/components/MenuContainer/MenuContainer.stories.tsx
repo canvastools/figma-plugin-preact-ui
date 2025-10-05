@@ -3,12 +3,12 @@ import { useRef, useState } from "preact/hooks"
 
 import { MenuContainer } from "./MenuContainer"
 
-import { Icon } from "../Icon/Icon"
-import { MenuDivider } from "../MenuDivider/MenuDivider"
-import { OverlayPositioner } from "../OverlayPositioner/OverlayPositioner"
-import { Button } from "../Button/Button"
-import { MenuItem } from "../MenuItem/MenuItem"
-import { MenuItemOption } from "../MenuItemOption/MenuItemOption"
+import { Icon } from "../../index"
+import { MenuDivider } from "../../index"
+import { OverlayPositioner } from "../../index"
+import { Button } from "../../index"
+import { MenuItem } from "../../index"
+import { MenuItemOption } from "../../index"
 
 const meta: Meta<typeof MenuContainer> = {
   title: "Components/MenuContainer",
@@ -46,6 +46,8 @@ const meta: Meta<typeof MenuContainer> = {
     },
     children: {
       control: { disable: true },
+      description:
+        "Usually &lt;MenuItem/&gt;, &lt;MenuItemOption/&gt;, &lt;MenuDivider/&gt; components.",
       table: {
         type: {
           summary: "JSX.Element",
@@ -98,7 +100,7 @@ export const OverlayMenu: Story = {
 
     return (
       <div className="sb-column sb-width-full">
-        <Button ref={anchorRef as any} onClick={() => setOpen((v) => !v)}>
+        <Button ref={anchorRef} onClick={() => setOpen((v) => !v)}>
           Show Menu
         </Button>
         <OverlayPositioner
@@ -132,10 +134,7 @@ export const NestedMenu: Story = {
 
     return (
       <div className="sb-column sb-width-full">
-        <Button
-          ref={anchorRefTrigger as any}
-          onClick={() => setOpen((v) => !v)}
-        >
+        <Button ref={anchorRefTrigger} onClick={() => setOpen((v) => !v)}>
           Show Menu
         </Button>
         <OverlayPositioner
@@ -165,7 +164,7 @@ export const NestedMenu: Story = {
               open={openNested}
               placement="right-top"
               onClose={() => setOpenNested(false)}
-              paddingX={3}
+              paddingX={4}
             >
               <MenuContainer>
                 <MenuItem onClick={() => setOpenNested(false)}>

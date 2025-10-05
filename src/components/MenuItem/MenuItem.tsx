@@ -6,8 +6,7 @@ import { override } from "../../utils"
 import type { MenuItemProps } from "./MenuItem.types"
 import "./MenuItem.scss"
 
-import { Text } from "../Text/Text"
-import { Icon } from "../Icon/Icon"
+import { Text } from "../../index"
 
 /* --- */
 

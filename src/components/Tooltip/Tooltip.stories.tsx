@@ -3,10 +3,9 @@ import { useRef, useState } from "preact/hooks"
 
 import { Tooltip } from "./Tooltip"
 
-import { Stack } from "../Stack/Stack"
-import { Text } from "../Text/Text"
-import { OverlayPositioner } from "../OverlayPositioner/OverlayPositioner"
-import { Section } from "../Section/Section"
+import { Stack } from "../../index"
+import { Text } from "../../index"
+import { OverlayPositioner } from "../../index"
 
 const meta: Meta<typeof Tooltip> = {
   title: "Components/Tooltip",
@@ -16,7 +15,7 @@ const meta: Meta<typeof Tooltip> = {
     docs: {
       description: {
         component:
-          "A wrapper component that creates a tooltip-like container. Usually used inside &lt;OverlayPositioner/&gt; component.",
+          "A wrapper component that creates a tooltip-like container. Used inside &lt;OverlayPositioner/&gt; component.",
       },
     },
   },
@@ -71,15 +70,13 @@ export const Demo: Story = {
   render: (args) => {
     return (
       <div className="sb-column sb-width-full">
-        <Section>
-          <Tooltip {...args}>
-            <Text intent="neutral-inverted" intentModifiers="fixed">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quae
-              autem dolorum quibusdam necessitatibus natus, ipsa aperiam eos
-              animi id nam tenetur adipisci?
-            </Text>
-          </Tooltip>
-        </Section>
+        <Tooltip {...args}>
+          <Text intent="neutral-inverted-fixed">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quae
+            autem dolorum quibusdam necessitatibus natus, ipsa aperiam eos animi
+            id nam tenetur adipisci?
+          </Text>
+        </Tooltip>
       </div>
     )
   },
@@ -95,20 +92,16 @@ export const Size: Story = {
   render: () => {
     return (
       <div className="sb-column sb-width-full">
-        <Section>
-          <Stack spacing={400}>
-            <Tooltip width={200} height={100}>
-              <Text intent="neutral-inverted" intentModifiers="fixed">
-                Fixed Size Tooltip 200x100
-              </Text>
-            </Tooltip>
-            <Tooltip width="auto" height="auto">
-              <Text intent="neutral-inverted" intentModifiers="fixed">
-                Auto Size Tooltip
-              </Text>
-            </Tooltip>
-          </Stack>
-        </Section>
+        <Stack spacing={400}>
+          <Tooltip width={200} height={100}>
+            <Text intent="neutral-inverted-fixed">
+              Fixed Size Tooltip 200x100
+            </Text>
+          </Tooltip>
+          <Tooltip width="auto" height="auto">
+            <Text intent="neutral-inverted-fixed">Auto Size Tooltip</Text>
+          </Tooltip>
+        </Stack>
       </div>
     )
   },
@@ -146,201 +139,199 @@ export const Placement: Story = {
 
     return (
       <div className="sb-column sb-width-full">
-        <Section>
-          <Stack direction="row" spacing={400}>
-            <Stack spacing={200}>
-              <Text ref={anchorRefTopLeft as any}>Top Left</Text>
-              <OverlayPositioner
-                anchorRef={anchorRefTopLeft}
-                placement="top-left"
-                arrow={true}
-                trigger="hover"
-                paddingY={8}
-              >
-                <Tooltip width={200}>
-                  <Text intent="neutral-inverted" intentModifiers="fixed">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  </Text>
-                </Tooltip>
-              </OverlayPositioner>
+        <Stack direction="row" spacing={400}>
+          <Stack spacing={200}>
+            <Text ref={anchorRefTopLeft as any}>Top Left</Text>
+            <OverlayPositioner
+              anchorRef={anchorRefTopLeft}
+              placement="top-left"
+              arrow={true}
+              trigger="hover"
+              paddingY={8}
+            >
+              <Tooltip width={200}>
+                <Text intent="neutral-inverted-fixed">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                </Text>
+              </Tooltip>
+            </OverlayPositioner>
 
-              <Text ref={anchorRefTop as any}>Top</Text>
-              <OverlayPositioner
-                anchorRef={anchorRefTop}
-                placement="top"
-                arrow={true}
-                trigger="hover"
-                paddingY={8}
-              >
-                <Tooltip width={200}>
-                  <Text intent="neutral-inverted" intentModifiers="fixed">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  </Text>
-                </Tooltip>
-              </OverlayPositioner>
+            <Text ref={anchorRefTop as any}>Top</Text>
+            <OverlayPositioner
+              anchorRef={anchorRefTop}
+              placement="top"
+              arrow={true}
+              trigger="hover"
+              paddingY={8}
+            >
+              <Tooltip width={200}>
+                <Text intent="neutral-inverted-fixed">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                </Text>
+              </Tooltip>
+            </OverlayPositioner>
 
-              <Text ref={anchorRefTopEnd as any}>Top Right</Text>
-              <OverlayPositioner
-                anchorRef={anchorRefTopEnd}
-                placement="top-right"
-                arrow={true}
-                trigger="hover"
-                paddingY={8}
-              >
-                <Tooltip width={200}>
-                  <Text intent="neutral-inverted" intentModifiers="fixed">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  </Text>
-                </Tooltip>
-              </OverlayPositioner>
-            </Stack>
-
-            <Stack spacing={200}>
-              <Text ref={anchorRefBottomLeft as any}>Bottom Left</Text>
-              <OverlayPositioner
-                anchorRef={anchorRefBottomLeft}
-                placement="bottom-left"
-                arrow={true}
-                trigger="hover"
-                paddingY={8}
-              >
-                <Tooltip width={200}>
-                  <Text intent="neutral-inverted" intentModifiers="fixed">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  </Text>
-                </Tooltip>
-              </OverlayPositioner>
-
-              <Text ref={anchorRefBottom as any}>Bottom</Text>
-              <OverlayPositioner
-                anchorRef={anchorRefBottom}
-                placement="bottom"
-                arrow={true}
-                trigger="hover"
-                paddingY={8}
-              >
-                <Tooltip width={200}>
-                  <Text intent="neutral-inverted" intentModifiers="fixed">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  </Text>
-                </Tooltip>
-              </OverlayPositioner>
-
-              <Text ref={anchorRefBottomEnd as any}>Bottom Right</Text>
-              <OverlayPositioner
-                anchorRef={anchorRefBottomEnd}
-                placement="bottom-right"
-                arrow={true}
-                trigger="hover"
-                paddingY={8}
-              >
-                <Tooltip width={200}>
-                  <Text intent="neutral-inverted" intentModifiers="fixed">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  </Text>
-                </Tooltip>
-              </OverlayPositioner>
-            </Stack>
-
-            <Stack spacing={200}>
-              <Text ref={anchorRefLeftTop as any}>Left Top</Text>
-              <OverlayPositioner
-                anchorRef={anchorRefLeftTop}
-                placement="left-top"
-                arrow={true}
-                trigger="hover"
-                paddingX={12}
-                paddingY={-4}
-              >
-                <Tooltip width={200}>
-                  <Text intent="neutral-inverted" intentModifiers="fixed">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  </Text>
-                </Tooltip>
-              </OverlayPositioner>
-
-              <Text ref={anchorRefLeft as any}>Left</Text>
-              <OverlayPositioner
-                anchorRef={anchorRefLeft}
-                placement="left"
-                arrow={true}
-                trigger="hover"
-                paddingX={12}
-              >
-                <Tooltip width={200}>
-                  <Text intent="neutral-inverted" intentModifiers="fixed">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  </Text>
-                </Tooltip>
-              </OverlayPositioner>
-
-              <Text ref={anchorRefLeftBottom as any}>Left Bottom</Text>
-              <OverlayPositioner
-                anchorRef={anchorRefLeftBottom}
-                placement="left-bottom"
-                arrow={true}
-                trigger="hover"
-                paddingX={12}
-                paddingY={-4}
-              >
-                <Tooltip width={200}>
-                  <Text intent="neutral-inverted" intentModifiers="fixed">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  </Text>
-                </Tooltip>
-              </OverlayPositioner>
-            </Stack>
-
-            <Stack spacing={200}>
-              <Text ref={anchorRefRightTop as any}>Right Top</Text>
-              <OverlayPositioner
-                anchorRef={anchorRefRightTop}
-                placement="right-top"
-                arrow={true}
-                trigger="hover"
-                paddingX={12}
-                paddingY={-4}
-              >
-                <Tooltip width={200}>
-                  <Text intent="neutral-inverted" intentModifiers="fixed">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  </Text>
-                </Tooltip>
-              </OverlayPositioner>
-
-              <Text ref={anchorRefRight as any}>Right</Text>
-              <OverlayPositioner
-                anchorRef={anchorRefRight}
-                placement="right"
-                arrow={true}
-                trigger="hover"
-                paddingX={12}
-              >
-                <Tooltip width={200}>
-                  <Text intent="neutral-inverted" intentModifiers="fixed">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  </Text>
-                </Tooltip>
-              </OverlayPositioner>
-
-              <Text ref={anchorRefRightBottom as any}>Right Bottom</Text>
-              <OverlayPositioner
-                anchorRef={anchorRefRightBottom}
-                placement="right-bottom"
-                arrow={true}
-                trigger="hover"
-                paddingX={12}
-                paddingY={-4}
-              >
-                <Tooltip width={200}>
-                  <Text intent="neutral-inverted" intentModifiers="fixed">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  </Text>
-                </Tooltip>
-              </OverlayPositioner>
-            </Stack>
+            <Text ref={anchorRefTopEnd as any}>Top Right</Text>
+            <OverlayPositioner
+              anchorRef={anchorRefTopEnd}
+              placement="top-right"
+              arrow={true}
+              trigger="hover"
+              paddingY={8}
+            >
+              <Tooltip width={200}>
+                <Text intent="neutral-inverted-fixed">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                </Text>
+              </Tooltip>
+            </OverlayPositioner>
           </Stack>
-        </Section>
+
+          <Stack spacing={200}>
+            <Text ref={anchorRefBottomLeft as any}>Bottom Left</Text>
+            <OverlayPositioner
+              anchorRef={anchorRefBottomLeft}
+              placement="bottom-left"
+              arrow={true}
+              trigger="hover"
+              paddingY={8}
+            >
+              <Tooltip width={200}>
+                <Text intent="neutral-inverted-fixed">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                </Text>
+              </Tooltip>
+            </OverlayPositioner>
+
+            <Text ref={anchorRefBottom as any}>Bottom</Text>
+            <OverlayPositioner
+              anchorRef={anchorRefBottom}
+              placement="bottom"
+              arrow={true}
+              trigger="hover"
+              paddingY={8}
+            >
+              <Tooltip width={200}>
+                <Text intent="neutral-inverted-fixed">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                </Text>
+              </Tooltip>
+            </OverlayPositioner>
+
+            <Text ref={anchorRefBottomEnd as any}>Bottom Right</Text>
+            <OverlayPositioner
+              anchorRef={anchorRefBottomEnd}
+              placement="bottom-right"
+              arrow={true}
+              trigger="hover"
+              paddingY={8}
+            >
+              <Tooltip width={200}>
+                <Text intent="neutral-inverted-fixed">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                </Text>
+              </Tooltip>
+            </OverlayPositioner>
+          </Stack>
+
+          <Stack spacing={200}>
+            <Text ref={anchorRefLeftTop as any}>Left Top</Text>
+            <OverlayPositioner
+              anchorRef={anchorRefLeftTop}
+              placement="left-top"
+              arrow={true}
+              trigger="hover"
+              paddingX={12}
+              paddingY={-4}
+            >
+              <Tooltip width={200}>
+                <Text intent="neutral-inverted-fixed">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                </Text>
+              </Tooltip>
+            </OverlayPositioner>
+
+            <Text ref={anchorRefLeft as any}>Left</Text>
+            <OverlayPositioner
+              anchorRef={anchorRefLeft}
+              placement="left"
+              arrow={true}
+              trigger="hover"
+              paddingX={12}
+            >
+              <Tooltip width={200}>
+                <Text intent="neutral-inverted-fixed">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                </Text>
+              </Tooltip>
+            </OverlayPositioner>
+
+            <Text ref={anchorRefLeftBottom as any}>Left Bottom</Text>
+            <OverlayPositioner
+              anchorRef={anchorRefLeftBottom}
+              placement="left-bottom"
+              arrow={true}
+              trigger="hover"
+              paddingX={12}
+              paddingY={-4}
+            >
+              <Tooltip width={200}>
+                <Text intent="neutral-inverted-fixed">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                </Text>
+              </Tooltip>
+            </OverlayPositioner>
+          </Stack>
+
+          <Stack spacing={200}>
+            <Text ref={anchorRefRightTop as any}>Right Top</Text>
+            <OverlayPositioner
+              anchorRef={anchorRefRightTop}
+              placement="right-top"
+              arrow={true}
+              trigger="hover"
+              paddingX={12}
+              paddingY={-4}
+            >
+              <Tooltip width={200}>
+                <Text intent="neutral-inverted-fixed">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                </Text>
+              </Tooltip>
+            </OverlayPositioner>
+
+            <Text ref={anchorRefRight as any}>Right</Text>
+            <OverlayPositioner
+              anchorRef={anchorRefRight}
+              placement="right"
+              arrow={true}
+              trigger="hover"
+              paddingX={12}
+            >
+              <Tooltip width={200}>
+                <Text intent="neutral-inverted-fixed">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                </Text>
+              </Tooltip>
+            </OverlayPositioner>
+
+            <Text ref={anchorRefRightBottom as any}>Right Bottom</Text>
+            <OverlayPositioner
+              anchorRef={anchorRefRightBottom}
+              placement="right-bottom"
+              arrow={true}
+              trigger="hover"
+              paddingX={12}
+              paddingY={-4}
+            >
+              <Tooltip width={200}>
+                <Text intent="neutral-inverted-fixed">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                </Text>
+              </Tooltip>
+            </OverlayPositioner>
+          </Stack>
+        </Stack>
       </div>
     )
   },

@@ -4,11 +4,11 @@ import { useState } from "preact/hooks"
 
 import { ScrollContext } from "./ScrollContext"
 
-import { ScrollContainer } from "../ScrollContainer/ScrollContainer"
-import { Section } from "../Section/Section"
-import { Text } from "../Text/Text"
-import { Button } from "../Button/Button"
-import { Stack } from "../Stack/Stack"
+import { ScrollContainer } from "../../index"
+import { Section } from "../../index"
+import { Text } from "../../index"
+import { Button } from "../../index"
+import { Stack } from "../../index"
 
 const meta: Meta<typeof ScrollContext> = {
   title: "Layout/ScrollContext",
@@ -30,6 +30,7 @@ const meta: Meta<typeof ScrollContext> = {
         },
       },
       control: { type: "number" },
+      defaultValue: { summary: 0 },
       description: "Initial value for uncontrolled mode.",
     },
     positionY: {
@@ -52,7 +53,7 @@ const meta: Meta<typeof ScrollContext> = {
     onScroll: {
       action: "changed",
       description:
-        "Callback function that is called when the scroll is changed. Returns the new value.",
+        "Callback when the scroll is changed. Returns the new value.",
       table: {
         type: {
           summary: "(args: {positionY: number}) => void",
@@ -86,7 +87,8 @@ type Story = StoryObj<typeof ScrollContext>
 export const Demo: Story = {
   tags: ["!autodocs"],
   args: {
-    onChange: fn(),
+    defaultPositionY: 0,
+    onScroll: fn(),
   },
   parameters: {
     viewport: {

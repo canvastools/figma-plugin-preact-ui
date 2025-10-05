@@ -4,9 +4,10 @@ import { fn } from "@storybook/test"
 
 import { MenuItem } from "./MenuItem"
 
-import { MenuContainer } from "../MenuContainer/MenuContainer"
-import { Icon } from "../Icon/Icon"
-import { Badge } from "../Badge/Badge"
+import { MenuContainer } from "../../index"
+import { Icon } from "../../index"
+import { Badge } from "../../index"
+import { Text } from "../../index"
 
 const meta: Meta<typeof MenuItem> = {
   title: "Components/MenuItem",
@@ -71,6 +72,7 @@ const meta: Meta<typeof MenuItem> = {
     },
     onClick: {
       control: { disable: true },
+      description: "Callback when the item is clicked.",
       table: {
         type: {
           summary: "({ event: MouseEvent }) => void",
@@ -88,6 +90,7 @@ export const Demo: Story = {
   args: {
     className: "",
     disabled: false,
+    reducedPaddingRight: false,
     onClick: fn(),
   },
   parameters: {
@@ -176,17 +179,32 @@ export const Suffix: Story = {
     <div className="sb-column sb-width-full">
       <MenuContainer>
         <MenuItem
+          reducedPaddingRight
+          suffix={
+            <Text intent="neutral-inverted-fixed" intentModifiers="secondary">
+              Action
+            </Text>
+          }
+        >
+          Menu Item
+        </MenuItem>
+        <MenuItem
+          reducedPaddingRight
           suffix={
             <Icon glyph="ai" size={16} intent="neutral-inverted" interactive />
           }
         >
           Menu Item
         </MenuItem>
-        <MenuItem suffix={<Badge intent="brand">Badge</Badge>}>
+        <MenuItem
+          reducedPaddingRight
+          suffix={<Badge intent="brand">Badge</Badge>}
+        >
           Menu Item
         </MenuItem>
         <MenuItem
           disabled
+          reducedPaddingRight
           suffix={
             <Icon
               glyph="link"

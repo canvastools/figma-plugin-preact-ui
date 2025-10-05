@@ -4,10 +4,10 @@ import { fn } from "@storybook/test"
 
 import { Input } from "./Input"
 
-import { Stack } from "../Stack/Stack"
-import { Icon } from "../Icon/Icon"
-import { Text } from "../Text/Text"
-import { ButtonIcon } from "../ButtonIcon/ButtonIcon"
+import { Stack } from "../../index"
+import { Icon } from "../../index"
+import { Text } from "../../index"
+import { ButtonIcon } from "../../index"
 
 const meta: Meta<typeof Input> = {
   title: "Components/Input",
@@ -95,8 +95,7 @@ const meta: Meta<typeof Input> = {
     },
     onChange: {
       action: "changed",
-      description:
-        "Callback function that is called when the value is changed.",
+      description: "Callback when the value is changed.",
       table: {
         type: {
           summary: "(args: { event: MouseEvent; value: string }) => void",
@@ -105,8 +104,7 @@ const meta: Meta<typeof Input> = {
     },
     onBlur: {
       action: "blurred",
-      description:
-        "Callback function that is called when the input is blurred.",
+      description: "Callback when the input is blurred.",
       table: {
         type: {
           summary: "(args: { event: MouseEvent; value: string }) => void",
@@ -115,8 +113,7 @@ const meta: Meta<typeof Input> = {
     },
     onFocus: {
       action: "focused",
-      description:
-        "Callback function that is called when the input is focused.",
+      description: "Callback when the input is focused.",
       table: {
         type: {
           summary: "(args: { event: MouseEvent; value: string }) => void",
@@ -125,8 +122,7 @@ const meta: Meta<typeof Input> = {
     },
     onKeyDown: {
       action: "keydown",
-      description:
-        "Callback function that is called when the input is keyed down.",
+      description: "Callback when the input is keyed down.",
       table: {
         type: {
           summary: "(args: { event: KeyboardEvent; value: string }) => void",

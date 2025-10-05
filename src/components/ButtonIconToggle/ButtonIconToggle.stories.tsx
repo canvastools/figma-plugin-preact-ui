@@ -4,9 +4,9 @@ import { useState } from "preact/hooks"
 
 import { ButtonIconToggle } from "./ButtonIconToggle"
 
-import { Icon } from "../Icon/Icon"
-import { Text } from "../Text/Text"
-import { Stack } from "../Stack/Stack"
+import { Icon } from "../../index"
+import { Text } from "../../index"
+import { Stack } from "../../index"
 
 const meta: Meta<typeof ButtonIconToggle> = {
   title: "Components/ButtonIcon/ButtonIconToggle",
@@ -81,8 +81,7 @@ const meta: Meta<typeof ButtonIconToggle> = {
     },
     onChange: {
       action: "changed",
-      description:
-        "Callback function that is called when the button is clicked.",
+      description: "Callback when the button is clicked.",
       table: {
         type: {
           summary: "(args: {event: MouseEvent; selected: boolean}) => void",

@@ -2,7 +2,7 @@ import { Meta, StoryObj } from "@storybook/preact"
 
 import { Avatar } from "./Avatar"
 
-import { Stack } from "../Stack/Stack"
+import { Stack } from "../../index"
 
 const meta: Meta<typeof Avatar> = {
   title: "Components/Avatar",

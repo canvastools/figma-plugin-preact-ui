@@ -2,8 +2,8 @@ import { Meta, StoryObj } from "@storybook/preact"
 
 import { MenuDivider } from "./MenuDivider"
 
-import { MenuContainer } from "../MenuContainer/MenuContainer"
-import { MenuItem } from "../MenuItem/MenuItem"
+import { MenuContainer } from "../../index"
+import { MenuItem } from "../../index"
 
 const meta: Meta<typeof MenuDivider> = {
   title: "Components/MenuDivider",

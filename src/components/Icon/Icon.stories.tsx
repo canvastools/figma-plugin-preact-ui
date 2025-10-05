@@ -3,9 +3,9 @@ import { Meta, StoryObj } from "@storybook/preact"
 import { Icon } from "./Icon"
 import { glyphs } from "./glyphs"
 
-import { Text } from "../Text/Text"
-import type { TextProps } from "../Text/Text.types"
-import { Section } from "../Section/Section"
+import { Text } from "../../index"
+import type { TextProps } from "../../index"
+import { Section } from "../../index"
 
 const meta: Meta<typeof Icon> = {
   title: "Components/Icon",
@@ -207,6 +207,9 @@ const intentCombinations = () => {
     "neutral-inverted-fixed": [
       ["default", false, false],
       ["default", true, false],
+
+      ["secondary", false, false],
+      ["secondary", true, false],
     ],
     brand: [
       ["default", false, false],

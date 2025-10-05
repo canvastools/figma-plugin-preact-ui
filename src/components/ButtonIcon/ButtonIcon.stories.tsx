@@ -3,9 +3,9 @@ import { fn } from "@storybook/test"
 
 import { ButtonIcon } from "./ButtonIcon"
 
-import { Icon } from "../Icon/Icon"
-import { Input } from "../Input/Input"
-import { Stack } from "../Stack/Stack"
+import { Icon } from "../../index"
+import { Input } from "../../index"
+import { Stack } from "../../index"
 
 const meta: Meta<typeof ButtonIcon> = {
   title: "Components/ButtonIcon/ButtonIcon",
@@ -58,8 +58,7 @@ const meta: Meta<typeof ButtonIcon> = {
     },
     onClick: {
       action: "clicked",
-      description:
-        "Callback function that is called when the button is clicked",
+      description: "Callback when the button is clicked",
       table: {
         type: {
           summary: "(args: {event: MouseEvent}) => void",

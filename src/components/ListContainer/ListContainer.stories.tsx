@@ -2,13 +2,12 @@ import type { Meta, StoryObj } from "@storybook/preact"
 
 import { useState } from "preact/hooks"
 
-import { ListContext } from "../ListContext/ListContext"
 import { ListContainer } from "./ListContainer"
-import { ListItem } from "../ListItem/ListItem"
-import type { ListItemData } from "../ListContext/ListContext.types"
 
-import { Text } from "../Text/Text"
-import { Section } from "../Section/Section"
+import { ListContext } from "../../index"
+import { ListItem } from "../../index"
+import type { ListItemData } from "../../index"
+import { Text } from "../../index"
 
 const meta: Meta<typeof ListContainer> = {
   title: "Experimental/ListContainer ⚠️",
@@ -86,29 +85,27 @@ export const Demo: Story = {
 
     return (
       <div className="sb-column sb-width-full">
-        <Section>
-          <ListContext
-            items={items}
-            selectedItems={selectedItems}
-            selectionMode="multi"
-            onItemsChange={(change) => {
-              setItems(change.items)
-            }}
-            onSelectionChange={(change) => {
-              setSelectedItems(change.selectedItems)
-            }}
-          >
-            <ListContainer {...args}>
-              {items.map((item) => {
-                return (
-                  <ListItem id={item.id} draggable={true} selectable={true}>
-                    <Text>{item.id}</Text>
-                  </ListItem>
-                )
-              })}
-            </ListContainer>
-          </ListContext>
-        </Section>
+        <ListContext
+          items={items}
+          selectedItems={selectedItems}
+          selectionMode="multi"
+          onItemsChange={(change) => {
+            setItems(change.items)
+          }}
+          onSelectionChange={(change) => {
+            setSelectedItems(change.selectedItems)
+          }}
+        >
+          <ListContainer {...args}>
+            {items.map((item) => {
+              return (
+                <ListItem id={item.id} draggable={true} selectable={true}>
+                  <Text>{item.id}</Text>
+                </ListItem>
+              )
+            })}
+          </ListContainer>
+        </ListContext>
       </div>
     )
   },

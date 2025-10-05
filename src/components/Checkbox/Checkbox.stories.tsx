@@ -4,8 +4,8 @@ import { useState } from "preact/hooks"
 
 import { Checkbox } from "./Checkbox"
 
-import { Text } from "../Text/Text"
-import { Stack } from "../Stack/Stack"
+import { Text } from "../../index"
+import { Stack } from "../../index"
 
 const meta: Meta<typeof Checkbox> = {
   title: "Components/Checkbox",
@@ -46,8 +46,7 @@ const meta: Meta<typeof Checkbox> = {
     },
     onChange: {
       action: "clicked",
-      description:
-        "Callback function that is called when the checkbox is clicked.",
+      description: "Callback when the checkbox is clicked.",
       table: {
         type: {
           summary: "(args: {event: MouseEvent; checked: boolean}) => void",

@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/preact"
 
-import { TabContext } from "../TabContext/TabContext"
-import { TabPanel } from "../TabPanel/TabPanel"
 import { TabList } from "./TabList"
-import { Tab } from "../Tab/Tab"
 
-import { Section } from "../Section/Section"
-import { Text } from "../Text/Text"
+import { TabContext } from "../../index"
+import { TabPanel } from "../../index"
+import { Tab } from "../../index"
+import { Section } from "../../index"
+import { Text } from "../../index"
 
 const meta: Meta<typeof TabList> = {
   title: "Components/TabList",

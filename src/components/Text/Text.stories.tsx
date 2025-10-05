@@ -3,7 +3,7 @@ import { Meta, StoryObj } from "@storybook/preact"
 import { Text } from "./Text"
 import type { TextProps } from "./Text.types"
 
-import { Section } from "../Section/Section"
+import { Section } from "../../index"
 
 const meta: Meta<typeof Text> = {
   title: "Components/Text",
@@ -40,14 +40,17 @@ const meta: Meta<typeof Text> = {
     },
     disabled: {
       control: { type: "boolean" },
+      defaultValue: { summary: false },
     },
     interactive: {
       control: { type: "boolean" },
+      defaultValue: { summary: false },
       description:
         "Allows using colours for interactive states within the intent.",
     },
     selected: {
       control: { type: "boolean" },
+      defaultValue: { summary: false },
       description:
         "Enables the modifier for the selected state. Only works if interactive is enabled.",
     },
@@ -72,6 +75,7 @@ const meta: Meta<typeof Text> = {
     },
     strong: {
       description: "This property visually affects only the body intent.",
+      defaultValue: { summary: false },
       control: { type: "boolean" },
     },
     align: {
@@ -81,8 +85,19 @@ const meta: Meta<typeof Text> = {
     },
     fullWidth: {
       control: { type: "boolean" },
+      defaultValue: { summary: false },
       description:
         "Whether the text should take the full width of its container.",
+      table: {
+        type: {
+          summary: "boolean",
+        },
+      },
+    },
+    noWrap: {
+      control: { type: "boolean" },
+      defaultValue: { summary: false },
+      description: "Whether the text should wrap to the next line.",
       table: {
         type: {
           summary: "boolean",
@@ -115,6 +130,8 @@ export const Demo: Story = {
     variant: "body",
     size: "medium",
     strong: false,
+    fullWidth: false,
+    noWrap: false,
     align: "left",
     children:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
@@ -162,6 +179,9 @@ const intentCombinations = () => {
     "neutral-inverted-fixed": [
       ["default", false, false],
       ["default", true, false],
+
+      ["secondary", false, false],
+      ["secondary", true, false],
     ],
     brand: [
       ["default", false, false],

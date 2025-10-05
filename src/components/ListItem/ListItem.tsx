@@ -1,12 +1,12 @@
 import { bem, typedForwardRef } from "../../utils"
-import { useListContext } from "../ListContext/ListContext"
 import { useState, useEffect, useRef } from "preact/hooks"
 
 import type { ListItemProps } from "./ListItem.types"
-import type { ListItemData } from "../ListContext/ListContext.types"
 import "./ListItem.scss"
 
-import { Icon } from "../Icon/Icon"
+import { useListContext } from "../../index"
+import type { ListItemData } from "../../index"
+import { Icon } from "../../index"
 
 /* --- */
 
@@ -14,23 +14,23 @@ const ListItemComponent = (
   {
     className,
     id,
-    isNested,
+    isNested = false,
     nestingLevel = 0,
-    draggable,
+    draggable = false,
     dragHandle = "default",
-    acceptsChildren,
+    acceptsChildren = false,
     selectionScope = "item",
     collapsed,
-    showCollapseControl,
+    showCollapseControl = false,
     onCollapsedChange,
     onDragStart,
     onDragEnd,
-    selectable,
-    hoverable,
+    selectable = false,
+    hoverable = false,
     onSelect,
     subItems,
     children,
-    reducedPaddingRight,
+    reducedPaddingRight = false,
     ...rest
   }: ListItemProps,
   ref: preact.Ref<HTMLDivElement>

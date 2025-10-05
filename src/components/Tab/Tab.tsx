@@ -3,9 +3,9 @@ import { bem, typedForwardRef } from "../../utils"
 import type { TabProps } from "./Tab.types"
 import "./Tab.scss"
 
-import { useTabContext } from "../TabContext/TabContext"
+import { useTabContext } from "../../index"
 
-import { Text } from "../Text/Text"
+import { Text } from "../../index"
 
 /* --- */
 

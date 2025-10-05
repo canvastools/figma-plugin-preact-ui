@@ -3,7 +3,7 @@ import { bem, typedForwardRef } from "../../utils"
 import type { AvatarProps } from "./Avatar.types"
 import "./Avatar.scss"
 
-import { Text } from "../Text/Text"
+import { Text } from "../../index"
 
 /* --- */
 

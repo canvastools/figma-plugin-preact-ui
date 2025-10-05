@@ -5,12 +5,12 @@ import { bem, typedForwardRef } from "../../utils"
 import type { TabPanelProps } from "./TabPanel.types"
 import "./TabPanel.scss"
 
-import { useTabContext } from "../TabContext/TabContext"
+import { useTabContext } from "../../index"
 
 /* --- */
 
 const TabPanelComponent = (
-  { className, value, fullHeight, children, ...rest }: TabPanelProps,
+  { className, value, fullHeight = false, children, ...rest }: TabPanelProps,
   ref: preact.Ref<HTMLDivElement>
 ) => {
   const { value: activeValue } = useTabContext()

@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/preact"
 
-import { TabContext } from "../TabContext/TabContext"
 import { TabPanel } from "./TabPanel"
-import { TabList } from "../TabList/TabList"
-import { Tab } from "../Tab/Tab"
 
-import { Section } from "../Section/Section"
-import { Text } from "../Text/Text"
+import { TabContext } from "../../index"
+import { TabList } from "../../index"
+import { Tab } from "../../index"
+import { Section } from "../../index"
+import { Text } from "../../index"
 
 const meta: Meta<typeof TabPanel> = {
   title: "Components/TabPanel",
@@ -34,6 +34,7 @@ const meta: Meta<typeof TabPanel> = {
     },
     fullHeight: {
       control: { type: "boolean" },
+      defaultValue: { summary: false },
       description:
         "Set the height to 100% to occupy the entire height in flex containers. May requires &lt;ScrollContainer/&gt; to be used as it uses `overflow: hidden`.",
     },

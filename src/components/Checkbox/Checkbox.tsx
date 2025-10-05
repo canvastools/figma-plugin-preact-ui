@@ -4,8 +4,8 @@ import { bem, typedForwardRef } from "../../utils"
 import type { CheckboxProps } from "./Checkbox.types"
 import "./Checkbox.scss"
 
-import { Text } from "../Text/Text"
-import { Icon } from "../Icon/Icon"
+import { Text } from "../../index"
+import { Icon } from "../../index"
 
 /* --- */
 

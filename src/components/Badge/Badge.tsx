@@ -3,7 +3,7 @@ import { bem, typedForwardRef } from "../../utils"
 import type { BadgeProps } from "./Badge.types"
 import "./Badge.scss"
 
-import { Text } from "../Text/Text"
+import { Text } from "../../index"
 
 /* --- */
 

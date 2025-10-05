@@ -2,8 +2,8 @@ import { Meta, StoryObj } from "@storybook/preact"
 
 import { Divider } from "./Divider"
 
-import { Text } from "../Text/Text"
-import { Section } from "../Section/Section"
+import { Text } from "../../index"
+import { Section } from "../../index"
 
 const meta: Meta<typeof Divider> = {
   title: "Components/Divider",
