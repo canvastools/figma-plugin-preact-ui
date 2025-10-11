@@ -16,7 +16,7 @@ import { Button } from "../../index"
 import { ButtonIcon } from "../../index"
 import { ButtonIconToggle } from "../../index"
 import { Stack } from "../../index"
-import { glyphs } from "../../index"
+import { settings as settingsGlyph, link as linkGlyph } from "../../index"
 
 const meta: Meta<typeof ListItem> = {
   title: "Experimental/ListItem ⚠️",
@@ -1079,10 +1079,10 @@ export const Children: Story = {
                 <Input defaultValue={child.id} />
                 <Checkbox label="Label" />
                 <ButtonIcon ghost>
-                  <Icon glyph={glyphs.settings} variant="scaled" />
+                  <Icon glyph={settingsGlyph} variant="scaled" />
                 </ButtonIcon>
                 <ButtonIconToggle ghost>
-                  <Icon glyph={glyphs.link} variant="scaled" />
+                  <Icon glyph={linkGlyph} variant="scaled" />
                 </ButtonIconToggle>
               </Stack>
             </ListItem>
@@ -1126,7 +1126,7 @@ export const Children: Story = {
                   </Text>
                   <Button>Action</Button>
                   <ButtonIconToggle>
-                    <Icon glyph={glyphs.link} variant="scaled" />
+                    <Icon glyph={linkGlyph} variant="scaled" />
                   </ButtonIconToggle>
                 </Stack>
               </ListItem>

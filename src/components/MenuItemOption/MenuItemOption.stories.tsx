@@ -10,7 +10,7 @@ import { Icon } from "../../index"
 import { Badge } from "../../index"
 import { Stack } from "../../index"
 import { Text } from "../../index"
-import { glyphs } from "../../index"
+import { check as checkGlyph } from "../../index"
 
 const meta: Meta<typeof MenuItemOption> = {
   title: "Components/MenuItemOption",
@@ -203,7 +203,7 @@ export const Suffix: Story = {
           defaultSelected
           suffix={
             <Icon
-              glyph={glyphs.ai}
+              glyph={checkGlyph}
               size={16}
               intent="neutral-inverted-fixed"
               interactive
@@ -223,7 +223,7 @@ export const Suffix: Story = {
           reducedPaddingRight
           suffix={
             <Icon
-              glyph={glyphs.link}
+              glyph={checkGlyph}
               size={16}
               intent="neutral-inverted-fixed"
               interactive

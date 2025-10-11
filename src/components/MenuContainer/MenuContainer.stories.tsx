@@ -9,7 +9,7 @@ import { OverlayPositioner } from "../../index"
 import { Button } from "../../index"
 import { MenuItem } from "../../index"
 import { MenuItemOption } from "../../index"
-import { glyphs } from "../../index"
+import { chevronRight as chevronRightGlyph } from "../../index"
 
 const meta: Meta<typeof MenuContainer> = {
   title: "Components/MenuContainer",
@@ -151,7 +151,7 @@ export const NestedMenu: Story = {
               onClick={() => setOpenNested((v) => !v)}
               suffix={
                 <Icon
-                  glyph={glyphs.chevronRight}
+                  glyph={chevronRightGlyph}
                   size={16}
                   intent="neutral-inverted-fixed"
                   interactive

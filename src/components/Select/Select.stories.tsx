@@ -6,7 +6,7 @@ import { Select } from "./Select"
 
 import { Stack } from "../../index"
 import { Icon } from "../../index"
-import { glyphs } from "../../index"
+import { chevronDown as chevronDownGlyph } from "../../index"
 
 const meta: Meta<typeof Select> = {
   title: "Components/Select",
@@ -249,7 +249,7 @@ export const Prefix: Story = {
         defaultValue="opt-1"
         prefix={
           <Icon
-            glyph={glyphs.search}
+            glyph={chevronDownGlyph}
             intent="neutral"
             intentModifiers="secondary"
             variant="scaled"

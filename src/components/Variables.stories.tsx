@@ -7,7 +7,7 @@ import { Text } from "../index"
 import { ColorSwatch } from "../index"
 import { Icon } from "../index"
 import { ButtonIcon } from "../index"
-import { glyphs } from "../index"
+import { copy as copyGlyph } from "../index"
 
 const meta: Meta = {
   title: "Overview/Variables",
@@ -88,7 +88,7 @@ const colorTokensList = () => {
       >
         <div style={{ display: "flex", alignItems: "center", width: "100%" }}>
           <ButtonIcon onClick={() => copyToClipboard(`--pui-color-${token}`)}>
-            <Icon glyph={glyphs.copy} variant="scaled" />
+            <Icon glyph={copyGlyph} variant="scaled" />
           </ButtonIcon>
 
           <div
@@ -121,7 +121,7 @@ const colorTokensList = () => {
                   copyToClipboard(tokenMatrix[token][theme] as string)
                 }
               >
-                <Icon glyph={glyphs.copy} variant="scaled" />
+                <Icon glyph={copyGlyph} variant="scaled" />
               </ButtonIcon>
               <ColorSwatch hex={tokenMatrix[token][theme]} />
               <div
@@ -160,7 +160,7 @@ const spacingTokensList = () => {
       >
         <div style={{ display: "flex", alignItems: "center", width: "100%" }}>
           <ButtonIcon onClick={() => copyToClipboard(`--pui-spacing-${token}`)}>
-            <Icon glyph={glyphs.copy} variant="scaled" />
+            <Icon glyph={copyGlyph} variant="scaled" />
           </ButtonIcon>
 
           <div
@@ -182,7 +182,7 @@ const spacingTokensList = () => {
           <ButtonIcon
             onClick={() => copyToClipboard(tokenMatrix[token] as string)}
           >
-            <Icon glyph={glyphs.copy} variant="scaled" />
+            <Icon glyph={copyGlyph} variant="scaled" />
           </ButtonIcon>
           <div
             style={{
@@ -218,7 +218,7 @@ const radiusTokensList = () => {
       >
         <div style={{ display: "flex", alignItems: "center", width: "100%" }}>
           <ButtonIcon onClick={() => copyToClipboard(`--pui-spacing-${token}`)}>
-            <Icon glyph={glyphs.copy} variant="scaled" />
+            <Icon glyph={copyGlyph} variant="scaled" />
           </ButtonIcon>
 
           <div
@@ -240,7 +240,7 @@ const radiusTokensList = () => {
           <ButtonIcon
             onClick={() => copyToClipboard(tokenMatrix[token] as string)}
           >
-            <Icon glyph={glyphs.copy} variant="scaled" />
+            <Icon glyph={copyGlyph} variant="scaled" />
           </ButtonIcon>
           <div
             style={{

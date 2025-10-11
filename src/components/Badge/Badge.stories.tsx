@@ -4,7 +4,7 @@ import { Badge } from "./Badge"
 
 import { Icon } from "../../index"
 import { Stack } from "../../index"
-import { glyphs } from "../../index"
+import { help as helpGlyph } from "../../index"
 
 const meta: Meta<typeof Badge> = {
   title: "Components/Badge",
@@ -138,7 +138,7 @@ export const Prefix: Story = {
       <Stack spacing={400}>
         <Badge
           intent="neutral"
-          prefix={<Icon glyph={glyphs.help} size={16} intent="neutral" />}
+          prefix={<Icon glyph={helpGlyph} size={16} intent="neutral" />}
         >
           Neutral
         </Badge>
@@ -147,7 +147,7 @@ export const Prefix: Story = {
           intentModifiers="secondary"
           prefix={
             <Icon
-              glyph={glyphs.help}
+              glyph={helpGlyph}
               size={16}
               intent="neutral"
               intentModifiers="secondary"
@@ -161,7 +161,7 @@ export const Prefix: Story = {
           intentModifiers="brand"
           prefix={
             <Icon
-              glyph={glyphs.help}
+              glyph={helpGlyph}
               size={16}
               intent="neutral"
               intentModifiers="brand"
@@ -175,7 +175,7 @@ export const Prefix: Story = {
           intentModifiers="danger"
           prefix={
             <Icon
-              glyph={glyphs.help}
+              glyph={helpGlyph}
               size={16}
               intent="neutral"
               intentModifiers="danger"
@@ -189,7 +189,7 @@ export const Prefix: Story = {
           intentModifiers="warning"
           prefix={
             <Icon
-              glyph={glyphs.help}
+              glyph={helpGlyph}
               size={16}
               intent="neutral"
               intentModifiers="warning"
@@ -203,7 +203,7 @@ export const Prefix: Story = {
           intentModifiers="success"
           prefix={
             <Icon
-              glyph={glyphs.help}
+              glyph={helpGlyph}
               size={16}
               intent="neutral"
               intentModifiers="success"
@@ -215,32 +215,32 @@ export const Prefix: Story = {
         <Badge
           intent="neutral-inverted"
           prefix={
-            <Icon glyph={glyphs.help} size={16} intent="neutral-inverted" />
+            <Icon glyph={helpGlyph} size={16} intent="neutral-inverted" />
           }
         >
           Neutral Inverted
         </Badge>
         <Badge
           intent="brand"
-          prefix={<Icon glyph={glyphs.help} size={16} intent="brand" />}
+          prefix={<Icon glyph={helpGlyph} size={16} intent="brand" />}
         >
           Brand
         </Badge>
         <Badge
           intent="danger"
-          prefix={<Icon glyph={glyphs.help} size={16} intent="danger" />}
+          prefix={<Icon glyph={helpGlyph} size={16} intent="danger" />}
         >
           Danger
         </Badge>
         <Badge
           intent="warning"
-          prefix={<Icon glyph={glyphs.help} size={16} intent="warning" />}
+          prefix={<Icon glyph={helpGlyph} size={16} intent="warning" />}
         >
           Warning
         </Badge>
         <Badge
           intent="success"
-          prefix={<Icon glyph={glyphs.help} size={16} intent="success" />}
+          prefix={<Icon glyph={helpGlyph} size={16} intent="success" />}
         >
           Success
         </Badge>
@@ -261,7 +261,7 @@ export const Suffix: Story = {
       <Stack spacing={400}>
         <Badge
           intent="neutral"
-          suffix={<Icon glyph={glyphs.help} size={16} intent="neutral" />}
+          suffix={<Icon glyph={helpGlyph} size={16} intent="neutral" />}
         >
           Neutral
         </Badge>
@@ -270,7 +270,7 @@ export const Suffix: Story = {
           intentModifiers="secondary"
           suffix={
             <Icon
-              glyph={glyphs.help}
+              glyph={helpGlyph}
               size={16}
               intent="neutral"
               intentModifiers="secondary"
@@ -284,7 +284,7 @@ export const Suffix: Story = {
           intentModifiers="brand"
           suffix={
             <Icon
-              glyph={glyphs.help}
+              glyph={helpGlyph}
               size={16}
               intent="neutral"
               intentModifiers="brand"
@@ -298,7 +298,7 @@ export const Suffix: Story = {
           intentModifiers="danger"
           suffix={
             <Icon
-              glyph={glyphs.help}
+              glyph={helpGlyph}
               size={16}
               intent="neutral"
               intentModifiers="danger"
@@ -312,7 +312,7 @@ export const Suffix: Story = {
           intentModifiers="warning"
           suffix={
             <Icon
-              glyph={glyphs.help}
+              glyph={helpGlyph}
               size={16}
               intent="neutral"
               intentModifiers="warning"
@@ -326,7 +326,7 @@ export const Suffix: Story = {
           intentModifiers="success"
           suffix={
             <Icon
-              glyph={glyphs.help}
+              glyph={helpGlyph}
               size={16}
               intent="neutral"
               intentModifiers="success"
@@ -338,32 +338,32 @@ export const Suffix: Story = {
         <Badge
           intent="neutral-inverted"
           suffix={
-            <Icon glyph={glyphs.help} size={16} intent="neutral-inverted" />
+            <Icon glyph={helpGlyph} size={16} intent="neutral-inverted" />
           }
         >
           Neutral Inverted
         </Badge>
         <Badge
           intent="brand"
-          suffix={<Icon glyph={glyphs.help} size={16} intent="brand" />}
+          suffix={<Icon glyph={helpGlyph} size={16} intent="brand" />}
         >
           Brand
         </Badge>
         <Badge
           intent="danger"
-          suffix={<Icon glyph={glyphs.help} size={16} intent="danger" />}
+          suffix={<Icon glyph={helpGlyph} size={16} intent="danger" />}
         >
           Danger
         </Badge>
         <Badge
           intent="warning"
-          suffix={<Icon glyph={glyphs.help} size={16} intent="warning" />}
+          suffix={<Icon glyph={helpGlyph} size={16} intent="warning" />}
         >
           Warning
         </Badge>
         <Badge
           intent="success"
-          suffix={<Icon glyph={glyphs.help} size={16} intent="success" />}
+          suffix={<Icon glyph={helpGlyph} size={16} intent="success" />}
         >
           Success
         </Badge>

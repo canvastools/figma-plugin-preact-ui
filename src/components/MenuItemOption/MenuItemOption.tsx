@@ -8,7 +8,7 @@ import "./MenuItemOption.scss"
 
 import { Text } from "../../index"
 import { Icon } from "../../index"
-import { glyphs } from "../../index"
+import { check as checkGlyph } from "../../index"
 
 /* --- */
 
@@ -85,7 +85,7 @@ const MenuItemOptionComponent = (
         <div className="MenuItemOption__selection">
           {isSelected && (
             <Icon
-              glyph={glyphs.check}
+              glyph={checkGlyph}
               size={16}
               intent={isHovered ? "brand" : "neutral-inverted-fixed"}
               disabled={disabled}

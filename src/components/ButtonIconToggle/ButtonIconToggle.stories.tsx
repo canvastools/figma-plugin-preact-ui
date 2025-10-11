@@ -7,7 +7,7 @@ import { ButtonIconToggle } from "./ButtonIconToggle"
 import { Icon } from "../../index"
 import { Text } from "../../index"
 import { Stack } from "../../index"
-import { glyphs } from "../../index"
+import { link as linkGlyph } from "../../index"
 
 const meta: Meta<typeof ButtonIconToggle> = {
   title: "Components/ButtonIcon/ButtonIconToggle",
@@ -108,7 +108,7 @@ export const Demo: Story = {
     defaultSelected: false,
     children: (
       <Icon
-        glyph={glyphs.link}
+        glyph={linkGlyph}
         intent="neutral"
         intentModifiers="default"
         variant="scaled"
@@ -140,7 +140,7 @@ export const Uncontrolled: Story = {
     <div className="sb-column sb-width-full">
       <ButtonIconToggle intent="neutral" intentModifiers="default">
         <Icon
-          glyph={glyphs.link}
+          glyph={linkGlyph}
           intent="neutral"
           intentModifiers="default"
           variant="scaled"
@@ -173,7 +173,7 @@ export const Controlled: Story = {
             intentModifiers="default"
           >
             <Icon
-              glyph={glyphs.link}
+              glyph={linkGlyph}
               intent="neutral"
               intentModifiers="default"
               interactive
@@ -210,7 +210,7 @@ export const Intent: Story = {
               size="medium"
             >
               <Icon
-                glyph={glyphs.link}
+                glyph={linkGlyph}
                 intent="neutral"
                 intentModifiers="default"
                 interactive
@@ -228,7 +228,7 @@ export const Intent: Story = {
               size="medium"
             >
               <Icon
-                glyph={glyphs.link}
+                glyph={linkGlyph}
                 intent="neutral"
                 intentModifiers="default"
                 interactive
@@ -247,7 +247,7 @@ export const Intent: Story = {
               size="large"
             >
               <Icon
-                glyph={glyphs.link}
+                glyph={linkGlyph}
                 intent="neutral"
                 intentModifiers="default"
                 interactive
@@ -265,7 +265,7 @@ export const Intent: Story = {
               size="large"
             >
               <Icon
-                glyph={glyphs.link}
+                glyph={linkGlyph}
                 intent="neutral"
                 intentModifiers="default"
                 interactive
@@ -298,7 +298,7 @@ export const Disabled: Story = {
             size="medium"
           >
             <Icon
-              glyph={glyphs.link}
+              glyph={linkGlyph}
               intent="neutral"
               intentModifiers="default"
               variant="scaled"
@@ -314,7 +314,7 @@ export const Disabled: Story = {
             size="medium"
           >
             <Icon
-              glyph={glyphs.link}
+              glyph={linkGlyph}
               intent="neutral"
               intentModifiers="default"
               variant="scaled"
@@ -331,7 +331,7 @@ export const Disabled: Story = {
             size="large"
           >
             <Icon
-              glyph={glyphs.link}
+              glyph={linkGlyph}
               intent="neutral"
               intentModifiers="default"
               variant="scaled"
@@ -347,7 +347,7 @@ export const Disabled: Story = {
             size="large"
           >
             <Icon
-              glyph={glyphs.link}
+              glyph={linkGlyph}
               intent="neutral"
               intentModifiers="default"
               variant="scaled"

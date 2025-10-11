@@ -7,7 +7,7 @@ import { OverlayPositioner } from "../OverlayPositioner/OverlayPositioner"
 import { MenuContainer } from "../MenuContainer/MenuContainer"
 import { MenuItemOption } from "../MenuItemOption/MenuItemOption"
 import { Icon } from "../../index"
-import { glyphs } from "../../index"
+import { chevronDown as chevronDownGlyph } from "../../index"
 
 /* --- */
 
@@ -137,7 +137,7 @@ const SelectComponent = (
       </div>
       <div className="Select__suffix">
         <Icon
-          glyph={glyphs.chevronDown}
+          glyph={chevronDownGlyph}
           size={16}
           intent="neutral"
           interactive
