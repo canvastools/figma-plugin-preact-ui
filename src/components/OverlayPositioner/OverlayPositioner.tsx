@@ -345,6 +345,7 @@ const OverlayPositionerComponent = ({
   const isControlled = typeof open === "boolean"
   const isOpen = isControlled ? (open as boolean) : internalOpen
   const rafRef = useRef<number | null>(null)
+  const hoverTimerRef = useRef<number | null>(null)
 
   const resolvedPlacementFallback = useMemo<false | string[] | undefined>(
     () =>
@@ -482,12 +483,7 @@ const OverlayPositionerComponent = ({
     if (trigger === "click") {
       const onClick = (e: MouseEvent) => {
         e.preventDefault()
-        const delay = Math.max(0, visibilityDelay)
-        if (delay === 0) {
-          setInternalOpen((v) => !v)
-        } else {
-          window.setTimeout(() => setInternalOpen((v) => !v), delay)
-        }
+        setInternalOpen((v) => !v)
       }
 
       anchorEl.addEventListener("click", onClick)
@@ -496,32 +492,37 @@ const OverlayPositionerComponent = ({
     }
 
     if (trigger === "hover") {
+      const clearHoverTimer = () => {
+        if (hoverTimerRef.current != null) {
+          clearTimeout(hoverTimerRef.current)
+          hoverTimerRef.current = null
+        }
+      }
       const onEnterAnchor = () => {
+        clearHoverTimer()
         const delay = Math.max(0, visibilityDelay)
-        if (delay === 0) setInternalOpen(true)
-        else window.setTimeout(() => setInternalOpen(true), delay)
+        if (delay === 0) {
+          setInternalOpen(true)
+        } else {
+          hoverTimerRef.current = window.setTimeout(() => {
+            hoverTimerRef.current = null
+            setInternalOpen(true)
+          }, delay)
+        }
       }
       const onLeaveAnchor = () => {
-        const delay = Math.max(0, visibilityDelay)
-        if (delay === 0) setInternalOpen(false)
-        else window.setTimeout(() => setInternalOpen(false), delay)
-      }
-      const onEnterOverlay = () => {
-        const delay = Math.max(0, visibilityDelay)
-        if (delay === 0) setInternalOpen(false)
-        else window.setTimeout(() => setInternalOpen(false), delay)
+        // Hide immediately and cancel any pending show
+        clearHoverTimer()
+        setInternalOpen(false)
       }
 
       anchorEl.addEventListener("mouseenter", onEnterAnchor)
       anchorEl.addEventListener("mouseleave", onLeaveAnchor)
 
-      const overlayEl = containerRef.current
-      overlayEl?.addEventListener("mouseenter", onEnterOverlay)
-
       return () => {
         anchorEl.removeEventListener("mouseenter", onEnterAnchor)
         anchorEl.removeEventListener("mouseleave", onLeaveAnchor)
-        overlayEl?.removeEventListener("mouseenter", onEnterOverlay)
+        clearHoverTimer()
       }
     }
   }, [isControlled, trigger, anchorRef, visibilityDelay])

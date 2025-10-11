@@ -274,7 +274,6 @@ declare const index_d_search: typeof search;
 declare const index_d_select: typeof select;
 declare const index_d_settings: typeof settings;
 declare const index_d_updates: typeof updates;
-declare const index_d_viewGrid: typeof viewGrid;
 declare const index_d_viewList: typeof viewList;
 declare const index_d_warning: typeof warning;
 declare namespace index_d {
