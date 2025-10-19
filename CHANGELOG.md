@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.  
 This project follows [Semantic Versioning](https://semver.org/).
 
+### 0.3.1 - 19 Oct 2025
+
+**Fixed:**
+
+- OverlayPositioner: fixed an issue where the overlay was hidden after a delay following a mouse leave event.
+- Icons: fixed a tree-shaking issue that caused all icons to be included in the build when importing a single one.
+- Dropdown: fixed a z-index issue where the dropdown could be overlapped by other elements.
+- Checkbox: fixed container width behaviour.
+- Select: fixed active state styles.
+- ColorSwatch: fixed visible white pixels at the corners.
+- ColorPicker: fixed alpha value display when it was fractional.
+
+---
+
 ### 0.3.0 - 5 Oct 2025
 
 **Added:**
@@ -39,7 +53,7 @@ This project follows [Semantic Versioning](https://semver.org/).
   - Select
   - Tooltip
 
-**Fixes:**
+**Fixed:**
 
 - Avatar:
 
