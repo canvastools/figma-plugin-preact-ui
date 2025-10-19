@@ -8,7 +8,7 @@ import { Stack } from "../../index"
 import { Icon } from "../../index"
 import { Text } from "../../index"
 import { ButtonIcon } from "../../index"
-import { glyphs } from "../../index"
+import { search as searchGlyph, link as linkGlyph } from "../../index"
 
 const meta: Meta<typeof Input> = {
   title: "Components/Input",
@@ -288,7 +288,7 @@ export const Prefix: Story = {
         <Input
           prefix={
             <Icon
-              glyph={glyphs.search}
+              glyph={searchGlyph}
               intent="neutral"
               intentModifiers="secondary"
               variant="scaled"
@@ -299,7 +299,7 @@ export const Prefix: Story = {
           placeholder="Placeholder"
           prefix={
             <Icon
-              glyph={glyphs.search}
+              glyph={searchGlyph}
               intent="neutral"
               intentModifiers="secondary"
               variant="scaled"
@@ -310,7 +310,7 @@ export const Prefix: Story = {
           defaultValue="Default Value"
           prefix={
             <Icon
-              glyph={glyphs.search}
+              glyph={searchGlyph}
               intent="neutral"
               intentModifiers="secondary"
               variant="scaled"
@@ -336,7 +336,7 @@ export const Suffix: Story = {
           suffix={
             <ButtonIcon intent="neutral" intentModifiers="default" translucent>
               <Icon
-                glyph={glyphs.link}
+                glyph={linkGlyph}
                 intent="neutral"
                 intentModifiers="default"
                 variant="scaled"
@@ -349,7 +349,7 @@ export const Suffix: Story = {
           suffix={
             <ButtonIcon intent="neutral" intentModifiers="default" translucent>
               <Icon
-                glyph={glyphs.link}
+                glyph={linkGlyph}
                 intent="neutral"
                 intentModifiers="default"
                 variant="scaled"
@@ -363,7 +363,7 @@ export const Suffix: Story = {
           suffix={
             <ButtonIcon intent="neutral" intentModifiers="default" translucent>
               <Icon
-                glyph={glyphs.link}
+                glyph={linkGlyph}
                 intent="neutral"
                 intentModifiers="default"
                 variant="scaled"

@@ -2,7 +2,7 @@ import { Meta, StoryObj } from "@storybook/preact"
 
 import { Icon } from "./Icon"
 
-import { glyphs } from "../../index"
+import * as glyphs from "../Icon/glyphs"
 import { Text } from "../../index"
 import type { TextProps } from "../../index"
 import { Section } from "../../index"

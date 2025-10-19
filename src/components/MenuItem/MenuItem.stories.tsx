@@ -8,7 +8,11 @@ import { MenuContainer } from "../../index"
 import { Icon } from "../../index"
 import { Badge } from "../../index"
 import { Text } from "../../index"
-import { glyphs } from "../../index"
+import {
+  ai as aiGlyph,
+  adjust as adjustGlyph,
+  link as linkGlyph,
+} from "../../index"
 
 const meta: Meta<typeof MenuItem> = {
   title: "Components/MenuItem",
@@ -135,7 +139,7 @@ export const Prefix: Story = {
         <MenuItem
           prefix={
             <Icon
-              glyph={glyphs.ai}
+              glyph={aiGlyph}
               size={16}
               intent="neutral-inverted-fixed"
               interactive
@@ -147,7 +151,7 @@ export const Prefix: Story = {
         <MenuItem
           prefix={
             <Icon
-              glyph={glyphs.adjust}
+              glyph={adjustGlyph}
               size={16}
               intent="neutral-inverted-fixed"
               interactive
@@ -160,7 +164,7 @@ export const Prefix: Story = {
           disabled
           prefix={
             <Icon
-              glyph={glyphs.link}
+              glyph={linkGlyph}
               size={16}
               intent="neutral-inverted-fixed"
               interactive
@@ -198,7 +202,7 @@ export const Suffix: Story = {
           reducedPaddingRight
           suffix={
             <Icon
-              glyph={glyphs.ai}
+              glyph={aiGlyph}
               size={16}
               intent="neutral-inverted-fixed"
               interactive
@@ -218,7 +222,7 @@ export const Suffix: Story = {
           reducedPaddingRight
           suffix={
             <Icon
-              glyph={glyphs.link}
+              glyph={linkGlyph}
               size={16}
               intent="neutral-inverted-fixed"
               interactive

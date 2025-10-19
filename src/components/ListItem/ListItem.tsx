@@ -7,7 +7,11 @@ import "./ListItem.scss"
 import { useListContext } from "../../index"
 import type { ListItemData } from "../../index"
 import { Icon } from "../../index"
-import { glyphs } from "../../index"
+import {
+  chevronRight as chevronRightGlyph,
+  chevronDown as chevronDownGlyph,
+  dragHandle as dragHandleGlyph,
+} from "../../index"
 
 /* --- */
 
@@ -419,9 +423,7 @@ const ListItemComponent = (
             <Icon
               intent="neutral"
               intentModifiers="secondary"
-              glyph={
-                effectiveCollapsed ? glyphs.chevronRight : glyphs.chevronDown
-              }
+              glyph={effectiveCollapsed ? chevronRightGlyph : chevronDownGlyph}
               size={16}
             />
           </div>
@@ -434,7 +436,7 @@ const ListItemComponent = (
             onDragEnd={handleDragHandleDragEnd}
           >
             <Icon
-              glyph={glyphs.dragHandle}
+              glyph={dragHandleGlyph}
               fill="var(--pui-color-neutral-icon-tertiary)"
               size={16}
             />

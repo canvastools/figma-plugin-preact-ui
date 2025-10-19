@@ -7,7 +7,9 @@ import "./ColorSwatch.scss"
 
 const hasOpacity = (hex: string | undefined) => {
   if (!hex) return false
-  return hex.length === 9
+  const opacity = hex.slice(-2)
+  const isOpacity = opacity === "FF" || opacity === "ff"
+  return hex.length === 9 && !isOpacity
 }
 
 const ColorSwatchComponent = (

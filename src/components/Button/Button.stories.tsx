@@ -5,7 +5,7 @@ import { Button } from "./Button"
 
 import { Icon } from "../../index"
 import { Stack } from "../../index"
-import { glyphs } from "../../index"
+import { link as linkGlyph } from "../../index"
 
 const meta: Meta<typeof Button> = {
   title: "Components/Button",
@@ -614,7 +614,7 @@ export const Prefix: Story = {
             intentModifiers="default"
             prefix={
               <Icon
-                glyph={glyphs.link}
+                glyph={linkGlyph}
                 variant="scaled"
                 intent="neutral"
                 intentModifiers="default"
@@ -630,7 +630,7 @@ export const Prefix: Story = {
             ghost
             prefix={
               <Icon
-                glyph={glyphs.link}
+                glyph={linkGlyph}
                 variant="scaled"
                 intent="neutral"
                 intentModifiers="default"
@@ -645,7 +645,7 @@ export const Prefix: Story = {
             intentModifiers="brand"
             prefix={
               <Icon
-                glyph={glyphs.link}
+                glyph={linkGlyph}
                 variant="scaled"
                 intent="neutral"
                 intentModifiers="brand"
@@ -661,7 +661,7 @@ export const Prefix: Story = {
             ghost
             prefix={
               <Icon
-                glyph={glyphs.link}
+                glyph={linkGlyph}
                 variant="scaled"
                 intent="neutral"
                 intentModifiers="brand"
@@ -676,7 +676,7 @@ export const Prefix: Story = {
             intentModifiers="danger"
             prefix={
               <Icon
-                glyph={glyphs.link}
+                glyph={linkGlyph}
                 variant="scaled"
                 intent="neutral"
                 intentModifiers="danger"
@@ -692,7 +692,7 @@ export const Prefix: Story = {
             ghost
             prefix={
               <Icon
-                glyph={glyphs.link}
+                glyph={linkGlyph}
                 variant="scaled"
                 intent="neutral"
                 intentModifiers="danger"
@@ -707,7 +707,7 @@ export const Prefix: Story = {
             intentModifiers="default"
             prefix={
               <Icon
-                glyph={glyphs.link}
+                glyph={linkGlyph}
                 variant="scaled"
                 intent="neutral-inverted"
                 intentModifiers="default"
@@ -722,7 +722,7 @@ export const Prefix: Story = {
             intentModifiers="default"
             prefix={
               <Icon
-                glyph={glyphs.link}
+                glyph={linkGlyph}
                 variant="scaled"
                 intent="brand"
                 intentModifiers="default"
@@ -737,7 +737,7 @@ export const Prefix: Story = {
             intentModifiers="default"
             prefix={
               <Icon
-                glyph={glyphs.link}
+                glyph={linkGlyph}
                 variant="scaled"
                 intent="danger"
                 intentModifiers="default"
@@ -752,7 +752,7 @@ export const Prefix: Story = {
             intentModifiers="default"
             prefix={
               <Icon
-                glyph={glyphs.link}
+                glyph={linkGlyph}
                 variant="scaled"
                 intent="success"
                 intentModifiers="default"
@@ -771,7 +771,7 @@ export const Prefix: Story = {
             size="large"
             prefix={
               <Icon
-                glyph={glyphs.link}
+                glyph={linkGlyph}
                 variant="scaled"
                 intent="neutral"
                 intentModifiers="default"
@@ -788,7 +788,7 @@ export const Prefix: Story = {
             size="large"
             prefix={
               <Icon
-                glyph={glyphs.link}
+                glyph={linkGlyph}
                 variant="scaled"
                 intent="neutral"
                 intentModifiers="default"
@@ -804,7 +804,7 @@ export const Prefix: Story = {
             size="large"
             prefix={
               <Icon
-                glyph={glyphs.link}
+                glyph={linkGlyph}
                 variant="scaled"
                 intent="neutral"
                 intentModifiers="brand"
@@ -821,7 +821,7 @@ export const Prefix: Story = {
             size="large"
             prefix={
               <Icon
-                glyph={glyphs.link}
+                glyph={linkGlyph}
                 variant="scaled"
                 intent="neutral"
                 intentModifiers="brand"
@@ -837,7 +837,7 @@ export const Prefix: Story = {
             size="large"
             prefix={
               <Icon
-                glyph={glyphs.link}
+                glyph={linkGlyph}
                 variant="scaled"
                 intent="neutral"
                 intentModifiers="danger"
@@ -854,7 +854,7 @@ export const Prefix: Story = {
             size="large"
             prefix={
               <Icon
-                glyph={glyphs.link}
+                glyph={linkGlyph}
                 variant="scaled"
                 intent="neutral"
                 intentModifiers="danger"
@@ -870,7 +870,7 @@ export const Prefix: Story = {
             size="large"
             prefix={
               <Icon
-                glyph={glyphs.link}
+                glyph={linkGlyph}
                 variant="scaled"
                 intent="neutral-inverted"
                 intentModifiers="default"
@@ -886,7 +886,7 @@ export const Prefix: Story = {
             size="large"
             prefix={
               <Icon
-                glyph={glyphs.link}
+                glyph={linkGlyph}
                 variant="scaled"
                 intent="brand"
                 intentModifiers="default"
@@ -902,7 +902,7 @@ export const Prefix: Story = {
             size="large"
             prefix={
               <Icon
-                glyph={glyphs.link}
+                glyph={linkGlyph}
                 variant="scaled"
                 intent="danger"
                 intentModifiers="default"
@@ -918,7 +918,7 @@ export const Prefix: Story = {
             size="large"
             prefix={
               <Icon
-                glyph={glyphs.link}
+                glyph={linkGlyph}
                 variant="scaled"
                 intent="success"
                 intentModifiers="default"
@@ -950,7 +950,7 @@ export const Suffix: Story = {
             intentModifiers="default"
             suffix={
               <Icon
-                glyph={glyphs.link}
+                glyph={linkGlyph}
                 variant="scaled"
                 intent="neutral"
                 intentModifiers="default"
@@ -966,7 +966,7 @@ export const Suffix: Story = {
             ghost
             suffix={
               <Icon
-                glyph={glyphs.link}
+                glyph={linkGlyph}
                 variant="scaled"
                 intent="neutral"
                 intentModifiers="default"
@@ -981,7 +981,7 @@ export const Suffix: Story = {
             intentModifiers="brand"
             suffix={
               <Icon
-                glyph={glyphs.link}
+                glyph={linkGlyph}
                 variant="scaled"
                 intent="neutral"
                 intentModifiers="brand"
@@ -997,7 +997,7 @@ export const Suffix: Story = {
             ghost
             suffix={
               <Icon
-                glyph={glyphs.link}
+                glyph={linkGlyph}
                 variant="scaled"
                 intent="neutral"
                 intentModifiers="brand"
@@ -1012,7 +1012,7 @@ export const Suffix: Story = {
             intentModifiers="danger"
             suffix={
               <Icon
-                glyph={glyphs.link}
+                glyph={linkGlyph}
                 variant="scaled"
                 intent="neutral"
                 intentModifiers="danger"
@@ -1028,7 +1028,7 @@ export const Suffix: Story = {
             ghost
             suffix={
               <Icon
-                glyph={glyphs.link}
+                glyph={linkGlyph}
                 variant="scaled"
                 intent="neutral"
                 intentModifiers="danger"
@@ -1043,7 +1043,7 @@ export const Suffix: Story = {
             intentModifiers="default"
             suffix={
               <Icon
-                glyph={glyphs.link}
+                glyph={linkGlyph}
                 variant="scaled"
                 intent="neutral-inverted"
                 intentModifiers="default"
@@ -1058,7 +1058,7 @@ export const Suffix: Story = {
             intentModifiers="default"
             suffix={
               <Icon
-                glyph={glyphs.link}
+                glyph={linkGlyph}
                 variant="scaled"
                 intent="brand"
                 intentModifiers="default"
@@ -1073,7 +1073,7 @@ export const Suffix: Story = {
             intentModifiers="default"
             suffix={
               <Icon
-                glyph={glyphs.link}
+                glyph={linkGlyph}
                 variant="scaled"
                 intent="danger"
                 intentModifiers="default"
@@ -1088,7 +1088,7 @@ export const Suffix: Story = {
             intentModifiers="default"
             suffix={
               <Icon
-                glyph={glyphs.link}
+                glyph={linkGlyph}
                 variant="scaled"
                 intent="success"
                 intentModifiers="default"
@@ -1107,7 +1107,7 @@ export const Suffix: Story = {
             size="large"
             suffix={
               <Icon
-                glyph={glyphs.link}
+                glyph={linkGlyph}
                 variant="scaled"
                 intent="neutral"
                 intentModifiers="default"
@@ -1124,7 +1124,7 @@ export const Suffix: Story = {
             size="large"
             suffix={
               <Icon
-                glyph={glyphs.link}
+                glyph={linkGlyph}
                 variant="scaled"
                 intent="neutral"
                 intentModifiers="default"
@@ -1140,7 +1140,7 @@ export const Suffix: Story = {
             size="large"
             suffix={
               <Icon
-                glyph={glyphs.link}
+                glyph={linkGlyph}
                 variant="scaled"
                 intent="neutral"
                 intentModifiers="brand"
@@ -1157,7 +1157,7 @@ export const Suffix: Story = {
             size="large"
             suffix={
               <Icon
-                glyph={glyphs.link}
+                glyph={linkGlyph}
                 variant="scaled"
                 intent="neutral"
                 intentModifiers="brand"
@@ -1173,7 +1173,7 @@ export const Suffix: Story = {
             size="large"
             suffix={
               <Icon
-                glyph={glyphs.link}
+                glyph={linkGlyph}
                 variant="scaled"
                 intent="neutral"
                 intentModifiers="danger"
@@ -1190,7 +1190,7 @@ export const Suffix: Story = {
             size="large"
             suffix={
               <Icon
-                glyph={glyphs.link}
+                glyph={linkGlyph}
                 variant="scaled"
                 intent="neutral"
                 intentModifiers="danger"
@@ -1206,7 +1206,7 @@ export const Suffix: Story = {
             size="large"
             suffix={
               <Icon
-                glyph={glyphs.link}
+                glyph={linkGlyph}
                 variant="scaled"
                 intent="neutral-inverted"
                 intentModifiers="default"
@@ -1222,7 +1222,7 @@ export const Suffix: Story = {
             size="large"
             suffix={
               <Icon
-                glyph={glyphs.link}
+                glyph={linkGlyph}
                 variant="scaled"
                 intent="brand"
                 intentModifiers="default"
@@ -1238,7 +1238,7 @@ export const Suffix: Story = {
             size="large"
             suffix={
               <Icon
-                glyph={glyphs.link}
+                glyph={linkGlyph}
                 variant="scaled"
                 intent="danger"
                 intentModifiers="default"
@@ -1254,7 +1254,7 @@ export const Suffix: Story = {
             size="large"
             suffix={
               <Icon
-                glyph={glyphs.link}
+                glyph={linkGlyph}
                 variant="scaled"
                 intent="success"
                 intentModifiers="default"
@@ -1286,7 +1286,7 @@ export const CustomIcon: Story = {
   render: () => {
     const customIcon = (
       <Icon
-        glyph={glyphs.link}
+        glyph={linkGlyph}
         variant="scaled"
         intent="success"
         intentModifiers="default"

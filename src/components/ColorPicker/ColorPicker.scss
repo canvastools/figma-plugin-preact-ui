@@ -3,8 +3,6 @@
 .ColorPicker {
   $parent: &;
 
-  width: 207px;
-
   & .react-colorful {
     width: 100%;
     height: auto;

@@ -6,7 +6,7 @@ import { ButtonIcon } from "./ButtonIcon"
 import { Icon } from "../../index"
 import { Input } from "../../index"
 import { Stack } from "../../index"
-import { glyphs } from "../../index"
+import { link as linkGlyph } from "../../index"
 
 const meta: Meta<typeof ButtonIcon> = {
   title: "Components/ButtonIcon/ButtonIcon",
@@ -83,7 +83,7 @@ export const Demo: Story = {
     translucent: false,
     disabled: false,
     children: (
-      <Icon glyph={glyphs.link} intent="neutral" variant="scaled" interactive />
+      <Icon glyph={linkGlyph} intent="neutral" variant="scaled" interactive />
     ),
     onClick: fn(),
   },
@@ -111,7 +111,7 @@ export const Intent: Story = {
       <Stack spacing={400}>
         <ButtonIcon intent="neutral" intentModifiers="default">
           <Icon
-            glyph={glyphs.link}
+            glyph={linkGlyph}
             intent="neutral"
             intentModifiers="default"
             variant="scaled"
@@ -121,7 +121,7 @@ export const Intent: Story = {
 
         <ButtonIcon intent="neutral" intentModifiers="default" ghost>
           <Icon
-            glyph={glyphs.link}
+            glyph={linkGlyph}
             intent="neutral"
             intentModifiers="default"
             variant="scaled"
@@ -146,7 +146,7 @@ export const Size: Story = {
         <Stack spacing={400}>
           <ButtonIcon intent="neutral" intentModifiers="default" size="medium">
             <Icon
-              glyph={glyphs.link}
+              glyph={linkGlyph}
               intent="neutral"
               intentModifiers="default"
               variant="scaled"
@@ -161,7 +161,7 @@ export const Size: Story = {
             size="medium"
           >
             <Icon
-              glyph={glyphs.link}
+              glyph={linkGlyph}
               intent="neutral"
               intentModifiers="default"
               variant="scaled"
@@ -173,7 +173,7 @@ export const Size: Story = {
         <Stack spacing={400}>
           <ButtonIcon intent="neutral" intentModifiers="default" size="large">
             <Icon
-              glyph={glyphs.link}
+              glyph={linkGlyph}
               intent="neutral"
               intentModifiers="default"
               variant="scaled"
@@ -188,7 +188,7 @@ export const Size: Story = {
             size="large"
           >
             <Icon
-              glyph={glyphs.link}
+              glyph={linkGlyph}
               intent="neutral"
               intentModifiers="default"
               variant="scaled"
@@ -219,7 +219,7 @@ export const Disabled: Story = {
             disabled
           >
             <Icon
-              glyph={glyphs.link}
+              glyph={linkGlyph}
               intent="neutral"
               intentModifiers="default"
               variant="scaled"
@@ -236,7 +236,7 @@ export const Disabled: Story = {
             disabled
           >
             <Icon
-              glyph={glyphs.link}
+              glyph={linkGlyph}
               intent="neutral"
               intentModifiers="default"
               variant="scaled"
@@ -254,7 +254,7 @@ export const Disabled: Story = {
             disabled
           >
             <Icon
-              glyph={glyphs.link}
+              glyph={linkGlyph}
               intent="neutral"
               intentModifiers="default"
               variant="scaled"
@@ -271,7 +271,7 @@ export const Disabled: Story = {
             disabled
           >
             <Icon
-              glyph={glyphs.link}
+              glyph={linkGlyph}
               intent="neutral"
               intentModifiers="default"
               variant="scaled"
@@ -295,13 +295,13 @@ export const Grouped: Story = {
   render: () => (
     <div className="sb-row sb-width-full">
       <ButtonIcon intent="neutral" intentModifiers="default" grouped="right">
-        <Icon glyph={glyphs.link} variant="scaled" intent="neutral" />
+        <Icon glyph={linkGlyph} variant="scaled" intent="neutral" />
       </ButtonIcon>
       <ButtonIcon intent="neutral" intentModifiers="default" grouped="both">
-        <Icon glyph={glyphs.link} variant="scaled" intent="neutral" />
+        <Icon glyph={linkGlyph} variant="scaled" intent="neutral" />
       </ButtonIcon>
       <ButtonIcon intent="neutral" intentModifiers="default" grouped="left">
-        <Icon glyph={glyphs.link} variant="scaled" intent="neutral" />
+        <Icon glyph={linkGlyph} variant="scaled" intent="neutral" />
       </ButtonIcon>
     </div>
   ),
@@ -325,7 +325,7 @@ export const Translucent: Story = {
         placeholder="Placeholder"
         suffix={
           <ButtonIcon intent="neutral" intentModifiers="default" translucent>
-            <Icon glyph={glyphs.link} variant="scaled" intent="neutral" />
+            <Icon glyph={linkGlyph} variant="scaled" intent="neutral" />
           </ButtonIcon>
         }
       />

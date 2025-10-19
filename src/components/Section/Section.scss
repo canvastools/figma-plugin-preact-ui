@@ -14,6 +14,8 @@
   flex-flow: column nowrap;
   padding: var(--pui-spacing-200) var(--pui-spacing-400);
   position: relative;
+  justify-content: center;
+  min-height: 40px;
 
   &_paddingTop {
     @include Section_padding("top", "100");

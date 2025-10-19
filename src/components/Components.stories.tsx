@@ -1,7 +1,12 @@
 import { Meta, StoryObj } from "@storybook/preact"
 import { useRef, useState } from "preact/hooks"
 
-import { glyphs } from "../index"
+import {
+  settings as settingsGlyph,
+  close as closeGlyph,
+  viewList as viewListGlyph,
+  viewGrid as viewGridGlyph,
+} from "../index"
 
 import { Shape as AvatarShape } from "./Avatar/Avatar.stories"
 import { Prefix as BadgePrefix } from "./Badge/Badge.stories"
@@ -144,7 +149,7 @@ export const _1: Story = {
                   ref={anchorRefMenu}
                   onClick={() => setOpenMenu(true)}
                 >
-                  <Icon glyph={glyphs.settings} variant="scaled" />
+                  <Icon glyph={settingsGlyph} variant="scaled" />
                 </ButtonIcon>
 
                 <OverlayPositioner
@@ -227,7 +232,7 @@ export const _1: Story = {
                           ghost
                           onClick={() => setOpenColorPicker(false)}
                         >
-                          <Icon glyph={glyphs.close} />
+                          <Icon glyph={closeGlyph} />
                         </ButtonIcon>
                       </Stack>
                     </Section>
@@ -292,14 +297,14 @@ export const _1: Story = {
                           onChange={() => setView("viewList")}
                           selected={view === "viewList"}
                         >
-                          <Icon glyph={glyphs.viewList} />
+                          <Icon glyph={viewListGlyph} />
                         </ButtonIconToggle>
                         <ButtonIconToggle
                           ghost
                           onChange={() => setView("viewGrid")}
                           selected={view === "viewGrid"}
                         >
-                          <Icon glyph={glyphs.viewGrid} />
+                          <Icon glyph={viewGridGlyph} />
                         </ButtonIconToggle>
                       </Stack>
                     </Stack>

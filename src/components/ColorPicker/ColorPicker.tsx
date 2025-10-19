@@ -223,7 +223,7 @@ const ControlsRgba = ({
           className="ColorPicker__controlOpacity"
           type="number"
           grouped="left"
-          value={(rgbaValue.a * 100).toString()}
+          value={Math.round(rgbaValue.a * 100).toString()}
           suffix={
             <Text intentModifiers="secondary">
               <div className="ColorPicker__controlOpacityContainer">%</div>
@@ -232,32 +232,29 @@ const ControlsRgba = ({
           onChange={(e) => {
             const num = Number(e.value)
             if (Number.isFinite(num)) {
-              setRgbaValue({ ...rgbaValue, a: roundAlpha(num / 100) })
+              const percent = Math.round(num)
+              setRgbaValue({ ...rgbaValue, a: roundAlpha(percent / 100) })
             }
           }}
           onBlur={(e) => {
-            const value = roundAlpha(Number(e.value) / 100)
+            const value = roundAlpha(Math.round(Number(e.value)) / 100)
 
             if (getErrorCodeRgbaOpacity(value) === "required") {
-              console.log("required")
               setColor({ ...color, a: color.a })
               setRgbaValue({ ...rgbaValue, a: color.a })
             }
 
             if (getErrorCodeRgbaOpacity(value) === "less_than_min") {
-              console.log("less_than_min")
               setColor({ ...color, a: RGBA_VALUES.a.min })
               setRgbaValue({ ...rgbaValue, a: RGBA_VALUES.a.min })
             }
 
             if (getErrorCodeRgbaOpacity(value) === "greater_than_max") {
-              console.log("greater_than_max")
               setColor({ ...color, a: RGBA_VALUES.a.max })
               setRgbaValue({ ...rgbaValue, a: RGBA_VALUES.a.max })
             }
 
             if (getErrorCodeRgbaOpacity(value) === null) {
-              console.log("null")
               setColor({ ...color, a: value })
               setRgbaValue({ ...rgbaValue, a: value })
             }
@@ -446,6 +443,7 @@ const ColorPickerComponent = (
     types,
     value,
     controls = true,
+    width = 207,
     onChange,
     ...rest
   }: ColorPickerProps,
@@ -566,6 +564,9 @@ const ColorPickerComponent = (
       className={[_className, className].join(" ").trim()}
       ref={ref}
       {...rest}
+      style={{
+        width: width === "auto" ? undefined : (width as number),
+      }}
     >
       {currentType === "hex" && (
         <HexColorPicker

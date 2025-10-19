@@ -138,6 +138,7 @@ interface ColorPickerProps {
     types?: ("rgba" | "hex" | "hexAlpha")[];
     value?: Color | null;
     controls?: boolean;
+    width?: number | "auto";
     onChange?: (args: {
         rgba: Color;
         hex: string;
@@ -248,67 +249,6 @@ declare const viewGrid: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
 declare const viewList: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
 
 declare const warning: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
-
-declare const index_d_adjust: typeof adjust;
-declare const index_d_ai: typeof ai;
-declare const index_d_check: typeof check;
-declare const index_d_chevronDown: typeof chevronDown;
-declare const index_d_chevronRight: typeof chevronRight;
-declare const index_d_close: typeof close;
-declare const index_d_copy: typeof copy;
-declare const index_d_dragHandle: typeof dragHandle;
-declare const index_d_duplicate: typeof duplicate;
-declare const index_d_filter: typeof filter;
-declare const index_d_filterFilled: typeof filterFilled;
-declare const index_d_help: typeof help;
-declare const index_d_home: typeof home;
-declare const index_d_imports: typeof imports;
-declare const index_d_info: typeof info;
-declare const index_d_insert: typeof insert;
-declare const index_d_link: typeof link;
-declare const index_d_minus: typeof minus;
-declare const index_d_mixed: typeof mixed;
-declare const index_d_more: typeof more;
-declare const index_d_plus: typeof plus;
-declare const index_d_search: typeof search;
-declare const index_d_select: typeof select;
-declare const index_d_settings: typeof settings;
-declare const index_d_updates: typeof updates;
-declare const index_d_viewGrid: typeof viewGrid;
-declare const index_d_viewList: typeof viewList;
-declare const index_d_warning: typeof warning;
-declare namespace index_d {
-  export {
-    index_d_adjust as adjust,
-    index_d_ai as ai,
-    index_d_check as check,
-    index_d_chevronDown as chevronDown,
-    index_d_chevronRight as chevronRight,
-    index_d_close as close,
-    index_d_copy as copy,
-    index_d_dragHandle as dragHandle,
-    index_d_duplicate as duplicate,
-    index_d_filter as filter,
-    index_d_filterFilled as filterFilled,
-    index_d_help as help,
-    index_d_home as home,
-    index_d_imports as imports,
-    index_d_info as info,
-    index_d_insert as insert,
-    index_d_link as link,
-    index_d_minus as minus,
-    index_d_mixed as mixed,
-    index_d_more as more,
-    index_d_plus as plus,
-    index_d_search as search,
-    index_d_select as select,
-    index_d_settings as settings,
-    index_d_updates as updates,
-    index_d_viewGrid as viewGrid,
-    index_d_viewList as viewList,
-    index_d_warning as warning,
-  };
-}
 
 interface InputProps {
     className?: string;
@@ -759,5 +699,5 @@ declare const colorToHexAlpha: (color: Color) => string;
 declare const hexAlphaToColor: (hex: string) => Color | null;
 declare const roundAlpha: (a: number) => number;
 
-export { Avatar, Badge, Bar, Button, ButtonIcon, ButtonIconToggle, Checkbox, ColorPicker, ColorSwatch, Divider, Icon, Input, ListContainer, ListContext, ListItem, MenuContainer, MenuDivider, MenuItem, MenuItemOption, OverlayPositioner, Popover, ScrollContainer, ScrollContext, Section, Select, Spacing, Spinner, Stack, Tab, TabContext, TabList, TabPanel, Text, Tooltip, WindowResizer, clamp, colorToHex, colorToHexAlpha, figmaDark, figmaLight, index_d as glyphs, hexAlphaToColor, hexToColor, radius, roundAlpha, spacing, useListContext, useNumberValidator, useScrollContext, useStringValidator, useTabContext };
+export { Avatar, Badge, Bar, Button, ButtonIcon, ButtonIconToggle, Checkbox, ColorPicker, ColorSwatch, Divider, Icon, Input, ListContainer, ListContext, ListItem, MenuContainer, MenuDivider, MenuItem, MenuItemOption, OverlayPositioner, Popover, ScrollContainer, ScrollContext, Section, Select, Spacing, Spinner, Stack, Tab, TabContext, TabList, TabPanel, Text, Tooltip, WindowResizer, adjust, ai, check, chevronDown, chevronRight, clamp, close, colorToHex, colorToHexAlpha, copy, dragHandle, duplicate, figmaDark, figmaLight, filter, filterFilled, help, hexAlphaToColor, hexToColor, home, imports, info, insert, link, minus, mixed, more, plus, radius, roundAlpha, search, select, settings, spacing, updates, useListContext, useNumberValidator, useScrollContext, useStringValidator, useTabContext, viewGrid, viewList, warning };
 export type { AvatarProps, BadgeProps, BarProps, ButtonIconProps, ButtonIconToggleProps, ButtonProps, CheckboxProps, CheckboxValue, Color, ColorPickerProps, ColorSwatchProps, DividerProps, Glyph, GlyphProps, IconProps, InputProps, ListContainerProps, ListContextProps, ListContextValue, ListItemData, ListItemProps, MenuContainerProps, MenuDividerProps, MenuItemOptionProps, MenuItemProps, NumberValidationConfig, NumberValidationError, OverlayPlacement, OverlayPositionerProps, PopoverProps, ScrollContainerProps, ScrollContextProps, ScrollContextValue, SectionPadding, SectionProps, SelectOption, SelectProps, SpacingProps, SpinnerProps, StackProps, StringValidationConfig, StringValidationError, TabContextProps, TabContextValue, TabListProps, TabPanelProps, TabProps, TextProps, TooltipProps, WindowResizerProps };

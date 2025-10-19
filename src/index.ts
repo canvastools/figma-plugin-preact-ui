@@ -40,7 +40,37 @@ export type { DividerProps } from "./components/Divider/Divider.types"
 
 export { Icon } from "./components/Icon/Icon"
 export type { IconProps, Glyph, GlyphProps } from "./components/Icon/Icon.types"
-export * as glyphs from "./components/Icon/glyphs"
+
+export {
+  adjust,
+  ai,
+  check,
+  chevronDown,
+  chevronRight,
+  close,
+  copy,
+  dragHandle,
+  duplicate,
+  filter,
+  filterFilled,
+  help,
+  home,
+  imports,
+  info,
+  insert,
+  link,
+  plus,
+  minus,
+  mixed,
+  more,
+  search,
+  select,
+  settings,
+  updates,
+  viewGrid,
+  viewList,
+  warning,
+} from "./components/Icon/glyphs"
 
 export { Input } from "./components/Input/Input"
 export type { InputProps } from "./components/Input/Input.types"

@@ -4,6 +4,7 @@
   $parent: &;
 
   position: fixed;
+  z-index: 50;
 
   &__arrow {
     position: absolute;

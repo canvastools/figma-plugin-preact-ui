@@ -57,6 +57,14 @@ const meta: Meta<typeof ColorPicker> = {
         },
       },
     },
+    width: {
+      control: { type: "number" },
+      defaultValue: { summary: "207" },
+      description: "Width of the color picker.",
+      table: {
+        type: { summary: "number | 'auto'" },
+      },
+    },
     onChange: {
       action: "onChange",
       description: "Callback when the color is changed.",
@@ -199,6 +207,21 @@ export const Types: Story = {
     <div className="sb-column sb-width-full">
       <Stack spacing={400}>
         <ColorPicker defaultType="rgba" types={["rgba", "hexAlpha"]} />
+      </Stack>
+    </div>
+  ),
+}
+
+export const Width: Story = {
+  parameters: {
+    viewport: {
+      defaultViewport: "large",
+    },
+  },
+  render: () => (
+    <div className="sb-column sb-width-full">
+      <Stack spacing={400}>
+        <ColorPicker defaultType="hex" width={400} />
       </Stack>
     </div>
   ),
