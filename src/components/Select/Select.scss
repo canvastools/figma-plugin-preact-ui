@@ -19,6 +19,11 @@
   outline-color: var(--pui-color-neutral-border-default-interactive);
   background-color: var(--pui-color-neutral-bg-default-interactive);
 
+  &_open {
+    outline-width: 0px;
+    background-color: var(--pui-color-neutral-bg-secondary-interactive);
+  }
+
   &_focused,
   &:hover:is(:focus-within) {
     outline-color: var(--pui-color-neutral-border-default-interactive-selected);

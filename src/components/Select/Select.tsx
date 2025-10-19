@@ -42,6 +42,31 @@ const SelectComponent = (
   const triggerRef = useRef<HTMLDivElement>(null)
   const menuRef = useRef<HTMLDivElement>(null)
 
+  const focusTrigger = () => {
+    const t = triggerRef.current
+    if (t) t.focus()
+  }
+
+  const openMenu = () => {
+    if (disabled) return
+    setIsOpen(true)
+    setIsFocused(false)
+    // Move focus to the menu after it renders
+    requestAnimationFrame(() => {
+      const m = menuRef.current
+      if (m) m.focus()
+    })
+  }
+
+  const closeMenu = () => {
+    setIsOpen(false)
+    // Restore focus to the trigger to match expected behavior
+    requestAnimationFrame(() => {
+      focusTrigger()
+      setIsFocused(true)
+    })
+  }
+
   const _className = bem("Select", undefined, {
     filled: hasContent,
     grouped: Boolean(grouped),
@@ -50,6 +75,7 @@ const SelectComponent = (
     error,
     disabled,
     focused: isFocused,
+    open: isOpen,
   })
 
   const selectedValue = value !== undefined ? value : internalValue
@@ -71,7 +97,7 @@ const SelectComponent = (
       if (!target || !t) return
       const insideTrigger = t.contains(target)
       const insideMenu = m ? m.contains(target) : false
-      if (!insideTrigger && !insideMenu) setIsOpen(false)
+      if (!insideTrigger && !insideMenu) closeMenu()
     }
 
     window.addEventListener("mousedown", handler, true)
@@ -101,7 +127,30 @@ const SelectComponent = (
 
   const handleClickTrigger = () => {
     if (disabled) return
-    setIsOpen((v) => !v)
+    setIsOpen((v) => {
+      const next = !v
+      if (next) {
+        setIsFocused(false)
+        requestAnimationFrame(() => menuRef.current?.focus())
+      } else {
+        requestAnimationFrame(() => {
+          focusTrigger()
+          setIsFocused(true)
+        })
+      }
+      return next
+    })
+  }
+
+  const handleKeyDownTrigger: preact.JSX.KeyboardEventHandler<
+    HTMLDivElement
+  > = (e) => {
+    if (disabled) return
+    const key = e.key
+    if (key === "Enter" || key === " " || key === "Spacebar") {
+      e.preventDefault()
+      if (!isOpen) openMenu()
+    }
   }
 
   const commitChange = (event: MouseEvent, nextValue: string) => {
@@ -129,6 +178,7 @@ const SelectComponent = (
       onClick={
         handleClickTrigger as unknown as preact.JSX.MouseEventHandler<HTMLDivElement>
       }
+      onKeyDown={handleKeyDownTrigger}
       {...rest}
     >
       {prefix && <div className="Select__prefix">{prefix}</div>}
@@ -149,7 +199,7 @@ const SelectComponent = (
         anchorRef={triggerRef as unknown as preact.RefObject<HTMLElement>}
         placement="over"
         open={isOpen}
-        onClose={() => setIsOpen(false)}
+        onClose={closeMenu}
       >
         <div
           ref={menuRef as unknown as preact.Ref<HTMLDivElement>}
@@ -164,7 +214,7 @@ const SelectComponent = (
               !!next && !t?.contains(next) && !(m?.contains(next) ?? false)
             if (!next || leavingBoth) {
               setIsFocused(false)
-              setIsOpen(false)
+              closeMenu()
               onBlur?.()
             }
           }}
