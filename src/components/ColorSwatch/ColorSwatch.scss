@@ -6,8 +6,11 @@
   flex-shrink: 0;
   flex-grow: 0;
   display: flex;
-  overflow: hidden;
   position: relative;
+
+  overflow: hidden;
+  isolation: isolate;
+  background-clip: padding-box;
 
   background-color: var(--pui-color-neutral-bg-swatch);
   background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAxMCAxMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgY2xpcC1wYXRoPSJ1cmwoI2NsaXAwXzEwMjc1NzNfMzI0MikiPgo8cmVjdCB3aWR0aD0iNSIgaGVpZ2h0PSI1IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg1KSIgZmlsbD0iYmxhY2siIGZpbGwtb3BhY2l0eT0iMC4xMiIvPgo8cmVjdCB3aWR0aD0iNSIgaGVpZ2h0PSI1IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwIDUpIiBmaWxsPSJibGFjayIgZmlsbC1vcGFjaXR5PSIwLjEyIi8+CjwvZz4KPGRlZnM+CjxjbGlwUGF0aCBpZD0iY2xpcDBfMTAyNzU3M18zMjQyIj4KPHJlY3Qgd2lkdGg9IjEwIiBoZWlnaHQ9IjEwIiBmaWxsPSJ3aGl0ZSIvPgo8L2NsaXBQYXRoPgo8L2RlZnM+Cjwvc3ZnPgo=");
@@ -51,6 +54,7 @@
     flex: 1 1 auto;
     width: 100%;
     height: 100%;
+    z-index: 1;
   }
 
   &__image {
