@@ -1,5 +1,5 @@
 import { bem, typedForwardRef } from "../../utils"
-import { useEffect, useRef, useState } from "preact/hooks"
+import { useCallback, useEffect, useRef, useState } from "preact/hooks"
 
 import type { SelectProps } from "./Select.types"
 import "./Select.scss"
@@ -42,10 +42,10 @@ const SelectComponent = (
   const triggerRef = useRef<HTMLDivElement>(null)
   const menuRef = useRef<HTMLDivElement>(null)
 
-  const focusTrigger = () => {
+  const focusTrigger = useCallback(() => {
     const t = triggerRef.current
     if (t) t.focus()
-  }
+  }, [])
 
   const openMenu = () => {
     if (disabled) return
@@ -58,14 +58,14 @@ const SelectComponent = (
     })
   }
 
-  const closeMenu = () => {
+  const closeMenu = useCallback(() => {
     setIsOpen(false)
     // Restore focus to the trigger to match expected behavior
     requestAnimationFrame(() => {
       focusTrigger()
       setIsFocused(true)
     })
-  }
+  }, [focusTrigger])
 
   const _className = bem("Select", undefined, {
     filled: hasContent,
@@ -103,7 +103,7 @@ const SelectComponent = (
     window.addEventListener("mousedown", handler, true)
 
     return () => window.removeEventListener("mousedown", handler, true)
-  }, [isOpen])
+  }, [isOpen, closeMenu])
 
   const handleFocusIn = () => {
     if (disabled) return
