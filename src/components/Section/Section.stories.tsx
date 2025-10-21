@@ -2,7 +2,7 @@ import { Meta, StoryObj } from "@storybook/preact"
 
 import { Section } from "./Section"
 
-import { Text } from "../../index"
+import { Text, Stack } from "../../index"
 
 const meta: Meta<typeof Section> = {
   title: "Components/Section",
@@ -19,8 +19,19 @@ const meta: Meta<typeof Section> = {
     className: {
       control: { type: "text" },
     },
+    variant: {
+      control: { type: "select" },
+      options: ["default", "stacked"],
+      defaultValue: { summary: "default" },
+      table: {
+        type: {
+          summary: "string",
+        },
+      },
+    },
     padding: {
       control: { disable: true },
+      defaultValue: { summary: "default" },
       description: `Custom padding for the section. Using the spacing variables names.
       <pre>
   padding?: {
@@ -71,6 +82,30 @@ export const Demo: Story = {
           culpa qui officia deserunt mollit anim id est laborum.
         </Text>
       </Section>
+    </div>
+  ),
+}
+
+export const Stacked: Story = {
+  render: () => (
+    <div className="sb-column sb-height-300">
+      <Stack direction="column" spacing={400} fullWidth>
+        <Section variant="default" className="sb-container">
+          <Text>Default Section</Text>
+        </Section>
+
+        <Stack direction="column" fullWidth>
+          <Section variant="stacked" className="sb-container">
+            <Text>Stacked Section</Text>
+          </Section>
+          <Section variant="stacked" className="sb-container">
+            <Text>Stacked Section</Text>
+          </Section>
+          <Section variant="stacked" className="sb-container">
+            <Text>Stacked Section</Text>
+          </Section>
+        </Stack>
+      </Stack>
     </div>
   ),
 }
