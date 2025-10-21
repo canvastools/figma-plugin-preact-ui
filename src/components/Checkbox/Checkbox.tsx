@@ -13,6 +13,8 @@ import { check as checkGlyph, mixed as mixedGlyph } from "../../index"
 const CheckboxComponent = (
   {
     className,
+    intent = "neutral",
+    intentModifiers = "default",
     checked,
     defaultChecked = false,
     mixed = false,
@@ -35,6 +37,7 @@ const CheckboxComponent = (
   }, [isControlled, checked])
 
   const _className = bem("Checkbox", undefined, {
+    intent: `${intent}-${intentModifiers}`,
     checked: isChecked,
     mixed,
     disabled,
@@ -93,8 +96,8 @@ const CheckboxComponent = (
           <div className="Checkbox__icon">
             <Icon
               glyph={checkGlyph}
-              intent="brand"
-              intentModifiers="default"
+              intent={intent}
+              intentModifiers={intentModifiers}
               interactive
               size={16}
             />
@@ -104,8 +107,8 @@ const CheckboxComponent = (
           <div className="Checkbox__icon">
             <Icon
               glyph={mixedGlyph}
-              intent="brand"
-              intentModifiers="default"
+              intent={intent}
+              intentModifiers={intentModifiers}
               interactive
               size={16}
             />
