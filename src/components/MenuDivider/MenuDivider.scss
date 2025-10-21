@@ -15,4 +15,14 @@
     width: 100%;
     background-color: var(--pui-color-neutral-inverted-fixed-border-default);
   }
+
+  &_variant {
+    &-full {
+      padding: var(--pui-spacing-200) 0;
+    }
+
+    &-inset {
+      padding: var(--pui-spacing-200) var(--pui-spacing-200);
+    }
+  }
 }

@@ -20,6 +20,11 @@ const meta: Meta<typeof MenuDivider> = {
     className: {
       control: { type: "text" },
     },
+    variant: {
+      control: { type: "radio" },
+      options: ["full", "inset"],
+      defaultValue: { summary: "full" },
+    },
   },
 }
 
@@ -27,8 +32,10 @@ export default meta
 type Story = StoryObj<typeof MenuDivider>
 
 export const Demo: Story = {
+  tags: ["!autodocs"],
   args: {
     className: "",
+    variant: "full",
   },
   parameters: {
     viewport: {
@@ -43,6 +50,25 @@ export const Demo: Story = {
         <MenuDivider {...args} />
         <MenuItem>Menu Item</MenuItem>
         <MenuItem>Menu Item</MenuItem>
+      </MenuContainer>
+    </div>
+  ),
+}
+
+export const Variant: Story = {
+  parameters: {
+    viewport: {
+      defaultViewport: "large",
+    },
+  },
+  render: () => (
+    <div className="sb-column sb-width-full">
+      <MenuContainer width={208}>
+        <MenuItem>Full divider below</MenuItem>
+        <MenuDivider variant="full" />
+        <MenuItem>Menu Item</MenuItem>
+        <MenuDivider variant="inset" />
+        <MenuItem>Inset divider above</MenuItem>
       </MenuContainer>
     </div>
   ),

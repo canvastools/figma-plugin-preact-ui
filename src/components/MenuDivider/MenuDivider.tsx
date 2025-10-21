@@ -6,10 +6,12 @@ import "./MenuDivider.scss"
 /* --- */
 
 const MenuDividerComponent = (
-  { className, ...rest }: MenuDividerProps,
+  { className, variant = "full", ...rest }: MenuDividerProps,
   ref: preact.Ref<HTMLDivElement>
 ) => {
-  const _className = bem("MenuDivider", undefined, undefined)
+  const _className = bem("MenuDivider", undefined, {
+    variant,
+  })
 
   return (
     <div
