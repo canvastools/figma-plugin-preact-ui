@@ -198,6 +198,7 @@ const SelectComponent = (
       <OverlayPositioner
         anchorRef={triggerRef as unknown as preact.RefObject<HTMLElement>}
         placement="over"
+        edgePadding={16}
         open={isOpen}
         onClose={closeMenu}
       >
