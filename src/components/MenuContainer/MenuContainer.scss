@@ -9,8 +9,8 @@
 
   overflow: hidden;
 
-  box-shadow: 0 4px 16px 1px var(--pui-color-shadow-menu-soft),
-    0 2px 4px 0 var(--pui-color-shadow-menu-hard),
-    0 -1px 0 0 var(--pui-color-shadow-menu-glare),
-    0 1px 0px 1px var(--pui-color-neutral-inverted-fixed-border-default);
+  box-shadow: 0 8px 20px 4px var(--pui-color-shadow-menu-soft),
+    0 2px 8px 0 var(--pui-color-shadow-menu-hard),
+    inset 0 1px 0 0.5px var(--pui-color-shadow-menu-glare),
+    inset 0 0 0 1px var(--pui-color-shadow-menu-glare);
 }
