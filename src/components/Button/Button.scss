@@ -6,27 +6,15 @@
     background-color: var(--pui-color-#{$intent}-bg-#{$modifiers}-interactive);
 
     &:hover {
-      @if $modifiers == "default" {
-        background-color: var(
-          --pui-color-#{$intent}-bg-#{$modifiers}-interactive-hover
-        );
-      } @else {
-        background-color: var(
-          --pui-color-#{$intent}-bg-#{$modifiers}-interactive-hover
-        );
-      }
+      background-color: var(
+        --pui-color-#{$intent}-bg-#{$modifiers}-interactive-hover
+      );
     }
 
     &:active {
-      @if $modifiers == "default" {
-        background-color: var(
-          --pui-color-#{$intent}-bg-#{$modifiers}-interactive-pressed
-        );
-      } @else {
-        background-color: var(
-          --pui-color-#{$intent}-bg-#{$modifiers}-interactive-pressed
-        );
-      }
+      background-color: var(
+        --pui-color-#{$intent}-bg-#{$modifiers}-interactive-pressed
+      );
     }
   }
 }
@@ -38,27 +26,15 @@
       var(--pui-color-#{$intent}-border-#{$modifiers}-interactive);
 
     &:hover {
-      @if $modifiers == "default" {
-        background-color: var(
-          --pui-color-#{$intent}-bg-#{$modifiers}-interactive-hover
-        );
-      } @else {
-        background-color: var(
-          --pui-color-#{$intent}-bg-#{$modifiers}-interactive-hover
-        );
-      }
+      background-color: var(
+        --pui-color-#{$intent}-bg-#{$modifiers}-interactive-hover
+      );
     }
 
     &:active {
-      @if $modifiers == "default" {
-        background-color: var(
-          --pui-color-#{$intent}-bg-#{$modifiers}-interactive-pressed
-        );
-      } @else {
-        background-color: var(
-          --pui-color-#{$intent}-bg-#{$modifiers}-interactive-pressed
-        );
-      }
+      background-color: var(
+        --pui-color-#{$intent}-bg-#{$modifiers}-interactive-pressed
+      );
     }
   }
 }
@@ -69,27 +45,15 @@
     box-shadow: none;
 
     &:hover {
-      @if $modifiers == "default" {
-        background-color: var(
-          --pui-color-#{$intent}-bg-#{$modifiers}-interactive-hover
-        );
-      } @else {
-        background-color: var(
-          --pui-color-#{$intent}-bg-#{$modifiers}-interactive-hover
-        );
-      }
+      background-color: var(
+        --pui-color-#{$intent}-bg-#{$modifiers}-interactive-hover
+      );
     }
 
     &:active {
-      @if $modifiers == "default" {
-        background-color: var(
-          --pui-color-#{$intent}-bg-#{$modifiers}-interactive-pressed
-        );
-      } @else {
-        background-color: var(
-          --pui-color-#{$intent}-bg-#{$modifiers}-interactive-pressed
-        );
-      }
+      background-color: var(
+        --pui-color-#{$intent}-bg-#{$modifiers}-interactive-pressed
+      );
     }
   }
 }
@@ -162,6 +126,7 @@
   }
 
   @include Button_intent-outlined("neutral", "default");
+  @include Button_intent-filled("neutral", "secondary");
   @include Button_intent-ghost("neutral", "default");
   @include Button_intent-outlined("neutral", "brand");
   @include Button_intent-ghost("neutral", "brand");
