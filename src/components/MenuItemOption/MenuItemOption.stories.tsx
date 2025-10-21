@@ -122,6 +122,7 @@ export const Demo: Story = {
 
 export const Uncontrolled: Story = {
   parameters: {
+    controls: { disable: true },
     viewport: {
       defaultViewport: "large",
     },
@@ -137,6 +138,7 @@ export const Uncontrolled: Story = {
 
 export const Controlled: Story = {
   parameters: {
+    controls: { disable: true },
     viewport: {
       defaultViewport: "large",
     },
@@ -164,6 +166,7 @@ export const Controlled: Story = {
 
 export const Disabled: Story = {
   parameters: {
+    controls: { disable: true },
     viewport: {
       defaultViewport: "large",
     },
@@ -181,6 +184,7 @@ export const Disabled: Story = {
 
 export const Suffix: Story = {
   parameters: {
+    controls: { disable: true },
     viewport: {
       defaultViewport: "large",
     },

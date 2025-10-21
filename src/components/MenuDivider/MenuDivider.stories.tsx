@@ -57,6 +57,7 @@ export const Demo: Story = {
 
 export const Variant: Story = {
   parameters: {
+    controls: { disable: true },
     viewport: {
       defaultViewport: "large",
     },

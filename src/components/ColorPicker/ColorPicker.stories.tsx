@@ -104,6 +104,7 @@ export const Demo: Story = {
 
 export const Uncontrolled: Story = {
   parameters: {
+    controls: { disable: true },
     viewport: {
       defaultViewport: "large",
     },
@@ -117,6 +118,7 @@ export const Uncontrolled: Story = {
 
 export const Controlled: Story = {
   parameters: {
+    controls: { disable: true },
     viewport: {
       defaultViewport: "large",
     },
@@ -149,6 +151,7 @@ export const Controlled: Story = {
 
 export const Type: Story = {
   parameters: {
+    controls: { disable: true },
     viewport: {
       defaultViewport: "large",
     },
@@ -177,6 +180,7 @@ export const Type: Story = {
 
 export const Controls: Story = {
   parameters: {
+    controls: { disable: true },
     viewport: {
       defaultViewport: "large",
     },
@@ -193,6 +197,7 @@ export const Controls: Story = {
 
 export const Types: Story = {
   parameters: {
+    controls: { disable: true },
     viewport: {
       defaultViewport: "large",
     },
@@ -214,6 +219,7 @@ export const Types: Story = {
 
 export const Width: Story = {
   parameters: {
+    controls: { disable: true },
     viewport: {
       defaultViewport: "large",
     },

@@ -261,7 +261,7 @@ export const _1: Story = {
 
             <TabPanel value="tab-1" fullHeight>
               <ScrollContainer>
-                <Section padding={{ bottom: "400" }}>
+                <Section variant="stacked">
                   <Stack direction="row" spacing="200" y="center">
                     <Text variant="heading">This is demo</Text>
                     <Badge intentModifiers="success">New!</Badge>

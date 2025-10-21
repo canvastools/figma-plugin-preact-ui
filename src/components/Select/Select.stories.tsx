@@ -127,6 +127,7 @@ export const Uncontrolled: Story = {
 
 export const Controlled: Story = {
   parameters: {
+    controls: { disable: true },
     viewport: {
       defaultViewport: "large",
     },
@@ -149,6 +150,7 @@ export const Controlled: Story = {
 
 export const Placeholder: Story = {
   parameters: {
+    controls: { disable: true },
     viewport: {
       defaultViewport: "large",
     },
@@ -162,6 +164,7 @@ export const Placeholder: Story = {
 
 export const Grouped: Story = {
   parameters: {
+    controls: { disable: true },
     viewport: {
       defaultViewport: "large",
     },
@@ -194,6 +197,7 @@ export const Grouped: Story = {
 
 export const Error: Story = {
   parameters: {
+    controls: { disable: true },
     viewport: {
       defaultViewport: "large",
     },
@@ -212,6 +216,7 @@ export const Error: Story = {
 
 export const Disabled: Story = {
   parameters: {
+    controls: { disable: true },
     viewport: {
       defaultViewport: "large",
     },
@@ -237,6 +242,7 @@ export const Disabled: Story = {
 
 export const Prefix: Story = {
   parameters: {
+    controls: { disable: true },
     viewport: {
       defaultViewport: "large",
     },
@@ -262,6 +268,7 @@ export const Prefix: Story = {
 
 export const MenuWidth: Story = {
   parameters: {
+    controls: { disable: true },
     viewport: {
       defaultViewport: "large",
     },
