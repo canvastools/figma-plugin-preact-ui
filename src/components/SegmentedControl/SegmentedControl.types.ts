@@ -1,7 +1,9 @@
+import { Glyph } from "../Icon/Icon.types"
+
 export interface SegmentedControlOption {
   value: string
   title: string
-  icon?: preact.VNode
+  icon?: Glyph | preact.ComponentChildren
 }
 
 export interface SegmentedControlProps {

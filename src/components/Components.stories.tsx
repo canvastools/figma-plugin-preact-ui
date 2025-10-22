@@ -41,7 +41,6 @@ import {
   Bar,
   Button,
   ButtonIcon,
-  ButtonIconToggle,
   Checkbox,
   Divider,
   Icon,
@@ -297,12 +296,12 @@ export const _1: Story = {
                           {
                             title: "List",
                             value: "list",
-                            icon: <Icon glyph={viewListGlyph} />,
+                            icon: viewListGlyph,
                           },
                           {
                             title: "Grid",
                             value: "grid",
-                            icon: <Icon glyph={viewGridGlyph} />,
+                            icon: viewGridGlyph,
                           },
                         ]}
                         defaultValue={"list"}

@@ -4,7 +4,6 @@ import { useState } from "preact/hooks"
 
 import { SegmentedControl } from "./SegmentedControl"
 
-import { Icon } from "../../index"
 import { Stack } from "../../index"
 import { Text } from "../../index"
 import { viewList as viewListGlyph } from "../../index"
@@ -27,7 +26,7 @@ const meta: Meta<typeof SegmentedControl> = {
       <pre>interface SegmentedControlOption {
   value: string
   title: string
-  icon?: preact.ComponentChildren
+  icon?: Glyph | preact.ComponentChildren
 }</pre>
       `,
     },
@@ -69,12 +68,12 @@ const sampleOptions = [
   {
     value: "list",
     title: "List view",
-    icon: <Icon glyph={viewListGlyph} />,
+    icon: viewListGlyph,
   },
   {
     value: "grid",
     title: "Grid view",
-    icon: <Icon glyph={viewGridGlyph} />,
+    icon: viewGridGlyph,
   },
 ]
 

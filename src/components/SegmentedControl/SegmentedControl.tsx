@@ -1,13 +1,14 @@
 import { bem, typedForwardRef } from "../../utils"
 import { useEffect, useMemo, useRef, useState } from "preact/hooks"
-import { cloneElement } from "preact"
 
 import type { SegmentedControlProps } from "./SegmentedControl.types"
 import "./SegmentedControl.scss"
 
+import type { Glyph } from "../Icon/Icon.types"
 import { OverlayPositioner } from "../../index"
 import { Tooltip } from "../../index"
 import { Text } from "../../index"
+import { Icon } from "../../index"
 
 /* --- */
 
@@ -88,6 +89,7 @@ const SegmentedControlComponent = (
       className={[_className, className].join(" ").trim()}
       ref={ref}
       onKeyDown={handleKeyDown}
+      {...rest}
     >
       {options.map((option, idx) => {
         const isActive = option.value === selectedValue
@@ -99,17 +101,6 @@ const SegmentedControlComponent = (
           selected: isActive,
           disabled,
         })
-
-        const icon =
-          option.icon &&
-          cloneElement(option.icon, {
-            intent: "neutral",
-            intentModifiers: "default",
-            variant: "default",
-            size: 24,
-            interactive: true,
-            disabled,
-          })
 
         return (
           <button
@@ -123,7 +114,23 @@ const SegmentedControlComponent = (
             onClick={(e) => commitChange(e as MouseEvent, option.value)}
             disabled={disabled}
           >
-            {icon}
+            {option.icon && (
+              <Icon
+                glyph={
+                  typeof option.icon === "function"
+                    ? (option.icon as Glyph)
+                    : undefined
+                }
+                intent="neutral"
+                intentModifiers="default"
+                variant="default"
+                size={24}
+                interactive={true}
+                disabled={disabled}
+              >
+                {typeof option.icon !== "function" ? option.icon : undefined}
+              </Icon>
+            )}
             {option.icon && (
               <OverlayPositioner
                 anchorRef={anchorRef as preact.RefObject<HTMLElement>}
