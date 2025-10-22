@@ -95,7 +95,7 @@ const InputComponent = (
   ) => {
     event.stopPropagation()
     onKeyDown?.({
-      event: event as unknown as KeyboardEvent,
+      event: event as KeyboardEvent,
       value: event.currentTarget.value,
     })
   }

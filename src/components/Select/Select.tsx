@@ -164,19 +164,15 @@ const SelectComponent = (
       className={[_className, className].join(" ").trim()}
       ref={(el) => {
         triggerRef.current = el as HTMLDivElement
-        if (typeof ref === "function") ref(el as unknown as HTMLDivElement)
+        if (typeof ref === "function") ref(el as HTMLDivElement)
         else if (ref && typeof ref === "object")
           ref.current = el as HTMLDivElement
       }}
       tabIndex={disabled ? -1 : 0}
-      onFocus={
-        handleFocusIn as unknown as preact.JSX.FocusEventHandler<HTMLDivElement>
-      }
-      onBlur={
-        handleFocusOut as unknown as preact.JSX.FocusEventHandler<HTMLDivElement>
-      }
+      onFocus={handleFocusIn as preact.JSX.FocusEventHandler<HTMLDivElement>}
+      onBlur={handleFocusOut as preact.JSX.FocusEventHandler<HTMLDivElement>}
       onClick={
-        handleClickTrigger as unknown as preact.JSX.MouseEventHandler<HTMLDivElement>
+        handleClickTrigger as preact.JSX.MouseEventHandler<HTMLDivElement>
       }
       onKeyDown={handleKeyDownTrigger}
       {...rest}
@@ -196,14 +192,14 @@ const SelectComponent = (
       </div>
 
       <OverlayPositioner
-        anchorRef={triggerRef as unknown as preact.RefObject<HTMLElement>}
+        anchorRef={triggerRef as preact.RefObject<HTMLElement>}
         placement="over"
         edgePadding={16}
         open={isOpen}
         onClose={closeMenu}
       >
         <div
-          ref={menuRef as unknown as preact.Ref<HTMLDivElement>}
+          ref={menuRef as preact.Ref<HTMLDivElement>}
           tabIndex={-1}
           onBlur={(e) => {
             if (disabled) return

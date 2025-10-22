@@ -213,7 +213,7 @@ const ScrollContainerComponent = (
       <div
         className="ScrollContainer__content"
         ref={contentRef}
-        onScroll={(e) => handleScroll(e as unknown as Event)}
+        onScroll={(e) => handleScroll(e as Event)}
       >
         {children}
       </div>
@@ -224,7 +224,7 @@ const ScrollContainerComponent = (
             height: `${thumbState.height}px`,
             transform: `translateY(${thumbState.top}px)`,
           }}
-          onMouseDown={(e) => handleThumbMouseDown(e as unknown as MouseEvent)}
+          onMouseDown={(e) => handleThumbMouseDown(e as MouseEvent)}
         />
       </div>
     </div>

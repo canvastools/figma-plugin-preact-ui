@@ -5,6 +5,7 @@ import { useState } from "preact/hooks"
 import { Select } from "./Select"
 
 import { Stack } from "../../index"
+import { Text } from "../../index"
 import { Icon } from "../../index"
 import { chevronDown as chevronDownGlyph } from "../../index"
 
@@ -114,6 +115,12 @@ export const Demo: Story = {
 }
 
 export const Uncontrolled: Story = {
+  parameters: {
+    controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
+  },
   render: () => (
     <div className="sb-column sb-width-300">
       <Select
@@ -137,12 +144,15 @@ export const Controlled: Story = {
 
     return (
       <div className="sb-column sb-width-300">
-        <Select
-          placeholder="Choose an option"
-          options={sampleOptions}
-          value={value}
-          onChange={(e) => setValue(e.value)}
-        />
+        <Stack spacing={400}>
+          <Text>Value: {value}</Text>
+          <Select
+            placeholder="Choose an option"
+            options={sampleOptions}
+            value={value}
+            onChange={(e) => setValue(e.value)}
+          />
+        </Stack>
       </div>
     )
   },

@@ -14,7 +14,7 @@ import { StickySimulation as StickyBarPosition } from "./Bar/Bar.stories"
 import { Prefix as ButtonPrefix } from "./Button/Button.stories"
 import { Intent as ButtonIconIntent } from "./ButtonIcon/ButtonIcon.stories"
 import { Intent as ButtonIconToggleIntent } from "./ButtonIconToggle/ButtonIconToggle.stories"
-import { Checked as CheckboxChecked } from "./Checkbox/Checkbox.stories"
+import { Intent as CheckboxIntent } from "./Checkbox/Checkbox.stories"
 import { Demo as ColorPickerDemo } from "./ColorPicker/ColorPicker.stories"
 import { Variant as DividerVariant } from "./Divider/Divider.stories"
 import { Glyphs as IconGlyphs } from "./Icon/Icon.stories"
@@ -24,7 +24,8 @@ import { Suffix as MenuItemSuffix } from "./MenuItem/MenuItem.stories"
 import { Suffix as MenuItemOptionSuffix } from "./MenuItemOption/MenuItemOption.stories"
 import { Size as PopoverSize } from "./Popover/Popover.stories"
 import { Demo as ScrollContextDemo } from "./ScrollContext/ScrollContext.stories"
-import { Demo as SectionDemo } from "./Section/Section.stories"
+import { Stacked as SectionStacked } from "./Section/Section.stories"
+import { Demo as SegmentedControlDemo } from "./SegmentedControl/SegmentedControl.stories"
 import { Uncontrolled as SelectDemo } from "./Select/Select.stories"
 import { Demo as SpacerDemo } from "./Spacing/Spacing.stories"
 import { Demo as SpinnerDemo } from "./Spinner/Spinner.stories"
@@ -59,6 +60,7 @@ import {
   ScrollContext,
   OverlayPositioner,
   Section,
+  SegmentedControl,
   Spacing,
   Spinner,
   Stack,
@@ -127,7 +129,6 @@ export const _1: Story = {
   render: () => {
     const [items, setItems] = useState(sampleItemsPlain)
     const [selectedItems, setSelectedItems] = useState<string[]>([])
-    const [view, setView] = useState<"viewGrid" | "viewList">("viewList")
     const anchorRefMenu = useRef<HTMLButtonElement | null>(null)
     const [openMenu, setOpenMenu] = useState(false)
 
@@ -291,22 +292,21 @@ export const _1: Story = {
                         ]}
                         value={"incomplete"}
                       />
-                      <Stack direction="row" spacing="100">
-                        <ButtonIconToggle
-                          ghost
-                          onChange={() => setView("viewList")}
-                          selected={view === "viewList"}
-                        >
-                          <Icon glyph={viewListGlyph} />
-                        </ButtonIconToggle>
-                        <ButtonIconToggle
-                          ghost
-                          onChange={() => setView("viewGrid")}
-                          selected={view === "viewGrid"}
-                        >
-                          <Icon glyph={viewGridGlyph} />
-                        </ButtonIconToggle>
-                      </Stack>
+                      <SegmentedControl
+                        options={[
+                          {
+                            title: "List",
+                            value: "list",
+                            icon: <Icon glyph={viewListGlyph} />,
+                          },
+                          {
+                            title: "Grid",
+                            value: "grid",
+                            icon: <Icon glyph={viewGridGlyph} />,
+                          },
+                        ]}
+                        defaultValue={"list"}
+                      />
                     </Stack>
                   </Stack>
                 </Section>
@@ -370,7 +370,7 @@ export const _Bar = StickyBarPosition
 export const _Button = ButtonPrefix
 export const _ButtonIcon = ButtonIconIntent
 export const _ButtonIconToggle = ButtonIconToggleIntent
-export const _Checkbox = CheckboxChecked
+export const _Checkbox = CheckboxIntent
 ColorPickerDemo.tags = []
 export const _ColorPicker = ColorPickerDemo
 export const _Divider = DividerVariant
@@ -382,7 +382,9 @@ export const _MenuItem = MenuItemSuffix
 export const _MenuItemOption = MenuItemOptionSuffix
 export const _Popover = PopoverSize
 export const _ScrollContext = ScrollContextDemo
-export const _Section = SectionDemo
+export const _Section = SectionStacked
+SegmentedControlDemo.tags = []
+export const _SegmentedControl = SegmentedControlDemo
 export const _Select = SelectDemo
 export const _Spacing = SpacerDemo
 export const _Spinner = SpinnerDemo
