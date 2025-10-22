@@ -122,7 +122,7 @@ const SegmentedControlComponent = (
                     : undefined
                 }
                 intent="neutral"
-                intentModifiers="default"
+                intentModifiers={isActive ? "default" : "secondary"}
                 variant="default"
                 size={24}
                 interactive={true}
@@ -149,7 +149,7 @@ const SegmentedControlComponent = (
             {!option.icon && (
               <Text
                 intent="neutral"
-                intentModifiers="default"
+                intentModifiers={isActive ? "default" : "secondary"}
                 interactive
                 disabled={disabled}
               >

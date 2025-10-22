@@ -201,6 +201,7 @@ const intentCombinations = () => {
       ["default", true, true],
 
       ["secondary", false, false],
+      ["secondary", true, false],
 
       ["brand", false, false],
       ["brand", true, false],
