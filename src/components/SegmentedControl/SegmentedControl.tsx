@@ -100,6 +100,7 @@ const SegmentedControlComponent = (
         const itemClassName = bem("SegmentedControl", "item", {
           selected: isActive,
           disabled,
+          icon: Boolean(option.icon),
         })
 
         return (
