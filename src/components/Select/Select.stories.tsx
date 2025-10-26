@@ -7,7 +7,7 @@ import { Select } from "./Select"
 import { Stack } from "../../index"
 import { Text } from "../../index"
 import { Icon } from "../../index"
-import { chevronDown as chevronDownGlyph } from "../../index"
+import { search as searchGlyph } from "../../index"
 
 const meta: Meta<typeof Select> = {
   title: "Components/Select",
@@ -18,7 +18,7 @@ const meta: Meta<typeof Select> = {
     options: {
       table: {
         type: {
-          summary: "SelectOption[]",
+          summary: "SelectOption[] | SelectOption[][]",
         },
       },
       control: { disable: true },
@@ -85,6 +85,19 @@ const sampleOptions = [
   { value: "opt-1", label: "Option one" },
   { value: "opt-2", label: "Option two" },
   { value: "opt-3", label: "Option three" },
+]
+
+const sampleOptionsWithGroups = [
+  [
+    { value: "opt-1", label: "Option one" },
+    { value: "opt-2", label: "Option two" },
+    { value: "opt-3", label: "Option three" },
+  ],
+  [
+    { value: "opt-4", label: "Option four" },
+    { value: "opt-5", label: "Option five" },
+    { value: "opt-6", label: "Option six" },
+  ],
 ]
 
 export const Demo: Story = {
@@ -205,6 +218,25 @@ export const Grouped: Story = {
   ),
 }
 
+export const GroupedOptions: Story = {
+  parameters: {
+    controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
+  },
+  render: () => (
+    <div className="sb-column sb-width-300">
+      <Select
+        options={sampleOptionsWithGroups}
+        placeholder="Choose an option"
+        defaultValue="opt-1"
+        grouped="right"
+      />
+    </div>
+  ),
+}
+
 export const Error: Story = {
   parameters: {
     controls: { disable: true },
@@ -265,7 +297,7 @@ export const Prefix: Story = {
         defaultValue="opt-1"
         prefix={
           <Icon
-            glyph={chevronDownGlyph}
+            glyph={searchGlyph}
             intent="neutral"
             intentModifiers="secondary"
             variant="scaled"

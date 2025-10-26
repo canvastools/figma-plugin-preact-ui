@@ -1,11 +1,13 @@
 import { bem, typedForwardRef } from "../../utils"
 import { useCallback, useEffect, useRef, useState } from "preact/hooks"
+import { Fragment } from "preact"
 
-import type { SelectProps } from "./Select.types"
+import type { SelectProps, SelectOption } from "./Select.types"
 import "./Select.scss"
 import { OverlayPositioner } from "../OverlayPositioner/OverlayPositioner"
 import { MenuContainer } from "../MenuContainer/MenuContainer"
 import { MenuItemOption } from "../MenuItemOption/MenuItemOption"
+import { MenuDivider } from "../MenuDivider/MenuDivider"
 import { Icon } from "../../index"
 import { chevronDown as chevronDownGlyph } from "../../index"
 
@@ -37,7 +39,18 @@ const SelectComponent = (
   )
   const hasContent = Boolean((value ?? internalValue ?? "").length)
 
-  const items = options ?? []
+  // Normalize options into groups: either a single group (flat list) or multiple groups
+  const groups = (() => {
+    const opts = options ?? []
+    if (
+      Array.isArray(opts) &&
+      opts.length > 0 &&
+      Array.isArray((opts as any)[0])
+    ) {
+      return opts as SelectOption[][]
+    }
+    return [opts as SelectOption[]]
+  })()
 
   const triggerRef = useRef<HTMLDivElement>(null)
   const menuRef = useRef<HTMLDivElement>(null)
@@ -79,7 +92,16 @@ const SelectComponent = (
   })
 
   const selectedValue = value !== undefined ? value : internalValue
-  const selectedOption = items.find((o) => o.value === selectedValue)
+  const selectedOption = (() => {
+    for (let gi = 0; gi < groups.length; gi++) {
+      const group = groups[gi]
+      for (let oi = 0; oi < group.length; oi++) {
+        const opt = group[oi]
+        if (opt.value === selectedValue) return opt
+      }
+    }
+    return undefined
+  })()
 
   useEffect(() => {
     if (value !== undefined) {
@@ -217,14 +239,19 @@ const SelectComponent = (
           }}
         >
           <MenuContainer width={menuWidth}>
-            {items.map((opt) => (
-              <MenuItemOption
-                key={opt.value}
-                selected={opt.value === selectedValue}
-                onChange={({ event }) => commitChange(event, opt.value)}
-              >
-                {opt.label}
-              </MenuItemOption>
+            {groups.map((group, groupIndex) => (
+              <Fragment key={`group-${groupIndex}`}>
+                {groupIndex > 0 ? <MenuDivider variant="inset" /> : null}
+                {group.map((opt) => (
+                  <MenuItemOption
+                    key={`${groupIndex}-${opt.value}`}
+                    selected={opt.value === selectedValue}
+                    onChange={({ event }) => commitChange(event, opt.value)}
+                  >
+                    {opt.label}
+                  </MenuItemOption>
+                ))}
+              </Fragment>
             ))}
           </MenuContainer>
         </div>
