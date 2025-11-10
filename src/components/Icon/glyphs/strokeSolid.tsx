@@ -1,0 +1,30 @@
+import { GlyphProps } from "../Icon.types"
+
+export const strokeSolid = ({ variant, size }: GlyphProps) => {
+  const combination = size + "_" + variant
+
+  switch (combination) {
+    case "24_default":
+      return (
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M5 11.5C5 11.2239 5.22386 11 5.5 11H18.5C18.7761 11 19 11.2239 19 11.5C19 11.7761 18.7761 12 18.5 12H5.5C5.22386 12 5 11.7761 5 11.5Z"
+            fill="currentColor"
+          />
+        </svg>
+      )
+
+    default:
+      throw new Error(
+        `strokeSolid icon error: Unsupported combination size=${size}, variant=${variant}`
+      )
+  }
+}
