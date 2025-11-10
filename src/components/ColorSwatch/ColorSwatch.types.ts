@@ -3,10 +3,12 @@ export interface ColorSwatchProps {
   size?: "small" | "medium" | "large"
   hex?: string
   imageSrc?: string
-  wheel?: boolean
+  borderColor?: string
   hoverable?: boolean
   selected?: boolean
+  selection?: "default" | "rainbow"
   title?: string
+  children?: preact.ComponentChildren
   onClick?: (args: {
     event: MouseEvent
     hex: string | undefined

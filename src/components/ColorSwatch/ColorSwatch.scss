@@ -18,7 +18,7 @@
         border-radius: var(--pui-radius-small);
       }
 
-      &:is(#{$parent}_wheel):after {
+      &:is(#{$parent}_selection-rainbow):after {
         border-radius: calc(var(--pui-radius-small) + 2px);
       }
     }
@@ -32,7 +32,7 @@
         border-radius: var(--pui-radius-small);
       }
 
-      &:is(#{$parent}_wheel):after {
+      &:is(#{$parent}_selection-rainbow):after {
         border-radius: calc(var(--pui-radius-small) + 2px);
       }
     }
@@ -46,7 +46,7 @@
         border-radius: var(--pui-radius-medium);
       }
 
-      &:is(#{$parent}_wheel):after {
+      &:is(#{$parent}_selection-rainbow):after {
         border-radius: calc(var(--pui-radius-small) + 4px);
       }
     }
@@ -54,6 +54,7 @@
 
   &__container {
     position: absolute;
+    display: flex;
     top: 0;
     left: 0;
     width: 100%;
@@ -90,8 +91,7 @@
     z-index: 2;
   }
 
-  &__image,
-  &__wheel {
+  &__image {
     position: absolute;
     top: 0;
     left: 0;
@@ -101,6 +101,15 @@
     background-position: center;
     background-repeat: no-repeat;
     z-index: 3;
+  }
+
+  &__children {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 4;
   }
 
   &_hoverable:not(&_selected) {
@@ -119,8 +128,8 @@
     }
   }
 
-  &_selected:is(&_wheel):is(&_hasHex),
-  &_selected:is(&_wheel):is(&_hasImage) {
+  &_selected:is(&_selection-rainbow),
+  &_selected:is(&_selection-rainbow) {
     box-shadow: none;
 
     &:after {
