@@ -10,7 +10,7 @@ import { Stack } from "../../index"
 import { link as linkGlyph } from "../../index"
 
 const meta: Meta<typeof ButtonIconToggle> = {
-  title: "Components/ButtonIcon/ButtonIconToggle",
+  title: "Components/ButtonIconToggle",
   component: ButtonIconToggle,
   tags: ["autodocs"],
   parameters: {
