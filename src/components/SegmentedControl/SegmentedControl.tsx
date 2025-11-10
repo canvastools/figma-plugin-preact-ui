@@ -86,7 +86,7 @@ const SegmentedControlComponent = (
 
   return (
     <div
-      className={[_className, className].join(" ").trim()}
+      className={[_className, className, "no-drag"].join(" ").trim()}
       ref={ref}
       onKeyDown={handleKeyDown}
       {...rest}

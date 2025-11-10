@@ -247,7 +247,7 @@ const ListContainerComponent = (
 
   return (
     <div
-      className={[_className, className].join(" ").trim()}
+      className={[_className, className, "no-drag"].join(" ").trim()}
       ref={(node) => {
         rootRef.current = node
         if (typeof ref === "function") ref(node as HTMLDivElement)

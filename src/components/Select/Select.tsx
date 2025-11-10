@@ -183,7 +183,7 @@ const SelectComponent = (
 
   return (
     <div
-      className={[_className, className].join(" ").trim()}
+      className={[_className, className, "no-drag"].join(" ").trim()}
       ref={(el) => {
         triggerRef.current = el as HTMLDivElement
         if (typeof ref === "function") ref(el as HTMLDivElement)

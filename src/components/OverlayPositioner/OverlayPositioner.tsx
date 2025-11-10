@@ -328,6 +328,7 @@ const OverlayPositionerComponent = ({
   edgePadding = 0,
   trigger = "click",
   visibilityDelay = 0,
+  draggable = false,
   open,
   defaultOpen = false,
   closeOnOutsideClick = true,
@@ -341,6 +342,7 @@ const OverlayPositionerComponent = ({
   const [coords, setCoords] = useState<Coords>({ top: 0, left: 0 })
   const [isReady, setIsReady] = useState<boolean>(false)
   const [arrowData, setArrowData] = useState<ArrowData | null>(null)
+  const [manualPos, setManualPos] = useState<Coords | null>(null)
   const [internalOpen, setInternalOpen] = useState<boolean>(defaultOpen)
   const isControlled = typeof open === "boolean"
   const isOpen = isControlled ? (open as boolean) : internalOpen
@@ -408,6 +410,11 @@ const OverlayPositionerComponent = ({
       recompute()
     }
   }, [isOpen, recompute])
+
+  // Reset manual drag position whenever overlay closes
+  useEffect(() => {
+    if (!isOpen) setManualPos(null)
+  }, [isOpen])
 
   useEffect(() => {
     if (!isOpen) return
@@ -527,9 +534,12 @@ const OverlayPositionerComponent = ({
     }
   }, [isControlled, trigger, anchorRef, visibilityDelay])
 
+  const effectiveTop = (manualPos ? manualPos.top : coords.top) || 0
+  const effectiveLeft = (manualPos ? manualPos.left : coords.left) || 0
+
   const style: preact.JSX.CSSProperties = {
-    top: `${coords.top}px`,
-    left: `${coords.left}px`,
+    top: `${effectiveTop}px`,
+    left: `${effectiveLeft}px`,
     visibility: isReady ? "visible" : "hidden",
     pointerEvents: isReady ? undefined : "none",
   }
@@ -552,11 +562,72 @@ const OverlayPositionerComponent = ({
     return <div className="OverlayPositioner__arrow" style={styleArrow}></div>
   })()
 
+  const isInteractiveElement = (node: HTMLElement | null): boolean => {
+    if (!node) return false
+    const container = containerRef.current
+    let el: HTMLElement | null = node
+    const interactiveSelector = [
+      "button",
+      "input",
+      "select",
+      "textarea",
+      "a[href]",
+      "canvas",
+      "video",
+      "audio",
+      ".no-drag",
+    ].join(",")
+    if (
+      (node as HTMLElement).closest &&
+      (node as HTMLElement).closest(interactiveSelector)
+    ) {
+      return true
+    }
+    // Walk up until container to detect tabbable ancestors
+    while (el && container && el !== container) {
+      const ti = el.getAttribute && el.getAttribute("tabindex")
+      if (
+        ti != null &&
+        ti !== "" &&
+        !Number.isNaN(Number(ti)) &&
+        Number(ti) >= 0
+      ) {
+        return true
+      }
+      el = el.parentElement
+    }
+    return false
+  }
+
+  const handleMouseDown = (e: MouseEvent) => {
+    if (!draggable) return
+    if (e.button !== 0) return
+    const target = e.target as HTMLElement | null
+    if (isInteractiveElement(target)) return
+    e.preventDefault()
+    const startLeft = manualPos ? manualPos.left : coords.left
+    const startTop = manualPos ? manualPos.top : coords.top
+    const startMouseX = e.clientX
+    const startMouseY = e.clientY
+    const onMove = (ev: MouseEvent) => {
+      const dx = ev.clientX - startMouseX
+      const dy = ev.clientY - startMouseY
+      setManualPos({ left: startLeft + dx, top: startTop + dy })
+    }
+    const onUp = () => {
+      window.removeEventListener("mousemove", onMove)
+      window.removeEventListener("mouseup", onUp)
+    }
+    window.addEventListener("mousemove", onMove)
+    window.addEventListener("mouseup", onUp)
+  }
+
   const content = (
     <div
       className={[_className, className].join(" ").trim()}
       ref={containerRef}
       style={style}
+      onMouseDown={(e) => handleMouseDown(e as unknown as MouseEvent)}
     >
       {arrowComponent}
       {children}

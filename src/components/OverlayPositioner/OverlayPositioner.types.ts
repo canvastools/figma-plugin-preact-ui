@@ -22,6 +22,7 @@ export interface OverlayPositionerProps {
   placementFallback?: false | OverlayPlacement[]
   trigger?: "click" | "hover"
   visibilityDelay?: number
+  draggable?: boolean
   paddingX?: number
   paddingY?: number
   edgePadding?: number

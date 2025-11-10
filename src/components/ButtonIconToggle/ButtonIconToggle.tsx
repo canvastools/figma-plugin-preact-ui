@@ -51,7 +51,7 @@ const ButtonIconToggleComponent = (
 
   return (
     <ButtonIcon
-      className={[isSelected ? "ButtonIcon_selected" : "", className]
+      className={[isSelected ? "ButtonIcon_selected" : "", className, "no-drag"]
         .join(" ")
         .trim()}
       ref={ref}

@@ -371,7 +371,7 @@ const ListItemComponent = (
 
   return (
     <div
-      className={[_className, className].join(" ").trim()}
+      className={[_className, className, "no-drag"].join(" ").trim()}
       ref={(node) => {
         selfRef.current = node
         if (typeof ref === "function") ref(node as HTMLDivElement)
