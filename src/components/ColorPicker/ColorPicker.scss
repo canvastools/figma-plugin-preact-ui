@@ -3,6 +3,8 @@
 .ColorPicker {
   $parent: &;
 
+  position: relative;
+
   & .react-colorful {
     width: 100%;
     height: auto;
@@ -35,9 +37,10 @@
       }
     }
 
-    & .react-colorful__interactive {
-      width: calc(100% - 16px);
+    & .react-colorful__hue .react-colorful__interactive,
+    & .react-colorful__alpha .react-colorful__interactive {
       left: 8px;
+      right: 8px;
     }
   }
 
