@@ -181,6 +181,7 @@ export {
   copy,
   corners,
   dragHandle,
+  eyeDropper,
   duplicate,
   filter,
   filterFilled,

@@ -19,6 +19,9 @@ import {
   HexAlphaColorPicker,
 } from "react-colorful"
 
+import { eyeDropper } from "../../index"
+import { ButtonIconToggle } from "../../index"
+import { Icon } from "../../index"
 import { Input } from "../../index"
 import { Text } from "../../index"
 import { Select } from "../../index"
@@ -493,6 +496,31 @@ const ColorPickerComponent = (
   const currentColor = isControlled && value ? value : internalColor
   const currentType: ColorPickerType = internalType
 
+  // Eyedropper state
+  const [eyedropperActive, setEyedropperActive] = useState(false)
+  const bodyCursorPrevRef = useRef<string>("")
+
+  const startEyedropper = async () => {
+    try {
+      const EyeDropperCtor = (window as any).EyeDropper
+      if (!EyeDropperCtor) return
+      setEyedropperActive(true)
+      // change cursor
+      bodyCursorPrevRef.current = document.body.style.cursor
+      document.body.style.cursor = "crosshair"
+      const dropper = new EyeDropperCtor()
+      const result = (await dropper.open()) as { sRGBHex: string }
+      const hex = (result?.sRGBHex || "").replace(/^#/, "")
+      const next = hexToColor(hex, 1)
+      if (next) scheduleNextColor({ ...next, a: 1 })
+    } catch {
+      // cancelled or failed; ignore
+    } finally {
+      document.body.style.cursor = bodyCursorPrevRef.current
+      setEyedropperActive(false)
+    }
+  }
+
   // --- High-frequency update scheduler (one update per frame) ---
   const pendingColorRef = useRef<Color | null>(null)
   const rafIdRef = useRef<number | null>(null)
@@ -598,6 +626,14 @@ const ColorPickerComponent = (
           }}
         />
       )}
+      <ButtonIconToggle
+        className="ColorPicker__eyedropper"
+        ghost
+        selected={eyedropperActive}
+        onChange={() => startEyedropper()}
+      >
+        <Icon glyph={eyeDropper} variant="scaled" />
+      </ButtonIconToggle>
       {controls && (
         <div className="ColorPicker__controls">
           {currentType === "hex" && (

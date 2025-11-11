@@ -3,6 +3,8 @@
 .ColorPicker {
   $parent: &;
 
+  position: relative;
+
   & .react-colorful {
     width: 100%;
     height: auto;
@@ -24,20 +26,46 @@
     & .react-colorful__hue {
       height: 16px;
       border-radius: 16px;
+      margin-left: calc(12px + 24px);
     }
 
     & .react-colorful__alpha {
       height: 16px;
       border-radius: 16px;
+      margin-left: calc(12px + 24px);
 
       & .react-colorful__pointer-fill {
         display: none;
       }
     }
 
-    & .react-colorful__interactive {
-      width: calc(100% - 16px);
+    & .react-colorful__hue .react-colorful__interactive,
+    & .react-colorful__alpha .react-colorful__interactive {
       left: 8px;
+      right: 8px;
+    }
+  }
+
+  &_type-hex:not(&_controls) {
+    padding-bottom: 4px;
+  }
+
+  &_controls {
+    padding-bottom: 0;
+  }
+
+  &__eyedropper {
+    position: absolute;
+    top: calc(207px + 8px);
+    left: 0;
+
+    #{$parent}_type-rgba &,
+    #{$parent}_type-hexAlpha & {
+      top: calc(207px + 8px + 12px);
+    }
+
+    #{$parent}_type-hex & {
+      top: calc(207px + 8px);
     }
   }
 
