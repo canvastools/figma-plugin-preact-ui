@@ -51,6 +51,7 @@ const ColorSwatchComponent = (
         if (typeof ref === "function") {
           ref(el)
         } else if (ref) {
+          // eslint-disable-next-line
           ;(ref as preact.RefObject<HTMLDivElement>).current = el
         }
         anchorRef.current = el

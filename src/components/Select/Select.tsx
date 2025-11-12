@@ -45,7 +45,7 @@ const SelectComponent = (
     if (
       Array.isArray(opts) &&
       opts.length > 0 &&
-      Array.isArray((opts as any)[0])
+      Array.isArray((opts as unknown[])[0])
     ) {
       return opts as SelectOption[][]
     }
