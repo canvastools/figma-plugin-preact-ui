@@ -1,6 +1,24 @@
 @use "../../shared.scss" as *;
 @use "../../mixins.scss" as *;
 
+@mixin Button_intent-filled($intent, $modifiers) {
+  &_intent-#{$intent}-#{$modifiers} {
+    background-color: var(--pui-color-#{$intent}-bg-#{$modifiers}-interactive);
+
+    &:hover {
+      background-color: var(
+        --pui-color-#{$intent}-bg-#{$modifiers}-interactive-hover
+      );
+    }
+
+    &:active {
+      background-color: var(
+        --pui-color-#{$intent}-bg-#{$modifiers}-interactive-pressed
+      );
+    }
+  }
+}
+
 @mixin ButtonIcon_intent-outlined($intent, $modifiers) {
   &_intent-#{$intent}-#{$modifiers} {
     background-color: var(--pui-color-#{$intent}-bg-#{$modifiers}-interactive);
@@ -8,27 +26,15 @@
       var(--pui-color-#{$intent}-border-#{$modifiers}-interactive);
 
     &:hover {
-      @if $modifiers == "default" {
-        background-color: var(
-          --pui-color-#{$intent}-bg-#{$modifiers}-interactive-hover
-        );
-      } @else {
-        background-color: var(
-          --pui-color-#{$intent}-bg-#{$modifiers}-interactive-hover
-        );
-      }
+      background-color: var(
+        --pui-color-#{$intent}-bg-#{$modifiers}-interactive-hover
+      );
     }
 
     &:active {
-      @if $modifiers == "default" {
-        background-color: var(
-          --pui-color-#{$intent}-bg-#{$modifiers}-interactive-pressed
-        );
-      } @else {
-        background-color: var(
-          --pui-color-#{$intent}-bg-#{$modifiers}-interactive-pressed
-        );
-      }
+      background-color: var(
+        --pui-color-#{$intent}-bg-#{$modifiers}-interactive-pressed
+      );
     }
   }
 }
@@ -39,27 +45,15 @@
     box-shadow: none;
 
     &:hover {
-      @if $modifiers == "default" {
-        background-color: var(
-          --pui-color-#{$intent}-bg-#{$modifiers}-interactive-hover
-        );
-      } @else {
-        background-color: var(
-          --pui-color-#{$intent}-bg-#{$modifiers}-interactive-hover
-        );
-      }
+      background-color: var(
+        --pui-color-#{$intent}-bg-#{$modifiers}-interactive-hover
+      );
     }
 
     &:active {
-      @if $modifiers == "default" {
-        background-color: var(
-          --pui-color-#{$intent}-bg-#{$modifiers}-interactive-pressed
-        );
-      } @else {
-        background-color: var(
-          --pui-color-#{$intent}-bg-#{$modifiers}-interactive-pressed
-        );
-      }
+      background-color: var(
+        --pui-color-#{$intent}-bg-#{$modifiers}-interactive-pressed
+      );
     }
   }
 }
@@ -97,7 +91,7 @@
     justify-content: center;
     align-items: center;
     text-overflow: ellipsis;
-    overflow: hidden;
+    overflow: visible;
     white-space: nowrap;
   }
 
@@ -133,6 +127,7 @@
   }
 
   @include ButtonIcon_intent-outlined("neutral", "default");
+  @include Button_intent-filled("neutral", "secondary");
   @include ButtonIcon_intent-ghost("neutral", "default");
   @include ButtonIcon_intent-translucent("neutral", "default");
 

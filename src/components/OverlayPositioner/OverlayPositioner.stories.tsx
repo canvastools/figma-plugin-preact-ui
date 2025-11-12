@@ -103,6 +103,17 @@ const meta: Meta<typeof OverlayPositioner> = {
         },
       },
     },
+    draggable: {
+      control: { type: "boolean" },
+      defaultValue: { summary: false },
+      description:
+        "Allow the overlay to be dragged. `.no-drag` class can be applied to the elements inside the overlay to prevent drag initiation.",
+      table: {
+        type: {
+          summary: "boolean",
+        },
+      },
+    },
     trigger: {
       control: { type: "radio" },
       options: ["click", "hover"],
@@ -196,6 +207,7 @@ export const Demo: Story = {
     placementFallback: false,
     trigger: "click",
     visibilityDelay: 0,
+    draggable: false,
     paddingX: 0,
     paddingY: 0,
     edgePadding: 0,
@@ -574,6 +586,49 @@ export const Placement: Story = {
               </Popover>
             </OverlayPositioner>
           </Stack>
+        </Stack>
+      </div>
+    )
+  },
+}
+
+export const Draggable: Story = {
+  parameters: {
+    controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
+  },
+  render: () => {
+    const [open, setOpen] = useState(false)
+    const anchorRef = useRef<HTMLButtonElement | null>(null)
+
+    return (
+      <div className="sb-column sb-width-full">
+        <Stack spacing={200}>
+          <Button ref={anchorRef} onClick={() => setOpen((v) => !v)}>
+            Show Popover
+          </Button>
+
+          <OverlayPositioner
+            anchorRef={anchorRef}
+            open={open}
+            onClose={() => setOpen(false)}
+            paddingY={8}
+            draggable={true}
+          >
+            <Popover width={300}>
+              <Section>
+                <Text>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui
+                  quae autem dolorum quibusdam necessitatibus natus, ipsa
+                  aperiam eos animi id nam tenetur adipisci? Amet nisi
+                  doloremque asperiores quisquam, repudiandae similique magnam
+                  aspernatur esse dignissimos molestiae.
+                </Text>
+              </Section>
+            </Popover>
+          </OverlayPositioner>
         </Stack>
       </div>
     )

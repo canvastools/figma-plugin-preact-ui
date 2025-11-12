@@ -5,7 +5,7 @@ export interface SelectOption {
 
 export interface SelectProps {
   className?: string
-  options?: SelectOption[]
+  options?: SelectOption[] | SelectOption[][]
   placeholder?: string
   defaultValue?: string
   value?: string

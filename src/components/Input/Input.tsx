@@ -95,7 +95,7 @@ const InputComponent = (
   ) => {
     event.stopPropagation()
     onKeyDown?.({
-      event: event as unknown as KeyboardEvent,
+      event: event as KeyboardEvent,
       value: event.currentTarget.value,
     })
   }
@@ -115,7 +115,10 @@ const InputComponent = (
   }
 
   return (
-    <div className={[_className, className].join(" ").trim()} {...rest}>
+    <div
+      className={[_className, className, "no-drag"].join(" ").trim()}
+      {...rest}
+    >
       {prefix && <div className="Input__prefix">{prefix}</div>}
       <input
         className="Input__input-native"

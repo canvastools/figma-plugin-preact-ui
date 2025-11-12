@@ -90,6 +90,7 @@ export const Demo: Story = {
 
 export const OverlayMenu: Story = {
   parameters: {
+    controls: { disable: true },
     viewport: {
       defaultViewport: "large",
     },
@@ -122,6 +123,7 @@ export const OverlayMenu: Story = {
 
 export const NestedMenu: Story = {
   parameters: {
+    controls: { disable: true },
     viewport: {
       defaultViewport: "large",
     },

@@ -15,6 +15,16 @@ const meta: Meta<typeof Checkbox> = {
     className: {
       control: { type: "text" },
     },
+    intent: {
+      control: { type: "radio" },
+      options: ["neutral", "brand"],
+      defaultValue: { summary: "neutral" },
+    },
+    intentModifiers: {
+      control: { type: "radio" },
+      options: ["default"],
+      defaultValue: { summary: "default" },
+    },
     checked: {
       control: { disable: true },
       table: {
@@ -62,6 +72,8 @@ export const Demo: Story = {
   tags: ["!autodocs"],
   args: {
     className: "",
+    intent: "neutral",
+    intentModifiers: "default",
     defaultChecked: false,
     mixed: false,
     disabled: false,
@@ -116,6 +128,44 @@ export const Controlled: Story = {
       </div>
     )
   },
+}
+
+export const Intent: Story = {
+  parameters: {
+    controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
+  },
+  render: () => (
+    <div className="sb-column sb-width-full">
+      <Stack spacing={400}>
+        <Checkbox
+          intent="brand"
+          intentModifiers="default"
+          label="Brand Default"
+          checked={true}
+        />
+        <Checkbox
+          intent="brand"
+          intentModifiers="default"
+          label="Brand Default"
+        />
+
+        <Checkbox
+          intent="neutral"
+          intentModifiers="default"
+          label="Neutral Default"
+          checked={true}
+        />
+        <Checkbox
+          intent="neutral"
+          intentModifiers="default"
+          label="Neutral Default"
+        />
+      </Stack>
+    </div>
+  ),
 }
 
 export const Checked: Story = {

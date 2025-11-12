@@ -9,7 +9,7 @@ import { Stack } from "../../index"
 import { link as linkGlyph } from "../../index"
 
 const meta: Meta<typeof ButtonIcon> = {
-  title: "Components/ButtonIcon/ButtonIcon",
+  title: "Components/ButtonIcon",
   component: ButtonIcon,
   tags: ["autodocs"],
   argTypes: {

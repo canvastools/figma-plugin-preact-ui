@@ -10,12 +10,24 @@
   $parent: &;
 
   width: 100%;
-  display: flex;
-  flex-flow: column nowrap;
-  padding: var(--pui-spacing-200) var(--pui-spacing-400);
-  position: relative;
-  justify-content: center;
-  min-height: 40px;
+
+  &__content {
+    display: flex;
+    flex-flow: column nowrap;
+    position: relative;
+    justify-content: center;
+    min-height: 24px;
+    width: 100%;
+  }
+
+  &_variant-stacked {
+    padding: var(--pui-spacing-100) var(--pui-spacing-400)
+      var(--pui-spacing-400) var(--pui-spacing-400);
+  }
+
+  &_variant-default {
+    padding: var(--pui-spacing-200) var(--pui-spacing-400);
+  }
 
   &_paddingTop {
     @include Section_padding("top", "100");

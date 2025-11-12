@@ -3,6 +3,48 @@
 All notable changes to this project will be documented in this file.  
 This project follows [Semantic Versioning](https://semver.org/).
 
+### 0.4.0 - 12 Nov 2025
+
+**Added:**
+
+- Icons
+
+  - Added 26 icons.
+
+- Checkbox:
+
+  - Added `intent` and `intentModifiers` properties.
+
+- ColorSwatch:
+
+  - New properties: `hoverable`, `selected`, `title`, `onClick`, `wheel`, `children`
+
+- Section:
+
+  - Added the `variant` property to support different padding configurations.
+
+- Select:
+
+  - Added support for option groups.
+
+- MenuDivider:
+
+  - Added the `variant` property to support different divider width configurations.
+
+- OverlayPositioner:
+
+  - Added the `draggable` property.
+
+- Components:
+
+  - SegmentedControl
+
+**Fixed:**
+
+- MenuContainer, Popover, Tooltip: fixed contrast in dark mode.
+
+---
+
 ### 0.3.1 - 19 Oct 2025
 
 **Fixed:**
@@ -28,7 +70,7 @@ This project follows [Semantic Versioning](https://semver.org/).
 
 - Input:
 
-  - Added the type property with `text` and `number` values.
+  - Added the `type` property with `text` and `number` values.
   - Added the `suffixOnHover` property to control the visibility of the suffix on hover.
   - Added the `grouped` property and `.InputGrouped` CSS class.
 

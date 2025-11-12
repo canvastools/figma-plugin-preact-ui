@@ -5,8 +5,9 @@ import { useState } from "preact/hooks"
 import { Select } from "./Select"
 
 import { Stack } from "../../index"
+import { Text } from "../../index"
 import { Icon } from "../../index"
-import { chevronDown as chevronDownGlyph } from "../../index"
+import { search as searchGlyph } from "../../index"
 
 const meta: Meta<typeof Select> = {
   title: "Components/Select",
@@ -17,7 +18,7 @@ const meta: Meta<typeof Select> = {
     options: {
       table: {
         type: {
-          summary: "SelectOption[]",
+          summary: "SelectOption[] | SelectOption[][]",
         },
       },
       control: { disable: true },
@@ -86,6 +87,19 @@ const sampleOptions = [
   { value: "opt-3", label: "Option three" },
 ]
 
+const sampleOptionsWithGroups = [
+  [
+    { value: "opt-1", label: "Option one" },
+    { value: "opt-2", label: "Option two" },
+    { value: "opt-3", label: "Option three" },
+  ],
+  [
+    { value: "opt-4", label: "Option four" },
+    { value: "opt-5", label: "Option five" },
+    { value: "opt-6", label: "Option six" },
+  ],
+]
+
 export const Demo: Story = {
   tags: ["!autodocs"],
   args: {
@@ -114,6 +128,12 @@ export const Demo: Story = {
 }
 
 export const Uncontrolled: Story = {
+  parameters: {
+    controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
+  },
   render: () => (
     <div className="sb-column sb-width-300">
       <Select
@@ -127,6 +147,7 @@ export const Uncontrolled: Story = {
 
 export const Controlled: Story = {
   parameters: {
+    controls: { disable: true },
     viewport: {
       defaultViewport: "large",
     },
@@ -136,12 +157,15 @@ export const Controlled: Story = {
 
     return (
       <div className="sb-column sb-width-300">
-        <Select
-          placeholder="Choose an option"
-          options={sampleOptions}
-          value={value}
-          onChange={(e) => setValue(e.value)}
-        />
+        <Stack spacing={400}>
+          <Text>Value: {value}</Text>
+          <Select
+            placeholder="Choose an option"
+            options={sampleOptions}
+            value={value}
+            onChange={(e) => setValue(e.value)}
+          />
+        </Stack>
       </div>
     )
   },
@@ -149,6 +173,7 @@ export const Controlled: Story = {
 
 export const Placeholder: Story = {
   parameters: {
+    controls: { disable: true },
     viewport: {
       defaultViewport: "large",
     },
@@ -162,6 +187,7 @@ export const Placeholder: Story = {
 
 export const Grouped: Story = {
   parameters: {
+    controls: { disable: true },
     viewport: {
       defaultViewport: "large",
     },
@@ -192,8 +218,28 @@ export const Grouped: Story = {
   ),
 }
 
+export const GroupedOptions: Story = {
+  parameters: {
+    controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
+  },
+  render: () => (
+    <div className="sb-column sb-width-300">
+      <Select
+        options={sampleOptionsWithGroups}
+        placeholder="Choose an option"
+        defaultValue="opt-1"
+        grouped="right"
+      />
+    </div>
+  ),
+}
+
 export const Error: Story = {
   parameters: {
+    controls: { disable: true },
     viewport: {
       defaultViewport: "large",
     },
@@ -212,6 +258,7 @@ export const Error: Story = {
 
 export const Disabled: Story = {
   parameters: {
+    controls: { disable: true },
     viewport: {
       defaultViewport: "large",
     },
@@ -237,6 +284,7 @@ export const Disabled: Story = {
 
 export const Prefix: Story = {
   parameters: {
+    controls: { disable: true },
     viewport: {
       defaultViewport: "large",
     },
@@ -249,7 +297,7 @@ export const Prefix: Story = {
         defaultValue="opt-1"
         prefix={
           <Icon
-            glyph={chevronDownGlyph}
+            glyph={searchGlyph}
             intent="neutral"
             intentModifiers="secondary"
             variant="scaled"
@@ -262,6 +310,7 @@ export const Prefix: Story = {
 
 export const MenuWidth: Story = {
   parameters: {
+    controls: { disable: true },
     viewport: {
       defaultViewport: "large",
     },

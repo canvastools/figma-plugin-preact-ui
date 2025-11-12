@@ -6,7 +6,7 @@ import "./Section.scss"
 /* --- */
 
 const SectionComponent = (
-  { className, children, padding, ...rest }: SectionProps,
+  { className, children, padding, variant = "default", ...rest }: SectionProps,
   ref: preact.Ref<HTMLDivElement>
 ) => {
   const _className = bem("Section", undefined, {
@@ -14,6 +14,7 @@ const SectionComponent = (
     ...(padding && padding.right && { paddingRight: String(padding.right) }),
     ...(padding && padding.bottom && { paddingBottom: String(padding.bottom) }),
     ...(padding && padding.left && { paddingLeft: String(padding.left) }),
+    variant,
   })
 
   return (
@@ -22,7 +23,7 @@ const SectionComponent = (
       ref={ref}
       {...rest}
     >
-      {children}
+      <div className="Section__content">{children}</div>
     </div>
   )
 }

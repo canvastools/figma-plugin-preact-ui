@@ -42,7 +42,7 @@ const ButtonIconComponent = (
 
   return (
     <button
-      className={[_className, className].join(" ").trim()}
+      className={[_className, className, "no-drag"].join(" ").trim()}
       ref={ref}
       {...rest}
       disabled={disabled}

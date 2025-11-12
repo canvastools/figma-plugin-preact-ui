@@ -14,6 +14,6 @@
 
   box-shadow: 0 4px 16px 1px var(--pui-color-shadow-tooltip-soft),
     0 2px 4px 0 var(--pui-color-shadow-tooltip-hard),
-    0 -1px 0 0 var(--pui-color-shadow-tooltip-glare),
-    0 1px 0px 1px var(--pui-color-shadow-tooltip-glare);
+    inset 0 1px 0 0.5px var(--pui-color-shadow-tooltip-glare),
+    inset 0 0 0 1px var(--pui-color-shadow-tooltip-glare);
 }

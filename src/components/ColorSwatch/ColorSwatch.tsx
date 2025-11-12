@@ -1,7 +1,12 @@
 import { bem, typedForwardRef } from "../../utils"
+import { useRef } from "preact/hooks"
 
 import type { ColorSwatchProps } from "./ColorSwatch.types"
 import "./ColorSwatch.scss"
+
+import { OverlayPositioner } from "../../index"
+import { Tooltip } from "../../index"
+import { Text } from "../../index"
 
 /* --- */
 
@@ -15,42 +20,88 @@ const hasOpacity = (hex: string | undefined) => {
 const ColorSwatchComponent = (
   {
     className,
-    variant = "fill",
     size = "medium",
     hex,
     imageSrc,
+    title,
+    selection = "default",
+    hoverable = false,
+    selected = false,
+    children,
+    onClick,
     ...rest
   }: ColorSwatchProps,
   ref: preact.Ref<HTMLDivElement>
 ) => {
+  const anchorRef = useRef<HTMLDivElement | null>(null)
+
   const _className = bem("ColorSwatch", undefined, {
-    variant,
+    selection: selection,
+    hasImage: !!imageSrc,
+    hasHex: !!hex,
     size,
+    hoverable,
+    selected,
   })
 
   return (
     <div
-      className={[_className, className].join(" ").trim()}
-      ref={ref}
+      className={[_className, className, "no-drag"].join(" ").trim()}
+      ref={(el) => {
+        if (typeof ref === "function") {
+          ref(el)
+        } else if (ref) {
+          // eslint-disable-next-line
+          ;(ref as preact.RefObject<HTMLDivElement>).current = el
+        }
+        anchorRef.current = el
+      }}
       {...rest}
+      onClick={(event) => onClick?.({ event, hex, imageSrc })}
     >
-      {variant === "fill" && hasOpacity(hex) && (
-        <>
-          <div
-            className="ColorSwatch__fill"
-            style={{ backgroundColor: hex?.substring(0, hex.length - 2) }}
-          />
+      <div className="ColorSwatch__container">
+        {hex && hasOpacity(hex) && (
+          <>
+            <div
+              className="ColorSwatch__fill"
+              style={{ backgroundColor: hex?.substring(0, hex.length - 2) }}
+            />
+            <div
+              className="ColorSwatch__fill"
+              style={{ backgroundColor: hex }}
+            />
+          </>
+        )}
+
+        {hex && !hasOpacity(hex) && (
           <div className="ColorSwatch__fill" style={{ backgroundColor: hex }} />
-        </>
-      )}
-      {variant === "fill" && !hasOpacity(hex) && (
-        <div className="ColorSwatch__fill" style={{ backgroundColor: hex }} />
-      )}
-      {variant === "image" && (
-        <div
-          className="ColorSwatch__image"
-          style={{ backgroundImage: `url(${imageSrc})` }}
-        />
+        )}
+
+        {imageSrc && (
+          <div
+            className="ColorSwatch__image"
+            style={{
+              backgroundImage: `url(${imageSrc})`,
+            }}
+          />
+        )}
+      </div>
+
+      {children && <div className="ColorSwatch__children">{children}</div>}
+
+      {title && (
+        <OverlayPositioner
+          anchorRef={anchorRef as preact.RefObject<HTMLDivElement>}
+          placement="bottom"
+          trigger="hover"
+          paddingY={8}
+          visibilityDelay={1000}
+          arrow={true}
+        >
+          <Tooltip>
+            <Text intent="neutral-inverted-fixed">{title}</Text>
+          </Tooltip>
+        </OverlayPositioner>
       )}
     </div>
   )

@@ -16,6 +16,8 @@ const figmaDark: ColorTokenTree = {
 
         secondary: "#383838",
         "secondary-interactive": "#383838",
+        "secondary-interactive-hover": "#444444",
+        "secondary-interactive-pressed": "#383838",
         "secondary-interactive-selected": "#394360",
 
         "brand-interactive": "#2C2C2C",
@@ -58,6 +60,8 @@ const figmaDark: ColorTokenTree = {
         "default-interactive-selected": "#7CC4F8",
 
         secondary: "#C0C0C0",
+        "secondary-interactive": "#C0C0C0",
+
         tertiary: "#767676",
 
         brand: "#7CC4F8",
@@ -75,6 +79,7 @@ const figmaDark: ColorTokenTree = {
       border: {
         default: "#444444",
         "default-interactive": "#444444",
+        "default-interactive-hover": "#4A5878",
         "default-interactive-selected": "#0C8CE9",
         "default-interactive-selected-error": "#D4583B",
 
@@ -248,17 +253,17 @@ const figmaDark: ColorTokenTree = {
       },
     },
     shadow: {
-      "popover-hard": "#0000003d",
-      "popover-soft": "#0000008f",
-      "popover-glare": "#ffffff14",
+      "popover-hard": "#0000008a",
+      "popover-soft": "#00000052",
+      "popover-glare": "#ffffff0a",
 
       "tooltip-hard": "#0000008a",
       "tooltip-soft": "#00000052",
-      "tooltip-glare": "#ffffff14",
+      "tooltip-glare": "#ffffff0a",
 
       "menu-hard": "#0000008a",
       "menu-soft": "#00000052",
-      "menu-glare": "#ffffff14",
+      "menu-glare": "#ffffff0a",
     },
   },
 }

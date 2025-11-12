@@ -41,37 +41,6 @@ export type { DividerProps } from "./components/Divider/Divider.types"
 export { Icon } from "./components/Icon/Icon"
 export type { IconProps, Glyph, GlyphProps } from "./components/Icon/Icon.types"
 
-export {
-  adjust,
-  ai,
-  check,
-  chevronDown,
-  chevronRight,
-  close,
-  copy,
-  dragHandle,
-  duplicate,
-  filter,
-  filterFilled,
-  help,
-  home,
-  imports,
-  info,
-  insert,
-  link,
-  plus,
-  minus,
-  mixed,
-  more,
-  search,
-  select,
-  settings,
-  updates,
-  viewGrid,
-  viewList,
-  warning,
-} from "./components/Icon/glyphs"
-
 export { Input } from "./components/Input/Input"
 export type { InputProps } from "./components/Input/Input.types"
 
@@ -129,6 +98,12 @@ export type {
   SectionProps,
   SectionPadding,
 } from "./components/Section/Section.types"
+
+export { SegmentedControl } from "./components/SegmentedControl/SegmentedControl"
+export type {
+  SegmentedControlProps,
+  SegmentedControlOption,
+} from "./components/SegmentedControl/SegmentedControl.types"
 
 export { Select } from "./components/Select/Select"
 export type {
@@ -193,3 +168,62 @@ export {
   roundAlpha,
   clamp,
 } from "./utils/color"
+
+// Glyphs
+
+export {
+  adjust,
+  ai,
+  check,
+  chevronDown,
+  chevronRight,
+  close,
+  copy,
+  corners,
+  dragHandle,
+  eyeDropper,
+  duplicate,
+  filter,
+  filterFilled,
+  help,
+  home,
+  imports,
+  info,
+  insert,
+  letterSpacing,
+  lineHeight,
+  link,
+  lowercase,
+  plus,
+  radiusBottomLeft,
+  radiusBottomRight,
+  radiusTopLeft,
+  radiusTopRight,
+  minus,
+  mixed,
+  more,
+  opacity,
+  paddingBottom,
+  paddingHorizontal,
+  paddingLeft,
+  paddingRight,
+  paddingSides,
+  paddingTop,
+  paddingVertical,
+  search,
+  select,
+  settings,
+  spacingHorizontal,
+  spacingVertical,
+  strikethrough,
+  strokeDash,
+  strokeSolid,
+  strokeWidth,
+  titleCase,
+  underline,
+  updates,
+  uppercase,
+  viewGrid,
+  viewList,
+  warning,
+} from "./components/Icon/glyphs"

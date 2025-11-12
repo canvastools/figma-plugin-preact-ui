@@ -60,7 +60,7 @@ export const link = ({ variant, size }: GlyphProps) => {
 
     default:
       throw new Error(
-        `Link icon error: Unsupported combination size=${size}, variant=${variant}`
+        `link icon error: Unsupported combination size=${size}, variant=${variant}`
       )
   }
 }
