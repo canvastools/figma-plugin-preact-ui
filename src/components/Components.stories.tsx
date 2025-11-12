@@ -16,6 +16,7 @@ import { Intent as ButtonIconIntent } from "./ButtonIcon/ButtonIcon.stories"
 import { Intent as ButtonIconToggleIntent } from "./ButtonIconToggle/ButtonIconToggle.stories"
 import { Intent as CheckboxIntent } from "./Checkbox/Checkbox.stories"
 import { Demo as ColorPickerDemo } from "./ColorPicker/ColorPicker.stories"
+import { Size as ColorSwatchSize } from "./ColorSwatch/ColorSwatch.stories"
 import { Variant as DividerVariant } from "./Divider/Divider.stories"
 import { Glyphs as IconGlyphs } from "./Icon/Icon.stories"
 import { Prefix as InputPrefix } from "./Input/Input.stories"
@@ -372,6 +373,7 @@ export const _ButtonIconToggle = ButtonIconToggleIntent
 export const _Checkbox = CheckboxIntent
 ColorPickerDemo.tags = []
 export const _ColorPicker = ColorPickerDemo
+export const _ColorSwatch = ColorSwatchSize
 export const _Divider = DividerVariant
 export const _Icon = IconGlyphs
 export const _Input = InputPrefix
