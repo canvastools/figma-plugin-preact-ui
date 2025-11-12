@@ -1,1 +1,0 @@
-import{u as m}from"./hooks.module-Dxk9uxGs.js";import{t as p,b as d}from"./typedForwardRef-Bwgl65_g.js";const n=({className:a,width:o="auto",height:t="auto",children:i,...s},r)=>{const e=d("Tooltip",void 0,void 0);return m("div",{className:[e,a].join(" ").trim(),ref:r,style:{width:o==="auto"?void 0:o,height:t==="auto"?void 0:t},...s,children:i})},c=p(n);export{c as T};

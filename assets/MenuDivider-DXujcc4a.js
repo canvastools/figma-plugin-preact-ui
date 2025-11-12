@@ -1,1 +1,0 @@
-import{u as e}from"./hooks.module-Dxk9uxGs.js";import{t as s,b as d}from"./typedForwardRef-Bwgl65_g.js";const t=({className:i,...r},o)=>{const n=d("MenuDivider",void 0,void 0);return e("div",{className:[n,i].join(" ").trim(),ref:o,...r,children:e("div",{className:"MenuDivider__line"})})},v=s(t);export{v as M};
