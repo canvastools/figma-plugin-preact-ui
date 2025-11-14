@@ -54,7 +54,7 @@ function App() {
 render(<App />, document.getElementById("root")!)
 ```
 
-The CSS provides design tokens and component styles. It is controlled by the `.figma-light` or `.figma-dark` classes provided by Figma in the plugin window.
+The CSS provides design tokens and component styles. Theming is controlled by the `.figma-light` or `.figma-dark` classes provided by Figma in the plugin window.
 
 ### Use tokens (CSS variables)
 
