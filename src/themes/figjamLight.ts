@@ -1,7 +1,7 @@
 import type { ColorTokenTree } from "./index"
 
-const figmaLight: ColorTokenTree = {
-  class: "figma-light",
+const figjamLight: ColorTokenTree = {
+  class: "figjam-light",
   prefix: "--pui-color",
   variables: {
     neutral: {
@@ -10,19 +10,19 @@ const figmaLight: ColorTokenTree = {
         "default-interactive": "#ffffff",
         "default-interactive-hover": "#f5f5f5",
         "default-interactive-pressed": "#e5e5e5",
-        "default-interactive-selected": "#e5f4ff",
-        "default-interactive-selected-hover": "#bde3ff",
-        "default-interactive-selected-pressed": "#e5f4ff",
+        "default-interactive-selected": "#f1e5ff",
+        "default-interactive-selected-hover": "#e4ccff",
+        "default-interactive-selected-pressed": "#f1e5ff",
 
         secondary: "#f5f5f5",
         "secondary-interactive": "#f5f5f5",
         "secondary-interactive-hover": "#e5e5e5",
         "secondary-interactive-pressed": "#f5f5f5",
-        "secondary-interactive-selected": "#f2f9ff",
+        "secondary-interactive-selected": "#f8f2ff",
 
         "brand-interactive": "#ffffff",
-        "brand-interactive-hover": "#e5f4ff",
-        "brand-interactive-pressed": "#bde3ff",
+        "brand-interactive-hover": "#f1e5ff",
+        "brand-interactive-pressed": "#e4ccff",
 
         "danger-interactive": "#ffffff",
         "danger-interactive-hover": "#fff0f0",
@@ -35,15 +35,15 @@ const figmaLight: ColorTokenTree = {
       text: {
         default: "#1a1a1a",
         "default-interactive": "#1a1a1a",
-        "default-interactive-selected": "#007be5",
+        "default-interactive-selected": "#7c2bda",
 
         secondary: "#7d7d7d",
         "secondary-interactive": "#7d7d7d",
 
         placeholder: "#808080",
 
-        brand: "#007be5",
-        "brand-interactive": "#007be5",
+        brand: "#7c2bda",
+        "brand-interactive": "#7c2bda",
 
         danger: "#dc3412",
         "danger-interactive": "#dc3412",
@@ -57,15 +57,15 @@ const figmaLight: ColorTokenTree = {
       icon: {
         default: "#1a1a1a",
         "default-interactive": "#1a1a1a",
-        "default-interactive-selected": "#007be5",
+        "default-interactive-selected": "#7c2bda",
 
         secondary: "#7d7d7d",
         "secondary-interactive": "#7d7d7d",
 
         tertiary: "#cccccc",
 
-        brand: "#007be5",
-        "brand-interactive": "#007be5",
+        brand: "#7c2bda",
+        "brand-interactive": "#7c2bda",
 
         danger: "#dc3412",
         "danger-interactive": "#dc3412",
@@ -79,14 +79,14 @@ const figmaLight: ColorTokenTree = {
       border: {
         default: "#e5e5e5",
         "default-interactive": "#e5e5e5",
-        "default-interactive-hover": "#bde3ff",
-        "default-interactive-selected": "#0d99ff",
+        "default-interactive-hover": "#e4ccff",
+        "default-interactive-selected": "#8d3efb",
         "default-interactive-selected-error": "#f24822",
 
         secondary: "#cccccc",
 
-        brand: "#80CAFF",
-        "brand-interactive": "#80CAFF",
+        brand: "#9747ff",
+        "brand-interactive": "#9747ff",
 
         danger: "#ffc7c2",
         "danger-interactive": "#ffc7c2",
@@ -158,10 +158,10 @@ const figmaLight: ColorTokenTree = {
     },
     brand: {
       bg: {
-        default: "#0d99ff",
-        "default-interactive": "#0d99ff",
-        "default-interactive-hover": "#007be5",
-        "default-interactive-pressed": "#0768cf",
+        default: "#8d3efb",
+        "default-interactive": "#8d3efb",
+        "default-interactive-hover": "#7c2bda",
+        "default-interactive-pressed": "#6E1FB8",
 
         disabled: "#d9d9d9",
       },
@@ -178,7 +178,7 @@ const figmaLight: ColorTokenTree = {
         disabled: "#ffffff",
       },
       border: {
-        "default-interactive": "#007be5",
+        "default-interactive": "#7c2bda",
       },
     },
     danger: {
@@ -249,7 +249,7 @@ const figmaLight: ColorTokenTree = {
         resizer: "#A8A8A8",
       },
       border: {
-        focus: "#0d99ff",
+        focus: "#8d3efb",
       },
     },
     shadow: {
@@ -268,4 +268,4 @@ const figmaLight: ColorTokenTree = {
   },
 }
 
-export { figmaLight }
+export { figjamLight }

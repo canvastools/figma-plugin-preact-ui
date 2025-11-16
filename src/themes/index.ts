@@ -10,5 +10,6 @@ export type ColorTokenTree = {
 
 export { figmaLight } from "./figmaLight"
 export { figmaDark } from "./figmaDark"
+export { figjamLight } from "./figjamLight"
 export { spacing } from "./spacing"
 export { radius } from "./radius"

@@ -103,11 +103,11 @@ const preview: Preview = {
   globalTypes: {
     theme: {
       description: "Figma theme",
-      defaultValue: "light",
+      defaultValue: "figma-light",
       toolbar: {
         title: "Theme",
         icon: "mirror",
-        items: ["light", "dark"],
+        items: ["figma-light", "figma-dark", "figjam-light"],
         dynamicTitle: true,
       },
     },
@@ -125,7 +125,7 @@ const preview: Preview = {
   decorators: [
     (story, context) => {
       const ViewportDecorator = () => {
-        const theme = context.globals.theme || "light"
+        const theme = context.globals.theme || "figma-light"
         const background = context.globals.background || "primary"
         const defaultViewport =
           context.parameters?.viewport?.defaultViewport || "large"
@@ -141,8 +141,7 @@ const preview: Preview = {
         }, [context.globals?.viewport, defaultViewport])
 
         useEffect(() => {
-          const themeClass = `figma-${theme}`
-          const removeClasses = ["figma-light", "figma-dark"]
+          const removeClasses = ["figma-light", "figma-dark", "figjam-light"]
 
           const applyToTargets = () => {
             const targets = Array.from(
@@ -150,7 +149,7 @@ const preview: Preview = {
             ) as HTMLElement[]
             targets.forEach((el) => {
               removeClasses.forEach((c) => el.classList.remove(c))
-              el.classList.add(themeClass)
+              el.classList.add(theme)
             })
           }
 

@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from "@storybook/preact"
 
-import { figmaLight, figmaDark, spacing, radius } from "../themes"
+import { figmaLight, figmaDark, figjamLight, spacing, radius } from "../themes"
 import type { ColorTokenTree, ColorTokenBranch } from "../themes"
 
 import { Text } from "../index"
@@ -16,7 +16,7 @@ const meta: Meta = {
     docs: {
       description: {
         component:
-          "Preview of all CSS variables used in the library.<br/> It is controlled by the `.figma-light` or `.figma-dark` classes provided by Figma in the plugin window.",
+          "Preview of all CSS variables used in the library.<br/> It is controlled by the `.figma-light` or `.figma-dark` classes provided by Figma in the plugin window.<br/> In addition, you can add classes to the plugin window to style the UI for specific Figma themes like `.figjam-light`.",
       },
     },
   },
@@ -73,7 +73,7 @@ function buildTokenMatrix(themes: ThemeMap) {
 }
 
 const colorTokensList = () => {
-  const tokenMatrix = buildTokenMatrix({ figmaLight, figmaDark })
+  const tokenMatrix = buildTokenMatrix({ figmaLight, figmaDark, figjamLight })
 
   return Object.keys(tokenMatrix).map((token) => (
     <tr
@@ -97,7 +97,9 @@ const colorTokensList = () => {
               paddingLeft: 16,
             }}
           >
-            <Text strong>--pui-color-{token}</Text>
+            <Text strong noWrap>
+              --pui-color-{token}
+            </Text>
           </div>
         </div>
       </td>
@@ -130,7 +132,9 @@ const colorTokensList = () => {
                   paddingLeft: 16,
                 }}
               >
-                <Text strong>{tokenMatrix[token][theme]}</Text>
+                <Text strong noWrap>
+                  {tokenMatrix[token][theme]}
+                </Text>
               </div>
             </div>
           ) : null}
@@ -169,7 +173,9 @@ const spacingTokensList = () => {
               paddingLeft: 16,
             }}
           >
-            <Text strong>--pui-spacing-{token}</Text>
+            <Text strong noWrap>
+              --pui-spacing-{token}
+            </Text>
           </div>
         </div>
       </td>
@@ -190,7 +196,9 @@ const spacingTokensList = () => {
               paddingLeft: 16,
             }}
           >
-            <Text strong>{tokenMatrix[token]}</Text>
+            <Text strong noWrap>
+              {tokenMatrix[token]}
+            </Text>
           </div>
         </div>
       </td>
@@ -227,7 +235,9 @@ const radiusTokensList = () => {
               paddingLeft: 16,
             }}
           >
-            <Text strong>--pui-spacing-{token}</Text>
+            <Text strong noWrap>
+              --pui-spacing-{token}
+            </Text>
           </div>
         </div>
       </td>
@@ -248,7 +258,9 @@ const radiusTokensList = () => {
               paddingLeft: 16,
             }}
           >
-            <Text strong>{tokenMatrix[token]}</Text>
+            <Text strong noWrap>
+              {tokenMatrix[token]}
+            </Text>
           </div>
         </div>
       </td>
@@ -264,7 +276,7 @@ export const _1: Story = {
     },
   },
   render: () => (
-    <div className="sb-column sb-gap-16">
+    <div className="sb-column sb-gap-16" style={{ overflowX: "scroll" }}>
       <Text variant="heading" size="large">
         Colors
       </Text>
@@ -294,6 +306,13 @@ export const _1: Story = {
             }}
           >
             <Text strong>Figma Dark</Text>
+          </td>
+          <td
+            style={{
+              padding: 16,
+            }}
+          >
+            <Text strong>Figjam Light</Text>
           </td>
         </tr>
         {colorTokensList()}
