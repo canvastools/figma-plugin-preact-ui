@@ -56,11 +56,11 @@ render(<App />, document.getElementById("root")!)
 
 The CSS provides design tokens and component styles. It is controlled by the `.figma-light` or `.figma-dark` classes provided by Figma in the plugin window.
 
-### Use tokens (CSS variables)
+### Use tokens (CSS/JS variables)
 
 You can consume the CSS variables from the library directly. See [the variables list here](https://canvastools.github.io/figma-plugin-preact-ui//?path=/docs/overview-variables--docs&globals=viewport:medium).
 
-#### In CSS
+#### CSS
 
 ```css
 .card {
@@ -73,7 +73,7 @@ You can consume the CSS variables from the library directly. See [the variables 
 }
 ```
 
-#### In JS
+#### Inline styling
 
 ```ts
 import { render } from "preact"
@@ -94,6 +94,15 @@ function App() {
 }
 
 render(<App />, document.getElementById("root")!)
+```
+
+#### JS variables
+
+```ts
+import { render } from "preact"
+import { figmaLight, figmaDark, figjamLight } from "figma-plugin-preact-ui"
+
+const background = figmaLight.variables.brand.bg.default // #FFFFFF
 ```
 
 ### Types and tree‑shaking
