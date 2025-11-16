@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "preact/hooks"
+import { useEffect, useRef, useState, useImperativeHandle } from "preact/hooks"
 
 import { bem, typedForwardRef } from "../../utils"
 
@@ -28,14 +28,20 @@ const InputComponent = (
     onKeyDown,
     ...rest
   }: InputProps,
-  ref: preact.Ref<HTMLInputElement>
+  ref: preact.Ref<HTMLDivElement>
 ) => {
   const [isFocused, setIsFocused] = useState(false)
   const [hasContent, setHasContent] = useState<boolean>(
     Boolean(value ?? defaultValue ?? "")
   )
 
+  const rootRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
+
+  // Expose the root wrapper element to consumers (stable anchor for tooltips)
+  useImperativeHandle(ref, () => rootRef.current as HTMLDivElement, [
+    rootRef.current,
+  ])
 
   useEffect(() => {
     if (value !== undefined) {
@@ -117,6 +123,7 @@ const InputComponent = (
   return (
     <div
       className={[_className, className, "no-drag"].join(" ").trim()}
+      ref={rootRef as preact.Ref<HTMLDivElement>}
       {...rest}
     >
       {prefix && <div className="Input__prefix">{prefix}</div>}
@@ -124,8 +131,6 @@ const InputComponent = (
         className="Input__input-native"
         ref={(el) => {
           inputRef.current = el
-          if (typeof ref === "function") ref(el)
-          else if (ref && typeof ref === "object") ref.current = el
         }}
         type={type}
         disabled={disabled}
@@ -149,6 +154,4 @@ const InputComponent = (
   )
 }
 
-export const Input = typedForwardRef<InputProps, HTMLInputElement>(
-  InputComponent
-)
+export const Input = typedForwardRef<InputProps, HTMLDivElement>(InputComponent)
