@@ -1,0 +1,30 @@
+import { GlyphProps } from "../Icon.types"
+
+export const rotation = ({ variant, size }: GlyphProps) => {
+  const combination = size + "_" + variant
+
+  switch (combination) {
+    case "24_default":
+      return (
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M9 8.5C9 8.22386 8.77614 8 8.5 8C8.22386 8 8 8.22386 8 8.5V15.5C8 15.7761 8.22386 16 8.5 16H15.5C15.7761 16 16 15.7761 16 15.5C16 15.2239 15.7761 15 15.5 15H13C13 12.7909 11.2091 11 9 11V8.5ZM9 12V15H12C12 13.3431 10.6569 12 9 12Z"
+            fill="currentColor"
+          />
+        </svg>
+      )
+
+    default:
+      throw new Error(
+        `rotation icon error: Unsupported combination size=${size}, variant=${variant}`
+      )
+  }
+}

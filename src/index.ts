@@ -210,6 +210,7 @@ export {
   paddingSides,
   paddingTop,
   paddingVertical,
+  rotation,
   search,
   select,
   settings,
