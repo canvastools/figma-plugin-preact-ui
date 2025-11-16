@@ -27,7 +27,7 @@ const computePlacement = (
   paddingY: number,
   edgePadding: number,
   arrowSize: number
-): { coords: Coords; arrow: ArrowData } => {
+): { coords: Coords; arrow: ArrowData; placement: string } => {
   const candidates: string[] = [placement]
   if (placementFallback && Array.isArray(placementFallback)) {
     for (const p of placementFallback) candidates.push(p)
@@ -298,7 +298,7 @@ const computePlacement = (
         edgePadding,
         Math.min(vh - h - edgePadding, Math.round(c.coords.top))
       )
-      return { coords: { left, top }, arrow: c.arrow }
+      return { coords: { left, top }, arrow: c.arrow, placement: p }
     }
   }
 
@@ -315,6 +315,7 @@ const computePlacement = (
       ),
     },
     arrow: first.arrow,
+    placement: candidates[0],
   }
 }
 
@@ -346,6 +347,7 @@ const OverlayPositionerComponent = ({
   const [internalOpen, setInternalOpen] = useState<boolean>(defaultOpen)
   const isControlled = typeof open === "boolean"
   const isOpen = isControlled ? (open as boolean) : internalOpen
+  const [appliedPlacement, setAppliedPlacement] = useState<string>(placement)
   const rafRef = useRef<number | null>(null)
   const hoverTimerRef = useRef<number | null>(null)
 
@@ -392,6 +394,7 @@ const OverlayPositionerComponent = ({
       )
       setCoords(result.coords)
       setArrowData(result.arrow)
+      setAppliedPlacement(result.placement)
       setIsReady(true)
     },
     [
@@ -545,13 +548,13 @@ const OverlayPositionerComponent = ({
   }
 
   const _className = bem("OverlayPositioner", undefined, {
-    placement,
+    placement: appliedPlacement,
   })
 
   if (!isOpen) return null
 
   const arrowComponent = (() => {
-    if (placement === "over") return null
+    if (appliedPlacement === "over") return null
 
     if (!arrow || !isReady || !arrowData) return null
     const styleArrow: preact.JSX.CSSProperties = {
