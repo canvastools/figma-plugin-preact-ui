@@ -1,5 +1,11 @@
 import { bem, typedForwardRef } from "../../utils"
-import { useCallback, useEffect, useRef, useState } from "preact/hooks"
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  useImperativeHandle,
+} from "preact/hooks"
 import { Fragment } from "preact"
 
 import type { SelectProps, SelectOption } from "./Select.types"
@@ -54,6 +60,11 @@ const SelectComponent = (
 
   const triggerRef = useRef<HTMLDivElement>(null)
   const menuRef = useRef<HTMLDivElement>(null)
+
+  // Expose the root DOM element to outside via forwarded ref (stable for anchors)
+  useImperativeHandle(ref, () => triggerRef.current as HTMLDivElement, [
+    triggerRef.current,
+  ])
 
   const focusTrigger = useCallback(() => {
     const t = triggerRef.current
@@ -184,12 +195,7 @@ const SelectComponent = (
   return (
     <div
       className={[_className, className, "no-drag"].join(" ").trim()}
-      ref={(el) => {
-        triggerRef.current = el as HTMLDivElement
-        if (typeof ref === "function") ref(el as HTMLDivElement)
-        else if (ref && typeof ref === "object")
-          ref.current = el as HTMLDivElement
-      }}
+      ref={triggerRef as preact.Ref<HTMLDivElement>}
       tabIndex={disabled ? -1 : 0}
       onFocus={handleFocusIn as preact.JSX.FocusEventHandler<HTMLDivElement>}
       onBlur={handleFocusOut as preact.JSX.FocusEventHandler<HTMLDivElement>}
