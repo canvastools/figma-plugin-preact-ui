@@ -22,6 +22,8 @@ import {
 import { Input } from "../../index"
 import { Text } from "../../index"
 import { Select } from "../../index"
+import { Tooltip } from "../../index"
+import { OverlayPositioner } from "../../index"
 
 import { useNumberValidator } from "../../index"
 import { useStringValidator } from "../../index"
@@ -103,18 +105,42 @@ const ControlsRgba = ({
     max: RGBA_VALUES.a.max,
   })
 
+  const selectRef = useRef<HTMLDivElement>(null)
+
+  const inputRedRef = useRef<HTMLInputElement>(null)
+  const inputGreenRef = useRef<HTMLInputElement>(null)
+  const inputBlueRef = useRef<HTMLInputElement>(null)
+  const inputOpacityRef = useRef<HTMLInputElement>(null)
+
   return (
     <>
       <div style={{ minWidth: "52px" }}>
         <Select
+          ref={selectRef}
           options={options}
           value={type}
           onChange={(e) => setType(e.value as ColorPickerType)}
           menuWidth={160}
         />
+
+        <OverlayPositioner
+          anchorRef={selectRef}
+          placement="bottom"
+          placementFallback={["top"]}
+          paddingY={8}
+          edgePadding={8}
+          trigger="hover"
+          visibilityDelay={1000}
+          arrow={true}
+        >
+          <Tooltip>
+            <Text intent="neutral-inverted-fixed">Color mode</Text>
+          </Tooltip>
+        </OverlayPositioner>
       </div>
       <div className="ColorPicker__controlsValues InputGrouped">
         <Input
+          ref={inputRedRef}
           className="ColorPicker__inputCompact"
           type="number"
           grouped="right"
@@ -149,7 +175,24 @@ const ControlsRgba = ({
             }
           }}
         />
+
+        <OverlayPositioner
+          anchorRef={inputRedRef}
+          placement="bottom"
+          placementFallback={["top"]}
+          paddingY={8}
+          edgePadding={8}
+          trigger="hover"
+          visibilityDelay={1000}
+          arrow={true}
+        >
+          <Tooltip>
+            <Text intent="neutral-inverted-fixed">Red</Text>
+          </Tooltip>
+        </OverlayPositioner>
+
         <Input
+          ref={inputGreenRef}
           className="ColorPicker__inputCompact"
           type="number"
           grouped="both"
@@ -184,7 +227,24 @@ const ControlsRgba = ({
             }
           }}
         />
+
+        <OverlayPositioner
+          anchorRef={inputGreenRef}
+          placement="bottom"
+          placementFallback={["top"]}
+          paddingY={8}
+          edgePadding={8}
+          trigger="hover"
+          visibilityDelay={1000}
+          arrow={true}
+        >
+          <Tooltip>
+            <Text intent="neutral-inverted-fixed">Green</Text>
+          </Tooltip>
+        </OverlayPositioner>
+
         <Input
+          ref={inputBlueRef}
           className="ColorPicker__inputCompact"
           type="number"
           grouped="both"
@@ -219,7 +279,24 @@ const ControlsRgba = ({
             }
           }}
         />
+
+        <OverlayPositioner
+          anchorRef={inputBlueRef}
+          placement="bottom"
+          placementFallback={["top"]}
+          paddingY={8}
+          edgePadding={8}
+          trigger="hover"
+          visibilityDelay={1000}
+          arrow={true}
+        >
+          <Tooltip>
+            <Text intent="neutral-inverted-fixed">Blue</Text>
+          </Tooltip>
+        </OverlayPositioner>
+
         <Input
+          ref={inputOpacityRef}
           className="ColorPicker__controlOpacity"
           type="number"
           grouped="left"
@@ -260,6 +337,21 @@ const ControlsRgba = ({
             }
           }}
         />
+
+        <OverlayPositioner
+          anchorRef={inputOpacityRef}
+          placement="bottom"
+          placementFallback={["top"]}
+          paddingY={8}
+          edgePadding={8}
+          trigger="hover"
+          visibilityDelay={1000}
+          arrow={true}
+        >
+          <Tooltip>
+            <Text intent="neutral-inverted-fixed">Opacity</Text>
+          </Tooltip>
+        </OverlayPositioner>
       </div>
     </>
   )
@@ -292,15 +384,33 @@ const ControlsHex = ({
     trim: true,
   })
 
+  const selectRef = useRef<HTMLDivElement>(null)
+
   return (
     <>
       <div style={{ minWidth: "52px" }}>
         <Select
+          ref={selectRef}
           options={options}
           value={type}
           onChange={(e) => setType(e.value as ColorPickerType)}
           menuWidth={160}
         />
+
+        <OverlayPositioner
+          anchorRef={selectRef}
+          placement="bottom"
+          placementFallback={["top"]}
+          paddingY={8}
+          edgePadding={8}
+          trigger="hover"
+          visibilityDelay={1000}
+          arrow={true}
+        >
+          <Tooltip>
+            <Text intent="neutral-inverted-fixed">Color mode</Text>
+          </Tooltip>
+        </OverlayPositioner>
       </div>
       <div className="ColorPicker__controlsValues">
         <Input
@@ -360,15 +470,34 @@ const ControlsHexAlpha = ({
     max: HEX_VALUES.a.max,
   })
 
+  const selectRef = useRef<HTMLDivElement>(null)
+  const inputOpacityRef = useRef<HTMLInputElement>(null)
+
   return (
     <>
       <div style={{ minWidth: "52px" }}>
         <Select
+          ref={selectRef}
           options={options}
           value={type}
           onChange={(e) => setType(e.value as ColorPickerType)}
           menuWidth={160}
         />
+
+        <OverlayPositioner
+          anchorRef={selectRef}
+          placement="bottom"
+          placementFallback={["top"]}
+          paddingY={8}
+          edgePadding={8}
+          trigger="hover"
+          visibilityDelay={1000}
+          arrow={true}
+        >
+          <Tooltip>
+            <Text intent="neutral-inverted-fixed">Color mode</Text>
+          </Tooltip>
+        </OverlayPositioner>
       </div>
       <div className="ColorPicker__controlsValues InputGrouped">
         <Input
@@ -391,7 +520,9 @@ const ControlsHexAlpha = ({
             }
           }}
         />
+
         <Input
+          ref={inputOpacityRef}
           className="ColorPicker__controlOpacity"
           grouped="left"
           type="number"
@@ -431,6 +562,21 @@ const ControlsHexAlpha = ({
             }
           }}
         />
+
+        <OverlayPositioner
+          anchorRef={inputOpacityRef}
+          placement="bottom"
+          placementFallback={["top"]}
+          paddingY={8}
+          edgePadding={8}
+          trigger="hover"
+          visibilityDelay={1000}
+          arrow={true}
+        >
+          <Tooltip>
+            <Text intent="neutral-inverted-fixed">Opacity</Text>
+          </Tooltip>
+        </OverlayPositioner>
       </div>
     </>
   )
