@@ -30,8 +30,7 @@ const meta: Meta<typeof Section> = {
       },
     },
     padding: {
-      control: { disable: true },
-      defaultValue: { summary: "default" },
+      control: { type: "object" },
       description: `Custom padding for the section. Using the spacing variables names.
       <pre>
   padding?: {
@@ -63,6 +62,7 @@ type Story = StoryObj<typeof Section>
 export const Demo: Story = {
   args: {
     className: "sb-container",
+    padding: {},
   },
   parameters: {
     viewport: {

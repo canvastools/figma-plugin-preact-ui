@@ -40,7 +40,7 @@ const meta: Meta<typeof MenuItem> = {
     },
     prefix: {
       control: { disable: true },
-      description: "Element inserted before children.",
+      description: "Element displayed before children.",
       table: {
         type: {
           summary: "JSX.Element",
@@ -49,7 +49,7 @@ const meta: Meta<typeof MenuItem> = {
     },
     suffix: {
       control: { disable: true },
-      description: "Element inserted after children.",
+      description: "Element displayed after children.",
       table: {
         type: {
           summary: "JSX.Element",

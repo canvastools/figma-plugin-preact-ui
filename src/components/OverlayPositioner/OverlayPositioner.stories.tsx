@@ -38,7 +38,6 @@ const meta: Meta<typeof OverlayPositioner> = {
     },
     open: {
       control: { disable: true },
-      defaultValue: { summary: false },
       description: "Visibility in controlled mode.",
       table: {
         type: {

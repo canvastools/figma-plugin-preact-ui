@@ -3,6 +3,7 @@ import { fn } from "@storybook/test"
 import { useState } from "preact/hooks"
 
 import { SegmentedControl } from "./SegmentedControl"
+import type { SegmentedControlOption } from "./SegmentedControl.types"
 
 import { Stack } from "../../index"
 import { Text } from "../../index"
@@ -16,7 +17,7 @@ const meta: Meta<typeof SegmentedControl> = {
   argTypes: {
     className: { control: { type: "text" } },
     options: {
-      control: { disable: true },
+      control: { type: "object" },
       table: {
         type: {
           summary: "SegmentedControlOption[]",
@@ -64,7 +65,18 @@ const meta: Meta<typeof SegmentedControl> = {
 export default meta
 type Story = StoryObj<typeof SegmentedControl>
 
-const sampleOptions = [
+const sampleOptionsWihtoutIcons: SegmentedControlOption[] = [
+  {
+    value: "list",
+    title: "List view",
+  },
+  {
+    value: "grid",
+    title: "Grid view",
+  },
+]
+
+const sampleOptions: SegmentedControlOption[] = [
   {
     value: "list",
     title: "List view",
@@ -81,6 +93,7 @@ export const Demo: Story = {
   tags: ["!autodocs"],
   args: {
     className: "",
+    options: sampleOptionsWihtoutIcons,
     defaultValue: "list",
     disabled: false,
     fullWidth: false,
@@ -93,13 +106,7 @@ export const Demo: Story = {
   },
   render: (args) => (
     <div className="sb-column">
-      <SegmentedControl
-        options={sampleOptions.map((option) => ({
-          ...option,
-          icon: undefined,
-        }))}
-        {...args}
-      />
+      <SegmentedControl options={sampleOptionsWihtoutIcons} {...args} />
     </div>
   ),
 }
@@ -128,10 +135,7 @@ export const Uncontrolled: Story = {
   render: () => (
     <div className="sb-column sb-width-300">
       <SegmentedControl
-        options={sampleOptions.map((option) => ({
-          ...option,
-          icon: undefined,
-        }))}
+        options={sampleOptionsWihtoutIcons}
         defaultValue="list"
       />
     </div>
@@ -153,10 +157,7 @@ export const Controlled: Story = {
           <Text>Value: {value}</Text>
           <SegmentedControl
             value={value}
-            options={sampleOptions.map((option) => ({
-              ...option,
-              icon: undefined,
-            }))}
+            options={sampleOptionsWihtoutIcons}
             onChange={(e) => setValue(e.value)}
           />
         </Stack>
@@ -181,10 +182,7 @@ export const FullWidth: Story = {
           fullWidth
         />
         <SegmentedControl
-          options={sampleOptions.map((option) => ({
-            ...option,
-            icon: undefined,
-          }))}
+          options={sampleOptionsWihtoutIcons}
           defaultValue="list"
           fullWidth
         />

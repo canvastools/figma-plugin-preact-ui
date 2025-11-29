@@ -49,7 +49,7 @@ const meta: Meta<typeof Tab> = {
           summary: "JSX.Element",
         },
       },
-      description: "Element inserted before children.",
+      description: "Element displayed before children.",
       control: { disable: true },
     },
     suffix: {
@@ -58,7 +58,7 @@ const meta: Meta<typeof Tab> = {
           summary: "JSX.Element",
         },
       },
-      description: "Element inserted after children.",
+      description: "Element displayed after children.",
       control: { disable: true },
     },
     children: {
@@ -68,7 +68,7 @@ const meta: Meta<typeof Tab> = {
         },
       },
       control: { disable: true },
-      description: "Usually a text content.",
+      description: "Usually text content.",
     },
     onClick: {
       action: "clicked",

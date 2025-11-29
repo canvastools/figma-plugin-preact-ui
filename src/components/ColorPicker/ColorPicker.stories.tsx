@@ -21,11 +21,13 @@ const meta: Meta<typeof ColorPicker> = {
     defaultType: {
       control: { type: "radio" },
       options: ["rgba", "hex", "hexAlpha"],
+      description: "Initial color picker mode.",
       defaultValue: { summary: "hex" },
     },
     types: {
       control: { type: "check" },
       options: ["rgba", "hex", "hexAlpha"],
+      defaultValue: { summary: `["hex", "hexAlpha", "rgba"]` },
       description: "Allowed color picker modes in the picker.",
       table: {
         type: {
@@ -39,7 +41,7 @@ const meta: Meta<typeof ColorPicker> = {
           summary: "Color",
         },
       },
-      control: { disable: true },
+      control: { type: "object" },
       description: `<pre>type Color = {
   r: number
   g: number
@@ -88,6 +90,13 @@ export const Demo: Story = {
     defaultType: "hex",
     types: ["rgba", "hex", "hexAlpha"],
     controls: true,
+    value: {
+      r: 255,
+      g: 0,
+      b: 0,
+      a: 1,
+    },
+    width: 207,
     onChange: fn(),
   },
   parameters: {

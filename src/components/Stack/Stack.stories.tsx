@@ -33,7 +33,7 @@ const meta: Meta<typeof Stack> = {
       control: {
         type: "radio",
       },
-      options: [...Object.keys(spacing.variables).map(Number)],
+      options: [undefined, ...Object.keys(spacing.variables).map(Number)],
     },
     x: {
       control: {
@@ -90,6 +90,7 @@ export const Demo: Story = {
     x: "start",
     y: "start",
     fullHeight: false,
+    fullWidth: false,
   },
   parameters: {
     viewport: {

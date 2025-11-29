@@ -42,6 +42,7 @@ const meta: Meta<typeof ButtonIcon> = {
     },
     translucent: {
       control: { type: "boolean" },
+      description: "Used for cases when the button is inside an input.",
       defaultValue: { summary: false },
     },
     disabled: {

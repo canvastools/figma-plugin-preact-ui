@@ -30,7 +30,7 @@ const meta: Meta<typeof ColorSwatch> = {
       },
     },
     imageSrc: {
-      control: { disable: true },
+      control: { type: "text" },
       table: {
         type: {
           summary: "string",
@@ -41,7 +41,7 @@ const meta: Meta<typeof ColorSwatch> = {
     title: {
       control: { type: "text" },
       defaultValue: { summary: undefined },
-      description: "Title to display when the color swatch is hovered.",
+      description: "Tooltip text to display when the color swatch is hovered.",
       table: {
         type: {
           summary: "string",
@@ -50,15 +50,18 @@ const meta: Meta<typeof ColorSwatch> = {
     },
     hoverable: {
       control: { type: "boolean" },
+      description: "Enables hoverable state.",
       defaultValue: { summary: false },
     },
     selected: {
       control: { type: "boolean" },
+      description: "Enables selected state (controlled mode).",
       defaultValue: { summary: false },
     },
     selection: {
       control: { type: "radio" },
       options: ["default", "rainbow"],
+      description: "Selection border style.",
       defaultValue: { summary: "default" },
     },
     children: {
@@ -94,6 +97,7 @@ export const Demo: Story = {
     size: "medium",
     hex: "#FF0000",
     title: "Title",
+    imageSrc: undefined,
     hoverable: false,
     selected: false,
     onClick: fn(),

@@ -37,6 +37,7 @@ const meta: Meta<typeof ButtonIconToggle> = {
     },
     translucent: {
       control: { type: "boolean" },
+      description: "Used for cases when the button is inside an input.",
       defaultValue: { summary: false },
     },
     ghost: {

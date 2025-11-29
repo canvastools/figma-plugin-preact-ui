@@ -33,7 +33,7 @@ const meta: Meta<typeof Spacing> = {
       control: {
         type: "radio",
       },
-      options: [...Object.keys(spacing.variables).map(Number)],
+      options: [undefined, ...Object.keys(spacing.variables).map(Number)],
     },
   },
 }

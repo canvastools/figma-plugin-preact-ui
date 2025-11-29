@@ -111,7 +111,7 @@ const meta: Meta<typeof Text> = {
         },
       },
       control: { type: "text" },
-      description: "Usually a text content.",
+      description: "Usually text content.",
     },
   },
 }

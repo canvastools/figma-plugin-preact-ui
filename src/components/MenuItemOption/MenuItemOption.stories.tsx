@@ -69,7 +69,7 @@ const meta: Meta<typeof MenuItemOption> = {
     },
     suffix: {
       control: { disable: true },
-      description: "Element inserted after children.",
+      description: "Element displayed after children.",
       table: {
         type: {
           summary: "JSX.Element",
@@ -104,6 +104,7 @@ export const Demo: Story = {
     className: "",
     defaultSelected: true,
     disabled: false,
+    reducedPaddingRight: false,
     onChange: fn(),
   },
   parameters: {

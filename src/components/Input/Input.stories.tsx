@@ -72,7 +72,7 @@ const meta: Meta<typeof Input> = {
           summary: "JSX.Element",
         },
       },
-      description: "Element inserted before value.",
+      description: "Element displayed before value.",
       control: { disable: true },
     },
     suffix: {
@@ -81,7 +81,7 @@ const meta: Meta<typeof Input> = {
           summary: "JSX.Element",
         },
       },
-      description: "Element inserted after value. Visible on hover/focus.",
+      description: "Element displayed after value. Visible on hover/focus.",
       control: { disable: true },
     },
     suffixOnHover: {

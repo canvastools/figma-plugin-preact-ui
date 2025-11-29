@@ -21,7 +21,7 @@ const meta: Meta<typeof Select> = {
           summary: "SelectOption[] | SelectOption[][]",
         },
       },
-      control: { disable: true },
+      control: { type: "object" },
       description: `Array of items to manage.
       <pre>interface SelectOption {
   label: string

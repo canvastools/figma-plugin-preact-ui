@@ -45,7 +45,7 @@ const meta: Meta<typeof Badge> = {
         },
       },
       control: { disable: true },
-      description: "Element inserted before children.",
+      description: "Element displayed before children.",
     },
     suffix: {
       table: {
@@ -54,7 +54,7 @@ const meta: Meta<typeof Badge> = {
         },
       },
       control: { disable: true },
-      description: "Element inserted after children.",
+      description: "Element displayed after children.",
     },
     children: {
       table: {

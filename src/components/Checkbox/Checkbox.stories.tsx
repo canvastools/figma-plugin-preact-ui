@@ -27,6 +27,7 @@ const meta: Meta<typeof Checkbox> = {
     },
     checked: {
       control: { disable: true },
+      description: "Value for controlled mode.",
       table: {
         type: {
           summary: "boolean",
