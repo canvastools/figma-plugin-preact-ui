@@ -1,0 +1,143 @@
+@use "../../shared.scss" as *;
+@use "../../mixins.scss" as *;
+
+@mixin CalendarButton {
+  @include typography-styles;
+  @include typography-body-medium;
+  color: var(--pui-color-neutral-text-default);
+  text-decoration: none;
+  user-select: none;
+  outline: none;
+  border: none;
+
+  height: 32px;
+  padding: 0 var(--pui-spacing-100);
+  border-radius: var(--pui-radius-medium);
+  @include curson-feedback;
+  @include focus-visible;
+
+  background-color: transparent;
+  box-shadow: none;
+
+  &:hover {
+    background-color: var(--pui-color-neutral-bg-secondary-interactive);
+  }
+
+  &:active {
+    background-color: var(--pui-color-neutral-bg-secondary-interactive-pressed);
+  }
+}
+
+@mixin CalendarButtonActive {
+  background-color: var(--pui-color-neutral-bg-default-interactive-selected);
+  color: var(--pui-color-neutral-text-default-interactive-selected);
+  box-shadow: none;
+
+  &:hover {
+    background-color: var(
+      --pui-color-neutral-bg-default-interactive-selected-hover
+    );
+  }
+
+  &:active {
+    background-color: var(
+      --pui-color-neutral-bg-default-interactive-selected-pressed
+    );
+  }
+}
+
+@mixin CalendarButtonDisabled {
+  color: var(--pui-color-neutral-text-disabled) !important;
+  background-color: var(--pui-color-neutral-bg-disabled) !important;
+  box-shadow: none !important;
+
+  &:hover {
+    background-color: var(--pui-color-neutral-bg-disabled) !important;
+  }
+
+  &:active {
+    background-color: var(--pui-color-neutral-bg-disabled) !important;
+  }
+}
+
+.Calendar {
+  $parent: &;
+
+  & .react-calendar {
+    &__navigation {
+      display: flex;
+      flex-flow: row nowrap;
+      margin-bottom: var(--pui-spacing-200);
+
+      & > button {
+        @include CalendarButton;
+      }
+
+      &__arrow {
+        width: 24px;
+        padding: 0 !important;
+      }
+
+      &__label {
+        flex-grow: 1;
+      }
+    }
+
+    &__month-view {
+      & + .react-calendar__month-view {
+        margin-top: var(--pui-spacing-400);
+      }
+
+      &__weekdays {
+        margin-bottom: var(--pui-spacing-200);
+
+        &__weekday {
+          text-align: center;
+
+          & > abbr {
+            @include typography-styles;
+            @include typography-body-medium;
+            color: var(--pui-color-neutral-text-secondary);
+            text-decoration: none;
+            user-select: none;
+            pointer-events: none;
+          }
+        }
+      }
+
+      &__days {
+        &__day--weekend {
+          color: var(--pui-color-neutral-text-danger) !important;
+        }
+      }
+    }
+
+    &__tile {
+      @include CalendarButton;
+
+      &:disabled {
+        @include CalendarButtonDisabled;
+      }
+
+      &--active {
+        @include CalendarButtonActive;
+      }
+    }
+
+    &__tile--now {
+      position: relative;
+
+      &::before {
+        content: "";
+        position: absolute;
+        bottom: 6px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 2px;
+        height: 2px;
+        background-color: var(--pui-color-neutral-text-brand);
+        border-radius: 50%;
+      }
+    }
+  }
+}
