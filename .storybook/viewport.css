@@ -126,6 +126,10 @@ body * {
   width: 300px;
 }
 
+.sb-width-480 {
+  width: 480px;
+}
+
 /* Height */
 
 .sb-height-300 {
