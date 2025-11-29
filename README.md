@@ -20,6 +20,8 @@ Some patterns or unused states were intentionally left out.
 
 [Storybook demo and documentation](https://canvastools.github.io/figma-plugin-preact-ui/)
 
+![Preview](./preview.png)
+
 ## Getting started
 
 ### Install
