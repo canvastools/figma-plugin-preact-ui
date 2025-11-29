@@ -8,34 +8,6 @@ import {
   viewGrid as viewGridGlyph,
 } from "../index"
 
-import { Shape as AvatarShape } from "./Avatar/Avatar.stories"
-import { Prefix as BadgePrefix } from "./Badge/Badge.stories"
-import { StickySimulation as StickyBarPosition } from "./Bar/Bar.stories"
-import { Prefix as ButtonPrefix } from "./Button/Button.stories"
-import { Intent as ButtonIconIntent } from "./ButtonIcon/ButtonIcon.stories"
-import { Intent as ButtonIconToggleIntent } from "./ButtonIconToggle/ButtonIconToggle.stories"
-import { Intent as CheckboxIntent } from "./Checkbox/Checkbox.stories"
-import { Demo as ColorPickerDemo } from "./ColorPicker/ColorPicker.stories"
-import { Size as ColorSwatchSize } from "./ColorSwatch/ColorSwatch.stories"
-import { Variant as DividerVariant } from "./Divider/Divider.stories"
-import { Glyphs as IconGlyphs } from "./Icon/Icon.stories"
-import { Prefix as InputPrefix } from "./Input/Input.stories"
-import { Demo as MenuDemo } from "./MenuContainer/MenuContainer.stories"
-import { Suffix as MenuItemSuffix } from "./MenuItem/MenuItem.stories"
-import { Suffix as MenuItemOptionSuffix } from "./MenuItemOption/MenuItemOption.stories"
-import { Size as PopoverSize } from "./Popover/Popover.stories"
-import { Demo as ScrollContextDemo } from "./ScrollContext/ScrollContext.stories"
-import { Stacked as SectionStacked } from "./Section/Section.stories"
-import { Demo as SegmentedControlDemo } from "./SegmentedControl/SegmentedControl.stories"
-import { Uncontrolled as SelectDemo } from "./Select/Select.stories"
-import { Demo as SpacerDemo } from "./Spacing/Spacing.stories"
-import { Demo as SpinnerDemo } from "./Spinner/Spinner.stories"
-import { Demo as StackDemo } from "./Stack/Stack.stories"
-import { Demo as TabDemo } from "./Tab/Tab.stories"
-import { Size as TextSize } from "./Text/Text.stories"
-import { Arrow as TooltipDemo } from "./OverlayPositioner/OverlayPositioner.stories"
-import { Demo as WindowResizerDemo } from "./WindowResizer/WindowResizer.stories"
-
 import {
   Avatar,
   Badge,
@@ -84,8 +56,26 @@ const meta: Meta = {
   parameters: {
     docs: {
       description: {
-        component:
-          "Getting started: https://github.com/canvastools/figma-plugin-preact-ui/blob/main/README.md",
+        component: `
+**An unofficial implementation** of Figma's UI3 design language, adapted for plugin interfaces.
+
+The [original design library](https://www.figma.com/community/file/1486123838948777078/ui3-figmas-ui-kit) was published in Figma Community by Figma.
+
+This project is not affiliated with or endorsed by Figma.
+
+## About the library
+
+This is **not a pixel-perfect port** of the official UI3 file.
+
+The goal was not to reproduce every detail, but rather to:
+
+- Provide components and states relevant to plugin development.
+- Stay close in look & feel to Figma’s current interface.
+- Optimise for practical use: easier, cleaner, and more consistent to work with.
+
+Some patterns or unused states were intentionally left out.
+          
+[👉 Getting started](https://github.com/canvastools/figma-plugin-preact-ui/blob/main/README.md)`,
       },
     },
   },
@@ -117,7 +107,6 @@ const sampleItemsPlain: sampleItemsPlainType[] = [
 ]
 
 export const _1: Story = {
-  tags: ["!autodocs"],
   globals: {
     background: "secondary",
   },
@@ -363,35 +352,3 @@ export const _1: Story = {
     )
   },
 }
-
-export const _Avatar = AvatarShape
-export const _Badge = BadgePrefix
-export const _Bar = StickyBarPosition
-export const _Button = ButtonPrefix
-export const _ButtonIcon = ButtonIconIntent
-export const _ButtonIconToggle = ButtonIconToggleIntent
-export const _Checkbox = CheckboxIntent
-ColorPickerDemo.tags = []
-export const _ColorPicker = ColorPickerDemo
-export const _ColorSwatch = ColorSwatchSize
-export const _Divider = DividerVariant
-export const _Icon = IconGlyphs
-export const _Input = InputPrefix
-MenuDemo.tags = []
-export const _Menu = MenuDemo
-export const _MenuItem = MenuItemSuffix
-export const _MenuItemOption = MenuItemOptionSuffix
-export const _Popover = PopoverSize
-export const _ScrollContext = ScrollContextDemo
-export const _Section = SectionStacked
-SegmentedControlDemo.tags = []
-export const _SegmentedControl = SegmentedControlDemo
-export const _Select = SelectDemo
-export const _Spacing = SpacerDemo
-export const _Spinner = SpinnerDemo
-export const _Stack = StackDemo
-TabDemo.tags = []
-export const _Tab = TabDemo
-export const _Text = TextSize
-export const _Tooltip = TooltipDemo
-export const _WindowResizer = WindowResizerDemo

@@ -6,7 +6,7 @@ The [original design library](https://www.figma.com/community/file/1486123838948
 
 This project is not affiliated with or endorsed by Figma.
 
-## About
+## About the library
 
 This is **not a pixel-perfect port** of the official UI3 file.
 
