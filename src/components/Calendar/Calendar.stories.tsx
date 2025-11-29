@@ -6,7 +6,6 @@ import { Calendar } from "./Calendar"
 import { CalendarValue } from "./Calendar.types"
 
 import { Stack, Text } from "../../index"
-import { Section } from "../../index"
 
 const meta: Meta<typeof Calendar> = {
   title: "Components/Calendar",

@@ -1,7 +1,7 @@
 import { bem, typedForwardRef } from "../../utils"
 import { Calendar as ReactCalendar } from "react-calendar"
 
-import type { CalendarProps, CalendarValue } from "./Calendar.types"
+import type { CalendarProps } from "./Calendar.types"
 import "./Calendar.scss"
 
 import { Icon } from "../../index"
