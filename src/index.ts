@@ -35,6 +35,9 @@ export type {
 export { ColorSwatch } from "./components/ColorSwatch/ColorSwatch"
 export type { ColorSwatchProps } from "./components/ColorSwatch/ColorSwatch.types"
 
+export { Calendar } from "./components/Calendar/Calendar"
+export type { CalendarProps } from "./components/Calendar/Calendar.types"
+
 export { Divider } from "./components/Divider/Divider"
 export type { DividerProps } from "./components/Divider/Divider.types"
 
@@ -175,8 +178,14 @@ export {
   adjust,
   ai,
   check,
+  chevronDoubleDown,
+  chevronDoubleLeft,
+  chevronDoubleRight,
+  chevronDoubleUp,
   chevronDown,
+  chevronLeft,
   chevronRight,
+  chevronUp,
   close,
   copy,
   corners,
