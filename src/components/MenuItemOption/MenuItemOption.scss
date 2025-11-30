@@ -22,7 +22,7 @@
     flex: 1;
     display: flex;
     flex-flow: row nowrap;
-    gap: var(--pui-spacing-200);
+    gap: var(--pui-spacing-400);
   }
 
   &_disabled &__content:hover {

@@ -5,6 +5,8 @@ import { fn } from "@storybook/test"
 import { MenuItem } from "./MenuItem"
 
 import { MenuContainer } from "../../index"
+import { MenuItemOption } from "../../index"
+import { MenuDivider } from "../../index"
 import { Icon } from "../../index"
 import { Badge } from "../../index"
 import { Text } from "../../index"
@@ -64,11 +66,21 @@ const meta: Meta<typeof MenuItem> = {
         },
       },
     },
-    reducedPaddingRight: {
+    optionLikePadding: {
+      control: { type: "boolean" },
+      defaultValue: { summary: false },
+      description: "Indicates if the item has option like padding on the left.",
+      table: {
+        type: {
+          summary: "boolean",
+        },
+      },
+    },
+    hasNested: {
       control: { type: "boolean" },
       defaultValue: { summary: false },
       description:
-        "Indicates if the item has reduced padding on the right. For pixel perfect vertical alignment of the chevron for nested menus.",
+        "Indicates if the item has nested menu items. For pixel perfect alignment of the chevron for nested menus.",
       table: {
         type: {
           summary: "boolean",
@@ -192,7 +204,6 @@ export const Suffix: Story = {
     <div className="sb-column sb-width-full">
       <MenuContainer width={208}>
         <MenuItem
-          reducedPaddingRight
           suffix={
             <Text intent="neutral-inverted-fixed" intentModifiers="secondary">
               Action
@@ -202,7 +213,6 @@ export const Suffix: Story = {
           Menu Item
         </MenuItem>
         <MenuItem
-          reducedPaddingRight
           suffix={
             <Icon
               glyph={aiGlyph}
@@ -214,15 +224,11 @@ export const Suffix: Story = {
         >
           Menu Item
         </MenuItem>
-        <MenuItem
-          reducedPaddingRight
-          suffix={<Badge intent="brand">Badge</Badge>}
-        >
+        <MenuItem suffix={<Badge intent="brand">Badge</Badge>}>
           Menu Item
         </MenuItem>
         <MenuItem
           disabled
-          reducedPaddingRight
           suffix={
             <Icon
               glyph={linkGlyph}
@@ -235,6 +241,26 @@ export const Suffix: Story = {
         >
           Menu Item
         </MenuItem>
+      </MenuContainer>
+    </div>
+  ),
+}
+
+export const OptionLikePadding: Story = {
+  parameters: {
+    controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
+  },
+  render: () => (
+    <div className="sb-column sb-width-full">
+      <MenuContainer width={248}>
+        <MenuItem optionLikePadding>Menu Item (option like padding)</MenuItem>
+        <MenuDivider variant="inset" />
+        <MenuItemOption>Menu Item Option</MenuItemOption>
+        <MenuItemOption selected>Menu Item Option</MenuItemOption>
+        <MenuItemOption>Menu Item Option</MenuItemOption>
       </MenuContainer>
     </div>
   ),

@@ -4,6 +4,7 @@ export interface MenuItemProps {
   prefix?: preact.ComponentChildren
   suffix?: preact.ComponentChildren
   children: preact.ComponentChildren
-  reducedPaddingRight?: boolean
+  hasNested?: boolean
+  optionLikePadding?: boolean
   onClick?: (args: { event: MouseEvent }) => void
 }

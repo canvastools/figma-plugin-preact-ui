@@ -149,7 +149,7 @@ export const NestedMenu: Story = {
             <MenuItem onClick={() => setOpen(false)}>Menu Item</MenuItem>
             <MenuItem
               ref={anchorRefMenuNested}
-              reducedPaddingRight
+              hasNested
               onClick={() => setOpenNested((v) => !v)}
               suffix={
                 <Icon

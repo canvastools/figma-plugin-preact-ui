@@ -22,7 +22,8 @@ const MenuItemComponent = (
     prefix,
     suffix,
     children,
-    reducedPaddingRight = false,
+    optionLikePadding = false,
+    hasNested = false,
     onClick,
     ...rest
   }: MenuItemProps,
@@ -33,7 +34,8 @@ const MenuItemComponent = (
     disabled,
     prefix: Boolean(prefix),
     suffix: Boolean(suffix),
-    reducedPaddingRight,
+    hasNested,
+    optionLikePadding,
   })
 
   const handleClick = (event: MouseEvent) => {

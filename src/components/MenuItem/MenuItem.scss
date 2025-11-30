@@ -21,11 +21,15 @@
     background-color: transparent !important;
   }
 
-  &_reducedPaddingRight &__content {
+  &_hasNested &__content {
     padding-right: var(--pui-spacing-100);
   }
 
   &__children {
     flex: 1;
+  }
+
+  &_optionLikePadding &__content {
+    padding-left: calc(var(--pui-spacing-200) + var(--pui-spacing-400));
   }
 }
