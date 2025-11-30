@@ -8,8 +8,7 @@
   &__content {
     display: flex;
     flex-flow: row nowrap;
-    padding: var(--pui-spacing-100) var(--pui-spacing-200)
-      var(--pui-spacing-100) var(--pui-spacing-100);
+    padding: var(--pui-spacing-100) var(--pui-spacing-200);
     border-radius: var(--pui-radius-medium);
     gap: var(--pui-spacing-100);
 

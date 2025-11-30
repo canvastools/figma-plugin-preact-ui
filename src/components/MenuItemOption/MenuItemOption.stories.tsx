@@ -194,7 +194,6 @@ export const Suffix: Story = {
     <div className="sb-column sb-width-full">
       <MenuContainer width={208}>
         <MenuItemOption
-          reducedPaddingRight
           suffix={
             <Text intent="neutral-inverted-fixed" intentModifiers="secondary">
               Action
@@ -204,7 +203,6 @@ export const Suffix: Story = {
           Menu Item
         </MenuItemOption>
         <MenuItemOption
-          reducedPaddingRight
           defaultSelected
           suffix={
             <Icon
@@ -217,15 +215,11 @@ export const Suffix: Story = {
         >
           Menu Item
         </MenuItemOption>
-        <MenuItemOption
-          reducedPaddingRight
-          suffix={<Badge intent="brand">Badge</Badge>}
-        >
+        <MenuItemOption suffix={<Badge intent="brand">Badge</Badge>}>
           Menu Item
         </MenuItemOption>
         <MenuItemOption
           disabled
-          reducedPaddingRight
           suffix={
             <Icon
               glyph={checkGlyph}

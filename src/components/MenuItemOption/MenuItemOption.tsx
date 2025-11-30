@@ -22,7 +22,6 @@ const MenuItemOptionComponent = (
     className,
     defaultSelected = false,
     selected: controlledSelected,
-    reducedPaddingRight = false,
     disabled = false,
     suffix,
     children,
@@ -41,7 +40,6 @@ const MenuItemOptionComponent = (
     disabled,
     suffix: Boolean(suffix),
     selected: isSelected,
-    reducedPaddingRight,
   })
 
   const handleClick = (event: MouseEvent) => {
