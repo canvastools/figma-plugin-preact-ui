@@ -12,6 +12,7 @@ export interface CalendarProps {
   maxDate?: Date
   minDetail?: "century" | "decade" | "year" | "month"
   maxDetail?: "century" | "decade" | "year" | "month"
+  navigation?: "full" | "simple" | "none"
 
   onChange?: (args: { value: CalendarValue }) => void
 

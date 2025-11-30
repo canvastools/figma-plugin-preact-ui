@@ -76,6 +76,12 @@ const meta: Meta<typeof Calendar> = {
       defaultValue: { summary: "month" },
       description: "Maximum detail level of the calendar.",
     },
+    navigation: {
+      control: { type: "radio" },
+      options: ["full", "simple", "none"],
+      defaultValue: { summary: "full" },
+      description: "Navigation style of the calendar.",
+    },
     onChange: {
       action: "onChange",
       description: "Callback when the value is changed.",
@@ -135,6 +141,7 @@ export const Demo: Story = {
     maxDate: new Date(new Date().setFullYear(new Date().getFullYear() + 5)),
     minDetail: "century",
     maxDetail: "month",
+    navigation: "full",
     onChange: fn(),
     onDrillUp: fn(),
     onDrillDown: fn(),

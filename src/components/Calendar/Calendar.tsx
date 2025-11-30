@@ -25,6 +25,7 @@ const CalendarComponent = (
     maxDate = new Date(new Date().setFullYear(new Date().getFullYear() + 5)),
     minDetail = "century",
     maxDetail = "month",
+    navigation = "full",
     onChange,
     onDrillUp,
     onDrillDown,
@@ -33,7 +34,7 @@ const CalendarComponent = (
   }: CalendarProps,
   ref: preact.Ref<HTMLDivElement>
 ) => {
-  const _className = bem("Calendar", undefined)
+  const _className = bem("Calendar", undefined, { navigation })
 
   return (
     <ReactCalendar

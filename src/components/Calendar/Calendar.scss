@@ -63,11 +63,29 @@
 .Calendar {
   $parent: &;
 
+  &_navigation {
+    &-simple {
+      & .react-calendar__navigation__prev2-button,
+      & .react-calendar__navigation__next2-button {
+        display: none;
+      }
+    }
+
+    &-none {
+      & .react-calendar__navigation__prev-button,
+      & .react-calendar__navigation__prev2-button,
+      & .react-calendar__navigation__next-button,
+      & .react-calendar__navigation__next2-button {
+        display: none;
+      }
+    }
+  }
+
   & .react-calendar {
     &__navigation {
       display: flex;
       flex-flow: row nowrap;
-      margin-bottom: var(--pui-spacing-200);
+      margin-bottom: var(--pui-spacing-400);
 
       & > button {
         @include CalendarButton;
