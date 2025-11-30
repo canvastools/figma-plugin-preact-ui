@@ -10,10 +10,16 @@ const SectionComponent = (
   ref: preact.Ref<HTMLDivElement>
 ) => {
   const _className = bem("Section", undefined, {
-    ...(padding && padding.top && { paddingTop: String(padding.top) }),
-    ...(padding && padding.right && { paddingRight: String(padding.right) }),
-    ...(padding && padding.bottom && { paddingBottom: String(padding.bottom) }),
-    ...(padding && padding.left && { paddingLeft: String(padding.left) }),
+    ...(padding &&
+      padding.top !== undefined && { paddingTop: String(padding.top) }),
+    ...(padding &&
+      padding.right !== undefined && { paddingRight: String(padding.right) }),
+    ...(padding &&
+      padding.bottom !== undefined && {
+        paddingBottom: String(padding.bottom),
+      }),
+    ...(padding &&
+      padding.left !== undefined && { paddingLeft: String(padding.left) }),
     variant,
   })
 

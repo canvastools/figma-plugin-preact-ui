@@ -30,6 +30,7 @@
   }
 
   &_paddingTop {
+    @include Section_padding("top", "0");
     @include Section_padding("top", "100");
     @include Section_padding("top", "200");
     @include Section_padding("top", "400");
@@ -39,6 +40,7 @@
   }
 
   &_paddingRight {
+    @include Section_padding("right", "0");
     @include Section_padding("right", "100");
     @include Section_padding("right", "200");
     @include Section_padding("right", "400");
@@ -48,6 +50,7 @@
   }
 
   &_paddingBottom {
+    @include Section_padding("bottom", "0");
     @include Section_padding("bottom", "100");
     @include Section_padding("bottom", "200");
     @include Section_padding("bottom", "400");
@@ -57,6 +60,7 @@
   }
 
   &_paddingLeft {
+    @include Section_padding("left", "0");
     @include Section_padding("left", "100");
     @include Section_padding("left", "200");
     @include Section_padding("left", "400");
