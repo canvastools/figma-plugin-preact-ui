@@ -136,6 +136,24 @@ export const Demo: Story = {
   ),
 }
 
+export const IntentModifiers: Story = {
+  parameters: {
+    controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
+  },
+  render: () => (
+    <div className="sb-column sb-width-full">
+      <MenuContainer width={208}>
+        <MenuItem>Menu Item</MenuItem>
+        <MenuItem>Menu Item</MenuItem>
+        <MenuItem intentModifiers="danger">Destructive</MenuItem>
+      </MenuContainer>
+    </div>
+  ),
+}
+
 export const Disabled: Story = {
   parameters: {
     controls: { disable: true },
