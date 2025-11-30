@@ -104,7 +104,6 @@ export const Demo: Story = {
     className: "",
     defaultSelected: true,
     disabled: false,
-    reducedPaddingRight: false,
     onChange: fn(),
   },
   parameters: {

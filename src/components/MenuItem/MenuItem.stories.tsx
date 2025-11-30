@@ -31,6 +31,16 @@ const meta: Meta<typeof MenuItem> = {
     className: {
       control: { type: "text" },
     },
+    intentModifiers: {
+      control: { type: "radio" },
+      defaultValue: { summary: "default" },
+      options: ["default", "danger"],
+      table: {
+        type: {
+          summary: "string",
+        },
+      },
+    },
     disabled: {
       control: { type: "boolean" },
       defaultValue: { summary: false },
@@ -106,8 +116,10 @@ export const Demo: Story = {
   tags: ["!autodocs"],
   args: {
     className: "",
+    intentModifiers: "default",
     disabled: false,
-    reducedPaddingRight: false,
+    optionLikePadding: false,
+    hasNested: false,
     onClick: fn(),
   },
   parameters: {

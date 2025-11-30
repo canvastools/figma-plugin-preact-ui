@@ -141,6 +141,9 @@ const figjamLight: ColorTokenTree = {
         secondary: "#BBBBBB",
         "secondary-interactive": "#BBBBBB",
 
+        danger: "#FCA397",
+        "danger-interactive": "#FCA397",
+
         disabled: "#808080",
       },
       icon: {

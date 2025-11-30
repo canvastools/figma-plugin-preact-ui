@@ -36,6 +36,7 @@
   @include Text_intent("neutral-inverted", "default");
   @include Text_intent("neutral-inverted-fixed", "default");
   @include Text_intent("neutral-inverted-fixed", "secondary");
+  @include Text_intent("neutral-inverted-fixed", "danger");
   @include Text_intent("brand", "default");
   @include Text_intent("danger", "default");
   @include Text_intent("warning", "default");

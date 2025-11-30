@@ -12,7 +12,11 @@
     padding: var(--pui-spacing-100) var(--pui-spacing-200);
     border-radius: var(--pui-radius-medium);
 
-    &:hover {
+    #{$parent}_intentModifiers-danger &:hover {
+      background-color: var(--pui-color-danger-bg-default-interactive);
+    }
+
+    #{$parent}_intentModifiers-default &:hover {
       background-color: var(--pui-color-brand-bg-default-interactive);
     }
   }

@@ -182,6 +182,9 @@ const intentCombinations = () => {
 
       ["secondary", false, false],
       ["secondary", true, false],
+
+      ["danger", false, false],
+      ["danger", true, false],
     ],
     brand: [
       ["default", false, false],

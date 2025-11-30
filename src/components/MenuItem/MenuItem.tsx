@@ -18,6 +18,7 @@ const hoverIntentProps = {
 const MenuItemComponent = (
   {
     className,
+    intentModifiers = "default",
     disabled = false,
     prefix,
     suffix,
@@ -31,6 +32,7 @@ const MenuItemComponent = (
 ) => {
   const [isHovered, setIsHovered] = useState(false)
   const _className = bem("MenuItem", undefined, {
+    intentModifiers,
     disabled,
     prefix: Boolean(prefix),
     suffix: Boolean(suffix),
@@ -81,7 +83,14 @@ const MenuItemComponent = (
             <Text
               variant="body"
               size="medium"
-              intent={isHovered ? "brand" : "neutral-inverted-fixed"}
+              intent={
+                isHovered
+                  ? intentModifiers === "danger"
+                    ? "danger"
+                    : "brand"
+                  : "neutral-inverted-fixed"
+              }
+              intentModifiers={!isHovered ? intentModifiers : "default"}
               disabled={disabled}
               interactive
             >
