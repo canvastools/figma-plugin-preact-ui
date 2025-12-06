@@ -1,0 +1,29 @@
+@use "../../shared.scss" as *;
+@use "../../mixins.scss" as *;
+
+.Code {
+  $parent: &;
+
+  @include typography-styles-code;
+  @include typography-code;
+
+  background-color: var(--pui-color-neutral-bg-default);
+  color: var(--pui-color-neutral-text-default);
+
+  border-radius: var(--pui-radius-medium);
+
+  border: 1px solid var(--pui-color-neutral-border-default);
+
+  &_variant-block {
+    display: block;
+    width: 100%;
+    padding: calc(var(--pui-spacing-200) + 1px) var(--pui-spacing-400)
+      var(--pui-spacing-200) calc(var(--pui-spacing-400) + 1px);
+  }
+
+  &_variant-inline {
+    display: inline-block;
+    width: fit-content;
+    padding: 1px var(--pui-spacing-100) 0 calc(var(--pui-spacing-100) + 1px);
+  }
+}

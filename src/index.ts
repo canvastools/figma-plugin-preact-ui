@@ -26,6 +26,9 @@ export type {
   CheckboxValue,
 } from "./components/Checkbox/Checkbox.types"
 
+export { Code } from "./components/Code/Code"
+export type { CodeProps } from "./components/Code/Code.types"
+
 export { ColorPicker } from "./components/ColorPicker/ColorPicker"
 export type {
   ColorPickerProps,
