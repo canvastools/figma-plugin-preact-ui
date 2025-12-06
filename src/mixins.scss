@@ -24,8 +24,19 @@
 
 /* Typography */
 
-@mixin typography-styles {
+@mixin typography-styles-default {
   font-family: "Inter", sans-serif;
+}
+
+@mixin typography-styles-code {
+  font-family: "Roboto Mono", monospace;
+}
+
+@mixin typography-code {
+  font-size: 11px;
+  line-height: 18px;
+  letter-spacing: 0.005em;
+  font-weight: 400;
 }
 
 @mixin typography-header-small {

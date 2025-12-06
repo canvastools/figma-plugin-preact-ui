@@ -72,7 +72,7 @@
     white-space: nowrap;
     overflow: hidden;
 
-    @include typography-styles;
+    @include typography-styles-default;
     @include typography-body-medium;
     @include curson-feedback;
 

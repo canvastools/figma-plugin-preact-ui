@@ -24,7 +24,7 @@
 .Text {
   $parent: &;
 
-  @include typography-styles;
+  @include typography-styles-default;
   user-select: none;
 
   @include Text_intent("neutral", "default");

@@ -2,7 +2,7 @@
 @use "../../mixins.scss" as *;
 
 @mixin CalendarButton {
-  @include typography-styles;
+  @include typography-styles-default;
   @include typography-body-medium;
   color: var(--pui-color-neutral-text-default);
   text-decoration: none;
@@ -85,10 +85,15 @@
     &__navigation {
       display: flex;
       flex-flow: row nowrap;
-      margin-bottom: var(--pui-spacing-400);
+      margin-bottom: var(--pui-spacing-200);
 
       & > button {
         @include CalendarButton;
+      }
+
+      & > button:disabled {
+        color: var(--pui-color-neutral-text-secondary) !important;
+        background-color: transparent !important;
       }
 
       &__arrow {
@@ -113,7 +118,7 @@
           text-align: center;
 
           & > abbr {
-            @include typography-styles;
+            @include typography-styles-default;
             @include typography-body-medium;
             color: var(--pui-color-neutral-text-secondary);
             text-decoration: none;
@@ -138,7 +143,8 @@
         @include CalendarButtonDisabled;
       }
 
-      &--active {
+      &--active,
+      &--hasActive {
         @include CalendarButtonActive;
       }
     }

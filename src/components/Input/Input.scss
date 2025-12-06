@@ -49,7 +49,7 @@
     padding: 0 var(--pui-spacing-200);
     color: var(--pui-color-neutral-text-default-interactive);
 
-    @include typography-styles;
+    @include typography-styles-default;
     @include typography-body-medium;
     @include curson-feedback;
 
