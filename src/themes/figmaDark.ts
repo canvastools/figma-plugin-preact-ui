@@ -79,17 +79,19 @@ const figmaDark: ColorTokenTree = {
       border: {
         default: "#444444",
         "default-interactive": "#444444",
-        "default-interactive-hover": "#4A5878",
+        "default-interactive-hover": "#444444",
         "default-interactive-selected": "#0C8CE9",
-        "default-interactive-selected-error": "#D4583B",
 
         secondary: "#767676",
 
         brand: "#536383",
         "brand-interactive": "#536383",
+        "brand-interactive-hover": "#536383",
+        "brand-interactive-selected": "#0C8CE9",
 
         danger: "#963323",
         "danger-interactive": "#963323",
+        "danger-interactive-error": "#D4583B",
 
         warning: "#925711",
 
@@ -107,7 +109,7 @@ const figmaDark: ColorTokenTree = {
       bg: {
         default: "#ffffff",
         "default-interactive": "#ffffff",
-        "default-interactive-hover": "#e5e5e5",
+        "default-interactive-hover": "#ffffff",
         "default-interactive-pressed": "#D9D9D9",
 
         disabled: "#757575",
@@ -163,7 +165,7 @@ const figmaDark: ColorTokenTree = {
       bg: {
         default: "#0C8CE9",
         "default-interactive": "#0C8CE9",
-        "default-interactive-hover": "#0A6DC2",
+        "default-interactive-hover": "#0C8CE9",
         "default-interactive-pressed": "#105CAD",
 
         disabled: "#757575",
@@ -188,7 +190,7 @@ const figmaDark: ColorTokenTree = {
       bg: {
         default: "#E03E1A",
         "default-interactive": "#E03E1A",
-        "default-interactive-hover": "#C4381C",
+        "default-interactive-hover": "#E03E1A",
         "default-interactive-pressed": "#963323",
 
         disabled: "#757575",
@@ -225,7 +227,7 @@ const figmaDark: ColorTokenTree = {
       bg: {
         default: "#198F51",
         "default-interactive": "#198F51",
-        "default-interactive-hover": "#078348",
+        "default-interactive-hover": "#198F51",
         "default-interactive-pressed": "#0A5C35",
 
         disabled: "#757575",

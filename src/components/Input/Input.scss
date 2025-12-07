@@ -20,7 +20,7 @@
   background-color: var(--pui-color-neutral-bg-secondary-interactive);
 
   &:hover {
-    outline-color: var(--pui-color-neutral-border-default-interactive);
+    outline-color: var(--pui-color-neutral-border-default-interactive-hover);
   }
 
   &:hover > &__suffix,
@@ -35,7 +35,7 @@
 
   &_error {
     outline-color: var(
-      --pui-color-neutral-border-default-interactive-selected-error
+      --pui-color-neutral-border-danger-interactive-error
     ) !important;
   }
 

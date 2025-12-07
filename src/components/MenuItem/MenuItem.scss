@@ -13,11 +13,11 @@
     border-radius: var(--pui-radius-medium);
 
     #{$parent}_intentModifiers-danger &:hover {
-      background-color: var(--pui-color-danger-bg-default-interactive);
+      background-color: var(--pui-color-danger-bg-default-interactive-hover);
     }
 
     #{$parent}_intentModifiers-default &:hover {
-      background-color: var(--pui-color-brand-bg-default-interactive);
+      background-color: var(--pui-color-brand-bg-default-interactive-hover);
     }
   }
 
@@ -34,6 +34,8 @@
   }
 
   &_optionLikePadding &__content {
-    padding-left: calc(var(--pui-spacing-200) + var(--pui-spacing-400));
+    padding-left: calc(
+      var(--pui-spacing-200) + var(--pui-spacing-400) + var(--pui-spacing-100)
+    );
   }
 }

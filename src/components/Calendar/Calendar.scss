@@ -20,15 +20,15 @@
   box-shadow: none;
 
   &:hover {
-    background-color: var(--pui-color-neutral-bg-secondary-interactive);
+    background-color: var(--pui-color-neutral-bg-default-interactive-hover);
   }
 
   &:active {
-    background-color: var(--pui-color-neutral-bg-secondary-interactive-pressed);
+    background-color: var(--pui-color-neutral-bg-default-interactive-pressed);
   }
 }
 
-@mixin CalendarButtonActive {
+@mixin CalendarButtonSelected {
   background-color: var(--pui-color-neutral-bg-default-interactive-selected);
   color: var(--pui-color-neutral-text-default-interactive-selected) !important;
   box-shadow: none;
@@ -145,7 +145,7 @@
 
       &--active,
       &--hasActive {
-        @include CalendarButtonActive;
+        @include CalendarButtonSelected;
       }
     }
 

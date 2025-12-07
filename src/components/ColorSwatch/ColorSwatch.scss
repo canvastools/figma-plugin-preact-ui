@@ -115,13 +115,13 @@
   &_hoverable:not(&_selected) {
     &:hover {
       box-shadow: 0 0 0 2px
-        var(--pui-color-neutral-border-default-interactive-hover);
+        var(--pui-color-neutral-border-brand-interactive-hover);
     }
   }
 
   &_selected {
     box-shadow: 0 0 0 2px
-      var(--pui-color-neutral-border-default-interactive-selected);
+      var(--pui-color-neutral-border-brand-interactive-selected);
 
     #{$parent}__container:before {
       display: none;

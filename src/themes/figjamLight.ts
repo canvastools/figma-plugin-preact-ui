@@ -79,17 +79,19 @@ const figjamLight: ColorTokenTree = {
       border: {
         default: "#e5e5e5",
         "default-interactive": "#e5e5e5",
-        "default-interactive-hover": "#e4ccff",
+        "default-interactive-hover": "#e5e5e5",
         "default-interactive-selected": "#8d3efb",
-        "default-interactive-selected-error": "#f24822",
 
         secondary: "#cccccc",
 
         brand: "#9747ff",
         "brand-interactive": "#9747ff",
+        "brand-interactive-hover": "#9747ff",
+        "brand-interactive-selected": "#8d3efb",
 
         danger: "#ffc7c2",
         "danger-interactive": "#ffc7c2",
+        "danger-interactive-error": "#f24822",
 
         warning: "#fcd19c",
 
@@ -107,7 +109,7 @@ const figjamLight: ColorTokenTree = {
       bg: {
         default: "#2c2c2c",
         "default-interactive": "#2c2c2c",
-        "default-interactive-hover": "#5c5c5c",
+        "default-interactive-hover": "#2c2c2c",
         "default-interactive-pressed": "#808080",
 
         disabled: "#d9d9d9",
@@ -163,7 +165,7 @@ const figjamLight: ColorTokenTree = {
       bg: {
         default: "#8d3efb",
         "default-interactive": "#8d3efb",
-        "default-interactive-hover": "#7c2bda",
+        "default-interactive-hover": "#8d3efb",
         "default-interactive-pressed": "#6E1FB8",
 
         disabled: "#d9d9d9",
@@ -188,7 +190,7 @@ const figjamLight: ColorTokenTree = {
       bg: {
         default: "#f24822",
         "default-interactive": "#f24822",
-        "default-interactive-hover": "#dc3412",
+        "default-interactive-hover": "#f24822",
         "default-interactive-pressed": "#bd2915",
 
         disabled: "#d9d9d9",
@@ -225,7 +227,7 @@ const figjamLight: ColorTokenTree = {
       bg: {
         default: "#14ae5c",
         "default-interactive": "#14ae5c",
-        "default-interactive-hover": "#009951",
+        "default-interactive-hover": "#14ae5c",
         "default-interactive-pressed": "#008043",
 
         disabled: "#d9d9d9",

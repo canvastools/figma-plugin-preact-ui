@@ -212,9 +212,7 @@
   &_dragging &_drop-parent > &__content,
   &_dragging:is(&_drag-inside) > &__content,
   &_dragging:is(&_drop-parent) > &__content {
-    outline-color: var(
-      --pui-color-neutral-border-default-interactive-selected-error
-    );
+    outline-color: var(--pui-color-neutral-border-danger-interactive-error);
   }
 
   /* Collapsed */
