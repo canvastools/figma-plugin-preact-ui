@@ -1,6 +1,6 @@
 @use "../../shared.scss" as *;
 
-.MenuItem {
+.MenuItemAction {
   $parent: &;
 
   padding: 0 var(--pui-spacing-200);
@@ -12,13 +12,20 @@
     padding: var(--pui-spacing-100) var(--pui-spacing-200);
     border-radius: var(--pui-radius-medium);
 
-    #{$parent}_intentModifiers-danger &:hover {
+    #{$parent}_intentModifiers-danger &:hover,
+    #{$parent}_intentModifiers-danger#{$parent}_focused & {
       background-color: var(--pui-color-danger-bg-default-interactive-hover);
     }
 
-    #{$parent}_intentModifiers-default &:hover {
+    #{$parent}_intentModifiers-default &:hover,
+    #{$parent}_intentModifiers-default#{$parent}_focused & {
       background-color: var(--pui-color-brand-bg-default-interactive-hover);
     }
+  }
+
+  &:focus {
+    outline: none;
+    border: none;
   }
 
   &_disabled &__content:hover {

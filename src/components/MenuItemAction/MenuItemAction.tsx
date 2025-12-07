@@ -3,8 +3,8 @@ import { useState } from "preact/hooks"
 
 import { override } from "../../utils"
 
-import type { MenuItemProps } from "./MenuItem.types"
-import "./MenuItem.scss"
+import type { MenuItemActionProps } from "./MenuItemAction.types"
+import "./MenuItemAction.scss"
 
 import { Text } from "../../index"
 
@@ -15,11 +15,12 @@ const hoverIntentProps = {
   intentModifiers: "default",
 }
 
-const MenuItemComponent = (
+const MenuItemActionComponent = (
   {
     className,
     intentModifiers = "default",
     disabled = false,
+    focused = false,
     prefix,
     suffix,
     children,
@@ -27,13 +28,15 @@ const MenuItemComponent = (
     hasNested = false,
     onClick,
     ...rest
-  }: MenuItemProps,
+  }: MenuItemActionProps,
   ref: preact.Ref<HTMLDivElement>
 ) => {
   const [isHovered, setIsHovered] = useState(false)
-  const _className = bem("MenuItem", undefined, {
+  const isActive = isHovered || focused
+  const _className = bem("MenuItemAction", undefined, {
     intentModifiers,
     disabled,
+    focused,
     prefix: Boolean(prefix),
     suffix: Boolean(suffix),
     hasNested,
@@ -68,10 +71,10 @@ const MenuItemComponent = (
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <div className="MenuItem__content">
+      <div className="MenuItemAction__content">
         {prefix && (
-          <div className="MenuItem__prefix">
-            {isHovered
+          <div className="MenuItemAction__prefix">
+            {isActive
               ? override(prefix, {
                   ...hoverIntentProps,
                 })
@@ -79,22 +82,22 @@ const MenuItemComponent = (
           </div>
         )}
         {children && (
-          <div className="MenuItem__children">
+          <div className="MenuItemAction__children">
             <Text
               variant="body"
               size="medium"
               intent={
-                isHovered
+                isActive
                   ? intentModifiers === "danger"
                     ? "danger"
                     : "brand"
                   : "neutral-inverted-fixed"
               }
-              intentModifiers={!isHovered ? intentModifiers : "default"}
+              intentModifiers={!isActive ? intentModifiers : "default"}
               disabled={disabled}
               interactive
             >
-              {isHovered
+              {isActive
                 ? override(children, {
                     ...hoverIntentProps,
                   })
@@ -103,8 +106,8 @@ const MenuItemComponent = (
           </div>
         )}
         {suffix && (
-          <div className="MenuItem__suffix">
-            {isHovered
+          <div className="MenuItemAction__suffix">
+            {isActive
               ? override(suffix, {
                   ...hoverIntentProps,
                 })
@@ -116,6 +119,7 @@ const MenuItemComponent = (
   )
 }
 
-export const MenuItem = typedForwardRef<MenuItemProps, HTMLDivElement>(
-  MenuItemComponent
-)
+export const MenuItemAction = typedForwardRef<
+  MenuItemActionProps,
+  HTMLDivElement
+>(MenuItemActionComponent)

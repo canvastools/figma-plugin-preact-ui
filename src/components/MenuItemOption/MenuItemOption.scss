@@ -12,9 +12,15 @@
     border-radius: var(--pui-radius-medium);
     gap: var(--pui-spacing-100);
 
-    &:hover {
+    &:hover,
+    #{$parent}_focused & {
       background-color: var(--pui-color-brand-bg-default-interactive-hover);
     }
+  }
+
+  &:focus {
+    outline: none;
+    border: none;
   }
 
   &__content-container {

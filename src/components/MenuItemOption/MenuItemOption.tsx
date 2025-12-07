@@ -22,6 +22,7 @@ const MenuItemOptionComponent = (
     className,
     defaultSelected = false,
     selected: controlledSelected,
+    focused = false,
     disabled = false,
     suffix,
     children,
@@ -36,8 +37,10 @@ const MenuItemOptionComponent = (
     controlledSelected !== undefined ? controlledSelected : internalSelected
 
   const [isHovered, setIsHovered] = useState(false)
+  const isActive = isHovered || focused
   const _className = bem("MenuItemOption", undefined, {
     disabled,
+    focused,
     suffix: Boolean(suffix),
     selected: isSelected,
   })
@@ -85,7 +88,7 @@ const MenuItemOptionComponent = (
             <Icon
               glyph={checkGlyph}
               size={16}
-              intent={isHovered ? "brand" : "neutral-inverted-fixed"}
+              intent={isActive ? "brand" : "neutral-inverted-fixed"}
               disabled={disabled}
               interactive={true}
             />
@@ -97,11 +100,11 @@ const MenuItemOptionComponent = (
               <Text
                 variant="body"
                 size="medium"
-                intent={isHovered ? "brand" : "neutral-inverted-fixed"}
+                intent={isActive ? "brand" : "neutral-inverted-fixed"}
                 disabled={disabled}
                 interactive
               >
-                {isHovered
+                {isActive
                   ? override(children, {
                       ...hoverIntentProps,
                     })
@@ -111,7 +114,7 @@ const MenuItemOptionComponent = (
           )}
           {suffix && (
             <div className="MenuItemOption__suffix">
-              {isHovered
+              {isActive
                 ? override(suffix, {
                     ...hoverIntentProps,
                   })
