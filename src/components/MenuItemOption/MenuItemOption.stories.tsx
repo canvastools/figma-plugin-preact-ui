@@ -56,17 +56,6 @@ const meta: Meta<typeof MenuItemOption> = {
         },
       },
     },
-    reducedPaddingRight: {
-      control: { type: "boolean" },
-      defaultValue: { summary: false },
-      description:
-        "Indicates if the item has reduced padding on the right. For pixel perfect vertical alignment of the icons.",
-      table: {
-        type: {
-          summary: "boolean",
-        },
-      },
-    },
     suffix: {
       control: { disable: true },
       description: "Element displayed after children.",

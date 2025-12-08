@@ -3,7 +3,7 @@ import { Meta, StoryObj } from "@storybook/preact"
 import { MenuDivider } from "./MenuDivider"
 
 import { MenuContainer } from "../../index"
-import { MenuItem } from "../../index"
+import { MenuItemAction } from "../../index"
 
 const meta: Meta<typeof MenuDivider> = {
   title: "Components/MenuDivider",
@@ -45,11 +45,11 @@ export const Demo: Story = {
   render: (args) => (
     <div className="sb-column sb-width-full">
       <MenuContainer width={208}>
-        <MenuItem>Menu Item</MenuItem>
-        <MenuItem>Menu Item</MenuItem>
+        <MenuItemAction>Menu Item</MenuItemAction>
+        <MenuItemAction>Menu Item</MenuItemAction>
         <MenuDivider {...args} />
-        <MenuItem>Menu Item</MenuItem>
-        <MenuItem>Menu Item</MenuItem>
+        <MenuItemAction>Menu Item</MenuItemAction>
+        <MenuItemAction>Menu Item</MenuItemAction>
       </MenuContainer>
     </div>
   ),
@@ -65,11 +65,11 @@ export const Variant: Story = {
   render: () => (
     <div className="sb-column sb-width-full">
       <MenuContainer width={208}>
-        <MenuItem>Full divider below</MenuItem>
+        <MenuItemAction>Full divider below</MenuItemAction>
         <MenuDivider variant="full" />
-        <MenuItem>Menu Item</MenuItem>
+        <MenuItemAction>Menu Item</MenuItemAction>
         <MenuDivider variant="inset" />
-        <MenuItem>Inset divider above</MenuItem>
+        <MenuItemAction>Inset divider above</MenuItemAction>
       </MenuContainer>
     </div>
   ),

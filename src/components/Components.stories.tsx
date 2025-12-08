@@ -25,7 +25,7 @@ import {
   ListItem,
   MenuContainer,
   MenuDivider,
-  MenuItem,
+  MenuItemAction,
   MenuItemOption,
   Select,
   ScrollContainer,
@@ -149,13 +149,15 @@ export const _1: Story = {
                   onClose={() => setOpenMenu(false)}
                 >
                   <MenuContainer>
-                    <MenuItem onClick={() => setOpenMenu(false)}>
+                    <MenuItemAction onClick={() => setOpenMenu(false)}>
                       Settings
-                    </MenuItem>
-                    <MenuItem onClick={() => setOpenMenu(false)}>Help</MenuItem>
-                    <MenuItem onClick={() => setOpenMenu(false)}>
+                    </MenuItemAction>
+                    <MenuItemAction onClick={() => setOpenMenu(false)}>
+                      Help
+                    </MenuItemAction>
+                    <MenuItemAction onClick={() => setOpenMenu(false)}>
                       Logout
-                    </MenuItem>
+                    </MenuItemAction>
                     <MenuDivider />
                     <MenuItemOption
                       defaultSelected

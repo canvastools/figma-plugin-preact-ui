@@ -7,7 +7,7 @@ import { Icon } from "../../index"
 import { MenuDivider } from "../../index"
 import { OverlayPositioner } from "../../index"
 import { Button } from "../../index"
-import { MenuItem } from "../../index"
+import { MenuItemAction } from "../../index"
 import { MenuItemOption } from "../../index"
 import { chevronRight as chevronRightGlyph } from "../../index"
 
@@ -76,8 +76,8 @@ export const Demo: Story = {
   render: (args) => (
     <div className="sb-column sb-width-full">
       <MenuContainer {...args}>
-        <MenuItem>Menu Item</MenuItem>
-        <MenuItem>Menu Item</MenuItem>
+        <MenuItemAction>Menu Item</MenuItemAction>
+        <MenuItemAction>Menu Item</MenuItemAction>
         <MenuDivider />
         <MenuItemOption selected>Option</MenuItemOption>
         <MenuItemOption selected={false}>Option</MenuItemOption>
@@ -112,8 +112,12 @@ export const OverlayMenu: Story = {
           onClose={() => setOpen(false)}
         >
           <MenuContainer>
-            <MenuItem onClick={() => setOpen(false)}>Menu Item</MenuItem>
-            <MenuItem onClick={() => setOpen(false)}>Menu Item</MenuItem>
+            <MenuItemAction onClick={() => setOpen(false)}>
+              Menu Item
+            </MenuItemAction>
+            <MenuItemAction onClick={() => setOpen(false)}>
+              Menu Item
+            </MenuItemAction>
           </MenuContainer>
         </OverlayPositioner>
       </div>
@@ -146,8 +150,10 @@ export const NestedMenu: Story = {
           onClose={() => setOpen(false)}
         >
           <MenuContainer>
-            <MenuItem onClick={() => setOpen(false)}>Menu Item</MenuItem>
-            <MenuItem
+            <MenuItemAction onClick={() => setOpen(false)}>
+              Menu Item
+            </MenuItemAction>
+            <MenuItemAction
               ref={anchorRefMenuNested}
               hasNested
               onClick={() => setOpenNested((v) => !v)}
@@ -161,7 +167,7 @@ export const NestedMenu: Story = {
               }
             >
               Menu Item
-            </MenuItem>
+            </MenuItemAction>
             <OverlayPositioner
               anchorRef={anchorRefMenuNested}
               open={openNested}
@@ -170,15 +176,17 @@ export const NestedMenu: Story = {
               paddingX={4}
             >
               <MenuContainer>
-                <MenuItem onClick={() => setOpenNested(false)}>
+                <MenuItemAction onClick={() => setOpenNested(false)}>
                   Nested Menu Item
-                </MenuItem>
-                <MenuItem onClick={() => setOpenNested(false)}>
+                </MenuItemAction>
+                <MenuItemAction onClick={() => setOpenNested(false)}>
                   Nested Menu Item
-                </MenuItem>
+                </MenuItemAction>
               </MenuContainer>
             </OverlayPositioner>
-            <MenuItem onClick={() => setOpen(false)}>Menu Item</MenuItem>
+            <MenuItemAction onClick={() => setOpen(false)}>
+              Menu Item
+            </MenuItemAction>
           </MenuContainer>
         </OverlayPositioner>
       </div>
