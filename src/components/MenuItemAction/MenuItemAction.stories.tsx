@@ -50,6 +50,15 @@ const meta: Meta<typeof MenuItemAction> = {
         },
       },
     },
+    focused: {
+      control: { type: "boolean" },
+      defaultValue: { summary: false },
+      table: {
+        type: {
+          summary: "boolean",
+        },
+      },
+    },
     prefix: {
       control: { disable: true },
       description: "Element displayed before children.",
@@ -75,7 +84,7 @@ const meta: Meta<typeof MenuItemAction> = {
           summary: "JSX.Element",
         },
       },
-      description: "Children of the menu item.",
+      description: "Content of the menu item.",
     },
     optionLikePadding: {
       control: { type: "boolean" },
@@ -118,6 +127,7 @@ export const Demo: Story = {
     className: "",
     intentModifiers: "default",
     disabled: false,
+    focused: false,
     optionLikePadding: false,
     hasNested: false,
     onClick: fn(),

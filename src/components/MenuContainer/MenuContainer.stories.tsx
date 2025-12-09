@@ -62,7 +62,6 @@ export default meta
 type Story = StoryObj<typeof MenuContainer>
 
 export const Demo: Story = {
-  tags: ["!autodocs"],
   args: {
     className: "",
     width: 208,
@@ -86,110 +85,4 @@ export const Demo: Story = {
       </MenuContainer>
     </div>
   ),
-}
-
-export const OverlayMenu: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => {
-    const [open, setOpen] = useState(false)
-
-    const anchorRef = useRef<HTMLButtonElement | null>(null)
-
-    return (
-      <div className="sb-column sb-width-full">
-        <Button ref={anchorRef} onClick={() => setOpen((v) => !v)}>
-          Show Menu
-        </Button>
-        <OverlayPositioner
-          anchorRef={anchorRef}
-          paddingY={4}
-          open={open}
-          onClose={() => setOpen(false)}
-        >
-          <MenuContainer>
-            <MenuItemAction onClick={() => setOpen(false)}>
-              Menu Item
-            </MenuItemAction>
-            <MenuItemAction onClick={() => setOpen(false)}>
-              Menu Item
-            </MenuItemAction>
-          </MenuContainer>
-        </OverlayPositioner>
-      </div>
-    )
-  },
-}
-
-export const NestedMenu: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => {
-    const [open, setOpen] = useState(false)
-    const [openNested, setOpenNested] = useState(false)
-
-    const anchorRefTrigger = useRef<HTMLButtonElement | null>(null)
-    const anchorRefMenuNested = useRef<HTMLDivElement | null>(null)
-
-    return (
-      <div className="sb-column sb-width-full">
-        <Button ref={anchorRefTrigger} onClick={() => setOpen((v) => !v)}>
-          Show Menu
-        </Button>
-        <OverlayPositioner
-          anchorRef={anchorRefTrigger}
-          open={open}
-          onClose={() => setOpen(false)}
-        >
-          <MenuContainer>
-            <MenuItemAction onClick={() => setOpen(false)}>
-              Menu Item
-            </MenuItemAction>
-            <MenuItemAction
-              ref={anchorRefMenuNested}
-              hasNested
-              onClick={() => setOpenNested((v) => !v)}
-              suffix={
-                <Icon
-                  glyph={chevronRightGlyph}
-                  size={16}
-                  intent="neutral-inverted-fixed"
-                  interactive
-                />
-              }
-            >
-              Menu Item
-            </MenuItemAction>
-            <OverlayPositioner
-              anchorRef={anchorRefMenuNested}
-              open={openNested}
-              placement="right-top"
-              onClose={() => setOpenNested(false)}
-              paddingX={4}
-            >
-              <MenuContainer>
-                <MenuItemAction onClick={() => setOpenNested(false)}>
-                  Nested Menu Item
-                </MenuItemAction>
-                <MenuItemAction onClick={() => setOpenNested(false)}>
-                  Nested Menu Item
-                </MenuItemAction>
-              </MenuContainer>
-            </OverlayPositioner>
-            <MenuItemAction onClick={() => setOpen(false)}>
-              Menu Item
-            </MenuItemAction>
-          </MenuContainer>
-        </OverlayPositioner>
-      </div>
-    )
-  },
 }

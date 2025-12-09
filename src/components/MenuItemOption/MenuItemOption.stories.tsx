@@ -56,6 +56,15 @@ const meta: Meta<typeof MenuItemOption> = {
         },
       },
     },
+    focused: {
+      control: { type: "boolean" },
+      defaultValue: { summary: false },
+      table: {
+        type: {
+          summary: "boolean",
+        },
+      },
+    },
     suffix: {
       control: { disable: true },
       description: "Element displayed after children.",
@@ -67,6 +76,7 @@ const meta: Meta<typeof MenuItemOption> = {
     },
     children: {
       control: { disable: true },
+      description: "Content of the menu item.",
       table: {
         type: {
           summary: "JSX.Element",
@@ -93,6 +103,7 @@ export const Demo: Story = {
     className: "",
     defaultSelected: true,
     disabled: false,
+    focused: false,
     onChange: fn(),
   },
   parameters: {
