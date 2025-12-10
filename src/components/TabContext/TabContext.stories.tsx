@@ -19,8 +19,7 @@ const meta: Meta<typeof TabContext> = {
   parameters: {
     docs: {
       description: {
-        component:
-          "A wrapper component that manages tab states. It must wrap all tab-related components.",
+        component: "A context provider that manages tab states.",
       },
     },
   },
