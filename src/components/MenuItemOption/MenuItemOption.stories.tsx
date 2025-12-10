@@ -1,32 +1,38 @@
 import { Meta, StoryObj } from "@storybook/preact"
-import { useState } from "preact/hooks"
-
 import { fn } from "@storybook/test"
+
+import { useState } from "preact/hooks"
 
 import { MenuItemOption } from "./MenuItemOption"
 
-import { MenuContainer } from "../../index"
-import { Icon } from "../../index"
-import { Badge } from "../../index"
-import { Stack } from "../../index"
-import { Text } from "../../index"
-import { check as checkGlyph } from "../../index"
+import {
+  MenuContainer,
+  Icon,
+  Badge,
+  Stack,
+  Text,
+  MenuContext,
+  check as checkGlyph,
+  ai as aiGlyph,
+} from "../../index"
 
 const meta: Meta<typeof MenuItemOption> = {
   title: "Components/MenuItemOption",
   component: MenuItemOption,
   tags: ["autodocs"],
-
-  parameters: {
-    docs: {
-      description: {
-        component: "Used within &lt;MenuContainer/&gt;.",
-      },
-    },
-  },
   argTypes: {
     className: {
       control: { type: "text" },
+    },
+    id: {
+      control: { type: "text" },
+      description:
+        "Unique identifier for the menu item used to track focus the item in the menu context. If not provided, a random UUID will be generated.",
+      table: {
+        type: {
+          summary: "string",
+        },
+      },
     },
     defaultSelected: {
       control: { type: "boolean" },
@@ -101,6 +107,7 @@ export const Demo: Story = {
   tags: ["!autodocs"],
   args: {
     className: "",
+    id: "menu-item-option",
     defaultSelected: true,
     disabled: false,
     focused: false,
@@ -113,9 +120,11 @@ export const Demo: Story = {
   },
   render: (args) => (
     <div className="sb-column sb-width-full">
-      <MenuContainer width={208}>
-        <MenuItemOption {...args}>Menu Item Option</MenuItemOption>
-      </MenuContainer>
+      <MenuContext>
+        <MenuContainer width={208}>
+          <MenuItemOption {...args}>Menu Item Option</MenuItemOption>
+        </MenuContainer>
+      </MenuContext>
     </div>
   ),
 }
@@ -129,9 +138,13 @@ export const Uncontrolled: Story = {
   },
   render: () => (
     <div className="sb-column sb-width-full">
-      <MenuContainer width={208}>
-        <MenuItemOption defaultSelected={true}>Menu Item Option</MenuItemOption>
-      </MenuContainer>
+      <MenuContext>
+        <MenuContainer width={208}>
+          <MenuItemOption defaultSelected={true}>
+            Menu Item Option
+          </MenuItemOption>
+        </MenuContainer>
+      </MenuContext>
     </div>
   ),
 }
@@ -148,17 +161,19 @@ export const Controlled: Story = {
 
     return (
       <div className="sb-column sb-width-full">
-        <Stack spacing={200}>
-          <Text>Selected: {selected ? "true" : "false"}</Text>
-          <MenuContainer width={208}>
-            <MenuItemOption
-              selected={selected}
-              onChange={(e) => setSelected(e.selected)}
-            >
-              Menu Item Option
-            </MenuItemOption>
-          </MenuContainer>
-        </Stack>
+        <MenuContext>
+          <Stack spacing={200}>
+            <Text>Selected: {selected ? "true" : "false"}</Text>
+            <MenuContainer width={208}>
+              <MenuItemOption
+                selected={selected}
+                onChange={(e) => setSelected(e.selected)}
+              >
+                Menu Item Option
+              </MenuItemOption>
+            </MenuContainer>
+          </Stack>
+        </MenuContext>
       </div>
     )
   },
@@ -173,11 +188,13 @@ export const Disabled: Story = {
   },
   render: () => (
     <div className="sb-column sb-width-full">
-      <MenuContainer width={208}>
-        <MenuItemOption defaultSelected disabled>
-          Menu Item Option
-        </MenuItemOption>
-      </MenuContainer>
+      <MenuContext>
+        <MenuContainer width={208}>
+          <MenuItemOption defaultSelected disabled>
+            Menu Item Option
+          </MenuItemOption>
+        </MenuContainer>
+      </MenuContext>
     </div>
   ),
 }
@@ -191,47 +208,49 @@ export const Suffix: Story = {
   },
   render: () => (
     <div className="sb-column sb-width-full">
-      <MenuContainer width={208}>
-        <MenuItemOption
-          suffix={
-            <Text intent="neutral-inverted-fixed" intentModifiers="secondary">
-              Action
-            </Text>
-          }
-        >
-          Menu Item
-        </MenuItemOption>
-        <MenuItemOption
-          defaultSelected
-          suffix={
-            <Icon
-              glyph={checkGlyph}
-              size={16}
-              intent="neutral-inverted-fixed"
-              interactive
-            />
-          }
-        >
-          Menu Item
-        </MenuItemOption>
-        <MenuItemOption suffix={<Badge intent="brand">Badge</Badge>}>
-          Menu Item
-        </MenuItemOption>
-        <MenuItemOption
-          disabled
-          suffix={
-            <Icon
-              glyph={checkGlyph}
-              size={16}
-              intent="neutral-inverted-fixed"
-              interactive
-              disabled
-            />
-          }
-        >
-          Menu Item
-        </MenuItemOption>
-      </MenuContainer>
+      <MenuContext>
+        <MenuContainer width={208}>
+          <MenuItemOption
+            suffix={
+              <Text intent="neutral-inverted-fixed" intentModifiers="secondary">
+                Action
+              </Text>
+            }
+          >
+            Menu Item
+          </MenuItemOption>
+          <MenuItemOption
+            defaultSelected
+            suffix={
+              <Icon
+                glyph={aiGlyph}
+                size={16}
+                intent="neutral-inverted-fixed"
+                interactive
+              />
+            }
+          >
+            Menu Item
+          </MenuItemOption>
+          <MenuItemOption suffix={<Badge intent="brand">Badge</Badge>}>
+            Menu Item
+          </MenuItemOption>
+          <MenuItemOption
+            disabled
+            suffix={
+              <Icon
+                glyph={aiGlyph}
+                size={16}
+                intent="neutral-inverted-fixed"
+                interactive
+                disabled
+              />
+            }
+          >
+            Menu Item
+          </MenuItemOption>
+        </MenuContainer>
+      </MenuContext>
     </div>
   ),
 }

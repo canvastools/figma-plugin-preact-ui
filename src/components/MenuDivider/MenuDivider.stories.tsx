@@ -2,20 +2,12 @@ import { Meta, StoryObj } from "@storybook/preact"
 
 import { MenuDivider } from "./MenuDivider"
 
-import { MenuContainer } from "../../index"
-import { MenuItemAction } from "../../index"
+import { MenuContainer, MenuItemAction, MenuContext } from "../../index"
 
 const meta: Meta<typeof MenuDivider> = {
   title: "Components/MenuDivider",
   component: MenuDivider,
   tags: ["autodocs"],
-  parameters: {
-    docs: {
-      description: {
-        component: "Used within &lt;MenuContainer/&gt;.",
-      },
-    },
-  },
   argTypes: {
     className: {
       control: { type: "text" },
@@ -44,13 +36,15 @@ export const Demo: Story = {
   },
   render: (args) => (
     <div className="sb-column sb-width-full">
-      <MenuContainer width={208}>
-        <MenuItemAction>Menu Item</MenuItemAction>
-        <MenuItemAction>Menu Item</MenuItemAction>
-        <MenuDivider {...args} />
-        <MenuItemAction>Menu Item</MenuItemAction>
-        <MenuItemAction>Menu Item</MenuItemAction>
-      </MenuContainer>
+      <MenuContext>
+        <MenuContainer width={208}>
+          <MenuItemAction>Menu Item</MenuItemAction>
+          <MenuItemAction>Menu Item</MenuItemAction>
+          <MenuDivider {...args} />
+          <MenuItemAction>Menu Item</MenuItemAction>
+          <MenuItemAction>Menu Item</MenuItemAction>
+        </MenuContainer>
+      </MenuContext>
     </div>
   ),
 }
@@ -64,13 +58,15 @@ export const Variant: Story = {
   },
   render: () => (
     <div className="sb-column sb-width-full">
-      <MenuContainer width={208}>
-        <MenuItemAction>Full divider below</MenuItemAction>
-        <MenuDivider variant="full" />
-        <MenuItemAction>Menu Item</MenuItemAction>
-        <MenuDivider variant="inset" />
-        <MenuItemAction>Inset divider above</MenuItemAction>
-      </MenuContainer>
+      <MenuContext>
+        <MenuContainer width={208}>
+          <MenuItemAction>Full divider below</MenuItemAction>
+          <MenuDivider variant="full" />
+          <MenuItemAction>Menu Item</MenuItemAction>
+          <MenuDivider variant="inset" />
+          <MenuItemAction>Inset divider above</MenuItemAction>
+        </MenuContainer>
+      </MenuContext>
     </div>
   ),
 }

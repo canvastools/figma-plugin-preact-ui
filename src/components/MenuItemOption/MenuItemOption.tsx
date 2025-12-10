@@ -1,14 +1,12 @@
-import { bem, typedForwardRef } from "../../utils"
-import { useState, useEffect } from "preact/hooks"
-
-import { override } from "../../utils"
+import { bem, typedForwardRef, override, uuid } from "../../utils"
+import { useState, useEffect, useRef } from "preact/hooks"
 
 import type { MenuItemOptionProps } from "./MenuItemOption.types"
 import "./MenuItemOption.scss"
 
-import { Text } from "../../index"
-import { Icon } from "../../index"
-import { check as checkGlyph } from "../../index"
+import {} from "../../utils"
+
+import { Text, Icon, check as checkGlyph, useMenuContext } from "../../index"
 
 /* --- */
 
@@ -20,6 +18,7 @@ const hoverIntentProps = {
 const MenuItemOptionComponent = (
   {
     className,
+    id,
     defaultSelected = false,
     selected: controlledSelected,
     focused = false,
@@ -32,6 +31,20 @@ const MenuItemOptionComponent = (
   ref: preact.Ref<HTMLDivElement>
 ) => {
   const [internalSelected, setInternalSelected] = useState(defaultSelected)
+
+  const { registerItem, clearFocusedItem } = useMenuContext()
+
+  const itemRef = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    const unregister = registerItem({
+      id: id ?? uuid(),
+      ref: itemRef as preact.RefObject<HTMLElement>,
+      disabled,
+    })
+
+    return unregister
+  }, [disabled])
 
   const isSelected =
     controlledSelected !== undefined ? controlledSelected : internalSelected
@@ -65,6 +78,7 @@ const MenuItemOptionComponent = (
 
   const handleMouseEnter = () => {
     if (disabled) return
+    clearFocusedItem()
     setIsHovered(true)
   }
 
@@ -76,7 +90,15 @@ const MenuItemOptionComponent = (
   return (
     <div
       className={[_className, className, "no-drag"].join(" ").trim()}
-      ref={ref}
+      ref={(el) => {
+        if (typeof ref === "function") {
+          ref(el)
+        } else if (ref) {
+          // eslint-disable-next-line
+          ;(ref as preact.RefObject<HTMLDivElement>).current = el
+        }
+        itemRef.current = el
+      }}
       {...rest}
       onClick={handleClick}
       onMouseEnter={handleMouseEnter}

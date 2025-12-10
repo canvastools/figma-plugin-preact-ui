@@ -1,15 +1,15 @@
 import { Meta, StoryObj } from "@storybook/preact"
-import { useRef, useState } from "preact/hooks"
 
 import { MenuContainer } from "./MenuContainer"
 
-import { Icon } from "../../index"
-import { MenuDivider } from "../../index"
-import { OverlayPositioner } from "../../index"
-import { Button } from "../../index"
-import { MenuItemAction } from "../../index"
-import { MenuItemOption } from "../../index"
-import { chevronRight as chevronRightGlyph } from "../../index"
+import {
+  MenuDivider,
+  MenuItemAction,
+  MenuItemOption,
+  MenuContext,
+  Text,
+  Stack,
+} from "../../index"
 
 const meta: Meta<typeof MenuContainer> = {
   title: "Components/MenuContainer",
@@ -18,8 +18,7 @@ const meta: Meta<typeof MenuContainer> = {
   parameters: {
     docs: {
       description: {
-        component:
-          "A wrapper component that displays menu items. Used within &lt;OverlayPositioner/&gt;.",
+        component: "A wrapper component that displays menu items.",
       },
     },
   },
@@ -74,15 +73,75 @@ export const Demo: Story = {
   },
   render: (args) => (
     <div className="sb-column sb-width-full">
-      <MenuContainer {...args}>
-        <MenuItemAction>Menu Item</MenuItemAction>
-        <MenuItemAction>Menu Item</MenuItemAction>
-        <MenuDivider />
-        <MenuItemOption selected>Option</MenuItemOption>
-        <MenuItemOption selected={false}>Option</MenuItemOption>
-        <MenuItemOption selected={false}>Option</MenuItemOption>
-        <MenuItemOption selected={false}>Option</MenuItemOption>
-      </MenuContainer>
+      <MenuContext>
+        <MenuContainer {...args}>
+          <MenuItemAction>Menu Item</MenuItemAction>
+          <MenuItemAction>Menu Item</MenuItemAction>
+          <MenuDivider />
+          <MenuItemOption selected>Option</MenuItemOption>
+          <MenuItemOption selected={false}>Option</MenuItemOption>
+          <MenuItemOption selected={false}>Option</MenuItemOption>
+          <MenuItemOption selected={false}>Option</MenuItemOption>
+        </MenuContainer>
+      </MenuContext>
+    </div>
+  ),
+}
+
+export const Width: Story = {
+  parameters: {
+    controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
+  },
+  render: () => (
+    <div className="sb-column sb-width-full">
+      <Stack spacing={400}>
+        <Text>Width: 160</Text>
+        <MenuContext>
+          <MenuContainer width={160}>
+            <MenuItemAction>Menu Item</MenuItemAction>
+            <MenuItemAction>Menu Item</MenuItemAction>
+          </MenuContainer>
+        </MenuContext>
+        <Text>Width: auto</Text>
+        <MenuContext>
+          <MenuContainer width="auto">
+            <MenuItemAction>Menu Item</MenuItemAction>
+            <MenuItemAction>Menu Item</MenuItemAction>
+          </MenuContainer>
+        </MenuContext>
+      </Stack>
+    </div>
+  ),
+}
+
+export const Height: Story = {
+  parameters: {
+    controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
+  },
+  render: () => (
+    <div className="sb-column sb-width-full">
+      <Stack spacing={400}>
+        <Text>Height: 160</Text>
+        <MenuContext>
+          <MenuContainer height={160}>
+            <MenuItemAction>Menu Item</MenuItemAction>
+            <MenuItemAction>Menu Item</MenuItemAction>
+          </MenuContainer>
+        </MenuContext>
+        <Text>Height: auto</Text>
+        <MenuContext>
+          <MenuContainer height="auto">
+            <MenuItemAction>Menu Item</MenuItemAction>
+            <MenuItemAction>Menu Item</MenuItemAction>
+          </MenuContainer>
+        </MenuContext>
+      </Stack>
     </div>
   ),
 }

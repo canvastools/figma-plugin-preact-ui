@@ -1,13 +1,11 @@
 import { Fragment } from "preact"
-import { bem, typedForwardRef } from "../../utils"
-import { useState } from "preact/hooks"
-
-import { override } from "../../utils"
+import { bem, typedForwardRef, override, uuid } from "../../utils"
+import { useState, useEffect, useRef } from "preact/hooks"
 
 import type { MenuItemActionProps } from "./MenuItemAction.types"
 import "./MenuItemAction.scss"
 
-import { Icon, Text, chevronRight as chevronRightGlyph } from "../../index"
+import { Text, useMenuContext } from "../../index"
 
 /* --- */
 
@@ -19,6 +17,7 @@ const hoverIntentProps = {
 const MenuItemActionComponent = (
   {
     className,
+    id,
     intentModifiers = "default",
     disabled = false,
     focused = false,
@@ -26,12 +25,25 @@ const MenuItemActionComponent = (
     suffix,
     children,
     optionLikePadding = false,
-    hasNested,
     onClick,
     ...rest
   }: MenuItemActionProps,
   ref: preact.Ref<HTMLDivElement>
 ) => {
+  const { registerItem, clearFocusedItem } = useMenuContext()
+
+  const itemRef = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    const unregister = registerItem({
+      id: id ?? uuid(),
+      ref: itemRef as preact.RefObject<HTMLElement>,
+      disabled,
+    })
+
+    return unregister
+  }, [disabled])
+
   const [isHovered, setIsHovered] = useState(false)
   const isActive = isHovered || focused
   const _className = bem("MenuItemAction", undefined, {
@@ -40,7 +52,6 @@ const MenuItemActionComponent = (
     focused,
     prefix: Boolean(prefix),
     suffix: Boolean(suffix),
-    hasNested,
     optionLikePadding,
   })
 
@@ -55,6 +66,7 @@ const MenuItemActionComponent = (
 
   const handleMouseEnter = () => {
     if (disabled) return
+    clearFocusedItem()
     setIsHovered(true)
   }
 
@@ -67,7 +79,15 @@ const MenuItemActionComponent = (
     <Fragment>
       <div
         className={[_className, className, "no-drag"].join(" ").trim()}
-        ref={ref}
+        ref={(el) => {
+          if (typeof ref === "function") {
+            ref(el)
+          } else if (ref) {
+            // eslint-disable-next-line
+            ;(ref as preact.RefObject<HTMLDivElement>).current = el
+          }
+          itemRef.current = el
+        }}
         {...rest}
         onClick={handleClick}
         onMouseEnter={handleMouseEnter}
@@ -107,23 +127,13 @@ const MenuItemActionComponent = (
               </Text>
             </div>
           )}
-          {suffix && !hasNested && (
+          {suffix && (
             <div className="MenuItemAction__suffix">
               {isActive
                 ? override(suffix, {
                     ...hoverIntentProps,
                   })
                 : suffix}
-            </div>
-          )}
-          {hasNested && (
-            <div className="MenuItemAction__suffix">
-              <Icon
-                glyph={chevronRightGlyph}
-                size={16}
-                intent="neutral-inverted-fixed"
-                interactive
-              />
             </div>
           )}
         </div>

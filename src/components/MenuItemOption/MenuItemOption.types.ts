@@ -1,4 +1,5 @@
 export interface MenuItemOptionProps {
+  id?: string
   className?: string
   defaultSelected?: boolean
   selected?: boolean

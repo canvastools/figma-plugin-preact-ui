@@ -32,10 +32,6 @@
     background-color: transparent !important;
   }
 
-  &_hasNested &__content {
-    padding-right: var(--pui-spacing-100);
-  }
-
   &__children {
     flex: 1;
   }
