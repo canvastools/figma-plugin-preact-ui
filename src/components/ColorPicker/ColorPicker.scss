@@ -17,6 +17,15 @@
       border: 4px solid #ffffff;
     }
 
+    & .react-colorful__interactive:focus-visible .react-colorful__pointer {
+      outline-width: 1px;
+      outline-style: solid;
+      outline-color: var(
+        --pui-color-neutral-border-default-interactive-selected
+      );
+      outline-offset: -1px;
+    }
+
     & .react-colorful__saturation {
       width: 100%;
       height: 207px;

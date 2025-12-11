@@ -80,12 +80,14 @@ const ControlsRgba = ({
   type,
   setType,
   options,
+  selectRef,
 }: {
   color: Color
   setColor: (color: Color) => void
   type: ColorPickerType
   setType: (t: ColorPickerType) => void
   options: { value: string; label: string }[]
+  selectRef: preact.RefObject<HTMLDivElement>
 }) => {
   const [rgbaValue, setRgbaValue] = useState<Color>(color)
 
@@ -104,8 +106,6 @@ const ControlsRgba = ({
     min: RGBA_VALUES.a.min,
     max: RGBA_VALUES.a.max,
   })
-
-  const selectRef = useRef<HTMLDivElement>(null)
 
   const inputRedRef = useRef<HTMLInputElement>(null)
   const inputGreenRef = useRef<HTMLInputElement>(null)
@@ -363,12 +363,14 @@ const ControlsHex = ({
   type,
   setType,
   options,
+  selectRef,
 }: {
   color: Color
   setColor: (color: Color) => void
   type: ColorPickerType
   setType: (t: ColorPickerType) => void
   options: { value: string; label: string }[]
+  selectRef: preact.RefObject<HTMLDivElement>
 }) => {
   const [hexValue, setHexValue] = useState<string>(colorToHex(color).slice(1))
 
@@ -383,8 +385,6 @@ const ControlsHex = ({
     pattern: /^[0-9a-fA-F]{6}$/,
     trim: true,
   })
-
-  const selectRef = useRef<HTMLDivElement>(null)
 
   return (
     <>
@@ -443,12 +443,14 @@ const ControlsHexAlpha = ({
   type,
   setType,
   options,
+  selectRef,
 }: {
   color: Color
   setColor: (color: Color) => void
   type: ColorPickerType
   setType: (t: ColorPickerType) => void
   options: { value: string; label: string }[]
+  selectRef: preact.RefObject<HTMLDivElement>
 }) => {
   const [hexValue, setHexValue] = useState<string>(colorToHex(color).slice(1))
 
@@ -470,7 +472,6 @@ const ControlsHexAlpha = ({
     max: HEX_VALUES.a.max,
   })
 
-  const selectRef = useRef<HTMLDivElement>(null)
   const inputOpacityRef = useRef<HTMLInputElement>(null)
 
   return (
@@ -639,6 +640,8 @@ const ColorPickerComponent = (
   const currentColor = isControlled && value ? value : internalColor
   const currentType: ColorPickerType = internalType
 
+  const modeSelectRef = useRef<HTMLDivElement | null>(null)
+
   // --- High-frequency update scheduler (one update per frame) ---
   const pendingColorRef = useRef<Color | null>(null)
   const rafIdRef = useRef<number | null>(null)
@@ -691,6 +694,12 @@ const ColorPickerComponent = (
     type: currentType,
     controls,
   })
+
+  useEffect(() => {
+    if (controls && modeSelectRef.current) {
+      modeSelectRef.current.focus()
+    }
+  }, [currentType, controls])
 
   // Build Select options based on allowed types and rename hexAlpha to "Hex"
   // when hex is not available but hexAlpha is.
@@ -753,6 +762,7 @@ const ColorPickerComponent = (
               type={currentType as ColorPickerType}
               setType={setInternalType as (t: ColorPickerType) => void}
               options={computedOptions}
+              selectRef={modeSelectRef}
             />
           )}
           {currentType === "hexAlpha" && (
@@ -762,6 +772,7 @@ const ColorPickerComponent = (
               type={currentType as ColorPickerType}
               setType={setInternalType as (t: ColorPickerType) => void}
               options={computedOptions}
+              selectRef={modeSelectRef}
             />
           )}
           {currentType === "rgba" && (
@@ -771,6 +782,7 @@ const ColorPickerComponent = (
               type={currentType as ColorPickerType}
               setType={setInternalType as (t: ColorPickerType) => void}
               options={computedOptions}
+              selectRef={modeSelectRef}
             />
           )}
         </div>
