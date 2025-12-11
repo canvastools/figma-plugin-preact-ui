@@ -146,15 +146,15 @@ const MenuContext = ({
     if (!triggerRef?.current) return
     const triggerEl = triggerRef.current
 
-    const handleClick = (event: MouseEvent) => {
+    const handleMouseDown = (event: MouseEvent) => {
       event.preventDefault()
       setOpen?.(!open)
     }
 
-    triggerEl.addEventListener("click", handleClick)
+    triggerEl.addEventListener("mousedown", handleMouseDown)
 
     return () => {
-      triggerEl.removeEventListener("click", handleClick)
+      triggerEl.removeEventListener("mousedown", handleMouseDown)
     }
   }, [triggerRef, open, setOpen])
 
