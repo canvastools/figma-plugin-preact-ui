@@ -39,9 +39,7 @@ const InputComponent = (
   const inputRef = useRef<HTMLInputElement>(null)
 
   // Expose the root wrapper element to consumers (stable anchor for tooltips)
-  useImperativeHandle(ref, () => rootRef.current as HTMLDivElement, [
-    rootRef.current,
-  ])
+  useImperativeHandle(ref, () => rootRef.current as HTMLDivElement, [])
 
   useEffect(() => {
     if (value !== undefined) {

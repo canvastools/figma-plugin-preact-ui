@@ -1,4 +1,4 @@
-import { typedForwardRef, uuid } from "../../utils"
+import { typedForwardRef } from "../../utils"
 import { useState } from "preact/hooks"
 
 import type { MenuProps, MenuItemData } from "./Menu.types"
@@ -51,7 +51,7 @@ const MenuBody = ({
     onClose?.()
   }
 
-  const renderItem = (item: MenuItemData) => {
+  const renderItem = (item: MenuItemData, index: number) => {
     if (item.type === "action") {
       const { type, ...rest } = item
 
@@ -64,7 +64,7 @@ const MenuBody = ({
 
       return (
         <MenuItemAction
-          key={uuid()}
+          key={item.id ?? index}
           {...rest}
           id={item.id}
           onClick={handleItemClick}
@@ -85,7 +85,7 @@ const MenuBody = ({
 
       return (
         <MenuItemOption
-          key={uuid()}
+          key={item.id ?? index}
           {...rest}
           id={item.id}
           onChange={handleItemChange}
@@ -96,7 +96,7 @@ const MenuBody = ({
 
     if (item.type === "divider") {
       const { type, ...rest } = item
-      return <MenuDivider key={uuid()} {...rest} />
+      return <MenuDivider key={index} {...rest} />
     }
 
     return null
@@ -114,7 +114,9 @@ const MenuBody = ({
       onOpen={onOpen}
       onClose={handleClose}
     >
-      <MenuContainer width={width}>{items.map(renderItem)}</MenuContainer>
+      <MenuContainer width={width}>
+        {items.map((item, index) => renderItem(item, index))}
+      </MenuContainer>
     </OverlayPositioner>
   )
 }

@@ -24,6 +24,7 @@ import {
   ListContext,
   ListItem,
   MenuContainer,
+  MenuContext,
   MenuDivider,
   MenuItemAction,
   MenuItemOption,
@@ -142,35 +143,40 @@ export const _1: Story = {
                   <Icon glyph={settingsGlyph} variant="scaled" />
                 </ButtonIcon>
 
-                <OverlayPositioner
-                  anchorRef={anchorRefMenu}
-                  placement="over"
+                <MenuContext
+                  triggerRef={anchorRefMenu}
                   open={openMenu}
-                  onClose={() => setOpenMenu(false)}
+                  setOpen={setOpenMenu}
                 >
-                  <MenuContainer>
-                    <MenuItemAction onClick={() => setOpenMenu(false)}>
-                      Settings
-                    </MenuItemAction>
-                    <MenuItemAction onClick={() => setOpenMenu(false)}>
-                      Help
-                    </MenuItemAction>
-                    <MenuItemAction onClick={() => setOpenMenu(false)}>
-                      Logout
-                    </MenuItemAction>
-                    <MenuDivider />
-                    <MenuItemOption
-                      defaultSelected
-                      onChange={() => setOpenMenu(false)}
-                    >
-                      Light mode
-                    </MenuItemOption>
-                    <MenuItemOption onChange={() => setOpenMenu(false)}>
-                      Dark mode
-                    </MenuItemOption>
-                  </MenuContainer>
-                </OverlayPositioner>
-
+                  <OverlayPositioner
+                    anchorRef={anchorRefMenu}
+                    placement="over"
+                    open={openMenu}
+                    onClose={() => setOpenMenu(false)}
+                  >
+                    <MenuContainer>
+                      <MenuItemAction onClick={() => setOpenMenu(false)}>
+                        Settings
+                      </MenuItemAction>
+                      <MenuItemAction onClick={() => setOpenMenu(false)}>
+                        Help
+                      </MenuItemAction>
+                      <MenuItemAction onClick={() => setOpenMenu(false)}>
+                        Logout
+                      </MenuItemAction>
+                      <MenuDivider />
+                      <MenuItemOption
+                        defaultSelected
+                        onChange={() => setOpenMenu(false)}
+                      >
+                        Light mode
+                      </MenuItemOption>
+                      <MenuItemOption onChange={() => setOpenMenu(false)}>
+                        Dark mode
+                      </MenuItemOption>
+                    </MenuContainer>
+                  </OverlayPositioner>
+                </MenuContext>
                 <Avatar>M</Avatar>
               </Stack>
             </Stack>
