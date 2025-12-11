@@ -175,6 +175,22 @@ const MenuContext = ({
   const resolvedAnchorRef = (anchorRef ??
     triggerRef) as MenuContextValue["anchorRef"]
 
+  useEffect(() => {
+    if (!open) return
+
+    const handleTab = (event: KeyboardEvent) => {
+      if (event.key !== "Tab") return
+      event.preventDefault()
+      const direction = event.shiftKey ? "prev" : "next"
+      moveFocus(direction)
+    }
+
+    window.addEventListener("keydown", handleTab)
+    return () => {
+      window.removeEventListener("keydown", handleTab)
+    }
+  }, [open, moveFocus])
+
   const contextValue: MenuContextValue = {
     // id: idRef.current,
     triggerRef: triggerRef as MenuContextValue["triggerRef"],
