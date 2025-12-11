@@ -14,10 +14,15 @@
   padding: 0 var(--pui-spacing-100);
   border-radius: var(--pui-radius-medium);
   @include curson-feedback;
-  @include focus-visible;
 
   background-color: transparent;
   box-shadow: none;
+
+  &:focus-visible {
+    outline: 1px solid var(--pui-color-system-border-focus);
+    outline-offset: 1px;
+    box-shadow: none;
+  }
 
   &:hover {
     background-color: var(--pui-color-neutral-bg-default-interactive-hover);

@@ -72,7 +72,6 @@ const ButtonIconToggleComponent = (
               return cloneElement(maybeVNode, {
                 ...maybeVNode.props,
                 selected: isSelected,
-                interactive: true,
               })
             }
           }

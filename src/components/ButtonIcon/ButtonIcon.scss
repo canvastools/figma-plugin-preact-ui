@@ -1,7 +1,7 @@
 @use "../../shared.scss" as *;
 @use "../../mixins.scss" as *;
 
-@mixin Button_intent-filled($intent, $modifiers) {
+@mixin Button_filled($intent, $modifiers) {
   &_intent-#{$intent}-#{$modifiers} {
     background-color: var(--pui-color-#{$intent}-bg-#{$modifiers}-interactive);
 
@@ -19,7 +19,7 @@
   }
 }
 
-@mixin ButtonIcon_intent-outlined($intent, $modifiers) {
+@mixin ButtonIcon_outlined($intent, $modifiers) {
   &_intent-#{$intent}-#{$modifiers} {
     background-color: var(--pui-color-#{$intent}-bg-#{$modifiers}-interactive);
     box-shadow: inset 0 0 0 1px
@@ -39,7 +39,7 @@
   }
 }
 
-@mixin ButtonIcon_intent-ghost($intent, $modifiers) {
+@mixin ButtonIcon_ghost($intent, $modifiers) {
   &_intent-#{$intent}-#{$modifiers}.ButtonIcon_ghost {
     background-color: transparent;
     box-shadow: none;
@@ -58,13 +58,14 @@
   }
 }
 
-@mixin ButtonIcon_intent-translucent($intent, $modifiers) {
+@mixin ButtonIcon_translucent($intent, $modifiers) {
   &_intent-#{$intent}-#{$modifiers}.ButtonIcon_translucent {
     background-color: transparent;
     box-shadow: none;
     opacity: 0.64;
 
-    &:hover {
+    &:hover,
+    &:focus-visible {
       opacity: 1;
     }
 
@@ -84,7 +85,12 @@
   overflow: hidden;
 
   @include curson-feedback;
-  @include focus-visible;
+
+  &:focus-visible {
+    outline: 1px solid var(--pui-color-system-border-focus);
+    outline-offset: 1px;
+    box-shadow: none;
+  }
 
   &__children {
     display: flex;
@@ -126,16 +132,16 @@
     margin-left: -1px;
   }
 
-  @include ButtonIcon_intent-outlined("neutral", "default");
-  @include Button_intent-filled("neutral", "secondary");
-  @include ButtonIcon_intent-ghost("neutral", "default");
-  @include ButtonIcon_intent-translucent("neutral", "default");
+  @include ButtonIcon_outlined("neutral", "default");
+  @include Button_filled("neutral", "secondary");
+  @include ButtonIcon_ghost("neutral", "default");
+  @include ButtonIcon_translucent("neutral", "default");
 
   &_disabled {
     cursor: auto !important;
   }
 
-  &_disabled:is(&_intent-neutral-default) {
+  &_disabled {
     background-color: var(--pui-color-neutral-bg-disabled) !important;
     box-shadow: none !important;
 
@@ -146,5 +152,13 @@
     &:active {
       background-color: var(--pui-color-neutral-bg-disabled) !important;
     }
+  }
+
+  &_disabled:is(&_translucent) {
+    opacity: 1 !important;
+  }
+
+  &_translucent:focus-visible {
+    outline-offset: -1px !important;
   }
 }

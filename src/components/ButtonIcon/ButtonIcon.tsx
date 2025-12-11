@@ -1,5 +1,8 @@
 import { bem, typedForwardRef } from "../../utils"
 
+import { cloneElement, toChildArray } from "preact"
+import type { VNode } from "preact"
+
 import type { ButtonIconProps } from "./ButtonIcon.types"
 import "./ButtonIcon.scss"
 
@@ -62,10 +65,24 @@ const ButtonIconComponent = (
               size={icon.size}
               interactive
               selected={icon.selected}
+              disabled={disabled}
             />
           )}
 
-          {children}
+          {children &&
+            !icon &&
+            toChildArray(children).map((child) => {
+              if (typeof child === "object" && child !== null) {
+                const maybeVNode = child as VNode
+                if (maybeVNode.type === Icon) {
+                  return cloneElement(maybeVNode, {
+                    disabled,
+                    interactive: true,
+                  })
+                }
+              }
+              return child
+            })}
         </div>
       )}
     </button>

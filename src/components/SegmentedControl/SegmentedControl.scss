@@ -31,7 +31,12 @@
     padding: 0 var(--pui-spacing-200);
 
     @include curson-feedback;
-    @include focus-visible;
+
+    &:focus-visible {
+      outline: 1px solid var(--pui-color-system-border-focus);
+      outline-offset: 1px;
+      box-shadow: none;
+    }
 
     background-color: transparent;
     outline: none;
