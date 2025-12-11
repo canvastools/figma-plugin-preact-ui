@@ -42,7 +42,7 @@ const MenuItemActionComponent = (
     })
 
     return unregister
-  }, [disabled])
+  }, [disabled, id])
 
   const [isHovered, setIsHovered] = useState(false)
   const isActive = isHovered || focused
