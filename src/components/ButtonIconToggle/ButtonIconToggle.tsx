@@ -1,4 +1,5 @@
 import { typedForwardRef } from "../../utils"
+
 import { useState, useEffect } from "preact/hooks"
 import { cloneElement, toChildArray } from "preact"
 import type { VNode } from "preact"
@@ -6,8 +7,7 @@ import type { VNode } from "preact"
 import type { ButtonIconToggleProps } from "./ButtonIconToggle.types"
 import "./ButtonIconToggle.scss"
 
-import { ButtonIcon } from "../../index"
-import { Icon } from "../../index"
+import { ButtonIcon, Icon } from "../../index"
 
 /* --- */
 
@@ -18,6 +18,7 @@ const ButtonIconToggleComponent = (
     intentModifiers = "default",
     ghost = false,
     disabled = false,
+    icon,
     children,
     defaultSelected = false,
     selected: controlledSelected,
@@ -51,30 +52,32 @@ const ButtonIconToggleComponent = (
 
   return (
     <ButtonIcon
-      className={[isSelected ? "ButtonIcon_selected" : "", className, "no-drag"]
+      className={[isSelected ? "ButtonIcon_selected" : "", "no-drag", className]
         .join(" ")
         .trim()}
       ref={ref}
       intent={intent}
       intentModifiers={intentModifiers}
       ghost={ghost}
+      icon={icon && { ...icon, selected: isSelected }}
       disabled={disabled}
       {...rest}
       onClick={handleClick}
     >
-      {toChildArray(children).map((child) => {
-        if (typeof child === "object" && child !== null) {
-          const maybeVNode = child as VNode
-          if (maybeVNode.type === Icon) {
-            return cloneElement(maybeVNode, {
-              ...maybeVNode.props,
-              selected: isSelected,
-              interactive: true,
-            })
+      {!icon &&
+        toChildArray(children).map((child) => {
+          if (typeof child === "object" && child !== null) {
+            const maybeVNode = child as VNode
+            if (maybeVNode.type === Icon) {
+              return cloneElement(maybeVNode, {
+                ...maybeVNode.props,
+                selected: isSelected,
+                interactive: true,
+              })
+            }
           }
-        }
-        return child
-      })}
+          return child
+        })}
     </ButtonIcon>
   )
 }

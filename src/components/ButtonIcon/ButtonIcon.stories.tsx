@@ -3,10 +3,7 @@ import { fn } from "@storybook/test"
 
 import { ButtonIcon } from "./ButtonIcon"
 
-import { Icon } from "../../index"
-import { Input } from "../../index"
-import { Stack } from "../../index"
-import { link as linkGlyph } from "../../index"
+import { Icon, Input, Stack, Text, link as linkGlyph } from "../../index"
 
 const meta: Meta<typeof ButtonIcon> = {
   title: "Components/ButtonIcon",
@@ -48,6 +45,16 @@ const meta: Meta<typeof ButtonIcon> = {
     disabled: {
       control: { type: "boolean" },
       defaultValue: { summary: false },
+    },
+    icon: {
+      table: {
+        type: {
+          summary: "IconProps",
+        },
+      },
+      control: { disable: true },
+      description:
+        "A shortcut for the displaying the icon as a child. `glyph` is required.",
     },
     children: {
       table: {
@@ -330,6 +337,31 @@ export const Translucent: Story = {
           </ButtonIcon>
         }
       />
+    </div>
+  ),
+}
+
+export const _Icon: Story = {
+  parameters: {
+    controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
+  },
+  render: () => (
+    <div className="sb-row sb-width-full">
+      <Stack spacing={400}>
+        <Text>Shortcut</Text>
+        <ButtonIcon
+          intent="neutral"
+          intentModifiers="default"
+          icon={{ glyph: linkGlyph, variant: "scaled" }}
+        />
+        <Text>Children</Text>
+        <ButtonIcon intent="neutral" intentModifiers="default">
+          <Icon glyph={linkGlyph} variant="scaled" intent="neutral" />
+        </ButtonIcon>
+      </Stack>
     </div>
   ),
 }

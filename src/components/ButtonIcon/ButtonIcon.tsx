@@ -3,6 +3,8 @@ import { bem, typedForwardRef } from "../../utils"
 import type { ButtonIconProps } from "./ButtonIcon.types"
 import "./ButtonIcon.scss"
 
+import { Icon } from "../../index"
+
 /* --- */
 
 const ButtonIconComponent = (
@@ -15,6 +17,7 @@ const ButtonIconComponent = (
     grouped = "none",
     translucent = false,
     disabled = false,
+    icon,
     children,
     onClick,
     ...rest
@@ -42,13 +45,29 @@ const ButtonIconComponent = (
 
   return (
     <button
-      className={[_className, className, "no-drag"].join(" ").trim()}
+      className={[_className, "no-drag", className].join(" ").trim()}
       ref={ref}
       {...rest}
       disabled={disabled}
       onClick={handleClick}
     >
-      {children && <div className="ButtonIcon__children">{children}</div>}
+      {(children || icon) && (
+        <div className="ButtonIcon__children">
+          {icon && (
+            <Icon
+              glyph={icon.glyph}
+              intent={intent}
+              intentModifiers={intentModifiers}
+              variant={icon.variant}
+              size={icon.size}
+              interactive
+              selected={icon.selected}
+            />
+          )}
+
+          {children}
+        </div>
+      )}
     </button>
   )
 }

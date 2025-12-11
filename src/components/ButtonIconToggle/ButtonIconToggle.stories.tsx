@@ -1,13 +1,11 @@
 import { Meta, StoryObj } from "@storybook/preact"
 import { fn } from "@storybook/test"
+
 import { useState } from "preact/hooks"
 
 import { ButtonIconToggle } from "./ButtonIconToggle"
 
-import { Icon } from "../../index"
-import { Text } from "../../index"
-import { Stack } from "../../index"
-import { link as linkGlyph } from "../../index"
+import { Icon, Text, Stack, link as linkGlyph } from "../../index"
 
 const meta: Meta<typeof ButtonIconToggle> = {
   title: "Components/ButtonIconToggle",
@@ -71,6 +69,16 @@ const meta: Meta<typeof ButtonIconToggle> = {
     disabled: {
       control: { type: "boolean" },
       defaultValue: { summary: false },
+    },
+    icon: {
+      table: {
+        type: {
+          summary: "IconProps",
+        },
+      },
+      control: { disable: true },
+      description:
+        "A shortcut for the displaying the icon as a child. `glyph` is required.",
     },
     children: {
       table: {
@@ -356,6 +364,31 @@ export const Disabled: Story = {
             />
           </ButtonIconToggle>
         </Stack>
+      </Stack>
+    </div>
+  ),
+}
+
+export const _Icon: Story = {
+  parameters: {
+    controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
+  },
+  render: () => (
+    <div className="sb-row sb-width-full">
+      <Stack spacing={400}>
+        <Text>Shortcut</Text>
+        <ButtonIconToggle
+          intent="neutral"
+          intentModifiers="default"
+          icon={{ glyph: linkGlyph, variant: "scaled" }}
+        />
+        <Text>Children</Text>
+        <ButtonIconToggle intent="neutral" intentModifiers="default">
+          <Icon glyph={linkGlyph} variant="scaled" intent="neutral" />
+        </ButtonIconToggle>
       </Stack>
     </div>
   ),
