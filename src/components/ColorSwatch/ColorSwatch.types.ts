@@ -4,7 +4,7 @@ export interface ColorSwatchProps {
   hex?: string
   imageSrc?: string
   borderColor?: string
-  hoverable?: boolean
+  interactive?: boolean
   selected?: boolean
   selection?: "default" | "rainbow"
   title?: string

@@ -25,37 +25,40 @@ const ColorSwatchComponent = (
     imageSrc,
     title,
     selection = "default",
-    hoverable = false,
+    interactive = false,
     selected = false,
     children,
     onClick,
     ...rest
   }: ColorSwatchProps,
-  ref: preact.Ref<HTMLDivElement>
+  ref: preact.Ref<HTMLDivElement | HTMLButtonElement>
 ) => {
-  const anchorRef = useRef<HTMLDivElement | null>(null)
+  const anchorRef = useRef<HTMLElement | null>(null)
 
   const _className = bem("ColorSwatch", undefined, {
     selection: selection,
     hasImage: !!imageSrc,
     hasHex: !!hex,
     size,
-    hoverable,
+    interactive,
     selected,
   })
 
+  const RootElement = (interactive ? "button" : "div") as "button" | "div"
+
   return (
-    <div
-      className={[_className, "no-drag", className].join(" ").trim()}
+    <RootElement
+      className={[_className, className, "no-drag"].join(" ").trim()}
       ref={(el) => {
         if (typeof ref === "function") {
           ref(el)
         } else if (ref) {
           // eslint-disable-next-line
-          ;(ref as preact.RefObject<HTMLDivElement>).current = el
+          ;(ref as preact.RefObject<HTMLElement>).current = el as HTMLElement
         }
         anchorRef.current = el
       }}
+      {...(interactive ? { type: "button" } : {})}
       {...rest}
       onClick={(event) => onClick?.({ event, hex, imageSrc })}
     >
@@ -91,7 +94,7 @@ const ColorSwatchComponent = (
 
       {title && (
         <OverlayPositioner
-          anchorRef={anchorRef as preact.RefObject<HTMLDivElement>}
+          anchorRef={anchorRef as preact.RefObject<HTMLElement>}
           placement="bottom"
           trigger="hover"
           paddingY={8}
@@ -103,10 +106,11 @@ const ColorSwatchComponent = (
           </Tooltip>
         </OverlayPositioner>
       )}
-    </div>
+    </RootElement>
   )
 }
 
-export const ColorSwatch = typedForwardRef<ColorSwatchProps, HTMLDivElement>(
-  ColorSwatchComponent
-)
+export const ColorSwatch = typedForwardRef<
+  ColorSwatchProps,
+  HTMLDivElement | HTMLButtonElement
+>(ColorSwatchComponent)

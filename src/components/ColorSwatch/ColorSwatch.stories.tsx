@@ -48,9 +48,9 @@ const meta: Meta<typeof ColorSwatch> = {
         },
       },
     },
-    hoverable: {
+    interactive: {
       control: { type: "boolean" },
-      description: "Enables hoverable state.",
+      description: "Enables interactive state.",
       defaultValue: { summary: false },
     },
     selected: {
@@ -98,7 +98,7 @@ export const Demo: Story = {
     hex: "#FF0000",
     title: "Title",
     imageSrc: undefined,
-    hoverable: false,
+    interactive: false,
     selected: false,
     onClick: fn(),
   },
@@ -198,7 +198,7 @@ export const Size: Story = {
   ),
 }
 
-export const Hoverable: Story = {
+export const Interactive: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
@@ -209,29 +209,29 @@ export const Hoverable: Story = {
     <div className="sb-column">
       <Stack spacing={400}>
         <Stack spacing={400} direction="row">
-          <ColorSwatch size="small" hoverable />
-          <ColorSwatch hex="#FF0000" size="small" hoverable />
-          <ColorSwatch hex="#FF00004D" size="small" hoverable />
+          <ColorSwatch size="small" interactive />
+          <ColorSwatch hex="#FF0000" size="small" interactive />
+          <ColorSwatch hex="#FF00004D" size="small" interactive />
           <ColorSwatch
             imageSrc="https://placehold.co/48x48"
             size="small"
-            hoverable
+            interactive
           />
         </Stack>
         <Stack spacing={400} direction="row">
-          <ColorSwatch hoverable />
-          <ColorSwatch hex="#FF0000" hoverable />
-          <ColorSwatch hex="#FF00004D" hoverable />
-          <ColorSwatch imageSrc="https://placehold.co/48x48" hoverable />
+          <ColorSwatch interactive />
+          <ColorSwatch hex="#FF0000" interactive />
+          <ColorSwatch hex="#FF00004D" interactive />
+          <ColorSwatch imageSrc="https://placehold.co/48x48" interactive />
         </Stack>
         <Stack spacing={400} direction="row">
-          <ColorSwatch size="large" hoverable />
-          <ColorSwatch hex="#FF0000" size="large" hoverable />
-          <ColorSwatch hex="#FF00004D" size="large" hoverable />
+          <ColorSwatch size="large" interactive />
+          <ColorSwatch hex="#FF0000" size="large" interactive />
+          <ColorSwatch hex="#FF00004D" size="large" interactive />
           <ColorSwatch
             imageSrc="https://placehold.co/48x48"
             size="large"
-            hoverable
+            interactive
           />
         </Stack>
       </Stack>
@@ -251,34 +251,43 @@ export const Selection: Story = {
       <Stack spacing={400} direction="column">
         <Stack spacing={1000} direction="row">
           <Stack spacing={400} direction="row">
-            <ColorSwatch size="small" selected />
-            <ColorSwatch hex="#FF0000" size="small" selected />
-            <ColorSwatch hex="#FF00004D" size="small" selected />
+            <ColorSwatch size="small" interactive selected />
+            <ColorSwatch hex="#FF0000" size="small" interactive selected />
+            <ColorSwatch hex="#FF00004D" size="small" interactive selected />
             <ColorSwatch
               imageSrc="https://placehold.co/48x48"
               size="small"
+              interactive
               selected
             />
           </Stack>
 
           <Stack spacing={400} direction="row">
-            <ColorSwatch size="small" selection="rainbow" selected />
+            <ColorSwatch
+              size="small"
+              selection="rainbow"
+              interactive
+              selected
+            />
             <ColorSwatch
               hex="#FF0000"
               size="small"
               selection="rainbow"
+              interactive
               selected
             />
             <ColorSwatch
               hex="#FF00004D"
               size="small"
               selection="rainbow"
+              interactive
               selected
             />
             <ColorSwatch
               imageSrc="https://placehold.co/48x48"
               size="small"
               selection="rainbow"
+              interactive
               selected
             />
           </Stack>
@@ -286,34 +295,43 @@ export const Selection: Story = {
 
         <Stack spacing={1000} direction="row">
           <Stack spacing={400} direction="row">
-            <ColorSwatch size="medium" selected />
-            <ColorSwatch hex="#FF0000" size="medium" selected />
-            <ColorSwatch hex="#FF00004D" size="medium" selected />
+            <ColorSwatch size="medium" interactive selected />
+            <ColorSwatch hex="#FF0000" size="medium" interactive selected />
+            <ColorSwatch hex="#FF00004D" size="medium" interactive selected />
             <ColorSwatch
               imageSrc="https://placehold.co/48x48"
               size="medium"
+              interactive
               selected
             />
           </Stack>
 
           <Stack spacing={400} direction="row">
-            <ColorSwatch size="medium" selection="rainbow" selected />
+            <ColorSwatch
+              size="medium"
+              selection="rainbow"
+              interactive
+              selected
+            />
             <ColorSwatch
               hex="#FF0000"
               size="medium"
               selection="rainbow"
+              interactive
               selected
             />
             <ColorSwatch
               hex="#FF00004D"
               size="medium"
               selection="rainbow"
+              interactive
               selected
             />
             <ColorSwatch
               imageSrc="https://placehold.co/48x48"
               size="medium"
               selection="rainbow"
+              interactive
               selected
             />
           </Stack>
@@ -321,34 +339,43 @@ export const Selection: Story = {
 
         <Stack spacing={1000} direction="row">
           <Stack spacing={400} direction="row">
-            <ColorSwatch size="large" selected />
-            <ColorSwatch hex="#FF0000" size="large" selected />
-            <ColorSwatch hex="#FF00004D" size="large" selected />
+            <ColorSwatch size="large" interactive selected />
+            <ColorSwatch hex="#FF0000" size="large" interactive selected />
+            <ColorSwatch hex="#FF00004D" size="large" interactive selected />
             <ColorSwatch
               imageSrc="https://placehold.co/48x48"
               size="large"
+              interactive
               selected
             />
           </Stack>
 
           <Stack spacing={400} direction="row">
-            <ColorSwatch size="large" selection="rainbow" selected />
+            <ColorSwatch
+              size="large"
+              selection="rainbow"
+              interactive
+              selected
+            />
             <ColorSwatch
               hex="#FF0000"
               size="large"
               selection="rainbow"
+              interactive
               selected
             />
             <ColorSwatch
               hex="#FF00004D"
               size="large"
               selection="rainbow"
+              interactive
               selected
             />
             <ColorSwatch
               imageSrc="https://placehold.co/48x48"
               size="large"
               selection="rainbow"
+              interactive
               selected
             />
           </Stack>

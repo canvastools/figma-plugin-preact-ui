@@ -8,6 +8,9 @@
   display: flex;
   position: relative;
 
+  border: none;
+  outline: none;
+
   &_size {
     &-small {
       width: 14px;
@@ -112,7 +115,12 @@
     z-index: 4;
   }
 
-  &_hoverable:not(&_selected) {
+  &:focus-visible {
+    box-shadow: 0 0 0 1px
+      var(--pui-color-neutral-border-brand-interactive-selected);
+  }
+
+  &_interactive:not(&_selected) {
     &:hover {
       box-shadow: 0 0 0 2px
         var(--pui-color-neutral-border-brand-interactive-hover);
@@ -151,6 +159,18 @@
 
     & #{$parent}__container {
       border: 2px solid var(--pui-color-neutral-bg-default);
+    }
+  }
+
+  &_interactive:is(&_selected),
+  &_interactive:is(&_selection-rainbow) {
+    &:focus-visible {
+      box-shadow: 0 0 0 1px
+        var(--pui-color-neutral-border-brand-interactive-selected);
+    }
+
+    &:focus-visible:after {
+      display: none;
     }
   }
 }
