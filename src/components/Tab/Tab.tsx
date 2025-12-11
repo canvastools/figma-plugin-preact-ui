@@ -62,7 +62,7 @@ const TabComponent = (
 
   return (
     <button
-      className={[_className, className, "no-drag"].join(" ").trim()}
+      className={[_className, "no-drag", className].join(" ").trim()}
       ref={ref}
       {...rest}
       onClick={handleClick}

@@ -13,10 +13,7 @@ const CodeComponent = (
   const _className = bem("Code", undefined, { variant })
 
   return (
-    <div
-      className={[_className, "no-drag", className].join(" ").trim()}
-      {...rest}
-    >
+    <div className={[_className, className].join(" ").trim()} {...rest}>
       {children}
     </div>
   )

@@ -46,7 +46,7 @@ const ColorSwatchComponent = (
 
   return (
     <div
-      className={[_className, className, "no-drag"].join(" ").trim()}
+      className={[_className, "no-drag", className].join(" ").trim()}
       ref={(el) => {
         if (typeof ref === "function") {
           ref(el)

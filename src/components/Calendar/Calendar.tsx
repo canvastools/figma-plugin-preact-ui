@@ -38,7 +38,7 @@ const CalendarComponent = (
 
   return (
     <ReactCalendar
-      className={[_className, className].join(" ").trim()}
+      className={[_className, "no-drag", className].join(" ").trim()}
       inputRef={ref as preact.Ref<HTMLDivElement> | undefined}
       locale={locale}
       calendarType={calendarType}

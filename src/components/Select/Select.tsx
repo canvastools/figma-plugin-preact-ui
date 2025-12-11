@@ -93,7 +93,7 @@ const SelectComponent = (
   return (
     <Fragment>
       <div
-        className={[_className, className, "no-drag"].join(" ").trim()}
+        className={[_className, "no-drag", className].join(" ").trim()}
         ref={triggerRef as preact.Ref<HTMLDivElement>}
         tabIndex={disabled ? -1 : 0}
         onFocus={handleFocus as preact.JSX.FocusEventHandler<HTMLDivElement>}

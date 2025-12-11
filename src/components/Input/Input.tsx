@@ -122,7 +122,7 @@ const InputComponent = (
 
   return (
     <div
-      className={[_className, className, "no-drag"].join(" ").trim()}
+      className={[_className, "no-drag", className].join(" ").trim()}
       ref={rootRef as preact.Ref<HTMLDivElement>}
       {...rest}
     >

@@ -82,7 +82,7 @@ const CheckboxComponent = (
 
   return (
     <div
-      className={[_className, className, "no-drag"].join(" ").trim()}
+      className={[_className, "no-drag", className].join(" ").trim()}
       {...rest}
     >
       <div className="Checkbox__input">

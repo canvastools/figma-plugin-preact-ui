@@ -19,7 +19,7 @@ const MenuContainerComponent = (
 
   return (
     <div
-      className={[_className, className, "no-drag"].join(" ").trim()}
+      className={[_className, "no-drag", className].join(" ").trim()}
       ref={ref}
       style={{
         width: width === "auto" ? undefined : (width as number),
