@@ -1,21 +1,20 @@
-import { bem, typedForwardRef } from "../../utils"
-import {
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-  useImperativeHandle,
-} from "preact/hooks"
 import { Fragment } from "preact"
+import { bem, typedForwardRef } from "../../utils"
+import { useEffect, useMemo, useRef, useState } from "preact/hooks"
 
 import type { SelectProps, SelectOption } from "./Select.types"
 import "./Select.scss"
-import { OverlayPositioner } from "../OverlayPositioner/OverlayPositioner"
-import { MenuContainer } from "../MenuContainer/MenuContainer"
-import { MenuItemOption } from "../MenuItemOption/MenuItemOption"
-import { MenuDivider } from "../MenuDivider/MenuDivider"
-import { Icon } from "../../index"
-import { chevronDown as chevronDownGlyph } from "../../index"
+
+import {
+  MenuContext,
+  useMenuContext,
+  MenuContainer,
+  MenuItemOption,
+  MenuDivider,
+  OverlayPositioner,
+  Icon,
+  chevronDown as chevronDownGlyph,
+} from "../../index"
 
 /* --- */
 
@@ -40,13 +39,17 @@ const SelectComponent = (
 ) => {
   const [isFocused, setIsFocused] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
+
   const [internalValue, setInternalValue] = useState<string | undefined>(
     value !== undefined ? value : defaultValue
   )
+
+  const triggerRef = useRef<HTMLDivElement>(null)
+
   const hasContent = Boolean((value ?? internalValue ?? "").length)
 
   // Normalize options into groups: either a single group (flat list) or multiple groups
-  const groups = (() => {
+  const groups = useMemo(() => {
     const opts = options ?? []
     if (
       Array.isArray(opts) &&
@@ -56,40 +59,25 @@ const SelectComponent = (
       return opts as SelectOption[][]
     }
     return [opts as SelectOption[]]
-  })()
+  }, [options])
 
-  const triggerRef = useRef<HTMLDivElement>(null)
-  const menuRef = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    if (value !== undefined) {
+      setInternalValue(value)
+    }
+  }, [value])
 
-  // Expose the root DOM element to outside via forwarded ref (stable for anchors)
-  useImperativeHandle(ref, () => triggerRef.current as HTMLDivElement, [
-    triggerRef.current,
-  ])
-
-  const focusTrigger = useCallback(() => {
-    const t = triggerRef.current
-    if (t) t.focus()
-  }, [])
-
-  const openMenu = () => {
+  const handleFocus = () => {
     if (disabled) return
-    setIsOpen(true)
-    setIsFocused(false)
-    // Move focus to the menu after it renders
-    requestAnimationFrame(() => {
-      const m = menuRef.current
-      if (m) m.focus()
-    })
+    setIsFocused(true)
+    onFocus?.()
   }
 
-  const closeMenu = useCallback(() => {
-    setIsOpen(false)
-    // Restore focus to the trigger to match expected behavior
-    requestAnimationFrame(() => {
-      focusTrigger()
-      setIsFocused(true)
-    })
-  }, [focusTrigger])
+  const handleBlur = () => {
+    if (disabled) return
+    setIsFocused(false)
+    onBlur?.()
+  }
 
   const _className = bem("Select", undefined, {
     filled: hasContent,
@@ -102,167 +90,113 @@ const SelectComponent = (
     open: isOpen,
   })
 
-  const selectedValue = value !== undefined ? value : internalValue
-  const selectedOption = (() => {
-    for (let gi = 0; gi < groups.length; gi++) {
-      const group = groups[gi]
-      for (let oi = 0; oi < group.length; oi++) {
-        const opt = group[oi]
-        if (opt.value === selectedValue) return opt
-      }
-    }
-    return undefined
-  })()
+  return (
+    <Fragment>
+      <div
+        className={[_className, className, "no-drag"].join(" ").trim()}
+        ref={triggerRef as preact.Ref<HTMLDivElement>}
+        tabIndex={disabled ? -1 : 0}
+        onFocus={handleFocus as preact.JSX.FocusEventHandler<HTMLDivElement>}
+        onBlur={handleBlur as preact.JSX.FocusEventHandler<HTMLDivElement>}
+        {...rest}
+      >
+        {prefix && <div className="Select__prefix">{prefix}</div>}
 
-  useEffect(() => {
-    if (value !== undefined) {
-      setInternalValue(value)
-    }
-  }, [value])
+        <div className={"Select__content"}>
+          {hasContent
+            ? groups
+                .reduce<SelectOption[]>((acc, group) => acc.concat(group), [])
+                .find((opt) => opt.value === internalValue)?.label
+            : placeholder}
+        </div>
 
-  // Close on outside click when focused/open (safety in addition to OverlayPositioner outside handling)
-  useEffect(() => {
-    if (!isOpen) return
-    const handler = (e: MouseEvent) => {
-      const target = e.target as Node | null
-      const t = triggerRef.current
-      const m = menuRef.current
-      if (!target || !t) return
-      const insideTrigger = t.contains(target)
-      const insideMenu = m ? m.contains(target) : false
-      if (!insideTrigger && !insideMenu) closeMenu()
-    }
+        <div className="Select__suffix">
+          <Icon
+            glyph={chevronDownGlyph}
+            size={16}
+            intent="neutral"
+            interactive
+            disabled={disabled}
+          />
+        </div>
+      </div>
 
-    window.addEventListener("mousedown", handler, true)
+      <MenuContext
+        triggerRef={triggerRef}
+        open={isOpen}
+        setOpen={(next) => {
+          if (disabled) return
+          setIsOpen(next)
+        }}
+      >
+        <SelectMenu
+          menuWidth={menuWidth}
+          groups={groups}
+          selectedValue={internalValue}
+          onChange={({ event, value }) => {
+            if (value !== undefined) {
+              setInternalValue(value)
+            }
+            onChange?.({ event, value })
+            setIsOpen(false)
+          }}
+        />
+      </MenuContext>
+    </Fragment>
+  )
+}
 
-    return () => window.removeEventListener("mousedown", handler, true)
-  }, [isOpen, closeMenu])
+type SelectMenuProps = {
+  menuWidth: number | "auto"
+  groups: SelectOption[][]
+  selectedValue?: string
+  onChange?: (args: { event: MouseEvent; value: string }) => void
+}
 
-  const handleFocusIn = () => {
-    if (disabled) return
-    setIsFocused(true)
-    onFocus?.()
-  }
+const SelectMenu = ({
+  menuWidth,
+  groups,
+  selectedValue,
+  onChange,
+}: SelectMenuProps) => {
+  const context = useMenuContext()
+  if (!context) return null
 
-  const handleFocusOut = (e: FocusEvent) => {
-    if (disabled) return
-    const next = e.relatedTarget as Node | null
-    const t = triggerRef.current
-    const m = menuRef.current
-    const leavingBoth =
-      !!next && !t?.contains(next) && !(m?.contains(next) ?? false)
-    if (!next || leavingBoth) {
-      setIsFocused(false)
-      setIsOpen(false)
-      onBlur?.()
-    }
-  }
-
-  const handleClickTrigger = () => {
-    if (disabled) return
-    setIsOpen((v) => {
-      const next = !v
-      if (next) {
-        setIsFocused(false)
-        requestAnimationFrame(() => menuRef.current?.focus())
-      } else {
-        requestAnimationFrame(() => {
-          focusTrigger()
-          setIsFocused(true)
-        })
-      }
-      return next
-    })
-  }
-
-  const handleKeyDownTrigger: preact.JSX.KeyboardEventHandler<
-    HTMLDivElement
-  > = (e) => {
-    if (disabled) return
-    const key = e.key
-    if (key === "Enter" || key === " " || key === "Spacebar") {
-      e.preventDefault()
-      if (!isOpen) openMenu()
-    }
-  }
-
-  const commitChange = (event: MouseEvent, nextValue: string) => {
-    if (value === undefined) setInternalValue(nextValue)
-    onChange?.({ event, value: nextValue })
-    setIsOpen(false)
-  }
+  let flatCursor = -1
 
   return (
-    <div
-      className={[_className, className, "no-drag"].join(" ").trim()}
-      ref={triggerRef as preact.Ref<HTMLDivElement>}
-      tabIndex={disabled ? -1 : 0}
-      onFocus={handleFocusIn as preact.JSX.FocusEventHandler<HTMLDivElement>}
-      onBlur={handleFocusOut as preact.JSX.FocusEventHandler<HTMLDivElement>}
-      onClick={
-        handleClickTrigger as preact.JSX.MouseEventHandler<HTMLDivElement>
-      }
-      onKeyDown={handleKeyDownTrigger}
-      {...rest}
+    <OverlayPositioner
+      anchorRef={context.anchorRef as preact.RefObject<HTMLElement>}
+      placement="over"
+      edgePadding={16}
+      open={context.open}
+      onClose={() => context.setOpen(false)}
     >
-      {prefix && <div className="Select__prefix">{prefix}</div>}
-      <div className={"Select__content"}>
-        {hasContent ? selectedOption?.label : placeholder}
-      </div>
-      <div className="Select__suffix">
-        <Icon
-          glyph={chevronDownGlyph}
-          size={16}
-          intent="neutral"
-          interactive
-          disabled={disabled}
-        />
-      </div>
-
-      <OverlayPositioner
-        anchorRef={triggerRef as preact.RefObject<HTMLElement>}
-        placement="over"
-        edgePadding={16}
-        open={isOpen}
-        onClose={closeMenu}
-      >
-        <div
-          ref={menuRef as preact.Ref<HTMLDivElement>}
-          tabIndex={-1}
-          onBlur={(e) => {
-            if (disabled) return
-
-            const next = (e.relatedTarget as Node | null) || null
-            const t = triggerRef.current
-            const m = menuRef.current
-            const leavingBoth =
-              !!next && !t?.contains(next) && !(m?.contains(next) ?? false)
-            if (!next || leavingBoth) {
-              setIsFocused(false)
-              closeMenu()
-              onBlur?.()
-            }
-          }}
-        >
-          <MenuContainer width={menuWidth}>
-            {groups.map((group, groupIndex) => (
-              <Fragment key={`group-${groupIndex}`}>
-                {groupIndex > 0 ? <MenuDivider variant="inset" /> : null}
-                {group.map((opt) => (
-                  <MenuItemOption
-                    key={`${groupIndex}-${opt.value}`}
-                    selected={opt.value === selectedValue}
-                    onChange={({ event }) => commitChange(event, opt.value)}
-                  >
-                    {opt.label}
-                  </MenuItemOption>
-                ))}
-              </Fragment>
-            ))}
-          </MenuContainer>
-        </div>
-      </OverlayPositioner>
-    </div>
+      <MenuContainer width={menuWidth}>
+        {groups.map((group, groupIndex) => (
+          <Fragment key={`group-${groupIndex}`}>
+            {groupIndex > 0 ? <MenuDivider variant="inset" /> : null}
+            {group.map((opt) => {
+              flatCursor += 1
+              return (
+                <MenuItemOption
+                  disabled={opt.disabled}
+                  key={`${groupIndex}-${opt.value}`}
+                  id={opt.value}
+                  focused={context.focusedItemId === opt.value}
+                  selected={opt.value === selectedValue}
+                  onChange={({ event }) =>
+                    onChange?.({ event, value: opt.value })
+                  }
+                >
+                  {opt.label}
+                </MenuItemOption>
+              )
+            })}
+          </Fragment>
+        ))}
+      </MenuContainer>
+    </OverlayPositioner>
   )
 }
 

@@ -26,6 +26,7 @@ const meta: Meta<typeof Select> = {
       <pre>interface SelectOption {
   label: string
   value: string
+  disabled?: boolean
 }</pre>
       `,
     },
@@ -72,7 +73,9 @@ const meta: Meta<typeof Select> = {
       control: { disable: true },
       description: "Callback when the value is changed.",
       table: {
-        type: { summary: "(args: { event: MouseEvent, id: string }) => void" },
+        type: {
+          summary: "(args: { event: MouseEvent, value: string }) => void",
+        },
       },
     },
   },
@@ -321,7 +324,7 @@ export const MenuWidth: Story = {
         options={sampleOptions}
         placeholder="Choose an option"
         defaultValue="opt-1"
-        menuWidth={300}
+        menuWidth={200}
       />
     </div>
   ),
