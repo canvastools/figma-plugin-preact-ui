@@ -1,4 +1,3 @@
-import { useEffect, useState } from "preact/hooks"
 import { bem, typedForwardRef } from "../../utils"
 
 import type { CodeProps } from "./Code.types"
@@ -13,7 +12,11 @@ const CodeComponent = (
   const _className = bem("Code", undefined, { variant })
 
   return (
-    <div className={[_className, className].join(" ").trim()} {...rest}>
+    <div
+      className={[_className, className].join(" ").trim()}
+      ref={ref}
+      {...rest}
+    >
       {children}
     </div>
   )
