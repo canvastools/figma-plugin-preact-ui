@@ -2,11 +2,7 @@ import type { Meta, StoryObj } from "@storybook/preact"
 
 import { TabPanel } from "./TabPanel"
 
-import { TabContext } from "../../index"
-import { TabList } from "../../index"
-import { Tab } from "../../index"
-import { Section } from "../../index"
-import { Text } from "../../index"
+import { TabContext, TabList, Tab, Section, Text } from "../../index"
 
 const meta: Meta<typeof TabPanel> = {
   title: "Components/TabPanel",

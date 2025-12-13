@@ -1,4 +1,5 @@
 import { typedForwardRef } from "../../utils"
+
 import { useEffect, useState } from "preact/hooks"
 
 import type { MenuProps, MenuItemData } from "./Menu.types"

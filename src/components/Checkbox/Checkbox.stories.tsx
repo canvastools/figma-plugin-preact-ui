@@ -1,11 +1,11 @@
 import { Meta, StoryObj } from "@storybook/preact"
 import { fn } from "@storybook/test"
+
 import { useState } from "preact/hooks"
 
 import { Checkbox } from "./Checkbox"
 
-import { Text } from "../../index"
-import { Stack } from "../../index"
+import { Text, Stack } from "../../index"
 
 const meta: Meta<typeof Checkbox> = {
   title: "Components/Checkbox",

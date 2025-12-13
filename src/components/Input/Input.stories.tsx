@@ -1,15 +1,19 @@
-import { useState } from "preact/hooks"
 import { Meta, StoryObj } from "@storybook/preact"
 import { fn } from "@storybook/test"
 
+import { useState } from "preact/hooks"
+
 import { Input } from "./Input"
 
-import { Stack } from "../../index"
-import { Icon } from "../../index"
-import { Text } from "../../index"
-import { ButtonIcon } from "../../index"
-import { InputGroup } from "../../index"
-import { search as searchGlyph, link as linkGlyph } from "../../index"
+import {
+  Stack,
+  Icon,
+  Text,
+  ButtonIcon,
+  InputGroup,
+  search as searchGlyph,
+  link as linkGlyph,
+} from "../../index"
 
 const meta: Meta<typeof Input> = {
   title: "Components/Input",

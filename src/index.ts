@@ -50,6 +50,9 @@ export type { IconProps, Glyph, GlyphProps } from "./components/Icon/Icon.types"
 export { Input } from "./components/Input/Input"
 export type { InputProps } from "./components/Input/Input.types"
 
+export { InputGroup } from "./components/InputGroup/InputGroup"
+export type { InputGroupProps } from "./components/InputGroup/InputGroup.types"
+
 export { ListContainer } from "./components/ListContainer/ListContainer"
 export type { ListContainerProps } from "./components/ListContainer/ListContainer.types"
 

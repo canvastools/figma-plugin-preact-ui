@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "preact/hooks"
+
 import {
   bem,
   typedForwardRef,
@@ -10,24 +11,25 @@ import {
   roundAlpha,
 } from "../../utils"
 
-import type { ColorPickerProps, Color } from "./ColorPicker.types"
-import "./ColorPicker.scss"
-
 import {
   RgbaColorPicker,
   HexColorPicker,
   HexAlphaColorPicker,
 } from "react-colorful"
 
-import { Input } from "../../index"
-import { Text } from "../../index"
-import { Select } from "../../index"
-import { Tooltip } from "../../index"
-import { OverlayPositioner } from "../../index"
-import { InputGroup } from "../../index"
+import type { ColorPickerProps, Color } from "./ColorPicker.types"
+import "./ColorPicker.scss"
 
-import { useNumberValidator } from "../../index"
-import { useStringValidator } from "../../index"
+import {
+  Input,
+  Text,
+  Select,
+  Tooltip,
+  OverlayPositioner,
+  InputGroup,
+  useNumberValidator,
+  useStringValidator,
+} from "../../index"
 
 /* --- */
 

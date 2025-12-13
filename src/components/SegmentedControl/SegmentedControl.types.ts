@@ -1,4 +1,4 @@
-import { Glyph } from "../Icon/Icon.types"
+import { Glyph } from "../../index"
 
 export interface SegmentedControlOption {
   value: string

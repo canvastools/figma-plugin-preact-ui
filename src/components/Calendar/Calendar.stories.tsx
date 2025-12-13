@@ -1,6 +1,7 @@
 import { Meta, StoryObj } from "@storybook/preact"
-import { useState } from "preact/hooks"
 import { fn } from "@storybook/test"
+
+import { useState } from "preact/hooks"
 
 import { Calendar } from "./Calendar"
 import { CalendarValue } from "./Calendar.types"

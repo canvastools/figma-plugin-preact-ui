@@ -1,11 +1,6 @@
 import { Meta, StoryObj } from "@storybook/preact"
-import { fn } from "@storybook/test"
-import { useState } from "preact/hooks"
 
 import { Code } from "./Code"
-
-import { Text } from "../../index"
-import { Stack } from "../../index"
 
 const meta: Meta<typeof Code> = {
   title: "Components/Code",

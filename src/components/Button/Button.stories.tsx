@@ -3,9 +3,7 @@ import { fn } from "@storybook/test"
 
 import { Button } from "./Button"
 
-import { Icon } from "../../index"
-import { Stack } from "../../index"
-import { link as linkGlyph } from "../../index"
+import { Icon, Stack, link as linkGlyph } from "../../index"
 
 const meta: Meta<typeof Button> = {
   title: "Components/Button",

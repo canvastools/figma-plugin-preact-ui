@@ -46,13 +46,22 @@ const ButtonComponent = (
     onClick?.({ event })
   }
 
+  const handleKeyDown = (
+    event: preact.JSX.TargetedKeyboardEvent<HTMLButtonElement>
+  ) => {
+    if (event.key === "Escape" || event.key === "Esc") {
+      event.currentTarget.blur()
+    }
+  }
+
   return (
     <button
-      className={[_className, className, "no-drag"].join(" ").trim()}
+      className={[_className, "no-drag", className].join(" ").trim()}
       ref={ref}
-      {...rest}
       disabled={disabled}
       onClick={handleClick}
+      onKeyDown={handleKeyDown}
+      {...rest}
     >
       <div className="Button__content">
         {prefix && <div className="Button__prefix">{prefix}</div>}

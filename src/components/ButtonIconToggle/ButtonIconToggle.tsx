@@ -1,8 +1,8 @@
-import { typedForwardRef } from "../../utils"
-
 import { useState, useEffect } from "preact/hooks"
 import { cloneElement, toChildArray } from "preact"
 import type { VNode } from "preact"
+
+import { typedForwardRef } from "../../utils"
 
 import type { ButtonIconToggleProps } from "./ButtonIconToggle.types"
 import "./ButtonIconToggle.scss"

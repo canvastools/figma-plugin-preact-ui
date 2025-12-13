@@ -3,10 +3,7 @@ import { fn } from "@storybook/test"
 
 import { ColorSwatch } from "./ColorSwatch"
 
-import { Icon } from "../Icon/Icon"
-import { ai as aiGlyph } from "../Icon/glyphs"
-
-import { Stack } from "../../index"
+import { Icon, ai as aiGlyph, Stack } from "../../index"
 
 const meta: Meta<typeof ColorSwatch> = {
   title: "Components/ColorSwatch",

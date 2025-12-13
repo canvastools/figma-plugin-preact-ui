@@ -5,9 +5,7 @@ import { useRef } from "preact/hooks"
 import type { TabProps } from "./Tab.types"
 import "./Tab.scss"
 
-import { useTabContext } from "../../index"
-
-import { Text } from "../../index"
+import { useTabContext, Text } from "../../index"
 
 /* --- */
 

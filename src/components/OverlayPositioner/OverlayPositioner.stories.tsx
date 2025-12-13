@@ -1,15 +1,11 @@
 import { Meta, StoryObj } from "@storybook/preact"
-import { useRef, useState } from "preact/hooks"
 import { fn } from "@storybook/test"
+
+import { useRef, useState } from "preact/hooks"
 
 import { OverlayPositioner } from "./OverlayPositioner"
 
-import { Popover } from "../../index"
-import { Button } from "../../index"
-import { Section } from "../../index"
-import { Text } from "../../index"
-import { Stack } from "../../index"
-import { Tooltip } from "../../index"
+import { Popover, Button, Section, Text, Stack, Tooltip } from "../../index"
 
 const meta: Meta<typeof OverlayPositioner> = {
   title: "Layout/OverlayPositioner",

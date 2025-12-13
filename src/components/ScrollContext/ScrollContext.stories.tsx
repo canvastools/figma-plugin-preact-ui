@@ -1,14 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/preact"
 import { fn } from "@storybook/test"
+
 import { useState } from "preact/hooks"
 
 import { ScrollContext } from "./ScrollContext"
 
-import { ScrollContainer } from "../../index"
-import { Section } from "../../index"
-import { Text } from "../../index"
-import { Button } from "../../index"
-import { Stack } from "../../index"
+import { ScrollContainer, Section, Text, Button, Stack } from "../../index"
 
 const meta: Meta<typeof ScrollContext> = {
   title: "Layout/ScrollContext",

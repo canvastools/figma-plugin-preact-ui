@@ -1,14 +1,17 @@
 import { bem, typedForwardRef } from "../../utils"
+
 import { Calendar as ReactCalendar } from "react-calendar"
 
 import type { CalendarProps } from "./Calendar.types"
 import "./Calendar.scss"
 
-import { Icon } from "../../index"
-import { chevronLeft } from "../../index"
-import { chevronRight } from "../../index"
-import { chevronDoubleLeft } from "../../index"
-import { chevronDoubleRight } from "../../index"
+import {
+  Icon,
+  chevronLeft,
+  chevronRight,
+  chevronDoubleLeft,
+  chevronDoubleRight,
+} from "../../index"
 
 /* --- */
 

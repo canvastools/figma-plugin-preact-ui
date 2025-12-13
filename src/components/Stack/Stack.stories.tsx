@@ -4,8 +4,7 @@ import { spacing } from "../../themes"
 
 import { Stack } from "./Stack"
 
-import { Section } from "../../index"
-import { Avatar } from "../../index"
+import { Section, Avatar } from "../../index"
 
 const meta: Meta<typeof Stack> = {
   title: "Layout/Stack",

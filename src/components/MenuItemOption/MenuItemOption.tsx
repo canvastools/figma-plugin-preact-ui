@@ -1,10 +1,9 @@
-import { bem, typedForwardRef, override, uuid } from "../../utils"
 import { useState, useEffect, useRef } from "preact/hooks"
+
+import { bem, typedForwardRef, override, uuid } from "../../utils"
 
 import type { MenuItemOptionProps } from "./MenuItemOption.types"
 import "./MenuItemOption.scss"
-
-import {} from "../../utils"
 
 import { Text, Icon, check as checkGlyph, useMenuContext } from "../../index"
 

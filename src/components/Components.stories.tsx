@@ -150,7 +150,9 @@ export const _1: Story = {
                 >
                   <OverlayPositioner
                     anchorRef={anchorRefMenu}
-                    placement="over"
+                    placement="bottom-left"
+                    paddingY={4}
+                    edgePadding={16}
                     open={openMenu}
                     onClose={() => setOpenMenu(false)}
                   >

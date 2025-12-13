@@ -2,9 +2,7 @@ import { Meta, StoryObj } from "@storybook/preact"
 
 import { Badge } from "./Badge"
 
-import { Icon } from "../../index"
-import { Stack } from "../../index"
-import { help as helpGlyph } from "../../index"
+import { Icon, Stack, help as helpGlyph } from "../../index"
 
 const meta: Meta<typeof Badge> = {
   title: "Components/Badge",

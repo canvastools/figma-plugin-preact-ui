@@ -4,8 +4,7 @@ import { spacing } from "../../themes"
 
 import { Spacing } from "./Spacing"
 
-import { Avatar } from "../../index"
-import { Stack } from "../../index"
+import { Avatar, Stack } from "../../index"
 
 const meta: Meta<typeof Spacing> = {
   title: "Layout/Spacing",

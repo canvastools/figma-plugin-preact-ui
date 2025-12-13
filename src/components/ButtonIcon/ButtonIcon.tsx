@@ -1,7 +1,7 @@
-import { bem, typedForwardRef } from "../../utils"
-
 import { cloneElement, toChildArray } from "preact"
 import type { VNode } from "preact"
+
+import { bem, typedForwardRef } from "../../utils"
 
 import type { ButtonIconProps } from "./ButtonIcon.types"
 import "./ButtonIcon.scss"
@@ -46,13 +46,22 @@ const ButtonIconComponent = (
     onClick?.({ event })
   }
 
+  const handleKeyDown = (
+    event: preact.JSX.TargetedKeyboardEvent<HTMLButtonElement>
+  ) => {
+    if (event.key === "Escape" || event.key === "Esc") {
+      event.currentTarget.blur()
+    }
+  }
+
   return (
     <button
       className={[_className, "no-drag", className].join(" ").trim()}
       ref={ref}
-      {...rest}
       disabled={disabled}
       onClick={handleClick}
+      onKeyDown={handleKeyDown}
+      {...rest}
     >
       {(children || icon) && (
         <div className="ButtonIcon__children">

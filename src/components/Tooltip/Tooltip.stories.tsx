@@ -3,9 +3,7 @@ import { useRef } from "preact/hooks"
 
 import { Tooltip } from "./Tooltip"
 
-import { Stack } from "../../index"
-import { Text } from "../../index"
-import { OverlayPositioner } from "../../index"
+import { Stack, Text, OverlayPositioner } from "../../index"
 
 const meta: Meta<typeof Tooltip> = {
   title: "Components/Tooltip",

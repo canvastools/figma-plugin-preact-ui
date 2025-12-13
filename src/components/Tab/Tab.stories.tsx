@@ -1,17 +1,21 @@
 import type { Meta, StoryObj } from "@storybook/preact"
 import { fn } from "@storybook/test"
+
 import { useState } from "preact/hooks"
 
 import { Tab } from "./Tab"
 
-import { TabContext } from "../../index"
-import { TabList } from "../../index"
-import { TabPanel } from "../../index"
-import { Badge } from "../../index"
-import { Icon } from "../../index"
-import { Section } from "../../index"
-import { Text } from "../../index"
-import { settings as settingsGlyph, search as searchGlyph } from "../../index"
+import {
+  TabContext,
+  TabList,
+  TabPanel,
+  Badge,
+  Icon,
+  Section,
+  Text,
+  settings as settingsGlyph,
+  search as searchGlyph,
+} from "../../index"
 
 const meta: Meta<typeof Tab> = {
   title: "Components/Tab",

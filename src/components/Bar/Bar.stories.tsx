@@ -2,10 +2,13 @@ import { Meta, StoryObj } from "@storybook/preact"
 
 import { Bar } from "./Bar"
 
-import { Text } from "../../index"
-import { Section } from "../../index"
-import { ScrollContext, useScrollContext } from "../../index"
-import { ScrollContainer } from "../../index"
+import {
+  Text,
+  Section,
+  ScrollContext,
+  ScrollContainer,
+  useScrollContext,
+} from "../../index"
 
 const meta: Meta<typeof Bar> = {
   title: "Components/Bar",

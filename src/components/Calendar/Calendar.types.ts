@@ -13,9 +13,7 @@ export interface CalendarProps {
   minDetail?: "century" | "decade" | "year" | "month"
   maxDetail?: "century" | "decade" | "year" | "month"
   navigation?: "full" | "simple" | "none"
-
   onChange?: (args: { value: CalendarValue }) => void
-
   onDrillUp?: (args: {
     action:
       | "onChange"
@@ -29,7 +27,6 @@ export interface CalendarProps {
     value: CalendarValue
     view: "month" | "year" | "decade" | "century"
   }) => void
-
   onDrillDown?: (args: {
     action:
       | "onChange"
@@ -43,7 +40,6 @@ export interface CalendarProps {
     value: CalendarValue
     view: "month" | "year" | "decade" | "century"
   }) => void
-
   onViewChange?: (args: {
     action:
       | "onChange"

@@ -1,14 +1,11 @@
 import { bem, typedForwardRef } from "../../utils"
+
 import { useEffect, useMemo, useRef, useState } from "preact/hooks"
 
 import type { SegmentedControlProps } from "./SegmentedControl.types"
 import "./SegmentedControl.scss"
 
-import type { Glyph } from "../Icon/Icon.types"
-import { OverlayPositioner } from "../../index"
-import { Tooltip } from "../../index"
-import { Text } from "../../index"
-import { Icon } from "../../index"
+import { OverlayPositioner, Tooltip, Text, Icon, type Glyph } from "../../index"
 
 /* --- */
 

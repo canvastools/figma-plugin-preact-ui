@@ -1,13 +1,10 @@
 import { Meta, StoryObj } from "@storybook/preact"
+
 import { useRef } from "preact/hooks"
 
 import { Popover } from "./Popover"
 
-import { Stack } from "../../index"
-import { Text } from "../../index"
-import { Section } from "../../index"
-import { Button } from "../../index"
-import { OverlayPositioner } from "../../index"
+import { Stack, Text, Section, Button, OverlayPositioner } from "../../index"
 
 const meta: Meta<typeof Popover> = {
   title: "Components/Popover",

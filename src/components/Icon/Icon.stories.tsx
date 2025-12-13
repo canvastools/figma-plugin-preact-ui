@@ -3,9 +3,7 @@ import { Meta, StoryObj } from "@storybook/preact"
 import { Icon } from "./Icon"
 
 import * as glyphs from "../Icon/glyphs"
-import { Text } from "../../index"
-import type { TextProps } from "../../index"
-import { Section } from "../../index"
+import { Text, type TextProps, Section } from "../../index"
 
 const meta: Meta<typeof Icon> = {
   title: "Components/Icon",
@@ -116,6 +114,7 @@ export const Demo: Story = {
     const { glyph, ...rest } = args as {
       glyph: keyof typeof glyphs
     } & import("./Icon.types").IconProps
+
     return (
       <div className="sb-column sb-width-full">
         <Section>

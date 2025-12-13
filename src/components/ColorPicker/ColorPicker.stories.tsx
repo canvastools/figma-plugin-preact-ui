@@ -1,14 +1,11 @@
 import { Meta, StoryObj } from "@storybook/preact"
-import { useState } from "preact/hooks"
 import { fn } from "@storybook/test"
+
+import { useState } from "preact/hooks"
 
 import { ColorPicker } from "./ColorPicker"
 
-import { Text } from "../../index"
-import { Stack } from "../../index"
-import { ColorSwatch } from "../../index"
-
-import { colorToHexAlpha } from "../../index"
+import { Text, Stack, ColorSwatch, colorToHexAlpha } from "../../index"
 
 const meta: Meta<typeof ColorPicker> = {
   title: "Components/ColorPicker",

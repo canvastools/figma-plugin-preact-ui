@@ -1,6 +1,5 @@
 import { createContext } from "preact"
-import { useContext, useState, useEffect } from "preact/hooks"
-import { useRef } from "preact/hooks"
+import { useContext, useState, useEffect, useRef } from "preact/hooks"
 
 import type {
   ScrollContextValue,

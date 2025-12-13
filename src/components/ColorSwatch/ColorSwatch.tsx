@@ -1,12 +1,11 @@
-import { bem, typedForwardRef } from "../../utils"
 import { useRef } from "preact/hooks"
+
+import { bem, typedForwardRef } from "../../utils"
 
 import type { ColorSwatchProps } from "./ColorSwatch.types"
 import "./ColorSwatch.scss"
 
-import { OverlayPositioner } from "../../index"
-import { Tooltip } from "../../index"
-import { Text } from "../../index"
+import { OverlayPositioner, Tooltip, Text } from "../../index"
 
 /* --- */
 

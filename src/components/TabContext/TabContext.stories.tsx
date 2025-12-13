@@ -1,16 +1,19 @@
 import type { Meta, StoryObj } from "@storybook/preact"
 import { fn } from "@storybook/test"
+
 import { useState } from "preact/hooks"
 
 import { TabContext } from "./TabContext"
 
-import { TabPanel } from "../../index"
-import { TabList } from "../../index"
-import { Tab } from "../../index"
-import { Text } from "../../index"
-import { Section } from "../../index"
-import { Button } from "../../index"
-import { Stack } from "../../index"
+import {
+  TabPanel,
+  TabList,
+  Tab,
+  Text,
+  Section,
+  Button,
+  Stack,
+} from "../../index"
 
 const meta: Meta<typeof TabContext> = {
   title: "Components/TabContext",

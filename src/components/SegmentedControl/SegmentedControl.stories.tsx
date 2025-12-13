@@ -1,14 +1,17 @@
 import { Meta, StoryObj } from "@storybook/preact"
 import { fn } from "@storybook/test"
+
 import { useState } from "preact/hooks"
 
 import { SegmentedControl } from "./SegmentedControl"
 import type { SegmentedControlOption } from "./SegmentedControl.types"
 
-import { Stack } from "../../index"
-import { Text } from "../../index"
-import { viewList as viewListGlyph } from "../../index"
-import { viewGrid as viewGridGlyph } from "../../index"
+import {
+  Stack,
+  Text,
+  viewList as viewListGlyph,
+  viewGrid as viewGridGlyph,
+} from "../../index"
 
 const meta: Meta<typeof SegmentedControl> = {
   title: "Components/SegmentedControl",
@@ -17,7 +20,7 @@ const meta: Meta<typeof SegmentedControl> = {
   argTypes: {
     className: { control: { type: "text" } },
     options: {
-      control: { type: "object" },
+      control: { disable: true },
       table: {
         type: {
           summary: "SegmentedControlOption[]",
@@ -65,35 +68,10 @@ const meta: Meta<typeof SegmentedControl> = {
 export default meta
 type Story = StoryObj<typeof SegmentedControl>
 
-const sampleOptionsWihtoutIcons: SegmentedControlOption[] = [
-  {
-    value: "list",
-    title: "List view",
-  },
-  {
-    value: "grid",
-    title: "Grid view",
-  },
-]
-
-const sampleOptions: SegmentedControlOption[] = [
-  {
-    value: "list",
-    title: "List view",
-    icon: viewListGlyph,
-  },
-  {
-    value: "grid",
-    title: "Grid view",
-    icon: viewGridGlyph,
-  },
-]
-
 export const Demo: Story = {
   tags: ["!autodocs"],
   args: {
     className: "",
-    options: sampleOptionsWihtoutIcons,
     defaultValue: "list",
     disabled: false,
     fullWidth: false,
@@ -104,11 +82,24 @@ export const Demo: Story = {
       defaultViewport: "large",
     },
   },
-  render: (args) => (
-    <div className="sb-column">
-      <SegmentedControl options={sampleOptionsWihtoutIcons} {...args} />
-    </div>
-  ),
+  render: (args) => {
+    const sampleOptionsWihtoutIcons: SegmentedControlOption[] = [
+      {
+        value: "list",
+        title: "List view",
+      },
+      {
+        value: "grid",
+        title: "Grid view",
+      },
+    ]
+
+    return (
+      <div className="sb-column">
+        <SegmentedControl options={sampleOptionsWihtoutIcons} {...args} />
+      </div>
+    )
+  },
 }
 
 export const WithIcons: Story = {
@@ -118,11 +109,26 @@ export const WithIcons: Story = {
       defaultViewport: "large",
     },
   },
-  render: () => (
-    <div className="sb-column sb-width-300">
-      <SegmentedControl options={sampleOptions} defaultValue="list" />
-    </div>
-  ),
+  render: () => {
+    const sampleOptions: SegmentedControlOption[] = [
+      {
+        value: "list",
+        title: "List view",
+        icon: viewListGlyph,
+      },
+      {
+        value: "grid",
+        title: "Grid view",
+        icon: viewGridGlyph,
+      },
+    ]
+
+    return (
+      <div className="sb-column sb-width-300">
+        <SegmentedControl options={sampleOptions} defaultValue="list" />
+      </div>
+    )
+  },
 }
 
 export const Uncontrolled: Story = {
@@ -132,14 +138,27 @@ export const Uncontrolled: Story = {
       defaultViewport: "large",
     },
   },
-  render: () => (
-    <div className="sb-column sb-width-300">
-      <SegmentedControl
-        options={sampleOptionsWihtoutIcons}
-        defaultValue="list"
-      />
-    </div>
-  ),
+  render: () => {
+    const sampleOptionsWihtoutIcons: SegmentedControlOption[] = [
+      {
+        value: "list",
+        title: "List view",
+      },
+      {
+        value: "grid",
+        title: "Grid view",
+      },
+    ]
+
+    return (
+      <div className="sb-column sb-width-300">
+        <SegmentedControl
+          options={sampleOptionsWihtoutIcons}
+          defaultValue="list"
+        />
+      </div>
+    )
+  },
 }
 
 export const Controlled: Story = {
@@ -151,6 +170,17 @@ export const Controlled: Story = {
   },
   render: () => {
     const [value, setValue] = useState("list")
+
+    const sampleOptionsWihtoutIcons: SegmentedControlOption[] = [
+      {
+        value: "list",
+        title: "List view",
+      },
+      {
+        value: "grid",
+        title: "Grid view",
+      },
+    ]
     return (
       <div className="sb-column sb-width-300">
         <Stack spacing={400} fullWidth>
@@ -173,22 +203,48 @@ export const FullWidth: Story = {
       defaultViewport: "large",
     },
   },
-  render: () => (
-    <div className="sb-column sb-width-full">
-      <Stack spacing={400} fullWidth>
-        <SegmentedControl
-          options={sampleOptions}
-          defaultValue="list"
-          fullWidth
-        />
-        <SegmentedControl
-          options={sampleOptionsWihtoutIcons}
-          defaultValue="list"
-          fullWidth
-        />
-      </Stack>
-    </div>
-  ),
+  render: () => {
+    const sampleOptionsWihtoutIcons: SegmentedControlOption[] = [
+      {
+        value: "list",
+        title: "List view",
+      },
+      {
+        value: "grid",
+        title: "Grid view",
+      },
+    ]
+
+    const sampleOptions: SegmentedControlOption[] = [
+      {
+        value: "list",
+        title: "List view",
+        icon: viewListGlyph,
+      },
+      {
+        value: "grid",
+        title: "Grid view",
+        icon: viewGridGlyph,
+      },
+    ]
+
+    return (
+      <div className="sb-column sb-width-full">
+        <Stack spacing={400} fullWidth>
+          <SegmentedControl
+            options={sampleOptions}
+            defaultValue="list"
+            fullWidth
+          />
+          <SegmentedControl
+            options={sampleOptionsWihtoutIcons}
+            defaultValue="list"
+            fullWidth
+          />
+        </Stack>
+      </div>
+    )
+  },
 }
 
 export const Disabled: Story = {
@@ -198,23 +254,38 @@ export const Disabled: Story = {
       defaultViewport: "large",
     },
   },
-  render: () => (
-    <div className="sb-column sb-width-300">
-      <Stack spacing={400}>
-        <SegmentedControl
-          options={sampleOptions}
-          defaultValue="list"
-          disabled
-        />
-        <SegmentedControl
-          options={sampleOptions.map((option) => ({
-            ...option,
-            icon: undefined,
-          }))}
-          defaultValue="list"
-          disabled
-        />
-      </Stack>
-    </div>
-  ),
+  render: () => {
+    const sampleOptions: SegmentedControlOption[] = [
+      {
+        value: "list",
+        title: "List view",
+        icon: viewListGlyph,
+      },
+      {
+        value: "grid",
+        title: "Grid view",
+        icon: viewGridGlyph,
+      },
+    ]
+
+    return (
+      <div className="sb-column sb-width-300">
+        <Stack spacing={400}>
+          <SegmentedControl
+            options={sampleOptions}
+            defaultValue="list"
+            disabled
+          />
+          <SegmentedControl
+            options={sampleOptions.map((option) => ({
+              ...option,
+              icon: undefined,
+            }))}
+            defaultValue="list"
+            disabled
+          />
+        </Stack>
+      </div>
+    )
+  },
 }

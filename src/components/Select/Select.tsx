@@ -1,6 +1,7 @@
 import { Fragment } from "preact"
-import { bem, typedForwardRef } from "../../utils"
 import { useEffect, useMemo, useRef, useState } from "preact/hooks"
+
+import { bem, typedForwardRef } from "../../utils"
 
 import type { SelectProps, SelectOption } from "./Select.types"
 import "./Select.scss"

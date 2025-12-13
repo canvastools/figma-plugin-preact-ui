@@ -12,7 +12,6 @@ import {
   Stack,
   Text,
   MenuContext,
-  check as checkGlyph,
   ai as aiGlyph,
 } from "../../index"
 

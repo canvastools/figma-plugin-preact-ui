@@ -1,5 +1,6 @@
-import { bem, typedForwardRef } from "../../utils"
 import { useCallback, useEffect, useRef, useState } from "preact/hooks"
+
+import { bem, typedForwardRef } from "../../utils"
 
 import type { ScrollContainerProps } from "./ScrollContainer.types"
 import "./ScrollContainer.scss"

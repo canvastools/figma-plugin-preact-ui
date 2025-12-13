@@ -1,5 +1,7 @@
-import { bem, typedForwardRef } from "../../utils"
 import { createPortal } from "preact/compat"
+
+import { bem, typedForwardRef } from "../../utils"
+
 import {
   useEffect,
   useLayoutEffect,
@@ -7,9 +9,9 @@ import {
   useRef,
   useState,
 } from "preact/hooks"
-import "./OverlayPositioner.scss"
 
 import type { OverlayPositionerProps } from "./OverlayPositioner.types"
+import "./OverlayPositioner.scss"
 
 type Coords = { top: number; left: number }
 type ArrowSide = "top" | "bottom" | "left" | "right"
