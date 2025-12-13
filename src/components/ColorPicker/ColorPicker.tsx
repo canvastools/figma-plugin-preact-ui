@@ -24,6 +24,7 @@ import { Text } from "../../index"
 import { Select } from "../../index"
 import { Tooltip } from "../../index"
 import { OverlayPositioner } from "../../index"
+import { InputGroup } from "../../index"
 
 import { useNumberValidator } from "../../index"
 import { useStringValidator } from "../../index"
@@ -138,220 +139,222 @@ const ControlsRgba = ({
           </Tooltip>
         </OverlayPositioner>
       </div>
-      <div className="ColorPicker__controlsValues InputGrouped">
-        <Input
-          ref={inputRedRef}
-          className="ColorPicker__inputCompact"
-          type="number"
-          grouped="right"
-          value={rgbaValue.r.toString()}
-          onChange={(e) => {
-            const num = Number(e.value)
-            if (Number.isFinite(num)) {
-              setRgbaValue({ ...rgbaValue, r: num })
+      <div className="ColorPicker__controlsValues">
+        <InputGroup>
+          <Input
+            ref={inputRedRef}
+            className="ColorPicker__inputCompact"
+            type="number"
+            grouped="right"
+            value={rgbaValue.r.toString()}
+            onChange={(e) => {
+              const num = Number(e.value)
+              if (Number.isFinite(num)) {
+                setRgbaValue({ ...rgbaValue, r: num })
+              }
+            }}
+            onBlur={(e) => {
+              const value = Math.round(Number(e.value))
+
+              if (getErrorCodeRgbaValue(value) === "required") {
+                setColor({ ...color, r: RGBA_VALUES.r.min })
+                setRgbaValue({ ...rgbaValue, r: RGBA_VALUES.r.min })
+              }
+
+              if (getErrorCodeRgbaValue(value) === "less_than_min") {
+                setColor({ ...color, r: RGBA_VALUES.r.min })
+                setRgbaValue({ ...rgbaValue, r: RGBA_VALUES.r.min })
+              }
+
+              if (getErrorCodeRgbaValue(value) === "greater_than_max") {
+                setColor({ ...color, r: RGBA_VALUES.r.max })
+                setRgbaValue({ ...rgbaValue, r: RGBA_VALUES.r.max })
+              }
+
+              if (getErrorCodeRgbaValue(value) === null) {
+                setColor({ ...color, r: value })
+                setRgbaValue({ ...rgbaValue, r: value })
+              }
+            }}
+          />
+
+          <OverlayPositioner
+            anchorRef={inputRedRef}
+            placement="bottom"
+            placementFallback={["top"]}
+            paddingY={8}
+            edgePadding={8}
+            trigger="hover"
+            visibilityDelay={1000}
+            arrow={true}
+          >
+            <Tooltip>
+              <Text intent="neutral-inverted-fixed">Red</Text>
+            </Tooltip>
+          </OverlayPositioner>
+
+          <Input
+            ref={inputGreenRef}
+            className="ColorPicker__inputCompact"
+            type="number"
+            grouped="both"
+            value={rgbaValue.g.toString()}
+            onChange={(e) => {
+              const num = Number(e.value)
+              if (Number.isFinite(num)) {
+                setRgbaValue({ ...rgbaValue, g: num })
+              }
+            }}
+            onBlur={(e) => {
+              const value = Math.round(Number(e.value))
+
+              if (getErrorCodeRgbaValue(value) === "required") {
+                setColor({ ...color, g: RGBA_VALUES.g.min })
+                setRgbaValue({ ...rgbaValue, g: RGBA_VALUES.g.min })
+              }
+
+              if (getErrorCodeRgbaValue(value) === "less_than_min") {
+                setColor({ ...color, g: RGBA_VALUES.g.min })
+                setRgbaValue({ ...rgbaValue, g: RGBA_VALUES.g.min })
+              }
+
+              if (getErrorCodeRgbaValue(value) === "greater_than_max") {
+                setColor({ ...color, g: RGBA_VALUES.g.max })
+                setRgbaValue({ ...rgbaValue, g: RGBA_VALUES.g.max })
+              }
+
+              if (getErrorCodeRgbaValue(value) === null) {
+                setColor({ ...color, g: value })
+                setRgbaValue({ ...rgbaValue, g: value })
+              }
+            }}
+          />
+
+          <OverlayPositioner
+            anchorRef={inputGreenRef}
+            placement="bottom"
+            placementFallback={["top"]}
+            paddingY={8}
+            edgePadding={8}
+            trigger="hover"
+            visibilityDelay={1000}
+            arrow={true}
+          >
+            <Tooltip>
+              <Text intent="neutral-inverted-fixed">Green</Text>
+            </Tooltip>
+          </OverlayPositioner>
+
+          <Input
+            ref={inputBlueRef}
+            className="ColorPicker__inputCompact"
+            type="number"
+            grouped="both"
+            value={rgbaValue.b.toString()}
+            onChange={(e) => {
+              const num = Number(e.value)
+              if (Number.isFinite(num)) {
+                setRgbaValue({ ...rgbaValue, b: num })
+              }
+            }}
+            onBlur={(e) => {
+              const value = Math.round(Number(e.value))
+
+              if (getErrorCodeRgbaValue(value) === "required") {
+                setColor({ ...color, b: RGBA_VALUES.b.min })
+                setRgbaValue({ ...rgbaValue, b: RGBA_VALUES.b.min })
+              }
+
+              if (getErrorCodeRgbaValue(value) === "less_than_min") {
+                setColor({ ...color, b: RGBA_VALUES.b.min })
+                setRgbaValue({ ...rgbaValue, b: RGBA_VALUES.b.min })
+              }
+
+              if (getErrorCodeRgbaValue(value) === "greater_than_max") {
+                setColor({ ...color, b: RGBA_VALUES.b.max })
+                setRgbaValue({ ...rgbaValue, b: RGBA_VALUES.b.max })
+              }
+
+              if (getErrorCodeRgbaValue(value) === null) {
+                setColor({ ...color, b: value })
+                setRgbaValue({ ...rgbaValue, b: value })
+              }
+            }}
+          />
+
+          <OverlayPositioner
+            anchorRef={inputBlueRef}
+            placement="bottom"
+            placementFallback={["top"]}
+            paddingY={8}
+            edgePadding={8}
+            trigger="hover"
+            visibilityDelay={1000}
+            arrow={true}
+          >
+            <Tooltip>
+              <Text intent="neutral-inverted-fixed">Blue</Text>
+            </Tooltip>
+          </OverlayPositioner>
+
+          <Input
+            ref={inputOpacityRef}
+            className="ColorPicker__controlOpacity"
+            type="number"
+            grouped="left"
+            value={Math.round(rgbaValue.a * 100).toString()}
+            suffix={
+              <Text intentModifiers="secondary">
+                <div className="ColorPicker__controlOpacityContainer">%</div>
+              </Text>
             }
-          }}
-          onBlur={(e) => {
-            const value = Math.round(Number(e.value))
+            onChange={(e) => {
+              const num = Number(e.value)
+              if (Number.isFinite(num)) {
+                const percent = Math.round(num)
+                setRgbaValue({ ...rgbaValue, a: roundAlpha(percent / 100) })
+              }
+            }}
+            onBlur={(e) => {
+              const value = roundAlpha(Math.round(Number(e.value)) / 100)
 
-            if (getErrorCodeRgbaValue(value) === "required") {
-              setColor({ ...color, r: RGBA_VALUES.r.min })
-              setRgbaValue({ ...rgbaValue, r: RGBA_VALUES.r.min })
-            }
+              if (getErrorCodeRgbaOpacity(value) === "required") {
+                setColor({ ...color, a: color.a })
+                setRgbaValue({ ...rgbaValue, a: color.a })
+              }
 
-            if (getErrorCodeRgbaValue(value) === "less_than_min") {
-              setColor({ ...color, r: RGBA_VALUES.r.min })
-              setRgbaValue({ ...rgbaValue, r: RGBA_VALUES.r.min })
-            }
+              if (getErrorCodeRgbaOpacity(value) === "less_than_min") {
+                setColor({ ...color, a: RGBA_VALUES.a.min })
+                setRgbaValue({ ...rgbaValue, a: RGBA_VALUES.a.min })
+              }
 
-            if (getErrorCodeRgbaValue(value) === "greater_than_max") {
-              setColor({ ...color, r: RGBA_VALUES.r.max })
-              setRgbaValue({ ...rgbaValue, r: RGBA_VALUES.r.max })
-            }
+              if (getErrorCodeRgbaOpacity(value) === "greater_than_max") {
+                setColor({ ...color, a: RGBA_VALUES.a.max })
+                setRgbaValue({ ...rgbaValue, a: RGBA_VALUES.a.max })
+              }
 
-            if (getErrorCodeRgbaValue(value) === null) {
-              setColor({ ...color, r: value })
-              setRgbaValue({ ...rgbaValue, r: value })
-            }
-          }}
-        />
+              if (getErrorCodeRgbaOpacity(value) === null) {
+                setColor({ ...color, a: value })
+                setRgbaValue({ ...rgbaValue, a: value })
+              }
+            }}
+          />
 
-        <OverlayPositioner
-          anchorRef={inputRedRef}
-          placement="bottom"
-          placementFallback={["top"]}
-          paddingY={8}
-          edgePadding={8}
-          trigger="hover"
-          visibilityDelay={1000}
-          arrow={true}
-        >
-          <Tooltip>
-            <Text intent="neutral-inverted-fixed">Red</Text>
-          </Tooltip>
-        </OverlayPositioner>
-
-        <Input
-          ref={inputGreenRef}
-          className="ColorPicker__inputCompact"
-          type="number"
-          grouped="both"
-          value={rgbaValue.g.toString()}
-          onChange={(e) => {
-            const num = Number(e.value)
-            if (Number.isFinite(num)) {
-              setRgbaValue({ ...rgbaValue, g: num })
-            }
-          }}
-          onBlur={(e) => {
-            const value = Math.round(Number(e.value))
-
-            if (getErrorCodeRgbaValue(value) === "required") {
-              setColor({ ...color, g: RGBA_VALUES.g.min })
-              setRgbaValue({ ...rgbaValue, g: RGBA_VALUES.g.min })
-            }
-
-            if (getErrorCodeRgbaValue(value) === "less_than_min") {
-              setColor({ ...color, g: RGBA_VALUES.g.min })
-              setRgbaValue({ ...rgbaValue, g: RGBA_VALUES.g.min })
-            }
-
-            if (getErrorCodeRgbaValue(value) === "greater_than_max") {
-              setColor({ ...color, g: RGBA_VALUES.g.max })
-              setRgbaValue({ ...rgbaValue, g: RGBA_VALUES.g.max })
-            }
-
-            if (getErrorCodeRgbaValue(value) === null) {
-              setColor({ ...color, g: value })
-              setRgbaValue({ ...rgbaValue, g: value })
-            }
-          }}
-        />
-
-        <OverlayPositioner
-          anchorRef={inputGreenRef}
-          placement="bottom"
-          placementFallback={["top"]}
-          paddingY={8}
-          edgePadding={8}
-          trigger="hover"
-          visibilityDelay={1000}
-          arrow={true}
-        >
-          <Tooltip>
-            <Text intent="neutral-inverted-fixed">Green</Text>
-          </Tooltip>
-        </OverlayPositioner>
-
-        <Input
-          ref={inputBlueRef}
-          className="ColorPicker__inputCompact"
-          type="number"
-          grouped="both"
-          value={rgbaValue.b.toString()}
-          onChange={(e) => {
-            const num = Number(e.value)
-            if (Number.isFinite(num)) {
-              setRgbaValue({ ...rgbaValue, b: num })
-            }
-          }}
-          onBlur={(e) => {
-            const value = Math.round(Number(e.value))
-
-            if (getErrorCodeRgbaValue(value) === "required") {
-              setColor({ ...color, b: RGBA_VALUES.b.min })
-              setRgbaValue({ ...rgbaValue, b: RGBA_VALUES.b.min })
-            }
-
-            if (getErrorCodeRgbaValue(value) === "less_than_min") {
-              setColor({ ...color, b: RGBA_VALUES.b.min })
-              setRgbaValue({ ...rgbaValue, b: RGBA_VALUES.b.min })
-            }
-
-            if (getErrorCodeRgbaValue(value) === "greater_than_max") {
-              setColor({ ...color, b: RGBA_VALUES.b.max })
-              setRgbaValue({ ...rgbaValue, b: RGBA_VALUES.b.max })
-            }
-
-            if (getErrorCodeRgbaValue(value) === null) {
-              setColor({ ...color, b: value })
-              setRgbaValue({ ...rgbaValue, b: value })
-            }
-          }}
-        />
-
-        <OverlayPositioner
-          anchorRef={inputBlueRef}
-          placement="bottom"
-          placementFallback={["top"]}
-          paddingY={8}
-          edgePadding={8}
-          trigger="hover"
-          visibilityDelay={1000}
-          arrow={true}
-        >
-          <Tooltip>
-            <Text intent="neutral-inverted-fixed">Blue</Text>
-          </Tooltip>
-        </OverlayPositioner>
-
-        <Input
-          ref={inputOpacityRef}
-          className="ColorPicker__controlOpacity"
-          type="number"
-          grouped="left"
-          value={Math.round(rgbaValue.a * 100).toString()}
-          suffix={
-            <Text intentModifiers="secondary">
-              <div className="ColorPicker__controlOpacityContainer">%</div>
-            </Text>
-          }
-          onChange={(e) => {
-            const num = Number(e.value)
-            if (Number.isFinite(num)) {
-              const percent = Math.round(num)
-              setRgbaValue({ ...rgbaValue, a: roundAlpha(percent / 100) })
-            }
-          }}
-          onBlur={(e) => {
-            const value = roundAlpha(Math.round(Number(e.value)) / 100)
-
-            if (getErrorCodeRgbaOpacity(value) === "required") {
-              setColor({ ...color, a: color.a })
-              setRgbaValue({ ...rgbaValue, a: color.a })
-            }
-
-            if (getErrorCodeRgbaOpacity(value) === "less_than_min") {
-              setColor({ ...color, a: RGBA_VALUES.a.min })
-              setRgbaValue({ ...rgbaValue, a: RGBA_VALUES.a.min })
-            }
-
-            if (getErrorCodeRgbaOpacity(value) === "greater_than_max") {
-              setColor({ ...color, a: RGBA_VALUES.a.max })
-              setRgbaValue({ ...rgbaValue, a: RGBA_VALUES.a.max })
-            }
-
-            if (getErrorCodeRgbaOpacity(value) === null) {
-              setColor({ ...color, a: value })
-              setRgbaValue({ ...rgbaValue, a: value })
-            }
-          }}
-        />
-
-        <OverlayPositioner
-          anchorRef={inputOpacityRef}
-          placement="bottom"
-          placementFallback={["top"]}
-          paddingY={8}
-          edgePadding={8}
-          trigger="hover"
-          visibilityDelay={1000}
-          arrow={true}
-        >
-          <Tooltip>
-            <Text intent="neutral-inverted-fixed">Opacity</Text>
-          </Tooltip>
-        </OverlayPositioner>
+          <OverlayPositioner
+            anchorRef={inputOpacityRef}
+            placement="bottom"
+            placementFallback={["top"]}
+            paddingY={8}
+            edgePadding={8}
+            trigger="hover"
+            visibilityDelay={1000}
+            arrow={true}
+          >
+            <Tooltip>
+              <Text intent="neutral-inverted-fixed">Opacity</Text>
+            </Tooltip>
+          </OverlayPositioner>
+        </InputGroup>
       </div>
     </>
   )
@@ -500,84 +503,86 @@ const ControlsHexAlpha = ({
           </Tooltip>
         </OverlayPositioner>
       </div>
-      <div className="ColorPicker__controlsValues InputGrouped">
-        <Input
-          grouped="right"
-          value={hexValue.toUpperCase()}
-          onChange={(e) => {
-            const value = e.value.replace(/^#/, "")
-            setHexValue(value)
-          }}
-          onBlur={(e) => {
-            const value = e.value.replace(/^#/, "").trim()
-            const error = getErrorCodeHexValue(value)
-
-            if (error === null) {
-              const rgb = hexToColor(value, color.a)
-              if (rgb) setColor({ ...color, ...rgb })
+      <div className="ColorPicker__controlsValues">
+        <InputGroup>
+          <Input
+            grouped="right"
+            value={hexValue.toUpperCase()}
+            onChange={(e) => {
+              const value = e.value.replace(/^#/, "")
               setHexValue(value)
-            } else {
-              setHexValue(colorToHex(color).slice(1))
-            }
-          }}
-        />
+            }}
+            onBlur={(e) => {
+              const value = e.value.replace(/^#/, "").trim()
+              const error = getErrorCodeHexValue(value)
 
-        <Input
-          ref={inputOpacityRef}
-          className="ColorPicker__controlOpacity"
-          grouped="left"
-          type="number"
-          value={Math.round(color.a * 100).toString()}
-          suffix={
-            <Text intentModifiers="secondary">
-              <div className="ColorPicker__controlOpacityContainer">%</div>
-            </Text>
-          }
-          onChange={(e) => {
-            const num = Number(e.value)
-            if (Number.isFinite(num)) {
-              const fraction = roundAlpha(
-                clamp(num / 100, HEX_VALUES.a.min, HEX_VALUES.a.max)
-              )
-              setColor({ ...color, a: fraction })
-            }
-          }}
-          onBlur={(e) => {
-            const fraction = roundAlpha(Number(e.value) / 100)
-            const error = getErrorCodeHexOpacity(fraction)
+              if (error === null) {
+                const rgb = hexToColor(value, color.a)
+                if (rgb) setColor({ ...color, ...rgb })
+                setHexValue(value)
+              } else {
+                setHexValue(colorToHex(color).slice(1))
+              }
+            }}
+          />
 
-            if (error === "required") {
-              setColor({ ...color, a: color.a })
+          <Input
+            ref={inputOpacityRef}
+            className="ColorPicker__controlOpacity"
+            grouped="left"
+            type="number"
+            value={Math.round(color.a * 100).toString()}
+            suffix={
+              <Text intentModifiers="secondary">
+                <div className="ColorPicker__controlOpacityContainer">%</div>
+              </Text>
             }
+            onChange={(e) => {
+              const num = Number(e.value)
+              if (Number.isFinite(num)) {
+                const fraction = roundAlpha(
+                  clamp(num / 100, HEX_VALUES.a.min, HEX_VALUES.a.max)
+                )
+                setColor({ ...color, a: fraction })
+              }
+            }}
+            onBlur={(e) => {
+              const fraction = roundAlpha(Number(e.value) / 100)
+              const error = getErrorCodeHexOpacity(fraction)
 
-            if (error === "less_than_min") {
-              setColor({ ...color, a: HEX_VALUES.a.min })
-            }
+              if (error === "required") {
+                setColor({ ...color, a: color.a })
+              }
 
-            if (error === "greater_than_max") {
-              setColor({ ...color, a: HEX_VALUES.a.max })
-            }
+              if (error === "less_than_min") {
+                setColor({ ...color, a: HEX_VALUES.a.min })
+              }
 
-            if (error === null) {
-              setColor({ ...color, a: fraction })
-            }
-          }}
-        />
+              if (error === "greater_than_max") {
+                setColor({ ...color, a: HEX_VALUES.a.max })
+              }
 
-        <OverlayPositioner
-          anchorRef={inputOpacityRef}
-          placement="bottom"
-          placementFallback={["top"]}
-          paddingY={8}
-          edgePadding={8}
-          trigger="hover"
-          visibilityDelay={1000}
-          arrow={true}
-        >
-          <Tooltip>
-            <Text intent="neutral-inverted-fixed">Opacity</Text>
-          </Tooltip>
-        </OverlayPositioner>
+              if (error === null) {
+                setColor({ ...color, a: fraction })
+              }
+            }}
+          />
+
+          <OverlayPositioner
+            anchorRef={inputOpacityRef}
+            placement="bottom"
+            placementFallback={["top"]}
+            paddingY={8}
+            edgePadding={8}
+            trigger="hover"
+            visibilityDelay={1000}
+            arrow={true}
+          >
+            <Tooltip>
+              <Text intent="neutral-inverted-fixed">Opacity</Text>
+            </Tooltip>
+          </OverlayPositioner>
+        </InputGroup>
       </div>
     </>
   )

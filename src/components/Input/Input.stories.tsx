@@ -8,6 +8,7 @@ import { Stack } from "../../index"
 import { Icon } from "../../index"
 import { Text } from "../../index"
 import { ButtonIcon } from "../../index"
+import { InputGroup } from "../../index"
 import { search as searchGlyph, link as linkGlyph } from "../../index"
 
 const meta: Meta<typeof Input> = {
@@ -246,12 +247,12 @@ export const Grouped: Story = {
           <Input defaultValue="Default Value" grouped="both" />
           <Input defaultValue="Default Value" grouped="left" />
         </Stack>
-        <Text>Grouped with .InputGrouped class wrapper</Text>
-        <Stack spacing={0} direction="row" className="InputGrouped">
+        <Text>Grouped with InputGroup component</Text>
+        <InputGroup>
           <Input defaultValue="Default Value" grouped="right" />
           <Input defaultValue="Default Value" grouped="both" />
           <Input defaultValue="Default Value" grouped="left" />
-        </Stack>
+        </InputGroup>
       </Stack>
     </div>
   ),
