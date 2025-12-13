@@ -31,6 +31,10 @@ const MenuContext = ({
 }: MenuContextProps) => {
   const itemsRef = useRef<MenuItemMetadata[]>([])
   const lastOpenViaKeyboardRef = useRef(false)
+  const typeaheadRef = useRef<{ query: string; lastTime: number }>({
+    query: "",
+    lastTime: 0,
+  })
 
   const [focusedItemId, setFocusedItemId] = useState<string | null>(null)
 
@@ -161,6 +165,7 @@ const MenuContext = ({
   useEffect(() => {
     if (!open) {
       setFocusedItemId(null)
+      typeaheadRef.current = { query: "", lastTime: 0 }
       return
     }
 
@@ -190,6 +195,62 @@ const MenuContext = ({
       window.removeEventListener("keydown", handleTab)
     }
   }, [open, moveFocus])
+
+  useEffect(() => {
+    if (!open) return
+
+    const TYPEAHEAD_TIMEOUT = 500
+
+    const handleTypeahead = (event: KeyboardEvent) => {
+      const { key, metaKey, ctrlKey, altKey } = event
+
+      if (metaKey || ctrlKey || altKey) return
+      if (key.length !== 1) return
+
+      const char = key.toLowerCase()
+      // Limit to printable characters (basic A-Z/0-9 and common symbols)
+      if (!/^[\w !"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]$/.test(char)) return
+
+      event.preventDefault()
+
+      const now = Date.now()
+      let { query, lastTime } = typeaheadRef.current
+      if (now - lastTime > TYPEAHEAD_TIMEOUT) {
+        query = ""
+      }
+      query += char
+      typeaheadRef.current = { query, lastTime: now }
+
+      const enabledItems = itemsRef.current.filter((item) => !item.disabled)
+      if (!enabledItems.length) return
+
+      const normalizedQuery = query.toLowerCase()
+
+      const getText = (item: MenuItemMetadata): string => {
+        const el = item.ref.current
+        if (!el) return ""
+        return (el.textContent || el.innerText || "").trim().toLowerCase()
+      }
+
+      // First try prefix match
+      let target =
+        enabledItems.find((item) =>
+          getText(item).startsWith(normalizedQuery)
+        ) ||
+        // Fallback to "contains" match
+        enabledItems.find((item) => getText(item).includes(normalizedQuery))
+
+      if (target?.ref.current) {
+        target.ref.current.focus()
+        setFocusedItemId(target.id)
+      }
+    }
+
+    window.addEventListener("keydown", handleTypeahead)
+    return () => {
+      window.removeEventListener("keydown", handleTypeahead)
+    }
+  }, [open])
 
   const contextValue: MenuContextValue = {
     // id: idRef.current,

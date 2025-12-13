@@ -125,21 +125,21 @@ export const Demo: Story = {
               onClick={() => context.setOpen(false)}
               focused={context.focusedItemId === "action-1"}
             >
-              Action 1
+              Apple
             </MenuItemAction>
             <MenuItemAction
               id="action-2"
               onClick={() => context.setOpen(false)}
               focused={context.focusedItemId === "action-2"}
             >
-              Action 2
+              Ananas
             </MenuItemAction>
             <MenuItemAction
               id="action-3"
               onClick={() => context.setOpen(false)}
               focused={context.focusedItemId === "action-3"}
             >
-              Action 3
+              Orange
             </MenuItemAction>
           </MenuContainer>
         </OverlayPositioner>
