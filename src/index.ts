@@ -66,14 +66,26 @@ export type {
 export { ListItem } from "./components/ListItem/ListItem"
 export type { ListItemProps } from "./components/ListItem/ListItem.types"
 
+export { Menu } from "./components/Menu/Menu"
+export type { MenuProps, MenuItemData } from "./components/Menu/Menu.types"
+
 export { MenuContainer } from "./components/MenuContainer/MenuContainer"
 export type { MenuContainerProps } from "./components/MenuContainer/MenuContainer.types"
+
+export {
+  MenuContext,
+  useMenuContext,
+} from "./components/MenuContext/MenuContext"
+export type {
+  MenuContextValue,
+  MenuContextProps,
+} from "./components/MenuContext/MenuContext.types"
 
 export { MenuDivider } from "./components/MenuDivider/MenuDivider"
 export type { MenuDividerProps } from "./components/MenuDivider/MenuDivider.types"
 
-export { MenuItem } from "./components/MenuItem/MenuItem"
-export type { MenuItemProps } from "./components/MenuItem/MenuItem.types"
+export { MenuItemAction } from "./components/MenuItemAction/MenuItemAction"
+export type { MenuItemActionProps } from "./components/MenuItemAction/MenuItemAction.types"
 
 export { MenuItemOption } from "./components/MenuItemOption/MenuItemOption"
 export type { MenuItemOptionProps } from "./components/MenuItemOption/MenuItemOption.types"

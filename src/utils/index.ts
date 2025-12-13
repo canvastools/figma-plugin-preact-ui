@@ -9,3 +9,4 @@ export {
 } from "./color"
 export { override } from "./override"
 export { typedForwardRef } from "./typedForwardRef"
+export { uuid } from "./uuid"
