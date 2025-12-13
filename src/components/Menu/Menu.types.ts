@@ -20,7 +20,8 @@ export interface MenuProps {
   triggerRef?: preact.RefObject<HTMLElement | null>
   anchorRef?: preact.RefObject<HTMLElement | null>
   items: MenuItemData[]
-  open: boolean | undefined
+  defaultOpen?: boolean
+  open?: boolean | undefined
   width?: number | "auto"
   placement?: OverlayPlacement
   placementFallback?: false | OverlayPlacement[]

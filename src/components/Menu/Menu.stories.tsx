@@ -6,7 +6,7 @@ import { useRef, useState } from "preact/hooks"
 import { Menu } from "./Menu"
 import { MenuItemData } from "./Menu.types"
 
-import { Button } from "../../index"
+import { Button, Text, Stack } from "../../index"
 
 const meta: Meta = {
   title: "Components/Menu",
@@ -52,6 +52,14 @@ const meta: Meta = {
         type: {
           summary: "MenuItemData[]",
         },
+      },
+    },
+    defaultOpen: {
+      control: { type: "boolean" },
+      defaultValue: { summary: false },
+      description: "Value for the uncontrolled mode.",
+      table: {
+        type: { summary: "boolean" },
       },
     },
     open: {
@@ -152,6 +160,7 @@ export default meta
 type Story = StoryObj
 
 export const Demo: Story = {
+  tags: ["!autodocs"],
   args: {
     defaultOpen: false,
     width: "auto",
@@ -212,8 +221,107 @@ export const Demo: Story = {
     return (
       <div className="sb-column sb-width-full">
         <Button ref={triggerRef}>Open menu</Button>
-        {/* @ts-expect-error: Storybook types hack */}
         <Menu triggerRef={triggerRef} items={items} {...args} />
+      </div>
+    )
+  },
+}
+
+export const Uncontrolled: Story = {
+  parameters: {
+    controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
+  },
+  render: () => {
+    const triggerRef = useRef<HTMLButtonElement | null>(null)
+
+    const items: MenuItemData[] = [
+      {
+        type: "action",
+        id: "action-1",
+        children: "Action 1",
+        closeOnClick: true,
+        onClick: fn(),
+      },
+      {
+        type: "action",
+        id: "action-2",
+        children: "Action 2",
+        closeOnClick: true,
+        onClick: fn(),
+      },
+      {
+        type: "action",
+        id: "action-3",
+        children: "Action 3",
+        closeOnClick: true,
+        onClick: fn(),
+      },
+    ]
+
+    return (
+      <div className="sb-column sb-width-full">
+        <Stack spacing={400}>
+          <Button ref={triggerRef}>Open menu</Button>
+          <Menu triggerRef={triggerRef} items={items} />
+        </Stack>
+      </div>
+    )
+  },
+}
+
+export const Controlled: Story = {
+  parameters: {
+    controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
+  },
+  render: () => {
+    const triggerRef = useRef<HTMLButtonElement | null>(null)
+
+    const [open, setOpen] = useState(false)
+
+    const items: MenuItemData[] = [
+      {
+        type: "action",
+        id: "action-1",
+        children: "Action 1",
+        closeOnClick: true,
+        onClick: fn(),
+      },
+      {
+        type: "action",
+        id: "action-2",
+        children: "Action 2",
+        closeOnClick: true,
+        onClick: fn(),
+      },
+      {
+        type: "action",
+        id: "action-3",
+        children: "Action 3",
+        closeOnClick: true,
+        onClick: fn(),
+      },
+    ]
+
+    return (
+      <div className="sb-column sb-width-full">
+        <Stack spacing={400}>
+          <Text>Open: {open ? "true" : "false"}</Text>
+          <Button ref={triggerRef} onClick={() => setOpen(!open)}>
+            Open menu
+          </Button>
+          <Menu
+            triggerRef={triggerRef}
+            items={items}
+            open={open}
+            onClose={() => setOpen(false)}
+          />
+        </Stack>
       </div>
     )
   },

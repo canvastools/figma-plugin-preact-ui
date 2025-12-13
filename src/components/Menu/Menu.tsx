@@ -1,5 +1,5 @@
 import { typedForwardRef } from "../../utils"
-import { useState } from "preact/hooks"
+import { useEffect, useState } from "preact/hooks"
 
 import type { MenuProps, MenuItemData } from "./Menu.types"
 
@@ -126,6 +126,7 @@ const MenuComponent = (
     triggerRef,
     anchorRef,
     items,
+    defaultOpen = false,
     open,
     width = "auto",
     placement = "bottom-left",
@@ -139,23 +140,19 @@ const MenuComponent = (
   }: MenuProps,
   ref: preact.Ref<HTMLDivElement>
 ) => {
-  const [internalOpen, setInternalOpen] = useState<boolean>(false)
-  const isControlled = typeof open === "boolean"
-  const actualOpen = isControlled ? (open as boolean) : internalOpen
+  const [internalOpen, setInternalOpen] = useState<boolean>(open ?? defaultOpen)
 
-  const handleSetOpen = (next: boolean) => {
-    if (!isControlled) {
-      setInternalOpen(next)
-    }
-  }
+  useEffect(() => {
+    setInternalOpen(open ?? defaultOpen)
+  }, [open])
 
   return (
     <div ref={ref} {...rest}>
       <MenuContext
         triggerRef={triggerRef}
         anchorRef={anchorRef}
-        open={actualOpen}
-        setOpen={handleSetOpen}
+        open={internalOpen}
+        setOpen={setInternalOpen}
       >
         <MenuBody
           items={items}
