@@ -34,7 +34,7 @@
 
     &:focus-visible {
       outline: 1px solid var(--pui-color-system-border-focus);
-      outline-offset: 1px;
+      outline-offset: -1px;
       box-shadow: none;
     }
 

@@ -36,42 +36,60 @@ const CalendarComponent = (
 ) => {
   const _className = bem("Calendar", undefined, { navigation })
 
+  const handleKeyDown = (event: KeyboardEvent) => {
+    const key = event.key
+
+    if (key === "Escape" || key === "Esc") {
+      event.stopPropagation()
+      event.preventDefault()
+
+      const target = event.target as HTMLElement | null
+      if (target && typeof target.blur === "function") {
+        target.blur()
+      }
+    }
+  }
+
+  const ReactCalendarAny = ReactCalendar as any
+
   return (
-    <ReactCalendar
-      className={[_className, "no-drag", className].join(" ").trim()}
-      inputRef={ref as preact.Ref<HTMLDivElement> | undefined}
-      locale={locale}
-      calendarType={calendarType}
-      defaultView={defaultView}
-      view={view}
-      defaultValue={defaultValue}
-      value={value}
-      minDate={minDate}
-      maxDate={maxDate}
-      minDetail={minDetail}
-      maxDetail={maxDetail}
-      prevLabel={<Icon glyph={chevronLeft} variant="scaled" interactive />}
-      prev2Label={
-        <Icon glyph={chevronDoubleLeft} variant="scaled" interactive />
-      }
-      nextLabel={<Icon glyph={chevronRight} variant="scaled" interactive />}
-      next2Label={
-        <Icon glyph={chevronDoubleRight} variant="scaled" interactive />
-      }
-      onChange={(e) => {
-        onChange?.({ value: e })
-      }}
-      onDrillUp={(e) => {
-        onDrillUp?.({ ...e })
-      }}
-      onDrillDown={(e) => {
-        onDrillDown?.({ ...e })
-      }}
-      onViewChange={(e) => {
-        onViewChange?.({ ...e })
-      }}
-      {...rest}
-    />
+    <div onKeyDown={handleKeyDown}>
+      <ReactCalendar
+        className={[_className, "no-drag", className].join(" ").trim()}
+        inputRef={ref as preact.Ref<HTMLDivElement> | undefined}
+        locale={locale}
+        calendarType={calendarType}
+        defaultView={defaultView}
+        view={view}
+        defaultValue={defaultValue}
+        value={value}
+        minDate={minDate}
+        maxDate={maxDate}
+        minDetail={minDetail}
+        maxDetail={maxDetail}
+        prevLabel={<Icon glyph={chevronLeft} variant="scaled" interactive />}
+        prev2Label={
+          <Icon glyph={chevronDoubleLeft} variant="scaled" interactive />
+        }
+        nextLabel={<Icon glyph={chevronRight} variant="scaled" interactive />}
+        next2Label={
+          <Icon glyph={chevronDoubleRight} variant="scaled" interactive />
+        }
+        onChange={(e) => {
+          onChange?.({ value: e })
+        }}
+        onDrillUp={(e) => {
+          onDrillUp?.({ ...e })
+        }}
+        onDrillDown={(e) => {
+          onDrillDown?.({ ...e })
+        }}
+        onViewChange={(e) => {
+          onViewChange?.({ ...e })
+        }}
+        {...rest}
+      />
+    </div>
   )
 }
 

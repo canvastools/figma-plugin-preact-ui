@@ -714,10 +714,27 @@ const ColorPickerComponent = (
         )
       : baseOptions
 
+  const handleKeyDown = (
+    event: preact.JSX.TargetedKeyboardEvent<HTMLDivElement>
+  ) => {
+    const key = event.key
+
+    if (key === "Escape" || key === "Esc") {
+      event.stopPropagation()
+      event.preventDefault()
+
+      const target = event.target as HTMLElement | null
+      if (target && typeof target.blur === "function") {
+        target.blur()
+      }
+    }
+  }
+
   return (
     <div
       className={[_className, "no-drag", className].join(" ").trim()}
       ref={ref}
+      onKeyDown={handleKeyDown}
       {...rest}
       style={{
         width: width === "auto" ? undefined : (width as number),

@@ -102,6 +102,14 @@ const InputComponent = (
       event: event as KeyboardEvent,
       value: event.currentTarget.value,
     })
+
+    if (
+      event.key === "Enter" ||
+      event.key === "Escape" ||
+      event.key === "Esc"
+    ) {
+      event.currentTarget.blur()
+    }
   }
 
   const handleClick = (

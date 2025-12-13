@@ -96,7 +96,7 @@ const MenuContext = ({
     const handleKeys = (event: KeyboardEvent) => {
       const { key } = event
 
-      if (key === "Escape") {
+      if (key === "Escape" || key === "Esc") {
         if (!open) return
         event.preventDefault()
         setOpen?.(false)

@@ -46,6 +46,14 @@ const ColorSwatchComponent = (
 
   const RootElement = (interactive ? "button" : "div") as "button" | "div"
 
+  const handleKeyDown = (
+    event: preact.JSX.TargetedKeyboardEvent<HTMLDivElement | HTMLButtonElement>
+  ) => {
+    if (event.key === "Escape" || event.key === "Esc") {
+      event.currentTarget.blur()
+    }
+  }
+
   return (
     <RootElement
       className={[_className, className, "no-drag"].join(" ").trim()}
@@ -59,8 +67,9 @@ const ColorSwatchComponent = (
         anchorRef.current = el
       }}
       {...(interactive ? { type: "button" } : {})}
-      {...rest}
       onClick={(event) => onClick?.({ event, hex, imageSrc })}
+      onKeyDown={handleKeyDown}
+      {...rest}
     >
       <div className="ColorSwatch__container">
         {hex && hasOpacity(hex) && (

@@ -79,6 +79,14 @@ const SelectComponent = (
     onBlur?.()
   }
 
+  const handleKeyDown = (
+    event: preact.JSX.TargetedKeyboardEvent<HTMLDivElement>
+  ) => {
+    if (event.key === "Escape" || event.key === "Esc") {
+      event.currentTarget.blur()
+    }
+  }
+
   const _className = bem("Select", undefined, {
     filled: hasContent,
     grouped: Boolean(grouped),
@@ -90,14 +98,27 @@ const SelectComponent = (
     open: isOpen,
   })
 
+  const attachTriggerRef = (el: HTMLDivElement | null) => {
+    triggerRef.current = el
+
+    if (!ref) return
+
+    if (typeof ref === "function") {
+      ref(el)
+    } else {
+      ;(ref as preact.RefObject<HTMLDivElement | null>).current = el
+    }
+  }
+
   return (
     <Fragment>
       <div
         className={[_className, "no-drag", className].join(" ").trim()}
-        ref={triggerRef as preact.Ref<HTMLDivElement>}
+        ref={attachTriggerRef}
         tabIndex={disabled ? -1 : 0}
         onFocus={handleFocus as preact.JSX.FocusEventHandler<HTMLDivElement>}
         onBlur={handleBlur as preact.JSX.FocusEventHandler<HTMLDivElement>}
+        onKeyDown={handleKeyDown}
         {...rest}
       >
         {prefix && <div className="Select__prefix">{prefix}</div>}

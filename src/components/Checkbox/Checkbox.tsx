@@ -80,6 +80,14 @@ const CheckboxComponent = (
     event.stopPropagation()
   }
 
+  const handleKeyDown = (
+    event: preact.JSX.TargetedKeyboardEvent<HTMLInputElement>
+  ) => {
+    if (event.key === "Escape" || event.key === "Esc") {
+      event.currentTarget.blur()
+    }
+  }
+
   return (
     <div
       className={[_className, "no-drag", className].join(" ").trim()}
@@ -94,6 +102,7 @@ const CheckboxComponent = (
           disabled={disabled}
           onClick={handleInputClick}
           onChange={handleChange}
+          onKeyDown={handleKeyDown}
         />
         {isChecked && !mixed && (
           <div className="Checkbox__icon">

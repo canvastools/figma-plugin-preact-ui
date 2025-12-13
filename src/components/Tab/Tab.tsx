@@ -1,5 +1,7 @@
 import { bem, typedForwardRef } from "../../utils"
 
+import { useRef } from "preact/hooks"
+
 import type { TabProps } from "./Tab.types"
 import "./Tab.scss"
 
@@ -22,7 +24,20 @@ const TabComponent = (
   }: TabProps,
   ref: preact.Ref<HTMLButtonElement>
 ) => {
-  const { value: activeValue, onChange } = useTabContext()
+  const { value: activeValue, onChange, registerTab } = useTabContext()
+
+  const buttonRef = useRef<HTMLButtonElement | null>(null)
+
+  const setRef = (el: HTMLButtonElement | null) => {
+    buttonRef.current = el
+    registerTab(value, el)
+
+    if (typeof ref === "function") {
+      ref(el)
+    } else if (ref) {
+      ;(ref as preact.RefObject<HTMLButtonElement>).current = el
+    }
+  }
 
   const _className = bem("Tab", undefined, {
     variant,
@@ -63,9 +78,10 @@ const TabComponent = (
   return (
     <button
       className={[_className, "no-drag", className].join(" ").trim()}
-      ref={ref}
-      {...rest}
+      ref={setRef}
+      tabIndex={value === activeValue ? 0 : -1}
       onClick={handleClick}
+      {...rest}
     >
       <div className="Tab__container Tab__container_fake">
         <Content fake selected={value === activeValue} />
