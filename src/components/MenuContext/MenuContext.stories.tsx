@@ -172,6 +172,7 @@ export const Demo: Story = {
 
 export const Actions: Story = {
   parameters: {
+    controls: { disable: true },
     viewport: {
       defaultViewport: "large",
     },
@@ -246,6 +247,7 @@ export const Actions: Story = {
 
 export const Options: Story = {
   parameters: {
+    controls: { disable: true },
     viewport: {
       defaultViewport: "large",
     },
@@ -332,6 +334,7 @@ export const Options: Story = {
 
 export const Mixed: Story = {
   parameters: {
+    controls: { disable: true },
     viewport: {
       defaultViewport: "large",
     },
@@ -433,6 +436,7 @@ export const Mixed: Story = {
 
 export const CustomItem: Story = {
   parameters: {
+    controls: { disable: true },
     viewport: {
       defaultViewport: "large",
     },

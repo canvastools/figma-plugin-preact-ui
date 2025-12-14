@@ -254,7 +254,6 @@ const MenuContext = ({
   }, [open])
 
   const contextValue: MenuContextValue = {
-    // id: idRef.current,
     triggerRef: triggerRef as MenuContextValue["triggerRef"],
     anchorRef: resolvedAnchorRef,
     open: open !== undefined ? open : false,
@@ -263,11 +262,6 @@ const MenuContext = ({
     focusedItemId,
     focusItem,
     clearFocusedItem,
-    // nested: nested,
-    // isOpen: isOpen,
-    // open: open,
-    // close: close,
-    // toggle: toggle,
   }
 
   return (

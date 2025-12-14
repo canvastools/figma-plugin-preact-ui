@@ -177,6 +177,7 @@ export const DynamicContent: Story = {
     className: "",
   },
   parameters: {
+    controls: { disable: true },
     viewport: {
       defaultViewport: "large",
     },

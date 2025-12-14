@@ -43,7 +43,7 @@ const meta: Meta<typeof Select> = {
       table: { type: { summary: "string" } },
     },
     grouped: {
-      control: { type: "select" },
+      control: { type: "radio" },
       options: ["none", "left", "right", "both"],
       defaultValue: { summary: "none" },
     },

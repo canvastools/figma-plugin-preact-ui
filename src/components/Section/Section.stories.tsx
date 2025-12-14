@@ -20,7 +20,7 @@ const meta: Meta<typeof Section> = {
       control: { type: "text" },
     },
     variant: {
-      control: { type: "select" },
+      control: { type: "radio" },
       options: ["default", "stacked"],
       defaultValue: { summary: "default" },
       table: {

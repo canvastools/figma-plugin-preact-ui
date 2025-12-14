@@ -49,7 +49,7 @@ const meta: Meta<typeof ListContext> = {
       description: "Array of selected items IDs.",
     },
     selectionMode: {
-      control: { type: "select" },
+      control: { type: "radio" },
       options: ["none", "single", "multi"],
       defaultValue: { summary: "single" },
     },
