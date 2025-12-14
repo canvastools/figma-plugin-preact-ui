@@ -102,6 +102,21 @@ export type {
 export { Popover } from "./components/Popover/Popover"
 export type { PopoverProps } from "./components/Popover/Popover.types"
 
+export { PopoverContainer } from "./components/PopoverContainer/PopoverContainer"
+export type { PopoverContainerProps } from "./components/PopoverContainer/PopoverContainer.types"
+
+export {
+  PopoverContext,
+  usePopoverContext,
+} from "./components/PopoverContext/PopoverContext"
+export type {
+  PopoverContextValue,
+  PopoverContextProps,
+} from "./components/PopoverContext/PopoverContext.types"
+
+export { PopoverHeader } from "./components/PopoverHeader/PopoverHeader"
+export type { PopoverHeaderProps } from "./components/PopoverHeader/PopoverHeader.types"
+
 export {
   ScrollContext,
   useScrollContext,

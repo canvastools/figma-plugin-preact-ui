@@ -1,0 +1,17 @@
+@use "../../shared.scss" as *;
+
+.PopoverHeader {
+  $parent: &;
+
+  &__content {
+    display: flex;
+    flex-flow: row nowrap;
+    position: relative;
+    align-items: center;
+    width: 100%;
+    gap: var(--pui-spacing-200);
+    padding: var(--pui-spacing-200) var(--pui-spacing-200)
+      var(--pui-spacing-200) var(--pui-spacing-400);
+    border-bottom: 1px solid var(--pui-color-neutral-border-default);
+  }
+}

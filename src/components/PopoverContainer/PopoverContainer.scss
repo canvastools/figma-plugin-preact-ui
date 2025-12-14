@@ -1,6 +1,6 @@
 @use "../../shared.scss" as *;
 
-.Popover {
+.PopoverContainer {
   $parent: &;
 
   display: flex;
@@ -14,4 +14,8 @@
     0 2px 8px 0 var(--pui-color-shadow-popover-hard),
     inset 0 1px 0 0.5px var(--pui-color-shadow-popover-glare),
     inset 0 0 0 1px var(--pui-color-shadow-popover-glare);
+
+  &:focus {
+    outline: none;
+  }
 }
