@@ -177,6 +177,18 @@ export type { TextProps } from "./components/Text/Text.types"
 export { Tooltip } from "./components/Tooltip/Tooltip"
 export type { TooltipProps } from "./components/Tooltip/Tooltip.types"
 
+export { TooltipContainer } from "./components/TooltipContainer/TooltipContainer"
+export type { TooltipContainerProps } from "./components/TooltipContainer/TooltipContainer.types"
+
+export {
+  TooltipContext,
+  useTooltipContext,
+} from "./components/TooltipContext/TooltipContext"
+export type {
+  TooltipContextValue,
+  TooltipContextProps,
+} from "./components/TooltipContext/TooltipContext.types"
+
 export { WindowResizer } from "./components/WindowResizer/WindowResizer"
 export type { WindowResizerProps } from "./components/WindowResizer/WindowResizer.types"
 

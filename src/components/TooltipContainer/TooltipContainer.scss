@@ -1,6 +1,6 @@
 @use "../../shared.scss" as *;
 
-.Tooltip {
+.TooltipContainer {
   $parent: &;
 
   display: flex;
