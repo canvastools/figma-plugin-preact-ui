@@ -1,6 +1,6 @@
 import { bem, typedForwardRef } from "../../utils"
 
-import { useEffect, useState } from "preact/hooks"
+import { useEffect, useRef, useState } from "preact/hooks"
 
 import type { MenuProps, MenuItemData } from "./Menu.types"
 
@@ -45,12 +45,44 @@ const MenuBody = ({
   const context = useMenuContext()
   if (!context) return null
 
-  const { anchorRef, open, focusedItemId, setOpen } = context
+  const { triggerRef, anchorRef, open, focusedItemId, setOpen } = context
+
+  const hasFiredOpenRef = useRef(false)
+
+  // Ensure onOpen is called exactly once per open cycle
+  useEffect(() => {
+    if (open && !hasFiredOpenRef.current) {
+      hasFiredOpenRef.current = true
+      onOpen?.()
+    } else if (!open && hasFiredOpenRef.current) {
+      hasFiredOpenRef.current = false
+    }
+  }, [open, onOpen])
 
   const handleClose = () => {
     setOpen(false)
     onClose?.()
   }
+
+  // Close on Escape and call onClose once
+  useEffect(() => {
+    if (!open) return
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      const { key } = event
+      if (key === "Escape" || key === "Esc") {
+        event.preventDefault()
+        setOpen(false)
+        onClose?.()
+        triggerRef?.current?.focus()
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown)
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown)
+    }
+  }, [open, setOpen, onClose, triggerRef])
 
   const renderItem = (item: MenuItemData, index: number) => {
     if (item.type === "action") {
@@ -112,8 +144,8 @@ const MenuBody = ({
       paddingX={paddingX}
       paddingY={paddingY}
       edgePadding={edgePadding}
-      onOpen={onOpen}
       onClose={handleClose}
+      closeOnOutsideClick={true}
     >
       <MenuContainer width={width}>
         {items.map((item, index) => renderItem(item, index))}

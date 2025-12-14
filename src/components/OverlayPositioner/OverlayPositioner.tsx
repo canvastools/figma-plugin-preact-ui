@@ -458,6 +458,7 @@ const OverlayPositionerComponent = ({
       onOpen?.()
     } else if (!isOpen && wasOpenRef.current) {
       wasOpenRef.current = false
+      if (isControlled) return
       onClose?.()
     }
   }, [isOpen, onOpen, onClose])
