@@ -1,4 +1,4 @@
-import { typedForwardRef } from "../../utils"
+import { bem, typedForwardRef } from "../../utils"
 
 import { useEffect, useState } from "preact/hooks"
 
@@ -124,6 +124,7 @@ const MenuBody = ({
 
 const MenuComponent = (
   {
+    className,
     triggerRef,
     anchorRef,
     items,
@@ -141,6 +142,8 @@ const MenuComponent = (
   }: MenuProps,
   ref: preact.Ref<HTMLDivElement>
 ) => {
+  const _className = bem("Menu", undefined, undefined)
+
   const [internalOpen, setInternalOpen] = useState<boolean>(open ?? defaultOpen)
 
   useEffect(() => {
@@ -148,7 +151,11 @@ const MenuComponent = (
   }, [open])
 
   return (
-    <div ref={ref} {...rest}>
+    <div
+      className={[_className, className].join(" ").trim()}
+      ref={ref}
+      {...rest}
+    >
       <MenuContext
         triggerRef={triggerRef}
         anchorRef={anchorRef}

@@ -21,6 +21,9 @@ const meta: Meta = {
     },
   },
   argTypes: {
+    className: {
+      control: { type: "text" },
+    },
     triggerRef: {
       control: { disable: true },
       description: "Ref to the trigger element.",
@@ -82,7 +85,7 @@ const meta: Meta = {
       },
     },
     placement: {
-      control: { type: "select" },
+      control: { type: "radio" },
       defaultValue: { summary: "bottom-left" },
       options: [
         "over",
@@ -162,13 +165,15 @@ type Story = StoryObj
 export const Demo: Story = {
   tags: ["!autodocs"],
   args: {
+    className: "",
     defaultOpen: false,
     width: "auto",
     placement: "bottom-left",
-    placementFallback: false,
     paddingX: 0,
     paddingY: 4,
     edgePadding: 16,
+    onOpen: fn(),
+    onClose: fn(),
   },
   parameters: {
     viewport: {

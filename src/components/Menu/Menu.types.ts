@@ -17,6 +17,7 @@ export type MenuItemData =
   | ({ type: "divider" } & MenuDividerProps)
 
 export interface MenuProps {
+  className?: string
   triggerRef?: preact.RefObject<HTMLElement | null>
   anchorRef?: preact.RefObject<HTMLElement | null>
   items: MenuItemData[]
