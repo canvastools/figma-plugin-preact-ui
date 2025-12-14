@@ -53,7 +53,7 @@ const meta: Meta<typeof Tooltip> = {
     },
     placement: {
       control: { type: "radio" },
-      defaultValue: { summary: "bottom-left" },
+      defaultValue: { summary: "bottom" },
       options: [
         "over",
         "top",
@@ -138,7 +138,7 @@ export const Demo: Story = {
   args: {
     className: "",
     width: 140,
-    placement: "bottom-left",
+    placement: "bottom",
     paddingX: 0,
     paddingY: 8,
     edgePadding: 8,

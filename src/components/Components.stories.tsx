@@ -32,12 +32,12 @@ import {
   ScrollContainer,
   ScrollContext,
   OverlayPositioner,
+  Popover,
   Section,
   SegmentedControl,
   Spacing,
   Spinner,
   Stack,
-  Popover,
   Tab,
   TabContext,
   TabList,
@@ -112,6 +112,7 @@ export const _1: Story = {
     background: "secondary",
   },
   parameters: {
+    controls: { disable: true },
     viewport: {
       defaultViewport: "large",
     },
@@ -215,38 +216,22 @@ export const _1: Story = {
                 }
               />
               <Button intent="brand">Add</Button>
-              <OverlayPositioner
+              <Popover
                 anchorRef={anchorRef}
+                header="Color Picker"
                 placement="over"
                 open={openColorPicker}
                 onClose={() => setOpenColorPicker(false)}
               >
-                <Popover>
-                  <Bar borderBottom>
-                    <Section padding={{ right: "200" }}>
-                      <Stack direction="row" spacing="200" y="center">
-                        <Text fullWidth strong>
-                          Color Picker
-                        </Text>
-                        <ButtonIcon
-                          ghost
-                          onClick={() => setOpenColorPicker(false)}
-                        >
-                          <Icon glyph={closeGlyph} />
-                        </ButtonIcon>
-                      </Stack>
-                    </Section>
-                  </Bar>
-                  <Section>
-                    <Spacing size="100" />
-                    <ColorPicker
-                      value={color}
-                      onChange={(color) => setColor(color.rgba)}
-                    />
-                    <Spacing size="100" />
-                  </Section>
-                </Popover>
-              </OverlayPositioner>
+                <Section>
+                  <Spacing size="100" />
+                  <ColorPicker
+                    value={color}
+                    onChange={(color) => setColor(color.rgba)}
+                  />
+                  <Spacing size="100" />
+                </Section>
+              </Popover>
             </Stack>
           </Section>
         </Bar>
