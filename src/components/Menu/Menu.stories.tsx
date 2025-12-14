@@ -111,7 +111,7 @@ const meta: Meta = {
     },
     placementFallback: {
       control: { disable: true },
-      defaultValue: { summary: "false" },
+      defaultValue: { summary: ["top-left"] },
       description:
         "Fallback placement when the primary placement is not possible.",
       table: {

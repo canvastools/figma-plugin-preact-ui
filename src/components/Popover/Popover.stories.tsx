@@ -126,7 +126,9 @@ const meta: Meta<typeof Popover> = {
     },
     placementFallback: {
       control: { disable: true },
-      defaultValue: { summary: false },
+      defaultValue: {
+        summary: ["top-right", "top-left", "bottom-right", "bottom-left"],
+      },
       description: "Fallback placement of the popover.",
       table: {
         type: {

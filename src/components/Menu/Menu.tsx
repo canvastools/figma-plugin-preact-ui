@@ -164,7 +164,7 @@ const MenuComponent = (
     open,
     width = "auto",
     placement = "bottom-left",
-    placementFallback = false,
+    placementFallback = ["top-left"],
     paddingX = 0,
     paddingY = 4,
     edgePadding = 16,
