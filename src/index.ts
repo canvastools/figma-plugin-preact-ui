@@ -200,11 +200,12 @@ export type {
   StringValidationError,
 } from "./hooks/useStringValidator/useStringValidator"
 
-export { useNumberValidator } from "./hooks/useNumberValidator/useNumberValidator"
+export { useNumericInput } from "./hooks/useNumericInput/useNumericInput"
 export type {
-  NumberValidationConfig,
-  NumberValidationError,
-} from "./hooks/useNumberValidator/useNumberValidator"
+  NumericInputConfig,
+  NumericInputError,
+  ParseResult,
+} from "./hooks/useNumericInput/useNumericInput.types"
 
 // Utils
 

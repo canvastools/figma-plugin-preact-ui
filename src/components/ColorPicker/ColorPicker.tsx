@@ -27,7 +27,7 @@ import {
   Tooltip,
   OverlayPositioner,
   InputGroup,
-  useNumberValidator,
+  useNumericInput,
   useStringValidator,
 } from "../../index"
 
@@ -92,28 +92,63 @@ const ControlsRgba = ({
   options: { value: string; label: string }[]
   selectRef: preact.RefObject<HTMLDivElement>
 }) => {
-  const [rgbaValue, setRgbaValue] = useState<Color>(color)
-
-  useEffect(() => {
-    setRgbaValue(color)
-  }, [color])
-
-  const { getErrorCode: getErrorCodeRgbaValue } = useNumberValidator({
+  const redValueValidation = useNumericInput({
+    value: color.r.toString(),
     required: true,
     min: RGBA_VALUES.r.min,
     max: RGBA_VALUES.r.max,
+    normalizeOnError: true,
   })
 
-  const { getErrorCode: getErrorCodeRgbaOpacity } = useNumberValidator({
+  const greenValueValidation = useNumericInput({
+    value: color.g.toString(),
     required: true,
-    min: RGBA_VALUES.a.min,
-    max: RGBA_VALUES.a.max,
+    min: RGBA_VALUES.g.min,
+    max: RGBA_VALUES.g.max,
+    normalizeOnError: true,
+  })
+
+  const blueValueValidation = useNumericInput({
+    value: color.b.toString(),
+    required: true,
+    min: RGBA_VALUES.b.min,
+    max: RGBA_VALUES.b.max,
+    normalizeOnError: true,
+  })
+
+  const opacityValidation = useNumericInput({
+    value: Math.round(color.a * 100).toString(),
+    required: true,
+    min: 0,
+    max: 100,
+    precision: 0,
+    step: 1,
+    stepLarge: 10,
+    normalizeOnError: true,
   })
 
   const inputRedRef = useRef<HTMLInputElement>(null)
   const inputGreenRef = useRef<HTMLInputElement>(null)
   const inputBlueRef = useRef<HTMLInputElement>(null)
   const inputOpacityRef = useRef<HTMLInputElement>(null)
+
+  const [inputRedValue, setInputRedValue] = useState<string>(color.r.toString())
+  const [inputGreenValue, setInputGreenValue] = useState<string>(
+    color.g.toString()
+  )
+  const [inputBlueValue, setInputBlueValue] = useState<string>(
+    color.b.toString()
+  )
+  const [inputOpacityValue, setInputOpacityValue] = useState<string>(
+    Math.round(color.a * 100).toString()
+  )
+
+  useEffect(() => {
+    setInputRedValue(color.r.toString())
+    setInputGreenValue(color.g.toString())
+    setInputBlueValue(color.b.toString())
+    setInputOpacityValue(Math.round(color.a * 100).toString())
+  }, [color])
 
   return (
     <>
@@ -146,38 +181,44 @@ const ControlsRgba = ({
           <Input
             ref={inputRedRef}
             className="ColorPicker__inputCompact"
-            type="number"
             grouped="right"
-            value={rgbaValue.r.toString()}
+            value={inputRedValue}
             onChange={(e) => {
-              const num = Number(e.value)
-              if (Number.isFinite(num)) {
-                setRgbaValue({ ...rgbaValue, r: num })
-              }
+              setInputRedValue(e.value)
             }}
             onBlur={(e) => {
-              const value = Math.round(Number(e.value))
+              const parsed = redValueValidation.parse(e.value)
 
-              if (getErrorCodeRgbaValue(value) === "required") {
+              if (
+                parsed.error === "required" ||
+                parsed.error === "invalid_number" ||
+                parsed.error === "not_integer"
+              ) {
                 setColor({ ...color, r: RGBA_VALUES.r.min })
-                setRgbaValue({ ...rgbaValue, r: RGBA_VALUES.r.min })
+                setInputRedValue(String(parsed.formattedValue))
+                return
               }
 
-              if (getErrorCodeRgbaValue(value) === "less_than_min") {
+              if (parsed.error === "less_than_min") {
                 setColor({ ...color, r: RGBA_VALUES.r.min })
-                setRgbaValue({ ...rgbaValue, r: RGBA_VALUES.r.min })
+                setInputRedValue(String(parsed.formattedValue))
+                return
               }
 
-              if (getErrorCodeRgbaValue(value) === "greater_than_max") {
+              if (parsed.error === "greater_than_max") {
                 setColor({ ...color, r: RGBA_VALUES.r.max })
-                setRgbaValue({ ...rgbaValue, r: RGBA_VALUES.r.max })
+                setInputRedValue(String(parsed.formattedValue))
+                return
               }
 
-              if (getErrorCodeRgbaValue(value) === null) {
-                setColor({ ...color, r: value })
-                setRgbaValue({ ...rgbaValue, r: value })
-              }
+              setColor({ ...color, r: parsed.value ?? 0 })
+              setInputRedValue(String(parsed.formattedValue))
             }}
+            onKeyDown={(e) =>
+              redValueValidation.handleKeyDown(e, (next) => {
+                setInputRedValue(String(next))
+              })
+            }
           />
 
           <OverlayPositioner
@@ -198,38 +239,44 @@ const ControlsRgba = ({
           <Input
             ref={inputGreenRef}
             className="ColorPicker__inputCompact"
-            type="number"
             grouped="both"
-            value={rgbaValue.g.toString()}
+            value={inputGreenValue}
             onChange={(e) => {
-              const num = Number(e.value)
-              if (Number.isFinite(num)) {
-                setRgbaValue({ ...rgbaValue, g: num })
-              }
+              setInputGreenValue(e.value)
             }}
             onBlur={(e) => {
-              const value = Math.round(Number(e.value))
+              const parsed = greenValueValidation.parse(e.value)
 
-              if (getErrorCodeRgbaValue(value) === "required") {
+              if (
+                parsed.error === "required" ||
+                parsed.error === "invalid_number" ||
+                parsed.error === "not_integer"
+              ) {
                 setColor({ ...color, g: RGBA_VALUES.g.min })
-                setRgbaValue({ ...rgbaValue, g: RGBA_VALUES.g.min })
+                setInputGreenValue(String(parsed.formattedValue))
+                return
               }
 
-              if (getErrorCodeRgbaValue(value) === "less_than_min") {
+              if (parsed.error === "less_than_min") {
                 setColor({ ...color, g: RGBA_VALUES.g.min })
-                setRgbaValue({ ...rgbaValue, g: RGBA_VALUES.g.min })
+                setInputGreenValue(String(parsed.formattedValue))
+                return
               }
 
-              if (getErrorCodeRgbaValue(value) === "greater_than_max") {
+              if (parsed.error === "greater_than_max") {
                 setColor({ ...color, g: RGBA_VALUES.g.max })
-                setRgbaValue({ ...rgbaValue, g: RGBA_VALUES.g.max })
+                setInputGreenValue(String(parsed.formattedValue))
+                return
               }
 
-              if (getErrorCodeRgbaValue(value) === null) {
-                setColor({ ...color, g: value })
-                setRgbaValue({ ...rgbaValue, g: value })
-              }
+              setColor({ ...color, g: parsed.value ?? 0 })
+              setInputGreenValue(String(parsed.formattedValue))
             }}
+            onKeyDown={(e) =>
+              greenValueValidation.handleKeyDown(e, (next) => {
+                setInputGreenValue(String(next))
+              })
+            }
           />
 
           <OverlayPositioner
@@ -250,38 +297,44 @@ const ControlsRgba = ({
           <Input
             ref={inputBlueRef}
             className="ColorPicker__inputCompact"
-            type="number"
             grouped="both"
-            value={rgbaValue.b.toString()}
+            value={inputBlueValue}
             onChange={(e) => {
-              const num = Number(e.value)
-              if (Number.isFinite(num)) {
-                setRgbaValue({ ...rgbaValue, b: num })
-              }
+              setInputBlueValue(e.value)
             }}
             onBlur={(e) => {
-              const value = Math.round(Number(e.value))
+              const parsed = blueValueValidation.parse(e.value)
 
-              if (getErrorCodeRgbaValue(value) === "required") {
+              if (
+                parsed.error === "required" ||
+                parsed.error === "invalid_number" ||
+                parsed.error === "not_integer"
+              ) {
                 setColor({ ...color, b: RGBA_VALUES.b.min })
-                setRgbaValue({ ...rgbaValue, b: RGBA_VALUES.b.min })
+                setInputBlueValue(String(parsed.formattedValue))
+                return
               }
 
-              if (getErrorCodeRgbaValue(value) === "less_than_min") {
+              if (parsed.error === "less_than_min") {
                 setColor({ ...color, b: RGBA_VALUES.b.min })
-                setRgbaValue({ ...rgbaValue, b: RGBA_VALUES.b.min })
+                setInputBlueValue(String(parsed.formattedValue))
+                return
               }
 
-              if (getErrorCodeRgbaValue(value) === "greater_than_max") {
+              if (parsed.error === "greater_than_max") {
                 setColor({ ...color, b: RGBA_VALUES.b.max })
-                setRgbaValue({ ...rgbaValue, b: RGBA_VALUES.b.max })
+                setInputBlueValue(String(parsed.formattedValue))
+                return
               }
 
-              if (getErrorCodeRgbaValue(value) === null) {
-                setColor({ ...color, b: value })
-                setRgbaValue({ ...rgbaValue, b: value })
-              }
+              setColor({ ...color, b: parsed.value ?? 0 })
+              setInputBlueValue(String(parsed.formattedValue))
             }}
+            onKeyDown={(e) =>
+              blueValueValidation.handleKeyDown(e, (next) => {
+                setInputBlueValue(String(next))
+              })
+            }
           />
 
           <OverlayPositioner
@@ -302,44 +355,57 @@ const ControlsRgba = ({
           <Input
             ref={inputOpacityRef}
             className="ColorPicker__controlOpacity"
-            type="number"
             grouped="left"
-            value={Math.round(rgbaValue.a * 100).toString()}
+            value={inputOpacityValue}
             suffix={
               <Text intentModifiers="secondary">
                 <div className="ColorPicker__controlOpacityContainer">%</div>
               </Text>
             }
             onChange={(e) => {
-              const num = Number(e.value)
-              if (Number.isFinite(num)) {
-                const percent = Math.round(num)
-                setRgbaValue({ ...rgbaValue, a: roundAlpha(percent / 100) })
-              }
+              setInputOpacityValue(e.value)
             }}
             onBlur={(e) => {
-              const value = roundAlpha(Math.round(Number(e.value)) / 100)
+              const parsed = opacityValidation.parse(e.value)
 
-              if (getErrorCodeRgbaOpacity(value) === "required") {
-                setColor({ ...color, a: color.a })
-                setRgbaValue({ ...rgbaValue, a: color.a })
-              }
-
-              if (getErrorCodeRgbaOpacity(value) === "less_than_min") {
+              if (
+                parsed.error === "required" ||
+                parsed.error === "invalid_number" ||
+                parsed.error === "not_integer"
+              ) {
                 setColor({ ...color, a: RGBA_VALUES.a.min })
-                setRgbaValue({ ...rgbaValue, a: RGBA_VALUES.a.min })
+                setInputOpacityValue(String(parsed.formattedValue))
+                return
               }
 
-              if (getErrorCodeRgbaOpacity(value) === "greater_than_max") {
+              if (parsed.error === "less_than_min") {
+                setColor({ ...color, a: RGBA_VALUES.a.min })
+                setInputOpacityValue(String(parsed.formattedValue))
+                return
+              }
+
+              if (parsed.error === "greater_than_max") {
                 setColor({ ...color, a: RGBA_VALUES.a.max })
-                setRgbaValue({ ...rgbaValue, a: RGBA_VALUES.a.max })
+                setInputOpacityValue(String(parsed.formattedValue))
+                return
               }
 
-              if (getErrorCodeRgbaOpacity(value) === null) {
-                setColor({ ...color, a: value })
-                setRgbaValue({ ...rgbaValue, a: value })
-              }
+              const percent = parsed.value ?? 0
+              const fraction = roundAlpha(
+                clamp(percent / 100, RGBA_VALUES.a.min, RGBA_VALUES.a.max)
+              )
+              setColor({ ...color, a: fraction })
+              setInputOpacityValue(String(parsed.formattedValue))
             }}
+            onKeyDown={(e) =>
+              opacityValidation.handleKeyDown(e, (next) => {
+                setInputOpacityValue(String(next))
+                const fraction = roundAlpha(
+                  clamp(next / 100, RGBA_VALUES.a.min, RGBA_VALUES.a.max)
+                )
+                setColor({ ...color, a: fraction })
+              })
+            }
           />
 
           <OverlayPositioner
@@ -471,13 +537,26 @@ const ControlsHexAlpha = ({
     trim: true,
   })
 
-  const { getErrorCode: getErrorCodeHexOpacity } = useNumberValidator({
+  const hexOpacityValidation = useNumericInput({
+    // Work in 0–100% space for the UI, map back to 0–1 alpha in handlers
+    value: Math.round(color.a * 100).toString(),
     required: true,
-    min: HEX_VALUES.a.min,
-    max: HEX_VALUES.a.max,
+    min: 0,
+    max: 100,
+    precision: 0,
+    step: 1,
+    stepLarge: 10,
+    normalizeOnError: true,
   })
 
   const inputOpacityRef = useRef<HTMLInputElement>(null)
+  const [hexOpacityValue, setHexOpacityValue] = useState<string>(
+    Math.round(color.a * 100).toString()
+  )
+
+  useEffect(() => {
+    setHexOpacityValue(Math.round(color.a * 100).toString())
+  }, [color.a])
 
   return (
     <>
@@ -511,8 +590,7 @@ const ControlsHexAlpha = ({
             grouped="right"
             value={hexValue.toUpperCase()}
             onChange={(e) => {
-              const value = e.value.replace(/^#/, "")
-              setHexValue(value)
+              setHexValue(e.value.replace(/^#/, ""))
             }}
             onBlur={(e) => {
               const value = e.value.replace(/^#/, "").trim()
@@ -532,42 +610,56 @@ const ControlsHexAlpha = ({
             ref={inputOpacityRef}
             className="ColorPicker__controlOpacity"
             grouped="left"
-            type="number"
-            value={Math.round(color.a * 100).toString()}
+            value={hexOpacityValue}
             suffix={
               <Text intentModifiers="secondary">
                 <div className="ColorPicker__controlOpacityContainer">%</div>
               </Text>
             }
             onChange={(e) => {
-              const num = Number(e.value)
-              if (Number.isFinite(num)) {
-                const fraction = roundAlpha(
-                  clamp(num / 100, HEX_VALUES.a.min, HEX_VALUES.a.max)
-                )
-                setColor({ ...color, a: fraction })
-              }
+              setHexOpacityValue(e.value)
             }}
             onBlur={(e) => {
-              const fraction = roundAlpha(Number(e.value) / 100)
-              const error = getErrorCodeHexOpacity(fraction)
+              const parsed = hexOpacityValidation.parse(e.value)
 
-              if (error === "required") {
-                setColor({ ...color, a: color.a })
-              }
-
-              if (error === "less_than_min") {
+              if (
+                parsed.error === "required" ||
+                parsed.error === "invalid_number" ||
+                parsed.error === "not_integer"
+              ) {
                 setColor({ ...color, a: HEX_VALUES.a.min })
+                setHexOpacityValue(String(parsed.formattedValue))
+                return
               }
 
-              if (error === "greater_than_max") {
+              if (parsed.error === "less_than_min") {
+                setColor({ ...color, a: HEX_VALUES.a.min })
+                setHexOpacityValue(String(parsed.formattedValue))
+                return
+              }
+
+              if (parsed.error === "greater_than_max") {
                 setColor({ ...color, a: HEX_VALUES.a.max })
+                setHexOpacityValue(String(parsed.formattedValue))
+                return
               }
 
-              if (error === null) {
-                setColor({ ...color, a: fraction })
-              }
+              const percent = parsed.value ?? 0
+              const fraction = roundAlpha(
+                clamp(percent / 100, HEX_VALUES.a.min, HEX_VALUES.a.max)
+              )
+              setColor({ ...color, a: fraction })
+              setHexOpacityValue(String(parsed.formattedValue))
             }}
+            onKeyDown={(e) =>
+              hexOpacityValidation.handleKeyDown(e, (next) => {
+                setHexOpacityValue(String(next))
+                const fraction = roundAlpha(
+                  clamp(next / 100, HEX_VALUES.a.min, HEX_VALUES.a.max)
+                )
+                setColor({ ...color, a: fraction })
+              })
+            }
           />
 
           <OverlayPositioner
