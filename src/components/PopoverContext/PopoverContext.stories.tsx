@@ -69,16 +69,16 @@ const meta: Meta = {
     usePopoverContext: {
       table: {
         type: {
-          summary: `Hook`,
+          summary: "Hook",
         },
       },
       description: `Use this hook inside a child component to access the context. <br/>
         <pre>
         interface PopoverContextValue {
-          triggerRef?: preact.RefObject<HTMLElement | null>
-          anchorRef?: preact.RefObject<HTMLElement | null>
-          open?: boolean
-          setOpen?: (open: boolean) => void
+          triggerRef?: preact.RefObject<HTMLElement | null> // ref to the trigger element
+          anchorRef?: preact.RefObject<HTMLElement | null> // ref to the anchor element
+          open?: boolean // open state
+          setOpen?: (open: boolean) => void // set the open state
         }</pre>`,
     },
   },

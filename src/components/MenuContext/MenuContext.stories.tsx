@@ -71,20 +71,20 @@ const meta: Meta = {
     useMenuContext: {
       table: {
         type: {
-          summary: `Hook`,
+          summary: "Hook",
         },
       },
       description: `Use this hook inside a child component to access the context. <br/>
         <pre>
         interface MenuContextValue {
-          triggerRef?: preact.RefObject<HTMLElement> | null
-          anchorRef?: preact.RefObject<HTMLElement> | null
-          open?: boolean
-          setOpen?: (open: boolean) => void
-          registerItem: (meta: MenuItemMetadata) => () => void
-          focusedItemId: string | null
-          focusItem: (id?: string) => void
-          clearFocusedItem: () => void
+          triggerRef?: preact.RefObject<HTMLElement> | null // ref to the trigger element
+          anchorRef?: preact.RefObject<HTMLElement> | null // ref to the anchor element
+          open?: boolean // open state
+          setOpen?: (open: boolean) => void // set the open state
+          registerItem: (meta: MenuItemMetadata) => () => void // register an item
+          focusedItemId: string | null // id of the focused item
+          focusItem: (id?: string) => void // focus an item
+          clearFocusedItem: () => void // clear the focused item
         }</pre>`,
     },
   },

@@ -67,17 +67,17 @@ const meta: Meta<typeof TabContext> = {
     useTabContext: {
       table: {
         type: {
-          summary: `Hook`,
+          summary: "Hook",
         },
       },
       description: `Use this hook inside a child component to access the context. <br/>
         <pre>
         interface TabContextValue {
-          value: string
-          onChange: (value: string) => void
-          setValue: (value: string) => void
-          registerTab: (value: string, ref: HTMLButtonElement | null) => void
-          focusTab: (id?: string) => void
+          value: string // current tab value
+          onChange: (value: string) => void // callback when the tab is changed
+          setValue: (value: string) => void // set the tab value
+          registerTab: (value: string, ref: HTMLButtonElement | null) => void // register a tab
+          focusTab: (id?: string) => void // focus a tab
         }
         </pre>
         `,

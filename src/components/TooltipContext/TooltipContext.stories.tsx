@@ -30,17 +30,17 @@ const meta: Meta<typeof TooltipContext> = {
     useTooltipContext: {
       table: {
         type: {
-          summary: `Hook`,
+          summary: "Hook",
         },
       },
       description: `Use this hook inside a child component to access the context. <br/>
       <pre>
       interface TooltipContextValue {
-        lastTriggerLeaveTime: number | null
-        lastVisibleTime: number | null
-        registerHoverStart: () => number
-        notifyVisible: () => void
-        notifyHoverEnd: () => void
+        lastTriggerLeaveTime: number | null // time of the last trigger leave
+        lastVisibleTime: number | null // time of the last visible
+        registerHoverStart: () => number // register a hover start
+        notifyVisible: () => void // notify a visible
+        notifyHoverEnd: () => void // notify a hover end
       }</pre>`,
     },
   },

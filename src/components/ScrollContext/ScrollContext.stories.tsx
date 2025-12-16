@@ -60,17 +60,17 @@ const meta: Meta<typeof ScrollContext> = {
     useScrollContext: {
       table: {
         type: {
-          summary: `Hook`,
+          summary: "Hook",
         },
       },
       description: `Use this hook inside a child component to access the context. <br/>
         <pre>
         interface ScrollContextValue {
-          positionY: number
-          isAtTop: boolean
-          isAtBottom: boolean
-          onScroll: (event: Event) => void
-          setPositionY: (positionY: number) => void
+          positionY: number // current scroll position
+          isAtTop: boolean // true if the scroll is at the top
+          isAtBottom: boolean // true if the scroll is at the bottom
+          onScroll: (event: Event) => void // callback when the scroll is changed
+          setPositionY: (positionY: number) => void // set the scroll position
         }
         </pre>
         `,
