@@ -2,7 +2,7 @@ import {
   NumericInputConfig,
   NumericInputError,
   NumericInput,
-  ParseResult,
+  NumericInputParseResult,
 } from "./useNumericInput.types"
 
 const NUMBER_REGEX = /[-+]?\d*\.?\d+/
@@ -75,7 +75,10 @@ const parseNumericInput = (raw: unknown, required?: boolean): InternalParse => {
   return { value: num, error: null }
 }
 
-const buildResult = (raw: string, config: NumericInputConfig): ParseResult => {
+const buildResult = (
+  raw: string,
+  config: NumericInputConfig
+): NumericInputParseResult => {
   const { min, max, required, unit, normalizeOnError = false } = config
 
   const { value: parsed, error: parseError } = parseNumericInput(raw, required)
@@ -158,7 +161,8 @@ const useNumericInput = (config: NumericInputConfig): NumericInput => {
     required,
   } = config
 
-  const parse = (raw: string): ParseResult => buildResult(raw, config)
+  const parse = (raw: string): NumericInputParseResult =>
+    buildResult(raw, config)
 
   const current = buildResult(String(value), config)
 
@@ -229,5 +233,5 @@ export {
   useNumericInput,
   type NumericInputConfig,
   type NumericInputError,
-  type ParseResult,
+  type NumericInputParseResult,
 }

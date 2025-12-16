@@ -8,7 +8,7 @@ import {
   type NumericInputConfig,
 } from "./useNumericInput.types"
 
-import { Input, Section, Stack, Text } from "../../index"
+import { Input, Stack, Text } from "../../index"
 
 const meta: Meta<typeof useNumericInput> = {
   title: "Hooks/useNumericInput",
@@ -115,14 +115,25 @@ const meta: Meta<typeof useNumericInput> = {
     useNumericInput: {
       control: { disable: true },
       description: `The hook instance.<br/><pre>interface NumericInput {
-  value: number | undefined
-  rawValue: string
-  formattedValue: string
+  value: number | undefined // normalized value
+  rawValue: string // raw value
+  formattedValue: string // formatted value
   isValid: boolean
   error: NumericInputError | null
   handleKeyDown: (args: { event: KeyboardEvent; value: string }, onValueChange?: (next: number) => void) => void
-  parse: (raw: string) => ParseResult
-}</pre>`,
+  parse: (raw: string) => NumericInputParseResult // parse the raw value and return the parse result
+}
+</pre>
+<pre>interface NumericInputParseResult {
+  value: number | undefined // normalized value
+  rawValue: string // raw value
+  formattedValue: string // formatted value
+  isValid: boolean
+  error: NumericInputError | null
+}</pre>
+
+<pre>type NumericInputError = "required" | "invalid_number" | "less_than_min" | "greater_than_max" | "not_integer"</pre>
+`,
       table: {
         type: {
           summary: "Hook",
