@@ -88,24 +88,24 @@ const buildResult = (
       ? config.precision
       : inferPrecisionFromValue(config.value)
 
-  // Parsing errors (required / invalid) – do not try to clamp/round
+  // Parsing errors (required / invalid) – we cannot derive a numeric value
+  // at all, so both normalizedValue and formattedValue are undefined.
   if (parseError) {
     return {
-      value: undefined,
       rawValue: raw,
-      formattedValue: unit ? `0${unit}` : "0",
-      isValid: false,
+      normalizedValue: undefined,
+      formattedValue: undefined,
       error: parseError,
     }
   }
 
-  // Empty but not required
+  // Defensive: if parsed is somehow undefined without an error, treat it as
+  // \"no value\".
   if (parsed === undefined) {
     return {
-      value: undefined,
       rawValue: raw,
-      formattedValue: unit ? `0${unit}` : "0",
-      isValid: !required,
+      normalizedValue: undefined,
+      formattedValue: undefined,
       error: required ? "required" : null,
     }
   }
@@ -125,20 +125,27 @@ const buildResult = (
   const clamped = clamp(parsed, min, max)
   const rounded = roundToPrecision(clamped, precision)
 
-  // Decide which numeric value to expose when there is a range / integer error.
-  // - normalizeOnError = true  → use clamped / rounded value
-  // - normalizeOnError = false → keep the raw parsed number
-  const effectiveValue = error && !normalizeOnError ? parsed : rounded
+  // When there is a range / integer error:
+  // - normalizeOnError = true  → still return normalizedValue / formattedValue
+  // - normalizeOnError = false → return them as undefined
+  if (error && !normalizeOnError) {
+    return {
+      rawValue: raw,
+      normalizedValue: undefined,
+      formattedValue: undefined,
+      error,
+    }
+  }
 
+  const normalizedValue = rounded
   const numericString =
-    precision > 0 ? effectiveValue.toFixed(precision) : String(effectiveValue)
+    precision > 0 ? normalizedValue.toFixed(precision) : String(normalizedValue)
   const formattedValue = unit ? `${numericString}${unit}` : numericString
 
   return {
-    value: effectiveValue,
     rawValue: raw,
+    normalizedValue,
     formattedValue,
-    isValid: error === null,
     error,
   }
 }

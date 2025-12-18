@@ -25,7 +25,7 @@ const meta: Meta<typeof useNumericInput> = {
   argTypes: {
     value: {
       control: { disable: true },
-      description: "Value that will be parsed and formatted.",
+      description: "Initial numeric (string) value",
       table: {
         type: {
           summary: "number | string",
@@ -105,7 +105,7 @@ const meta: Meta<typeof useNumericInput> = {
       control: { type: "boolean" },
       defaultValue: { summary: false },
       description:
-        "Whether to normalize the value on error, otherwise the raw value will be used.",
+        "Whether to normalize and format the raw value on error, otherwise undefined will be returned for normalized value and formatted value.",
       table: {
         type: {
           summary: "boolean",
@@ -115,20 +115,14 @@ const meta: Meta<typeof useNumericInput> = {
     useNumericInput: {
       control: { disable: true },
       description: `The hook instance.<br/><pre>interface NumericInput {
-  value: number | undefined // normalized value
-  rawValue: string // raw value
-  formattedValue: string // formatted value
-  isValid: boolean
-  error: NumericInputError | null
   handleKeyDown: (args: { event: KeyboardEvent; value: string }, onValueChange?: (next: number) => void) => void
   parse: (raw: string) => NumericInputParseResult // parse the raw value and return the parse result
 }
 </pre>
 <pre>interface NumericInputParseResult {
-  value: number | undefined // normalized value
   rawValue: string // raw value
-  formattedValue: string // formatted value
-  isValid: boolean
+  normalizedValue: number | undefined // raw value after precision rounding, min/max clamping
+  formattedValue: string | undefined // normalized value after adding unit
   error: NumericInputError | null
 }</pre>
 
@@ -155,6 +149,7 @@ export const Demo: Story = {
     step: 1,
     stepLarge: 10,
     required: false,
+    normalizeOnError: false,
   },
   parameters: {
     viewport: {
@@ -162,14 +157,14 @@ export const Demo: Story = {
     },
   },
   render: (args) => {
-    const [value, setValue] = useState(45)
-
-    const numeric = useNumericInput({
-      value,
+    const numericInput = useNumericInput({
+      value: 45, // initial value
       ...args,
     } as NumericInputConfig)
 
-    const [inputValue, setInputValue] = useState<string>(numeric.formattedValue)
+    const [inputValue, setInputValue] = useState(
+      numericInput.formattedValue ?? ""
+    )
     const [error, setError] = useState<NumericInputError | null>(null)
 
     return (
@@ -177,26 +172,29 @@ export const Demo: Story = {
         <Stack spacing={200}>
           <Input
             value={inputValue}
-            error={!numeric.isValid}
+            error={!!error}
             placeholder="Rotation angle"
             onChange={(e) => setInputValue(e.value)}
             onBlur={(e) => {
-              const parsed = numeric.parse(e.value)
+              const parsed = numericInput.parse(e.value)
+
+              console.log(parsed)
 
               if (parsed.error) {
                 setInputValue(parsed.rawValue)
                 setError(parsed.error)
-              } else {
-                setValue(parsed.value ?? 0)
-                setInputValue(parsed.formattedValue)
-                setError(null)
+                return
               }
+
+              setInputValue(parsed.formattedValue ?? "")
+              setError(null)
             }}
             onKeyDown={(e) =>
-              numeric.handleKeyDown(e, (next) => {
-                setValue(next)
-                setInputValue(numeric.parse(String(next)).formattedValue)
-              })
+              numericInput.handleKeyDown(e, (next) =>
+                setInputValue(
+                  numericInput.parse(String(next)).formattedValue ?? ""
+                )
+              )
             }
           />
           <Text intentModifiers={error ? "danger" : "default"}>
@@ -216,10 +214,8 @@ export const FigmaLikeExperience: Story = {
     },
   },
   render: () => {
-    const [value, setValue] = useState(45)
-
-    const numeric = useNumericInput({
-      value: value,
+    const numericInput = useNumericInput({
+      value: 45, // initial value
       unit: "°",
       min: -180,
       max: 180,
@@ -230,25 +226,23 @@ export const FigmaLikeExperience: Story = {
       normalizeOnError: true,
     } as NumericInputConfig)
 
-    const [inputValue, setInputValue] = useState(numeric.formattedValue)
+    const [inputValue, setInputValue] = useState(numericInput.formattedValue)
 
     return (
       <div className="sb-column sb-width-300">
         <Stack spacing={200}>
           <Input
             value={inputValue}
-            error={!numeric.isValid}
             placeholder="Rotation angle"
             onChange={(e) => setInputValue(e.value)}
             onBlur={(e) => {
-              const parsed = numeric.parse(e.value)
+              const parsed = numericInput.parse(e.value)
 
               if (
                 parsed.error === "required" ||
                 parsed.error === "invalid_number"
               ) {
-                setValue(0)
-                setInputValue(String(parsed.formattedValue))
+                setInputValue(String(0))
                 return
               }
               if (parsed.error === "less_than_min") {
@@ -265,10 +259,11 @@ export const FigmaLikeExperience: Story = {
               }
 
               setInputValue(String(parsed.formattedValue))
-              setValue(parsed.value ?? 0)
             }}
             onKeyDown={(e) =>
-              numeric.handleKeyDown(e, (next) => setInputValue(String(next)))
+              numericInput.handleKeyDown(e, (next) =>
+                setInputValue(String(next))
+              )
             }
           />
         </Stack>

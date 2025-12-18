@@ -18,10 +18,9 @@ export interface NumericInputConfig {
 }
 
 export interface NumericInputParseResult {
-  value: number | undefined
   rawValue: string
-  formattedValue: string
-  isValid: boolean
+  normalizedValue: number | undefined
+  formattedValue: string | undefined
   error: NumericInputError | null
 }
 
