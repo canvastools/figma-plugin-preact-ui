@@ -150,13 +150,6 @@ const buildResult = (
   }
 }
 
-/**
- * Hook that provides parsing, validation, formatting and keyboard stepping
- * helpers for numeric inputs with optional units.
- *
- * The hook itself is stateless – you can safely use it with both controlled
- * and uncontrolled `Input` components.
- */
 const useNumericInput = (config: NumericInputConfig): NumericInput => {
   const {
     value,
@@ -175,8 +168,7 @@ const useNumericInput = (config: NumericInputConfig): NumericInput => {
 
   /**
    * Computes the next numeric value when incrementing / decrementing via
-   * keyboard. This does not modify any state – you are expected to call your
-   * own setter with the returned value.
+   * keyboard. This does not modify any state
    */
   const getNextValue = (
     raw: number | string,
