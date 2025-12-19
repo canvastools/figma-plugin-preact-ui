@@ -242,7 +242,7 @@ export const FigmaLikeExperience: Story = {
                 parsed.error === "required" ||
                 parsed.error === "invalid_number"
               ) {
-                setInputValue(String(0))
+                setInputValue(String("Auto"))
                 return
               }
               if (parsed.error === "less_than_min") {
