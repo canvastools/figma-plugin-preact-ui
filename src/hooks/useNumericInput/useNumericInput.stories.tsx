@@ -116,13 +116,17 @@ const meta: Meta<typeof useNumericInput> = {
       control: { disable: true },
       description: `The hook instance.<br/><pre>interface NumericInput {
   handleKeyDown: (args: { event: KeyboardEvent; value: string }, onValueChange?: (next: number) => void) => void
-  parse: (raw: string) => NumericInputParseResult // parse the raw value and return the parse result
+  // parse the raw value and return the parse result
+  parse: (raw: string) => NumericInputParseResult 
+
 }
 </pre>
 <pre>interface NumericInputParseResult {
-  rawValue: string // raw value
-  normalizedValue: number | undefined // raw value after precision rounding, min/max clamping
-  formattedValue: string | undefined // normalized value after adding unit
+  rawValue: string 
+  // raw value after precision rounding, min/max clamping
+  normalizedValue: number | undefined 
+  // normalized value after adding unit
+  formattedValue: string | undefined 
   error: NumericInputError | null
 }</pre>
 
