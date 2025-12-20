@@ -194,18 +194,19 @@ export type { WindowResizerProps } from "./components/WindowResizer/WindowResize
 
 // Hooks
 
-export { useStringValidator } from "./hooks/useStringValidator/useStringValidator"
-export type {
-  StringValidationConfig,
-  StringValidationError,
-} from "./hooks/useStringValidator/useStringValidator"
-
 export { useNumericInput } from "./hooks/useNumericInput/useNumericInput"
 export type {
   NumericInputConfig,
   NumericInputError,
-  ParseResult,
+  NumericInputParseResult,
 } from "./hooks/useNumericInput/useNumericInput.types"
+
+export { useStringInput } from "./hooks/useStringInput/useStringInput"
+export type {
+  StringInputConfig,
+  StringInputError,
+  StringInputParseResult,
+} from "./hooks/useStringInput/useStringInput"
 
 // Utils
 

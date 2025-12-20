@@ -118,9 +118,8 @@ const meta: Meta<typeof useNumericInput> = {
   handleKeyDown: (args: { event: KeyboardEvent; value: string }, onValueChange?: (next: number) => void) => void
   // parse the raw value and return the parse result
   parse: (raw: string) => NumericInputParseResult 
+}</pre>
 
-}
-</pre>
 <pre>interface NumericInputParseResult {
   rawValue: string 
   // raw value after precision rounding, min/max clamping

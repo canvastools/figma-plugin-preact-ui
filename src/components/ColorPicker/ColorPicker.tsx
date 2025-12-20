@@ -28,7 +28,7 @@ import {
   OverlayPositioner,
   InputGroup,
   useNumericInput,
-  useStringValidator,
+  useStringInput,
 } from "../../index"
 
 /* --- */
@@ -77,6 +77,16 @@ const TYPE_OPTIONS = [
 
 type ColorPickerType = "rgba" | "hex" | "hexAlpha"
 
+const hexMask = (input: string): string => {
+  const cleaned = input
+    .toUpperCase()
+    .replace(/[^0-9A-F]/g, "0")
+    .padEnd(6, "0")
+    .slice(0, 6)
+
+  return cleaned
+}
+
 const ControlsRgba = ({
   color,
   setColor,
@@ -97,6 +107,9 @@ const ControlsRgba = ({
     required: true,
     min: RGBA_VALUES.r.min,
     max: RGBA_VALUES.r.max,
+    precision: 0,
+    step: 1,
+    stepLarge: 10,
     normalizeOnError: true,
   })
 
@@ -105,6 +118,9 @@ const ControlsRgba = ({
     required: true,
     min: RGBA_VALUES.g.min,
     max: RGBA_VALUES.g.max,
+    precision: 0,
+    step: 1,
+    stepLarge: 10,
     normalizeOnError: true,
   })
 
@@ -113,6 +129,9 @@ const ControlsRgba = ({
     required: true,
     min: RGBA_VALUES.b.min,
     max: RGBA_VALUES.b.max,
+    precision: 0,
+    step: 1,
+    stepLarge: 10,
     normalizeOnError: true,
   })
 
@@ -183,9 +202,7 @@ const ControlsRgba = ({
             className="ColorPicker__inputCompact"
             grouped="right"
             value={inputRedValue}
-            onChange={(e) => {
-              setInputRedValue(e.value)
-            }}
+            onChange={(e) => setInputRedValue(e.value)}
             onBlur={(e) => {
               const parsed = redValueValidation.parse(e.value)
 
@@ -195,24 +212,24 @@ const ControlsRgba = ({
                 parsed.error === "not_integer"
               ) {
                 setColor({ ...color, r: RGBA_VALUES.r.min })
-                setInputRedValue(String(parsed.formattedValue))
+                setInputRedValue(String(parsed.formattedValue ?? "0"))
                 return
               }
 
               if (parsed.error === "less_than_min") {
                 setColor({ ...color, r: RGBA_VALUES.r.min })
-                setInputRedValue(String(parsed.formattedValue))
+                setInputRedValue(String(parsed.formattedValue ?? "0"))
                 return
               }
 
               if (parsed.error === "greater_than_max") {
                 setColor({ ...color, r: RGBA_VALUES.r.max })
-                setInputRedValue(String(parsed.formattedValue))
+                setInputRedValue(String(parsed.formattedValue ?? "0"))
                 return
               }
 
-              setColor({ ...color, r: parsed.value ?? 0 })
-              setInputRedValue(String(parsed.formattedValue))
+              setColor({ ...color, r: parsed.normalizedValue ?? 0 })
+              setInputRedValue(String(parsed.formattedValue ?? "0"))
             }}
             onKeyDown={(e) =>
               redValueValidation.handleKeyDown(e, (next) => {
@@ -241,9 +258,7 @@ const ControlsRgba = ({
             className="ColorPicker__inputCompact"
             grouped="both"
             value={inputGreenValue}
-            onChange={(e) => {
-              setInputGreenValue(e.value)
-            }}
+            onChange={(e) => setInputGreenValue(e.value)}
             onBlur={(e) => {
               const parsed = greenValueValidation.parse(e.value)
 
@@ -253,24 +268,24 @@ const ControlsRgba = ({
                 parsed.error === "not_integer"
               ) {
                 setColor({ ...color, g: RGBA_VALUES.g.min })
-                setInputGreenValue(String(parsed.formattedValue))
+                setInputGreenValue(String(parsed.formattedValue ?? "0"))
                 return
               }
 
               if (parsed.error === "less_than_min") {
                 setColor({ ...color, g: RGBA_VALUES.g.min })
-                setInputGreenValue(String(parsed.formattedValue))
+                setInputGreenValue(String(parsed.formattedValue ?? "0"))
                 return
               }
 
               if (parsed.error === "greater_than_max") {
                 setColor({ ...color, g: RGBA_VALUES.g.max })
-                setInputGreenValue(String(parsed.formattedValue))
+                setInputGreenValue(String(parsed.formattedValue ?? "0"))
                 return
               }
 
-              setColor({ ...color, g: parsed.value ?? 0 })
-              setInputGreenValue(String(parsed.formattedValue))
+              setColor({ ...color, g: parsed.normalizedValue ?? 0 })
+              setInputGreenValue(String(parsed.formattedValue ?? "0"))
             }}
             onKeyDown={(e) =>
               greenValueValidation.handleKeyDown(e, (next) => {
@@ -299,9 +314,7 @@ const ControlsRgba = ({
             className="ColorPicker__inputCompact"
             grouped="both"
             value={inputBlueValue}
-            onChange={(e) => {
-              setInputBlueValue(e.value)
-            }}
+            onChange={(e) => setInputBlueValue(e.value)}
             onBlur={(e) => {
               const parsed = blueValueValidation.parse(e.value)
 
@@ -311,24 +324,24 @@ const ControlsRgba = ({
                 parsed.error === "not_integer"
               ) {
                 setColor({ ...color, b: RGBA_VALUES.b.min })
-                setInputBlueValue(String(parsed.formattedValue))
+                setInputBlueValue(String(parsed.formattedValue ?? "0"))
                 return
               }
 
               if (parsed.error === "less_than_min") {
                 setColor({ ...color, b: RGBA_VALUES.b.min })
-                setInputBlueValue(String(parsed.formattedValue))
+                setInputBlueValue(String(parsed.formattedValue ?? "0"))
                 return
               }
 
               if (parsed.error === "greater_than_max") {
                 setColor({ ...color, b: RGBA_VALUES.b.max })
-                setInputBlueValue(String(parsed.formattedValue))
+                setInputBlueValue(String(parsed.formattedValue ?? "0"))
                 return
               }
 
-              setColor({ ...color, b: parsed.value ?? 0 })
-              setInputBlueValue(String(parsed.formattedValue))
+              setColor({ ...color, b: parsed.normalizedValue ?? 0 })
+              setInputBlueValue(String(parsed.formattedValue ?? "0"))
             }}
             onKeyDown={(e) =>
               blueValueValidation.handleKeyDown(e, (next) => {
@@ -362,9 +375,7 @@ const ControlsRgba = ({
                 <div className="ColorPicker__controlOpacityContainer">%</div>
               </Text>
             }
-            onChange={(e) => {
-              setInputOpacityValue(e.value)
-            }}
+            onChange={(e) => setInputOpacityValue(e.value)}
             onBlur={(e) => {
               const parsed = opacityValidation.parse(e.value)
 
@@ -374,28 +385,29 @@ const ControlsRgba = ({
                 parsed.error === "not_integer"
               ) {
                 setColor({ ...color, a: RGBA_VALUES.a.min })
-                setInputOpacityValue(String(parsed.formattedValue))
+                setInputOpacityValue(String(parsed.formattedValue ?? "0"))
                 return
               }
 
               if (parsed.error === "less_than_min") {
                 setColor({ ...color, a: RGBA_VALUES.a.min })
-                setInputOpacityValue(String(parsed.formattedValue))
+                setInputOpacityValue(String(parsed.formattedValue ?? "0"))
                 return
               }
 
               if (parsed.error === "greater_than_max") {
                 setColor({ ...color, a: RGBA_VALUES.a.max })
-                setInputOpacityValue(String(parsed.formattedValue))
+                setInputOpacityValue(String(parsed.formattedValue ?? "0"))
                 return
               }
 
-              const percent = parsed.value ?? 0
+              const percent = parsed.normalizedValue ?? 0
               const fraction = roundAlpha(
                 clamp(percent / 100, RGBA_VALUES.a.min, RGBA_VALUES.a.max)
               )
+
               setColor({ ...color, a: fraction })
-              setInputOpacityValue(String(parsed.formattedValue))
+              setInputOpacityValue(String(parsed.formattedValue ?? "0"))
             }}
             onKeyDown={(e) =>
               opacityValidation.handleKeyDown(e, (next) => {
@@ -449,12 +461,15 @@ const ControlsHex = ({
     setHexValue(colorToHex(color).slice(1))
   }, [color])
 
-  const { getErrorCode: getErrorCodeHexValue } = useStringValidator({
+  const hexValueValidation = useStringInput({
+    value: colorToHex(color).slice(1),
     required: true,
     minLength: 6,
     maxLength: 6,
-    pattern: /^[0-9a-fA-F]{6}$/,
+    allowedCharacters: "0123456789abcdefABCDEF",
     trim: true,
+    mask: hexMask,
+    normalizeOnError: true,
   })
 
   return (
@@ -486,21 +501,13 @@ const ControlsHex = ({
       <div className="ColorPicker__controlsValues">
         <Input
           value={hexValue.toUpperCase()}
-          onChange={(e) => {
-            const value = e.value.replace(/^#/, "")
-            setHexValue(value)
-          }}
+          onChange={(e) => setHexValue(e.value)}
           onBlur={(e) => {
-            const value = e.value.replace(/^#/, "").trim()
-            const error = getErrorCodeHexValue(value)
+            const parsed = hexValueValidation.parse(e.value)
 
-            if (error === null) {
-              const rgb = hexToColor(value, color.a)
-              if (rgb) setColor({ ...color, ...rgb })
-              setHexValue(value)
-            } else {
-              setHexValue(colorToHex(color).slice(1))
-            }
+            const rgb = hexToColor(parsed.formattedValue as string, color.a)
+            if (rgb) setColor({ ...color, ...rgb })
+            setHexValue(parsed.formattedValue as string)
           }}
         />
       </div>
@@ -529,12 +536,15 @@ const ControlsHexAlpha = ({
     setHexValue(colorToHex(color).slice(1))
   }, [color])
 
-  const { getErrorCode: getErrorCodeHexValue } = useStringValidator({
+  const hexValueValidation = useStringInput({
+    value: colorToHex(color).slice(1),
     required: true,
     minLength: 6,
     maxLength: 6,
-    pattern: /^[0-9a-fA-F]{6}$/,
+    allowedCharacters: "0123456789abcdefABCDEF",
     trim: true,
+    mask: hexMask,
+    normalizeOnError: true,
   })
 
   const hexOpacityValidation = useNumericInput({
@@ -589,20 +599,13 @@ const ControlsHexAlpha = ({
           <Input
             grouped="right"
             value={hexValue.toUpperCase()}
-            onChange={(e) => {
-              setHexValue(e.value.replace(/^#/, ""))
-            }}
+            onChange={(e) => setHexValue(e.value)}
             onBlur={(e) => {
-              const value = e.value.replace(/^#/, "").trim()
-              const error = getErrorCodeHexValue(value)
+              const parsed = hexValueValidation.parse(e.value)
 
-              if (error === null) {
-                const rgb = hexToColor(value, color.a)
-                if (rgb) setColor({ ...color, ...rgb })
-                setHexValue(value)
-              } else {
-                setHexValue(colorToHex(color).slice(1))
-              }
+              const rgb = hexToColor(parsed.formattedValue as string, color.a)
+              if (rgb) setColor({ ...color, ...rgb })
+              setHexValue(parsed.formattedValue as string)
             }}
           />
 
@@ -644,7 +647,7 @@ const ControlsHexAlpha = ({
                 return
               }
 
-              const percent = parsed.value ?? 0
+              const percent = parsed.normalizedValue ?? 0
               const fraction = roundAlpha(
                 clamp(percent / 100, HEX_VALUES.a.min, HEX_VALUES.a.max)
               )
@@ -695,7 +698,6 @@ const ColorPickerComponent = (
   }: ColorPickerProps,
   ref: preact.Ref<HTMLDivElement>
 ) => {
-  const isControlled = value !== undefined
   const [internalColor, setInternalColor] = useState<Color>(
     value ?? ({ r: 200, g: 150, b: 35, a: 0.5 } as Color)
   )
@@ -716,17 +718,11 @@ const ColorPickerComponent = (
       : allowedTypes[0]
   )
 
-  useEffect(() => {
-    if (isControlled && value) {
-      // ensure new reference for downstream effects
-      setInternalColor({ r: value.r, g: value.g, b: value.b, a: value.a })
-    }
-  }, [isControlled, value])
-
   const allowedTypesKey = useMemo(
     () => (allowedTypes && allowedTypes.length ? allowedTypes.join("|") : ""),
     [allowedTypes]
   )
+
   useEffect(() => {
     const nextType = (allowedTypes as ColorPickerType[]).includes(
       defaultType as ColorPickerType
@@ -736,7 +732,6 @@ const ColorPickerComponent = (
     setInternalType(nextType)
   }, [defaultType, allowedTypesKey, allowedTypes])
 
-  const currentColor = isControlled && value ? value : internalColor
   const currentType: ColorPickerType = internalType
 
   const modeSelectRef = useRef<HTMLDivElement | null>(null)
@@ -759,10 +754,8 @@ const ColorPickerComponent = (
       a: roundAlpha(clamp(next.a, 0, 1)),
     }
 
-    if (!isControlled) {
-      if (!areColorsEqual(normalized, internalColor)) {
-        setInternalColor(normalized)
-      }
+    if (!areColorsEqual(normalized, internalColor)) {
+      setInternalColor(normalized)
     }
 
     onChange?.({
@@ -805,6 +798,7 @@ const ColorPickerComponent = (
   const baseOptions = TYPE_OPTIONS.filter((o) =>
     allowedTypes.includes(o.value as ColorPickerType)
   )
+
   const computedOptions =
     !allowedTypes.includes("hex" as ColorPickerType) &&
     allowedTypes.includes("hexAlpha" as ColorPickerType)
@@ -841,9 +835,9 @@ const ColorPickerComponent = (
     >
       {currentType === "hex" && (
         <HexColorPicker
-          color={colorToHex(currentColor)}
+          color={colorToHex(internalColor)}
           onChange={(hex) => {
-            const nextColor = hexToColor(hex, currentColor.a)
+            const nextColor = hexToColor(hex, internalColor.a)
             if (nextColor) {
               scheduleNextColor(nextColor)
             }
@@ -852,7 +846,7 @@ const ColorPickerComponent = (
       )}
       {currentType === "hexAlpha" && (
         <HexAlphaColorPicker
-          color={colorToHexAlpha(currentColor)}
+          color={colorToHexAlpha(internalColor)}
           onChange={(hex8) => {
             const nextColor = hexAlphaToColor(hex8)
             if (nextColor) {
@@ -863,7 +857,7 @@ const ColorPickerComponent = (
       )}
       {currentType === "rgba" && (
         <RgbaColorPicker
-          color={currentColor}
+          color={internalColor}
           onChange={(e) => {
             scheduleNextColor(e)
           }}
@@ -873,8 +867,8 @@ const ColorPickerComponent = (
         <div className="ColorPicker__controls">
           {currentType === "hex" && (
             <ControlsHex
-              color={currentColor}
-              setColor={scheduleNextColor}
+              color={internalColor}
+              setColor={(color) => scheduleNextColor(color)}
               type={currentType as ColorPickerType}
               setType={setInternalType as (t: ColorPickerType) => void}
               options={computedOptions}
@@ -883,7 +877,7 @@ const ColorPickerComponent = (
           )}
           {currentType === "hexAlpha" && (
             <ControlsHexAlpha
-              color={currentColor}
+              color={internalColor}
               setColor={scheduleNextColor}
               type={currentType as ColorPickerType}
               setType={setInternalType as (t: ColorPickerType) => void}
@@ -893,7 +887,7 @@ const ColorPickerComponent = (
           )}
           {currentType === "rgba" && (
             <ControlsRgba
-              color={currentColor}
+              color={internalColor}
               setColor={scheduleNextColor}
               type={currentType as ColorPickerType}
               setType={setInternalType as (t: ColorPickerType) => void}
