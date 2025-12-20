@@ -1,9 +1,12 @@
 import { bem, typedForwardRef } from "../../utils"
 
+import { Fragment } from "preact"
+import { useRef } from "preact/hooks"
+
 import type { ButtonProps } from "./Button.types"
 import "./Button.scss"
 
-import { Text } from "../../index"
+import { Text, Tooltip } from "../../index"
 
 /* --- */
 
@@ -20,6 +23,7 @@ const ButtonComponent = (
     prefix,
     suffix,
     children,
+    tooltip,
     onClick,
     ...rest
   }: ButtonProps,
@@ -54,33 +58,46 @@ const ButtonComponent = (
     }
   }
 
+  const itemRef = useRef<HTMLButtonElement>(null)
+
   return (
-    <button
-      className={[_className, "no-drag", className].join(" ").trim()}
-      ref={ref}
-      disabled={disabled}
-      onClick={handleClick}
-      onKeyDown={handleKeyDown}
-      {...rest}
-    >
-      <div className="Button__content">
-        {prefix && <div className="Button__prefix">{prefix}</div>}
-        {children && (
-          <div className="Button__children">
-            <Text
-              variant="body"
-              size="medium"
-              intent={intent}
-              intentModifiers={intentModifiers}
-              disabled={disabled}
-            >
-              {children}
-            </Text>
-          </div>
-        )}
-        {suffix && <div className="Button__suffix">{suffix}</div>}
-      </div>
-    </button>
+    <Fragment>
+      <button
+        className={[_className, "no-drag", className].join(" ").trim()}
+        ref={(el) => {
+          if (typeof ref === "function") {
+            ref(el)
+          } else if (ref) {
+            // eslint-disable-next-line
+            ;(ref as preact.RefObject<HTMLButtonElement>).current = el
+          }
+          itemRef.current = el
+        }}
+        disabled={disabled}
+        onClick={handleClick}
+        onKeyDown={handleKeyDown}
+        {...rest}
+      >
+        <div className="Button__content">
+          {prefix && <div className="Button__prefix">{prefix}</div>}
+          {children && (
+            <div className="Button__children">
+              <Text
+                variant="body"
+                size="medium"
+                intent={intent}
+                intentModifiers={intentModifiers}
+                disabled={disabled}
+              >
+                {children}
+              </Text>
+            </div>
+          )}
+          {suffix && <div className="Button__suffix">{suffix}</div>}
+        </div>
+      </button>
+      {tooltip && <Tooltip triggerRef={itemRef}>{tooltip}</Tooltip>}
+    </Fragment>
   )
 }
 

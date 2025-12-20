@@ -57,6 +57,15 @@ const meta: Meta<typeof Select> = {
       defaultValue: { summary: "auto" },
       description: "Width of the menu.",
     },
+    tooltip: {
+      control: { disable: true },
+      description: "Tooltip content.",
+      table: {
+        type: {
+          summary: "JSX.Element",
+        },
+      },
+    },
     onBlur: {
       control: { disable: true },
       description: "Callback when the input is blurred.",

@@ -99,6 +99,15 @@ const meta: Meta<typeof Input> = {
       defaultValue: { summary: false },
       description: "Enables double-click focus",
     },
+    tooltip: {
+      control: { disable: true },
+      description: "Tooltip content.",
+      table: {
+        type: {
+          summary: "JSX.Element",
+        },
+      },
+    },
     onChange: {
       action: "changed",
       description: "Callback when the value is changed.",

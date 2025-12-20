@@ -77,8 +77,13 @@ const meta: Meta<typeof ButtonIconToggle> = {
         },
       },
       control: { disable: true },
-      description:
-        "A shortcut for the displaying the icon as a child. `glyph` is required.",
+      description: `A shortcut for the displaying the icon as a child. <code>glyph</code> is required.
+<pre>icon: { 
+  glyph: Glyph, variant?: 
+  IconProps['variant'], 
+  size?: IconProps['size']
+}
+</pre>`,
     },
     children: {
       table: {
@@ -88,6 +93,15 @@ const meta: Meta<typeof ButtonIconToggle> = {
       },
       control: { disable: true },
       description: "Usually the Icon component",
+    },
+    tooltip: {
+      control: { disable: true },
+      description: "Tooltip content.",
+      table: {
+        type: {
+          summary: "JSX.Element",
+        },
+      },
     },
     onChange: {
       action: "changed",

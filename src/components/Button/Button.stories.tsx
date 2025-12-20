@@ -77,6 +77,15 @@ const meta: Meta<typeof Button> = {
       control: { type: "text" },
       description: "Usually text content.",
     },
+    tooltip: {
+      control: { disable: true },
+      description: "Tooltip content.",
+      table: {
+        type: {
+          summary: "JSX.Element",
+        },
+      },
+    },
     onClick: {
       action: "clicked",
       description: "Callback when the button is clicked.",
@@ -127,7 +136,7 @@ export const Intent: Story = {
   render: () => (
     <div className="sb-column sb-width-full">
       <Stack spacing={400}>
-        <Button intent="neutral" intentModifiers="default">
+        <Button intent="neutral" intentModifiers="default" tooltip="Neutral">
           Neutral
         </Button>
         <Button intent="neutral" intentModifiers="default" ghost>

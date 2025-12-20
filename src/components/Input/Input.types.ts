@@ -12,6 +12,7 @@ export interface InputProps {
   suffix?: preact.ComponentChildren
   suffixOnHover?: boolean
   focusOnDoubleClick?: boolean
+  tooltip?: preact.ComponentChildren
   onChange?: (args: { event: MouseEvent; value: string }) => void
   onBlur?: (args: { event: MouseEvent; value: string }) => void
   onFocus?: (args: { event: MouseEvent; value: string }) => void

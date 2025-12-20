@@ -11,12 +11,13 @@ export interface ButtonIconProps {
   grouped?: "none" | "left" | "right" | "both"
   translucent?: boolean
   disabled?: boolean
+  selected?: boolean
   icon?: {
     glyph: Glyph
     variant?: IconProps["variant"]
     size?: IconProps["size"]
-    selected?: boolean
   }
   children?: preact.ComponentChildren
+  tooltip?: preact.ComponentChildren
   onClick?: (args: { event: MouseEvent }) => void
 }

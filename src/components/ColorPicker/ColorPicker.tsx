@@ -146,11 +146,6 @@ const ControlsRgba = ({
     normalizeOnError: true,
   })
 
-  const inputRedRef = useRef<HTMLInputElement>(null)
-  const inputGreenRef = useRef<HTMLInputElement>(null)
-  const inputBlueRef = useRef<HTMLInputElement>(null)
-  const inputOpacityRef = useRef<HTMLInputElement>(null)
-
   const [inputRedValue, setInputRedValue] = useState<string>(color.r.toString())
   const [inputGreenValue, setInputGreenValue] = useState<string>(
     color.g.toString()
@@ -177,30 +172,16 @@ const ControlsRgba = ({
           options={options}
           value={type}
           onChange={(e) => setType(e.value as ColorPickerType)}
+          tooltip="Color mode"
           menuWidth={160}
         />
-
-        <OverlayPositioner
-          anchorRef={selectRef}
-          placement="bottom"
-          placementFallback={["top"]}
-          paddingY={8}
-          edgePadding={8}
-          trigger="hover"
-          visibilityDelay={1000}
-          arrow={true}
-        >
-          <Tooltip>
-            <Text intent="neutral-inverted-fixed">Color mode</Text>
-          </Tooltip>
-        </OverlayPositioner>
       </div>
       <div className="ColorPicker__controlsValues">
         <InputGroup>
           <Input
-            ref={inputRedRef}
             className="ColorPicker__inputCompact"
             grouped="right"
+            tooltip="Red"
             value={inputRedValue}
             onChange={(e) => setInputRedValue(e.value)}
             onBlur={(e) => {
@@ -238,25 +219,10 @@ const ControlsRgba = ({
             }
           />
 
-          <OverlayPositioner
-            anchorRef={inputRedRef}
-            placement="bottom"
-            placementFallback={["top"]}
-            paddingY={8}
-            edgePadding={8}
-            trigger="hover"
-            visibilityDelay={1000}
-            arrow={true}
-          >
-            <Tooltip>
-              <Text intent="neutral-inverted-fixed">Red</Text>
-            </Tooltip>
-          </OverlayPositioner>
-
           <Input
-            ref={inputGreenRef}
             className="ColorPicker__inputCompact"
             grouped="both"
+            tooltip="Green"
             value={inputGreenValue}
             onChange={(e) => setInputGreenValue(e.value)}
             onBlur={(e) => {
@@ -294,25 +260,10 @@ const ControlsRgba = ({
             }
           />
 
-          <OverlayPositioner
-            anchorRef={inputGreenRef}
-            placement="bottom"
-            placementFallback={["top"]}
-            paddingY={8}
-            edgePadding={8}
-            trigger="hover"
-            visibilityDelay={1000}
-            arrow={true}
-          >
-            <Tooltip>
-              <Text intent="neutral-inverted-fixed">Green</Text>
-            </Tooltip>
-          </OverlayPositioner>
-
           <Input
-            ref={inputBlueRef}
             className="ColorPicker__inputCompact"
             grouped="both"
+            tooltip="Blue"
             value={inputBlueValue}
             onChange={(e) => setInputBlueValue(e.value)}
             onBlur={(e) => {
@@ -350,25 +301,10 @@ const ControlsRgba = ({
             }
           />
 
-          <OverlayPositioner
-            anchorRef={inputBlueRef}
-            placement="bottom"
-            placementFallback={["top"]}
-            paddingY={8}
-            edgePadding={8}
-            trigger="hover"
-            visibilityDelay={1000}
-            arrow={true}
-          >
-            <Tooltip>
-              <Text intent="neutral-inverted-fixed">Blue</Text>
-            </Tooltip>
-          </OverlayPositioner>
-
           <Input
-            ref={inputOpacityRef}
             className="ColorPicker__controlOpacity"
             grouped="left"
+            tooltip="Opacity"
             value={inputOpacityValue}
             suffix={
               <Text intentModifiers="secondary">
@@ -419,21 +355,6 @@ const ControlsRgba = ({
               })
             }
           />
-
-          <OverlayPositioner
-            anchorRef={inputOpacityRef}
-            placement="bottom"
-            placementFallback={["top"]}
-            paddingY={8}
-            edgePadding={8}
-            trigger="hover"
-            visibilityDelay={1000}
-            arrow={true}
-          >
-            <Tooltip>
-              <Text intent="neutral-inverted-fixed">Opacity</Text>
-            </Tooltip>
-          </OverlayPositioner>
         </InputGroup>
       </div>
     </>
@@ -480,26 +401,13 @@ const ControlsHex = ({
           options={options}
           value={type}
           onChange={(e) => setType(e.value as ColorPickerType)}
+          tooltip="Color mode"
           menuWidth={160}
         />
-
-        <OverlayPositioner
-          anchorRef={selectRef}
-          placement="bottom"
-          placementFallback={["top"]}
-          paddingY={8}
-          edgePadding={8}
-          trigger="hover"
-          visibilityDelay={1000}
-          arrow={true}
-        >
-          <Tooltip>
-            <Text intent="neutral-inverted-fixed">Color mode</Text>
-          </Tooltip>
-        </OverlayPositioner>
       </div>
       <div className="ColorPicker__controlsValues">
         <Input
+          tooltip="Hex value"
           value={hexValue.toUpperCase()}
           onChange={(e) => setHexValue(e.value)}
           onBlur={(e) => {
@@ -559,7 +467,6 @@ const ControlsHexAlpha = ({
     normalizeOnError: true,
   })
 
-  const inputOpacityRef = useRef<HTMLInputElement>(null)
   const [hexOpacityValue, setHexOpacityValue] = useState<string>(
     Math.round(color.a * 100).toString()
   )
@@ -576,27 +483,14 @@ const ControlsHexAlpha = ({
           options={options}
           value={type}
           onChange={(e) => setType(e.value as ColorPickerType)}
+          tooltip="Color mode"
           menuWidth={160}
         />
-
-        <OverlayPositioner
-          anchorRef={selectRef}
-          placement="bottom"
-          placementFallback={["top"]}
-          paddingY={8}
-          edgePadding={8}
-          trigger="hover"
-          visibilityDelay={1000}
-          arrow={true}
-        >
-          <Tooltip>
-            <Text intent="neutral-inverted-fixed">Color mode</Text>
-          </Tooltip>
-        </OverlayPositioner>
       </div>
       <div className="ColorPicker__controlsValues">
         <InputGroup>
           <Input
+            tooltip="Hex value"
             grouped="right"
             value={hexValue.toUpperCase()}
             onChange={(e) => setHexValue(e.value)}
@@ -610,7 +504,7 @@ const ControlsHexAlpha = ({
           />
 
           <Input
-            ref={inputOpacityRef}
+            tooltip="Opacity"
             className="ColorPicker__controlOpacity"
             grouped="left"
             value={hexOpacityValue}
@@ -664,21 +558,6 @@ const ControlsHexAlpha = ({
               })
             }
           />
-
-          <OverlayPositioner
-            anchorRef={inputOpacityRef}
-            placement="bottom"
-            placementFallback={["top"]}
-            paddingY={8}
-            edgePadding={8}
-            trigger="hover"
-            visibilityDelay={1000}
-            arrow={true}
-          >
-            <Tooltip>
-              <Text intent="neutral-inverted-fixed">Opacity</Text>
-            </Tooltip>
-          </OverlayPositioner>
         </InputGroup>
       </div>
     </>
@@ -736,6 +615,12 @@ const ColorPickerComponent = (
 
   const modeSelectRef = useRef<HTMLDivElement | null>(null)
 
+  // Track whether the last interaction that may have triggered a type change
+  // was done via keyboard or mouse. Capture handlers on the root element
+  // update this flag, and we only auto-focus the mode select when it was
+  // changed via keyboard.
+  const lastInteractionWasKeyboardRef = useRef(false)
+
   // --- High-frequency update scheduler (one update per frame) ---
   const pendingColorRef = useRef<Color | null>(null)
   const rafIdRef = useRef<number | null>(null)
@@ -787,9 +672,30 @@ const ColorPickerComponent = (
     controls,
   })
 
+  const handleInteractionKeyDownCapture = (
+    event: preact.JSX.TargetedKeyboardEvent<HTMLDivElement>
+  ) => {
+    // Any key press counts as keyboard interaction; a subsequent mouse
+    // interaction will overwrite this flag.
+    if (event.key) {
+      lastInteractionWasKeyboardRef.current = true
+    }
+  }
+
+  const handleInteractionMouseDownCapture = (
+    _event: preact.JSX.TargetedMouseEvent<HTMLDivElement>
+  ) => {
+    lastInteractionWasKeyboardRef.current = false
+  }
+
   useEffect(() => {
-    if (controls && modeSelectRef.current) {
+    if (!controls || !modeSelectRef.current) return
+
+    if (lastInteractionWasKeyboardRef.current) {
       modeSelectRef.current.focus()
+      // Reset so programmatic or mouse-driven changes don't refocus unless
+      // there is another keyboard interaction.
+      lastInteractionWasKeyboardRef.current = false
     }
   }, [currentType, controls])
 
@@ -827,6 +733,8 @@ const ColorPickerComponent = (
     <div
       className={[_className, "no-drag", className].join(" ").trim()}
       ref={ref}
+      onKeyDownCapture={handleInteractionKeyDownCapture}
+      onMouseDownCapture={handleInteractionMouseDownCapture}
       onKeyDown={handleKeyDown}
       {...rest}
       style={{

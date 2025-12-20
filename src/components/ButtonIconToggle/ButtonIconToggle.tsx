@@ -5,7 +5,6 @@ import type { VNode } from "preact"
 import { typedForwardRef } from "../../utils"
 
 import type { ButtonIconToggleProps } from "./ButtonIconToggle.types"
-import "./ButtonIconToggle.scss"
 
 import { ButtonIcon, Icon } from "../../index"
 
@@ -22,6 +21,7 @@ const ButtonIconToggleComponent = (
     children,
     defaultSelected = false,
     selected: controlledSelected,
+    tooltip,
     onChange,
     ...rest
   }: ButtonIconToggleProps,
@@ -58,25 +58,15 @@ const ButtonIconToggleComponent = (
       ref={ref}
       intent={intent}
       intentModifiers={intentModifiers}
+      selected={isSelected}
       ghost={ghost}
-      icon={icon && { ...icon, selected: isSelected }}
+      icon={icon && icon}
       disabled={disabled}
-      {...rest}
+      tooltip={tooltip}
       onClick={handleClick}
+      {...rest}
     >
-      {!icon &&
-        toChildArray(children).map((child) => {
-          if (typeof child === "object" && child !== null) {
-            const maybeVNode = child as VNode
-            if (maybeVNode.type === Icon) {
-              return cloneElement(maybeVNode, {
-                ...maybeVNode.props,
-                selected: isSelected,
-              })
-            }
-          }
-          return child
-        })}
+      {children}
     </ButtonIcon>
   )
 }

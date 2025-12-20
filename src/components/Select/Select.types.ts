@@ -15,6 +15,7 @@ export interface SelectProps {
   disabled?: boolean
   prefix?: preact.ComponentChildren
   menuWidth?: number | "auto"
+  tooltip?: preact.ComponentChildren
   onBlur?: () => void
   onFocus?: () => void
   onChange?: (args: { event: MouseEvent; value: string }) => void

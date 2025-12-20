@@ -137,6 +137,28 @@
   @include ButtonIcon_ghost("neutral", "default");
   @include ButtonIcon_translucent("neutral", "default");
 
+  &_selected {
+    background-color: var(
+      --pui-color-neutral-bg-default-interactive-selected
+    ) !important;
+    color: var(
+      --pui-color-neutral-text-default-interactive-selected
+    ) !important;
+    box-shadow: none !important;
+
+    &:hover {
+      background-color: var(
+        --pui-color-neutral-bg-default-interactive-selected-hover
+      ) !important;
+    }
+
+    &:active {
+      background-color: var(
+        --pui-color-neutral-bg-default-interactive-selected-pressed
+      ) !important;
+    }
+  }
+
   &_disabled {
     cursor: auto !important;
   }
@@ -152,6 +174,10 @@
     &:active {
       background-color: var(--pui-color-neutral-bg-disabled) !important;
     }
+  }
+
+  &_disabled:is(&_selected) {
+    background-color: var(--pui-color-neutral-bg-disabled) !important;
   }
 
   &_disabled:is(&_translucent) {

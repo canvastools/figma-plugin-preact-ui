@@ -46,6 +46,10 @@ const meta: Meta<typeof ButtonIcon> = {
       control: { type: "boolean" },
       defaultValue: { summary: false },
     },
+    selected: {
+      control: { type: "boolean" },
+      defaultValue: { summary: false },
+    },
     icon: {
       table: {
         type: {
@@ -53,8 +57,13 @@ const meta: Meta<typeof ButtonIcon> = {
         },
       },
       control: { disable: true },
-      description:
-        "A shortcut for the displaying the icon as a child. `glyph` is required.",
+      description: `A shortcut for the displaying the icon as a child. <code>glyph</code> is required.
+<pre>icon: { 
+  glyph: Glyph, variant?: 
+  IconProps['variant'], 
+  size?: IconProps['size']
+}
+</pre>`,
     },
     children: {
       table: {
@@ -64,6 +73,15 @@ const meta: Meta<typeof ButtonIcon> = {
       },
       control: { disable: true },
       description: "Usually the Icon component",
+    },
+    tooltip: {
+      control: { disable: true },
+      description: "Tooltip content.",
+      table: {
+        type: {
+          summary: "JSX.Element",
+        },
+      },
     },
     onClick: {
       action: "clicked",
@@ -90,6 +108,7 @@ export const Demo: Story = {
     grouped: "none",
     translucent: false,
     disabled: false,
+    selected: false,
     children: (
       <Icon glyph={linkGlyph} intent="neutral" variant="scaled" interactive />
     ),

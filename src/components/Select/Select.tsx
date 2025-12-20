@@ -15,6 +15,7 @@ import {
   OverlayPositioner,
   Icon,
   chevronDown as chevronDownGlyph,
+  Tooltip,
 } from "../../index"
 
 /* --- */
@@ -31,6 +32,7 @@ const SelectComponent = (
     disabled = false,
     prefix,
     menuWidth = "auto",
+    tooltip,
     onBlur,
     onFocus,
     onChange,
@@ -164,6 +166,8 @@ const SelectComponent = (
           }}
         />
       </MenuContext>
+
+      {tooltip && <Tooltip triggerRef={triggerRef}>{tooltip}</Tooltip>}
     </Fragment>
   )
 }

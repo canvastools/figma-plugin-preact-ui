@@ -1,9 +1,12 @@
+import { Fragment } from "preact"
 import { useEffect, useRef, useState, useImperativeHandle } from "preact/hooks"
 
 import { bem, typedForwardRef } from "../../utils"
 
 import type { InputProps } from "./Input.types"
 import "./Input.scss"
+
+import { Tooltip } from "../../index"
 
 /* --- */
 
@@ -22,6 +25,7 @@ const InputComponent = (
     suffix,
     suffixOnHover = false,
     focusOnDoubleClick = false,
+    tooltip,
     onChange,
     onBlur,
     onFocus,
@@ -127,36 +131,39 @@ const InputComponent = (
   }
 
   return (
-    <div
-      className={[_className, "no-drag", className].join(" ").trim()}
-      ref={rootRef as preact.Ref<HTMLDivElement>}
-      {...rest}
-    >
-      {prefix && <div className="Input__prefix">{prefix}</div>}
-      <input
-        className="Input__input-native"
-        ref={(el) => {
-          inputRef.current = el
-        }}
-        type={type}
-        disabled={disabled}
-        placeholder={placeholder}
-        value={value !== undefined ? value : undefined}
-        defaultValue={value === undefined ? defaultValue : undefined}
-        onChange={handleChange}
-        onBlur={handleBlur}
-        onFocus={handleFocus}
-        onKeyDown={handleKeyDown}
-        onClick={handleClick}
-        onDblClick={handleDoubleClick}
-        onMouseDown={(e) => {
-          if (focusOnDoubleClick) {
-            e.preventDefault()
-          }
-        }}
-      />
-      {suffix && <div className="Input__suffix">{suffix}</div>}
-    </div>
+    <Fragment>
+      <div
+        className={[_className, "no-drag", className].join(" ").trim()}
+        ref={rootRef as preact.Ref<HTMLDivElement>}
+        {...rest}
+      >
+        {prefix && <div className="Input__prefix">{prefix}</div>}
+        <input
+          className="Input__input-native"
+          ref={(el) => {
+            inputRef.current = el
+          }}
+          type={type}
+          disabled={disabled}
+          placeholder={placeholder}
+          value={value !== undefined ? value : undefined}
+          defaultValue={value === undefined ? defaultValue : undefined}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          onFocus={handleFocus}
+          onKeyDown={handleKeyDown}
+          onClick={handleClick}
+          onDblClick={handleDoubleClick}
+          onMouseDown={(e) => {
+            if (focusOnDoubleClick) {
+              e.preventDefault()
+            }
+          }}
+        />
+        {suffix && <div className="Input__suffix">{suffix}</div>}
+      </div>
+      {tooltip && <Tooltip triggerRef={rootRef}>{tooltip}</Tooltip>}
+    </Fragment>
   )
 }
 
