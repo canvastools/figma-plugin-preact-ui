@@ -3,6 +3,7 @@ import { bem, typedForwardRef } from "../../utils"
 import { useEffect, useRef, useState } from "preact/hooks"
 
 import type { MenuProps, MenuItemData } from "./Menu.types"
+import "./Menu.scss"
 
 import {
   MenuContext,
@@ -183,30 +184,32 @@ const MenuComponent = (
   }, [open])
 
   return (
-    <div
-      className={[_className, className].join(" ").trim()}
-      ref={ref}
-      {...rest}
+    <MenuContext
+      triggerRef={triggerRef}
+      anchorRef={anchorRef}
+      open={internalOpen}
+      setOpen={setInternalOpen}
     >
-      <MenuContext
-        triggerRef={triggerRef}
-        anchorRef={anchorRef}
-        open={internalOpen}
-        setOpen={setInternalOpen}
-      >
-        <MenuBody
-          items={items}
-          width={width}
-          placement={placement}
-          placementFallback={placementFallback}
-          paddingX={paddingX}
-          paddingY={paddingY}
-          edgePadding={edgePadding}
-          onOpen={onOpen}
-          onClose={onClose}
-        />
-      </MenuContext>
-    </div>
+      {internalOpen && (
+        <div
+          className={[_className, className].join(" ").trim()}
+          ref={ref}
+          {...rest}
+        >
+          <MenuBody
+            items={items}
+            width={width}
+            placement={placement}
+            placementFallback={placementFallback}
+            paddingX={paddingX}
+            paddingY={paddingY}
+            edgePadding={edgePadding}
+            onOpen={onOpen}
+            onClose={onClose}
+          />
+        </div>
+      )}
+    </MenuContext>
   )
 }
 

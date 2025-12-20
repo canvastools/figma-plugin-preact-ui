@@ -3,6 +3,7 @@ import { bem, typedForwardRef } from "../../utils"
 import { useEffect, useRef, useState } from "preact/hooks"
 
 import type { TooltipProps } from "./Tooltip.types"
+import "./Tooltip.scss"
 
 import {
   OverlayPositioner,
@@ -100,28 +101,28 @@ const TooltipComponent = (
     triggerRef) as preact.RefObject<HTMLElement> | null
 
   return (
-    <div
-      className={[_className, "no-drag", className].join(" ").trim()}
-      ref={ref}
-      {...rest}
+    <OverlayPositioner
+      anchorRef={resolvedAnchorRef as preact.RefObject<HTMLElement>}
+      open={open}
+      placement={placement}
+      placementFallback={placementFallback}
+      paddingX={paddingX}
+      paddingY={paddingY}
+      edgePadding={edgePadding}
+      trigger="hover"
+      arrow={true}
+      onClose={() => setOpen(false)}
     >
-      <OverlayPositioner
-        anchorRef={resolvedAnchorRef as preact.RefObject<HTMLElement>}
-        open={open}
-        placement={placement}
-        placementFallback={placementFallback}
-        paddingX={paddingX}
-        paddingY={paddingY}
-        edgePadding={edgePadding}
-        trigger="hover"
-        arrow={true}
-        onClose={() => setOpen(false)}
+      <div
+        className={[_className, "no-drag", className].join(" ").trim()}
+        ref={ref}
+        {...rest}
       >
         <TooltipContainer width={width} height={height}>
           {children}
         </TooltipContainer>
-      </OverlayPositioner>
-    </div>
+      </div>
+    </OverlayPositioner>
   )
 }
 

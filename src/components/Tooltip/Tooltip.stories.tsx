@@ -5,7 +5,7 @@ import { useRef } from "preact/hooks"
 
 import { Tooltip } from "./Tooltip"
 
-import { Button } from "../../index"
+import { Button, TooltipContext } from "../../index"
 
 const meta: Meta<typeof Tooltip> = {
   title: "Components/Tooltip",
@@ -155,10 +155,12 @@ export const Demo: Story = {
 
     return (
       <div className="sb-column sb-width-full">
-        <Button ref={triggerRef}>Hover to see Tooltip</Button>
-        <Tooltip triggerRef={triggerRef} {...args}>
-          Lorem ipsum dolor sit amet
-        </Tooltip>
+        <TooltipContext>
+          <Button ref={triggerRef}>Hover to see Tooltip</Button>
+          <Tooltip triggerRef={triggerRef} {...args}>
+            Lorem ipsum dolor sit amet
+          </Tooltip>
+        </TooltipContext>
       </div>
     )
   },

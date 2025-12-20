@@ -1,0 +1,7 @@
+@use "../../shared.scss" as *;
+
+.Popover {
+  $parent: &;
+
+  position: absolute;
+}

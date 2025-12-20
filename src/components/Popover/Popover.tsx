@@ -3,6 +3,7 @@ import { bem, typedForwardRef } from "../../utils"
 import { useEffect, useRef, useState } from "preact/hooks"
 
 import type { PopoverProps } from "./Popover.types"
+import "./Popover.scss"
 
 import {
   OverlayPlacement,
@@ -122,32 +123,34 @@ const PopoverComponent = (
   }, [internalOpen, onOpen, onClose])
 
   return (
-    <div
-      className={[_className, className].join(" ").trim()}
-      ref={ref}
-      {...rest}
+    <PopoverContext
+      triggerRef={triggerRef}
+      anchorRef={anchorRef}
+      open={internalOpen}
+      setOpen={setInternalOpen}
     >
-      <PopoverContext
-        triggerRef={triggerRef}
-        anchorRef={anchorRef}
-        open={internalOpen}
-        setOpen={setInternalOpen}
-      >
-        <PopoverBody
-          header={header}
-          draggable={draggable}
-          width={width}
-          height={height}
-          placement={placement}
-          placementFallback={placementFallback}
-          paddingX={paddingX}
-          paddingY={paddingY}
-          edgePadding={edgePadding}
+      {internalOpen && (
+        <div
+          className={[_className, className].join(" ").trim()}
+          ref={ref}
+          {...rest}
         >
-          {children}
-        </PopoverBody>
-      </PopoverContext>
-    </div>
+          <PopoverBody
+            header={header}
+            draggable={draggable}
+            width={width}
+            height={height}
+            placement={placement}
+            placementFallback={placementFallback}
+            paddingX={paddingX}
+            paddingY={paddingY}
+            edgePadding={edgePadding}
+          >
+            {children}
+          </PopoverBody>
+        </div>
+      )}
+    </PopoverContext>
   )
 }
 
