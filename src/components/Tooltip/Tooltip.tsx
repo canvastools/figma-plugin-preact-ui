@@ -41,10 +41,21 @@ const TooltipComponent = (
   const hoverTimerRef = useRef<number | null>(null)
   const hideTimerRef = useRef<number | null>(null)
   const idRef = useRef<symbol | null>(null)
+  const visibleRef = useRef(false)
   const context = useTooltipContext()
 
   if (idRef.current === null) {
     idRef.current = Symbol("Tooltip")
+  }
+
+  const openTooltip = () => {
+    setOpen(true)
+    visibleRef.current = true
+  }
+
+  const closeTooltip = () => {
+    setOpen(false)
+    visibleRef.current = false
   }
 
   useEffect(() => {
@@ -89,7 +100,7 @@ const TooltipComponent = (
         close: () => {
           clearHoverTimer()
           clearHideTimer()
-          setOpen(false)
+          closeTooltip()
         },
       })
 
@@ -104,14 +115,14 @@ const TooltipComponent = (
         : STANDALONE_SHOW_DELAY
 
       if (delay === 0) {
-        setOpen(true)
+        openTooltip()
         context?.notifyVisible?.()
         return
       }
 
       hoverTimerRef.current = window.setTimeout(() => {
         hoverTimerRef.current = null
-        setOpen(true)
+        openTooltip()
         context?.notifyVisible?.()
       }, delay)
     }
@@ -120,16 +131,21 @@ const TooltipComponent = (
       clearHoverTimer()
 
       if (context) {
-        // When a context is present, let it manage the 440 ms hide
-        // delay and cross-trigger coordination.
-        context.notifyHoverEnd?.()
+        // When a context is present, let it manage the hide delay and
+        // cross-trigger coordination, but only if this tooltip was
+        // actually visible. If the user left before it became visible,
+        // we don't start a hide window, so the next hover will use the
+        // full SHOW_DELAY again.
+        if (visibleRef.current) {
+          context.notifyHoverEnd?.()
+        }
         return
       }
 
       clearHideTimer()
       hideTimerRef.current = window.setTimeout(() => {
         hideTimerRef.current = null
-        setOpen(false)
+        closeTooltip()
       }, STANDALONE_HIDE_DELAY)
     }
 
