@@ -15,13 +15,8 @@ const RawTooltipContext = createContext<TooltipContextValue | undefined>(
 const SHOW_DELAY = 1200
 const HIDE_DELAY = 480
 
-const useTooltipContext = (): TooltipContextValue => {
+const useTooltipContext = () => {
   const context = useContext(RawTooltipContext)
-  if (!context) {
-    throw new Error(
-      "Tooltip components must be used within a <TooltipContext> provider."
-    )
-  }
   return context
 }
 

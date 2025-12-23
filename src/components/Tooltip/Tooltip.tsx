@@ -45,7 +45,7 @@ const TooltipComponent = (
 
   useEffect(() => {
     const targetRef = triggerRef ?? anchorRef
-    if (!targetRef?.current) return
+    if (!targetRef?.current || !context) return
 
     const el = targetRef.current
 
