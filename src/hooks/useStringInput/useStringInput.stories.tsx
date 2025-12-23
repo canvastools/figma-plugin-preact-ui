@@ -154,8 +154,6 @@ export const Demo: Story = {
               onBlur={(e) => {
                 const parsed = stringInput.parse(e.value)
 
-                console.log(parsed)
-
                 if (parsed.error) {
                   setInputValue(parsed.rawValue)
                   setError(parsed.error)

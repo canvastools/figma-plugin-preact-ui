@@ -5,7 +5,7 @@ import { useRef, useState } from "preact/hooks"
 
 import { Popover } from "./Popover"
 
-import { Stack, Text, Section, Button, OverlayPositioner } from "../../index"
+import { Stack, Text, Section, Button, Input } from "../../index"
 
 const meta: Meta<typeof Popover> = {
   title: "Components/Popover",
@@ -224,6 +224,7 @@ export const Demo: Story = {
                 asperiores quisquam, repudiandae similique magnam aspernatur
                 esse dignissimos molestiae.
               </Text>
+              <Input placeholder="Input" />
               <Button>Button</Button>
             </Stack>
           </Section>
@@ -275,18 +276,18 @@ export const Controlled: Story = {
     },
   },
   render: () => {
-    const triggerRef = useRef<HTMLButtonElement | null>(null)
+    const anchorRef = useRef<HTMLButtonElement | null>(null)
     const [open, setOpen] = useState(false)
 
     return (
       <div className="sb-column sb-width-full">
         <Stack spacing={400}>
           <Text>Open: {open ? "true" : "false"}</Text>
-          <Button ref={triggerRef} onClick={() => setOpen(!open)}>
+          <Button ref={anchorRef} onClick={() => setOpen(!open)}>
             Open popover
           </Button>
           <Popover
-            triggerRef={triggerRef}
+            anchorRef={anchorRef}
             open={open}
             width={300}
             onClose={() => setOpen(false)}

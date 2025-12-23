@@ -471,6 +471,24 @@ const OverlayPositionerComponent = ({
       const overlay = containerRef.current
       const anchorEl = anchorRef.current as HTMLElement | null
       if (!overlay || !target || !anchorEl) return
+
+      // Manually blur focused text inputs when clicking anywhere outside of them,
+      // even if the click is inside the overlay or on the anchor. This avoids
+      // preventDefault() on draggable/popover triggers from keeping inputs focused.
+      const activeEl = document.activeElement as HTMLElement | null
+      if (activeEl && activeEl !== target) {
+        const clickedInsideActive =
+          activeEl.contains(target) || activeEl === (target as HTMLElement)
+        const isTextLikeInput =
+          activeEl.tagName === "INPUT" ||
+          activeEl.tagName === "TEXTAREA" ||
+          activeEl.isContentEditable
+
+        if (!clickedInsideActive && isTextLikeInput) {
+          activeEl.blur()
+        }
+      }
+
       const insideOverlay = overlay.contains(target)
       const insideAnchor = anchorEl.contains(target as Node)
       const insideAnyOverlay = (target as HTMLElement | null)?.closest
