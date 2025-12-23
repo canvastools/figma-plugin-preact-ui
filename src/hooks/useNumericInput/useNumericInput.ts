@@ -75,7 +75,7 @@ const parseNumericInput = (raw: unknown, required?: boolean): InternalParse => {
   return { value: num, error: null }
 }
 
-const buildResult = (
+const buildSingleResult = (
   raw: string,
   config: NumericInputConfig
 ): NumericInputParseResult => {
@@ -101,7 +101,7 @@ const buildResult = (
   }
 
   // Defensive: if parsed is somehow undefined without an error, treat it as
-  // \"no value\".
+  // "no value".
   if (parsed === undefined) {
     return {
       rawValue: raw,
@@ -150,6 +150,73 @@ const buildResult = (
     normalizedValue,
     formattedValue,
     error,
+    unit,
+  }
+}
+
+const buildResult = (
+  raw: string,
+  config: NumericInputConfig
+): NumericInputParseResult => {
+  const { unit, normalizeOnError = false, doubleValue } = config
+
+  // Default behavior – single numeric value
+  if (!doubleValue) {
+    return buildSingleResult(raw, config)
+  }
+
+  // When doubleValue is enabled, allow parsing a comma-separated pair of
+  // numbers, e.g. "12,24" or "12, 24".
+  const parts = raw.split(",")
+
+  // If there's no comma (single number), fall back to single-value behavior.
+  if (parts.length === 1) {
+    return buildSingleResult(raw, config)
+  }
+
+  const leftRaw = parts[0].trim()
+  const rightRaw = parts.slice(1).join(",").trim()
+
+  const leftResult = buildSingleResult(leftRaw, config)
+  const rightResult = buildSingleResult(rightRaw, config)
+
+  const primaryError = leftResult.error ?? rightResult.error
+
+  if (primaryError && !normalizeOnError) {
+    // Match single-value semantics: on error and normalizeOnError = false,
+    // we do not expose normalized / formatted values.
+    return {
+      rawValue: raw,
+      normalizedValue: undefined,
+      formattedValue: undefined,
+      normalizedValues: undefined,
+      formattedValues: undefined,
+      error: primaryError,
+      unit,
+    }
+  }
+
+  const normalizedValues: [number, number] | undefined =
+    typeof leftResult.normalizedValue === "number" &&
+    typeof rightResult.normalizedValue === "number"
+      ? [leftResult.normalizedValue, rightResult.normalizedValue]
+      : undefined
+
+  const formattedValues: [string, string] | undefined =
+    typeof leftResult.formattedValue === "string" &&
+    typeof rightResult.formattedValue === "string"
+      ? [leftResult.formattedValue, rightResult.formattedValue]
+      : undefined
+
+  // For backwards compatibility, keep normalizedValue / formattedValue aligned
+  // with the first parsed number.
+  return {
+    rawValue: raw,
+    normalizedValue: leftResult.normalizedValue,
+    formattedValue: leftResult.formattedValue,
+    normalizedValues,
+    formattedValues,
+    error: primaryError,
     unit,
   }
 }

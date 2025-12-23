@@ -112,6 +112,17 @@ const meta: Meta<typeof useNumericInput> = {
         },
       },
     },
+    doubleValue: {
+      control: { type: "boolean" },
+      defaultValue: { summary: false },
+      description:
+        'When true, parses a comma-separated pair of numbers (e.g. "12,24") and exposes both values in `normalizedValues` / `formattedValues`.',
+      table: {
+        type: {
+          summary: "boolean",
+        },
+      },
+    },
     useNumericInput: {
       control: { disable: true },
       description: `The hook instance.<br/><pre>interface NumericInput {
@@ -126,6 +137,10 @@ const meta: Meta<typeof useNumericInput> = {
   normalizedValue: number | undefined 
   // normalized value after adding unit
   formattedValue: string | undefined 
+  // when doubleValue is enabled and a comma-separated pair is provided
+  // e.g. "12,24", both values are available here
+  normalizedValues?: [number, number] | undefined
+  formattedValues?: [string, string] | undefined
   error: NumericInputError | null
 }</pre>
 
@@ -152,6 +167,7 @@ export const Demo: Story = {
     step: 1,
     stepLarge: 10,
     required: false,
+    doubleValue: false,
     normalizeOnError: false,
   },
   parameters: {
@@ -187,8 +203,12 @@ export const Demo: Story = {
                 return
               }
 
-              setInputValue(parsed.formattedValue ?? "")
               setError(null)
+              if (parsed.formattedValues) {
+                setInputValue(parsed.formattedValues.join(", ") ?? "")
+              } else {
+                setInputValue(parsed.formattedValue ?? "")
+              }
             }}
             onKeyDown={(e) =>
               numericInput.handleKeyDown(e, (next) =>
@@ -201,6 +221,69 @@ export const Demo: Story = {
           <Text intentModifiers={error ? "danger" : "default"}>
             {error || "No errors"}
           </Text>
+        </Stack>
+      </div>
+    )
+  },
+}
+
+export const DoubleValueRange: Story = {
+  parameters: {
+    controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
+  },
+  render: () => {
+    const numericInput = useNumericInput({
+      value: "25,75",
+      doubleValue: true,
+      min: 0,
+      max: 100,
+      precision: 0,
+      step: 1,
+      stepLarge: 10,
+      required: false,
+      normalizeOnError: true,
+    } as NumericInputConfig)
+
+    const [inputValue, setInputValue] = useState(
+      numericInput.formattedValues?.join(", ") ??
+        numericInput.formattedValue ??
+        ""
+    )
+    const [error, setError] = useState<NumericInputError | null>(null)
+
+    return (
+      <div className="sb-column sb-width-300">
+        <Stack spacing={200}>
+          <Input
+            value={inputValue}
+            error={!!error}
+            placeholder="Range (e.g. 10, 20)"
+            onChange={(e) => setInputValue(e.value)}
+            onBlur={(e) => {
+              const parsed = numericInput.parse(e.value)
+
+              if (parsed.error) {
+                setInputValue(parsed.rawValue)
+                setError(parsed.error)
+                return
+              }
+
+              setError(null)
+              if (parsed.formattedValues) {
+                setInputValue(parsed.formattedValues.join(", "))
+              } else {
+                setInputValue(parsed.formattedValue ?? "")
+              }
+            }}
+            onKeyDown={(e) =>
+              numericInput.handleKeyDown(e, (next) =>
+                setInputValue(String(next))
+              )
+            }
+          />
         </Stack>
       </div>
     )
@@ -224,6 +307,7 @@ export const FigmaLikeExperience: Story = {
       step: 1,
       stepLarge: 10,
       required: true,
+      doubleValue: false,
       normalizeOnError: true,
     } as NumericInputConfig)
 

@@ -15,12 +15,15 @@ export interface NumericInputConfig {
   stepLarge?: number
   required?: boolean
   normalizeOnError?: boolean
+  doubleValue?: boolean
 }
 
 export interface NumericInputParseResult {
   rawValue: string
   normalizedValue: number | undefined
   formattedValue: string | undefined
+  normalizedValues?: [number, number] | undefined
+  formattedValues?: [string, string] | undefined
   error: NumericInputError | null
   unit: string | undefined
 }
