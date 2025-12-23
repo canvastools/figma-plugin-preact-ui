@@ -35,15 +35,6 @@ const meta: Meta<typeof ColorSwatch> = {
       },
       description: "Image source URL. Applies only to the image variant.",
     },
-    tooltip: {
-      control: { disable: true },
-      description: "Tooltip content.",
-      table: {
-        type: {
-          summary: "JSX.Element",
-        },
-      },
-    },
     interactive: {
       control: { type: "boolean" },
       description: "Enables interactive state.",
@@ -59,6 +50,15 @@ const meta: Meta<typeof ColorSwatch> = {
       options: ["default", "rainbow"],
       description: "Selection border style.",
       defaultValue: { summary: "default" },
+    },
+    tooltip: {
+      control: { disable: true },
+      description: "Tooltip content.",
+      table: {
+        type: {
+          summary: "JSX.Element",
+        },
+      },
     },
     children: {
       control: { disable: true },

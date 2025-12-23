@@ -3,7 +3,6 @@ export interface ColorSwatchProps {
   size?: "small" | "medium" | "large"
   hex?: string
   imageSrc?: string
-  borderColor?: string
   interactive?: boolean
   selected?: boolean
   selection?: "default" | "rainbow"
