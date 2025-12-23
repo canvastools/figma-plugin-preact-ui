@@ -15,7 +15,7 @@ const meta: Meta<typeof Tooltip> = {
     docs: {
       description: {
         component:
-          "A wrapper component that creates a tooltip-like container. Used inside &lt;OverlayPositioner/&gt; component.",
+          "A wrapper component that creates a tooltip-like container. Must be used inside &lt;TooltipContext/&gt; so that all tooltips share the same context.",
       },
     },
   },

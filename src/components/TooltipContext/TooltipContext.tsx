@@ -1,11 +1,5 @@
 import { createContext } from "preact"
-import {
-  useCallback,
-  useContext,
-  useMemo,
-  useRef,
-  useState,
-} from "preact/hooks"
+import { useCallback, useContext, useMemo, useRef } from "preact/hooks"
 
 import type {
   TooltipContextProps,
@@ -21,131 +15,123 @@ const RawTooltipContext = createContext<TooltipContextValue | undefined>(
 const SHOW_DELAY = 1200
 const HIDE_DELAY = 480
 
-const useTooltipContext = () => {
+const useTooltipContext = (): TooltipContextValue => {
   const context = useContext(RawTooltipContext)
+  if (!context) {
+    throw new Error(
+      "Tooltip components must be used within a <TooltipContext> provider."
+    )
+  }
   return context
 }
 
 const TooltipContext = ({ children }: TooltipContextProps) => {
-  const [lastTriggerLeaveTime, setLastTriggerLeaveTime] = useState<
-    number | null
-  >(null)
-  const [lastVisibleTime, setLastVisibleTime] = useState<number | null>(null)
-
-  // Mirror of `lastTriggerLeaveTime` that updates synchronously so that
-  // `registerHoverStart` can see the latest value even when it runs in
-  // the same event loop tick as `notifyHoverEnd`.
   const lastTriggerLeaveTimeRef = useRef<number | null>(null)
 
-  // The tooltip that is currently being interacted with (latest hover).
-  const activeTooltipRef = useRef<{
-    id: symbol | null
-    close: (() => void) | null
+  const visibleTooltipRef = useRef<{
+    ref: preact.RefObject<HTMLElement> | null
+    setOpen: ((open: boolean) => void) | null
   }>({
-    id: null,
-    close: null,
+    ref: null,
+    setOpen: null,
   })
 
-  // The tooltip that most recently started a hide cycle when its trigger
-  // was left. This is used to coordinate behaviour between different
-  // triggers during the 440 ms hide window.
   const leavingTooltipRef = useRef<{
-    id: symbol | null
-    close: (() => void) | null
+    ref: preact.RefObject<HTMLElement> | null
+    setOpen: ((open: boolean) => void) | null
   }>({
-    id: null,
-    close: null,
+    ref: null,
+    setOpen: null,
   })
 
-  // Tracks a pending hide timeout so that it can be cancelled or invoked
-  // early when moving between different triggers.
+  const showTimeoutRef = useRef<number | null>(null)
+
   const hideTimeoutRef = useRef<number | null>(null)
 
-  const setActiveTooltip: TooltipContextValue["setActiveTooltip"] = useCallback(
-    (config) => {
-      activeTooltipRef.current = {
-        id: config.id,
-        close: config.close,
-      }
-    },
-    []
-  )
-
-  const cancelPendingHide: TooltipContextValue["cancelPendingHide"] =
-    useCallback((id) => {
-      if (hideTimeoutRef.current == null) return
-      if (leavingTooltipRef.current.id !== id) return
-
-      clearTimeout(hideTimeoutRef.current)
-      hideTimeoutRef.current = null
-      leavingTooltipRef.current = {
-        id: null,
-        close: null,
-      }
-    }, [])
-
-  const registerHoverStart = useCallback(() => {
+  const registerHoverStart: TooltipContextValue["registerHoverStart"] = (
+    ref,
+    setOpen
+  ) => {
     const now = Date.now()
     const lastLeave = lastTriggerLeaveTimeRef.current
 
-    // If we're within the hide delay window after a trigger was left,
-    // adjust the behaviour:
-    // - Moving to a *different* trigger: hide the previous tooltip
-    //   immediately and show the new one instantly (no delay).
-    // - Re-entering the *same* trigger: keep the tooltip visible and
-    //   cancel any pending hide.
     if (
       lastLeave != null &&
       now - lastLeave < HIDE_DELAY &&
-      leavingTooltipRef.current.id
+      leavingTooltipRef.current.ref &&
+      leavingTooltipRef.current.setOpen
     ) {
-      const isSameTooltip =
-        leavingTooltipRef.current.id === activeTooltipRef.current.id
-
-      // Cancel any scheduled hide.
       if (hideTimeoutRef.current != null) {
         clearTimeout(hideTimeoutRef.current)
         hideTimeoutRef.current = null
       }
 
-      if (!isSameTooltip) {
-        // Moving between different triggers inside the hide window:
-        // hide the previous tooltip immediately and show the new one
-        // without delay.
-        leavingTooltipRef.current.close?.()
+      const leaving = leavingTooltipRef.current
+
+      if (leaving.ref === ref) {
+        leaving.setOpen?.(true)
+        visibleTooltipRef.current = {
+          ref,
+          setOpen: leaving.setOpen ?? null,
+        }
+      } else {
+        leaving.setOpen?.(false)
+
+        setOpen(true)
+        visibleTooltipRef.current = {
+          ref,
+          setOpen,
+        }
       }
 
-      // Reset leaving tooltip tracking once handled.
       leavingTooltipRef.current = {
-        id: null,
-        close: null,
+        ref: null,
+        setOpen: null,
       }
 
-      return 0
-    }
+      if (showTimeoutRef.current != null) {
+        clearTimeout(showTimeoutRef.current)
+        showTimeoutRef.current = null
+      }
 
-    // Default behaviour: first hover after the hide window uses the
-    // standard show delay.
-    return SHOW_DELAY
-  }, [lastTriggerLeaveTime])
-
-  const notifyVisible = useCallback(() => {
-    setLastVisibleTime(Date.now())
-  }, [])
-
-  const notifyHoverEnd = useCallback(() => {
-    const now = Date.now()
-    setLastTriggerLeaveTime(now)
-    lastTriggerLeaveTimeRef.current = now
-
-    // Start a hide timer for the tooltip that has just been left.
-    if (!activeTooltipRef.current.id || !activeTooltipRef.current.close) {
       return
     }
 
+    if (showTimeoutRef.current != null) {
+      clearTimeout(showTimeoutRef.current)
+    }
+
+    showTimeoutRef.current = window.setTimeout(() => {
+      showTimeoutRef.current = null
+      setOpen(true)
+      visibleTooltipRef.current = {
+        ref,
+        setOpen,
+      }
+    }, SHOW_DELAY)
+  }
+
+  const registerHoverEnd: TooltipContextValue["registerHoverEnd"] = (
+    ref,
+    setOpen
+  ) => {
+    if (showTimeoutRef.current != null) {
+      clearTimeout(showTimeoutRef.current)
+      showTimeoutRef.current = null
+    }
+
+    if (
+      !visibleTooltipRef.current.ref ||
+      visibleTooltipRef.current.ref !== ref
+    ) {
+      return
+    }
+
+    lastTriggerLeaveTimeRef.current = Date.now()
+
     leavingTooltipRef.current = {
-      id: activeTooltipRef.current.id,
-      close: activeTooltipRef.current.close,
+      ref,
+      setOpen,
     }
 
     if (hideTimeoutRef.current != null) {
@@ -154,33 +140,35 @@ const TooltipContext = ({ children }: TooltipContextProps) => {
 
     hideTimeoutRef.current = window.setTimeout(() => {
       hideTimeoutRef.current = null
-      leavingTooltipRef.current.close?.()
+
+      const leaving = leavingTooltipRef.current
+      if (!leaving.ref || !leaving.setOpen) return
+
+      leaving.setOpen(false)
+
+      if (
+        visibleTooltipRef.current.ref &&
+        visibleTooltipRef.current.ref === leaving.ref
+      ) {
+        visibleTooltipRef.current = {
+          ref: null,
+          setOpen: null,
+        }
+      }
+
       leavingTooltipRef.current = {
-        id: null,
-        close: null,
+        ref: null,
+        setOpen: null,
       }
     }, HIDE_DELAY)
-  }, [])
+  }
 
   const contextValue: TooltipContextValue = useMemo(
     () => ({
-      lastTriggerLeaveTime,
-      lastVisibleTime,
       registerHoverStart,
-      notifyVisible,
-      notifyHoverEnd,
-      setActiveTooltip,
-      cancelPendingHide,
+      registerHoverEnd,
     }),
-    [
-      lastTriggerLeaveTime,
-      lastVisibleTime,
-      registerHoverStart,
-      notifyVisible,
-      notifyHoverEnd,
-      setActiveTooltip,
-      cancelPendingHide,
-    ]
+    [registerHoverStart, registerHoverEnd]
   )
 
   return (

@@ -1,11 +1,12 @@
 export interface TooltipContextValue {
-  lastTriggerLeaveTime: number | null
-  lastVisibleTime: number | null
-  registerHoverStart: () => number
-  notifyVisible: () => void
-  notifyHoverEnd: () => void
-  setActiveTooltip?: (config: { id: symbol; close: () => void }) => void
-  cancelPendingHide?: (id: symbol) => void
+  registerHoverStart: (
+    ref: preact.RefObject<HTMLElement>,
+    setOpen: (open: boolean) => void
+  ) => void
+  registerHoverEnd: (
+    ref: preact.RefObject<HTMLElement>,
+    setOpen: (open: boolean) => void
+  ) => void
 }
 
 export interface TooltipContextProps {

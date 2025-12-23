@@ -1,6 +1,6 @@
 import { bem, typedForwardRef } from "../../utils"
 
-import { useEffect, useRef, useState } from "preact/hooks"
+import { useEffect, useState } from "preact/hooks"
 
 import type { TooltipProps } from "./Tooltip.types"
 import "./Tooltip.scss"
@@ -12,9 +12,6 @@ import {
 } from "../../index"
 
 /* --- */
-
-const STANDALONE_SHOW_DELAY = 1200
-const STANDALONE_HIDE_DELAY = 480
 
 const TooltipComponent = (
   {
@@ -35,28 +32,8 @@ const TooltipComponent = (
   }: TooltipProps,
   ref: preact.Ref<HTMLDivElement>
 ) => {
-  const _className = bem("Tooltip", undefined, undefined)
-
-  const [open, setOpen] = useState(false)
-  const hoverTimerRef = useRef<number | null>(null)
-  const hideTimerRef = useRef<number | null>(null)
-  const idRef = useRef<symbol | null>(null)
-  const visibleRef = useRef(false)
   const context = useTooltipContext()
-
-  if (idRef.current === null) {
-    idRef.current = Symbol("Tooltip")
-  }
-
-  const openTooltip = () => {
-    setOpen(true)
-    visibleRef.current = true
-  }
-
-  const closeTooltip = () => {
-    setOpen(false)
-    visibleRef.current = false
-  }
+  const [open, setOpen] = useState(false)
 
   useEffect(() => {
     if (open) {
@@ -72,81 +49,18 @@ const TooltipComponent = (
 
     const el = targetRef.current
 
-    const clearHoverTimer = () => {
-      if (hoverTimerRef.current != null) {
-        clearTimeout(hoverTimerRef.current)
-        hoverTimerRef.current = null
-      }
-    }
-
-    const clearHideTimer = () => {
-      if (hideTimerRef.current != null) {
-        clearTimeout(hideTimerRef.current)
-        hideTimerRef.current = null
-      }
-    }
-
     const handleEnter = () => {
-      clearHoverTimer()
-      clearHideTimer()
-
-      const id = idRef.current as symbol
-
-      // Register this tooltip with the shared context so that it can
-      // coordinate behaviour across multiple triggers (e.g. instant
-      // switching within the hide window).
-      context?.setActiveTooltip?.({
-        id,
-        close: () => {
-          clearHoverTimer()
-          clearHideTimer()
-          closeTooltip()
-        },
-      })
-
-      // If this tooltip is already open, just cancel any pending hide.
-      if (open) {
-        context?.cancelPendingHide?.(id)
-        return
-      }
-
-      const delay = context?.registerHoverStart
-        ? context.registerHoverStart()
-        : STANDALONE_SHOW_DELAY
-
-      if (delay === 0) {
-        openTooltip()
-        context?.notifyVisible?.()
-        return
-      }
-
-      hoverTimerRef.current = window.setTimeout(() => {
-        hoverTimerRef.current = null
-        openTooltip()
-        context?.notifyVisible?.()
-      }, delay)
+      context.registerHoverStart(
+        targetRef as preact.RefObject<HTMLElement>,
+        setOpen
+      )
     }
 
     const handleLeave = () => {
-      clearHoverTimer()
-
-      if (context) {
-        // When a context is present, let it manage the hide delay and
-        // cross-trigger coordination, but only if this tooltip was
-        // actually visible. If the user left before it became visible,
-        // we don't start a hide window, so the next hover will use the
-        // full SHOW_DELAY again.
-        if (visibleRef.current) {
-          context.notifyHoverEnd?.()
-        }
-        return
-      }
-
-      clearHideTimer()
-      hideTimerRef.current = window.setTimeout(() => {
-        hideTimerRef.current = null
-        closeTooltip()
-      }, STANDALONE_HIDE_DELAY)
+      context.registerHoverEnd(
+        targetRef as preact.RefObject<HTMLElement>,
+        setOpen
+      )
     }
 
     el.addEventListener("mouseenter", handleEnter)
@@ -155,10 +69,10 @@ const TooltipComponent = (
     return () => {
       el.removeEventListener("mouseenter", handleEnter)
       el.removeEventListener("mouseleave", handleLeave)
-      clearHoverTimer()
-      clearHideTimer()
     }
-  }, [triggerRef, anchorRef, context, open])
+  }, [triggerRef, anchorRef, context])
+
+  const _className = bem("Tooltip", undefined, undefined)
 
   const resolvedAnchorRef = (anchorRef ??
     triggerRef) as preact.RefObject<HTMLElement> | null
@@ -172,6 +86,7 @@ const TooltipComponent = (
       paddingX={paddingX}
       paddingY={paddingY}
       edgePadding={edgePadding}
+      closeOnOutsideClick={false}
       trigger="hover"
       arrow={true}
       onClose={() => setOpen(false)}
