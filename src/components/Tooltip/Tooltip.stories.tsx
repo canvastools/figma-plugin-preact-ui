@@ -5,7 +5,7 @@ import { useRef } from "preact/hooks"
 
 import { Tooltip } from "./Tooltip"
 
-import { Button, TooltipContext } from "../../index"
+import { Text, TooltipContext } from "../../index"
 
 const meta: Meta<typeof Tooltip> = {
   title: "Components/Tooltip",
@@ -151,14 +151,19 @@ export const Demo: Story = {
     },
   },
   render: (args) => {
-    const triggerRef = useRef<HTMLButtonElement | null>(null)
+    const triggerRef = useRef<HTMLDivElement | null>(null)
 
     return (
-      <div className="sb-column sb-width-full">
+      <div className="sb-column sb-width-300">
         <TooltipContext>
-          <Button ref={triggerRef}>Hover to see Tooltip</Button>
+          <Text ref={triggerRef}>
+            Hover to see Tooltip. Qui quae autem dolorum quibusdam
+            necessitatibus natus, ipsa aperiam eos animi id nam tenetur
+            adipisci? Amet nisi doloremque asperiores quisquam, repudiandae
+            similique magnam aspernatur esse dignissimos molestiae.
+          </Text>
           <Tooltip triggerRef={triggerRef} {...args}>
-            Lorem ipsum dolor sit amet
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
           </Tooltip>
         </TooltipContext>
       </div>

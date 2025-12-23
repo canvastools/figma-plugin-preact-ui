@@ -1,11 +1,12 @@
 import { bem, typedForwardRef } from "../../utils"
 
+import { Fragment } from "preact"
 import { useEffect, useMemo, useRef, useState } from "preact/hooks"
 
 import type { SegmentedControlProps } from "./SegmentedControl.types"
 import "./SegmentedControl.scss"
 
-import { OverlayPositioner, Tooltip, Text, Icon, type Glyph } from "../../index"
+import { Tooltip, Text, Icon, type Glyph } from "../../index"
 
 /* --- */
 
@@ -41,6 +42,15 @@ const SegmentedControlComponent = (
 
   const itemRefs = useRef<Array<HTMLButtonElement | null>>([])
   itemRefs.current = options.map((_, i) => itemRefs.current[i] || null)
+
+  const tooltipAnchorRefs = useRef<
+    Array<preact.RefObject<HTMLButtonElement | null>>
+  >([])
+  tooltipAnchorRefs.current = options.map(
+    (_, i) =>
+      tooltipAnchorRefs.current[i] ||
+      ({ current: null } as preact.RefObject<HTMLButtonElement | null>)
+  )
 
   const lastTabDirectionRef = useRef<"forward" | "backward" | null>(null)
 
@@ -212,9 +222,7 @@ const SegmentedControlComponent = (
     >
       {options.map((option, idx) => {
         const isActive = option.value === selectedValue
-        const anchorRef = {
-          current: null as HTMLButtonElement | null,
-        }
+        const anchorRef = tooltipAnchorRefs.current[idx]
 
         const itemClassName = bem("SegmentedControl", "item", {
           selected: isActive,
@@ -223,60 +231,53 @@ const SegmentedControlComponent = (
         })
 
         return (
-          <button
-            className={itemClassName}
-            key={option.value}
-            ref={(el) => {
-              itemRefs.current[idx] = el
-              ;(anchorRef as { current: HTMLButtonElement | null }).current = el
-            }}
-            tabIndex={isActive ? 0 : -1}
-            onClick={(e) => commitChange(e as MouseEvent, option.value)}
-            disabled={disabled}
-          >
-            {option.icon && (
-              <Icon
-                glyph={
-                  typeof option.icon === "function"
-                    ? (option.icon as Glyph)
-                    : undefined
-                }
-                intent="neutral"
-                intentModifiers={isActive ? "default" : "secondary"}
-                variant="default"
-                size={24}
-                interactive={true}
-                disabled={disabled}
-              >
-                {typeof option.icon !== "function" ? option.icon : undefined}
-              </Icon>
-            )}
-            {option.icon && (
-              <OverlayPositioner
-                anchorRef={anchorRef as preact.RefObject<HTMLElement>}
-                placement="bottom"
-                trigger="hover"
-                paddingY={8}
-                visibilityDelay={1000}
-                arrow={true}
-              >
-                <Tooltip>
-                  <Text intent="neutral-inverted-fixed">{option.title}</Text>
-                </Tooltip>
-              </OverlayPositioner>
-            )}
+          <Fragment key={option.value}>
+            <button
+              className={itemClassName}
+              key={option.value}
+              ref={(el) => {
+                itemRefs.current[idx] = el
+                anchorRef.current = el
+              }}
+              tabIndex={isActive ? 0 : -1}
+              onClick={(e) => commitChange(e as MouseEvent, option.value)}
+              disabled={disabled}
+            >
+              {option.icon && (
+                <Icon
+                  glyph={
+                    typeof option.icon === "function"
+                      ? (option.icon as Glyph)
+                      : undefined
+                  }
+                  intent="neutral"
+                  intentModifiers={isActive ? "default" : "secondary"}
+                  variant="default"
+                  size={24}
+                  interactive={true}
+                  disabled={disabled}
+                >
+                  {typeof option.icon !== "function" ? option.icon : undefined}
+                </Icon>
+              )}
 
-            {!option.icon && (
-              <Text
-                intent="neutral"
-                intentModifiers={isActive ? "default" : "secondary"}
-                interactive
-                disabled={disabled}
-              >
-                {option.title}
-              </Text>
+              {!option.icon && (
+                <Text
+                  intent="neutral"
+                  intentModifiers={isActive ? "default" : "secondary"}
+                  interactive
+                  disabled={disabled}
+                >
+                  {option.title}
+                </Text>
+              )}
+            </button>
+            {option.icon && (
+              <Tooltip triggerRef={anchorRef}>
+                <Text intent="neutral-inverted-fixed">{option.title}</Text>
+              </Tooltip>
             )}
-          </button>
+          </Fragment>
         )
       })}
     </div>

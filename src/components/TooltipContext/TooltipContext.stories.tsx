@@ -3,7 +3,16 @@ import { useRef } from "preact/hooks"
 
 import { TooltipContext } from "./TooltipContext"
 
-import { Button, Stack, Tooltip } from "../../index"
+import {
+  Button,
+  Stack,
+  Tooltip,
+  Input,
+  Text,
+  SegmentedControl,
+  viewList as viewListGlyph,
+  viewGrid as viewGridGlyph,
+} from "../../index"
 
 const meta: Meta<typeof TooltipContext> = {
   title: "Components/TooltipContext",
@@ -41,6 +50,8 @@ const meta: Meta<typeof TooltipContext> = {
         registerHoverStart: () => number // register a hover start
         notifyVisible: () => void // notify a visible
         notifyHoverEnd: () => void // notify a hover end
+        setActiveTooltip: (config: { id: symbol; close: () => void }) => void // set the active tooltip
+        cancelPendingHide: (id: symbol) => void // cancel a pending hide
       }</pre>`,
     },
   },
@@ -56,21 +67,37 @@ export const Demo: Story = {
     },
   },
   render: () => {
-    const triggerRef = useRef<HTMLButtonElement | null>(null)
-    const triggerRef2 = useRef<HTMLButtonElement | null>(null)
+    const triggerRef = useRef<HTMLDivElement | null>(null)
+    const triggerRef2 = useRef<HTMLDivElement | null>(null)
 
     return (
-      <div className="sb-column sb-width-full">
+      <div className="sb-column sb-width-300">
         <TooltipContext>
           <Stack spacing={400}>
-            <Button ref={triggerRef}>Hover to see Tooltip 1</Button>
-            <Button ref={triggerRef2}>Hover to see Tooltip2</Button>
+            <Text ref={triggerRef}>Hover to see Tooltip 1</Text>
             <Tooltip triggerRef={triggerRef}>
               Lorem ipsum dolor sit amet
             </Tooltip>
+
+            <Text ref={triggerRef2}>Hover to see Tooltip 2</Text>
             <Tooltip triggerRef={triggerRef2}>
               Amet nisi doloremque asperiores
             </Tooltip>
+
+            <Button tooltip="Quisquam, quos">Hover to see Tooltip 3</Button>
+
+            <Input
+              tooltip="Lorem ipsum dolor sit amet"
+              placeholder="Placeholder"
+            />
+
+            <SegmentedControl
+              defaultValue="list"
+              options={[
+                { value: "list", title: "List", icon: viewListGlyph },
+                { value: "grid", title: "Grid", icon: viewGridGlyph },
+              ]}
+            />
           </Stack>
         </TooltipContext>
       </div>

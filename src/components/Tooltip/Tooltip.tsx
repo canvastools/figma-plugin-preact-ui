@@ -13,7 +13,8 @@ import {
 
 /* --- */
 
-const STANDALONE_VISIBILITY_DELAY = 1000
+const STANDALONE_SHOW_DELAY = 1200
+const STANDALONE_HIDE_DELAY = 480
 
 const TooltipComponent = (
   {
@@ -38,7 +39,13 @@ const TooltipComponent = (
 
   const [open, setOpen] = useState(false)
   const hoverTimerRef = useRef<number | null>(null)
+  const hideTimerRef = useRef<number | null>(null)
+  const idRef = useRef<symbol | null>(null)
   const context = useTooltipContext()
+
+  if (idRef.current === null) {
+    idRef.current = Symbol("Tooltip")
+  }
 
   useEffect(() => {
     if (open) {
@@ -61,12 +68,40 @@ const TooltipComponent = (
       }
     }
 
+    const clearHideTimer = () => {
+      if (hideTimerRef.current != null) {
+        clearTimeout(hideTimerRef.current)
+        hideTimerRef.current = null
+      }
+    }
+
     const handleEnter = () => {
       clearHoverTimer()
+      clearHideTimer()
+
+      const id = idRef.current as symbol
+
+      // Register this tooltip with the shared context so that it can
+      // coordinate behaviour across multiple triggers (e.g. instant
+      // switching within the hide window).
+      context?.setActiveTooltip?.({
+        id,
+        close: () => {
+          clearHoverTimer()
+          clearHideTimer()
+          setOpen(false)
+        },
+      })
+
+      // If this tooltip is already open, just cancel any pending hide.
+      if (open) {
+        context?.cancelPendingHide?.(id)
+        return
+      }
 
       const delay = context?.registerHoverStart
         ? context.registerHoverStart()
-        : STANDALONE_VISIBILITY_DELAY
+        : STANDALONE_SHOW_DELAY
 
       if (delay === 0) {
         setOpen(true)
@@ -83,8 +118,19 @@ const TooltipComponent = (
 
     const handleLeave = () => {
       clearHoverTimer()
-      setOpen(false)
-      context?.notifyHoverEnd?.()
+
+      if (context) {
+        // When a context is present, let it manage the 440 ms hide
+        // delay and cross-trigger coordination.
+        context.notifyHoverEnd?.()
+        return
+      }
+
+      clearHideTimer()
+      hideTimerRef.current = window.setTimeout(() => {
+        hideTimerRef.current = null
+        setOpen(false)
+      }, STANDALONE_HIDE_DELAY)
     }
 
     el.addEventListener("mouseenter", handleEnter)
@@ -94,8 +140,9 @@ const TooltipComponent = (
       el.removeEventListener("mouseenter", handleEnter)
       el.removeEventListener("mouseleave", handleLeave)
       clearHoverTimer()
+      clearHideTimer()
     }
-  }, [triggerRef, anchorRef, context])
+  }, [triggerRef, anchorRef, context, open])
 
   const resolvedAnchorRef = (anchorRef ??
     triggerRef) as preact.RefObject<HTMLElement> | null

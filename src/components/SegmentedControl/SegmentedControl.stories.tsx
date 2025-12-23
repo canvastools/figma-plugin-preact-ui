@@ -11,6 +11,7 @@ import {
   Text,
   viewList as viewListGlyph,
   viewGrid as viewGridGlyph,
+  TooltipContext,
 } from "../../index"
 
 const meta: Meta<typeof SegmentedControl> = {
@@ -108,6 +109,12 @@ export const WithIcons: Story = {
     viewport: {
       defaultViewport: "large",
     },
+    docs: {
+      description: {
+        story:
+          "To make Tooltips work correctly, you need to wrap the SegmentedControl in a TooltipContext.",
+      },
+    },
   },
   render: () => {
     const sampleOptions: SegmentedControlOption[] = [
@@ -125,7 +132,9 @@ export const WithIcons: Story = {
 
     return (
       <div className="sb-column sb-width-300">
-        <SegmentedControl options={sampleOptions} defaultValue="list" />
+        <TooltipContext>
+          <SegmentedControl options={sampleOptions} defaultValue="list" />
+        </TooltipContext>
       </div>
     )
   },
@@ -230,18 +239,20 @@ export const FullWidth: Story = {
 
     return (
       <div className="sb-column sb-width-full">
-        <Stack spacing={400} fullWidth>
-          <SegmentedControl
-            options={sampleOptions}
-            defaultValue="list"
-            fullWidth
-          />
-          <SegmentedControl
-            options={sampleOptionsWihtoutIcons}
-            defaultValue="list"
-            fullWidth
-          />
-        </Stack>
+        <TooltipContext>
+          <Stack spacing={400} fullWidth>
+            <SegmentedControl
+              options={sampleOptions}
+              defaultValue="list"
+              fullWidth
+            />
+            <SegmentedControl
+              options={sampleOptionsWihtoutIcons}
+              defaultValue="list"
+              fullWidth
+            />
+          </Stack>
+        </TooltipContext>
       </div>
     )
   },
@@ -270,21 +281,23 @@ export const Disabled: Story = {
 
     return (
       <div className="sb-column sb-width-300">
-        <Stack spacing={400}>
-          <SegmentedControl
-            options={sampleOptions}
-            defaultValue="list"
-            disabled
-          />
-          <SegmentedControl
-            options={sampleOptions.map((option) => ({
-              ...option,
-              icon: undefined,
-            }))}
-            defaultValue="list"
-            disabled
-          />
-        </Stack>
+        <TooltipContext>
+          <Stack spacing={400}>
+            <SegmentedControl
+              options={sampleOptions}
+              defaultValue="list"
+              disabled
+            />
+            <SegmentedControl
+              options={sampleOptions.map((option) => ({
+                ...option,
+                icon: undefined,
+              }))}
+              defaultValue="list"
+              disabled
+            />
+          </Stack>
+        </TooltipContext>
       </div>
     )
   },

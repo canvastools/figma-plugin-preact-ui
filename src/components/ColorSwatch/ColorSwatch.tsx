@@ -5,7 +5,7 @@ import { bem, typedForwardRef } from "../../utils"
 import type { ColorSwatchProps } from "./ColorSwatch.types"
 import "./ColorSwatch.scss"
 
-import { OverlayPositioner, Tooltip, Text } from "../../index"
+import { Text, Tooltip } from "../../index"
 
 /* --- */
 
@@ -22,7 +22,7 @@ const ColorSwatchComponent = (
     size = "medium",
     hex,
     imageSrc,
-    title,
+    tooltip,
     selection = "default",
     interactive = false,
     selected = false,
@@ -100,20 +100,7 @@ const ColorSwatchComponent = (
 
       {children && <div className="ColorSwatch__children">{children}</div>}
 
-      {title && (
-        <OverlayPositioner
-          anchorRef={anchorRef as preact.RefObject<HTMLElement>}
-          placement="bottom"
-          trigger="hover"
-          paddingY={8}
-          visibilityDelay={1000}
-          arrow={true}
-        >
-          <Tooltip>
-            <Text intent="neutral-inverted-fixed">{title}</Text>
-          </Tooltip>
-        </OverlayPositioner>
-      )}
+      {tooltip && <Tooltip triggerRef={anchorRef}>{tooltip}</Tooltip>}
     </RootElement>
   )
 }

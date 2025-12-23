@@ -7,7 +7,7 @@ export interface ColorSwatchProps {
   interactive?: boolean
   selected?: boolean
   selection?: "default" | "rainbow"
-  title?: string
+  tooltip?: preact.ComponentChildren
   children?: preact.ComponentChildren
   onClick?: (args: {
     event: MouseEvent

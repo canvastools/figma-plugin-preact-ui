@@ -35,13 +35,12 @@ const meta: Meta<typeof ColorSwatch> = {
       },
       description: "Image source URL. Applies only to the image variant.",
     },
-    title: {
-      control: { type: "text" },
-      defaultValue: { summary: undefined },
-      description: "Tooltip text to display when the color swatch is hovered.",
+    tooltip: {
+      control: { disable: true },
+      description: "Tooltip content.",
       table: {
         type: {
-          summary: "string",
+          summary: "JSX.Element",
         },
       },
     },
@@ -93,7 +92,6 @@ export const Demo: Story = {
     selection: "default",
     size: "medium",
     hex: "#FF0000",
-    title: "Title",
     imageSrc: undefined,
     interactive: false,
     selected: false,
@@ -141,22 +139,6 @@ export const ImageSrc: Story = {
       <Stack spacing={400} direction="row">
         <ColorSwatch />
         <ColorSwatch imageSrc="https://placehold.co/48x48" />
-      </Stack>
-    </div>
-  ),
-}
-
-export const Title: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => (
-    <div className="sb-column">
-      <Stack spacing={400} direction="row">
-        <ColorSwatch hex="#FF0000" title="Red" />
       </Stack>
     </div>
   ),

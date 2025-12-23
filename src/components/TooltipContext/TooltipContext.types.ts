@@ -4,6 +4,8 @@ export interface TooltipContextValue {
   registerHoverStart: () => number
   notifyVisible: () => void
   notifyHoverEnd: () => void
+  setActiveTooltip?: (config: { id: symbol; close: () => void }) => void
+  cancelPendingHide?: (id: symbol) => void
 }
 
 export interface TooltipContextProps {
