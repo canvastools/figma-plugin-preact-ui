@@ -22,6 +22,7 @@ export interface NumericInputParseResult {
   normalizedValue: number | undefined
   formattedValue: string | undefined
   error: NumericInputError | null
+  unit: string | undefined
 }
 
 export interface NumericInput extends NumericInputParseResult {
@@ -29,5 +30,5 @@ export interface NumericInput extends NumericInputParseResult {
     args: { event: KeyboardEvent; value: string },
     onValueChange?: (next: number) => void
   ) => void
-  parse: (raw: string) => NumericInputParseResult
+  parse: (raw: string, unit?: string) => NumericInputParseResult
 }

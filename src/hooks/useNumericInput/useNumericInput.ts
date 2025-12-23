@@ -96,6 +96,7 @@ const buildResult = (
       normalizedValue: undefined,
       formattedValue: undefined,
       error: parseError,
+      unit,
     }
   }
 
@@ -107,6 +108,7 @@ const buildResult = (
       normalizedValue: undefined,
       formattedValue: undefined,
       error: required ? "required" : null,
+      unit,
     }
   }
 
@@ -134,6 +136,7 @@ const buildResult = (
       normalizedValue: undefined,
       formattedValue: undefined,
       error,
+      unit,
     }
   }
 
@@ -147,6 +150,7 @@ const buildResult = (
     normalizedValue,
     formattedValue,
     error,
+    unit,
   }
 }
 
@@ -161,8 +165,10 @@ const useNumericInput = (config: NumericInputConfig): NumericInput => {
     required,
   } = config
 
-  const parse = (raw: string): NumericInputParseResult =>
-    buildResult(raw, config)
+  const parse = (raw: string, unit?: string): NumericInputParseResult =>
+    unit != null
+      ? buildResult(raw, { ...config, unit })
+      : buildResult(raw, config)
 
   const current = buildResult(String(value), config)
 

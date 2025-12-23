@@ -117,7 +117,7 @@ const meta: Meta<typeof useNumericInput> = {
       description: `The hook instance.<br/><pre>interface NumericInput {
   handleKeyDown: (args: { event: KeyboardEvent; value: string }, onValueChange?: (next: number) => void) => void
   // parse the raw value and return the parse result
-  parse: (raw: string) => NumericInputParseResult 
+  parse: (raw: string, unit?: string) => NumericInputParseResult 
 }</pre>
 
 <pre>interface NumericInputParseResult {
