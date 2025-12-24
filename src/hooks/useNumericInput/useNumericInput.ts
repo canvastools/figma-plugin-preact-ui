@@ -286,9 +286,74 @@ const useNumericInput = (config: NumericInputConfig): NumericInput => {
       return
     }
 
-    event.preventDefault()
-
     const direction = event.key === "ArrowUp" ? "increment" : "decrement"
+
+    // When `doubleValue` is enabled and the input contains a comma, adjust
+    // only the value nearest to the current caret position. The updated
+    // pair is written directly to the input element to avoid flicker and
+    // preserve focus.
+    if (config.doubleValue && raw.includes(",")) {
+      const target = event.target as HTMLInputElement | null
+
+      if (target) {
+        event.preventDefault()
+
+        const caret = target.selectionStart ?? raw.length
+        const commaIndex = raw.indexOf(",")
+
+        // If for some reason we cannot find the comma, fall back to the
+        // single-value behaviour.
+        if (commaIndex !== -1) {
+          const updateLeft = caret <= commaIndex
+
+          const parts = raw.split(",")
+
+          // If there's no usable right-hand side, also fall back to the
+          // single-value behaviour.
+          if (parts.length > 1) {
+            const leftRaw = parts[0].trim()
+            const rightRaw = parts.slice(1).join(",").trim()
+
+            const segmentRaw = updateLeft ? leftRaw : rightRaw
+            const nextNumeric = getNextValue(segmentRaw, direction, {
+              shiftKey: event.shiftKey,
+            })
+
+            const leftResult = updateLeft
+              ? buildSingleResult(String(nextNumeric), config)
+              : buildSingleResult(leftRaw, config)
+
+            const rightResult = updateLeft
+              ? buildSingleResult(rightRaw, config)
+              : buildSingleResult(String(nextNumeric), config)
+
+            const leftText =
+              leftResult.formattedValue ?? leftResult.rawValue ?? leftRaw
+            const rightText =
+              rightResult.formattedValue ?? rightResult.rawValue ?? rightRaw
+
+            const nextDisplay = `${leftText}, ${rightText}`
+
+            target.value = nextDisplay
+
+            // Keep the caret on the side that was adjusted. For simplicity,
+            // place it at the end of that segment.
+            if (updateLeft) {
+              const pos = leftText.length
+              target.setSelectionRange(pos, pos)
+            } else {
+              const pos = nextDisplay.length
+              target.setSelectionRange(pos, pos)
+            }
+
+            return
+          }
+        }
+      }
+    }
+
+    // Default behaviour – single numeric value (or when there is no comma).
+    event.preventDefault()
     const next = getNextValue(raw, direction, { shiftKey: event.shiftKey })
 
     onValueChange?.(next)
