@@ -71,10 +71,24 @@ const buildResult = (
 
     if (allowedCharacters) {
       base = [...base].filter((ch) => allowedCharacters.includes(ch)).join("")
+
+      // If allowedCharacters includes spaces, collapse consecutive spaces
+      // into a single space (e.g. "a   b" -> "a b").
+      if (allowedCharacters.includes(" ")) {
+        base = base.replace(/ {2,}/g, " ")
+      }
     }
 
     normalizedValue = base
     formattedValue = mask ? mask(base) : base
+
+    // Apply trimming again after normalization/masking in case they
+    // introduced leading/trailing whitespace.
+    if (config.trim) {
+      normalizedValue = trimString(normalizedValue, config)
+      formattedValue =
+        formattedValue != null ? trimString(formattedValue, config) : undefined
+    }
   }
 
   return {
