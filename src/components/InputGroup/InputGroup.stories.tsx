@@ -2,7 +2,7 @@ import { Meta, StoryObj } from "@storybook/preact"
 
 import { InputGroup } from "./InputGroup"
 
-import { Input } from "../../index"
+import { Input, Button } from "../../index"
 
 const meta: Meta<typeof InputGroup> = {
   title: "Components/InputGroup",
@@ -41,7 +41,10 @@ export const Demo: Story = {
     <div className="sb-column sb-width-300">
       <InputGroup {...args}>
         <Input placeholder="First input" grouped="right" />
-        <Input defaultValue="Second input" grouped="left" />
+        <Input defaultValue="Second input" grouped="both" />
+        <Button intent="neutral" intentModifiers="default" grouped="left">
+          Button
+        </Button>
       </InputGroup>
     </div>
   ),

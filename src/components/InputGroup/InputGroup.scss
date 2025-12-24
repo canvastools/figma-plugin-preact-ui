@@ -39,3 +39,8 @@
 .InputGroup:focus-within .Input:focus-within {
   outline-color: transparent !important;
 }
+
+.InputGroup:focus-within .Button:focus-visible,
+.InputGroup:focus-within .ButtonIcon:focus-within {
+  outline-offset: -1px !important;
+}
