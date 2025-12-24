@@ -99,12 +99,39 @@ const meta: Meta<typeof Input> = {
       defaultValue: { summary: false },
       description: "Enables double-click focus",
     },
+    minLength: {
+      control: { type: "number" },
+      defaultValue: { summary: 0 },
+      description: "Minimum length of the input value.",
+      table: {
+        type: { summary: "number" },
+      },
+    },
+    maxLength: {
+      control: { type: "number" },
+      defaultValue: { summary: Infinity },
+      description: "Maximum length of the input value.",
+      table: {
+        type: { summary: "number" },
+      },
+    },
     tooltip: {
       control: { disable: true },
       description: "Tooltip content.",
       table: {
         type: {
           summary: "JSX.Element",
+        },
+      },
+    },
+    autoFocus: {
+      control: { type: "boolean" },
+      defaultValue: { summary: false },
+      description:
+        "Whether the input should be focused automatically on mount.",
+      table: {
+        type: {
+          summary: "boolean",
         },
       },
     },
@@ -160,8 +187,11 @@ export const Demo: Story = {
     error: false,
     disabled: false,
     grouped: "none",
+    autoFocus: false,
     suffixOnHover: false,
     focusOnDoubleClick: false,
+    minLength: 0,
+    maxLength: 9999,
     onChange: fn(),
     onBlur: fn(),
     onFocus: fn(),

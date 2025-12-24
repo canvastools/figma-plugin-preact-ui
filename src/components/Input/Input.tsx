@@ -25,7 +25,10 @@ const InputComponent = (
     suffix,
     suffixOnHover = false,
     focusOnDoubleClick = false,
+    minLength = 0,
+    maxLength,
     tooltip,
+    autoFocus = false,
     onChange,
     onBlur,
     onFocus,
@@ -44,6 +47,14 @@ const InputComponent = (
 
   // Expose the root wrapper element to consumers (stable anchor for tooltips)
   useImperativeHandle(ref, () => rootRef.current as HTMLDivElement, [])
+
+  useEffect(() => {
+    if (autoFocus) {
+      setTimeout(() => {
+        inputRef.current?.focus()
+      }, 25)
+    }
+  }, [autoFocus])
 
   useEffect(() => {
     if (value !== undefined) {
@@ -143,6 +154,8 @@ const InputComponent = (
           ref={(el) => {
             inputRef.current = el
           }}
+          minLength={minLength}
+          maxLength={maxLength}
           type={type}
           disabled={disabled}
           placeholder={placeholder}
