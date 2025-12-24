@@ -104,6 +104,16 @@ const meta: Meta<typeof Text> = {
         },
       },
     },
+    truncate: {
+      control: { type: "boolean" },
+      defaultValue: { summary: false },
+      description: "Whether the text should be truncated.",
+      table: {
+        type: {
+          summary: "boolean",
+        },
+      },
+    },
     children: {
       table: {
         type: {
@@ -133,6 +143,7 @@ export const Demo: Story = {
     fullWidth: false,
     noWrap: false,
     align: "left",
+    truncate: false,
     children:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
   },

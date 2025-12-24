@@ -20,6 +20,7 @@ const TextComponent = (
     align = "left",
     fullWidth = false,
     noWrap = false,
+    truncate = false,
     children,
     ...rest
   }: TextProps,
@@ -38,6 +39,7 @@ const TextComponent = (
     align,
     fullWidth,
     noWrap,
+    truncated: Boolean(truncate),
   })
 
   return (

@@ -25,5 +25,6 @@ export interface TextProps {
   align?: "left" | "center" | "right"
   fullWidth?: boolean
   noWrap?: boolean
+  truncate?: boolean
   children: preact.ComponentChildren
 }

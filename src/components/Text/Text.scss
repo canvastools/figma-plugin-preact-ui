@@ -84,6 +84,12 @@
     white-space: nowrap;
   }
 
+  &_truncated {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
   &_strong {
     font-weight: 550 !important;
   }
