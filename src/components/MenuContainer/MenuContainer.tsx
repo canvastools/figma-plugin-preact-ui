@@ -1,7 +1,10 @@
+import { useContext } from "preact/hooks"
+
 import { bem, typedForwardRef } from "../../utils"
 
 import type { MenuContainerProps } from "./MenuContainer.types"
 import "./MenuContainer.scss"
+import { RawMenuContext } from "../MenuContext/MenuContext"
 
 /* --- */
 
@@ -15,7 +18,12 @@ const MenuContainerComponent = (
   }: MenuContainerProps,
   ref: preact.Ref<HTMLDivElement>
 ) => {
-  const _className = bem("MenuContainer", undefined, undefined)
+  const context = useContext(RawMenuContext)
+  const keyboardInteraction = context?.keyboardInteraction ?? false
+
+  const _className = bem("MenuContainer", undefined, {
+    "keyboard-interaction": keyboardInteraction,
+  })
 
   return (
     <div

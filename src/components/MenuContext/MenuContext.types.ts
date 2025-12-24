@@ -13,6 +13,8 @@ export interface MenuContextValue {
   focusedItemId: string | null
   focusItem: (id?: string) => void
   clearFocusedItem: () => void
+  setHoveredItem: (id: string | null) => void
+  keyboardInteraction: boolean
 }
 
 export interface MenuContextProps {

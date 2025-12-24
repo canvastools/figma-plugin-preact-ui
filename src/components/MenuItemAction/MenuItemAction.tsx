@@ -30,7 +30,8 @@ const MenuItemActionComponent = (
   }: MenuItemActionProps,
   ref: preact.Ref<HTMLDivElement>
 ) => {
-  const { registerItem, clearFocusedItem } = useMenuContext()
+  const { registerItem, clearFocusedItem, setHoveredItem, focusItem } =
+    useMenuContext()
 
   const itemRef = useRef<HTMLElement>(null)
 
@@ -62,11 +63,17 @@ const MenuItemActionComponent = (
     }
     event.stopPropagation()
     onClick?.({ event })
+    if (id) {
+      focusItem(id)
+    }
   }
 
   const handleMouseEnter = () => {
     if (disabled) return
     clearFocusedItem()
+    if (id) {
+      setHoveredItem(id)
+    }
     setIsHovered(true)
   }
 

@@ -12,14 +12,29 @@
     padding: var(--pui-spacing-100) var(--pui-spacing-200);
     border-radius: var(--pui-radius-medium);
 
-    #{$parent}_intentModifiers-danger &:hover,
-    #{$parent}_intentModifiers-danger#{$parent}_focused & {
+    #{$parent}_intentModifiers-default:not(#{$parent}_focused) &:hover {
+      background-color: var(--pui-color-brand-bg-default-interactive-hover);
+    }
+
+    #{$parent}_intentModifiers-danger:not(#{$parent}_focused) &:hover {
       background-color: var(--pui-color-danger-bg-default-interactive-hover);
     }
 
-    #{$parent}_intentModifiers-default &:hover,
+    .MenuContainer_keyboard-interaction
+      #{$parent}_intentModifiers-default:not(#{$parent}_focused)
+      &:hover,
+    .MenuContainer_keyboard-interaction
+      #{$parent}_intentModifiers-danger:not(#{$parent}_focused)
+      &:hover {
+      background-color: transparent;
+    }
+
     #{$parent}_intentModifiers-default#{$parent}_focused & {
       background-color: var(--pui-color-brand-bg-default-interactive-hover);
+    }
+
+    #{$parent}_intentModifiers-danger#{$parent}_focused & {
+      background-color: var(--pui-color-danger-bg-default-interactive-hover);
     }
   }
 

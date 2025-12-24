@@ -31,7 +31,8 @@ const MenuItemOptionComponent = (
 ) => {
   const [internalSelected, setInternalSelected] = useState(defaultSelected)
 
-  const { registerItem, clearFocusedItem } = useMenuContext()
+  const { registerItem, clearFocusedItem, setHoveredItem, focusItem } =
+    useMenuContext()
 
   const itemRef = useRef<HTMLElement>(null)
 
@@ -66,6 +67,10 @@ const MenuItemOptionComponent = (
       }
       event.stopPropagation()
       onChange?.({ event, selected: newSelected })
+
+      if (id) {
+        focusItem(id)
+      }
     }
   }
 
@@ -78,6 +83,9 @@ const MenuItemOptionComponent = (
   const handleMouseEnter = () => {
     if (disabled) return
     clearFocusedItem()
+    if (id) {
+      setHoveredItem(id)
+    }
     setIsHovered(true)
   }
 

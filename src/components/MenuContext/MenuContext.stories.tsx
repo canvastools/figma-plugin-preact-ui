@@ -85,6 +85,8 @@ const meta: Meta = {
           focusedItemId: string | null // id of the focused item
           focusItem: (id?: string) => void // focus an item
           clearFocusedItem: () => void // clear the focused item
+          setHoveredItem: (id: string | null) => void // track last hovered item
+          keyboardInteraction: boolean // flag indicating keyboard interaction mode
         }</pre>`,
     },
   },
@@ -459,7 +461,8 @@ export const CustomItem: Story = {
       disabled: boolean
       focused: boolean
     }) => {
-      const { registerItem, clearFocusedItem, setOpen } = useMenuContext()
+      const { registerItem, clearFocusedItem, setHoveredItem, setOpen } =
+        useMenuContext()
       const itemRef = useRef<HTMLElement>(null)
 
       useEffect(() => {
@@ -474,6 +477,7 @@ export const CustomItem: Story = {
       const handleMouseEnter = () => {
         if (disabled) return
         clearFocusedItem()
+        setHoveredItem(id)
       }
 
       return (

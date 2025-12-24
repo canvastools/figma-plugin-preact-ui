@@ -12,10 +12,24 @@
     border-radius: var(--pui-radius-medium);
     gap: var(--pui-spacing-100);
 
-    &:hover,
+    #{$parent}:not(#{$parent}_focused) &:hover {
+      background-color: var(--pui-color-brand-bg-default-interactive-hover);
+    }
+
+    .MenuContainer_keyboard-interaction
+      #{$parent}:not(#{$parent}_focused)
+      &:hover {
+      background-color: transparent;
+    }
+
     #{$parent}_focused & {
       background-color: var(--pui-color-brand-bg-default-interactive-hover);
     }
+
+    // &:hover,
+    // #{$parent}_focused & {
+    //   background-color: var(--pui-color-brand-bg-default-interactive-hover);
+    // }
   }
 
   &:focus {
