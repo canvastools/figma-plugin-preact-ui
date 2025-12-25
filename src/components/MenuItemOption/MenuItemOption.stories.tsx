@@ -211,7 +211,11 @@ export const Suffix: Story = {
         <MenuContainer width={208}>
           <MenuItemOption
             suffix={
-              <Text intent="neutral-inverted-fixed" intentModifiers="secondary">
+              <Text
+                intent="neutral-inverted-fixed"
+                intentModifiers="secondary"
+                align="right"
+              >
                 Action
               </Text>
             }

@@ -25,11 +25,6 @@
     #{$parent}_focused & {
       background-color: var(--pui-color-brand-bg-default-interactive-hover);
     }
-
-    // &:hover,
-    // #{$parent}_focused & {
-    //   background-color: var(--pui-color-brand-bg-default-interactive-hover);
-    // }
   }
 
   &:focus {
@@ -39,6 +34,7 @@
 
   &__content-container {
     flex: 1;
+    min-width: 0;
     display: flex;
     flex-flow: row nowrap;
     gap: var(--pui-spacing-400);
@@ -53,7 +49,8 @@
   }
 
   &__children {
-    flex: 1;
+    width: 100%;
+    min-width: 0;
   }
 
   &__selection {
