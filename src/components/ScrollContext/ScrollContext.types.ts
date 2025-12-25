@@ -4,11 +4,17 @@ export interface ScrollContextValue {
   isAtBottom: boolean
   onScroll: (event: Event) => void
   setPositionY: (positionY: number) => void
+  resetPositionY: () => void
+  spyActiveId: string | null
+  registerSpyTarget: (id: string, ref: HTMLElement | null) => void
+  registerScrollRoot: (ref: HTMLElement | null) => void
 }
 
 export interface ScrollContextProps {
   defaultPositionY?: number
   positionY?: number
   onScroll?: (args: { positionY: number }) => void
+  spyThreshold?: number
+  onSpyChange?: (args: { id: string | null }) => void
   children: preact.ComponentChildren
 }

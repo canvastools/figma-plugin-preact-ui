@@ -13,7 +13,8 @@ const ScrollContainerComponent = (
   { className, children, ...rest }: ScrollContainerProps,
   ref: preact.Ref<HTMLDivElement>
 ) => {
-  const { onScroll, positionY, isAtTop, isAtBottom } = useScrollContext()
+  const { onScroll, positionY, isAtTop, isAtBottom, registerScrollRoot } =
+    useScrollContext()
 
   const rootRef = useRef<HTMLDivElement | null>(null)
   const contentRef = useRef<HTMLDivElement | null>(null)
@@ -213,7 +214,10 @@ const ScrollContainerComponent = (
     >
       <div
         className="ScrollContainer__content"
-        ref={contentRef}
+        ref={(node) => {
+          contentRef.current = node
+          registerScrollRoot(node)
+        }}
         onScroll={(e) => handleScroll(e as Event)}
       >
         {children}
