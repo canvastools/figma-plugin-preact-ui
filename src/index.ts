@@ -219,6 +219,8 @@ export {
   clamp,
 } from "./utils/color"
 
+export { bem } from "./utils/bem"
+
 // Glyphs
 
 export {

@@ -1,11 +1,19 @@
 import { Meta, StoryObj } from "@storybook/preact"
 import { fn } from "@storybook/test"
 
-import { useState } from "preact/hooks"
+import { useState, useEffect, useRef } from "preact/hooks"
 
 import { Select } from "./Select"
 
-import { Stack, Text, Icon, search as searchGlyph } from "../../index"
+import {
+  Stack,
+  Text,
+  Icon,
+  search as searchGlyph,
+  check as checkGlyph,
+  useMenuContext,
+  bem,
+} from "../../index"
 
 const meta: Meta<typeof Select> = {
   title: "Components/Select",
@@ -16,7 +24,8 @@ const meta: Meta<typeof Select> = {
     options: {
       table: {
         type: {
-          summary: "SelectOption[] | SelectOption[][]",
+          summary:
+            "SelectOption[] | SelectOption[][] | SelectCustomMenuOption[] | SelectCustomMenuOption[][]",
         },
       },
       control: { disable: true },
@@ -25,8 +34,8 @@ const meta: Meta<typeof Select> = {
   label: string
   value: string
   disabled?: boolean
-}</pre>
-      `,
+  children?: preact.ComponentChildren
+}</pre>`,
     },
     placeholder: {
       control: { type: "text" },
@@ -395,6 +404,137 @@ export const MenuWidth: Story = {
           placeholder="Choose an option"
           defaultValue="opt-1"
           menuWidth={200}
+        />
+      </div>
+    )
+  },
+}
+
+export const CustomMenuItems: Story = {
+  parameters: {
+    controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
+  },
+  render: () => {
+    const CustomMenuItem = ({
+      label,
+      value,
+      disabled,
+      focused,
+      selected,
+      onChange,
+    }: {
+      label?: string
+      value?: string
+      disabled?: boolean
+      focused?: boolean
+      selected?: boolean
+      onChange?: (args: { event: MouseEvent; selected: boolean }) => void
+    }) => {
+      const { registerItem, clearFocusedItem, setHoveredItem, focusItem } =
+        useMenuContext()
+
+      const id = value ?? "custom-id"
+      const itemRef = useRef<HTMLElement>(null)
+
+      useEffect(() => {
+        const unregister = registerItem({
+          id: id,
+          ref: itemRef as preact.RefObject<HTMLElement>,
+          disabled,
+        })
+
+        return unregister
+      }, [disabled, id])
+
+      const handleClick = (event: MouseEvent) => {
+        if (!disabled) {
+          event.stopPropagation()
+          onChange?.({ event, selected: !selected })
+          focusItem(id)
+        }
+      }
+
+      const handleMouseEnter = () => {
+        if (disabled) return
+        clearFocusedItem()
+        setHoveredItem(id)
+      }
+
+      const handleMouseLeave = () => {
+        if (disabled) return
+        clearFocusedItem()
+      }
+
+      const _className = bem("MenuItemCustom", undefined, {
+        disabled,
+        focused,
+        selected: selected,
+      })
+
+      return (
+        <div
+          className={_className}
+          ref={itemRef as preact.Ref<HTMLDivElement>}
+          onClick={handleClick}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          style={{
+            padding: "var(--pui-spacing-100) var(--pui-spacing-400)",
+            backgroundColor: focused
+              ? "var(--pui-color-brand-bg-default-interactive-hover)"
+              : "transparent",
+          }}
+        >
+          <Stack direction="row" spacing={100}>
+            <div style={{ width: 16, height: 16 }}>
+              {selected && (
+                <Icon
+                  glyph={checkGlyph}
+                  size={16}
+                  intent={focused ? "brand" : "neutral-inverted-fixed"}
+                  disabled={disabled}
+                  interactive={true}
+                />
+              )}
+            </div>
+            <Text intent="neutral-inverted-fixed" interactive>
+              {label}
+              {focused ? " [focused]" : null}
+            </Text>
+          </Stack>
+        </div>
+      )
+    }
+
+    const customOptions = [
+      {
+        value: "opt-1",
+        label: "Option 1",
+      },
+      {
+        value: "opt-2",
+        label: "Option 2",
+      },
+      {
+        value: "opt-3",
+        label: "Custom option",
+        disabled: false,
+        children: <CustomMenuItem />,
+      },
+    ]
+
+    return (
+      <div className="sb-column sb-width-300">
+        <Select
+          options={customOptions}
+          placeholder="Choose an option"
+          defaultValue="opt-1"
+          onChange={({ event, value }) => {
+            console.log("onChange", event, value)
+          }}
         />
       </div>
     )

@@ -1,4 +1,4 @@
-import { Fragment } from "preact"
+import { Fragment, cloneElement } from "preact"
 import { useEffect, useMemo, useRef, useState } from "preact/hooks"
 
 import { bem, typedForwardRef } from "../../utils"
@@ -64,6 +64,15 @@ const SelectComponent = (
     return [opts as SelectOption[]]
   }, [options])
 
+  const flatOptions = useMemo(
+    () =>
+      groups.reduce<SelectOption[]>(
+        (acc, group) => acc.concat(group),
+        [] as SelectOption[]
+      ),
+    [groups]
+  )
+
   useEffect(() => {
     if (value !== undefined) {
       setInternalValue(value)
@@ -128,9 +137,7 @@ const SelectComponent = (
 
         <div className={"Select__content"}>
           {hasContent
-            ? groups
-                .reduce<SelectOption[]>((acc, group) => acc.concat(group), [])
-                .find((opt) => opt.value === internalValue)?.label
+            ? flatOptions.find((opt) => opt.value === internalValue)?.label
             : placeholder}
         </div>
 
@@ -204,6 +211,21 @@ const SelectMenu = ({
             {groupIndex > 0 ? <MenuDivider variant="inset" /> : null}
             {group.map((opt) => {
               flatCursor += 1
+
+              if (opt.children && typeof opt.children !== "string") {
+                return cloneElement(opt.children as preact.VNode, {
+                  key: `${groupIndex}-${opt.value}`,
+                  id: opt.value,
+                  label: opt.label,
+                  value: opt.value,
+                  disabled: opt.disabled,
+                  focused: context.focusedItemId === opt.value,
+                  selected: opt.value === selectedValue,
+                  onChange: ({ event }) =>
+                    onChange?.({ event, value: opt.value }),
+                })
+              }
+
               return (
                 <MenuItemOption
                   disabled={opt.disabled}
