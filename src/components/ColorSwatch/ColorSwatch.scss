@@ -23,7 +23,7 @@
       }
 
       &:is(#{$parent}_selection-rainbow):after {
-        border-radius: var(--pui-radius-small);
+        border-radius: calc(var(--pui-radius-small) + 2px);
       }
     }
 
@@ -37,7 +37,7 @@
       }
 
       &:is(#{$parent}_selection-rainbow):after {
-        border-radius: var(--pui-radius-small);
+        border-radius: calc(var(--pui-radius-small) + 2px);
       }
     }
 
