@@ -8,9 +8,10 @@
   &__content {
     display: flex;
     flex-flow: row nowrap;
-    padding: var(--pui-spacing-100) var(--pui-spacing-200);
+    padding: var(--pui-spacing-100) var(--pui-spacing-200)
+      var(--pui-spacing-100) var(--pui-spacing-100);
     border-radius: var(--pui-radius-medium);
-    gap: var(--pui-spacing-100);
+    gap: 6px;
 
     #{$parent}:not(#{$parent}_focused) &:hover {
       background-color: var(--pui-color-brand-bg-default-interactive-hover);

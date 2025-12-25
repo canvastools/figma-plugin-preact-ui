@@ -52,8 +52,6 @@
   }
 
   &_optionLikePadding &__content {
-    padding-left: calc(
-      var(--pui-spacing-200) + var(--pui-spacing-400) + var(--pui-spacing-100)
-    );
+    padding-left: calc(var(--pui-spacing-100) + var(--pui-spacing-400) + 6px);
   }
 }
