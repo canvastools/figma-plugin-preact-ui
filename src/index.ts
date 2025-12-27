@@ -44,6 +44,9 @@ export type { CalendarProps } from "./components/Calendar/Calendar.types"
 export { Divider } from "./components/Divider/Divider"
 export type { DividerProps } from "./components/Divider/Divider.types"
 
+export { Fog } from "./components/Fog/Fog"
+export type { FogProps } from "./components/Fog/Fog.types"
+
 export { Icon } from "./components/Icon/Icon"
 export type { IconProps, Glyph, GlyphProps } from "./components/Icon/Icon.types"
 
