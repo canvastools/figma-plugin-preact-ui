@@ -10,7 +10,7 @@ import { Spinner } from "../Spinner/Spinner"
 /* --- */
 
 const FogComponent = (
-  { className, timeout = 0, spinner = true, ...rest }: FogProps,
+  { className, timeout = 0, spinner = false, ...rest }: FogProps,
   ref: preact.Ref<HTMLDivElement>
 ) => {
   const [isVisible, setIsVisible] = useState(false)

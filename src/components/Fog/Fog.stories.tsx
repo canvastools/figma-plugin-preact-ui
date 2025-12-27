@@ -33,7 +33,7 @@ const meta: Meta<typeof Fog> = {
     },
     spinner: {
       control: { type: "boolean" },
-      defaultValue: { summary: true },
+      defaultValue: { summary: false },
       description: "Show the spinner.",
       table: {
         type: {
