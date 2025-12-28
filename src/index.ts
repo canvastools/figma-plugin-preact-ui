@@ -260,6 +260,7 @@ export {
   radiusBottomRight,
   radiusTopLeft,
   radiusTopRight,
+  refresh,
   minus,
   mixed,
   more,
