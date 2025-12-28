@@ -38,7 +38,7 @@
     min-width: 0;
     display: flex;
     flex-flow: row nowrap;
-    gap: var(--pui-spacing-400);
+    gap: var(--pui-spacing-200);
   }
 
   &_disabled &__content:hover {

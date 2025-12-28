@@ -70,6 +70,15 @@ const meta: Meta<typeof MenuItemOption> = {
         },
       },
     },
+    prefix: {
+      control: { disable: true },
+      description: "Element displayed before children.",
+      table: {
+        type: {
+          summary: "JSX.Element",
+        },
+      },
+    },
     suffix: {
       control: { disable: true },
       description: "Element displayed after children.",
@@ -191,6 +200,62 @@ export const Disabled: Story = {
         <MenuContainer width={208}>
           <MenuItemOption defaultSelected disabled>
             Menu Item Option
+          </MenuItemOption>
+        </MenuContainer>
+      </MenuContext>
+    </div>
+  ),
+}
+
+export const Prefix: Story = {
+  parameters: {
+    controls: { disable: true },
+    viewport: {
+      defaultViewport: "large",
+    },
+  },
+  render: () => (
+    <div className="sb-column sb-width-full">
+      <MenuContext>
+        <MenuContainer width={208}>
+          <MenuItemOption
+            prefix={
+              <Icon
+                glyph={aiGlyph}
+                size={16}
+                intent="neutral-inverted-fixed"
+                interactive
+              />
+            }
+          >
+            Menu Item
+          </MenuItemOption>
+          <MenuItemOption
+            defaultSelected
+            prefix={
+              <Icon
+                glyph={aiGlyph}
+                size={16}
+                intent="neutral-inverted-fixed"
+                interactive
+              />
+            }
+          >
+            Menu Item
+          </MenuItemOption>
+          <MenuItemOption
+            disabled
+            prefix={
+              <Icon
+                glyph={aiGlyph}
+                size={16}
+                intent="neutral-inverted-fixed"
+                interactive
+                disabled
+              />
+            }
+          >
+            Menu Item
           </MenuItemOption>
         </MenuContainer>
       </MenuContext>

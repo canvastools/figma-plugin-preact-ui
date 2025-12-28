@@ -5,6 +5,7 @@ export interface MenuItemOptionProps {
   selected?: boolean
   disabled?: boolean
   focused?: boolean
+  prefix?: preact.ComponentChildren
   suffix?: preact.ComponentChildren
   children: preact.ComponentChildren
   onChange?: (args: { event: MouseEvent; selected: boolean }) => void

@@ -22,6 +22,7 @@ const MenuItemOptionComponent = (
     selected: controlledSelected,
     focused = false,
     disabled = false,
+    prefix,
     suffix,
     children,
     onChange,
@@ -54,6 +55,7 @@ const MenuItemOptionComponent = (
   const _className = bem("MenuItemOption", undefined, {
     disabled,
     focused,
+    prefix: Boolean(prefix),
     suffix: Boolean(suffix),
     selected: isSelected,
   })
@@ -118,6 +120,15 @@ const MenuItemOptionComponent = (
           )}
         </div>
         <div className="MenuItemOption__content-container">
+          {prefix && (
+            <div className="MenuItemAction__prefix">
+              {isActive
+                ? override(prefix, {
+                    ...hoverIntentProps,
+                  })
+                : prefix}
+            </div>
+          )}
           {children && (
             <div className="MenuItemOption__children">
               <Text
