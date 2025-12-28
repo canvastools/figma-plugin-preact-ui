@@ -159,6 +159,9 @@ export type { SpinnerProps } from "./components/Spinner/Spinner.types"
 export { Stack } from "./components/Stack/Stack"
 export type { StackProps } from "./components/Stack/Stack.types"
 
+export { Switch } from "./components/Switch/Switch"
+export type { SwitchProps } from "./components/Switch/Switch.types"
+
 export { Tab } from "./components/Tab/Tab"
 export type { TabProps } from "./components/Tab/Tab.types"
 

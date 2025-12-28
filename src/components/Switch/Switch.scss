@@ -1,0 +1,67 @@
+@use "../../shared.scss" as *;
+@use "../../mixins.scss" as *;
+
+.Switch {
+  $parent: &;
+
+  display: flex;
+  flex: 0 0 auto;
+
+  @include curson-feedback;
+
+  &__input-native {
+    position: relative;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    z-index: 2;
+  }
+
+  &__input {
+    width: 32px;
+    height: 16px;
+    position: relative;
+    background-color: var(--pui-color-neutral-bg-secondary-interactive);
+    border-radius: 16px;
+    box-shadow: 0 0 0 1px var(--pui-color-neutral-border-default-interactive);
+    transition: background-color 0.1s ease-out, box-shadow 0.1s ease-out;
+
+    &:focus-within {
+      outline: 1px solid var(--pui-color-system-border-focus);
+      outline-offset: 2px;
+      box-shadow: none;
+    }
+
+    #{$parent}_checked & {
+      background-color: var(--pui-color-brand-bg-default-interactive);
+      box-shadow: 0 0 0 1px var(--pui-color-brand-border-default-interactive);
+    }
+
+    #{$parent}_disabled & {
+      background-color: var(--pui-color-brand-bg-disabled);
+      box-shadow: none;
+    }
+  }
+
+  &__control {
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    width: 14px;
+    height: 14px;
+    border-radius: 14px;
+    background-color: var(--pui-color-neutral-bg-default-interactive);
+    transition: transform 0.1s ease-out, background-color 0.1s ease-out;
+
+    #{$parent}_checked & {
+      transform: translateX(16px);
+      background-color: var(--pui-color-brand-icon-default-interactive);
+    }
+
+    #{$parent}_disabled & {
+      background-color: var(--pui-color-brand-icon-disabled);
+      opacity: 0.5;
+    }
+  }
+}
