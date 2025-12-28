@@ -20,6 +20,8 @@ const figjamLight: ColorTokenTree = {
         "secondary-interactive-pressed": "#f5f5f5",
         "secondary-interactive-selected": "#f8f2ff",
 
+        "tertiary-interactive": "#E6E6E6",
+
         "brand-interactive": "#ffffff",
         "brand-interactive-hover": "#f1e5ff",
         "brand-interactive-pressed": "#e4ccff",

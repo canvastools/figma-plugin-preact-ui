@@ -22,10 +22,9 @@
     width: 32px;
     height: 16px;
     position: relative;
-    background-color: var(--pui-color-neutral-bg-secondary-interactive);
+    background-color: var(--pui-color-neutral-bg-tertiary-interactive);
     border-radius: 16px;
-    box-shadow: 0 0 0 1px var(--pui-color-neutral-border-default-interactive);
-    transition: background-color 0.1s ease-out, box-shadow 0.1s ease-out;
+    transition: background-color 0.1s ease-out;
 
     &:focus-within {
       outline: 1px solid var(--pui-color-system-border-focus);
@@ -35,12 +34,10 @@
 
     #{$parent}_checked & {
       background-color: var(--pui-color-brand-bg-default-interactive);
-      box-shadow: 0 0 0 1px var(--pui-color-brand-border-default-interactive);
     }
 
     #{$parent}_disabled & {
       background-color: var(--pui-color-brand-bg-disabled);
-      box-shadow: none;
     }
   }
 
@@ -51,17 +48,21 @@
     width: 14px;
     height: 14px;
     border-radius: 14px;
-    background-color: var(--pui-color-neutral-bg-default-interactive);
-    transition: transform 0.1s ease-out, background-color 0.1s ease-out;
+    background-color: var(
+      --pui-color-neutral-inverted-fixed-icon-default-interactive
+    );
+    box-shadow: 0 0 0 1px var(--pui-color-neutral-border-default-interactive);
+    transition: transform 0.1s ease-out, background-color 0.1s ease-out,
+      box-shadow 0.1s ease-out;
 
     #{$parent}_checked & {
       transform: translateX(16px);
-      background-color: var(--pui-color-brand-icon-default-interactive);
+      box-shadow: 0 0 0 1px var(--pui-color-brand-border-default-interactive);
     }
 
     #{$parent}_disabled & {
-      background-color: var(--pui-color-brand-icon-disabled);
-      opacity: 0.5;
+      opacity: 0.32;
+      box-shadow: none;
     }
   }
 }

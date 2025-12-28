@@ -20,6 +20,8 @@ const figmaLight: ColorTokenTree = {
         "secondary-interactive-pressed": "#f5f5f5",
         "secondary-interactive-selected": "#f2f9ff",
 
+        "tertiary-interactive": "#E6E6E6",
+
         "brand-interactive": "#ffffff",
         "brand-interactive-hover": "#e5f4ff",
         "brand-interactive-pressed": "#bde3ff",

@@ -20,6 +20,8 @@ const figmaDark: ColorTokenTree = {
         "secondary-interactive-pressed": "#383838",
         "secondary-interactive-selected": "#394360",
 
+        "tertiary-interactive": "#444444",
+
         "brand-interactive": "#2C2C2C",
         "brand-interactive-hover": "#394360",
         "brand-interactive-pressed": "#4A5878",
