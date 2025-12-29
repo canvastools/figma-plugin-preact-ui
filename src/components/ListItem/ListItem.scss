@@ -91,19 +91,17 @@
 
   /* Selected */
 
-  &_selected:is(&_selectable) > &__content {
+  &_selected > &__content {
     background-color: var(--pui-color-neutral-bg-default-interactive-selected);
   }
 
   /* Selection of descendants */
 
-  &_selected:is(&_selectable):is(&_selection-scope-descendants)
-    > &__sub-items
-    &__content {
+  &_selected:is(&_selection-scope-descendants) > &__sub-items &__content {
     background-color: unset;
   }
 
-  &_selected:is(&_selectable):is(&_selection-scope-descendants) > &__sub-items {
+  &_selected:is(&_selection-scope-descendants) > &__sub-items {
     background-color: var(
       --pui-color-neutral-bg-secondary-interactive-selected
     );
@@ -111,14 +109,11 @@
 
   /* Selection overrides */
 
-  &_selected:is(&_selectable) > &__content .Input:not(.Input_ghost) {
+  &_selected > &__content .Input:not(.Input_ghost) {
     outline-color: var(--pui-color-neutral-border-default-interactive-selected);
   }
 
-  &_selected:is(&_selectable)
-    > &__content
-    .Checkbox:not(.Checkbox_checked)
-    .Checkbox__input {
+  &_selected > &__content .Checkbox:not(.Checkbox_checked) .Checkbox__input {
     box-shadow: inset 0 0 0 1px
       var(--pui-color-neutral-border-default-interactive-selected);
   }

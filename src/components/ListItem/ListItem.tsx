@@ -30,6 +30,7 @@ const ListItemComponent = (
     onCollapsedChange,
     onDragStart,
     onDragEnd,
+    selected = false,
     selectable = false,
     hoverable = false,
     onSelect,
@@ -74,7 +75,7 @@ const ListItemComponent = (
     ? Boolean(collapsed)
     : internalCollapsed
 
-  const isSelected = selectedItems.has(id)
+  const isSelected = selected || selectedItems.has(id)
   const hasChildren = Boolean(subItems)
 
   useEffect(() => {

@@ -8,6 +8,7 @@ export interface ListItemProps {
   onDragStart?: (args: { event: DragEvent }) => void
   onDragEnd?: (args: { event: DragEvent }) => void
   acceptsChildren?: boolean
+  selected?: boolean
   selectable?: boolean
   selectionScope?: "item" | "withDescendants"
   onSelect?: (args: { event: MouseEvent; selected: boolean }) => void
