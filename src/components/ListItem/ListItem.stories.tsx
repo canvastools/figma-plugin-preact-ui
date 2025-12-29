@@ -93,11 +93,6 @@ const meta: Meta<typeof ListItem> = {
       defaultValue: { summary: false },
       description: "Indicates if the item can have children.",
     },
-    selected: {
-      control: { type: "boolean" },
-      defaultValue: { summary: false },
-      description: "Indicates if the item is selected.",
-    },
     selectable: {
       control: { type: "boolean" },
       defaultValue: { summary: false },
@@ -222,7 +217,6 @@ export const Demo: Story = {
     onDragStart: fn(),
     onDragEnd: fn(),
     acceptsChildren: true,
-    selected: false,
     selectable: true,
     selectionScope: "item",
     onSelect: fn(),
