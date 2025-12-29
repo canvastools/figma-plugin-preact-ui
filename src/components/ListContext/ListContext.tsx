@@ -110,17 +110,68 @@ const ListContext = ({
     []
   )
 
+  const collectDescendantsForId = useCallback(
+    (rootId: string): string[] => {
+      const ids: string[] = []
+      const walk = (nodes: ListItemData[]): boolean => {
+        for (let i = 0; i < nodes.length; i++) {
+          const n = nodes[i]
+          if (n.id === rootId) {
+            const addAll = (children?: ListItemData[]) => {
+              if (!children) return
+              for (let j = 0; j < children.length; j++) {
+                const c = children[j]
+                ids.push(c.id)
+                addAll(c.children)
+              }
+            }
+            addAll(n.children)
+            return true
+          }
+          if (n.children && walk(n.children)) return true
+        }
+        return false
+      }
+      walk(currentItems)
+      return ids
+    },
+    [currentItems]
+  )
+
   const toggleSelect = useCallback(
     (itemId: string, options?: { range?: boolean; additive?: boolean }) => {
       if (selectionMode === "none") return
+
+      const meta = itemMetaRef.current.get(itemId)
+      const isWithDescendants = meta?.selectionScope === "withDescendants"
+      const areSetsEqual = (a: Set<string>, b: Set<string>) => {
+        if (a.size !== b.size) return false
+        for (const v of a) {
+          if (!b.has(v)) return false
+        }
+        return true
+      }
 
       const additive = Boolean(options?.additive)
       const range = Boolean(options?.range)
 
       if (selectionMode === "single") {
-        const already = currentSelectedItems.has(itemId)
-        const next = new Set<string>()
-        if (!already) next.add(itemId)
+        let next: Set<string>
+        if (isWithDescendants) {
+          const branchIds = [itemId, ...collectDescendantsForId(itemId)]
+          const allSelected =
+            branchIds.length > 0 &&
+            branchIds.every((id) => currentSelectedItems.has(id))
+          next = allSelected ? new Set<string>() : new Set<string>(branchIds)
+        } else {
+          const already = currentSelectedItems.has(itemId)
+          next = new Set<string>()
+          if (!already) next.add(itemId)
+        }
+        if (areSetsEqual(next, currentSelectedItems)) {
+          lastSelectedAnchorRef.current = itemId
+          return
+        }
         if (!isSelectionControlled) setInternalSelectedItems(next)
         onSelectionChange?.({ selectedItems: Array.from(next) })
         lastSelectedAnchorRef.current = itemId
@@ -167,6 +218,10 @@ const ListContext = ({
           if (isDescendantOfSkipped(id)) return
           next.add(id)
         })
+        if (areSetsEqual(next, currentSelectedItems)) {
+          lastSelectedAnchorRef.current = itemId
+          return
+        }
         if (!isSelectionControlled) setInternalSelectedItems(next)
         onSelectionChange?.({ selectedItems: Array.from(next) })
         lastSelectedAnchorRef.current = itemId
@@ -175,8 +230,23 @@ const ListContext = ({
 
       if (additive) {
         const next = new Set(currentSelectedItems)
-        if (next.has(itemId)) next.delete(itemId)
-        else next.add(itemId)
+        if (isWithDescendants) {
+          const branchIds = [itemId, ...collectDescendantsForId(itemId)]
+          const branchSelected =
+            branchIds.length > 0 && branchIds.every((id) => next.has(id))
+          if (branchSelected) {
+            branchIds.forEach((id) => next.delete(id))
+          } else {
+            branchIds.forEach((id) => next.add(id))
+          }
+        } else {
+          if (next.has(itemId)) next.delete(itemId)
+          else next.add(itemId)
+        }
+        if (areSetsEqual(next, currentSelectedItems)) {
+          lastSelectedAnchorRef.current = itemId
+          return
+        }
         if (!isSelectionControlled) setInternalSelectedItems(next)
         onSelectionChange?.({ selectedItems: Array.from(next) })
         lastSelectedAnchorRef.current = itemId
@@ -184,7 +254,17 @@ const ListContext = ({
       }
 
       // default click acts like single anchor in multi-mode
-      const next = new Set<string>([itemId])
+      const next = (() => {
+        if (isWithDescendants) {
+          const branchIds = [itemId, ...collectDescendantsForId(itemId)]
+          return new Set<string>(branchIds)
+        }
+        return new Set<string>([itemId])
+      })()
+      if (areSetsEqual(next, currentSelectedItems)) {
+        lastSelectedAnchorRef.current = itemId
+        return
+      }
       if (!isSelectionControlled) setInternalSelectedItems(next)
       onSelectionChange?.({ selectedItems: Array.from(next) })
       lastSelectedAnchorRef.current = itemId

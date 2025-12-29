@@ -5,7 +5,6 @@ import type { ListItemProps } from "./ListItem.types"
 import "./ListItem.scss"
 
 import { useListContext } from "../../index"
-import type { ListItemData } from "../../index"
 import { Icon } from "../../index"
 import {
   chevronRight as chevronRightGlyph,
@@ -45,7 +44,6 @@ const ListItemComponent = (
     toggleSelect,
     selectionMode,
     setExactSelection,
-    items,
     registerItemMeta,
     dragImage,
   } = useListContext()
@@ -152,48 +150,8 @@ const ListItemComponent = (
     if (!selectable || selectionMode === "none") return
     const range = e.shiftKey
     const additive = e.metaKey || e.ctrlKey
-    if (selectionScope === "withDescendants") {
-      // Expand to include descendants on selection toggle by delegating to ListContext helper
-      // We encode desired scope in the id toggle: first toggle the root
-      toggleSelect(id, { range, additive })
-      // On multi-mode without range/additive, ListContext resets selection to [id];
-      // descendants marking is handled for single mode only in context,
-      // so here we force exact selection when needed in multi default click
-      if (selectionMode !== "single" && !range && !additive) {
-        // Build [id + descendants]
-        const rootAndDesc = new Set<string>([id])
-        collectDescendantsForLocal(id).forEach((d) => rootAndDesc.add(d))
-        setExactSelection(Array.from(rootAndDesc))
-      }
-    } else {
-      toggleSelect(id, { range, additive })
-    }
+    toggleSelect(id, { range, additive })
     onSelect?.({ event: e, selected: !isSelected })
-  }
-
-  const collectDescendantsForLocal = (rootId: string): string[] => {
-    const ids: string[] = []
-    const walk = (nodes: ListItemData[]): boolean => {
-      for (let i = 0; i < nodes.length; i++) {
-        const n = nodes[i]
-        if (n.id === rootId) {
-          const addAll = (children?: ListItemData[]) => {
-            if (!children) return
-            for (let j = 0; j < children.length; j++) {
-              const c = children[j]
-              ids.push(c.id)
-              addAll(c.children)
-            }
-          }
-          addAll(n.children)
-          return true
-        }
-        if (n.children && walk(n.children)) return true
-      }
-      return false
-    }
-    walk(items as ListItemData[])
-    return ids
   }
 
   const handleDragOver = (e: DragEvent) => {
