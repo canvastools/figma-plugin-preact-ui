@@ -120,6 +120,9 @@ export type {
 export { PopoverHeader } from "./components/PopoverHeader/PopoverHeader"
 export type { PopoverHeaderProps } from "./components/PopoverHeader/PopoverHeader.types"
 
+export { Progress } from "./components/Progress/Progress"
+export type { ProgressProps } from "./components/Progress/Progress.types"
+
 export {
   ScrollContext,
   useScrollContext,
