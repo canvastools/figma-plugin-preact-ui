@@ -27,7 +27,7 @@ const ProgressComponent = (
     }, timeout)
   }, [timeout])
 
-  const _className = bem("Progress", undefined, { variant })
+  const _className = bem("Progress", undefined, { variant, visible: isVisible })
 
   return (
     <div
