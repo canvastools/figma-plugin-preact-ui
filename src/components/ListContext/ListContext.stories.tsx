@@ -53,6 +53,17 @@ const meta: Meta<typeof ListContext> = {
       options: ["none", "single", "multi"],
       defaultValue: { summary: "single" },
     },
+    deselectOnOutsideClick: {
+      control: { type: "boolean" },
+      defaultValue: { summary: true },
+      description:
+        "Clicking anywhere outside the list clears the current selection. When false, selection persists until explicitly changed.",
+      table: {
+        type: {
+          summary: "boolean",
+        },
+      },
+    },
     onItemsChange: {
       action: "itemsChange",
       description:
@@ -93,6 +104,7 @@ const meta: Meta<typeof ListContext> = {
         interface ListContextValue {
           items: ListItemData[]
           selectedItems: Set<string>
+          deselectOnOutsideClick?: boolean
           setSelection: (itemIds: string[], selected: boolean) => void
           setExactSelection: (itemIds: string[]) => void
           toggleSelect: (
@@ -157,6 +169,7 @@ export const Demo: Story = {
   tags: ["!autodocs"],
   args: {
     selectionMode: "single",
+    deselectOnOutsideClick: true,
     onItemsChange: fn(),
     onSelectionChange: fn(),
   },
@@ -174,6 +187,8 @@ export const Demo: Story = {
         <ListContext
           items={items}
           selectedItems={selectedItems}
+          // @ts-expect-error: Storybook types hack
+          deselectOnOutsideClick={args.deselectOnOutsideClick}
           // @ts-expect-error: Storybook types hack
           selectionMode={args.selectionMode}
           onItemsChange={(change) => {

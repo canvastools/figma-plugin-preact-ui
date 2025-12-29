@@ -7,6 +7,7 @@ export interface ListItemData {
 export interface ListContextValue {
   items: ListItemData[]
   selectedItems: Set<string>
+  deselectOnOutsideClick?: boolean
   setSelection: (itemIds: string[], selected: boolean) => void
   setExactSelection: (itemIds: string[]) => void
   toggleSelect: (
@@ -33,6 +34,7 @@ export interface ListContextProps {
   items?: ListItemData[]
   selectedItems?: string[]
   selectionMode?: "none" | "single" | "multi"
+  deselectOnOutsideClick?: boolean
   onItemsChange?: (args: { items: ListItemData[] }) => void
   onSelectionChange?: (args: { selectedItems: string[] }) => void
   children: preact.ComponentChildren

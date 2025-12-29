@@ -18,6 +18,7 @@ const ListContainerComponent = (
   const { reorderItems, registerRootElement, getPathForId } = useListContext()
   const rootRef = useRef<HTMLDivElement | null>(null)
   const endZoneDropParentRef = useRef<HTMLElement | null>(null)
+  const unregisterRootRef = useRef<(() => void) | null>(null)
 
   // Ensure every container exposes its nesting level via CSS var --level (root=0)
   useEffect(() => {
@@ -35,7 +36,17 @@ const ListContainerComponent = (
   }, [rootRef])
   // const idToPathLocal = useRef<Map<string, number[]>>(new Map())
 
-  useEffect(() => registerRootElement?.(rootRef.current), [registerRootElement])
+  // Register/unregister this container as a root element for outside-click detection
+  useEffect(() => {
+    const el = rootRef.current
+    if (!registerRootElement || !el) return
+    const unregister = registerRootElement(el)
+    unregisterRootRef.current = unregister
+    return () => {
+      unregisterRootRef.current?.()
+      unregisterRootRef.current = null
+    }
+  }, [registerRootElement])
 
   const handleDragOver = (e: DragEvent) => {
     e.preventDefault()
@@ -250,6 +261,14 @@ const ListContainerComponent = (
       className={[_className, "no-drag", className].join(" ").trim()}
       ref={(node) => {
         rootRef.current = node
+        // Keep ListContext root elements in sync with the current DOM node
+        if (unregisterRootRef.current) {
+          unregisterRootRef.current()
+          unregisterRootRef.current = null
+        }
+        if (node && registerRootElement) {
+          unregisterRootRef.current = registerRootElement(node)
+        }
         if (typeof ref === "function") ref(node as HTMLDivElement)
         else if (ref) (ref as preact.RefObject<HTMLDivElement>).current = node
       }}

@@ -27,6 +27,7 @@ const ListContext = ({
   items: controlledItems = [],
   selectedItems: controlledSelectedItems = [],
   selectionMode = "single",
+  deselectOnOutsideClick = true,
   onItemsChange,
   onSelectionChange,
   children,
@@ -381,7 +382,7 @@ const ListContext = ({
 
   // Outside-click to clear selection in single/multi modes
   useEffect(() => {
-    if (selectionMode === "none") return
+    if (selectionMode === "none" || !deselectOnOutsideClick) return
     const handlePointerDown = (e: Event) => {
       const target = e.target as Node | null
       if (!target) return
@@ -398,6 +399,7 @@ const ListContext = ({
     return () => document.removeEventListener("pointerdown", handlePointerDown)
   }, [
     selectionMode,
+    deselectOnOutsideClick,
     currentSelectedItems,
     isSelectionControlled,
     onSelectionChange,
@@ -488,6 +490,7 @@ const ListContext = ({
   const contextValue: ListContextValue = {
     items: currentItems,
     selectedItems: currentSelectedItems,
+    deselectOnOutsideClick,
     setSelection,
     setExactSelection,
     toggleSelect,
