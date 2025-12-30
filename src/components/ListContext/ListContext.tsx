@@ -23,17 +23,22 @@ const useListContext = () => {
   return context
 }
 
-const ListContext = ({
-  items: controlledItems = [],
-  selectedItems: controlledSelectedItems = [],
-  selectionMode = "single",
-  deselectOnOutsideClick = true,
-  onItemsChange,
-  onSelectionChange,
-  children,
-}: ListContextProps) => {
-  const [internalItems, setInternalItems] =
-    useState<ListItemData[]>(controlledItems)
+const ListContext = (props: ListContextProps) => {
+  const {
+    items: controlledItems,
+    selectedItems: controlledSelectedItems = [],
+    selectionMode = "single",
+    deselectOnOutsideClick = true,
+    onItemsChange,
+    onSelectionChange,
+    children,
+  } = props
+
+  const hasControlledItems = controlledItems !== undefined
+
+  const [internalItems, setInternalItems] = useState<ListItemData[]>(
+    controlledItems ?? []
+  )
   const [internalSelectedItems, setInternalSelectedItems] = useState<
     Set<string>
   >(new Set(controlledSelectedItems))
@@ -46,11 +51,15 @@ const ListContext = ({
   const idToPathRef = useRef<Map<string, number[]>>(new Map())
 
   // Determine if we're in controlled mode for each aspect
-  const isItemsControlled = onItemsChange !== undefined
+  const isItemsControlled = hasControlledItems && onItemsChange !== undefined
   const isSelectionControlled = onSelectionChange !== undefined
 
-  // Use controlled values when available, otherwise use internal state
-  const currentItems = isItemsControlled ? controlledItems : internalItems
+  // Use controlled values when available, otherwise use internal state.
+  // For reading (selection/range/descendants), always prefer the latest items
+  // passed via props when provided.
+  const currentItems: ListItemData[] = hasControlledItems
+    ? (controlledItems as ListItemData[])
+    : internalItems
   const currentSelectedItems = useMemo(
     () =>
       isSelectionControlled
@@ -181,9 +190,14 @@ const ListContext = ({
       // multi
       if (range) {
         const order = flattenItemsDepthFirst(currentItems)
-        const anchor = lastSelectedAnchorRef.current || itemId
-        const start = order.indexOf(anchor)
+        let anchor = lastSelectedAnchorRef.current || itemId
+        let start = order.indexOf(anchor)
         const end = order.indexOf(itemId)
+        // If previous anchor no longer exists (e.g. after items tree change), fall back to current item
+        if (start === -1) {
+          anchor = itemId
+          start = order.indexOf(anchor)
+        }
         if (start === -1 || end === -1) return
         const [lo, hi] = start <= end ? [start, end] : [end, start]
         const rawRange = order.slice(lo, hi + 1)
@@ -276,6 +290,7 @@ const ListContext = ({
       onSelectionChange,
       currentItems,
       flattenItemsDepthFirst,
+      collectDescendantsForId,
     ]
   )
 
@@ -540,12 +555,6 @@ const ListContext = ({
       idToPathRef.current.delete(id)
     }
   }, [])
-
-  useEffect(() => {
-    if (isItemsControlled) {
-      setInternalItems(controlledItems)
-    }
-  }, [controlledItems, isItemsControlled])
 
   // Rebuild id -> path map whenever the items tree changes
   useEffect(() => {
