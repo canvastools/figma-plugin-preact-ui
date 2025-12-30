@@ -225,12 +225,22 @@ const ListContext = (props: ListContextProps) => {
           const meta = itemMetaRef.current.get(id)
           if (meta?.selectable === false) {
             if (meta?.selectionScope === "withDescendants") {
+              // If an unselectable item has selectionScope=withDescendants,
+              // skip it and all of its descendants from the range.
               skipSet.add(id)
             }
             return
           }
           if (isDescendantOfSkipped(id)) return
-          next.add(id)
+
+          // When selectionScope="withDescendants", include the full branch:
+          // the item itself plus all of its descendants.
+          if (meta?.selectionScope === "withDescendants") {
+            const branchIds = [id, ...collectDescendantsForId(id)]
+            branchIds.forEach((branchId) => next.add(branchId))
+          } else {
+            next.add(id)
+          }
         })
         if (areSetsEqual(next, currentSelectedItems)) {
           lastSelectedAnchorRef.current = itemId
