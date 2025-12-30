@@ -91,6 +91,11 @@ const MenuItemOptionComponent = (
     setIsHovered(true)
   }
 
+  const handleMouseLeave = () => {
+    if (disabled) return
+    setIsHovered(false)
+  }
+
   return (
     <div
       className={[_className, "no-drag", className].join(" ").trim()}
@@ -106,6 +111,7 @@ const MenuItemOptionComponent = (
       {...rest}
       onClick={handleClick}
       onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       <div className="MenuItemOption__content">
         <div className="MenuItemOption__selection">

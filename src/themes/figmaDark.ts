@@ -102,7 +102,7 @@ const figmaDark: ColorTokenTree = {
         "drop-position": "#ffffff",
         "drop-position-restricted": "#D4583B",
 
-        swatch: "#00000000",
+        swatch: "#FFFFFF1F",
 
         disabled: "#444444",
       },
