@@ -267,14 +267,24 @@ const ListContext = (props: ListContextProps) => {
         return
       }
 
-      // default click acts like single anchor in multi-mode
-      const next = (() => {
-        if (isWithDescendants) {
-          const branchIds = [itemId, ...collectDescendantsForId(itemId)]
-          return new Set<string>(branchIds)
-        }
-        return new Set<string>([itemId])
-      })()
+      // default click acts like single anchor in multi-mode with toggle behaviour:
+      // - if only this item (or its full branch) is selected, clicking it again deselects
+      // - otherwise, replace selection with just this item (or its branch)
+      let next: Set<string>
+      if (isWithDescendants) {
+        const branchIds = [itemId, ...collectDescendantsForId(itemId)]
+        const branchSet = new Set<string>(branchIds)
+        const isExactlyBranchSelected =
+          branchSet.size === currentSelectedItems.size &&
+          branchIds.every((id) => currentSelectedItems.has(id))
+        next = isExactlyBranchSelected ? new Set<string>() : branchSet
+      } else {
+        const isSingleItemSelected =
+          currentSelectedItems.size === 1 && currentSelectedItems.has(itemId)
+        next = isSingleItemSelected
+          ? new Set<string>()
+          : new Set<string>([itemId])
+      }
       if (areSetsEqual(next, currentSelectedItems)) {
         lastSelectedAnchorRef.current = itemId
         return
