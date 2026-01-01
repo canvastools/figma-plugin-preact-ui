@@ -88,7 +88,7 @@ export const Demo = {
     docs: {
       source: {
         language: "tsx",
-        code: `<Avatar {...args} />`,
+        code: `<Avatar {...args}>{children}</Avatar>`,
       },
     },
   },
