@@ -65,6 +65,7 @@ const meta: Meta = {
         },
       },
       control: { type: "text" },
+      description: "<strong>*</strong>",
     },
   },
 }
