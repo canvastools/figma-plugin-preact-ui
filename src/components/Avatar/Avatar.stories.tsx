@@ -3,7 +3,7 @@ import { Meta } from "@storybook/preact"
 import { VariantStory } from "./stories/Variant.story"
 import { SizeStory } from "./stories/Size.story"
 import { SrcStory } from "./stories/Src.story"
-import { FillStory } from "./stories/Fill.story"
+import { ColorStory } from "./stories/Color.story"
 
 /* --- */
 
@@ -31,7 +31,7 @@ const meta: Meta = {
       control: { type: "text" },
       description: "Image URL or data URI.",
     },
-    fillBackground: {
+    colorBackground: {
       control: { type: "color" },
       description:
         "Background color for the avatar container when no image is provided.",
@@ -44,7 +44,7 @@ const meta: Meta = {
         },
       },
     },
-    fillText: {
+    colorText: {
       control: { type: "color" },
       description:
         "Text color for the children text content when no image is provided.",
@@ -101,4 +101,4 @@ export const Demo = {
 export const Variant = VariantStory
 export const Size = SizeStory
 export const Image = SrcStory
-export const Fill = FillStory
+export const Styling = ColorStory

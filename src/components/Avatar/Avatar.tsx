@@ -13,8 +13,8 @@ const AvatarComponent = (
     variant = "circle",
     size = "medium",
     src,
-    fillBackground,
-    fillText,
+    colorBackground,
+    colorText,
     children,
     ...rest
   }: AvatarProps,
@@ -32,7 +32,7 @@ const AvatarComponent = (
       ref={ref}
       {...rest}
       style={{
-        backgroundColor: fillBackground,
+        backgroundColor: colorBackground,
       }}
     >
       {src && <img className="Avatar__image" src={src} alt="Avatar" />}
@@ -45,7 +45,7 @@ const AvatarComponent = (
             strong
             intent="neutral-inverted"
             intentModifiers="default"
-            fill={fillText}
+            fill={colorText}
             fullWidth
             noWrap
             align="center"

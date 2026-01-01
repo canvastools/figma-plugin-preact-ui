@@ -1,6 +1,6 @@
 import { Avatar } from "../Avatar"
 
-export const FillStory = {
+export const ColorStory = {
   parameters: {
     controls: { disable: true },
     viewport: {
@@ -11,8 +11,8 @@ export const FillStory = {
         language: "tsx",
         code: `
 <Avatar 
-  fillBackground="var(--pui-color-brand-bg-default)"
-  fillText="#ffff00"
+  colorBackground="var(--pui-color-brand-bg-default)"
+  colorText="#ffff00"
 >
   {children}
 </Avatar>
@@ -23,8 +23,8 @@ export const FillStory = {
   render: () => (
     <div className="sb-column sb-width-full">
       <Avatar
-        fillBackground="var(--pui-color-brand-bg-default)"
-        fillText="#ffff00"
+        colorBackground="var(--pui-color-brand-bg-default)"
+        colorText="#ffff00"
       >
         A
       </Avatar>
