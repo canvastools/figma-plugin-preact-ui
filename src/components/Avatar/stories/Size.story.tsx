@@ -12,7 +12,9 @@ export const SizeStory = {
         language: "tsx",
         code: `
 <Avatar size="small">A</Avatar>
+
 <Avatar size="medium">A</Avatar>
+
 <Avatar size="large">A</Avatar>
   `,
       },

@@ -12,6 +12,7 @@ export const ImageSrcStory = {
         language: "tsx",
         code: `
 <Avatar imageSrc="https://thispersondoesnotexist.com/">A</Avatar>
+
 <Avatar>A</Avatar>
 `,
       },

@@ -12,6 +12,7 @@ export const VariantStory = {
         language: "tsx",
         code: `
 <Avatar variant="circle">A</Avatar>
+
 <Avatar variant="square">A</Avatar>
   `,
       },
