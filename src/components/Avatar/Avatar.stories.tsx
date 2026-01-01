@@ -30,7 +30,6 @@ const meta: Meta = {
     src: {
       control: { type: "text" },
       description: "Image URL or data URI.",
-      defaultValue: { summary: "undefined" },
     },
     fillBackground: {
       control: { type: "color" },
