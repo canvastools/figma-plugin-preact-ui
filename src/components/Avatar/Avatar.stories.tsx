@@ -33,6 +33,9 @@ const meta: Meta = {
       defaultValue: { summary: "undefined" },
     },
     fillBackground: {
+      control: { type: "color" },
+      description:
+        "Background color for the avatar container when no image is provided.",
       table: {
         type: {
           summary: "HEX | RGB | RGBA | var()",
@@ -41,11 +44,11 @@ const meta: Meta = {
           summary: "var(--pui-color-neutral-inverted-bg-default)",
         },
       },
-      control: { type: "color" },
-      description:
-        "Background color for the avatar container when no image is provided.",
     },
     fillText: {
+      control: { type: "color" },
+      description:
+        "Text color for the children text content when no image is provided.",
       table: {
         type: {
           summary: "HEX | RGB | RGBA | var()",
@@ -54,18 +57,15 @@ const meta: Meta = {
           summary: "var(--pui-color-neutral-inverted-text-default)",
         },
       },
-      control: { type: "color" },
-      description:
-        "Text color for the children text content when no image is provided.",
     },
     children: {
+      control: { type: "text" },
+      description: "<strong>*</strong>",
       table: {
         type: {
           summary: "string | number | JSX.Element",
         },
       },
-      control: { type: "text" },
-      description: "<strong>*</strong>",
     },
   },
 }
