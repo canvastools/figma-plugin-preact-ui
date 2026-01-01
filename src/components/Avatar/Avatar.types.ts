@@ -5,5 +5,5 @@ export interface AvatarProps {
   imageSrc?: string | undefined | null
   fillBackground?: string
   fillText?: string
-  children?: preact.ComponentChildren
+  children: preact.ComponentChildren
 }
