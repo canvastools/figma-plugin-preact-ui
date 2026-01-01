@@ -39,16 +39,25 @@ const AvatarComponent = (
         <img className="Avatar__image" src={imageSrc} alt="Avatar" />
       )}
       {children && (
-        <Text
-          variant="body"
-          size={size === "small" ? "small" : "large"}
-          strong
-          intent="neutral-inverted"
-          intentModifiers="default"
-          fill={fillText}
-        >
-          <div className="Avatar__children">{children}</div>
-        </Text>
+        <div className="Avatar__children">
+          {typeof children === "string" ? (
+            <Text
+              variant="body"
+              size={size === "small" ? "small" : "large"}
+              strong
+              intent="neutral-inverted"
+              intentModifiers="default"
+              fill={fillText}
+              fullWidth
+              noWrap
+              align="center"
+            >
+              {children}
+            </Text>
+          ) : (
+            children
+          )}
+        </div>
       )}
     </div>
   )
