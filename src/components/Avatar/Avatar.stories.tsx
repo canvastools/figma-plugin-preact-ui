@@ -1,10 +1,15 @@
-import { Meta, StoryObj } from "@storybook/preact"
+import { Meta } from "@storybook/preact"
+
+import { VariantStory } from "./stories/Variant.story"
+import { SizeStory } from "./stories/Size.story"
+import { ImageSrcStory } from "./stories/ImageSrc.story"
+import { FillStory } from "./stories/Fill.story"
+
+/* --- */
 
 import { Avatar } from "./Avatar"
 
-import { Stack } from "../../index"
-
-const meta: Meta<typeof Avatar> = {
+const meta: Meta = {
   title: "Components/Avatar",
   component: Avatar,
   tags: ["autodocs"],
@@ -65,9 +70,8 @@ const meta: Meta<typeof Avatar> = {
 }
 
 export default meta
-type Story = StoryObj<typeof Avatar>
 
-export const Demo: Story = {
+export const Demo = {
   tags: ["!autodocs"],
   args: {
     className: "",
@@ -94,184 +98,7 @@ export const Demo: Story = {
   ),
 }
 
-export const Size: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-    docs: {
-      source: {
-        language: "tsx",
-        code: `
-<Avatar size="small">A</Avatar>
-<Avatar size="medium">A</Avatar>
-<Avatar size="large">A</Avatar>
-`,
-      },
-    },
-  },
-  render: () => (
-    <div className="sb-column sb-width-full">
-      <Stack spacing={400}>
-        <Stack direction="row" spacing={400}>
-          <Avatar imageSrc="https://thispersondoesnotexist.com/" size="small">
-            A
-          </Avatar>
-          <Avatar size="small">A</Avatar>
-        </Stack>
-        <Stack direction="row" spacing={400}>
-          <Avatar imageSrc="https://thispersondoesnotexist.com/" size="medium">
-            A
-          </Avatar>
-          <Avatar size="medium">A</Avatar>
-        </Stack>
-        <Stack direction="row" spacing={400}>
-          <Avatar imageSrc="https://thispersondoesnotexist.com/" size="large">
-            A
-          </Avatar>
-          <Avatar size="large">A</Avatar>
-        </Stack>
-      </Stack>
-    </div>
-  ),
-}
-
-export const Variant: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-    docs: {
-      source: {
-        language: "tsx",
-        code: `
-<Avatar variant="square">A</Avatar>
-<Avatar variant="circle">A</Avatar>
-`,
-      },
-    },
-  },
-  render: () => (
-    <div className="sb-row sb-width-full">
-      <Stack spacing={400} direction="row">
-        <Stack spacing={400}>
-          <Stack direction="row" spacing={400}>
-            <Avatar imageSrc="https://thispersondoesnotexist.com/" size="small">
-              A
-            </Avatar>
-            <Avatar size="small">A</Avatar>
-          </Stack>
-          <Stack direction="row" spacing={400}>
-            <Avatar
-              imageSrc="https://thispersondoesnotexist.com/"
-              size="medium"
-            >
-              A
-            </Avatar>
-            <Avatar size="medium">A</Avatar>
-          </Stack>
-          <Stack direction="row" spacing={400}>
-            <Avatar imageSrc="https://thispersondoesnotexist.com/" size="large">
-              A
-            </Avatar>
-            <Avatar size="large">A</Avatar>
-          </Stack>
-        </Stack>
-
-        <Stack spacing={400}>
-          <Stack direction="row" spacing={400}>
-            <Avatar
-              imageSrc="https://thispersondoesnotexist.com/"
-              size="small"
-              variant="square"
-            >
-              A
-            </Avatar>
-            <Avatar size="small" variant="square">
-              A
-            </Avatar>
-          </Stack>
-          <Stack direction="row" spacing={400}>
-            <Avatar
-              imageSrc="https://thispersondoesnotexist.com/"
-              size="medium"
-              variant="square"
-            >
-              A
-            </Avatar>
-            <Avatar size="medium" variant="square">
-              A
-            </Avatar>
-          </Stack>
-          <Stack direction="row" spacing={400}>
-            <Avatar
-              imageSrc="https://thispersondoesnotexist.com/"
-              size="large"
-              variant="square"
-            >
-              A
-            </Avatar>
-            <Avatar size="large" variant="square">
-              A
-            </Avatar>
-          </Stack>
-        </Stack>
-      </Stack>
-    </div>
-  ),
-}
-
-export const ImageSrc: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-    docs: {
-      source: {
-        language: "tsx",
-        code: `
-<Avatar imageSrc="https://thispersondoesnotexist.com/">A</Avatar>
-<Avatar>A</Avatar>
-`,
-      },
-    },
-  },
-  render: () => (
-    <div className="sb-column sb-width-full">
-      <Stack spacing={400}>
-        <Avatar imageSrc="https://thispersondoesnotexist.com/">A</Avatar>
-        <Avatar>A</Avatar>
-      </Stack>
-    </div>
-  ),
-}
-
-export const Fill: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-    docs: {
-      source: {
-        language: "tsx",
-        code: `
-<Avatar fillBackground="var(--pui-color-brand-bg-default)" fillText="#ffff00">A</Avatar>
-`,
-      },
-    },
-  },
-  render: () => (
-    <div className="sb-column sb-width-full">
-      <Avatar
-        fillBackground="var(--pui-color-brand-bg-default)"
-        fillText="#ffff00"
-      >
-        A
-      </Avatar>
-    </div>
-  ),
-}
+export const Variant = VariantStory
+export const Size = SizeStory
+export const ImageSrc = ImageSrcStory
+export const Fill = FillStory
