@@ -11,11 +11,11 @@ export const SizeStory = {
       source: {
         language: "tsx",
         code: `
-<Avatar size="small">A</Avatar>
+<Avatar size="small">{children}</Avatar>
 
-<Avatar size="medium">A</Avatar>
+<Avatar size="medium">{children}</Avatar>
 
-<Avatar size="large">A</Avatar>
+<Avatar size="large">{children}</Avatar>
   `,
       },
     },
@@ -25,22 +25,19 @@ export const SizeStory = {
       <Stack direction="row" spacing={1000}>
         <Stack spacing={400}>
           <Stack direction="row" spacing={400}>
-            <Avatar imageSrc="https://thispersondoesnotexist.com/" size="small">
+            <Avatar src="https://thispersondoesnotexist.com/" size="small">
               A
             </Avatar>
             <Avatar size="small">A</Avatar>
           </Stack>
           <Stack direction="row" spacing={400}>
-            <Avatar
-              imageSrc="https://thispersondoesnotexist.com/"
-              size="medium"
-            >
+            <Avatar src="https://thispersondoesnotexist.com/" size="medium">
               A
             </Avatar>
             <Avatar size="medium">A</Avatar>
           </Stack>
           <Stack direction="row" spacing={400}>
-            <Avatar imageSrc="https://thispersondoesnotexist.com/" size="large">
+            <Avatar src="https://thispersondoesnotexist.com/" size="large">
               A
             </Avatar>
             <Avatar size="large">A</Avatar>
@@ -50,7 +47,7 @@ export const SizeStory = {
           <Stack spacing={400}>
             <Stack direction="row" spacing={400}>
               <Avatar
-                imageSrc="https://thispersondoesnotexist.com/"
+                src="https://thispersondoesnotexist.com/"
                 size="small"
                 variant="square"
               >
@@ -62,7 +59,7 @@ export const SizeStory = {
             </Stack>
             <Stack direction="row" spacing={400}>
               <Avatar
-                imageSrc="https://thispersondoesnotexist.com/"
+                src="https://thispersondoesnotexist.com/"
                 size="medium"
                 variant="square"
               >
@@ -74,7 +71,7 @@ export const SizeStory = {
             </Stack>
             <Stack direction="row" spacing={400}>
               <Avatar
-                imageSrc="https://thispersondoesnotexist.com/"
+                src="https://thispersondoesnotexist.com/"
                 size="large"
                 variant="square"
               >

@@ -14,7 +14,7 @@ export const FillStory = {
   fillBackground="var(--pui-color-brand-bg-default)"
   fillText="#ffff00"
 >
-  A
+  {children}
 </Avatar>
 `,
       },

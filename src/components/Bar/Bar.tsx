@@ -8,16 +8,16 @@ import "./Bar.scss"
 const BarComponent = (
   {
     className,
-    borderTop = false,
-    borderBottom = false,
+    showDividerTop = false,
+    showDividerBottom = false,
     children,
     ...rest
   }: BarProps,
   ref: preact.Ref<HTMLDivElement>
 ) => {
   const _className = bem("Bar", undefined, {
-    borderTop,
-    borderBottom,
+    showDividerTop,
+    showDividerBottom,
   })
 
   return (

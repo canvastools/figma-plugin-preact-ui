@@ -17,7 +17,7 @@ export const IntentStory = {
   intent="neutral"
   intentModifiers="secondary"
 >
-  Content
+  {children}
 </Badge>
 `,
       },

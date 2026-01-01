@@ -11,9 +11,9 @@ export const VariantStory = {
       source: {
         language: "tsx",
         code: `
-<Avatar variant="circle">A</Avatar>
+<Avatar variant="circle">{children}</Avatar>
 
-<Avatar variant="square">A</Avatar>
+<Avatar variant="square">{children}</Avatar>
   `,
       },
     },
@@ -22,19 +22,13 @@ export const VariantStory = {
     <div className="sb-column sb-width-full">
       <Stack direction="row" spacing={1000}>
         <Stack direction="row" spacing={400}>
-          <Avatar
-            imageSrc="https://thispersondoesnotexist.com/"
-            variant="circle"
-          >
+          <Avatar src="https://thispersondoesnotexist.com/" variant="circle">
             A
           </Avatar>
           <Avatar variant="circle">A</Avatar>
         </Stack>
         <Stack direction="row" spacing={400}>
-          <Avatar
-            imageSrc="https://thispersondoesnotexist.com/"
-            variant="square"
-          >
+          <Avatar src="https://thispersondoesnotexist.com/" variant="square">
             A
           </Avatar>
           <Avatar variant="square">A</Avatar>

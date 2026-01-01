@@ -2,7 +2,7 @@ import { Meta } from "@storybook/preact"
 
 import { VariantStory } from "./stories/Variant.story"
 import { SizeStory } from "./stories/Size.story"
-import { ImageSrcStory } from "./stories/ImageSrc.story"
+import { SrcStory } from "./stories/Src.story"
 import { FillStory } from "./stories/Fill.story"
 
 /* --- */
@@ -27,9 +27,9 @@ const meta: Meta = {
       options: ["small", "medium", "large"],
       defaultValue: { summary: "medium" },
     },
-    imageSrc: {
+    src: {
       control: { type: "text" },
-      description: "Image URL.",
+      description: "Image URL or data URI.",
       defaultValue: { summary: "undefined" },
     },
     fillBackground: {
@@ -78,7 +78,7 @@ export const Demo = {
     className: "",
     variant: "circle",
     size: "medium",
-    imageSrc: "",
+    src: "",
     children: "A",
   },
   parameters: {
@@ -101,5 +101,5 @@ export const Demo = {
 
 export const Variant = VariantStory
 export const Size = SizeStory
-export const ImageSrc = ImageSrcStory
+export const Image = SrcStory
 export const Fill = FillStory

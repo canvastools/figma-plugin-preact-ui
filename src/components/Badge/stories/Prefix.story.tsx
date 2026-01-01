@@ -21,7 +21,7 @@ export const PrefixStory = {
     />
   }
 >
-  Content
+{children}
 </Badge>
 
 <Badge 
@@ -36,7 +36,7 @@ export const PrefixStory = {
     />
   }
 >
-  Content
+  {children}
 </Badge>
 `,
       },

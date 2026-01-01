@@ -12,7 +12,7 @@ const AvatarComponent = (
     className,
     variant = "circle",
     size = "medium",
-    imageSrc,
+    src,
     fillBackground,
     fillText,
     children,
@@ -23,7 +23,7 @@ const AvatarComponent = (
   const _className = bem("Avatar", undefined, {
     variant,
     size,
-    image: Boolean(imageSrc),
+    image: Boolean(src),
   })
 
   return (
@@ -35,9 +35,7 @@ const AvatarComponent = (
         backgroundColor: fillBackground,
       }}
     >
-      {imageSrc && (
-        <img className="Avatar__image" src={imageSrc} alt="Avatar" />
-      )}
+      {src && <img className="Avatar__image" src={src} alt="Avatar" />}
 
       <div className="Avatar__children">
         {typeof children === "string" ? (
