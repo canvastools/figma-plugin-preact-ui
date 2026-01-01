@@ -10,7 +10,12 @@ export const FillStory = {
       source: {
         language: "tsx",
         code: `
-<Avatar fillBackground="var(--pui-color-brand-bg-default)" fillText="#ffff00">A</Avatar>
+<Avatar 
+  fillBackground="var(--pui-color-brand-bg-default)"
+  fillText="#ffff00"
+>
+  A
+</Avatar>
 `,
       },
     },
