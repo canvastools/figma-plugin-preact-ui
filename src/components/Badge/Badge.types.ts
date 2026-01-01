@@ -16,5 +16,5 @@ export interface BadgeProps {
     | "success"
   prefix?: preact.ComponentChildren
   suffix?: preact.ComponentChildren
-  children?: preact.ComponentChildren
+  children: preact.ComponentChildren
 }
