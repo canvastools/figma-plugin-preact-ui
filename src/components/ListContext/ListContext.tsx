@@ -28,7 +28,7 @@ const ListContext = (props: ListContextProps) => {
     items: controlledItems,
     selectedItems: controlledSelectedItems = [],
     selectionMode = "single",
-    deselectOnOutsideClick = true,
+    deselectOnOutsideClick = false,
     onItemsChange,
     onSelectionChange,
     children,
@@ -42,6 +42,9 @@ const ListContext = (props: ListContextProps) => {
   const [internalSelectedItems, setInternalSelectedItems] = useState<
     Set<string>
   >(new Set(controlledSelectedItems))
+  const [selectionOriginIds, setSelectionOriginIds] = useState<Set<string>>(
+    new Set()
+  )
   const itemMetaRef = useRef<
     Map<
       string,
@@ -71,36 +74,6 @@ const ListContext = (props: ListContextProps) => {
   // Track anchor for range-selection and the root elements for outside-click detection
   const lastSelectedAnchorRef = useRef<string | null>(null)
   const rootElementsRef = useRef<Set<HTMLElement>>(new Set())
-
-  const setSelection = useCallback(
-    (itemIds: string[], selected: boolean) => {
-      const newSelectedItems = new Set(currentSelectedItems)
-
-      itemIds.forEach((id) => {
-        if (selected) {
-          newSelectedItems.add(id)
-        } else {
-          newSelectedItems.delete(id)
-        }
-      })
-
-      if (!isSelectionControlled) {
-        setInternalSelectedItems(newSelectedItems)
-      }
-      onSelectionChange?.({ selectedItems: Array.from(newSelectedItems) })
-    },
-    [currentSelectedItems, onSelectionChange, isSelectionControlled]
-  )
-
-  // Replace selection with exactly these ids (uncontrolled or via callback)
-  const setExactSelection = useCallback(
-    (itemIds: string[]) => {
-      const next = new Set(itemIds)
-      if (!isSelectionControlled) setInternalSelectedItems(next)
-      onSelectionChange?.({ selectedItems: Array.from(next) })
-    },
-    [isSelectionControlled, onSelectionChange]
-  )
 
   const flattenItemsDepthFirst = useCallback(
     (items: ListItemData[]): string[] => {
@@ -145,6 +118,36 @@ const ListContext = (props: ListContextProps) => {
       return ids
     },
     [currentItems]
+  )
+
+  const setSelection = useCallback(
+    (itemIds: string[], selected: boolean) => {
+      const newSelectedItems = new Set(currentSelectedItems)
+
+      itemIds.forEach((id) => {
+        if (selected) {
+          newSelectedItems.add(id)
+        } else {
+          newSelectedItems.delete(id)
+        }
+      })
+
+      if (!isSelectionControlled) {
+        setInternalSelectedItems(newSelectedItems)
+      }
+      onSelectionChange?.({ selectedItems: Array.from(newSelectedItems) })
+    },
+    [currentSelectedItems, onSelectionChange, isSelectionControlled]
+  )
+
+  // Replace selection with exactly these ids (uncontrolled or via callback)
+  const setExactSelection = useCallback(
+    (itemIds: string[]) => {
+      const next = new Set(itemIds)
+      if (!isSelectionControlled) setInternalSelectedItems(next)
+      onSelectionChange?.({ selectedItems: Array.from(next) })
+    },
+    [isSelectionControlled, onSelectionChange]
   )
 
   const toggleSelect = useCallback(
@@ -592,13 +595,88 @@ const ListContext = (props: ListContextProps) => {
 
   useEffect(() => {
     if (isSelectionControlled) {
-      setInternalSelectedItems(new Set(controlledSelectedItems))
+      const next = new Set(controlledSelectedItems)
+      setInternalSelectedItems(next)
     }
   }, [controlledSelectedItems, isSelectionControlled])
+
+  // Recompute selection origins based on the current selection and items tree.
+  // - For items with selectionScope="item", every selected item is an origin.
+  // - For items with selectionScope="withDescendants", a branch origin is any
+  //   item whose entire subtree is selected, and which does not have an
+  //   ancestor that also meets this condition.
+  useEffect(() => {
+    const selected = currentSelectedItems
+    if (selected.size === 0) {
+      setSelectionOriginIds(new Set())
+      return
+    }
+
+    // Build parent map for all items in the current tree
+    const parentOf = new Map<string, string | null>()
+    const buildParents = (nodes: ListItemData[], parentId: string | null) => {
+      nodes.forEach((n) => {
+        parentOf.set(n.id, parentId)
+        if (n.children && n.children.length) {
+          buildParents(n.children, n.id)
+        }
+      })
+    }
+    buildParents(currentItems, null)
+
+    // Cache for branch-full-selected checks
+    const branchFullySelected = new Map<string, boolean>()
+    const isBranchFullySelected = (id: string): boolean => {
+      if (branchFullySelected.has(id)) {
+        return branchFullySelected.get(id) as boolean
+      }
+      const branchIds = [id, ...collectDescendantsForId(id)]
+      const full =
+        branchIds.length > 0 &&
+        branchIds.every((nodeId) => selected.has(nodeId))
+      branchFullySelected.set(id, full)
+      return full
+    }
+
+    const origins = new Set<string>()
+
+    // 1) All selected "item"-scope entries are simple origins.
+    itemMetaRef.current.forEach((meta, id) => {
+      if (meta.selectionScope === "item" && selected.has(id)) {
+        origins.add(id)
+      }
+    })
+
+    // 2) Additionally, compute origins for withDescendants branches as before.
+    itemMetaRef.current.forEach((meta, id) => {
+      if (meta.selectionScope !== "withDescendants") return
+      if (!selected.has(id)) return
+      if (!isBranchFullySelected(id)) return
+
+      // Skip if any ancestor is also a fully-selected withDescendants branch
+      let cur = parentOf.get(id) ?? null
+      while (cur) {
+        const parentMeta = itemMetaRef.current.get(cur)
+        if (
+          parentMeta?.selectionScope === "withDescendants" &&
+          selected.has(cur) &&
+          isBranchFullySelected(cur)
+        ) {
+          return
+        }
+        cur = parentOf.get(cur) ?? null
+      }
+
+      origins.add(id)
+    })
+
+    setSelectionOriginIds(origins)
+  }, [currentItems, currentSelectedItems])
 
   const contextValue: ListContextValue = {
     items: currentItems,
     selectedItems: currentSelectedItems,
+    selectionOriginIds,
     deselectOnOutsideClick,
     setSelection,
     setExactSelection,
