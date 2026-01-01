@@ -249,6 +249,25 @@ const ListContainerComponent = (
       if (inTop) selfPos = "above"
       else if (inBottom) selfPos = "below"
 
+      // Special case: if this item is an expanded collapsible branch with
+      // children, treat the bottom band as "inside" instead of "below", so
+      // dragging onto the bottom of the item behaves like dropping into its
+      // children, not after it. This does NOT change tree mutations (drops on
+      // self are still a no-op), only visual zones.
+      const selfHasChildren = selfChild.classList.contains(
+        "ListItem_has-children"
+      )
+      const selfIsCollapsed = selfChild.classList.contains(
+        "ListItem_collapsed"
+      )
+      if (
+        selfPos === "below" &&
+        selfHasChildren &&
+        !selfIsCollapsed
+      ) {
+        selfPos = "inside"
+      }
+
       const wantOver = true
       const wantSelf = true
       const wantAbove = selfPos === "above"

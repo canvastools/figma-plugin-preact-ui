@@ -7,6 +7,7 @@ export interface ListItemData {
 export interface ListContextValue {
   items: ListItemData[]
   selectedItems: Set<string>
+  selectionOriginIds?: Set<string>
   deselectOnOutsideClick?: boolean
   setSelection: (itemIds: string[], selected: boolean) => void
   setExactSelection: (itemIds: string[]) => void
