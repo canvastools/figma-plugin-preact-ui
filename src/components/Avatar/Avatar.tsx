@@ -10,10 +10,10 @@ import { Text } from "../../index"
 const AvatarComponent = (
   {
     className,
+    variant = "circle",
     size = "medium",
-    shape = "circle",
     imageSrc,
-    fillBg,
+    fillBackground,
     fillText,
     children,
     ...rest
@@ -21,8 +21,8 @@ const AvatarComponent = (
   ref: preact.Ref<HTMLDivElement>
 ) => {
   const _className = bem("Avatar", undefined, {
+    variant,
     size,
-    shape,
     image: Boolean(imageSrc),
   })
 
@@ -32,7 +32,7 @@ const AvatarComponent = (
       ref={ref}
       {...rest}
       style={{
-        backgroundColor: fillBg,
+        backgroundColor: fillBackground,
       }}
     >
       {imageSrc && (

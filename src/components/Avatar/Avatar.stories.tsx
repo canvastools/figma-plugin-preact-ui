@@ -12,22 +12,22 @@ const meta: Meta<typeof Avatar> = {
     className: {
       control: { type: "text" },
     },
+    variant: {
+      control: { type: "radio" },
+      options: ["circle", "square"],
+      defaultValue: { summary: "circle" },
+    },
     size: {
       control: { type: "radio" },
       options: ["small", "medium", "large"],
       defaultValue: { summary: "medium" },
     },
-    shape: {
-      control: { type: "radio" },
-      options: ["circle", "square"],
-      defaultValue: { summary: "circle" },
-    },
     imageSrc: {
       control: { type: "text" },
-      description: "Image source URL.",
+      description: "Image URL.",
       defaultValue: { summary: "undefined" },
     },
-    fillBg: {
+    fillBackground: {
       table: {
         type: {
           summary: "HEX | RGB | RGBA | var()",
@@ -60,8 +60,6 @@ const meta: Meta<typeof Avatar> = {
         },
       },
       control: { type: "text" },
-      description:
-        "Content when no image is provided, usually a couple of letters.",
     },
   },
 }
@@ -73,7 +71,7 @@ export const Demo: Story = {
   tags: ["!autodocs"],
   args: {
     className: "",
-    shape: "circle",
+    variant: "circle",
     size: "medium",
     imageSrc: "",
     children: "A",
@@ -81,6 +79,12 @@ export const Demo: Story = {
   parameters: {
     viewport: {
       defaultViewport: "large",
+    },
+    docs: {
+      source: {
+        language: "tsx",
+        code: `<Avatar {...args} />`,
+      },
     },
   },
   render: (args) => (
@@ -95,6 +99,16 @@ export const Size: Story = {
     controls: { disable: true },
     viewport: {
       defaultViewport: "large",
+    },
+    docs: {
+      source: {
+        language: "tsx",
+        code: `
+<Avatar size="small">A</Avatar>
+<Avatar size="medium">A</Avatar>
+<Avatar size="large">A</Avatar>
+`,
+      },
     },
   },
   render: () => (
@@ -123,11 +137,20 @@ export const Size: Story = {
   ),
 }
 
-export const Shape: Story = {
+export const Variant: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
       defaultViewport: "large",
+    },
+    docs: {
+      source: {
+        language: "tsx",
+        code: `
+<Avatar variant="square">A</Avatar>
+<Avatar variant="circle">A</Avatar>
+`,
+      },
     },
   },
   render: () => (
@@ -162,11 +185,11 @@ export const Shape: Story = {
             <Avatar
               imageSrc="https://thispersondoesnotexist.com/"
               size="small"
-              shape="square"
+              variant="square"
             >
               A
             </Avatar>
-            <Avatar size="small" shape="square">
+            <Avatar size="small" variant="square">
               A
             </Avatar>
           </Stack>
@@ -174,11 +197,11 @@ export const Shape: Story = {
             <Avatar
               imageSrc="https://thispersondoesnotexist.com/"
               size="medium"
-              shape="square"
+              variant="square"
             >
               A
             </Avatar>
-            <Avatar size="medium" shape="square">
+            <Avatar size="medium" variant="square">
               A
             </Avatar>
           </Stack>
@@ -186,11 +209,11 @@ export const Shape: Story = {
             <Avatar
               imageSrc="https://thispersondoesnotexist.com/"
               size="large"
-              shape="square"
+              variant="square"
             >
               A
             </Avatar>
-            <Avatar size="large" shape="square">
+            <Avatar size="large" variant="square">
               A
             </Avatar>
           </Stack>
@@ -205,6 +228,15 @@ export const ImageSrc: Story = {
     controls: { disable: true },
     viewport: {
       defaultViewport: "large",
+    },
+    docs: {
+      source: {
+        language: "tsx",
+        code: `
+<Avatar imageSrc="https://thispersondoesnotexist.com/">A</Avatar>
+<Avatar>A</Avatar>
+`,
+      },
     },
   },
   render: () => (
@@ -223,10 +255,21 @@ export const Fill: Story = {
     viewport: {
       defaultViewport: "large",
     },
+    docs: {
+      source: {
+        language: "tsx",
+        code: `
+<Avatar fillBackground="var(--pui-color-brand-bg-default)" fillText="#ffff00">A</Avatar>
+`,
+      },
+    },
   },
   render: () => (
     <div className="sb-column sb-width-full">
-      <Avatar fillBg="var(--pui-color-brand-bg-default)" fillText="#ffff00">
+      <Avatar
+        fillBackground="var(--pui-color-brand-bg-default)"
+        fillText="#ffff00"
+      >
         A
       </Avatar>
     </div>

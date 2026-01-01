@@ -1,9 +1,9 @@
 export interface AvatarProps {
   className?: string
+  variant?: "circle" | "square"
   size?: "small" | "medium" | "large"
-  shape?: "circle" | "square"
   imageSrc?: string | undefined | null
-  fillBg?: string
+  fillBackground?: string
   fillText?: string
   children?: preact.ComponentChildren
 }
