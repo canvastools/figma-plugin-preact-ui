@@ -1,14 +1,12 @@
-import { Meta } from "@storybook/preact"
+import { Meta, StoryObj } from "@storybook/preact"
 
 import { IntentStory } from "./stories/Intent.story"
 import { PrefixStory } from "./stories/Prefix.story"
 import { SuffixStory } from "./stories/Suffix.story"
 
-/* --- */
-
 import { Badge } from "./Badge"
 
-const meta: Meta = {
+const meta: Meta<typeof Badge> = {
   title: "Components/Badge",
   component: Badge,
   tags: ["autodocs"],
@@ -72,7 +70,9 @@ const meta: Meta = {
 
 export default meta
 
-export const Demo = {
+type Story = StoryObj<typeof Badge>
+
+export const Demo: Story = {
   tags: ["!autodocs"],
   args: {
     className: "",
@@ -93,6 +93,7 @@ export const Demo = {
   },
   render: (args) => (
     <div className="sb-column sb-width-full">
+      {/* @ts-ignore-next-line */}
       <Badge {...args} />
     </div>
   ),

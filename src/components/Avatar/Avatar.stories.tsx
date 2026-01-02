@@ -1,15 +1,13 @@
-import { Meta } from "@storybook/preact"
+import { Meta, StoryObj } from "@storybook/preact"
 
 import { VariantStory } from "./stories/Variant.story"
 import { SizeStory } from "./stories/Size.story"
 import { SrcStory } from "./stories/Src.story"
 import { ColorStory } from "./stories/Color.story"
 
-/* --- */
-
 import { Avatar } from "./Avatar"
 
-const meta: Meta = {
+const meta: Meta<typeof Avatar> = {
   title: "Components/Avatar",
   component: Avatar,
   tags: ["autodocs"],
@@ -71,7 +69,9 @@ const meta: Meta = {
 
 export default meta
 
-export const Demo = {
+type Story = StoryObj<typeof Avatar>
+
+export const Demo: Story = {
   tags: ["!autodocs"],
   args: {
     className: "",
@@ -93,6 +93,7 @@ export const Demo = {
   },
   render: (args) => (
     <div className="sb-column sb-width-full">
+      {/* @ts-ignore-next-line */}
       <Avatar {...args} />
     </div>
   ),

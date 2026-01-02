@@ -1,7 +1,11 @@
+import { StoryObj } from "@storybook/preact"
+
 import { Badge } from "../Badge"
 import { Stack } from "../../../index"
 
-export const IntentStory = {
+type Story = StoryObj<typeof Badge>
+
+export const IntentStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
@@ -11,7 +15,7 @@ export const IntentStory = {
       source: {
         language: "tsx",
         code: `
-<Badge intent="neutral">Content</Badge>
+<Badge intent="neutral">{children}</Badge>
 
 <Badge 
   intent="neutral"

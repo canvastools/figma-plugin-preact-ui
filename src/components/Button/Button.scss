@@ -3,38 +3,29 @@
 
 @mixin Button_intent-filled($intent, $modifiers) {
   &_intent-#{$intent}-#{$modifiers} {
-    background-color: var(--pui-color-#{$intent}-bg-#{$modifiers}-interactive);
+    background-color: var(--pui-color-#{$intent}-bg-#{$modifiers});
 
     &:hover {
-      background-color: var(
-        --pui-color-#{$intent}-bg-#{$modifiers}-interactive-hover
-      );
+      background-color: var(--pui-color-#{$intent}-bg-#{$modifiers}-hover);
     }
 
     &:active {
-      background-color: var(
-        --pui-color-#{$intent}-bg-#{$modifiers}-interactive-pressed
-      );
+      background-color: var(--pui-color-#{$intent}-bg-#{$modifiers}-pressed);
     }
   }
 }
 
 @mixin Button_intent-outlined($intent, $modifiers) {
   &_intent-#{$intent}-#{$modifiers} {
-    background-color: var(--pui-color-#{$intent}-bg-#{$modifiers}-interactive);
-    box-shadow: inset 0 0 0 1px
-      var(--pui-color-#{$intent}-border-#{$modifiers}-interactive);
+    background-color: transparent;
+    box-shadow: inset 0 0 0 1px var(--pui-color-#{$intent}-border-#{$modifiers});
 
     &:hover {
-      background-color: var(
-        --pui-color-#{$intent}-bg-#{$modifiers}-interactive-hover
-      );
+      background-color: var(--pui-color-#{$intent}-bg-#{$modifiers}-hover);
     }
 
     &:active {
-      background-color: var(
-        --pui-color-#{$intent}-bg-#{$modifiers}-interactive-pressed
-      );
+      background-color: var(--pui-color-#{$intent}-bg-#{$modifiers}-pressed);
     }
   }
 }
@@ -45,32 +36,26 @@
     box-shadow: none;
 
     &:hover {
-      background-color: var(
-        --pui-color-#{$intent}-bg-#{$modifiers}-interactive-hover
-      );
+      background-color: var(--pui-color-#{$intent}-bg-#{$modifiers}-hover);
     }
 
     &:active {
-      background-color: var(
-        --pui-color-#{$intent}-bg-#{$modifiers}-interactive-pressed
-      );
+      background-color: var(--pui-color-#{$intent}-bg-#{$modifiers}-pressed);
     }
   }
 }
 
 .Button {
-  $parent: &;
-
   padding: 0 var(--pui-spacing-100);
   border-radius: var(--pui-radius-medium);
   border: none;
   flex: 0 0 auto;
   width: fit-content;
   overflow: hidden;
-  @include curson-feedback;
+  cursor: default;
 
   &:focus-visible {
-    outline: 1px solid var(--pui-color-system-border-focus);
+    outline: 1px solid var(--pui-color-system-border-focused);
     outline-offset: 1px;
     box-shadow: none;
   }
@@ -125,8 +110,9 @@
     margin-left: -1px;
   }
 
-  &_fullWidth {
-    width: auto;
+  &_widthFull {
+    flex: 1 1 auto;
+    width: 100%;
   }
 
   @include Button_intent-outlined("neutral", "default");
@@ -180,15 +166,11 @@
     box-shadow: none !important;
 
     &:hover {
-      background-color: var(
-        --pui-color-neutral-inverted-bg-disabled
-      ) !important;
+      background-color: var(--pui-color-neutral-inverted-bg-disabled) !important;
     }
 
     &:active {
-      background-color: var(
-        --pui-color-neutral-inverted-bg-disabled
-      ) !important;
+      background-color: var(--pui-color-neutral-inverted-bg-disabled) !important;
     }
   }
 

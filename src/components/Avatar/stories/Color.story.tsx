@@ -1,6 +1,10 @@
+import { StoryObj } from "@storybook/preact"
+
 import { Avatar } from "../Avatar"
 
-export const ColorStory = {
+type Story = StoryObj<typeof Avatar>
+
+export const ColorStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {

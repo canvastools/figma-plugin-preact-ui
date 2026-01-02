@@ -1,3 +1,5 @@
+import { StoryObj } from "@storybook/preact"
+
 import { Bar } from "../Bar"
 import {
   Text,
@@ -7,7 +9,9 @@ import {
   useScrollContext,
 } from "../../../index"
 
-export const StickyStory = {
+type Story = StoryObj<typeof Bar>
+
+export const StickyStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
@@ -41,7 +45,7 @@ const { isAtTop, isAtBottom } = useScrollContext()
         variant="body"
         size="medium"
       >
-        Lorem ipsum dolor sit amet..
+        {children}
       </Text>
     </Section>
   </ScrollContainer>

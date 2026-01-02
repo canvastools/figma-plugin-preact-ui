@@ -1,7 +1,11 @@
+import { StoryObj } from "@storybook/preact"
+
 import { Avatar } from "../Avatar"
 import { Stack } from "../../../index"
 
-export const SizeStory = {
+type Story = StoryObj<typeof Avatar>
+
+export const SizeStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {

@@ -1,7 +1,11 @@
+import { StoryObj } from "@storybook/preact"
+
 import { Badge } from "../Badge"
 import { Icon, Stack, help } from "../../../index"
 
-export const PrefixStory = {
+type Story = StoryObj<typeof Badge>
+
+export const PrefixStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
@@ -11,28 +15,13 @@ export const PrefixStory = {
       source: {
         language: "tsx",
         code: `
-<Badge 
+<Badge
   intent="neutral"
   prefix={
     <Icon
       glyph={help}
       size={16}
       intent="neutral"
-    />
-  }
->
-{children}
-</Badge>
-
-<Badge 
-  intent="neutral"
-  intentModifiers="secondary"
-  prefix={
-    <Icon 
-      glyph={help}
-      size={16}
-      intent="neutral"
-      intentModifiers="secondary"
     />
   }
 >

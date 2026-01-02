@@ -19,7 +19,7 @@ const ButtonComponent = (
     size = "medium",
     grouped = "none",
     disabled = false,
-    fullWidth = false,
+    widthFull = false,
     prefix,
     suffix,
     children,
@@ -36,7 +36,7 @@ const ButtonComponent = (
     grouped: Boolean(grouped),
     groupedPosition: grouped,
     disabled,
-    fullWidth,
+    widthFull,
     prefix: Boolean(prefix),
     suffix: Boolean(suffix),
   })
