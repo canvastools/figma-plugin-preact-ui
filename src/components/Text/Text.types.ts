@@ -15,16 +15,15 @@ export interface TextProps {
     | "danger"
     | "warning"
     | "success"
-  disabled?: boolean
-  interactive?: boolean
-  selected?: boolean
-  fill?: string
   variant?: "heading" | "body"
   size?: "small" | "medium" | "large"
   strong?: boolean
   align?: "left" | "center" | "right"
-  fullWidth?: boolean
-  noWrap?: boolean
+  disabled?: boolean
+  selected?: boolean
+  colorText?: string
+  wrap?: boolean
   truncate?: boolean
+  widthFull?: boolean
   children: preact.ComponentChildren
 }

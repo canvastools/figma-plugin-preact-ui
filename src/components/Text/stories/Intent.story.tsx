@@ -1,13 +1,9 @@
 import { StoryObj } from "@storybook/preact"
 
-import { Text } from "../../../index"
+import { Text } from "../Text"
+import type { TextProps } from "../Text.types"
 
-import { link } from "../glyphs"
-
-import { Icon } from "../Icon"
-import type { IconProps } from "../Icon.types"
-
-type Story = StoryObj<typeof Icon>
+type Story = StoryObj<typeof Text>
 
 const validIntentCombinations = [
   // neutral
@@ -26,11 +22,6 @@ const validIntentCombinations = [
     bg: "--pui-color-neutral-bg-default",
     intent: "neutral",
     intentModifiers: "secondary",
-  },
-  {
-    bg: "--pui-color-neutral-bg-default",
-    intent: "neutral",
-    intentModifiers: "tertiary",
   },
   {
     bg: "--pui-color-neutral-bg-default",
@@ -70,6 +61,11 @@ const validIntentCombinations = [
     bg: "--pui-color-neutral-inverted-fixed-bg-default",
     intent: "neutral-inverted-fixed",
     intentModifiers: "secondary",
+  },
+  {
+    bg: "--pui-color-neutral-inverted-fixed-bg-default",
+    intent: "neutral-inverted-fixed",
+    intentModifiers: "danger",
   },
 
   // brand
@@ -116,6 +112,7 @@ const intentCombinations = () => {
         <div
           style={{
             backgroundColor: `var(${bg})`,
+            width: "200%",
           }}
         >
           <div
@@ -124,12 +121,14 @@ const intentCombinations = () => {
               backgroundColor: `var(${bg}${selected ? "-selected" : ""})`,
             }}
           >
-            <Icon
-              glyph={link}
-              intent={intent as IconProps["intent"]}
-              intentModifiers={intentModifiers as IconProps["intentModifiers"]}
-              selected={selected}
-            />
+            <Text
+              intent={intent as TextProps["intent"]}
+              intentModifiers={intentModifiers as TextProps["intentModifiers"]}
+              widthFull
+            >
+              Lorem Ipsum is simply dummy text of the printing and typesetting
+              industry.
+            </Text>
           </div>
         </div>
       </div>
@@ -147,27 +146,24 @@ export const IntentStory: Story = {
       source: {
         language: "tsx",
         code: `
-<Icon
-  glyph={help}
-  intent="neutral"
-/>
+<Text intent="neutral">{children}</Text>
 
-<Icon
-  glyph={help}
+<Text 
   intent="neutral"
   intentModifiers="secondary"
-/>
+>
+  {children}
+</Text>
 
-<Icon
-  glyph={help}
-  intent="brand"
-/>
+<Text intent="brand">
+  {children}
+</Text>
 `,
       },
     },
   },
   render: () => (
-    <div className="sb-column sb-width-420 sb-gap-16">
+    <div className="sb-column sb-width-full sb-gap-16">
       {intentCombinations()}
     </div>
   ),

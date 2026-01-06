@@ -10,36 +10,34 @@ const TextComponent = (
     className,
     intent = "neutral",
     intentModifiers = "default",
-    disabled = false,
-    interactive = false,
-    selected = false,
-    fill,
     variant = "body",
     size = "medium",
     strong = false,
     align = "left",
-    fullWidth = false,
-    noWrap = false,
+    disabled = false,
+    selected = false,
+    wrap = true,
+    colorText,
     truncate = false,
+    widthFull = false,
     children,
     ...rest
   }: TextProps,
   ref: preact.Ref<HTMLDivElement>
 ) => {
   const _className = bem("Text", undefined, {
-    ...(!fill && {
+    ...(!colorText && {
       intent: `${intent}-${intentModifiers}`,
       disabled,
-      interactive,
       selected,
     }),
     variant,
     size,
     strong,
     align,
-    fullWidth,
-    noWrap,
-    truncated: Boolean(truncate),
+    widthFull,
+    wrap,
+    truncate,
   })
 
   return (
@@ -48,7 +46,7 @@ const TextComponent = (
       ref={ref}
       {...rest}
       style={{
-        ...(fill && { color: fill }),
+        ...(colorText && { color: colorText }),
       }}
     >
       {children}

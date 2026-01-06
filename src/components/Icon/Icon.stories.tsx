@@ -128,7 +128,7 @@ export const Demo: Story = {
     },
   },
   render: (args) => {
-    // @ts-expect-error: Storybook types hack
+    // @ts-expect-error
     const { glyph, ...rest } = args as {
       glyph: keyof typeof glyphs
     } & import("./Icon.types").IconProps

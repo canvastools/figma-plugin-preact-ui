@@ -4,13 +4,11 @@
 @mixin Text_intent($intent, $modifiers) {
   &_intent-#{$intent}-#{$modifiers} {
     &.Text_interactive {
-      color: var(--pui-color-#{$intent}-text-#{$modifiers}-interactive);
+      color: var(--pui-color-#{$intent}-text-#{$modifiers});
     }
 
     &.Text_selected {
-      color: var(
-        --pui-color-#{$intent}-text-#{$modifiers}-interactive-selected
-      );
+      color: var(--pui-color-#{$intent}-text-#{$modifiers}-selected);
     }
 
     color: var(--pui-color-#{$intent}-text-#{$modifiers});
@@ -22,10 +20,9 @@
 }
 
 .Text {
-  $parent: &;
-
   @include typography-styles-default;
   user-select: none;
+  white-space: nowrap;
 
   @include Text_intent("neutral", "default");
   @include Text_intent("neutral", "secondary");
@@ -42,46 +39,32 @@
   @include Text_intent("warning", "default");
   @include Text_intent("success", "default");
 
-  &_variant {
-    &-heading {
-      &#{$parent}_size {
-        &-small {
-          @include typography-header-small;
-        }
-
-        &-medium {
-          @include typography-header-medium;
-        }
-
-        &-large {
-          @include typography-header-large;
-        }
-      }
-    }
-
-    &-body {
-      &#{$parent}_size {
-        &-small {
-          @include typography-body-small;
-        }
-
-        &-medium {
-          @include typography-body-medium;
-        }
-
-        &-large {
-          @include typography-body-large;
-        }
-      }
-    }
+  &_variant-heading:is(&_size-small) {
+    @include typography-header-small;
+  }
+  &_variant-heading:is(&_size-medium) {
+    @include typography-header-medium;
+  }
+  &_variant-heading:is(&_size-large) {
+    @include typography-header-large;
   }
 
-  &_fullWidth {
+  &_variant-body:is(&_size-small) {
+    @include typography-body-small;
+  }
+  &_variant-body:is(&_size-medium) {
+    @include typography-body-medium;
+  }
+  &_variant-body:is(&_size-large) {
+    @include typography-body-large;
+  }
+
+  &_widthFull {
     width: 100%;
   }
 
-  &_noWrap {
-    white-space: nowrap;
+  &_wrap {
+    white-space: normal;
   }
 
   &_truncated {

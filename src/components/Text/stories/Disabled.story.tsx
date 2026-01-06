@@ -1,13 +1,9 @@
 import { StoryObj } from "@storybook/preact"
 
-import { Text } from "../../../index"
+import { Text } from "../Text"
+import type { TextProps } from "../Text.types"
 
-import { link } from "../glyphs"
-
-import { Icon } from "../Icon"
-import type { IconProps } from "../Icon.types"
-
-type Story = StoryObj<typeof Icon>
+type Story = StoryObj<typeof Text>
 
 const validDisabledCombinations = [
   // neutral
@@ -39,7 +35,6 @@ const validDisabledCombinations = [
   // brand
   {
     bg: "--pui-color-brand-bg",
-    disabledBg: true,
     intent: "brand",
   },
 
@@ -76,6 +71,7 @@ const disabledCombinations = () => {
       <div
         style={{
           backgroundColor: `var(${bg}-default)`,
+          width: "200%",
         }}
       >
         <div
@@ -84,7 +80,10 @@ const disabledCombinations = () => {
             backgroundColor: disabledBg ? `var(${bg}-disabled)` : "unset",
           }}
         >
-          <Icon glyph={link} intent={intent as IconProps["intent"]} disabled />
+          <Text intent={intent as TextProps["intent"]} disabled widthFull>
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry.
+          </Text>
         </div>
       </div>
     </div>
@@ -101,16 +100,13 @@ export const DisabledStory: Story = {
       source: {
         language: "tsx",
         code: `
-<Icon
-  glyph={help}
-  disabled
-/>
+<Text disabled>{children}</Text>
 `,
       },
     },
   },
   render: () => (
-    <div className="sb-column sb-width-420 sb-gap-16">
+    <div className="sb-column sb-width-full sb-gap-16">
       {disabledCombinations()}
     </div>
   ),

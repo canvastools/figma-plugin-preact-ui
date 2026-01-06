@@ -9,7 +9,7 @@ import { GroupedStory } from "./stories/Grouped.story"
 import { PrefixStory } from "./stories/Prefix.story"
 import { SuffixStory } from "./stories/Suffix.story"
 
-import { Icon, Stack, link as linkGlyph, TooltipContext } from "../../index"
+import { TooltipContext } from "../../index"
 
 import { Button } from "./Button"
 
