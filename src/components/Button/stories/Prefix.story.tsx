@@ -95,6 +95,23 @@ const prefixCombinations = () => {
       >
         Button
       </Button>
+
+      <Button
+        intent={intent as ButtonProps["intent"]}
+        intentModifiers={intentModifiers as ButtonProps["intentModifiers"]}
+        ghost={ghost}
+        size="large"
+        prefix={
+          <Icon
+            glyph={help}
+            variant="scaled"
+            intent={intent as IconProps["intent"]}
+            intentModifiers={intentModifiers as IconProps["intentModifiers"]}
+          />
+        }
+      >
+        Button
+      </Button>
     </div>
   ))
 }

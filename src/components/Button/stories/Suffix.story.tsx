@@ -93,6 +93,23 @@ const suffixCombinations = () => {
       >
         Button
       </Button>
+
+      <Button
+        intent={intent as ButtonProps["intent"]}
+        intentModifiers={intentModifiers as ButtonProps["intentModifiers"]}
+        ghost={ghost}
+        size="large"
+        suffix={
+          <Icon
+            glyph={help}
+            variant="scaled"
+            intent={intent as IconProps["intent"]}
+            intentModifiers={intentModifiers as IconProps["intentModifiers"]}
+          />
+        }
+      >
+        Button
+      </Button>
     </div>
   ))
 }

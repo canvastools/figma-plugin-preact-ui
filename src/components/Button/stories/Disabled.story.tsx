@@ -85,6 +85,16 @@ const disabledCombinations = () => {
       >
         Button
       </Button>
+
+      <Button
+        intent={intent as ButtonProps["intent"]}
+        intentModifiers={intentModifiers as ButtonProps["intentModifiers"]}
+        ghost={ghost}
+        disabled
+        size="large"
+      >
+        Button
+      </Button>
     </div>
   ))
 }

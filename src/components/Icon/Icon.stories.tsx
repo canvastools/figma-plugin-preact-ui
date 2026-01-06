@@ -92,7 +92,7 @@ const meta: Meta<typeof Icon> = {
         "The SVG icon to display as a child if a custom glyph is required.",
       table: {
         type: {
-          summary: "string | number | JSX.Element",
+          summary: "JSX.Element",
         },
       },
     },
