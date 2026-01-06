@@ -1,7 +1,93 @@
 import { StoryObj } from "@storybook/preact"
 
+import { Text } from "../../../index"
+
 import { Button } from "../Button"
-import { Stack } from "../../../index"
+import type { ButtonProps } from "../Button.types"
+
+const validDisabledCombinations = [
+  // neutral
+  {
+    intent: "neutral",
+    intentModifiers: "default",
+    ghost: false,
+  },
+  {
+    intent: "neutral",
+    intentModifiers: "default",
+    ghost: true,
+  },
+  {
+    intent: "neutral",
+    intentModifiers: "brand",
+    ghost: false,
+  },
+  {
+    intent: "neutral",
+    intentModifiers: "brand",
+    ghost: true,
+  },
+  {
+    intent: "neutral",
+    intentModifiers: "danger",
+    ghost: false,
+  },
+  {
+    intent: "neutral",
+    intentModifiers: "danger",
+    ghost: true,
+  },
+
+  // neutral-inverted
+  {
+    intent: "neutral-inverted",
+    intentModifiers: "default",
+    ghost: false,
+  },
+
+  // brand
+  {
+    intent: "brand",
+    intentModifiers: "default",
+    ghost: false,
+  },
+
+  // danger
+  {
+    intent: "danger",
+    intentModifiers: "default",
+    ghost: false,
+  },
+
+  // success
+  {
+    intent: "success",
+    intentModifiers: "default",
+    ghost: false,
+  },
+]
+
+const disabledCombinations = () => {
+  return validDisabledCombinations.map(({ intent, intentModifiers, ghost }) => (
+    <div
+      className="sb-row sb-width-full sb-gap-16"
+      style={{ alignItems: "center" }}
+    >
+      <Text fullWidth>
+        {intent}, {intentModifiers}
+      </Text>
+
+      <Button
+        intent={intent as ButtonProps["intent"]}
+        intentModifiers={intentModifiers as ButtonProps["intentModifiers"]}
+        ghost={ghost}
+        disabled
+      >
+        Button
+      </Button>
+    </div>
+  ))
+}
 
 type Story = StoryObj<typeof Button>
 
@@ -21,161 +107,8 @@ export const DisabledStory: Story = {
     },
   },
   render: () => (
-    <div className="sb-column sb-width-full">
-      <Stack direction="row" spacing={1000}>
-        <Stack spacing={400}>
-          <Stack direction="row" spacing={400}>
-            <Button intent="neutral" intentModifiers="default" disabled>
-              Neutral
-            </Button>
-
-            <Button intent="neutral" intentModifiers="default" ghost disabled>
-              Neutral Ghost
-            </Button>
-          </Stack>
-
-          <Stack direction="row" spacing={400}>
-            <Button intent="brand" intentModifiers="default" disabled>
-              Brand
-            </Button>
-            <Button intent="neutral" intentModifiers="brand" disabled>
-              Neutral Brand
-            </Button>
-            <Button intent="neutral" intentModifiers="brand" ghost disabled>
-              Neutral Brand Ghost
-            </Button>
-          </Stack>
-
-          <Stack direction="row" spacing={400}>
-            <Button intent="danger" intentModifiers="default" disabled>
-              Danger
-            </Button>
-            <Button intent="neutral" intentModifiers="danger" disabled>
-              Neutral Danger
-            </Button>
-            <Button intent="neutral" intentModifiers="danger" ghost disabled>
-              Neutral Danger Ghost
-            </Button>
-          </Stack>
-
-          <Stack direction="row" spacing={400}>
-            <Button intent="success" intentModifiers="default" disabled>
-              Success
-            </Button>
-          </Stack>
-
-          <Stack direction="row" spacing={400}>
-            <Button
-              intent="neutral-inverted"
-              intentModifiers="default"
-              disabled
-            >
-              Neutral Inverted
-            </Button>
-          </Stack>
-        </Stack>
-
-        <Stack spacing={400}>
-          <Stack direction="row" spacing={400}>
-            <Button
-              intent="neutral"
-              intentModifiers="default"
-              size="large"
-              disabled
-            >
-              Neutral
-            </Button>
-
-            <Button
-              intent="neutral"
-              intentModifiers="default"
-              ghost
-              size="large"
-              disabled
-            >
-              Neutral Ghost
-            </Button>
-          </Stack>
-
-          <Stack direction="row" spacing={400}>
-            <Button
-              intent="brand"
-              intentModifiers="default"
-              size="large"
-              disabled
-            >
-              Brand
-            </Button>
-            <Button
-              intent="neutral"
-              intentModifiers="brand"
-              size="large"
-              disabled
-            >
-              Neutral Brand
-            </Button>
-            <Button
-              intent="neutral"
-              intentModifiers="brand"
-              ghost
-              size="large"
-              disabled
-            >
-              Neutral Brand Ghost
-            </Button>
-          </Stack>
-
-          <Stack direction="row" spacing={400}>
-            <Button
-              intent="danger"
-              intentModifiers="default"
-              size="large"
-              disabled
-            >
-              Danger
-            </Button>
-            <Button
-              intent="neutral"
-              intentModifiers="danger"
-              size="large"
-              disabled
-            >
-              Neutral Danger
-            </Button>
-            <Button
-              intent="neutral"
-              intentModifiers="danger"
-              ghost
-              size="large"
-              disabled
-            >
-              Neutral Danger Ghost
-            </Button>
-          </Stack>
-
-          <Stack direction="row" spacing={400}>
-            <Button
-              intent="success"
-              intentModifiers="default"
-              size="large"
-              disabled
-            >
-              Success
-            </Button>
-          </Stack>
-
-          <Stack direction="row" spacing={400}>
-            <Button
-              intent="neutral-inverted"
-              intentModifiers="default"
-              size="large"
-              disabled
-            >
-              Neutral Inverted
-            </Button>
-          </Stack>
-        </Stack>
-      </Stack>
+    <div className="sb-column sb-width-420 sb-gap-16">
+      {disabledCombinations()}
     </div>
   ),
 }

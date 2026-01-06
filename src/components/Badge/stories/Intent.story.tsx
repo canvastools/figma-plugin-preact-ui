@@ -1,9 +1,89 @@
 import { StoryObj } from "@storybook/preact"
 
+import { Text } from "../../../index"
+
 import { Badge } from "../Badge"
-import { Stack } from "../../../index"
+import type { BadgeProps } from "../Badge.types"
 
 type Story = StoryObj<typeof Badge>
+
+const validIntentCombinations = [
+  // neutral
+  {
+    intent: "neutral",
+    intentModifiers: "default",
+  },
+  {
+    intent: "neutral",
+    intentModifiers: "secondary",
+  },
+  {
+    intent: "neutral",
+    intentModifiers: "brand",
+  },
+  {
+    intent: "neutral",
+    intentModifiers: "danger",
+  },
+  {
+    intent: "neutral",
+    intentModifiers: "warning",
+  },
+  {
+    intent: "neutral",
+    intentModifiers: "success",
+  },
+
+  // neutral-inverted
+  {
+    intent: "neutral-inverted",
+    intentModifiers: "default",
+  },
+
+  // brand
+  {
+    intent: "brand",
+    intentModifiers: "default",
+  },
+
+  // danger
+  {
+    intent: "danger",
+    intentModifiers: "default",
+  },
+
+  // warning
+  {
+    intent: "warning",
+    intentModifiers: "default",
+  },
+
+  // success
+  {
+    intent: "success",
+    intentModifiers: "default",
+  },
+]
+
+const intentCombinations = () => {
+  return validIntentCombinations.map(({ intent, intentModifiers }) => (
+    <div
+      className="sb-row sb-width-full sb-gap-16"
+      style={{ alignItems: "center" }}
+    >
+      <Text fullWidth>
+        {intent}, {intentModifiers}
+      </Text>
+
+      <Badge
+        intent={intent as BadgeProps["intent"]}
+        intentModifiers={intentModifiers as BadgeProps["intentModifiers"]}
+      >
+        Badge
+      </Badge>
+    </div>
+  ))
+}
 
 export const IntentStory: Story = {
   parameters: {
@@ -28,47 +108,8 @@ export const IntentStory: Story = {
     },
   },
   render: () => (
-    <div className="sb-column sb-width-full">
-      <Stack spacing={400}>
-        <Stack direction="row" spacing={400}>
-          <Badge intent="neutral">Neutral</Badge>
-          <Badge intent="neutral" intentModifiers="secondary">
-            Neutral Secondary
-          </Badge>
-        </Stack>
-
-        <Stack direction="row" spacing={400}>
-          <Badge intent="brand">Brand</Badge>
-          <Badge intent="neutral" intentModifiers="brand">
-            Neutral Brand
-          </Badge>
-        </Stack>
-
-        <Stack direction="row" spacing={400}>
-          <Badge intent="danger">Danger</Badge>
-          <Badge intent="neutral" intentModifiers="danger">
-            Neutral Danger
-          </Badge>
-        </Stack>
-
-        <Stack direction="row" spacing={400}>
-          <Badge intent="warning">Warning</Badge>
-          <Badge intent="neutral" intentModifiers="warning">
-            Neutral Warning
-          </Badge>
-        </Stack>
-
-        <Stack direction="row" spacing={400}>
-          <Badge intent="success">Success</Badge>
-          <Badge intent="neutral" intentModifiers="success">
-            Neutral Success
-          </Badge>
-        </Stack>
-
-        <Stack direction="row" spacing={400}>
-          <Badge intent="neutral-inverted">Neutral Inverted</Badge>
-        </Stack>
-      </Stack>
+    <div className="sb-column sb-width-300 sb-gap-16">
+      {intentCombinations()}
     </div>
   ),
 }

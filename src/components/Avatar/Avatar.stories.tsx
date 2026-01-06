@@ -102,4 +102,4 @@ export const Demo: Story = {
 export const Variant = VariantStory
 export const Size = SizeStory
 export const Image = SrcStory
-export const Styling = ColorStory
+export const Color = ColorStory

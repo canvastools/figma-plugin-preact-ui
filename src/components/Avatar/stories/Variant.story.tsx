@@ -1,6 +1,6 @@
 import { StoryObj } from "@storybook/preact"
+
 import { Avatar } from "../Avatar"
-import { Stack } from "../../../index"
 
 type Story = StoryObj<typeof Avatar>
 
@@ -22,21 +22,19 @@ export const VariantStory: Story = {
     },
   },
   render: () => (
-    <div className="sb-column sb-width-full">
-      <Stack direction="row" spacing={1000}>
-        <Stack direction="row" spacing={400}>
-          <Avatar src="https://thispersondoesnotexist.com/" variant="circle">
-            A
-          </Avatar>
-          <Avatar variant="circle">A</Avatar>
-        </Stack>
-        <Stack direction="row" spacing={400}>
-          <Avatar src="https://thispersondoesnotexist.com/" variant="square">
-            A
-          </Avatar>
-          <Avatar variant="square">A</Avatar>
-        </Stack>
-      </Stack>
+    <div className="sb-row sb-width-full sb-gap-40">
+      <div className="sb-row sb-gap-16">
+        <Avatar src="https://thispersondoesnotexist.com/" variant="circle">
+          A
+        </Avatar>
+        <Avatar variant="circle">A</Avatar>
+      </div>
+      <div className="sb-row sb-gap-16">
+        <Avatar src="https://thispersondoesnotexist.com/" variant="square">
+          A
+        </Avatar>
+        <Avatar variant="square">A</Avatar>
+      </div>
     </div>
   ),
 }

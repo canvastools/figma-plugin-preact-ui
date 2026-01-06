@@ -2,14 +2,8 @@
 
 @mixin Icon_intent($intent, $modifiers) {
   &_intent-#{$intent}-#{$modifiers} {
-    &.Icon_interactive {
-      color: var(--pui-color-#{$intent}-icon-#{$modifiers}-interactive);
-    }
-
     &.Icon_selected {
-      color: var(
-        --pui-color-#{$intent}-icon-#{$modifiers}-interactive-selected
-      );
+      color: var(--pui-color-#{$intent}-icon-#{$modifiers}-selected);
     }
 
     color: var(--pui-color-#{$intent}-icon-#{$modifiers});
@@ -21,8 +15,6 @@
 }
 
 .Icon {
-  $parent: &;
-
   display: flex;
 
   & > svg {
@@ -45,6 +37,7 @@
 
   @include Icon_intent("neutral", "default");
   @include Icon_intent("neutral", "secondary");
+  @include Icon_intent("neutral", "tertiary");
   @include Icon_intent("neutral", "brand");
   @include Icon_intent("neutral", "danger");
   @include Icon_intent("neutral", "warning");

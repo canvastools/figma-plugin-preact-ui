@@ -1,9 +1,98 @@
 import { StoryObj } from "@storybook/preact"
 
+import { Icon, Text, help } from "../../../index"
+import type { IconProps } from "../../../index"
+
 import { Badge } from "../Badge"
-import { Icon, Stack, help } from "../../../index"
+import type { BadgeProps } from "../Badge.types"
 
 type Story = StoryObj<typeof Badge>
+
+const validPrefixCombinations = [
+  // neutral
+  {
+    intent: "neutral",
+    intentModifiers: "default",
+  },
+  {
+    intent: "neutral",
+    intentModifiers: "secondary",
+  },
+  {
+    intent: "neutral",
+    intentModifiers: "brand",
+  },
+  {
+    intent: "neutral",
+    intentModifiers: "danger",
+  },
+  {
+    intent: "neutral",
+    intentModifiers: "warning",
+  },
+  {
+    intent: "neutral",
+    intentModifiers: "success",
+  },
+
+  // neutral-inverted
+  {
+    intent: "neutral-inverted",
+    intentModifiers: "default",
+  },
+
+  // brand
+  {
+    intent: "brand",
+    intentModifiers: "default",
+  },
+
+  // danger
+  {
+    intent: "danger",
+    intentModifiers: "default",
+  },
+
+  // warning
+  {
+    intent: "warning",
+    intentModifiers: "default",
+  },
+
+  // success
+  {
+    intent: "success",
+    intentModifiers: "default",
+  },
+]
+
+const prefixCombinations = () => {
+  return validPrefixCombinations.map(({ intent, intentModifiers }) => (
+    <div
+      className="sb-row sb-width-full sb-gap-16"
+      style={{ alignItems: "center" }}
+    >
+      <Text fullWidth>
+        {intent}, {intentModifiers}
+      </Text>
+
+      <Badge
+        intent={intent as BadgeProps["intent"]}
+        intentModifiers={intentModifiers as BadgeProps["intentModifiers"]}
+        prefix={
+          <Icon
+            glyph={help}
+            size={16}
+            intent={intent as IconProps["intent"]}
+            intentModifiers={intentModifiers as IconProps["intentModifiers"]}
+          />
+        }
+      >
+        Badge
+      </Badge>
+    </div>
+  ))
+}
 
 export const PrefixStory: Story = {
   parameters: {
@@ -32,132 +121,8 @@ export const PrefixStory: Story = {
     },
   },
   render: () => (
-    <div className="sb-column sb-width-full">
-      <Stack spacing={400}>
-        <Stack direction="row" spacing={400}>
-          <Badge
-            intent="neutral"
-            prefix={<Icon glyph={help} size={16} intent="neutral" />}
-          >
-            Neutral
-          </Badge>
-          <Badge
-            intent="neutral"
-            intentModifiers="secondary"
-            prefix={
-              <Icon
-                glyph={help}
-                size={16}
-                intent="neutral"
-                intentModifiers="secondary"
-              />
-            }
-          >
-            Neutral Secondary
-          </Badge>
-        </Stack>
-
-        <Stack direction="row" spacing={400}>
-          <Badge
-            intent="brand"
-            prefix={<Icon glyph={help} size={16} intent="brand" />}
-          >
-            Brand
-          </Badge>
-          <Badge
-            intent="neutral"
-            intentModifiers="brand"
-            prefix={
-              <Icon
-                glyph={help}
-                size={16}
-                intent="neutral"
-                intentModifiers="brand"
-              />
-            }
-          >
-            Neutral Brand
-          </Badge>
-        </Stack>
-
-        <Stack direction="row" spacing={400}>
-          <Badge
-            intent="danger"
-            prefix={<Icon glyph={help} size={16} intent="danger" />}
-          >
-            Danger
-          </Badge>
-          <Badge
-            intent="neutral"
-            intentModifiers="danger"
-            prefix={
-              <Icon
-                glyph={help}
-                size={16}
-                intent="neutral"
-                intentModifiers="danger"
-              />
-            }
-          >
-            Neutral Danger
-          </Badge>
-        </Stack>
-
-        <Stack direction="row" spacing={400}>
-          <Badge
-            intent="warning"
-            prefix={<Icon glyph={help} size={16} intent="warning" />}
-          >
-            Warning
-          </Badge>
-          <Badge
-            intent="neutral"
-            intentModifiers="warning"
-            prefix={
-              <Icon
-                glyph={help}
-                size={16}
-                intent="neutral"
-                intentModifiers="warning"
-              />
-            }
-          >
-            Neutral Warning
-          </Badge>
-        </Stack>
-
-        <Stack direction="row" spacing={400}>
-          <Badge
-            intent="success"
-            prefix={<Icon glyph={help} size={16} intent="success" />}
-          >
-            Success
-          </Badge>
-          <Badge
-            intent="neutral"
-            intentModifiers="success"
-            prefix={
-              <Icon
-                glyph={help}
-                size={16}
-                intent="neutral"
-                intentModifiers="success"
-              />
-            }
-          >
-            Neutral Success
-          </Badge>
-        </Stack>
-
-        <Stack direction="row" spacing={400}>
-          <Badge
-            intent="neutral-inverted"
-            prefix={<Icon glyph={help} size={16} intent="neutral-inverted" />}
-          >
-            Neutral Inverted
-          </Badge>
-        </Stack>
-      </Stack>
+    <div className="sb-column sb-width-300 sb-gap-16">
+      {prefixCombinations()}
     </div>
   ),
 }

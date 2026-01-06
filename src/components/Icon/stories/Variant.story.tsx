@@ -1,10 +1,12 @@
 import { StoryObj } from "@storybook/preact"
 
-import { Avatar } from "../Avatar"
+import { link } from "../glyphs"
 
-type Story = StoryObj<typeof Avatar>
+import { Icon } from "../Icon"
 
-export const SrcStory: Story = {
+type Story = StoryObj<typeof Icon>
+
+export const VariantStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
@@ -14,15 +16,23 @@ export const SrcStory: Story = {
       source: {
         language: "tsx",
         code: `
-<Avatar src="https://thispersondoesnotexist.com/">{children}</Avatar>
+<Icon
+  glyph={link}
+  variant="default"
+/>
+
+<Icon
+  glyph={link}
+  variant="scaled"
+/>
 `,
       },
     },
   },
   render: () => (
     <div className="sb-row sb-width-full sb-gap-16">
-      <Avatar src="https://thispersondoesnotexist.com/">A</Avatar>
-      <Avatar>A</Avatar>
+      <Icon glyph={link} variant="default" />
+      <Icon glyph={link} variant="scaled" />
     </div>
   ),
 }

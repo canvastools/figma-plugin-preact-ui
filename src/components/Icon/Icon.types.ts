@@ -23,11 +23,10 @@ export interface IconProps {
     | "danger"
     | "warning"
     | "success"
-  disabled?: boolean
-  interactive?: boolean
-  selected?: boolean
-  fill?: string
   variant?: "default" | "scaled"
   size?: 16 | 24
+  disabled?: boolean
+  selected?: boolean
+  colorIcon?: string
   children?: preact.ComponentChildren
 }

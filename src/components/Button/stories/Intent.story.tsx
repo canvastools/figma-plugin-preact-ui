@@ -1,9 +1,94 @@
 import { StoryObj } from "@storybook/preact"
 
+import { Text } from "../../../index"
+
 import { Button } from "../Button"
-import { Stack } from "../../../index"
+import type { ButtonProps } from "../Button.types"
 
 type Story = StoryObj<typeof Button>
+
+const validIntentCombinations = [
+  // neutral
+  {
+    intent: "neutral",
+    intentModifiers: "default",
+    ghost: false,
+  },
+  {
+    intent: "neutral",
+    intentModifiers: "default",
+    ghost: true,
+  },
+  {
+    intent: "neutral",
+    intentModifiers: "brand",
+    ghost: false,
+  },
+  {
+    intent: "neutral",
+    intentModifiers: "brand",
+    ghost: true,
+  },
+  {
+    intent: "neutral",
+    intentModifiers: "danger",
+    ghost: false,
+  },
+  {
+    intent: "neutral",
+    intentModifiers: "danger",
+    ghost: true,
+  },
+
+  // neutral-inverted
+  {
+    intent: "neutral-inverted",
+    intentModifiers: "default",
+    ghost: false,
+  },
+
+  // brand
+  {
+    intent: "brand",
+    intentModifiers: "default",
+    ghost: false,
+  },
+
+  // danger
+  {
+    intent: "danger",
+    intentModifiers: "default",
+    ghost: false,
+  },
+
+  // success
+  {
+    intent: "success",
+    intentModifiers: "default",
+    ghost: false,
+  },
+]
+
+const intentCombinations = () => {
+  return validIntentCombinations.map(({ intent, intentModifiers, ghost }) => (
+    <div
+      className="sb-row sb-width-full sb-gap-16"
+      style={{ alignItems: "center" }}
+    >
+      <Text fullWidth>
+        {intent}, {intentModifiers}
+      </Text>
+
+      <Button
+        intent={intent as ButtonProps["intent"]}
+        intentModifiers={intentModifiers as ButtonProps["intentModifiers"]}
+        ghost={ghost}
+      >
+        Button
+      </Button>
+    </div>
+  ))
+}
 
 export const IntentStory: Story = {
   parameters: {
@@ -25,8 +110,7 @@ export const IntentStory: Story = {
 </Button>
 
 <Button 
-  intent="neutral"
-  intentModifiers="secondary"
+  intent="brand"
   ghost
 >
   {children}
@@ -36,54 +120,8 @@ export const IntentStory: Story = {
     },
   },
   render: () => (
-    <div className="sb-column sb-width-full">
-      <Stack spacing={400}>
-        <Stack direction="row" spacing={400}>
-          <Button intent="neutral" intentModifiers="default">
-            Neutral
-          </Button>
-
-          <Button intent="neutral" intentModifiers="default" ghost>
-            Neutral Ghost
-          </Button>
-        </Stack>
-
-        <Stack direction="row" spacing={400}>
-          <Button intent="brand" intentModifiers="default">
-            Brand
-          </Button>
-          <Button intent="neutral" intentModifiers="brand">
-            Neutral Brand
-          </Button>
-          <Button intent="neutral" intentModifiers="brand" ghost>
-            Neutral Brand Ghost
-          </Button>
-        </Stack>
-
-        <Stack direction="row" spacing={400}>
-          <Button intent="danger" intentModifiers="default">
-            Danger
-          </Button>
-          <Button intent="neutral" intentModifiers="danger">
-            Neutral Danger
-          </Button>
-          <Button intent="neutral" intentModifiers="danger" ghost>
-            Neutral Danger Ghost
-          </Button>
-        </Stack>
-
-        <Stack direction="row" spacing={400}>
-          <Button intent="success" intentModifiers="default">
-            Success
-          </Button>
-        </Stack>
-
-        <Stack direction="row" spacing={400}>
-          <Button intent="neutral-inverted" intentModifiers="default">
-            Neutral Inverted
-          </Button>
-        </Stack>
-      </Stack>
+    <div className="sb-column sb-width-420 sb-gap-16">
+      {intentCombinations()}
     </div>
   ),
 }

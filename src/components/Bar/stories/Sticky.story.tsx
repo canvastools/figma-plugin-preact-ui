@@ -1,6 +1,5 @@
 import { StoryObj } from "@storybook/preact"
 
-import { Bar } from "../Bar"
 import {
   Text,
   Section,
@@ -8,6 +7,8 @@ import {
   ScrollContainer,
   useScrollContext,
 } from "../../../index"
+
+import { Bar } from "../Bar"
 
 type Story = StoryObj<typeof Bar>
 

@@ -1,7 +1,101 @@
 import { StoryObj } from "@storybook/preact"
 
+import { Text, Icon, help } from "../../../index"
+import type { IconProps } from "../../Icon/Icon.types"
+
 import { Button } from "../Button"
-import { Stack, Icon, help } from "../../../index"
+import type { ButtonProps } from "../Button.types"
+
+const validSuffixCombinations = [
+  // neutral
+  {
+    intent: "neutral",
+    intentModifiers: "default",
+    ghost: false,
+  },
+  {
+    intent: "neutral",
+    intentModifiers: "default",
+    ghost: true,
+  },
+  {
+    intent: "neutral",
+    intentModifiers: "brand",
+    ghost: false,
+  },
+  {
+    intent: "neutral",
+    intentModifiers: "brand",
+    ghost: true,
+  },
+  {
+    intent: "neutral",
+    intentModifiers: "danger",
+    ghost: false,
+  },
+  {
+    intent: "neutral",
+    intentModifiers: "danger",
+    ghost: true,
+  },
+
+  // neutral-inverted
+  {
+    intent: "neutral-inverted",
+    intentModifiers: "default",
+    ghost: false,
+  },
+
+  // brand
+  {
+    intent: "brand",
+    intentModifiers: "default",
+    ghost: false,
+  },
+
+  // danger
+  {
+    intent: "danger",
+    intentModifiers: "default",
+    ghost: false,
+  },
+
+  // success
+  {
+    intent: "success",
+    intentModifiers: "default",
+    ghost: false,
+  },
+]
+
+const suffixCombinations = () => {
+  return validSuffixCombinations.map(({ intent, intentModifiers, ghost }) => (
+    <div
+      className="sb-row sb-width-full sb-gap-16"
+      style={{ alignItems: "center" }}
+    >
+      <Text fullWidth>
+        {intent}, {intentModifiers}
+      </Text>
+
+      <Button
+        intent={intent as ButtonProps["intent"]}
+        intentModifiers={intentModifiers as ButtonProps["intentModifiers"]}
+        ghost={ghost}
+        suffix={
+          <Icon
+            glyph={help}
+            variant="scaled"
+            intent={intent as IconProps["intent"]}
+            intentModifiers={intentModifiers as IconProps["intentModifiers"]}
+          />
+        }
+      >
+        Button
+      </Button>
+    </div>
+  ))
+}
 
 type Story = StoryObj<typeof Button>
 
@@ -22,7 +116,6 @@ export const SuffixStory: Story = {
       glyph={help}
       variant="scaled"
       intent="neutral"
-      interactive
     />
   }
 >
@@ -33,161 +126,8 @@ export const SuffixStory: Story = {
     },
   },
   render: () => (
-    <div className="sb-column sb-width-full">
-      <Stack spacing={400}>
-        <Stack direction="row" spacing={400}>
-          <Button
-            intent="neutral"
-            intentModifiers="default"
-            suffix={
-              <Icon
-                glyph={help}
-                variant="scaled"
-                intent="neutral"
-                interactive
-              />
-            }
-          >
-            Neutral
-          </Button>
-
-          <Button
-            intent="neutral"
-            intentModifiers="default"
-            ghost
-            suffix={
-              <Icon
-                glyph={help}
-                variant="scaled"
-                intent="neutral"
-                interactive
-              />
-            }
-          >
-            Neutral Ghost
-          </Button>
-        </Stack>
-
-        <Stack direction="row" spacing={400}>
-          <Button
-            intent="brand"
-            intentModifiers="default"
-            suffix={
-              <Icon glyph={help} variant="scaled" intent="brand" interactive />
-            }
-          >
-            Brand
-          </Button>
-          <Button
-            intent="neutral"
-            intentModifiers="brand"
-            suffix={
-              <Icon
-                glyph={help}
-                variant="scaled"
-                intent="neutral"
-                intentModifiers="brand"
-                interactive
-              />
-            }
-          >
-            Neutral Brand
-          </Button>
-          <Button
-            intent="neutral"
-            intentModifiers="brand"
-            ghost
-            suffix={
-              <Icon
-                glyph={help}
-                variant="scaled"
-                intent="neutral"
-                intentModifiers="brand"
-                interactive
-              />
-            }
-          >
-            Neutral Brand Ghost
-          </Button>
-        </Stack>
-
-        <Stack direction="row" spacing={400}>
-          <Button
-            intent="danger"
-            intentModifiers="default"
-            suffix={
-              <Icon glyph={help} variant="scaled" intent="danger" interactive />
-            }
-          >
-            Danger
-          </Button>
-          <Button
-            intent="neutral"
-            intentModifiers="danger"
-            suffix={
-              <Icon
-                glyph={help}
-                variant="scaled"
-                intent="neutral"
-                intentModifiers="danger"
-                interactive
-              />
-            }
-          >
-            Neutral Danger
-          </Button>
-          <Button
-            intent="neutral"
-            intentModifiers="danger"
-            ghost
-            suffix={
-              <Icon
-                glyph={help}
-                variant="scaled"
-                intent="neutral"
-                intentModifiers="danger"
-                interactive
-              />
-            }
-          >
-            Neutral Danger Ghost
-          </Button>
-        </Stack>
-
-        <Stack direction="row" spacing={400}>
-          <Button
-            intent="success"
-            intentModifiers="default"
-            suffix={
-              <Icon
-                glyph={help}
-                variant="scaled"
-                intent="success"
-                interactive
-              />
-            }
-          >
-            Success
-          </Button>
-        </Stack>
-
-        <Stack direction="row" spacing={400}>
-          <Button
-            intent="neutral-inverted"
-            intentModifiers="default"
-            suffix={
-              <Icon
-                glyph={help}
-                variant="scaled"
-                intent="neutral-inverted"
-                interactive
-              />
-            }
-          >
-            Neutral Inverted
-          </Button>
-        </Stack>
-      </Stack>
+    <div className="sb-column sb-width-420 sb-gap-16">
+      {suffixCombinations()}
     </div>
   ),
 }

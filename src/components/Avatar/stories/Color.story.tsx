@@ -20,6 +20,14 @@ export const ColorStory: Story = {
 >
   {children}
 </Avatar>
+
+<Avatar 
+  colorBackground="rgb(0, 255, 0, 0.5)"
+  colorText="rgb(0, 0, 0)"
+>
+  {children}
+</Avatar>
+
 `,
       },
     },
