@@ -22,9 +22,9 @@ const ButtonIconComponent = (
     translucent = false,
     disabled = false,
     selected = false,
-    icon,
-    children,
     tooltip,
+    children,
+    icon,
     onClick,
     ...rest
   }: ButtonIconProps,
@@ -87,7 +87,6 @@ const ButtonIconComponent = (
                 intentModifiers={intentModifiers}
                 variant={icon.variant}
                 size={icon.size}
-                interactive
                 selected={selected}
                 disabled={disabled}
               />
@@ -101,7 +100,6 @@ const ButtonIconComponent = (
                   if (maybeVNode.type === Icon) {
                     return cloneElement(maybeVNode, {
                       disabled,
-                      interactive: true,
                       selected,
                     })
                   }

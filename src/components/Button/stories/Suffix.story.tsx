@@ -76,6 +76,7 @@ const suffixCombinations = () => {
     >
       <Text widthFull>
         {intent}, {intentModifiers}
+        {ghost ? ", ghost" : ""}
       </Text>
 
       <Button

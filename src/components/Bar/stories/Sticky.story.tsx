@@ -20,10 +20,8 @@ export const StickyStory: Story = {
     },
     docs: {
       description: {
-        story: `
-By combining the scroll-related components with &lt;Bar&gt;, you can simulate sticky elements.<br/>
-The visibility of the dividers is managed using the values from &lt;ScrollContext&gt;.
-`,
+        story:
+          "By combining the scroll-related components with <a href='/docs/components-bar--docs'>`<Bar/>`</a>, you can simulate sticky elements.<br/>The visibility of the dividers is managed using the values from <a href='/docs/layout-scrollcontext--docs'>`<ScrollContext/>`</a>.",
       },
       source: {
         language: "tsx",

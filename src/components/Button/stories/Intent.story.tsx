@@ -77,6 +77,7 @@ const intentCombinations = () => {
     >
       <Text widthFull>
         {intent}, {intentModifiers}
+        {ghost ? ", ghost" : ""}
       </Text>
 
       <Button

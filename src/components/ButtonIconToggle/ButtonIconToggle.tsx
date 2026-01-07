@@ -12,36 +12,26 @@ import { ButtonIcon, Icon } from "../../index"
 
 const ButtonIconToggleComponent = (
   {
-    className,
-    intent = "neutral",
-    intentModifiers = "default",
-    ghost = false,
-    disabled = false,
-    icon,
-    children,
-    defaultSelected = false,
     selected: controlledSelected,
-    tooltip,
-    onChange,
+    selectedDefault = false,
+    onSelectedChange,
     ...rest
   }: ButtonIconToggleProps,
   ref: preact.Ref<HTMLButtonElement>
 ) => {
-  const [internalSelected, setInternalSelected] = useState(defaultSelected)
+  const [internalSelected, setInternalSelected] = useState(selectedDefault)
 
   const isSelected =
     controlledSelected !== undefined ? controlledSelected : internalSelected
 
   const handleClick = (e: { event: MouseEvent }) => {
-    if (!disabled) {
-      const newSelected = !isSelected
+    const newSelected = !isSelected
 
-      if (controlledSelected === undefined) {
-        setInternalSelected(newSelected)
-      }
-      e.event.stopPropagation()
-      onChange?.({ event: e.event, selected: newSelected })
+    if (controlledSelected === undefined) {
+      setInternalSelected(newSelected)
     }
+    e.event.stopPropagation()
+    onSelectedChange?.({ event: e.event, selected: newSelected })
   }
 
   useEffect(() => {
@@ -52,22 +42,11 @@ const ButtonIconToggleComponent = (
 
   return (
     <ButtonIcon
-      className={[isSelected ? "ButtonIcon_selected" : "", "no-drag", className]
-        .join(" ")
-        .trim()}
       ref={ref}
-      intent={intent}
-      intentModifiers={intentModifiers}
       selected={isSelected}
-      ghost={ghost}
-      icon={icon && icon}
-      disabled={disabled}
-      tooltip={tooltip}
       onClick={handleClick}
       {...rest}
-    >
-      {children}
-    </ButtonIcon>
+    />
   )
 }
 

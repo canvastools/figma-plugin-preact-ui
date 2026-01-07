@@ -34,40 +34,19 @@ export const GroupedStory: Story = {
   render: () => (
     <div className="sb-column sb-width-full sb-gap-40">
       <Stack direction="row">
-        <Button intent="neutral" intentModifiers="default" grouped="right">
-          Grouped right
-        </Button>
-        <Button intent="neutral" intentModifiers="default" grouped="both">
-          Grouped both
-        </Button>
-        <Button intent="neutral" intentModifiers="default" grouped="left">
-          Grouped left
-        </Button>
+        <Button grouped="right">Grouped right</Button>
+        <Button grouped="both">Grouped both</Button>
+        <Button grouped="left">Grouped left</Button>
       </Stack>
 
       <Stack direction="row" fullWidth>
-        <Button
-          intent="neutral"
-          intentModifiers="default"
-          grouped="right"
-          widthFull
-        >
+        <Button grouped="right" widthFull>
           Grouped right
         </Button>
-        <Button
-          intent="neutral"
-          intentModifiers="default"
-          grouped="both"
-          widthFull
-        >
+        <Button grouped="both" widthFull>
           Grouped both
         </Button>
-        <Button
-          intent="neutral"
-          intentModifiers="default"
-          grouped="left"
-          widthFull
-        >
+        <Button grouped="left" widthFull>
           Grouped left
         </Button>
       </Stack>

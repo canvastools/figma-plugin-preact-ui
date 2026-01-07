@@ -1,40 +1,30 @@
 @use "../../shared.scss" as *;
-@use "../../mixins.scss" as *;
 
 @mixin Button_filled($intent, $modifiers) {
   &_intent-#{$intent}-#{$modifiers} {
-    background-color: var(--pui-color-#{$intent}-bg-#{$modifiers}-interactive);
+    background-color: var(--pui-color-#{$intent}-bg-#{$modifiers});
 
     &:hover {
-      background-color: var(
-        --pui-color-#{$intent}-bg-#{$modifiers}-interactive-hover
-      );
+      background-color: var(--pui-color-#{$intent}-bg-#{$modifiers}-hover);
     }
 
     &:active {
-      background-color: var(
-        --pui-color-#{$intent}-bg-#{$modifiers}-interactive-pressed
-      );
+      background-color: var(--pui-color-#{$intent}-bg-#{$modifiers}-pressed);
     }
   }
 }
 
 @mixin ButtonIcon_outlined($intent, $modifiers) {
   &_intent-#{$intent}-#{$modifiers} {
-    background-color: var(--pui-color-#{$intent}-bg-#{$modifiers}-interactive);
-    box-shadow: inset 0 0 0 1px
-      var(--pui-color-#{$intent}-border-#{$modifiers}-interactive);
+    background-color: transparent;
+    box-shadow: inset 0 0 0 1px var(--pui-color-#{$intent}-border-#{$modifiers});
 
     &:hover {
-      background-color: var(
-        --pui-color-#{$intent}-bg-#{$modifiers}-interactive-hover
-      );
+      background-color: var(--pui-color-#{$intent}-bg-#{$modifiers}-hover);
     }
 
     &:active {
-      background-color: var(
-        --pui-color-#{$intent}-bg-#{$modifiers}-interactive-pressed
-      );
+      background-color: var(--pui-color-#{$intent}-bg-#{$modifiers}-pressed);
     }
   }
 }
@@ -45,21 +35,17 @@
     box-shadow: none;
 
     &:hover {
-      background-color: var(
-        --pui-color-#{$intent}-bg-#{$modifiers}-interactive-hover
-      );
+      background-color: var(--pui-color-#{$intent}-bg-#{$modifiers}-hover);
     }
 
     &:active {
-      background-color: var(
-        --pui-color-#{$intent}-bg-#{$modifiers}-interactive-pressed
-      );
+      background-color: var(--pui-color-#{$intent}-bg-#{$modifiers}-pressed);
     }
   }
 }
 
 @mixin ButtonIcon_translucent($intent, $modifiers) {
-  &_intent-#{$intent}-#{$modifiers}.ButtonIcon_translucent {
+  &_intent-#{$intent}-#{$modifiers}:is(&_translucent) {
     background-color: transparent;
     box-shadow: none;
     opacity: 0.64;
@@ -76,18 +62,15 @@
 }
 
 .ButtonIcon {
-  $parent: &;
-
   padding: 0 var(--pui-spacing-100);
   border-radius: var(--pui-radius-medium);
   border: none;
   flex: 0 0 auto;
   overflow: hidden;
-
-  @include curson-feedback;
+  cursor: default;
 
   &:focus-visible {
-    outline: 1px solid var(--pui-color-system-border-focus);
+    outline: 1px solid var(--pui-color-system-border-focused);
     outline-offset: 1px;
     box-shadow: none;
   }
@@ -138,24 +121,16 @@
   @include ButtonIcon_translucent("neutral", "default");
 
   &_selected {
-    background-color: var(
-      --pui-color-neutral-bg-default-interactive-selected
-    ) !important;
-    color: var(
-      --pui-color-neutral-text-default-interactive-selected
-    ) !important;
+    background-color: var(--pui-color-neutral-bg-default-selected) !important;
+    color: var(--pui-color-neutral-text-default-selected) !important;
     box-shadow: none !important;
 
     &:hover {
-      background-color: var(
-        --pui-color-neutral-bg-default-interactive-selected-hover
-      ) !important;
+      background-color: var(--pui-color-neutral-bg-default-selected-hover) !important;
     }
 
     &:active {
-      background-color: var(
-        --pui-color-neutral-bg-default-interactive-selected-pressed
-      ) !important;
+      background-color: var(--pui-color-neutral-bg-default-selected-pressed) !important;
     }
   }
 
@@ -164,15 +139,15 @@
   }
 
   &_disabled {
-    background-color: var(--pui-color-neutral-bg-disabled) !important;
+    background-color: transparent !important;
     box-shadow: none !important;
 
     &:hover {
-      background-color: var(--pui-color-neutral-bg-disabled) !important;
+      background-color: transparent !important;
     }
 
     &:active {
-      background-color: var(--pui-color-neutral-bg-disabled) !important;
+      background-color: transparent !important;
     }
   }
 

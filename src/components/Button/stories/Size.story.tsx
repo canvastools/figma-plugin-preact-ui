@@ -68,13 +68,14 @@ const validSizeCombinations = [
 ]
 
 const sizeCombinations = () => {
-  return validSizeCombinations.map(({ intent, intentModifiers }) => (
+  return validSizeCombinations.map(({ intent, intentModifiers, ghost }) => (
     <div
       className="sb-row sb-width-full sb-gap-16"
       style={{ alignItems: "center" }}
     >
       <Text widthFull>
         {intent}, {intentModifiers}
+        {ghost ? ", ghost" : ""}
       </Text>
 
       <Button

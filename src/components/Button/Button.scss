@@ -1,5 +1,4 @@
 @use "../../shared.scss" as *;
-@use "../../mixins.scss" as *;
 
 @mixin Button_intent-filled($intent, $modifiers) {
   &_intent-#{$intent}-#{$modifiers} {

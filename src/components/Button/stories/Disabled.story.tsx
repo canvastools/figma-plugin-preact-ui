@@ -75,6 +75,7 @@ const disabledCombinations = () => {
     >
       <Text widthFull>
         {intent}, {intentModifiers}
+        {ghost ? ", ghost" : ""}
       </Text>
 
       <Button
