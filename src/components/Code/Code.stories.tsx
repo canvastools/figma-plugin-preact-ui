@@ -17,7 +17,6 @@ const meta: Meta<typeof Code> = {
     },
     children: {
       control: { type: "text" },
-      description: "The content of the code block.",
     },
   },
 }
@@ -33,6 +32,14 @@ export const Demo: Story = {
   parameters: {
     viewport: {
       defaultViewport: "large",
+    },
+    docs: {
+      source: {
+        language: "tsx",
+        code: `
+<Code {...args}>{children}</Code>
+`,
+      },
     },
   },
   render: (args) => (

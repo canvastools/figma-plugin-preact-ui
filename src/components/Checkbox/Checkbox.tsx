@@ -18,13 +18,13 @@ const CheckboxComponent = (
   {
     className,
     intent = "neutral",
-    intentModifiers = "default",
+    intentModifier = "default",
     checked,
     defaultChecked = false,
     mixed = false,
     disabled = false,
     label,
-    onChange,
+    onCheckedChange,
     ...rest
   }: CheckboxProps,
   ref: preact.Ref<HTMLInputElement>
@@ -41,7 +41,7 @@ const CheckboxComponent = (
   }, [isControlled, checked])
 
   const _className = bem("Checkbox", undefined, {
-    intent: `${intent}-${intentModifiers}`,
+    intent: `${intent}-${intentModifier}`,
     checked: isChecked,
     mixed,
     disabled,
@@ -58,7 +58,7 @@ const CheckboxComponent = (
     if (!isControlled) {
       setIsChecked(nextChecked)
     }
-    onChange?.({ event, checked: nextChecked })
+    onCheckedChange?.({ event, checked: nextChecked })
   }
 
   const handleChange = (
@@ -72,7 +72,7 @@ const CheckboxComponent = (
     if (!isControlled) {
       setIsChecked(nextChecked)
     }
-    onChange?.({
+    onCheckedChange?.({
       event: event as unknown as MouseEvent,
       checked: nextChecked,
     })
@@ -113,8 +113,7 @@ const CheckboxComponent = (
             <Icon
               glyph={checkGlyph}
               intent={intent}
-              intentModifiers={intentModifiers}
-              interactive
+              intentModifier={intentModifier}
               size={16}
             />
           </div>
@@ -124,8 +123,7 @@ const CheckboxComponent = (
             <Icon
               glyph={mixedGlyph}
               intent={intent}
-              intentModifiers={intentModifiers}
-              interactive
+              intentModifier={intentModifier}
               size={16}
             />
           </div>

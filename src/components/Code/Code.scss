@@ -2,8 +2,6 @@
 @use "../../mixins.scss" as *;
 
 .Code {
-  $parent: &;
-
   @include typography-styles-code;
   @include typography-code;
 
@@ -17,8 +15,7 @@
   &_variant-block {
     display: block;
     width: 100%;
-    padding: calc(var(--pui-spacing-200) + 1px) var(--pui-spacing-400)
-      var(--pui-spacing-200) calc(var(--pui-spacing-400) + 1px);
+    padding: calc(var(--pui-spacing-200) + 1px) var(--pui-spacing-400) var(--pui-spacing-200) calc(var(--pui-spacing-400) + 1px);
   }
 
   &_variant-inline {
