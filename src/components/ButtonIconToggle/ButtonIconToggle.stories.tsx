@@ -30,7 +30,7 @@ const meta: Meta<typeof ButtonIconToggle> = {
         },
       },
     },
-    selectedDefault: {
+    defaultSelected: {
       control: { type: "boolean" },
       description: "Value for uncontrolled mode.",
     },
@@ -56,7 +56,7 @@ type Story = StoryObj<typeof ButtonIconToggle>
 export const Demo: Story = {
   tags: ["!autodocs"],
   args: {
-    selectedDefault: false,
+    defaultSelected: false,
     onSelectedChange: fn(),
   },
   parameters: {

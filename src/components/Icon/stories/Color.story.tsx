@@ -18,22 +18,22 @@ export const ColorStory: Story = {
         code: `
 <Icon 
   glyph={help}
-  colorIcon="#00FF00"
+  iconColor="#00FF00"
 />
 
 <Icon 
   glyph={link}
-  colorIcon="rgb(0, 255, 0, 0.5)"
+  iconColor="rgb(0, 255, 0, 0.5)"
 />
 
 <Icon 
   glyph={link}
-  colorIcon="rgb(0, 255, 0"
+  iconColor="rgb(0, 255, 0"
 />
 
 <Icon 
   glyph={link}
-  colorIcon="var(--pui-color-brand-icon-default)"
+  iconColor="var(--pui-color-brand-icon-default)"
 />
 `,
       },
@@ -41,7 +41,7 @@ export const ColorStory: Story = {
   },
   render: () => (
     <div className="sb-row sb-width-full sb-gap-16">
-      <Icon glyph={link} colorIcon="#00FF00" />
+      <Icon glyph={link} iconColor="#00FF00" />
     </div>
   ),
 }

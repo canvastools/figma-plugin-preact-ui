@@ -14,102 +14,102 @@ const validIntentCombinations = [
   {
     bg: "--pui-color-neutral-bg-default",
     intent: "neutral",
-    intentModifiers: "default",
+    intentModifier: "default",
   },
   {
     bg: "--pui-color-neutral-bg-default",
     intent: "neutral",
-    intentModifiers: "default",
+    intentModifier: "default",
     selected: true,
   },
   {
     bg: "--pui-color-neutral-bg-default",
     intent: "neutral",
-    intentModifiers: "secondary",
+    intentModifier: "secondary",
   },
   {
     bg: "--pui-color-neutral-bg-default",
     intent: "neutral",
-    intentModifiers: "tertiary",
+    intentModifier: "tertiary",
   },
   {
     bg: "--pui-color-neutral-bg-default",
     intent: "neutral",
-    intentModifiers: "brand",
+    intentModifier: "brand",
   },
   {
     bg: "--pui-color-neutral-bg-default",
     intent: "neutral",
-    intentModifiers: "danger",
+    intentModifier: "danger",
   },
   {
     bg: "--pui-color-neutral-bg-default",
     intent: "neutral",
-    intentModifiers: "warning",
+    intentModifier: "warning",
   },
   {
     bg: "--pui-color-neutral-bg-default",
     intent: "neutral",
-    intentModifiers: "success",
+    intentModifier: "success",
   },
 
   // neutral-inverted
   {
     bg: "--pui-color-neutral-inverted-bg-default",
     intent: "neutral-inverted",
-    intentModifiers: "default",
+    intentModifier: "default",
   },
 
   // neutral-inverted-fixed
   {
     bg: "--pui-color-neutral-inverted-fixed-bg-default",
     intent: "neutral-inverted-fixed",
-    intentModifiers: "default",
+    intentModifier: "default",
   },
   {
     bg: "--pui-color-neutral-inverted-fixed-bg-default",
     intent: "neutral-inverted-fixed",
-    intentModifiers: "secondary",
+    intentModifier: "secondary",
   },
 
   // brand
   {
     bg: "--pui-color-brand-bg-default",
     intent: "brand",
-    intentModifiers: "default",
+    intentModifier: "default",
   },
 
   // danger
   {
     bg: "--pui-color-danger-bg-default",
     intent: "danger",
-    intentModifiers: "default",
+    intentModifier: "default",
   },
 
   // warning
   {
     bg: "--pui-color-warning-bg-default",
     intent: "warning",
-    intentModifiers: "default",
+    intentModifier: "default",
   },
 
   // success
   {
     bg: "--pui-color-success-bg-default",
     intent: "success",
-    intentModifiers: "default",
+    intentModifier: "default",
   },
 ]
 
 const intentCombinations = () => {
   return validIntentCombinations.map(
-    ({ bg, intent, intentModifiers, selected }) => (
+    ({ bg, intent, intentModifier, selected }) => (
       <div
         className="sb-row sb-width-full sb-gap-16"
         style={{ alignItems: "center" }}
       >
-        <Text widthFull>
-          {intent}, {intentModifiers}
+        <Text fullWidth>
+          {intent}, {intentModifier}
           {selected ? ", selected" : ""}
         </Text>
 
@@ -127,7 +127,7 @@ const intentCombinations = () => {
             <Icon
               glyph={link}
               intent={intent as IconProps["intent"]}
-              intentModifiers={intentModifiers as IconProps["intentModifiers"]}
+              intentModifier={intentModifier as IconProps["intentModifier"]}
               selected={selected}
             />
           </div>
@@ -155,7 +155,7 @@ export const IntentStory: Story = {
 <Icon
   glyph={help}
   intent="neutral"
-  intentModifiers="secondary"
+  intentModifier="secondary"
 />
 
 <Icon

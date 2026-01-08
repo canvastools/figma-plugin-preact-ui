@@ -14,23 +14,23 @@ export const ColorStory: Story = {
       source: {
         language: "tsx",
         code: `
-<Text colorText="#00FF00">{children}</Text>
+<Text textColor="#00FF00">{children}</Text>
 
-<Text colorText="rgb(0, 255, 0, 0.5)">{children}</Text>
+<Text textColor="rgb(0, 255, 0, 0.5)">{children}</Text>
 
-<Text colorText="rgb(0, 255, 0)">{children}</Text>
+<Text textColor="rgb(0, 255, 0)">{children}</Text>
 
-<Text colorText="var(--pui-color-brand-text-default)">{children}</Text>
+<Text textColor="var(--pui-color-brand-text-default)">{children}</Text>
 `,
       },
     },
   },
   render: () => (
     <div className="sb-column sb-width-full sb-gap-16">
-      <Text colorText="#00FF00" variant="heading">
+      <Text textColor="#00FF00" variant="heading">
         Heading
       </Text>
-      <Text colorText="#00FF00" variant="body">
+      <Text textColor="#00FF00" variant="body">
         Body
       </Text>
     </div>

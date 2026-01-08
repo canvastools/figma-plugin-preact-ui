@@ -57,7 +57,7 @@ const glyphCombinations = (glyph: string) => {
           <Text
             size="small"
             intent="neutral"
-            intentModifiers="danger"
+            intentModifier="danger"
             wrap={false}
           >
             {size}, {variant}
@@ -96,7 +96,7 @@ import { help } from "figma-plugin-preact-ui"
       {Object.keys(glyphs).map((glyph) => {
         return (
           <div style={{ display: "flex", flexFlow: "row nowrap", gap: "16px" }}>
-            <Text strong widthFull>
+            <Text strong fullWidth>
               {glyph}
             </Text>
 

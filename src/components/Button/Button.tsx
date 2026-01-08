@@ -14,12 +14,12 @@ const ButtonComponent = (
   {
     className,
     intent = "neutral",
-    intentModifiers = "default",
+    intentModifier = "default",
     ghost = false,
     size = "medium",
     grouped = "none",
     disabled = false,
-    widthFull = false,
+    fullWidth = false,
     prefix,
     suffix,
     children,
@@ -30,15 +30,16 @@ const ButtonComponent = (
   ref: preact.Ref<HTMLButtonElement>
 ) => {
   const _className = bem("Button", undefined, {
-    intent: `${intent}-${intentModifiers}`,
-    ghost: Boolean(ghost),
+    intent: `${intent}-${intentModifier}`,
+    ghost,
     size,
     grouped: Boolean(grouped),
     groupedPosition: grouped,
     disabled,
-    widthFull,
+    fullWidth,
     prefix: Boolean(prefix),
     suffix: Boolean(suffix),
+    tooltip: Boolean(tooltip),
   })
 
   const handleClick = (event: MouseEvent) => {
@@ -86,7 +87,7 @@ const ButtonComponent = (
                 variant="body"
                 size="medium"
                 intent={intent}
-                intentModifiers={intentModifiers}
+                intentModifier={intentModifier}
                 disabled={disabled}
               >
                 {children}

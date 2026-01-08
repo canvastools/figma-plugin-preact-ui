@@ -16,8 +16,8 @@ const BarComponent = (
   ref: preact.Ref<HTMLDivElement>
 ) => {
   const _className = bem("Bar", undefined, {
-    showDividerTop,
-    showDividerBottom,
+    dividerTop: showDividerTop,
+    dividerBottom: showDividerBottom,
   })
 
   return (

@@ -1,45 +1,45 @@
 @use "../../shared.scss" as *;
 
-@mixin Button_intent-filled($intent, $modifiers) {
-  &_intent-#{$intent}-#{$modifiers} {
-    background-color: var(--pui-color-#{$intent}-bg-#{$modifiers});
+@mixin Button_intent-filled($intent, $modifier) {
+  &_intent-#{$intent}-#{$modifier} {
+    background-color: var(--pui-color-#{$intent}-bg-#{$modifier});
 
     &:hover {
-      background-color: var(--pui-color-#{$intent}-bg-#{$modifiers}-hover);
+      background-color: var(--pui-color-#{$intent}-bg-#{$modifier}-hover);
     }
 
     &:active {
-      background-color: var(--pui-color-#{$intent}-bg-#{$modifiers}-pressed);
+      background-color: var(--pui-color-#{$intent}-bg-#{$modifier}-pressed);
     }
   }
 }
 
-@mixin Button_intent-outlined($intent, $modifiers) {
-  &_intent-#{$intent}-#{$modifiers} {
+@mixin Button_intent-outlined($intent, $modifier) {
+  &_intent-#{$intent}-#{$modifier} {
     background-color: transparent;
-    box-shadow: inset 0 0 0 1px var(--pui-color-#{$intent}-border-#{$modifiers});
+    box-shadow: inset 0 0 0 1px var(--pui-color-#{$intent}-border-#{$modifier});
 
     &:hover {
-      background-color: var(--pui-color-#{$intent}-bg-#{$modifiers}-hover);
+      background-color: var(--pui-color-#{$intent}-bg-#{$modifier}-hover);
     }
 
     &:active {
-      background-color: var(--pui-color-#{$intent}-bg-#{$modifiers}-pressed);
+      background-color: var(--pui-color-#{$intent}-bg-#{$modifier}-pressed);
     }
   }
 }
 
-@mixin Button_intent-ghost($intent, $modifiers) {
-  &_intent-#{$intent}-#{$modifiers}.Button_ghost {
+@mixin Button_intent-ghost($intent, $modifier) {
+  &_intent-#{$intent}-#{$modifier}.Button_ghost {
     background-color: transparent;
     box-shadow: none;
 
     &:hover {
-      background-color: var(--pui-color-#{$intent}-bg-#{$modifiers}-hover);
+      background-color: var(--pui-color-#{$intent}-bg-#{$modifier}-hover);
     }
 
     &:active {
-      background-color: var(--pui-color-#{$intent}-bg-#{$modifiers}-pressed);
+      background-color: var(--pui-color-#{$intent}-bg-#{$modifier}-pressed);
     }
   }
 }
@@ -109,7 +109,7 @@
     margin-left: -1px;
   }
 
-  &_widthFull {
+  &_fullWidth {
     flex: 1 1 auto;
     width: 100%;
   }

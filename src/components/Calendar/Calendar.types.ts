@@ -3,7 +3,7 @@ export type CalendarValue = Date | [Date | null, Date | null] | null
 export interface CalendarProps {
   className?: string
   locale?: string
-  calendarType?: "iso8601" | "islamic" | "hebrew" | "gregory"
+  type?: "iso8601" | "islamic" | "hebrew" | "gregory"
   defaultView?: "month" | "year" | "decade" | "century"
   view?: "month" | "year" | "decade" | "century"
   defaultValue?: CalendarValue
@@ -12,9 +12,10 @@ export interface CalendarProps {
   maxDate?: Date
   minDetail?: "century" | "decade" | "year" | "month"
   maxDetail?: "century" | "decade" | "year" | "month"
-  navigation?: "full" | "simple" | "none"
+  showNavigation?: boolean
+  navigation?: "full" | "simple"
   onChange?: (args: { value: CalendarValue }) => void
-  onDrillUp?: (args: {
+  onDetailUp?: (args: {
     action:
       | "onChange"
       | "prev"
@@ -27,7 +28,7 @@ export interface CalendarProps {
     value: CalendarValue
     view: "month" | "year" | "decade" | "century"
   }) => void
-  onDrillDown?: (args: {
+  onDetailDown?: (args: {
     action:
       | "onChange"
       | "prev"

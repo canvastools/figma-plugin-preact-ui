@@ -13,13 +13,13 @@ import { ButtonIcon, Icon } from "../../index"
 const ButtonIconToggleComponent = (
   {
     selected: controlledSelected,
-    selectedDefault = false,
+    defaultSelected = false,
     onSelectedChange,
     ...rest
   }: ButtonIconToggleProps,
   ref: preact.Ref<HTMLButtonElement>
 ) => {
-  const [internalSelected, setInternalSelected] = useState(selectedDefault)
+  const [internalSelected, setInternalSelected] = useState(defaultSelected)
 
   const isSelected =
     controlledSelected !== undefined ? controlledSelected : internalSelected

@@ -23,9 +23,9 @@ export const GroupedStory: Story = {
 </Stack>
 
 <Stack direction="row" widthFull>
-  <Button grouped="right" widthFull>{children}</Button>
-  <Button grouped="both" widthFull>{children}</Button>
-  <Button grouped="left" widthFull>{children}</Button>
+  <Button grouped="right" fullWidth>{children}</Button>
+  <Button grouped="both" fullWidth>{children}</Button>
+  <Button grouped="left" fullWidth>{children}</Button>
 </Stack>
 `,
       },
@@ -40,13 +40,13 @@ export const GroupedStory: Story = {
       </Stack>
 
       <Stack direction="row" fullWidth>
-        <Button grouped="right" widthFull>
+        <Button grouped="right" fullWidth>
           Grouped right
         </Button>
-        <Button grouped="both" widthFull>
+        <Button grouped="both" fullWidth>
           Grouped both
         </Button>
-        <Button grouped="left" widthFull>
+        <Button grouped="left" fullWidth>
           Grouped left
         </Button>
       </Stack>

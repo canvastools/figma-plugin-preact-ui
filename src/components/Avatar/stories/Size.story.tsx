@@ -1,7 +1,5 @@
 import { StoryObj } from "@storybook/preact"
 
-import { Stack } from "../../../index"
-
 import { Avatar } from "../Avatar"
 
 type Story = StoryObj<typeof Avatar>

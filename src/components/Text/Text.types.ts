@@ -8,7 +8,7 @@ export interface TextProps {
     | "danger"
     | "warning"
     | "success"
-  intentModifiers?:
+  intentModifier?:
     | "default"
     | "secondary"
     | "brand"
@@ -21,9 +21,9 @@ export interface TextProps {
   align?: "left" | "center" | "right"
   disabled?: boolean
   selected?: boolean
-  colorText?: string
+  textColor?: string
   wrap?: boolean
   truncate?: boolean
-  widthFull?: boolean
+  fullWidth?: boolean
   children: preact.ComponentChildren
 }

@@ -4,7 +4,7 @@ import { fn } from "@storybook/test"
 import { IntentStory } from "./stories/Intent.story"
 import { SizeStory } from "./stories/Size.story"
 import { DisabledStory } from "./stories/Disabled.story"
-import { WidthFullStory } from "./stories/WidthFull.story"
+import { WidthStory } from "./stories/Width.story"
 import { GroupedStory } from "./stories/Grouped.story"
 import { PrefixStory } from "./stories/Prefix.story"
 import { SuffixStory } from "./stories/Suffix.story"
@@ -26,7 +26,7 @@ const meta: Meta<typeof Button> = {
       options: ["neutral", "neutral-inverted", "brand", "danger", "success"],
       defaultValue: { summary: "neutral" },
     },
-    intentModifiers: {
+    intentModifier: {
       control: { type: "radio" },
       options: ["default", "secondary", "brand", "danger", "success"],
       defaultValue: { summary: "default" },
@@ -49,7 +49,7 @@ const meta: Meta<typeof Button> = {
       control: { type: "boolean" },
       defaultValue: { summary: false },
     },
-    widthFull: {
+    fullWidth: {
       control: { type: "boolean" },
       defaultValue: { summary: false },
     },
@@ -113,12 +113,12 @@ export const Demo: Story = {
   args: {
     className: "",
     intent: "neutral",
-    intentModifiers: "default",
+    intentModifier: "default",
     ghost: false,
     size: "medium",
     grouped: "none",
     disabled: false,
-    widthFull: false,
+    fullWidth: false,
     tooltip: "Button tooltip",
     children: "Button",
     onClick: fn(),
@@ -155,7 +155,7 @@ export const Demo: Story = {
 export const Intent = IntentStory
 export const Size = SizeStory
 export const Disabled = DisabledStory
-export const WidthFull = WidthFullStory
+export const Width = WidthStory
 export const Grouped = GroupedStory
 export const Prefix = PrefixStory
 export const Suffix = SuffixStory

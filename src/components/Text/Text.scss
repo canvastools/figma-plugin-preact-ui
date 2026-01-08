@@ -1,17 +1,17 @@
 @use "../../shared.scss" as *;
 @use "../../mixins.scss" as *;
 
-@mixin Text_intent($intent, $modifiers) {
-  &_intent-#{$intent}-#{$modifiers} {
+@mixin Text_intent($intent, $modifier) {
+  &_intent-#{$intent}-#{$modifier} {
     &.Text_interactive {
-      color: var(--pui-color-#{$intent}-text-#{$modifiers});
+      color: var(--pui-color-#{$intent}-text-#{$modifier});
     }
 
     &.Text_selected {
-      color: var(--pui-color-#{$intent}-text-#{$modifiers}-selected);
+      color: var(--pui-color-#{$intent}-text-#{$modifier}-selected);
     }
 
-    color: var(--pui-color-#{$intent}-text-#{$modifiers});
+    color: var(--pui-color-#{$intent}-text-#{$modifier});
 
     &.Text_disabled {
       color: var(--pui-color-#{$intent}-text-disabled) !important;
@@ -59,7 +59,7 @@
     @include typography-body-large;
   }
 
-  &_widthFull {
+  &_fullWidth {
     width: 100%;
   }
 

@@ -71,7 +71,7 @@ const disabledCombinations = () => {
       className="sb-row sb-width-full sb-gap-16"
       style={{ alignItems: "center" }}
     >
-      <Text widthFull>{intent}, disabled</Text>
+      <Text fullWidth>{intent}, disabled</Text>
 
       <div
         style={{

@@ -6,7 +6,7 @@ import { Button } from "../Button"
 
 type Story = StoryObj<typeof Button>
 
-export const WidthFullStory: Story = {
+export const WidthStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
@@ -24,38 +24,33 @@ export const WidthFullStory: Story = {
   render: () => (
     <div className="sb-column sb-width-full">
       <Stack spacing={400} fullWidth>
-        <Button intent="neutral" intentModifiers="brand" widthFull ghost>
+        <Button intent="neutral" intentModifier="brand" fullWidth ghost>
           Neutral Brand Ghost
         </Button>
 
-        <Button intent="neutral" intentModifiers="brand" widthFull>
+        <Button intent="neutral" intentModifier="brand" fullWidth>
           Neutral Brand
         </Button>
 
-        <Button intent="brand" widthFull>
+        <Button intent="brand" fullWidth>
           Brand
         </Button>
 
         <Button
           intent="neutral"
-          intentModifiers="danger"
+          intentModifier="danger"
           size="large"
-          widthFull
+          fullWidth
           ghost
         >
           Neutral Danger Ghost
         </Button>
 
-        <Button
-          intent="neutral"
-          intentModifiers="danger"
-          size="large"
-          widthFull
-        >
+        <Button intent="neutral" intentModifier="danger" size="large" fullWidth>
           Neutral Danger
         </Button>
 
-        <Button intent="danger" size="large" widthFull>
+        <Button intent="danger" size="large" fullWidth>
           Danger
         </Button>
       </Stack>

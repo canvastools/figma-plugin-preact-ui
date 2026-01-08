@@ -15,15 +15,15 @@ export const ColorStory: Story = {
         language: "tsx",
         code: `
 <Avatar 
-  colorBackground="var(--pui-color-brand-bg-default)"
-  colorText="#ffff00"
+  backgroundColor="var(--pui-color-brand-bg-default)"
+  textColor="#ffff00"
 >
   {children}
 </Avatar>
 
 <Avatar 
-  colorBackground="rgb(0, 255, 0, 0.5)"
-  colorText="rgb(0, 0, 0)"
+  backgroundColor="rgb(0, 255, 0, 0.5)"
+  textColor="rgb(0, 0, 0)"
 >
   {children}
 </Avatar>
@@ -35,8 +35,8 @@ export const ColorStory: Story = {
   render: () => (
     <div className="sb-column sb-width-full">
       <Avatar
-        colorBackground="var(--pui-color-brand-bg-default)"
-        colorText="#ffff00"
+        backgroundColor="var(--pui-color-brand-bg-default)"
+        textColor="#ffff00"
       >
         A
       </Avatar>

@@ -16,7 +16,7 @@ export interface IconProps {
     | "danger"
     | "warning"
     | "success"
-  intentModifiers?:
+  intentModifier?:
     | "default"
     | "secondary"
     | "brand"
@@ -27,6 +27,6 @@ export interface IconProps {
   size?: 16 | 24
   disabled?: boolean
   selected?: boolean
-  colorIcon?: string
+  iconColor?: string
   children?: preact.ComponentChildren
 }

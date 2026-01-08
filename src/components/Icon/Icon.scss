@@ -1,12 +1,12 @@
 @use "../../shared.scss" as *;
 
-@mixin Icon_intent($intent, $modifiers) {
-  &_intent-#{$intent}-#{$modifiers} {
+@mixin Icon_intent($intent, $modifier) {
+  &_intent-#{$intent}-#{$modifier} {
     &.Icon_selected {
-      color: var(--pui-color-#{$intent}-icon-#{$modifiers}-selected);
+      color: var(--pui-color-#{$intent}-icon-#{$modifier}-selected);
     }
 
-    color: var(--pui-color-#{$intent}-icon-#{$modifiers});
+    color: var(--pui-color-#{$intent}-icon-#{$modifier});
 
     &.Icon_disabled {
       color: var(--pui-color-#{$intent}-icon-disabled) !important;

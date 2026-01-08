@@ -11,73 +11,73 @@ const validIntentCombinations = [
   // neutral
   {
     intent: "neutral",
-    intentModifiers: "default",
+    intentModifier: "default",
   },
   {
     intent: "neutral",
-    intentModifiers: "secondary",
+    intentModifier: "secondary",
   },
   {
     intent: "neutral",
-    intentModifiers: "brand",
+    intentModifier: "brand",
   },
   {
     intent: "neutral",
-    intentModifiers: "danger",
+    intentModifier: "danger",
   },
   {
     intent: "neutral",
-    intentModifiers: "warning",
+    intentModifier: "warning",
   },
   {
     intent: "neutral",
-    intentModifiers: "success",
+    intentModifier: "success",
   },
 
   // neutral-inverted
   {
     intent: "neutral-inverted",
-    intentModifiers: "default",
+    intentModifier: "default",
   },
 
   // brand
   {
     intent: "brand",
-    intentModifiers: "default",
+    intentModifier: "default",
   },
 
   // danger
   {
     intent: "danger",
-    intentModifiers: "default",
+    intentModifier: "default",
   },
 
   // warning
   {
     intent: "warning",
-    intentModifiers: "default",
+    intentModifier: "default",
   },
 
   // success
   {
     intent: "success",
-    intentModifiers: "default",
+    intentModifier: "default",
   },
 ]
 
 const intentCombinations = () => {
-  return validIntentCombinations.map(({ intent, intentModifiers }) => (
+  return validIntentCombinations.map(({ intent, intentModifier }) => (
     <div
       className="sb-row sb-width-full sb-gap-16"
       style={{ alignItems: "center" }}
     >
-      <Text widthFull>
-        {intent}, {intentModifiers}
+      <Text fullWidth>
+        {intent}, {intentModifier}
       </Text>
 
       <Badge
         intent={intent as BadgeProps["intent"]}
-        intentModifiers={intentModifiers as BadgeProps["intentModifiers"]}
+        intentModifier={intentModifier as BadgeProps["intentModifier"]}
       >
         Badge
       </Badge>
@@ -99,7 +99,7 @@ export const IntentStory: Story = {
 
 <Badge 
   intent="neutral"
-  intentModifiers="secondary"
+  intentModifier="secondary"
 >
   {children}
 </Badge>

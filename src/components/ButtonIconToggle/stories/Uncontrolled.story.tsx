@@ -16,14 +16,14 @@ export const UncontrolledStory: Story = {
       source: {
         language: "tsx",
         code: `
-<ButtonIconToggle selectedDefault={false}>{children}</ButtonIconToggle>
+<ButtonIconToggle defaultSelected={false}>{children}</ButtonIconToggle>
 `,
       },
     },
   },
   render: () => (
     <div className="sb-column sb-width-420 sb-gap-16">
-      <ButtonIconToggle selectedDefault={false} icon={{ glyph: link }} />
+      <ButtonIconToggle defaultSelected={false} icon={{ glyph: link }} />
     </div>
   ),
 }

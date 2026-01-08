@@ -11,7 +11,7 @@ const BadgeComponent = (
   {
     className,
     intent = "neutral",
-    intentModifiers = "default",
+    intentModifier = "default",
     prefix,
     suffix,
     children,
@@ -20,7 +20,7 @@ const BadgeComponent = (
   ref: preact.Ref<HTMLDivElement>
 ) => {
   const _className = bem("Badge", undefined, {
-    intent: `${intent}-${intentModifiers}`,
+    intent: `${intent}-${intentModifier}`,
     prefix: Boolean(prefix),
     suffix: Boolean(suffix),
   })
@@ -39,7 +39,7 @@ const BadgeComponent = (
               variant="body"
               size="medium"
               intent={intent}
-              intentModifiers={intentModifiers}
+              intentModifier={intentModifier}
             >
               {children}
             </Text>

@@ -26,7 +26,7 @@ const meta: Meta<typeof Badge> = {
       ],
       defaultValue: { summary: "neutral" },
     },
-    intentModifiers: {
+    intentModifier: {
       control: { type: "radio" },
       options: [
         "default",
@@ -77,7 +77,7 @@ export const Demo: Story = {
   args: {
     className: "",
     intent: "neutral",
-    intentModifiers: "default",
+    intentModifier: "default",
     children: "Badge",
   },
   parameters: {

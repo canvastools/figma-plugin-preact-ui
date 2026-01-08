@@ -13,8 +13,8 @@ const AvatarComponent = (
     variant = "circle",
     size = "medium",
     src,
-    colorBackground,
-    colorText,
+    backgroundColor,
+    textColor,
     children,
     ...rest
   }: AvatarProps,
@@ -23,7 +23,7 @@ const AvatarComponent = (
   const _className = bem("Avatar", undefined, {
     variant,
     size,
-    image: Boolean(src),
+    src: Boolean(src),
   })
 
   return (
@@ -32,7 +32,7 @@ const AvatarComponent = (
       ref={ref}
       {...rest}
       style={{
-        backgroundColor: colorBackground,
+        backgroundColor,
       }}
     >
       {src && <img className="Avatar__image" src={src} alt="Avatar" />}
@@ -44,10 +44,10 @@ const AvatarComponent = (
             size={size === "small" ? "small" : "large"}
             strong
             intent="neutral-inverted"
-            intentModifiers="default"
-            fill={colorText}
+            intentModifier="default"
+            textColor={textColor}
             fullWidth
-            noWrap
+            wrap={false}
             align="center"
           >
             {children}

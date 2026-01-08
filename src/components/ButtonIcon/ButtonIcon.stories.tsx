@@ -25,7 +25,7 @@ const meta: Meta<typeof ButtonIcon> = {
       options: ["neutral"],
       defaultValue: { summary: "neutral" },
     },
-    intentModifiers: {
+    intentModifier: {
       control: { type: "radio" },
       options: ["default", "secondary"],
       defaultValue: { summary: "default" },
@@ -110,7 +110,7 @@ export const Demo: Story = {
   args: {
     className: "",
     intent: "neutral",
-    intentModifiers: "default",
+    intentModifier: "default",
     ghost: false,
     size: "medium",
     grouped: "none",

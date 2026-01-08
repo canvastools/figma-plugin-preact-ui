@@ -19,7 +19,7 @@ const CalendarComponent = (
   {
     className,
     locale = "en-US",
-    calendarType = "iso8601",
+    type = "iso8601",
     defaultView = "month",
     view,
     defaultValue = null,
@@ -28,16 +28,19 @@ const CalendarComponent = (
     maxDate = new Date(new Date().setFullYear(new Date().getFullYear() + 5)),
     minDetail = "century",
     maxDetail = "month",
+    showNavigation = true,
     navigation = "full",
     onChange,
-    onDrillUp,
-    onDrillDown,
+    onDetailUp,
+    onDetailDown,
     onViewChange,
     ...rest
   }: CalendarProps,
   ref: preact.Ref<HTMLDivElement>
 ) => {
-  const _className = bem("Calendar", undefined, { navigation })
+  const _className = bem("Calendar", undefined, {
+    navigation: showNavigation ? navigation : undefined,
+  })
 
   const handleKeyDown = (event: KeyboardEvent) => {
     const key = event.key
@@ -61,7 +64,7 @@ const CalendarComponent = (
         className={[_className, "no-drag", className].join(" ").trim()}
         inputRef={ref as preact.Ref<HTMLDivElement> | undefined}
         locale={locale}
-        calendarType={calendarType}
+        calendarType={type}
         defaultView={defaultView}
         view={view}
         defaultValue={defaultValue}
@@ -70,26 +73,16 @@ const CalendarComponent = (
         maxDate={maxDate}
         minDetail={minDetail}
         maxDetail={maxDetail}
-        prevLabel={<Icon glyph={chevronLeft} variant="scaled" interactive />}
-        prev2Label={
-          <Icon glyph={chevronDoubleLeft} variant="scaled" interactive />
-        }
-        nextLabel={<Icon glyph={chevronRight} variant="scaled" interactive />}
-        next2Label={
-          <Icon glyph={chevronDoubleRight} variant="scaled" interactive />
-        }
+        prevLabel={<Icon glyph={chevronLeft} />}
+        prev2Label={<Icon glyph={chevronDoubleLeft} />}
+        nextLabel={<Icon glyph={chevronRight} />}
+        next2Label={<Icon glyph={chevronDoubleRight} />}
         onChange={(e) => {
           onChange?.({ value: e })
         }}
-        onDrillUp={(e) => {
-          onDrillUp?.({ ...e })
-        }}
-        onDrillDown={(e) => {
-          onDrillDown?.({ ...e })
-        }}
-        onViewChange={(e) => {
-          onViewChange?.({ ...e })
-        }}
+        onDrillUp={(e) => onDetailUp?.({ ...e })}
+        onDrillDown={(e) => onDetailDown?.({ ...e })}
+        onViewChange={(e) => onViewChange?.({ ...e })}
         {...rest}
       />
     </div>

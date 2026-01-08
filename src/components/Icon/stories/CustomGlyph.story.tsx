@@ -1,7 +1,5 @@
 import { StoryObj } from "@storybook/preact"
 
-import { link } from "../glyphs"
-
 import { Icon } from "../Icon"
 
 type Story = StoryObj<typeof Icon>
@@ -46,7 +44,7 @@ export const CustomGlyphStory: Story = {
   },
   render: () => (
     <div className="sb-row sb-width-full sb-gap-16">
-      <Icon size={24} intent="neutral" intentModifiers="brand">
+      <Icon size={24} intent="neutral" intentModifier="brand">
         <svg
           width="24"
           height="24"

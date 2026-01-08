@@ -3,7 +3,7 @@ export interface AvatarProps {
   variant?: "circle" | "square"
   size?: "small" | "medium" | "large"
   src?: string | undefined | null
-  colorBackground?: string
-  colorText?: string
+  backgroundColor?: string
+  textColor?: string
   children: preact.ComponentChildren
 }

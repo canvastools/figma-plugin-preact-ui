@@ -10,102 +10,102 @@ const validIntentCombinations = [
   {
     bg: "--pui-color-neutral-bg-default",
     intent: "neutral",
-    intentModifiers: "default",
+    intentModifier: "default",
   },
   {
     bg: "--pui-color-neutral-bg-default",
     intent: "neutral",
-    intentModifiers: "default",
+    intentModifier: "default",
     selected: true,
   },
   {
     bg: "--pui-color-neutral-bg-default",
     intent: "neutral",
-    intentModifiers: "secondary",
+    intentModifier: "secondary",
   },
   {
     bg: "--pui-color-neutral-bg-default",
     intent: "neutral",
-    intentModifiers: "brand",
+    intentModifier: "brand",
   },
   {
     bg: "--pui-color-neutral-bg-default",
     intent: "neutral",
-    intentModifiers: "danger",
+    intentModifier: "danger",
   },
   {
     bg: "--pui-color-neutral-bg-default",
     intent: "neutral",
-    intentModifiers: "warning",
+    intentModifier: "warning",
   },
   {
     bg: "--pui-color-neutral-bg-default",
     intent: "neutral",
-    intentModifiers: "success",
+    intentModifier: "success",
   },
 
   // neutral-inverted
   {
     bg: "--pui-color-neutral-inverted-bg-default",
     intent: "neutral-inverted",
-    intentModifiers: "default",
+    intentModifier: "default",
   },
 
   // neutral-inverted-fixed
   {
     bg: "--pui-color-neutral-inverted-fixed-bg-default",
     intent: "neutral-inverted-fixed",
-    intentModifiers: "default",
+    intentModifier: "default",
   },
   {
     bg: "--pui-color-neutral-inverted-fixed-bg-default",
     intent: "neutral-inverted-fixed",
-    intentModifiers: "secondary",
+    intentModifier: "secondary",
   },
   {
     bg: "--pui-color-neutral-inverted-fixed-bg-default",
     intent: "neutral-inverted-fixed",
-    intentModifiers: "danger",
+    intentModifier: "danger",
   },
 
   // brand
   {
     bg: "--pui-color-brand-bg-default",
     intent: "brand",
-    intentModifiers: "default",
+    intentModifier: "default",
   },
 
   // danger
   {
     bg: "--pui-color-danger-bg-default",
     intent: "danger",
-    intentModifiers: "default",
+    intentModifier: "default",
   },
 
   // warning
   {
     bg: "--pui-color-warning-bg-default",
     intent: "warning",
-    intentModifiers: "default",
+    intentModifier: "default",
   },
 
   // success
   {
     bg: "--pui-color-success-bg-default",
     intent: "success",
-    intentModifiers: "default",
+    intentModifier: "default",
   },
 ]
 
 const intentCombinations = () => {
   return validIntentCombinations.map(
-    ({ bg, intent, intentModifiers, selected }) => (
+    ({ bg, intent, intentModifier, selected }) => (
       <div
         className="sb-row sb-width-full sb-gap-16"
         style={{ alignItems: "center" }}
       >
-        <Text widthFull>
-          {intent}, {intentModifiers}
+        <Text fullWidth>
+          {intent}, {intentModifier}
           {selected ? ", selected" : ""}
         </Text>
 
@@ -123,8 +123,8 @@ const intentCombinations = () => {
           >
             <Text
               intent={intent as TextProps["intent"]}
-              intentModifiers={intentModifiers as TextProps["intentModifiers"]}
-              widthFull
+              intentModifier={intentModifier as TextProps["intentModifier"]}
+              fullWidth
             >
               Lorem Ipsum is simply dummy text of the printing and typesetting
               industry.
@@ -150,7 +150,7 @@ export const IntentStory: Story = {
 
 <Text 
   intent="neutral"
-  intentModifiers="secondary"
+  intentModifier="secondary"
 >
   {children}
 </Text>

@@ -7,7 +7,7 @@ export interface BadgeProps {
     | "danger"
     | "warning"
     | "success"
-  intentModifiers?:
+  intentModifier?:
     | "default"
     | "secondary"
     | "brand"

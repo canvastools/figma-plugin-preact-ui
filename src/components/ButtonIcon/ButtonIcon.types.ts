@@ -5,7 +5,7 @@ import type { IconProps } from "../Icon/Icon.types"
 export interface ButtonIconProps {
   className?: string
   intent?: "neutral"
-  intentModifiers?: "default"
+  intentModifier?: "default"
   ghost?: boolean
   size?: "medium" | "large"
   grouped?: "none" | "left" | "right" | "both"

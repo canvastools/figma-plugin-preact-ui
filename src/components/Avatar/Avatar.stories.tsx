@@ -29,7 +29,7 @@ const meta: Meta<typeof Avatar> = {
       control: { type: "text" },
       description: "Image URL or data URI.",
     },
-    colorBackground: {
+    backgroundColor: {
       control: { type: "color" },
       description:
         "Background color for the avatar container when no image is provided.",
@@ -42,7 +42,7 @@ const meta: Meta<typeof Avatar> = {
         },
       },
     },
-    colorText: {
+    textColor: {
       control: { type: "color" },
       description:
         "Text color for the children text content when no image is provided.",

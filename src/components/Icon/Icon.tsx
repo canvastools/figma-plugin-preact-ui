@@ -10,12 +10,12 @@ const IconComponent = (
     className,
     glyph,
     intent = "neutral",
-    intentModifiers = "default",
+    intentModifier = "default",
     variant = "default",
     size = 24,
     disabled = false,
     selected = false,
-    colorIcon,
+    iconColor,
     children,
     ...rest
   }: IconProps,
@@ -23,12 +23,12 @@ const IconComponent = (
 ) => {
   const _className = bem("Icon", undefined, {
     // derived styles are driven by intent/variant/size; glyph is a render fn
-    ...(!colorIcon && {
-      intent: `${intent}-${intentModifiers}`,
+    ...(!iconColor && {
+      intent: `${intent}-${intentModifier}`,
       disabled,
       selected,
     }),
-    colorIcon,
+    iconColor,
     variant,
     size: size.toString(),
   })
@@ -49,7 +49,7 @@ const IconComponent = (
       ref={ref}
       {...rest}
       style={{
-        ...(colorIcon && { color: colorIcon }),
+        ...(iconColor && { color: iconColor }),
       }}
     >
       {content}

@@ -11,30 +11,30 @@ const validSizeCombinations = [
   // neutral
   {
     intent: "neutral",
-    intentModifiers: "default",
+    intentModifier: "default",
     ghost: false,
   },
   {
     intent: "neutral",
-    intentModifiers: "default",
+    intentModifier: "default",
     ghost: true,
   },
 ]
 
 const sizeCombinations = () => {
-  return validSizeCombinations.map(({ intent, intentModifiers, ghost }) => (
+  return validSizeCombinations.map(({ intent, intentModifier, ghost }) => (
     <div
       className="sb-row sb-width-full sb-gap-16"
       style={{ alignItems: "center" }}
     >
-      <Text widthFull>
-        {intent}, {intentModifiers}
+      <Text fullWidth>
+        {intent}, {intentModifier}
         {ghost ? ", ghost" : ""}
       </Text>
 
       <ButtonIcon
         intent={intent as ButtonIconProps["intent"]}
-        intentModifiers={intentModifiers as ButtonIconProps["intentModifiers"]}
+        intentModifier={intentModifier as ButtonIconProps["intentModifier"]}
         ghost={ghost}
         size="medium"
       >
@@ -43,7 +43,7 @@ const sizeCombinations = () => {
 
       <ButtonIcon
         intent={intent as ButtonIconProps["intent"]}
-        intentModifiers={intentModifiers as ButtonIconProps["intentModifiers"]}
+        intentModifier={intentModifier as ButtonIconProps["intentModifier"]}
         ghost={ghost}
         size="large"
       >

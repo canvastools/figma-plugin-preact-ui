@@ -11,30 +11,30 @@ const validIntentCombinations = [
   // neutral
   {
     intent: "neutral",
-    intentModifiers: "default",
+    intentModifier: "default",
     ghost: false,
   },
   {
     intent: "neutral",
-    intentModifiers: "default",
+    intentModifier: "default",
     ghost: true,
   },
 ]
 
 const intentCombinations = () => {
-  return validIntentCombinations.map(({ intent, intentModifiers, ghost }) => (
+  return validIntentCombinations.map(({ intent, intentModifier, ghost }) => (
     <div
       className="sb-row sb-width-full sb-gap-16"
       style={{ alignItems: "center" }}
     >
-      <Text widthFull>
-        {intent}, {intentModifiers}
+      <Text fullWidth>
+        {intent}, {intentModifier}
         {ghost ? ", ghost" : ""}
       </Text>
 
       <ButtonIcon
         intent={intent as ButtonIconProps["intent"]}
-        intentModifiers={intentModifiers as ButtonIconProps["intentModifiers"]}
+        intentModifier={intentModifier as ButtonIconProps["intentModifier"]}
         ghost={ghost}
       >
         <Icon glyph={link} />
@@ -57,7 +57,7 @@ export const IntentStory: Story = {
 
 <ButtonIcon 
   intent="neutral"
-  intentModifiers="default"
+  intentModifier="default"
 >
   {children}
 </ButtonIcon>

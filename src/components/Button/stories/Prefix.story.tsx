@@ -12,85 +12,85 @@ const validPrefixCombinations = [
   // neutral
   {
     intent: "neutral",
-    intentModifiers: "default",
+    intentModifier: "default",
     ghost: false,
   },
   {
     intent: "neutral",
-    intentModifiers: "default",
+    intentModifier: "default",
     ghost: true,
   },
   {
     intent: "neutral",
-    intentModifiers: "brand",
+    intentModifier: "brand",
     ghost: false,
   },
   {
     intent: "neutral",
-    intentModifiers: "brand",
+    intentModifier: "brand",
     ghost: true,
   },
   {
     intent: "neutral",
-    intentModifiers: "danger",
+    intentModifier: "danger",
     ghost: false,
   },
   {
     intent: "neutral",
-    intentModifiers: "danger",
+    intentModifier: "danger",
     ghost: true,
   },
 
   // neutral-inverted
   {
     intent: "neutral-inverted",
-    intentModifiers: "default",
+    intentModifier: "default",
     ghost: false,
   },
 
   // brand
   {
     intent: "brand",
-    intentModifiers: "default",
+    intentModifier: "default",
     ghost: false,
   },
 
   // danger
   {
     intent: "danger",
-    intentModifiers: "default",
+    intentModifier: "default",
     ghost: false,
   },
 
   // success
   {
     intent: "success",
-    intentModifiers: "default",
+    intentModifier: "default",
     ghost: false,
   },
 ]
 
 const prefixCombinations = () => {
-  return validPrefixCombinations.map(({ intent, intentModifiers, ghost }) => (
+  return validPrefixCombinations.map(({ intent, intentModifier, ghost }) => (
     <div
       className="sb-row sb-width-full sb-gap-16"
       style={{ alignItems: "center" }}
     >
-      <Text widthFull>
-        {intent}, {intentModifiers}
+      <Text fullWidth>
+        {intent}, {intentModifier}
         {ghost ? ", ghost" : ""}
       </Text>
 
       <Button
         intent={intent as ButtonProps["intent"]}
-        intentModifiers={intentModifiers as ButtonProps["intentModifiers"]}
+        intentModifier={intentModifier as ButtonProps["intentModifier"]}
         ghost={ghost}
         prefix={
           <Icon
             glyph={help}
             variant="scaled"
             intent={intent as IconProps["intent"]}
-            intentModifiers={intentModifiers as IconProps["intentModifiers"]}
+            intentModifier={intentModifier as IconProps["intentModifier"]}
           />
         }
       >
@@ -99,7 +99,7 @@ const prefixCombinations = () => {
 
       <Button
         intent={intent as ButtonProps["intent"]}
-        intentModifiers={intentModifiers as ButtonProps["intentModifiers"]}
+        intentModifier={intentModifier as ButtonProps["intentModifier"]}
         ghost={ghost}
         size="large"
         prefix={
@@ -107,7 +107,7 @@ const prefixCombinations = () => {
             glyph={help}
             variant="scaled"
             intent={intent as IconProps["intent"]}
-            intentModifiers={intentModifiers as IconProps["intentModifiers"]}
+            intentModifier={intentModifier as IconProps["intentModifier"]}
           />
         }
       >

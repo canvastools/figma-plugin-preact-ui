@@ -31,7 +31,7 @@ const meta: Meta<typeof Text> = {
       ],
       defaultValue: { summary: "neutral" },
     },
-    intentModifiers: {
+    intentModifier: {
       control: { type: "radio" },
       options: [
         "default",
@@ -70,8 +70,7 @@ const meta: Meta<typeof Text> = {
       control: { type: "boolean" },
       defaultValue: { summary: false },
     },
-
-    colorText: {
+    textColor: {
       control: { type: "color" },
       description: "Overrides the intent color.",
       table: {
@@ -88,7 +87,7 @@ const meta: Meta<typeof Text> = {
       control: { type: "boolean" },
       defaultValue: { summary: false },
     },
-    widthFull: {
+    fullWidth: {
       control: { type: "boolean" },
       defaultValue: { summary: false },
     },
@@ -110,17 +109,17 @@ export const Demo: Story = {
   args: {
     className: "",
     intent: "neutral",
-    intentModifiers: "default",
+    intentModifier: "default",
     variant: "body",
     size: "medium",
     strong: false,
     align: "left",
     disabled: false,
     selected: false,
-    colorText: undefined,
+    textColor: undefined,
     wrap: true,
     truncate: false,
-    widthFull: false,
+    fullWidth: false,
     children:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
   },

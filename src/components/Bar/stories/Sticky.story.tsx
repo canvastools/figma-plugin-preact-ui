@@ -39,8 +39,6 @@ const { isAtTop, isAtBottom } = useScrollContext()
   <ScrollContainer>
     <Section>
       <Text
-        intent="neutral"
-        intentModifiers="default"
         variant="body"
         size="medium"
       >
@@ -96,12 +94,7 @@ const { isAtTop, isAtBottom } = useScrollContext()
           <TopBar />
           <ScrollContainer>
             <Section>
-              <Text
-                intent="neutral"
-                intentModifiers="default"
-                variant="body"
-                size="medium"
-              >
+              <Text variant="body" size="medium">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
                 enim ad minim veniam, quis nostrud exercitation ullamco laboris

@@ -15,7 +15,7 @@ const ButtonIconComponent = (
   {
     className,
     intent = "neutral",
-    intentModifiers = "default",
+    intentModifier = "default",
     ghost = false,
     size = "medium",
     grouped = "none",
@@ -31,7 +31,7 @@ const ButtonIconComponent = (
   ref: preact.Ref<HTMLButtonElement>
 ) => {
   const _className = bem("ButtonIcon", undefined, {
-    intent: `${intent}-${intentModifiers}`,
+    intent: `${intent}-${intentModifier}`,
     ghost,
     size,
     grouped: Boolean(grouped),
@@ -39,6 +39,7 @@ const ButtonIconComponent = (
     translucent,
     disabled,
     selected,
+    tooltip: Boolean(tooltip),
   })
 
   const handleClick = (event: MouseEvent) => {
@@ -84,7 +85,7 @@ const ButtonIconComponent = (
               <Icon
                 glyph={icon.glyph}
                 intent={intent}
-                intentModifiers={intentModifiers}
+                intentModifier={intentModifier}
                 variant={icon.variant}
                 size={icon.size}
                 selected={selected}

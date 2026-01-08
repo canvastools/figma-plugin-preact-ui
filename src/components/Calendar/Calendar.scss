@@ -13,77 +13,72 @@
   height: 24px;
   padding: 0 var(--pui-spacing-100);
   border-radius: var(--pui-radius-medium);
-  @include curson-feedback;
+  cursor: default;
 
   background-color: transparent;
   box-shadow: none;
 
   &:focus-visible {
-    outline: 1px solid var(--pui-color-system-border-focus);
+    outline: 1px solid var(--pui-color-system-border-focused);
     outline-offset: 1px;
     box-shadow: none;
   }
 
   &:hover {
-    background-color: var(--pui-color-neutral-bg-default-interactive-hover);
+    background-color: var(--pui-color-neutral-bg-default-hover);
   }
 
   &:active {
-    background-color: var(--pui-color-neutral-bg-default-interactive-pressed);
+    background-color: var(--pui-color-neutral-bg-default-pressed);
   }
 }
 
 @mixin CalendarButtonSelected {
-  background-color: var(--pui-color-neutral-bg-default-interactive-selected);
-  color: var(--pui-color-neutral-text-default-interactive-selected) !important;
+  background-color: var(--pui-color-neutral-bg-default-selected);
+  color: var(--pui-color-neutral-text-default-selected) !important;
   box-shadow: none;
 
   &:hover {
-    background-color: var(
-      --pui-color-neutral-bg-default-interactive-selected-hover
-    );
+    background-color: var(--pui-color-neutral-bg-default-selected-hover);
   }
 
   &:active {
-    background-color: var(
-      --pui-color-neutral-bg-default-interactive-selected-pressed
-    );
+    background-color: var(--pui-color-neutral-bg-default-selected-pressed);
   }
 }
 
 @mixin CalendarButtonDisabled {
   color: var(--pui-color-neutral-text-disabled) !important;
-  background-color: var(--pui-color-neutral-bg-disabled) !important;
+  background-color: transparent !important;
   box-shadow: none !important;
 
   &:hover {
-    background-color: var(--pui-color-neutral-bg-disabled) !important;
+    background-color: transparent !important;
   }
 
   &:active {
-    background-color: var(--pui-color-neutral-bg-disabled) !important;
+    background-color: transparent !important;
   }
 }
 
 .Calendar {
-  $parent: &;
+  .react-calendar__navigation__prev-button,
+  .react-calendar__navigation__prev2-button,
+  .react-calendar__navigation__next-button,
+  .react-calendar__navigation__next2-button {
+    display: none;
+  }
 
-  &_navigation {
-    &-simple {
-      & .react-calendar__navigation__prev2-button,
-      & .react-calendar__navigation__next2-button {
-        display: none;
-      }
-    }
+  &_navigation-simple .react-calendar__navigation__next-button,
+  &_navigation-simple .react-calendar__navigation__prev-button {
+    display: block;
+  }
 
-    &-none {
-      & .react-calendar__navigation__prev-button,
-      & .react-calendar__navigation__prev2-button,
-      & .react-calendar__navigation__next-button,
-      & .react-calendar__navigation__next2-button {
-        display: none;
-      }
-    }
+  &_navigation-full .react-calendar__navigation__prev-button,
+  &_navigation-full .react-calendar__navigation__prev2-button,
+  &_navigation-full .react-calendar__navigation__next-button,
+  &_navigation-full .react-calendar__navigation__next2-button {
+    display: block;
   }
 
   & .react-calendar {

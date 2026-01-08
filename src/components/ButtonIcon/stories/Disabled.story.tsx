@@ -11,30 +11,30 @@ const validDisabledCombinations = [
   // neutral
   {
     intent: "neutral",
-    intentModifiers: "default",
+    intentModifier: "default",
     ghost: false,
   },
   {
     intent: "neutral",
-    intentModifiers: "default",
+    intentModifier: "default",
     ghost: true,
   },
 ]
 
 const disabledCombinations = () => {
-  return validDisabledCombinations.map(({ intent, intentModifiers, ghost }) => (
+  return validDisabledCombinations.map(({ intent, intentModifier, ghost }) => (
     <div
       className="sb-row sb-width-full sb-gap-16"
       style={{ alignItems: "center" }}
     >
-      <Text widthFull>
-        {intent}, {intentModifiers}
+      <Text fullWidth>
+        {intent}, {intentModifier}
         {ghost ? ", ghost" : ""}
       </Text>
 
       <ButtonIcon
         intent={intent as ButtonIconProps["intent"]}
-        intentModifiers={intentModifiers as ButtonIconProps["intentModifiers"]}
+        intentModifier={intentModifier as ButtonIconProps["intentModifier"]}
         ghost={ghost}
         disabled
       >
@@ -43,7 +43,7 @@ const disabledCombinations = () => {
 
       <ButtonIcon
         intent={intent as ButtonIconProps["intent"]}
-        intentModifiers={intentModifiers as ButtonIconProps["intentModifiers"]}
+        intentModifier={intentModifier as ButtonIconProps["intentModifier"]}
         ghost={ghost}
         size="large"
         disabled

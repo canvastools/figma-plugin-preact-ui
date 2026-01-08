@@ -42,7 +42,7 @@ const meta: Meta<typeof Icon> = {
       ],
       defaultValue: { summary: "neutral" },
     },
-    intentModifiers: {
+    intentModifier: {
       control: { type: "radio" },
       options: [
         "default",
@@ -64,7 +64,7 @@ const meta: Meta<typeof Icon> = {
       defaultValue: { summary: false },
       description: "Enables the modifier for the selected state.",
     },
-    colorIcon: {
+    iconColor: {
       control: { type: "color" },
       description: "Overrides the intent color.",
       table: {
@@ -109,12 +109,12 @@ export const Demo: Story = {
     className: "",
     glyph: "link",
     intent: "neutral",
-    intentModifiers: "default",
+    intentModifier: "default",
     variant: "default",
     size: 24,
     disabled: false,
     selected: false,
-    colorIcon: undefined,
+    iconColor: undefined,
   },
   parameters: {
     viewport: {
