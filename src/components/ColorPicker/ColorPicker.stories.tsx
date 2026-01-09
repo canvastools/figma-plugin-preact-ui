@@ -6,6 +6,8 @@ import { ControlledStory } from "./stories/Controlled.story"
 import { TypeStory } from "./stories/Type.story"
 import { WidthStory } from "./stories/Width.story"
 
+import { TooltipContext } from "../../index"
+
 import { ColorPicker } from "./ColorPicker"
 
 const meta: Meta<typeof ColorPicker> = {
@@ -160,7 +162,9 @@ export const Demo: Story = {
   },
   render: (args) => (
     <div className="sb-column sb-width-full">
-      <ColorPicker {...args} />
+      <TooltipContext>
+        <ColorPicker {...args} />
+      </TooltipContext>
     </div>
   ),
 }

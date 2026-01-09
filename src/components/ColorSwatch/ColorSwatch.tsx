@@ -5,27 +5,25 @@ import { bem, typedForwardRef } from "../../utils"
 import type { ColorSwatchProps } from "./ColorSwatch.types"
 import "./ColorSwatch.scss"
 
-import { Text, Tooltip } from "../../index"
+import { Tooltip } from "../../index"
+import { colorToHex, colorToHexAlpha } from "../../index"
 
 /* --- */
 
-const hasOpacity = (hex: string | undefined) => {
-  if (!hex) return false
-  const opacity = hex.slice(-2)
-  const isOpacity = opacity === "FF" || opacity === "ff"
-  return hex.length === 9 && !isOpacity
+const hasOpacity = (color: ColorSwatchProps["color"]) => {
+  if (!color) return false
+  return color.a < 1
 }
 
 const ColorSwatchComponent = (
   {
     className,
     size = "medium",
-    hex,
-    imageSrc,
-    tooltip,
-    selection = "default",
-    interactive = false,
+    color,
+    disabled = false,
     selected = false,
+    selection = "default",
+    tooltip,
     children,
     onClick,
     ...rest
@@ -36,25 +34,23 @@ const ColorSwatchComponent = (
 
   const _className = bem("ColorSwatch", undefined, {
     selection: selection,
-    hasImage: !!imageSrc,
-    hasHex: !!hex,
+    color: !!color,
     size,
-    interactive,
+    disabled,
     selected,
   })
-
-  const RootElement = (interactive ? "button" : "div") as "button" | "div"
 
   const handleKeyDown = (
     event: preact.JSX.TargetedKeyboardEvent<HTMLDivElement | HTMLButtonElement>
   ) => {
+    if (disabled) return
     if (event.key === "Escape" || event.key === "Esc") {
       event.currentTarget.blur()
     }
   }
 
   return (
-    <RootElement
+    <button
       className={[_className, className, "no-drag"].join(" ").trim()}
       ref={(el) => {
         if (typeof ref === "function") {
@@ -65,35 +61,32 @@ const ColorSwatchComponent = (
         }
         anchorRef.current = el
       }}
-      {...(interactive ? { type: "button" } : {})}
-      onClick={(event) => onClick?.({ event, hex, imageSrc })}
+      disabled={disabled}
+      onClick={(event) => {
+        if (disabled) return
+        onClick?.({ event, color })
+      }}
       onKeyDown={handleKeyDown}
       {...rest}
     >
       <div className="ColorSwatch__container">
-        {hex && hasOpacity(hex) && (
+        {color && hasOpacity(color) && (
           <>
             <div
               className="ColorSwatch__fill"
-              style={{ backgroundColor: hex?.substring(0, hex.length - 2) }}
+              style={{ backgroundColor: colorToHex(color) }}
             />
             <div
               className="ColorSwatch__fill"
-              style={{ backgroundColor: hex }}
+              style={{ backgroundColor: colorToHexAlpha(color) }}
             />
           </>
         )}
 
-        {hex && !hasOpacity(hex) && (
-          <div className="ColorSwatch__fill" style={{ backgroundColor: hex }} />
-        )}
-
-        {imageSrc && (
+        {color && !hasOpacity(color) && (
           <div
-            className="ColorSwatch__image"
-            style={{
-              backgroundImage: `url(${imageSrc})`,
-            }}
+            className="ColorSwatch__fill"
+            style={{ backgroundColor: colorToHex(color) }}
           />
         )}
       </div>
@@ -101,7 +94,7 @@ const ColorSwatchComponent = (
       {children && <div className="ColorSwatch__children">{children}</div>}
 
       {tooltip && <Tooltip triggerRef={anchorRef}>{tooltip}</Tooltip>}
-    </RootElement>
+    </button>
   )
 }
 
