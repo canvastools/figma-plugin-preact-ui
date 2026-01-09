@@ -32,6 +32,7 @@ const meta: Meta<typeof ButtonIconToggle> = {
     },
     defaultSelected: {
       control: { type: "boolean" },
+      defaultValue: false,
       description: "Value for uncontrolled mode.",
     },
     onSelectedChange: {

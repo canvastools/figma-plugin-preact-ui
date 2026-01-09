@@ -1,12 +1,10 @@
 import { useState, useEffect } from "preact/hooks"
-import { cloneElement, toChildArray } from "preact"
-import type { VNode } from "preact"
 
 import { typedForwardRef } from "../../utils"
 
 import type { ButtonIconToggleProps } from "./ButtonIconToggle.types"
 
-import { ButtonIcon, Icon } from "../../index"
+import { ButtonIcon } from "../../index"
 
 /* --- */
 

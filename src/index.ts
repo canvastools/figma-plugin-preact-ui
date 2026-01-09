@@ -33,6 +33,7 @@ export { ColorPicker } from "./components/ColorPicker/ColorPicker"
 export type {
   ColorPickerProps,
   Color,
+  ColorPickerType,
 } from "./components/ColorPicker/ColorPicker.types"
 
 export { ColorSwatch } from "./components/ColorSwatch/ColorSwatch"

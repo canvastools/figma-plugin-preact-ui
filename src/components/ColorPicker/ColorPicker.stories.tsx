@@ -1,11 +1,12 @@
 import { Meta, StoryObj } from "@storybook/preact"
 import { fn } from "@storybook/test"
 
-import { useState } from "preact/hooks"
+import { UncontrolledStory } from "./stories/Uncontrolled.story"
+import { ControlledStory } from "./stories/Controlled.story"
+import { TypeStory } from "./stories/Type.story"
+import { WidthStory } from "./stories/Width.story"
 
 import { ColorPicker } from "./ColorPicker"
-
-import { Text, Stack, ColorSwatch, colorToHexAlpha } from "../../index"
 
 const meta: Meta<typeof ColorPicker> = {
   title: "Components/ColorPicker",
@@ -18,8 +19,25 @@ const meta: Meta<typeof ColorPicker> = {
     defaultType: {
       control: { type: "radio" },
       options: ["rgba", "hex", "hexAlpha"],
-      description: "Initial color picker mode.",
       defaultValue: { summary: "hex" },
+      description: "Picker mode for uncontrolled mode.",
+      table: {
+        type: {
+          summary: "ColorPickerType",
+          detail: `"rgba" | "hex" | "hexAlpha"`,
+        },
+      },
+    },
+    type: {
+      control: { disable: true },
+      options: ["rgba", "hex", "hexAlpha"],
+      description: "Picker mode for controlled mode.",
+      table: {
+        type: {
+          summary: "ColorPickerType",
+          detail: `"rgba" | "hex" | "hexAlpha"`,
+        },
+      },
     },
     types: {
       control: { type: "check" },
@@ -28,49 +46,80 @@ const meta: Meta<typeof ColorPicker> = {
       description: "Allowed color picker modes in the picker.",
       table: {
         type: {
-          summary: "string[]",
+          summary: "ColorPickerType[]",
+          detail: `["rgba", "hex", "hexAlpha"]`,
         },
       },
     },
-    value: {
+    defaultValue: {
+      control: { type: "object" },
+      description: "Color value for uncontrolled mode.",
+      defaultValue: { summary: `{ r: 255, g: 0, b: 0, a: 1 }` },
       table: {
         type: {
           summary: "Color",
-        },
-      },
-      control: { type: "object" },
-      description: `<pre>type Color = {
+          detail: `
+{
   r: number
   g: number
   b: number
   a: number
-}</pre>`,
-    },
-    controls: {
-      control: { type: "boolean" },
-      defaultValue: { summary: "true" },
-      description: "Show input controls for the color picker.",
-      table: {
-        type: {
-          summary: "boolean",
+}
+`,
         },
       },
+    },
+    value: {
+      control: { disable: true },
+      description: "Color value for controlled mode.",
+      table: {
+        type: {
+          summary: "Color",
+          detail: `
+{
+  r: number
+  g: number
+  b: number
+  a: number
+}
+`,
+        },
+      },
+    },
+    showControls: {
+      control: { type: "boolean" },
+      defaultValue: { summary: "true" },
     },
     width: {
       control: { type: "number" },
       defaultValue: { summary: "207" },
-      description: "Width of the color picker.",
       table: {
         type: { summary: "number | 'auto'" },
       },
     },
-    onChange: {
-      action: "onChange",
-      description: "Callback when the color is changed.",
+    onTypeChange: {
       table: {
         type: {
-          summary:
-            "(args: { rgba: Color; hex: string; opacity: number }) => void",
+          summary: "(args) => void",
+          detail: `
+args:{
+  type: ColorPickerType
+}
+`,
+        },
+      },
+    },
+    onValueChange: {
+      table: {
+        type: {
+          summary: "(args) => void",
+          detail: `
+args:{
+  rgba: Color
+  hex: string
+  opacity: number
+}
+`,
         },
       },
     },
@@ -86,19 +135,27 @@ export const Demo: Story = {
     className: "",
     defaultType: "hex",
     types: ["rgba", "hex", "hexAlpha"],
-    controls: true,
-    value: {
+    defaultValue: {
       r: 255,
       g: 0,
       b: 0,
       a: 1,
     },
+    showControls: true,
     width: 207,
-    onChange: fn(),
+    onValueChange: fn(),
   },
   parameters: {
     viewport: {
       defaultViewport: "large",
+    },
+    docs: {
+      source: {
+        language: "tsx",
+        code: `
+<ColorPicker {...args} />
+`,
+      },
     },
   },
   render: (args) => (
@@ -108,133 +165,7 @@ export const Demo: Story = {
   ),
 }
 
-export const Uncontrolled: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => (
-    <div className="sb-column sb-width-full">
-      <ColorPicker defaultType="hex" controls={true} />
-    </div>
-  ),
-}
-
-export const Controlled: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => {
-    const [color, setColor] = useState({
-      rgba: { r: 255, g: 0, b: 0, a: 1 },
-      hex: "#FF0000",
-      opacity: 1,
-    })
-
-    return (
-      <div className="sb-column sb-width-full">
-        <Stack spacing={400}>
-          <Text>
-            Value: {color.hex}, {color.opacity}
-          </Text>
-          <ColorSwatch hex={colorToHexAlpha(color.rgba)} />
-          <ColorPicker
-            defaultType="hex"
-            value={color.rgba}
-            controls
-            onChange={(e) => setColor(e)}
-          />
-        </Stack>
-      </div>
-    )
-  },
-}
-
-export const Type: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => (
-    <div className="sb-column sb-width-full">
-      <Stack spacing={400}>
-        <Stack spacing={400}>
-          <Text>Hex</Text>
-          <ColorPicker defaultType="hex" />
-        </Stack>
-
-        <Stack spacing={400}>
-          <Text>HexAlpha</Text>
-          <ColorPicker defaultType="hexAlpha" />
-        </Stack>
-
-        <Stack spacing={400}>
-          <Text>RGBA</Text>
-          <ColorPicker defaultType="rgba" />
-        </Stack>
-      </Stack>
-    </div>
-  ),
-}
-
-export const Controls: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => (
-    <div className="sb-column sb-width-full">
-      <Stack spacing={400}>
-        <ColorPicker defaultType="hex" controls={true} />
-        <ColorPicker defaultType="hex" controls={false} />
-      </Stack>
-    </div>
-  ),
-}
-
-export const Types: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-    docs: {
-      description: {
-        story:
-          "Allow the user to select the type of color picker to use (e.g. only Hex and HexAlpha).",
-      },
-    },
-  },
-  render: () => (
-    <div className="sb-column sb-width-full">
-      <Stack spacing={400}>
-        <ColorPicker defaultType="rgba" types={["rgba", "hexAlpha"]} />
-      </Stack>
-    </div>
-  ),
-}
-
-export const Width: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => (
-    <div className="sb-column sb-width-full">
-      <Stack spacing={400}>
-        <ColorPicker defaultType="hex" width={400} />
-      </Stack>
-    </div>
-  ),
-}
+export const Uncontrolled = UncontrolledStory
+export const Controlled = ControlledStory
+export const Type = TypeStory
+export const Width = WidthStory

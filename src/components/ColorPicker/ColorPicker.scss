@@ -1,9 +1,8 @@
 @use "../../shared.scss" as *;
 
 .ColorPicker {
-  $parent: &;
-
   position: relative;
+  width: inherit;
 
   & .react-colorful {
     width: 100%;
@@ -20,9 +19,7 @@
     & .react-colorful__interactive:focus-visible .react-colorful__pointer {
       outline-width: 1px;
       outline-style: solid;
-      outline-color: var(
-        --pui-color-neutral-border-default-interactive-selected
-      );
+      outline-color: var(--pui-color-neutral-border-default-interactive-selected);
       outline-offset: -1px;
     }
 

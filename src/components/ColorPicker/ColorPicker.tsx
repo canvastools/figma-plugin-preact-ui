@@ -17,15 +17,17 @@ import {
   HexAlphaColorPicker,
 } from "react-colorful"
 
-import type { ColorPickerProps, Color } from "./ColorPicker.types"
+import type {
+  ColorPickerProps,
+  Color,
+  ColorPickerType,
+} from "./ColorPicker.types"
 import "./ColorPicker.scss"
 
 import {
   Input,
   Text,
   Select,
-  Tooltip,
-  OverlayPositioner,
   InputGroup,
   useNumericInput,
   useStringInput,
@@ -74,8 +76,6 @@ const TYPE_OPTIONS = [
   { value: "hex", label: "Hex" },
   { value: "hexAlpha", label: "Hex alpha" },
 ]
-
-type ColorPickerType = "rgba" | "hex" | "hexAlpha"
 
 const hexMask = (input: string): string => {
   const cleaned = input
@@ -307,7 +307,7 @@ const ControlsRgba = ({
             tooltip="Opacity"
             value={inputOpacityValue}
             suffix={
-              <Text intentModifiers="secondary">
+              <Text intentModifier="secondary">
                 <div className="ColorPicker__controlOpacityContainer">%</div>
               </Text>
             }
@@ -509,7 +509,7 @@ const ControlsHexAlpha = ({
             grouped="left"
             value={hexOpacityValue}
             suffix={
-              <Text intentModifiers="secondary">
+              <Text intentModifier="secondary">
                 <div className="ColorPicker__controlOpacityContainer">%</div>
               </Text>
             }
@@ -568,18 +568,30 @@ const ColorPickerComponent = (
   {
     className,
     defaultType = "hex",
+    type,
+    defaultValue,
     types,
     value,
-    controls = true,
+    showControls = true,
     width = 207,
-    onChange,
+    onTypeChange,
+    onValueChange,
     ...rest
   }: ColorPickerProps,
   ref: preact.Ref<HTMLDivElement>
 ) => {
-  const [internalColor, setInternalColor] = useState<Color>(
-    value ?? ({ r: 200, g: 150, b: 35, a: 0.5 } as Color)
-  )
+  const [internalColor, setInternalColor] = useState<Color>(() => {
+    if (value) return value
+    if (defaultValue) return defaultValue
+    return { r: 255, g: 0, b: 0, a: 1 }
+  })
+
+  // Keep internal color in sync when used in controlled mode
+  useEffect(() => {
+    if (value) {
+      setInternalColor(value)
+    }
+  }, [value])
 
   // compute allowed types list
   const allowedTypes: ColorPickerType[] = useMemo(
@@ -590,12 +602,20 @@ const ColorPickerComponent = (
     [types]
   )
 
-  // Picker type state (uncontrolled by design, syncs from prop when it changes)
+  // Picker type state:
+  // - uncontrolled by default, initialised from `defaultType`
+  // - when `type` is provided, it acts as a controlled override
   const [internalType, setInternalType] = useState<ColorPickerType>(() =>
     allowedTypes.includes(defaultType as ColorPickerType)
       ? (defaultType as ColorPickerType)
       : allowedTypes[0]
   )
+
+  useEffect(() => {
+    if (type) {
+      setInternalType(type as ColorPickerType)
+    }
+  }, [type])
 
   const allowedTypesKey = useMemo(
     () => (allowedTypes && allowedTypes.length ? allowedTypes.join("|") : ""),
@@ -603,15 +623,27 @@ const ColorPickerComponent = (
   )
 
   useEffect(() => {
+    // In controlled mode (`type` provided), `defaultType` should not
+    // override the externally controlled value.
+    if (type) {
+      return
+    }
+
     const nextType = (allowedTypes as ColorPickerType[]).includes(
       defaultType as ColorPickerType
     )
       ? (defaultType as ColorPickerType)
       : allowedTypes[0]
     setInternalType(nextType)
-  }, [defaultType, allowedTypesKey, allowedTypes])
+  }, [defaultType, allowedTypesKey, allowedTypes, type])
 
   const currentType: ColorPickerType = internalType
+
+  const handleTypeChange = (nextType: ColorPickerType) => {
+    if (nextType === internalType) return
+    setInternalType(nextType)
+    onTypeChange?.({ type: nextType })
+  }
 
   const modeSelectRef = useRef<HTMLDivElement | null>(null)
 
@@ -643,7 +675,7 @@ const ColorPickerComponent = (
       setInternalColor(normalized)
     }
 
-    onChange?.({
+    onValueChange?.({
       rgba: normalized,
       hex: colorToHex(normalized),
       opacity: normalized.a,
@@ -669,7 +701,7 @@ const ColorPickerComponent = (
 
   const _className = bem("ColorPicker", undefined, {
     type: currentType,
-    controls,
+    controls: showControls,
   })
 
   const handleInteractionKeyDownCapture = (
@@ -689,7 +721,7 @@ const ColorPickerComponent = (
   }
 
   useEffect(() => {
-    if (!controls || !modeSelectRef.current) return
+    if (!showControls || !modeSelectRef.current) return
 
     if (lastInteractionWasKeyboardRef.current) {
       modeSelectRef.current.focus()
@@ -697,7 +729,7 @@ const ColorPickerComponent = (
       // there is another keyboard interaction.
       lastInteractionWasKeyboardRef.current = false
     }
-  }, [currentType, controls])
+  }, [currentType, showControls])
 
   // Build Select options based on allowed types and rename hexAlpha to "Hex"
   // when hex is not available but hexAlpha is.
@@ -771,14 +803,14 @@ const ColorPickerComponent = (
           }}
         />
       )}
-      {controls && (
+      {showControls && (
         <div className="ColorPicker__controls">
           {currentType === "hex" && (
             <ControlsHex
               color={internalColor}
               setColor={(color) => scheduleNextColor(color)}
               type={currentType as ColorPickerType}
-              setType={setInternalType as (t: ColorPickerType) => void}
+              setType={handleTypeChange}
               options={computedOptions}
               selectRef={modeSelectRef}
             />
@@ -788,7 +820,7 @@ const ColorPickerComponent = (
               color={internalColor}
               setColor={scheduleNextColor}
               type={currentType as ColorPickerType}
-              setType={setInternalType as (t: ColorPickerType) => void}
+              setType={handleTypeChange}
               options={computedOptions}
               selectRef={modeSelectRef}
             />
@@ -798,7 +830,7 @@ const ColorPickerComponent = (
               color={internalColor}
               setColor={scheduleNextColor}
               type={currentType as ColorPickerType}
-              setType={setInternalType as (t: ColorPickerType) => void}
+              setType={handleTypeChange}
               options={computedOptions}
               selectRef={modeSelectRef}
             />

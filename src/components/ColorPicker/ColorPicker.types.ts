@@ -5,12 +5,17 @@ export type Color = {
   a: number
 }
 
+export type ColorPickerType = "rgba" | "hex" | "hexAlpha"
+
 export interface ColorPickerProps {
   className?: string
-  defaultType?: "rgba" | "hex" | "hexAlpha"
-  types?: ("rgba" | "hex" | "hexAlpha")[]
+  defaultType?: ColorPickerType
+  type?: ColorPickerType
+  types?: ColorPickerType[]
   value?: Color | null
-  controls?: boolean
+  defaultValue?: Color
+  showControls?: boolean
   width?: number | "auto"
-  onChange?: (args: { rgba: Color; hex: string; opacity: number }) => void
+  onTypeChange?: (args: { type: ColorPickerType }) => void
+  onValueChange?: (args: { rgba: Color; hex: string; opacity: number }) => void
 }

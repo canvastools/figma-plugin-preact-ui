@@ -2,7 +2,7 @@ import { StoryObj } from "@storybook/preact"
 
 import { useState } from "preact/hooks"
 
-import { Text, Icon, link } from "../../../index"
+import { Text, link } from "../../../index"
 
 import { ButtonIconToggle } from "../ButtonIconToggle"
 

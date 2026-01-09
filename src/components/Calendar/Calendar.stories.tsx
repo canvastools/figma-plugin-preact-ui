@@ -44,6 +44,11 @@ const meta: Meta<typeof Calendar> = {
       control: { disable: true },
       options: ["month", "year", "decade", "century"],
       description: "View for controlled mode.",
+      table: {
+        type: {
+          summary: "string",
+        },
+      },
     },
     defaultValue: {
       control: { type: "date" },
@@ -51,7 +56,8 @@ const meta: Meta<typeof Calendar> = {
       description: "Value for uncontrolled mode.",
       table: {
         type: {
-          summary: "Date | [Date | null, Date | null] | null",
+          summary: "CalendarValue",
+          detail: `Date | [Date | null, Date | null] | null`,
         },
       },
     },
@@ -60,7 +66,8 @@ const meta: Meta<typeof Calendar> = {
       description: `Value for controlled mode.`,
       table: {
         type: {
-          summary: "Date | [Date | null, Date | null] | null",
+          summary: "CalendarValue",
+          detail: `Date | [Date | null, Date | null] | null`,
         },
       },
     },
@@ -68,11 +75,21 @@ const meta: Meta<typeof Calendar> = {
       control: { type: "date" },
       defaultValue: { summary: "-5 years" },
       description: "Minimum selectable date of the calendar.",
+      table: {
+        type: {
+          summary: "Date",
+        },
+      },
     },
     maxDate: {
       control: { type: "date" },
       defaultValue: { summary: "+5 years" },
       description: "Maximum selectable date of the calendar.",
+      table: {
+        type: {
+          summary: "Date",
+        },
+      },
     },
     minDetail: {
       control: { type: "radio" },
@@ -101,7 +118,7 @@ const meta: Meta<typeof Calendar> = {
           summary: "(args) => void",
           detail: `
 args:{
-  value: Date | [Date | null, Date | null] | null;
+  value: CalendarValue;
 }
 `,
         },
@@ -115,7 +132,7 @@ args:{
 args:{
   action: string;
   activeStartDate: Date | null;
-  value: Date | [Date | null, Date | null] | null;
+  value: CalendarValue;
   view: string;
 }
 `,
@@ -130,7 +147,7 @@ args:{
 args:{
   action: string;
   activeStartDate: Date | null;
-  value: Date | [Date | null, Date | null] | null;
+  value: CalendarValue;
   view: string;
 }
 `,
@@ -145,7 +162,7 @@ args:{
 args:{
   action: string;
   activeStartDate: Date | null;
-  value: Date | [Date | null, Date | null] | null;
+  value: CalendarValue;
   view: string;
 }
 `,
