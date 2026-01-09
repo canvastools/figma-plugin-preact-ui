@@ -13,7 +13,7 @@ export interface ButtonIconProps {
   disabled?: boolean
   selected?: boolean
   tooltip?: preact.ComponentChildren
-  children?: preact.ComponentChildren
+  children: preact.ComponentChildren
   icon?: {
     glyph: Glyph
     variant?: IconProps["variant"]

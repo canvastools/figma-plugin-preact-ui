@@ -2,7 +2,7 @@ import { Meta, StoryObj } from "@storybook/preact"
 import { fn } from "@storybook/test"
 
 import { SizeStory } from "./stories/Size.story"
-import { ColorStory } from "./stories/Color.story"
+import { ValueStory } from "./stories/Value.story"
 import { DisabledStory } from "./stories/Disabled.story"
 import { SelectionStory } from "./stories/Selection.story"
 import { ChildrenStory } from "./stories/Children.story"
@@ -25,7 +25,7 @@ const meta: Meta<typeof ColorSwatch> = {
       options: ["small", "medium", "large"],
       defaultValue: { summary: "medium" },
     },
-    color: {
+    value: {
       control: { type: "object" },
       table: {
         type: {
@@ -79,7 +79,7 @@ const meta: Meta<typeof ColorSwatch> = {
           detail: `
 args: { 
   event: MouseEvent
-  color: Color | undefined
+  value: Color | undefined
 }
           `,
         },
@@ -96,7 +96,7 @@ export const Demo: Story = {
   args: {
     className: "",
     size: "medium",
-    color: { r: 255, g: 0, b: 0, a: 1 } as Color,
+    value: { r: 255, g: 0, b: 0, a: 1 } as Color,
     disabled: false,
     selected: false,
     selection: "default",
@@ -112,6 +112,12 @@ export const Demo: Story = {
         language: "tsx",
         code: `
 <ColorSwatch {...args} />
+
+// Use TooltipContext to make tooltips work
+
+<TooltipContext>
+  <ColorSwatch {...args}/>
+</TooltipContext>
 `,
       },
     },
@@ -126,7 +132,7 @@ export const Demo: Story = {
 }
 
 export const Size = SizeStory
-export const _Color = ColorStory
+export const Value = ValueStory
 export const Disabled = DisabledStory
 export const Selection = SelectionStory
 export const Children = ChildrenStory

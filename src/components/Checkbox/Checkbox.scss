@@ -1,5 +1,4 @@
 @use "../../shared.scss" as *;
-@use "../../mixins.scss" as *;
 
 @mixin Checkbox_intent($intent, $modifier) {
   &_intent-#{$intent}-#{$modifier}:is(.Checkbox_checked) {

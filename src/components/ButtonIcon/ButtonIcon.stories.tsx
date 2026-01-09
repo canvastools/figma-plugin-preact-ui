@@ -64,6 +64,7 @@ const meta: Meta<typeof ButtonIcon> = {
     },
     children: {
       control: { disable: true },
+      description: "<strong>*</strong>",
       table: {
         type: {
           summary: "string | number | JSX.Element",
@@ -142,6 +143,7 @@ export const Demo: Story = {
   render: (args) => (
     <div className="sb-column sb-width-full">
       <TooltipContext>
+        {/* @ts-ignore-next-line */}
         <ButtonIcon {...args} />
       </TooltipContext>
     </div>

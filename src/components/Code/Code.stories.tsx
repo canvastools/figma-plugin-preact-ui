@@ -17,6 +17,7 @@ const meta: Meta<typeof Code> = {
     },
     children: {
       control: { type: "text" },
+      description: "<strong>*</strong>",
     },
   },
 }

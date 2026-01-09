@@ -5,12 +5,10 @@ import { useState, useEffect } from "preact/hooks"
 import type { FogProps } from "./Fog.types"
 import "./Fog.scss"
 
-import { Spinner } from "../Spinner/Spinner"
-
 /* --- */
 
 const FogComponent = (
-  { className, timeout = 0, spinner = false, ...rest }: FogProps,
+  { className, delay = 0, children, ...rest }: FogProps,
   ref: preact.Ref<HTMLDivElement>
 ) => {
   const [isVisible, setIsVisible] = useState(false)
@@ -18,10 +16,10 @@ const FogComponent = (
   useEffect(() => {
     setTimeout(() => {
       setIsVisible(true)
-    }, timeout)
-  }, [timeout])
+    }, delay)
+  }, [delay])
 
-  const _className = bem("Fog", undefined, { spinner, visible: isVisible })
+  const _className = bem("Fog", undefined, { visible: isVisible })
 
   return (
     <div
@@ -34,7 +32,7 @@ const FogComponent = (
       }}
     >
       <div className="Fog__overlay"></div>
-      {spinner && <Spinner />}
+      {children && <div className="Fog__children">{children}</div>}
     </div>
   )
 }

@@ -1,5 +1,5 @@
 export interface FogProps {
   className?: string
-  timeout?: number
-  spinner?: boolean
+  delay?: number
+  children?: preact.ComponentChildren
 }

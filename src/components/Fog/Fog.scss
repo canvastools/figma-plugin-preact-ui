@@ -1,9 +1,6 @@
 @use "../../shared.scss" as *;
-@use "../../mixins.scss" as *;
 
 .Fog {
-  $parent: &;
-
   position: absolute;
   display: flex;
   justify-content: center;
@@ -25,5 +22,10 @@
     height: 100%;
     background-color: var(--pui-color-neutral-bg-default);
     opacity: 0.74;
+  }
+
+  &__children {
+    position: relative;
+    z-index: 1;
   }
 }

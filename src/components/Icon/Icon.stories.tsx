@@ -22,7 +22,8 @@ const meta: Meta<typeof Icon> = {
     glyph: {
       control: { type: "select" },
       options: Object.keys(glyphs),
-      description: "Any library glyph to display as a child.",
+      description:
+        "Any library <a href='#glyphs'>glyph</a> to display as a child.",
       table: {
         type: {
           summary: "JSX.Element",

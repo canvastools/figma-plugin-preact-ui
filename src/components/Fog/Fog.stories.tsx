@@ -11,8 +11,7 @@ const meta: Meta<typeof Fog> = {
   parameters: {
     docs: {
       description: {
-        component:
-          "A component that displays a fog overlay with an optional spinner. Blocks interaction with the entire parent container.",
+        component: `The component blocks mouse interaction with the entire parent container. User can still navigate the page using keyboard (you should prevent it with your own code).`,
       },
     },
   },
@@ -20,46 +19,52 @@ const meta: Meta<typeof Fog> = {
     className: {
       control: { type: "text" },
     },
-    timeout: {
+    delay: {
       control: { type: "number" },
       defaultValue: { summary: 0 },
       description:
-        "Delay in milliseconds before the fog becomes visible. May be useful to avoid flickering when the content is loading fast.",
-      table: {
-        type: {
-          summary: "number",
-        },
-      },
+        "Once mounted, it already blocks mouse interactions, but you can set a delay (in milliseconds) before it becomes visible. This helps prevent flicker when content loads quickly.",
     },
-    spinner: {
-      control: { type: "boolean" },
-      defaultValue: { summary: false },
-      description: "Show the spinner.",
+    children: {
+      control: { type: "text" },
       table: {
         type: {
-          summary: "boolean",
+          summary: "string | number | JSX.Element",
         },
       },
     },
   },
 }
+
 export default meta
+
 type Story = StoryObj<typeof Fog>
 
 export const Demo: Story = {
   args: {
     className: "",
-    timeout: 1000,
-    spinner: true,
+    delay: 1000,
+    children: "",
   },
   parameters: {
     viewport: {
       defaultViewport: "large",
     },
+    docs: {
+      source: {
+        language: "tsx",
+        code: `
+<Fog {...args}>{children}</Fog>
+`,
+      },
+    },
   },
   render: (args) => (
-    <div className="sb-column sb-width-full">
-      <Fog {...args} />
+    <div className="sb-column sb-width-full sb-gap-16">
+      <Fog {...args}>
+        {/* @ts-ignore-next-line */}
+        <Text>{args.children}</Text>
+      </Fog>
       <Text>
         Lorem Ipsum is simply dummy text of the printing and typesetting
         industry. Qui quae autem dolorum quibusdam necessitatibus natus, ipsa
@@ -69,7 +74,9 @@ export const Demo: Story = {
       </Text>
       <Button
         onClick={() => {
-          console.log("Oh, no!")
+          alert(
+            "User can still navigate the page using keyboard (you should prevent it with your own code)"
+          )
         }}
       >
         You can't click me

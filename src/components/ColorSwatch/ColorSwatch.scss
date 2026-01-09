@@ -10,8 +10,6 @@
   outline: none;
   background-color: transparent;
 
-  // Small
-
   &_size-small {
     width: 14px;
     height: 14px;
@@ -26,8 +24,6 @@
     border-radius: calc(var(--pui-radius-small) + 2px);
   }
 
-  // Medium
-
   &_size-medium {
     width: 16px;
     height: 16px;
@@ -41,8 +37,6 @@
   &_size-medium:is(&_selection-rainbow):after {
     border-radius: calc(var(--pui-radius-small) + 2px);
   }
-
-  // Large
 
   &_size-large {
     width: 28px;
