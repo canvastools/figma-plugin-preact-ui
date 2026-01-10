@@ -8,13 +8,20 @@ import "./ControlGroup.scss"
 /* --- */
 
 const ControlGroupComponent = (
-  { className, groupFocus = false, children, ...rest }: ControlGroupProps,
+  {
+    className,
+    groupFocus = false,
+    fullWidth = false,
+    children,
+    ...rest
+  }: ControlGroupProps,
   ref: preact.Ref<HTMLDivElement>
 ) => {
   const childrenArray = Array.isArray(children) ? children : []
 
   const _className = bem("ControlGroup", undefined, {
     groupFocus: Boolean(groupFocus),
+    fullWidth: Boolean(fullWidth),
   })
 
   return (

@@ -27,6 +27,10 @@ const meta: Meta<typeof ControlGroup> = {
       control: { type: "boolean" },
       defaultValue: { summary: false },
     },
+    fullWidth: {
+      control: { type: "boolean" },
+      defaultValue: { summary: false },
+    },
     children: {
       control: { disable: true },
       description: "<strong>*</strong>",
@@ -46,6 +50,7 @@ export const Demo: Story = {
   args: {
     className: "",
     groupFocus: false,
+    fullWidth: false,
   },
   parameters: {
     viewport: {
@@ -63,7 +68,7 @@ export const Demo: Story = {
     },
   },
   render: (args) => (
-    <div className="sb-column sb-width-420">
+    <div className="sb-column sb-width-full">
       <ControlGroup {...args}>
         <Input placeholder="Input" />
         <Input placeholder="Input" />

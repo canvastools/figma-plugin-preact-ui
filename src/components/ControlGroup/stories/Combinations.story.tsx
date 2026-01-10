@@ -62,12 +62,12 @@ export const CombinationsStory: Story = {
         <ButtonIcon icon={{ glyph: link }} />
       </ControlGroup>
 
-      <ControlGroup>
+      <ControlGroup groupFocus fullWidth>
         <Input placeholder="Input" />
         <Input placeholder="Input" />
       </ControlGroup>
 
-      <ControlGroup>
+      <ControlGroup groupFocus fullWidth>
         <Input placeholder="Input" />
         <ButtonIcon
           intentModifier="secondary"

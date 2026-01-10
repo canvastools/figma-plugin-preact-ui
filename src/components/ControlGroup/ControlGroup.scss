@@ -5,6 +5,7 @@
   position: relative;
   display: flex;
   flex-flow: row nowrap;
+  width: fit-content;
 
   &_groupFocus::before {
     content: "";
@@ -20,6 +21,10 @@
     outline-offset: -1px;
     z-index: 10;
     border-radius: var(--pui-radius-medium);
+  }
+
+  &_fullWidth {
+    width: 100%;
   }
 
   & .Input_grouped + .Input_grouped {

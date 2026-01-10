@@ -27,7 +27,7 @@ export const GroupFocusStory: Story = {
   },
   render: () => (
     <div className="sb-column sb-width-420 sb-gap-40">
-      <ControlGroup groupFocus>
+      <ControlGroup groupFocus fullWidth>
         <Input placeholder="Input" />
         <Input placeholder="Input" />
       </ControlGroup>
