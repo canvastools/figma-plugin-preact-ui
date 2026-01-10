@@ -2,8 +2,6 @@
 @use "../../mixins.scss" as *;
 
 .Input {
-  $parent: &;
-
   position: relative;
   display: flex;
   align-items: center;
@@ -17,10 +15,10 @@
   outline-style: solid;
   outline-color: transparent;
   outline-offset: -1px;
-  background-color: var(--pui-color-neutral-bg-secondary-interactive);
+  background-color: var(--pui-color-neutral-bg-secondary);
 
   &:hover {
-    outline-color: var(--pui-color-neutral-border-default-interactive-hover);
+    outline-color: var(--pui-color-neutral-border-default-hover);
   }
 
   &:hover > &__suffix,
@@ -30,13 +28,11 @@
 
   &_focused,
   &:hover:is(:focus-within) {
-    outline-color: var(--pui-color-neutral-border-default-interactive-selected);
+    outline-color: var(--pui-color-neutral-border-default-selected);
   }
 
   &_error {
-    outline-color: var(
-      --pui-color-neutral-border-danger-interactive-error
-    ) !important;
+    outline-color: var(--pui-color-neutral-border-danger-error) !important;
   }
 
   &__input-native {
@@ -47,11 +43,11 @@
     outline: none;
     background-color: transparent;
     padding: 0 var(--pui-spacing-200);
-    color: var(--pui-color-neutral-text-default-interactive);
+    color: var(--pui-color-neutral-text-default);
+    cursor: default;
 
     @include typography-styles-default;
     @include typography-body-medium;
-    @include curson-feedback;
 
     &::placeholder {
       color: var(--pui-color-neutral-text-placeholder);
@@ -96,35 +92,31 @@
 
   &_disabled {
     cursor: auto;
-    background-color: var(--pui-color-neutral-bg-disabled);
+    background-color: transparent !important;
     outline-width: 1px;
     outline-style: solid;
     outline-color: var(--pui-color-neutral-border-disabled);
   }
 
   &_disabled &__input-native,
-  &_disabled #{ $parent }__input-native::placeholder {
+  &_disabled &__input-native::placeholder {
     color: var(--pui-color-neutral-text-disabled);
   }
 
   &_groupedPosition {
-    &-left {
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
-    }
-
-    &-right {
+    &-first {
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
     }
 
-    &-both {
+    &-last {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    &-middle {
       border-radius: 0;
     }
-  }
-
-  &_grouped + &_grouped {
-    margin-left: 1px;
   }
 
   // Ghost

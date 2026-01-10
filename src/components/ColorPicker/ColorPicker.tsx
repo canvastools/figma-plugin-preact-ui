@@ -28,7 +28,7 @@ import {
   Input,
   Text,
   Select,
-  InputGroup,
+  ControlGroup,
   useNumericInput,
   useStringInput,
 } from "../../index"
@@ -177,13 +177,12 @@ const ControlsRgba = ({
         />
       </div>
       <div className="ColorPicker__controlsValues">
-        <InputGroup>
+        <ControlGroup groupFocus>
           <Input
             className="ColorPicker__inputCompact"
-            grouped="right"
             tooltip="Red"
             value={inputRedValue}
-            onChange={(e) => setInputRedValue(e.value)}
+            onValueChange={(e) => setInputRedValue(e.value)}
             onBlur={(e) => {
               const parsed = redValueValidation.parse(e.value)
 
@@ -221,10 +220,9 @@ const ControlsRgba = ({
 
           <Input
             className="ColorPicker__inputCompact"
-            grouped="both"
             tooltip="Green"
             value={inputGreenValue}
-            onChange={(e) => setInputGreenValue(e.value)}
+            onValueChange={(e) => setInputGreenValue(e.value)}
             onBlur={(e) => {
               const parsed = greenValueValidation.parse(e.value)
 
@@ -262,10 +260,9 @@ const ControlsRgba = ({
 
           <Input
             className="ColorPicker__inputCompact"
-            grouped="both"
             tooltip="Blue"
             value={inputBlueValue}
-            onChange={(e) => setInputBlueValue(e.value)}
+            onValueChange={(e) => setInputBlueValue(e.value)}
             onBlur={(e) => {
               const parsed = blueValueValidation.parse(e.value)
 
@@ -303,7 +300,6 @@ const ControlsRgba = ({
 
           <Input
             className="ColorPicker__controlOpacity"
-            grouped="left"
             tooltip="Opacity"
             value={inputOpacityValue}
             suffix={
@@ -311,7 +307,7 @@ const ControlsRgba = ({
                 <div className="ColorPicker__controlOpacityContainer">%</div>
               </Text>
             }
-            onChange={(e) => setInputOpacityValue(e.value)}
+            onValueChange={(e) => setInputOpacityValue(e.value)}
             onBlur={(e) => {
               const parsed = opacityValidation.parse(e.value)
 
@@ -355,7 +351,7 @@ const ControlsRgba = ({
               })
             }
           />
-        </InputGroup>
+        </ControlGroup>
       </div>
     </>
   )
@@ -409,7 +405,7 @@ const ControlsHex = ({
         <Input
           tooltip="Hex value"
           value={hexValue.toUpperCase()}
-          onChange={(e) => setHexValue(e.value)}
+          onValueChange={(e) => setHexValue(e.value)}
           onBlur={(e) => {
             const parsed = hexValueValidation.parse(e.value)
 
@@ -488,12 +484,11 @@ const ControlsHexAlpha = ({
         />
       </div>
       <div className="ColorPicker__controlsValues">
-        <InputGroup>
+        <ControlGroup groupFocus>
           <Input
             tooltip="Hex value"
-            grouped="right"
             value={hexValue.toUpperCase()}
-            onChange={(e) => setHexValue(e.value)}
+            onValueChange={(e) => setHexValue(e.value)}
             onBlur={(e) => {
               const parsed = hexValueValidation.parse(e.value)
 
@@ -506,14 +501,13 @@ const ControlsHexAlpha = ({
           <Input
             tooltip="Opacity"
             className="ColorPicker__controlOpacity"
-            grouped="left"
             value={hexOpacityValue}
             suffix={
               <Text intentModifier="secondary">
                 <div className="ColorPicker__controlOpacityContainer">%</div>
               </Text>
             }
-            onChange={(e) => {
+            onValueChange={(e) => {
               setHexOpacityValue(e.value)
             }}
             onBlur={(e) => {
@@ -558,7 +552,7 @@ const ControlsHexAlpha = ({
               })
             }
           />
-        </InputGroup>
+        </ControlGroup>
       </div>
     </>
   )

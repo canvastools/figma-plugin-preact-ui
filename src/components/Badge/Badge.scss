@@ -10,7 +10,7 @@
 @mixin Badge_intent-outlined($intent, $modifier) {
   &_intent-#{$intent}-#{$modifier} {
     @if $modifier != "default" or $modifier != "secondary" {
-      background-color: var(--pui-color-#{$intent}-bg-default);
+      background-color: transparent;
     } @else {
       background-color: var(--pui-color-#{$intent}-bg-#{$modifier});
     }

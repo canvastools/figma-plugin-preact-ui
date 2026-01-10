@@ -155,14 +155,27 @@
       &::before {
         content: "";
         position: absolute;
-        bottom: 6px;
+        bottom: 5px;
         left: 50%;
         transform: translateX(-50%);
-        width: 2px;
-        height: 2px;
-        background-color: var(--pui-color-neutral-text-brand);
+        width: 3px;
+        height: 3px;
+        background-color: var(--pui-color-neutral-text-default);
         border-radius: 50%;
       }
+    }
+
+    &__month-view__days__day--weekend::before {
+      background-color: var(--pui-color-neutral-text-danger);
+    }
+
+    &__tile--active::before,
+    &__tile--hasActive::before {
+      background-color: var(--pui-color-neutral-text-brand);
+    }
+
+    &:disabled::before {
+      color: var(--pui-color-neutral-text-secondary) !important;
     }
   }
 }

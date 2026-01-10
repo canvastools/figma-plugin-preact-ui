@@ -23,13 +23,13 @@ const InputComponent = (
     disabled = false,
     prefix,
     suffix,
-    suffixOnHover = false,
+    showSuffixOnHover = false,
     focusOnDoubleClick = false,
     minLength = 0,
     maxLength,
     tooltip,
     autoFocus = false,
-    onChange,
+    onValueChange,
     onBlur,
     onFocus,
     onKeyDown,
@@ -37,9 +37,14 @@ const InputComponent = (
   }: InputProps,
   ref: preact.Ref<HTMLDivElement>
 ) => {
+  const isControlled = value !== undefined
+
+  const [internalValue, setInternalValue] = useState<string>(
+    () => defaultValue ?? ""
+  )
   const [isFocused, setIsFocused] = useState(false)
   const [hasContent, setHasContent] = useState<boolean>(
-    Boolean(value ?? defaultValue ?? "")
+    Boolean(value ?? internalValue ?? "")
   )
 
   const rootRef = useRef<HTMLDivElement>(null)
@@ -57,20 +62,20 @@ const InputComponent = (
   }, [autoFocus])
 
   useEffect(() => {
-    if (value !== undefined) {
+    if (isControlled && value !== undefined) {
       setHasContent(value.length > 0)
     }
-  }, [value])
+  }, [isControlled, value])
 
   const _className = bem("Input", undefined, {
     filled: hasContent,
-    disabled,
     ghost,
+    disabled,
     grouped: Boolean(grouped),
     groupedPosition: grouped,
     prefix: Boolean(prefix),
     suffix: Boolean(suffix),
-    suffixOnHover: Boolean(suffixOnHover),
+    suffixOnHover: Boolean(showSuffixOnHover),
     focused: isFocused,
     error,
   })
@@ -79,10 +84,14 @@ const InputComponent = (
     event: preact.JSX.TargetedEvent<HTMLInputElement, Event>
   ) => {
     event.stopPropagation()
-    setHasContent(event.currentTarget.value.length > 0)
-    onChange?.({
+    const nextValue = event.currentTarget.value
+    if (!isControlled) {
+      setInternalValue(nextValue)
+    }
+    setHasContent(nextValue.length > 0)
+    onValueChange?.({
       event: event as unknown as MouseEvent,
-      value: event.currentTarget.value,
+      value: nextValue,
     })
   }
 
@@ -159,8 +168,7 @@ const InputComponent = (
           type={type}
           disabled={disabled}
           placeholder={placeholder}
-          value={value !== undefined ? value : undefined}
-          defaultValue={value === undefined ? defaultValue : undefined}
+          value={isControlled ? value : internalValue}
           onChange={handleChange}
           onBlur={handleBlur}
           onFocus={handleFocus}

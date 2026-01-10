@@ -5,18 +5,18 @@ export interface InputProps {
   defaultValue?: string
   value?: string
   ghost?: boolean
-  grouped?: "none" | "left" | "right" | "both"
+  grouped?: "none" | "first" | "last" | "middle"
   error?: boolean
   disabled?: boolean
   prefix?: preact.ComponentChildren
   suffix?: preact.ComponentChildren
-  suffixOnHover?: boolean
+  showSuffixOnHover?: boolean
   focusOnDoubleClick?: boolean
   tooltip?: preact.ComponentChildren
   minLength?: number
   maxLength?: number
   autoFocus?: boolean
-  onChange?: (args: { event: MouseEvent; value: string }) => void
+  onValueChange?: (args: { event: MouseEvent; value: string }) => void
   onBlur?: (args: { event: MouseEvent; value: string }) => void
   onFocus?: (args: { event: MouseEvent; value: string }) => void
   onKeyDown?: (args: { event: KeyboardEvent; value: string }) => void

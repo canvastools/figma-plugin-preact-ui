@@ -25,6 +25,7 @@
 
     &:active {
       background-color: var(--pui-color-#{$intent}-bg-#{$modifiers}-pressed);
+      box-shadow: unset;
     }
   }
 }
@@ -96,23 +97,19 @@
   }
 
   &_groupedPosition {
-    &-left {
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
-    }
-
-    &-right {
+    &-first {
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
     }
 
-    &-both {
+    &-last {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    &-middle {
       border-radius: 0;
     }
-  }
-
-  &_grouped + &_grouped {
-    margin-left: -1px;
   }
 
   @include ButtonIcon_outlined("neutral", "default");

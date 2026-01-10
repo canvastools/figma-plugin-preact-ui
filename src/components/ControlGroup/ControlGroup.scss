@@ -1,0 +1,62 @@
+@use "../../shared.scss" as *;
+@use "../../mixins.scss" as *;
+
+.ControlGroup {
+  position: relative;
+  display: flex;
+  flex-flow: row nowrap;
+
+  &_groupFocus::before {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    outline-width: 1px;
+    outline-style: solid;
+    outline-color: transparent;
+    outline-offset: -1px;
+    z-index: 10;
+    border-radius: var(--pui-radius-medium);
+  }
+
+  & .Input_grouped + .Input_grouped {
+    margin-left: 1px;
+  }
+
+  & .Select_grouped + .Select_grouped {
+    margin-left: -1px;
+  }
+
+  & .Button_grouped + .Button_grouped,
+  & .ButtonIcon_grouped + .ButtonIcon_grouped,
+  & .ButtonIconToggle_grouped + .ButtonIconToggle_grouped {
+    margin-left: -1px;
+  }
+
+  & .Input_grouped + .Button_grouped,
+  & .Input_grouped + .ButtonIcon_grouped,
+  & .Input_grouped + .ButtonIconToggle_grouped {
+    margin-left: 1px;
+  }
+
+  &_groupFocus:hover::before {
+    outline-color: var(--pui-color-neutral-border-default-hover);
+  }
+
+  &_groupFocus:focus-within::before {
+    outline-color: var(--pui-color-neutral-border-default-selected);
+  }
+
+  &_groupFocus:hover .Input:hover,
+  &_groupFocus:focus-within .Input:focus-within {
+    outline-color: transparent !important;
+  }
+
+  &:focus-within .Button:focus-visible,
+  &:focus-within .ButtonIcon:focus-within {
+    outline-offset: -1px !important;
+  }
+}

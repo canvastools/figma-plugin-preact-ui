@@ -5,7 +5,6 @@ import { IntentStory } from "./stories/Intent.story"
 import { SizeStory } from "./stories/Size.story"
 import { DisabledStory } from "./stories/Disabled.story"
 import { WidthStory } from "./stories/Width.story"
-import { GroupedStory } from "./stories/Grouped.story"
 import { PrefixStory } from "./stories/Prefix.story"
 import { SuffixStory } from "./stories/Suffix.story"
 
@@ -42,7 +41,7 @@ const meta: Meta<typeof Button> = {
     },
     grouped: {
       control: { type: "radio" },
-      options: ["none", "left", "right", "both"],
+      options: ["none", "first", "last", "middle"],
       defaultValue: { summary: "none" },
     },
     disabled: {
@@ -156,6 +155,5 @@ export const Intent = IntentStory
 export const Size = SizeStory
 export const Disabled = DisabledStory
 export const Width = WidthStory
-export const Grouped = GroupedStory
 export const Prefix = PrefixStory
 export const Suffix = SuffixStory

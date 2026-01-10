@@ -4,7 +4,6 @@ import { fn } from "@storybook/test"
 import { IntentStory } from "./stories/Intent.story"
 import { SizeStory } from "./stories/Size.story"
 import { DisabledStory } from "./stories/Disabled.story"
-import { GroupedStory } from "./stories/Grouped.story"
 import { TranslucentStory } from "./stories/Translucent.story"
 import { IconStory } from "./stories/Icon.story"
 
@@ -41,7 +40,7 @@ const meta: Meta<typeof ButtonIcon> = {
     },
     grouped: {
       control: { type: "radio" },
-      options: ["none", "left", "right", "both"],
+      options: ["none", "first", "last", "middle"],
       defaultValue: { summary: "none" },
     },
     translucent: {
@@ -64,7 +63,6 @@ const meta: Meta<typeof ButtonIcon> = {
     },
     children: {
       control: { disable: true },
-      description: "<strong>*</strong>",
       table: {
         type: {
           summary: "string | number | JSX.Element",
@@ -153,6 +151,5 @@ export const Demo: Story = {
 export const Intent = IntentStory
 export const Size = SizeStory
 export const Disabled = DisabledStory
-export const Grouped = GroupedStory
 export const Translucent = TranslucentStory
 export const _Icon = IconStory

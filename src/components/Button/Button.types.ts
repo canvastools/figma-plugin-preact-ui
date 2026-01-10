@@ -4,7 +4,7 @@ export interface ButtonProps {
   intentModifier?: "default" | "secondary" | "brand" | "danger" | "success"
   ghost?: boolean
   size?: "medium" | "large"
-  grouped?: "none" | "left" | "right" | "both"
+  grouped?: "none" | "first" | "last" | "middle"
   disabled?: boolean
   fullWidth?: boolean
   tooltip?: preact.ComponentChildren

@@ -1,19 +1,16 @@
 import { Meta, StoryObj } from "@storybook/preact"
 import { fn } from "@storybook/test"
 
-import { useState } from "preact/hooks"
+import { UncontrolledStory } from "./stories/Uncontrolled.story"
+import { ControlledStory } from "./stories/Controlled.story"
+import { PlaceholderStory } from "./stories/Placeholder.story"
+import { DisabledStory } from "./stories/Disabled.story"
+import { PrefixStory } from "./stories/Prefix.story"
+import { SuffixStory } from "./stories/Suffix.story"
+
+import { TooltipContext } from "../../index"
 
 import { Input } from "./Input"
-
-import {
-  Stack,
-  Icon,
-  Text,
-  ButtonIcon,
-  InputGroup,
-  search as searchGlyph,
-  link as linkGlyph,
-} from "../../index"
 
 const meta: Meta<typeof Input> = {
   title: "Components/Input",
@@ -30,15 +27,10 @@ const meta: Meta<typeof Input> = {
       control: { type: "radio" },
       options: ["text", "number"],
       defaultValue: { summary: "text" },
-      table: {
-        type: {
-          summary: "string",
-        },
-      },
     },
     defaultValue: {
       control: { type: "text" },
-      description: "Initial value for uncontrolled mode.",
+      description: "Value for uncontrolled mode.",
     },
     value: {
       control: { disable: true },
@@ -54,14 +46,9 @@ const meta: Meta<typeof Input> = {
       defaultValue: { summary: false },
     },
     grouped: {
-      control: { radio: "select" },
-      options: ["none", "left", "right", "both"],
+      control: { type: "radio" },
+      options: ["none", "first", "last", "middle"],
       defaultValue: { summary: "none" },
-      table: {
-        type: {
-          summary: "string",
-        },
-      },
     },
     error: {
       control: { type: "boolean" },
@@ -72,108 +59,112 @@ const meta: Meta<typeof Input> = {
       defaultValue: { summary: false },
     },
     prefix: {
+      control: { disable: true },
+      description: "Element displayed before value.",
       table: {
         type: {
-          summary: "JSX.Element",
+          summary: "string | number | JSX.Element",
         },
       },
-      description: "Element displayed before value.",
-      control: { disable: true },
     },
     suffix: {
+      control: { disable: true },
+      description: "Element displayed after value.",
+
       table: {
         type: {
-          summary: "JSX.Element",
+          summary: "string | number | JSX.Element",
         },
       },
-      description: "Element displayed after value. Visible on hover/focus.",
-      control: { disable: true },
     },
-    suffixOnHover: {
+    showSuffixOnHover: {
       control: { type: "boolean" },
       defaultValue: { summary: false },
-      description: "Whether the suffix should be visible on hover.",
     },
     focusOnDoubleClick: {
       control: { type: "boolean" },
       defaultValue: { summary: false },
-      description: "Enables double-click focus",
     },
     minLength: {
       control: { type: "number" },
       defaultValue: { summary: 0 },
       description: "Minimum length of the input value.",
-      table: {
-        type: { summary: "number" },
-      },
     },
     maxLength: {
       control: { type: "number" },
       defaultValue: { summary: Infinity },
       description: "Maximum length of the input value.",
-      table: {
-        type: { summary: "number" },
-      },
     },
     tooltip: {
-      control: { disable: true },
+      control: { type: "text" },
       description: "Tooltip content.",
       table: {
         type: {
-          summary: "JSX.Element",
+          summary: "string | number | JSX.Element",
         },
       },
     },
     autoFocus: {
       control: { type: "boolean" },
       defaultValue: { summary: false },
-      description:
-        "Whether the input should be focused automatically on mount.",
-      table: {
-        type: {
-          summary: "boolean",
-        },
-      },
     },
-    onChange: {
-      action: "changed",
-      description: "Callback when the value is changed.",
+    onValueChange: {
       table: {
         type: {
-          summary: "(args: { event: MouseEvent; value: string }) => void",
+          summary: "(args) => void",
+          detail: `
+args: { 
+  event: MouseEvent
+  value: string
+}
+          `,
         },
       },
     },
     onBlur: {
-      action: "blurred",
-      description: "Callback when the input is blurred.",
       table: {
         type: {
-          summary: "(args: { event: MouseEvent; value: string }) => void",
+          summary: "(args) => void",
+          detail: `
+args: { 
+  event: MouseEvent
+  value: string
+}
+          `,
         },
       },
     },
     onFocus: {
-      action: "focused",
-      description: "Callback when the input is focused.",
       table: {
         type: {
-          summary: "(args: { event: MouseEvent; value: string }) => void",
+          summary: "(args) => void",
+          detail: `
+args: { 
+  event: MouseEvent
+  value: string
+}
+          `,
         },
       },
     },
     onKeyDown: {
-      action: "keydown",
-      description: "Callback when the input is keyed down.",
       table: {
         type: {
-          summary: "(args: { event: KeyboardEvent; value: string }) => void",
+          summary: "(args) => void",
+          detail: `
+args: { 
+  event: KeyboardEvent
+  value: string
+}
+          `,
         },
       },
     },
   },
 }
+
 export default meta
+
 type Story = StoryObj<typeof Input>
 
 export const Demo: Story = {
@@ -184,15 +175,16 @@ export const Demo: Story = {
     placeholder: "Placeholder",
     defaultValue: "",
     ghost: false,
+    grouped: "none",
     error: false,
     disabled: false,
-    grouped: "none",
-    autoFocus: false,
-    suffixOnHover: false,
+    showSuffixOnHover: false,
     focusOnDoubleClick: false,
+    tooltip: "Input tooltip",
     minLength: 0,
     maxLength: 9999,
-    onChange: fn(),
+    autoFocus: false,
+    onValueChange: fn(),
     onBlur: fn(),
     onFocus: fn(),
     onKeyDown: fn(),
@@ -201,235 +193,33 @@ export const Demo: Story = {
     viewport: {
       defaultViewport: "large",
     },
+    docs: {
+      source: {
+        language: "tsx",
+        code: `
+<Input {...args} />
+
+// Use TooltipContext to make tooltips work
+
+<TooltipContext>
+  <Input {...args} />
+</TooltipContext>
+`,
+      },
+    },
   },
   render: (args) => (
     <div className="sb-column sb-width-300">
-      <Input {...args} />
+      <TooltipContext>
+        <Input {...args} />
+      </TooltipContext>
     </div>
   ),
 }
 
-export const Uncontrolled: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => (
-    <div className="sb-column sb-width-300">
-      <Input defaultValue="Default Value" />
-    </div>
-  ),
-}
-
-export const Controlled: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => {
-    const [value, setValue] = useState("")
-    return (
-      <div className="sb-column sb-width-300">
-        <Stack spacing={400}>
-          <Text>Value: {value}</Text>
-          <Input value={value} onChange={(args) => setValue(args.value)} />
-        </Stack>
-      </div>
-    )
-  },
-}
-
-export const Placeholder: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => (
-    <div className="sb-column sb-width-300">
-      <Stack spacing={400}>
-        <Input />
-        <Input placeholder="Placeholder" />
-      </Stack>
-    </div>
-  ),
-}
-
-export const Ghost: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => (
-    <div className="sb-column sb-width-300">
-      <Input defaultValue="Default Value" ghost />
-    </div>
-  ),
-}
-
-export const Grouped: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => (
-    <div className="sb-column sb-width-300">
-      <Stack spacing={400}>
-        <Text>Grouped</Text>
-        <Stack spacing={0} direction="row">
-          <Input defaultValue="Default Value" grouped="right" />
-          <Input defaultValue="Default Value" grouped="both" />
-          <Input defaultValue="Default Value" grouped="left" />
-        </Stack>
-        <Text>Grouped with InputGroup component</Text>
-        <InputGroup>
-          <Input defaultValue="Default Value" grouped="right" />
-          <Input defaultValue="Default Value" grouped="both" />
-          <Input defaultValue="Default Value" grouped="left" />
-        </InputGroup>
-      </Stack>
-    </div>
-  ),
-}
-
-export const Disabled: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => (
-    <div className="sb-column sb-width-300">
-      <Stack spacing={400}>
-        <Input disabled />
-        <Input disabled placeholder="Placeholder" />
-        <Input disabled defaultValue="Default Value" />
-      </Stack>
-    </div>
-  ),
-}
-
-export const Prefix: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => (
-    <div className="sb-column sb-width-300">
-      <Stack spacing={400}>
-        <Input
-          prefix={
-            <Icon
-              glyph={searchGlyph}
-              intent="neutral"
-              intentModifiers="secondary"
-              variant="scaled"
-            />
-          }
-        />
-        <Input
-          placeholder="Placeholder"
-          prefix={
-            <Icon
-              glyph={searchGlyph}
-              intent="neutral"
-              intentModifiers="secondary"
-              variant="scaled"
-            />
-          }
-        />
-        <Input
-          defaultValue="Default Value"
-          prefix={
-            <Icon
-              glyph={searchGlyph}
-              intent="neutral"
-              intentModifiers="secondary"
-              variant="scaled"
-            />
-          }
-        />
-      </Stack>
-    </div>
-  ),
-}
-
-export const Suffix: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => (
-    <div className="sb-column sb-width-300">
-      <Stack spacing={400}>
-        <Input
-          suffix={
-            <ButtonIcon intent="neutral" intentModifiers="default" translucent>
-              <Icon
-                glyph={linkGlyph}
-                intent="neutral"
-                intentModifiers="default"
-                variant="scaled"
-              />
-            </ButtonIcon>
-          }
-        />
-        <Input
-          placeholder="Placeholder"
-          suffix={
-            <ButtonIcon intent="neutral" intentModifiers="default" translucent>
-              <Icon
-                glyph={linkGlyph}
-                intent="neutral"
-                intentModifiers="default"
-                variant="scaled"
-              />
-            </ButtonIcon>
-          }
-        />
-        <Input
-          defaultValue="Suffix on hover"
-          suffixOnHover
-          suffix={
-            <ButtonIcon intent="neutral" intentModifiers="default" translucent>
-              <Icon
-                glyph={linkGlyph}
-                intent="neutral"
-                intentModifiers="default"
-                variant="scaled"
-              />
-            </ButtonIcon>
-          }
-        />
-      </Stack>
-    </div>
-  ),
-}
-
-export const FocusOnDoubleClick: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => (
-    <div className="sb-column sb-width-300">
-      <Input focusOnDoubleClick value="Focus on double click" />
-    </div>
-  ),
-}
+export const Uncontrolled = UncontrolledStory
+export const Controlled = ControlledStory
+export const Placeholder = PlaceholderStory
+export const Disabled = DisabledStory
+export const Prefix = PrefixStory
+export const Suffix = SuffixStory
