@@ -1,24 +1,28 @@
 import { Meta, StoryObj } from "@storybook/preact"
 import { fn } from "@storybook/test"
 
-import { useState } from "preact/hooks"
+import { UncontrolledStory } from "./stories/Uncontrolled.story"
+import { ControlledStory } from "./stories/Controlled.story"
+import { DisabledStory } from "./stories/Disabled.story"
+import { PrefixStory } from "./stories/Prefix.story"
+import { SuffixStory } from "./stories/Suffix.story"
+
+import { MenuContainer, MenuContext } from "../../index"
 
 import { MenuItemOption } from "./MenuItemOption"
-
-import {
-  MenuContainer,
-  Icon,
-  Badge,
-  Stack,
-  Text,
-  MenuContext,
-  ai as aiGlyph,
-} from "../../index"
 
 const meta: Meta<typeof MenuItemOption> = {
   title: "Components/MenuItemOption",
   component: MenuItemOption,
   tags: ["autodocs"],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "A component for selecting an option from a list within a menu. Used inside <a href='/docs/components-menucontainer--docs'>`<MenuContainer/>`</a>.",
+      },
+    },
+  },
   argTypes: {
     className: {
       control: { type: "text" },
@@ -27,25 +31,15 @@ const meta: Meta<typeof MenuItemOption> = {
       control: { type: "text" },
       description:
         "Unique identifier for the menu item used to track focus the item in the menu context. If not provided, a random UUID will be generated.",
-      table: {
-        type: {
-          summary: "string",
-        },
-      },
     },
     defaultSelected: {
       control: { type: "boolean" },
       defaultValue: { summary: false },
-      description: "Initial value for uncontrolled mode..",
-      table: {
-        type: {
-          summary: "boolean",
-        },
-      },
+      description: "Value for uncontrolled mode.",
     },
     selected: {
       control: { disable: true },
-      description: "Controlled selected state.",
+      description: "Value for controlled mode.",
       table: {
         type: {
           summary: "boolean",
@@ -55,27 +49,18 @@ const meta: Meta<typeof MenuItemOption> = {
     disabled: {
       control: { type: "boolean" },
       defaultValue: { summary: false },
-      table: {
-        type: {
-          summary: "boolean",
-        },
-      },
     },
     focused: {
       control: { type: "boolean" },
+      description: "Works only when the componet is inside `<MenuContext/>`.",
       defaultValue: { summary: false },
-      table: {
-        type: {
-          summary: "boolean",
-        },
-      },
     },
     prefix: {
       control: { disable: true },
       description: "Element displayed before children.",
       table: {
         type: {
-          summary: "JSX.Element",
+          summary: "string | number | JSX.Element",
         },
       },
     },
@@ -84,24 +69,30 @@ const meta: Meta<typeof MenuItemOption> = {
       description: "Element displayed after children.",
       table: {
         type: {
-          summary: "JSX.Element",
+          summary: "string | number | JSX.Element",
         },
       },
     },
     children: {
-      control: { disable: true },
-      description: "Content of the menu item.",
+      control: { type: "text" },
+      description: "<strong>*</strong>",
       table: {
         type: {
-          summary: "JSX.Element",
+          summary: "string | number | JSX.Element",
         },
       },
     },
-    onChange: {
-      control: { disable: true },
+    onSelectedChange: {
       table: {
         type: {
-          summary: "({ event: MouseEvent; selected: boolean }) => void",
+          summary: "(args) => void",
+          detail: `
+args: {
+  event: MouseEvent,
+  id: string,
+  selected: boolean
+}
+`,
         },
       },
     },
@@ -109,6 +100,7 @@ const meta: Meta<typeof MenuItemOption> = {
 }
 
 export default meta
+
 type Story = StoryObj<typeof MenuItemOption>
 
 export const Demo: Story = {
@@ -119,206 +111,36 @@ export const Demo: Story = {
     defaultSelected: true,
     disabled: false,
     focused: false,
-    onChange: fn(),
+    children: "Menu Item Option",
+    onSelectedChange: fn(),
   },
   parameters: {
     viewport: {
       defaultViewport: "large",
+    },
+    docs: {
+      source: {
+        language: "tsx",
+        code: `
+<MenuItemOption {...args}>{children}</MenuItemOption>
+`,
+      },
     },
   },
   render: (args) => (
     <div className="sb-column sb-width-full">
       <MenuContext>
         <MenuContainer width={208}>
-          <MenuItemOption {...args}>Menu Item Option</MenuItemOption>
+          {/* @ts-ignore-next-line */}
+          <MenuItemOption {...args}>{args.children}</MenuItemOption>
         </MenuContainer>
       </MenuContext>
     </div>
   ),
 }
 
-export const Uncontrolled: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => (
-    <div className="sb-column sb-width-full">
-      <MenuContext>
-        <MenuContainer width={208}>
-          <MenuItemOption defaultSelected={true}>
-            Menu Item Option
-          </MenuItemOption>
-        </MenuContainer>
-      </MenuContext>
-    </div>
-  ),
-}
-
-export const Controlled: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => {
-    const [selected, setSelected] = useState(true)
-
-    return (
-      <div className="sb-column sb-width-full">
-        <MenuContext>
-          <Stack spacing={200}>
-            <Text>Selected: {selected ? "true" : "false"}</Text>
-            <MenuContainer width={208}>
-              <MenuItemOption
-                selected={selected}
-                onChange={(e) => setSelected(e.selected)}
-              >
-                Menu Item Option
-              </MenuItemOption>
-            </MenuContainer>
-          </Stack>
-        </MenuContext>
-      </div>
-    )
-  },
-}
-
-export const Disabled: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => (
-    <div className="sb-column sb-width-full">
-      <MenuContext>
-        <MenuContainer width={208}>
-          <MenuItemOption defaultSelected disabled>
-            Menu Item Option
-          </MenuItemOption>
-        </MenuContainer>
-      </MenuContext>
-    </div>
-  ),
-}
-
-export const Prefix: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => (
-    <div className="sb-column sb-width-full">
-      <MenuContext>
-        <MenuContainer width={208}>
-          <MenuItemOption
-            prefix={
-              <Icon
-                glyph={aiGlyph}
-                size={16}
-                intent="neutral-inverted-fixed"
-                interactive
-              />
-            }
-          >
-            Menu Item
-          </MenuItemOption>
-          <MenuItemOption
-            defaultSelected
-            prefix={
-              <Icon
-                glyph={aiGlyph}
-                size={16}
-                intent="neutral-inverted-fixed"
-                interactive
-              />
-            }
-          >
-            Menu Item
-          </MenuItemOption>
-          <MenuItemOption
-            disabled
-            prefix={
-              <Icon
-                glyph={aiGlyph}
-                size={16}
-                intent="neutral-inverted-fixed"
-                interactive
-                disabled
-              />
-            }
-          >
-            Menu Item
-          </MenuItemOption>
-        </MenuContainer>
-      </MenuContext>
-    </div>
-  ),
-}
-
-export const Suffix: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => (
-    <div className="sb-column sb-width-full">
-      <MenuContext>
-        <MenuContainer width={208}>
-          <MenuItemOption
-            suffix={
-              <Text
-                intent="neutral-inverted-fixed"
-                intentModifiers="secondary"
-                align="right"
-              >
-                Action
-              </Text>
-            }
-          >
-            Menu Item
-          </MenuItemOption>
-          <MenuItemOption
-            defaultSelected
-            suffix={
-              <Icon
-                glyph={aiGlyph}
-                size={16}
-                intent="neutral-inverted-fixed"
-                interactive
-              />
-            }
-          >
-            Menu Item
-          </MenuItemOption>
-          <MenuItemOption suffix={<Badge intent="brand">Badge</Badge>}>
-            Menu Item
-          </MenuItemOption>
-          <MenuItemOption
-            disabled
-            suffix={
-              <Icon
-                glyph={aiGlyph}
-                size={16}
-                intent="neutral-inverted-fixed"
-                interactive
-                disabled
-              />
-            }
-          >
-            Menu Item
-          </MenuItemOption>
-        </MenuContainer>
-      </MenuContext>
-    </div>
-  ),
-}
+export const Uncontrolled = UncontrolledStory
+export const Controlled = ControlledStory
+export const Disabled = DisabledStory
+export const Prefix = PrefixStory
+export const Suffix = SuffixStory

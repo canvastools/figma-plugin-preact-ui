@@ -6,6 +6,7 @@ import type { MenuItemOptionProps } from "./MenuItemOption.types"
 import "./MenuItemOption.scss"
 
 import { Text, Icon, check as checkGlyph, useMenuContext } from "../../index"
+import type { MenuContextValue } from "../../index"
 
 /* --- */
 
@@ -13,6 +14,11 @@ const hoverIntentProps = {
   intent: "brand",
   intentModifiers: "default",
 }
+
+const noopRegisterItem: MenuContextValue["registerItem"] = () => () => {}
+const noopClearFocusedItem: MenuContextValue["clearFocusedItem"] = () => {}
+const noopSetHoveredItem: MenuContextValue["setHoveredItem"] = () => {}
+const noopFocusItem: MenuContextValue["focusItem"] = () => {}
 
 const MenuItemOptionComponent = (
   {
@@ -25,27 +31,41 @@ const MenuItemOptionComponent = (
     prefix,
     suffix,
     children,
-    onChange,
+    onSelectedChange,
     ...rest
   }: MenuItemOptionProps,
   ref: preact.Ref<HTMLDivElement>
 ) => {
   const [internalSelected, setInternalSelected] = useState(defaultSelected)
 
+  let menuContext: MenuContextValue | null = null
+  try {
+    menuContext = useMenuContext()
+  } catch {
+    menuContext = null
+  }
+
   const { registerItem, clearFocusedItem, setHoveredItem, focusItem } =
-    useMenuContext()
+    menuContext || {
+      registerItem: noopRegisterItem,
+      clearFocusedItem: noopClearFocusedItem,
+      setHoveredItem: noopSetHoveredItem,
+      focusItem: noopFocusItem,
+    }
 
   const itemRef = useRef<HTMLElement>(null)
 
+  const internalId = id ?? uuid()
+
   useEffect(() => {
     const unregister = registerItem({
-      id: id ?? uuid(),
+      id: internalId,
       ref: itemRef as preact.RefObject<HTMLElement>,
       disabled,
     })
 
     return unregister
-  }, [disabled, id])
+  }, [disabled, internalId])
 
   const isSelected =
     controlledSelected !== undefined ? controlledSelected : internalSelected
@@ -68,10 +88,10 @@ const MenuItemOptionComponent = (
         setInternalSelected(newSelected)
       }
       event.stopPropagation()
-      onChange?.({ event, selected: newSelected })
+      onSelectedChange?.({ event, id: internalId, selected: newSelected })
 
-      if (id) {
-        focusItem(id)
+      if (internalId) {
+        focusItem(internalId)
       }
     }
   }
@@ -121,7 +141,6 @@ const MenuItemOptionComponent = (
               size={16}
               intent={isActive ? "brand" : "neutral-inverted-fixed"}
               disabled={disabled}
-              interactive={true}
             />
           )}
         </div>
@@ -142,7 +161,6 @@ const MenuItemOptionComponent = (
                 size="medium"
                 intent={isActive ? "brand" : "neutral-inverted-fixed"}
                 disabled={disabled}
-                interactive
               >
                 {isActive
                   ? override(children, {

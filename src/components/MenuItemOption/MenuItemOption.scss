@@ -1,31 +1,26 @@
 @use "../../shared.scss" as *;
 
 .MenuItemOption {
-  $parent: &;
-
   padding: 0 var(--pui-spacing-200);
 
   &__content {
     display: flex;
     flex-flow: row nowrap;
-    padding: var(--pui-spacing-100) var(--pui-spacing-200)
-      var(--pui-spacing-100) var(--pui-spacing-100);
+    padding: var(--pui-spacing-100) var(--pui-spacing-200) var(--pui-spacing-100) var(--pui-spacing-100);
     border-radius: var(--pui-radius-medium);
     gap: 6px;
+  }
 
-    #{$parent}:not(#{$parent}_focused) &:hover {
-      background-color: var(--pui-color-brand-bg-default-interactive-hover);
-    }
+  &:not(&_focused) &__content:hover {
+    background-color: var(--pui-color-brand-bg-default-hover);
+  }
 
-    .MenuContainer_keyboard-interaction
-      #{$parent}:not(#{$parent}_focused)
-      &:hover {
-      background-color: transparent;
-    }
+  .MenuContainer_keyboard-interaction &:not(&_focused) &__content:hover {
+    background-color: transparent;
+  }
 
-    #{$parent}_focused & {
-      background-color: var(--pui-color-brand-bg-default-interactive-hover);
-    }
+  &_focused &__content {
+    background-color: var(--pui-color-brand-bg-default-hover);
   }
 
   &:focus {

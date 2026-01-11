@@ -1,8 +1,6 @@
 @use "../../shared.scss" as *;
 
 .MenuItemAction {
-  $parent: &;
-
   padding: 0 var(--pui-spacing-200);
 
   &__content {
@@ -11,31 +9,27 @@
     gap: var(--pui-spacing-200);
     padding: var(--pui-spacing-100) var(--pui-spacing-200);
     border-radius: var(--pui-radius-medium);
+  }
 
-    #{$parent}_intentModifiers-default:not(#{$parent}_focused) &:hover {
-      background-color: var(--pui-color-brand-bg-default-interactive-hover);
-    }
+  &_intentModifier-default:not(&_focused) &__content:hover {
+    background-color: var(--pui-color-brand-bg-default-hover);
+  }
 
-    #{$parent}_intentModifiers-danger:not(#{$parent}_focused) &:hover {
-      background-color: var(--pui-color-danger-bg-default-interactive-hover);
-    }
+  &_intentModifier-danger:not(&_focused) &__content:hover {
+    background-color: var(--pui-color-danger-bg-default-hover);
+  }
 
-    .MenuContainer_keyboard-interaction
-      #{$parent}_intentModifiers-default:not(#{$parent}_focused)
-      &:hover,
-    .MenuContainer_keyboard-interaction
-      #{$parent}_intentModifiers-danger:not(#{$parent}_focused)
-      &:hover {
-      background-color: transparent;
-    }
+  .MenuContainer_keyboard-interaction &_intentModifier-default:not(&_focused) &__content:hover,
+  .MenuContainer_keyboard-interaction &_intentModifier-danger:not(&_focused) &__content:hover {
+    background-color: transparent;
+  }
 
-    #{$parent}_intentModifiers-default#{$parent}_focused & {
-      background-color: var(--pui-color-brand-bg-default-interactive-hover);
-    }
+  &_intentModifier-default &_focused &__content {
+    background-color: var(--pui-color-brand-bg-default-hover);
+  }
 
-    #{$parent}_intentModifiers-danger#{$parent}_focused & {
-      background-color: var(--pui-color-danger-bg-default-interactive-hover);
-    }
+  &_intentModifier-danger &_focused &__content {
+    background-color: var(--pui-color-danger-bg-default-hover);
   }
 
   &:focus {
@@ -51,7 +45,7 @@
     width: 100%;
   }
 
-  &_optionLikePadding &__content {
+  &_paddingLikeOption &__content {
     padding-left: calc(var(--pui-spacing-100) + var(--pui-spacing-400) + 6px);
   }
 }

@@ -13,7 +13,6 @@ const glyphCombinations = (glyph: string) => {
     { variant: "default", size: 24 },
     { variant: "scaled", size: 24 },
     { variant: "default", size: 16 },
-    { variant: "scaled", size: 16 },
   ]
 
   return combinations.map(({ variant, size }) => {

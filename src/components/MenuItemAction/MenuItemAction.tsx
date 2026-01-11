@@ -6,6 +6,7 @@ import type { MenuItemActionProps } from "./MenuItemAction.types"
 import "./MenuItemAction.scss"
 
 import { Text, useMenuContext } from "../../index"
+import type { MenuContextValue } from "../../index"
 
 /* --- */
 
@@ -14,46 +15,65 @@ const hoverIntentProps = {
   intentModifiers: "default",
 }
 
+const noopRegisterItem: MenuContextValue["registerItem"] = () => () => {}
+const noopClearFocusedItem: MenuContextValue["clearFocusedItem"] = () => {}
+const noopSetHoveredItem: MenuContextValue["setHoveredItem"] = () => {}
+const noopFocusItem: MenuContextValue["focusItem"] = () => {}
+
 const MenuItemActionComponent = (
   {
     className,
     id,
-    intentModifiers = "default",
+    intentModifier = "default",
     disabled = false,
     focused = false,
     prefix,
     suffix,
     children,
-    optionLikePadding = false,
+    paddingLikeOption = false,
     onClick,
     ...rest
   }: MenuItemActionProps,
   ref: preact.Ref<HTMLDivElement>
 ) => {
+  let menuContext: MenuContextValue | null = null
+  try {
+    menuContext = useMenuContext()
+  } catch {
+    menuContext = null
+  }
+
   const { registerItem, clearFocusedItem, setHoveredItem, focusItem } =
-    useMenuContext()
+    menuContext || {
+      registerItem: noopRegisterItem,
+      clearFocusedItem: noopClearFocusedItem,
+      setHoveredItem: noopSetHoveredItem,
+      focusItem: noopFocusItem,
+    }
 
   const itemRef = useRef<HTMLElement>(null)
 
+  const internalId = id ?? uuid()
+
   useEffect(() => {
     const unregister = registerItem({
-      id: id ?? uuid(),
+      id: internalId,
       ref: itemRef as preact.RefObject<HTMLElement>,
       disabled,
     })
 
     return unregister
-  }, [disabled, id])
+  }, [disabled, internalId])
 
   const [isHovered, setIsHovered] = useState(false)
   const isActive = isHovered || focused
   const _className = bem("MenuItemAction", undefined, {
-    intentModifiers,
+    intentModifier,
     disabled,
     focused,
     prefix: Boolean(prefix),
     suffix: Boolean(suffix),
-    optionLikePadding,
+    paddingLikeOption,
   })
 
   const handleClick = (event: MouseEvent) => {
@@ -62,17 +82,17 @@ const MenuItemActionComponent = (
       return
     }
     event.stopPropagation()
-    onClick?.({ event })
-    if (id) {
-      focusItem(id)
+    onClick?.({ event, id: internalId })
+    if (internalId) {
+      focusItem(internalId)
     }
   }
 
   const handleMouseEnter = () => {
     if (disabled) return
     clearFocusedItem()
-    if (id) {
-      setHoveredItem(id)
+    if (internalId) {
+      setHoveredItem(internalId)
     }
     setIsHovered(true)
   }
@@ -117,14 +137,13 @@ const MenuItemActionComponent = (
                 size="medium"
                 intent={
                   isActive
-                    ? intentModifiers === "danger"
+                    ? intentModifier === "danger"
                       ? "danger"
                       : "brand"
                     : "neutral-inverted-fixed"
                 }
-                intentModifiers={!isActive ? intentModifiers : "default"}
+                intentModifier={!isActive ? intentModifier : "default"}
                 disabled={disabled}
-                interactive
               >
                 {isActive
                   ? override(children, {
