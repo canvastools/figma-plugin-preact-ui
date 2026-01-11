@@ -95,9 +95,11 @@ const meta: Meta<typeof ColorPicker> = {
     width: {
       control: { type: "number" },
       defaultValue: { summary: "207" },
-      table: {
-        type: { summary: "number | 'auto'" },
-      },
+    },
+    fullWidth: {
+      control: { type: "boolean" },
+      defaultValue: { summary: "false" },
+      description: "Overrides `width` property.",
     },
     onTypeChange: {
       table: {
@@ -145,6 +147,7 @@ export const Demo: Story = {
     },
     showControls: true,
     width: 207,
+    fullWidth: false,
     onValueChange: fn(),
   },
   parameters: {

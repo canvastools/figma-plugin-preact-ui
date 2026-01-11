@@ -4,6 +4,10 @@
   position: relative;
   width: inherit;
 
+  &_fullWidth {
+    width: 100%;
+  }
+
   & .react-colorful {
     width: 100%;
     height: auto;

@@ -16,7 +16,7 @@ export const WidthStory: Story = {
         code: `
 <ColorPicker width={207}/>
 
-<ColorPicker width="auto"/>
+<ColorPicker fullWidth/>
 `,
       },
     },
@@ -24,7 +24,7 @@ export const WidthStory: Story = {
   render: () => (
     <div className="sb-row sb-width-full sb-gap-40">
       <ColorPicker width={300} />
-      <ColorPicker width={"auto"} />
+      <ColorPicker fullWidth />
     </div>
   ),
 }

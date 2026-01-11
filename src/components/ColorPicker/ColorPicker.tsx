@@ -568,6 +568,7 @@ const ColorPickerComponent = (
     value,
     showControls = true,
     width = 207,
+    fullWidth = false,
     onTypeChange,
     onValueChange,
     ...rest
@@ -696,6 +697,7 @@ const ColorPickerComponent = (
   const _className = bem("ColorPicker", undefined, {
     type: currentType,
     controls: showControls,
+    fullWidth: Boolean(fullWidth),
   })
 
   const handleInteractionKeyDownCapture = (
@@ -764,7 +766,7 @@ const ColorPickerComponent = (
       onKeyDown={handleKeyDown}
       {...rest}
       style={{
-        width: width === "auto" ? undefined : (width as number),
+        width: fullWidth ? undefined : (width as number),
       }}
     >
       {currentType === "hex" && (

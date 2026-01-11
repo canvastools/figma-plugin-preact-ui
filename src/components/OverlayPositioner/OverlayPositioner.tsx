@@ -10,7 +10,10 @@ import {
   useState,
 } from "preact/hooks"
 
-import type { OverlayPositionerProps } from "./OverlayPositioner.types"
+import type {
+  OverlayPositionerProps,
+  OverlayPositionerPlacement,
+} from "./OverlayPositioner.types"
 import "./OverlayPositioner.scss"
 
 type Coords = { top: number; left: number }
@@ -23,11 +26,11 @@ const computePlacement = (
   rect: DOMRect,
   w: number,
   h: number,
-  placement: string,
-  placementFallback: false | string[] | undefined,
-  paddingX: number,
-  paddingY: number,
-  edgePadding: number,
+  placement: OverlayPositionerPlacement,
+  placementFallback: OverlayPositionerPlacement[] | undefined,
+  offsetX: number,
+  offsetY: number,
+  offsetEdge: number,
   arrowSize: number
 ): { coords: Coords; arrow: ArrowData; placement: string } => {
   const candidates: string[] = [placement]
@@ -37,10 +40,10 @@ const computePlacement = (
 
   const fits = (left: number, top: number) => {
     return (
-      left >= edgePadding &&
-      top >= edgePadding &&
-      left + w <= vw - edgePadding &&
-      top + h <= vh - edgePadding
+      left >= offsetEdge &&
+      top >= offsetEdge &&
+      left + w <= vw - offsetEdge &&
+      top + h <= vh - offsetEdge
     )
   }
 
@@ -51,12 +54,12 @@ const computePlacement = (
     switch (p) {
       case "over": {
         const left = Math.max(
-          edgePadding,
-          Math.min(vw - w - edgePadding, Math.round(rect.left + paddingX))
+          offsetEdge,
+          Math.min(vw - w - offsetEdge, Math.round(rect.left + offsetX))
         )
         const top = Math.max(
-          edgePadding,
-          Math.min(vh - h - edgePadding, Math.round(rect.top + paddingY))
+          offsetEdge,
+          Math.min(vh - h - offsetEdge, Math.round(rect.top + offsetY))
         )
         return {
           coords: { left, top },
@@ -65,13 +68,13 @@ const computePlacement = (
       }
       case "top": {
         const left = Math.max(
-          edgePadding,
+          offsetEdge,
           Math.min(
-            vw - w - edgePadding,
-            Math.round(rect.left + rect.width / 2 - w / 2 + paddingX)
+            vw - w - offsetEdge,
+            Math.round(rect.left + rect.width / 2 - w / 2 + offsetX)
           )
         )
-        const top = rect.top - h - paddingY
+        const top = rect.top - h - offsetY
         const arrowLeft = clamp(
           rect.left + rect.width / 2 - left,
           arrowSize,
@@ -84,10 +87,10 @@ const computePlacement = (
       }
       case "top-left": {
         const left = Math.max(
-          edgePadding,
-          Math.min(vw - w - edgePadding, Math.round(rect.left + paddingX))
+          offsetEdge,
+          Math.min(vw - w - offsetEdge, Math.round(rect.left + offsetX))
         )
-        const top = rect.top - h - paddingY
+        const top = rect.top - h - offsetY
         const arrowLeft = clamp(
           rect.left - left + rect.width / 2,
           arrowSize,
@@ -100,10 +103,10 @@ const computePlacement = (
       }
       case "top-right": {
         const left = Math.max(
-          edgePadding,
-          Math.min(vw - w - edgePadding, Math.round(rect.right - w - paddingX))
+          offsetEdge,
+          Math.min(vw - w - offsetEdge, Math.round(rect.right - w - offsetX))
         )
-        const top = rect.top - h - paddingY
+        const top = rect.top - h - offsetY
         const arrowLeft = clamp(
           rect.left - left + rect.width / 2,
           arrowSize,
@@ -116,13 +119,13 @@ const computePlacement = (
       }
       case "bottom": {
         const left = Math.max(
-          edgePadding,
+          offsetEdge,
           Math.min(
-            vw - w - edgePadding,
-            Math.round(rect.left + rect.width / 2 - w / 2 + paddingX)
+            vw - w - offsetEdge,
+            Math.round(rect.left + rect.width / 2 - w / 2 + offsetX)
           )
         )
-        const top = rect.bottom + paddingY
+        const top = rect.bottom + offsetY
         const arrowLeft = clamp(
           rect.left - left + rect.width / 2,
           arrowSize,
@@ -135,10 +138,10 @@ const computePlacement = (
       }
       case "bottom-left": {
         const left = Math.max(
-          edgePadding,
-          Math.min(vw - w - edgePadding, Math.round(rect.left + paddingX))
+          offsetEdge,
+          Math.min(vw - w - offsetEdge, Math.round(rect.left + offsetX))
         )
-        const top = rect.bottom + paddingY
+        const top = rect.bottom + offsetY
         const arrowLeft = clamp(
           rect.left - left + rect.width / 2,
           arrowSize,
@@ -151,10 +154,10 @@ const computePlacement = (
       }
       case "bottom-right": {
         const left = Math.max(
-          edgePadding,
-          Math.min(vw - w - edgePadding, Math.round(rect.right - w - paddingX))
+          offsetEdge,
+          Math.min(vw - w - offsetEdge, Math.round(rect.right - w - offsetX))
         )
-        const top = rect.bottom + paddingY
+        const top = rect.bottom + offsetY
         const arrowLeft = clamp(
           rect.left - left + rect.width / 2,
           arrowSize,
@@ -166,12 +169,12 @@ const computePlacement = (
         }
       }
       case "left": {
-        const left = rect.left - w - paddingX
+        const left = rect.left - w - offsetX
         const top = Math.max(
-          edgePadding,
+          offsetEdge,
           Math.min(
-            vh - h - edgePadding,
-            Math.round(rect.top + rect.height / 2 - h / 2 + paddingY)
+            vh - h - offsetEdge,
+            Math.round(rect.top + rect.height / 2 - h / 2 + offsetY)
           )
         )
         const arrowTop = clamp(
@@ -185,10 +188,10 @@ const computePlacement = (
         }
       }
       case "left-top": {
-        const left = rect.left - w - paddingX
+        const left = rect.left - w - offsetX
         const top = Math.max(
-          edgePadding,
-          Math.min(vh - h - edgePadding, Math.round(rect.top + paddingY))
+          offsetEdge,
+          Math.min(vh - h - offsetEdge, Math.round(rect.top + offsetY))
         )
         const arrowTop = clamp(
           rect.top - top + rect.height / 2,
@@ -201,10 +204,10 @@ const computePlacement = (
         }
       }
       case "left-bottom": {
-        const left = rect.left - w - paddingX
+        const left = rect.left - w - offsetX
         const top = Math.max(
-          edgePadding,
-          Math.min(vh - h - edgePadding, Math.round(rect.bottom - h - paddingY))
+          offsetEdge,
+          Math.min(vh - h - offsetEdge, Math.round(rect.bottom - h - offsetY))
         )
         const arrowTop = clamp(
           rect.top - top + rect.height / 2,
@@ -217,12 +220,12 @@ const computePlacement = (
         }
       }
       case "right": {
-        const left = rect.right + paddingX
+        const left = rect.right + offsetX
         const top = Math.max(
-          edgePadding,
+          offsetEdge,
           Math.min(
-            vh - h - edgePadding,
-            Math.round(rect.top + rect.height / 2 - h / 2 + paddingY)
+            vh - h - offsetEdge,
+            Math.round(rect.top + rect.height / 2 - h / 2 + offsetY)
           )
         )
         const arrowTop = clamp(
@@ -236,10 +239,10 @@ const computePlacement = (
         }
       }
       case "right-top": {
-        const left = rect.right + paddingX
+        const left = rect.right + offsetX
         const top = Math.max(
-          edgePadding,
-          Math.min(vh - h - edgePadding, Math.round(rect.top + paddingY))
+          offsetEdge,
+          Math.min(vh - h - offsetEdge, Math.round(rect.top + offsetY))
         )
         const arrowTop = clamp(
           rect.top - top + rect.height / 2,
@@ -252,10 +255,10 @@ const computePlacement = (
         }
       }
       case "right-bottom": {
-        const left = rect.right + paddingX
+        const left = rect.right + offsetX
         const top = Math.max(
-          edgePadding,
-          Math.min(vh - h - edgePadding, Math.round(rect.bottom - h - paddingY))
+          offsetEdge,
+          Math.min(vh - h - offsetEdge, Math.round(rect.bottom - h - offsetY))
         )
         const arrowTop = clamp(
           rect.top - top + rect.height / 2,
@@ -269,13 +272,13 @@ const computePlacement = (
       }
       default: {
         const left = Math.max(
-          edgePadding,
+          offsetEdge,
           Math.min(
-            vw - w - edgePadding,
+            vw - w - offsetEdge,
             Math.round(rect.left + rect.width / 2 - w / 2)
           )
         )
-        const top = rect.bottom + paddingY
+        const top = rect.bottom + offsetY
         const arrowLeft = clamp(
           rect.left - left + rect.width / 2,
           arrowSize,
@@ -293,12 +296,12 @@ const computePlacement = (
     const c = computeFor(p)
     if (!placementFallback || fits(c.coords.left, c.coords.top)) {
       const left = Math.max(
-        edgePadding,
-        Math.min(vw - w - edgePadding, Math.round(c.coords.left))
+        offsetEdge,
+        Math.min(vw - w - offsetEdge, Math.round(c.coords.left))
       )
       const top = Math.max(
-        edgePadding,
-        Math.min(vh - h - edgePadding, Math.round(c.coords.top))
+        offsetEdge,
+        Math.min(vh - h - offsetEdge, Math.round(c.coords.top))
       )
       return { coords: { left, top }, arrow: c.arrow, placement: p }
     }
@@ -308,12 +311,12 @@ const computePlacement = (
   return {
     coords: {
       left: Math.max(
-        edgePadding,
-        Math.min(vw - w - edgePadding, Math.round(first.coords.left))
+        offsetEdge,
+        Math.min(vw - w - offsetEdge, Math.round(first.coords.left))
       ),
       top: Math.max(
-        edgePadding,
-        Math.min(vh - h - edgePadding, Math.round(first.coords.top))
+        offsetEdge,
+        Math.min(vh - h - offsetEdge, Math.round(first.coords.top))
       ),
     },
     arrow: first.arrow,
@@ -326,16 +329,14 @@ const OverlayPositionerComponent = ({
   anchorRef,
   placement = "bottom",
   placementFallback,
-  paddingX = 0,
-  paddingY = 0,
-  edgePadding = 0,
+  offsetX = 0,
+  offsetY = 0,
+  offsetEdge = 0,
   trigger = "click",
-  visibilityDelay = 0,
   draggable = false,
   open,
   defaultOpen = false,
-  closeOnOutsideClick = true,
-  arrow = false,
+  closeOnClickOutside = true,
   onOpen,
   onClose,
 
@@ -353,11 +354,13 @@ const OverlayPositionerComponent = ({
   const rafRef = useRef<number | null>(null)
   const hoverTimerRef = useRef<number | null>(null)
 
-  const resolvedPlacementFallback = useMemo<false | string[] | undefined>(
+  const resolvedPlacementFallback = useMemo<
+    OverlayPositionerPlacement[] | undefined
+  >(
     () =>
       placementFallback && Array.isArray(placementFallback)
         ? placementFallback
-        : false,
+        : undefined,
     [placementFallback]
   )
 
@@ -389,9 +392,9 @@ const OverlayPositionerComponent = ({
         h,
         placement,
         resolvedPlacementFallback,
-        paddingX,
-        paddingY,
-        edgePadding,
+        offsetX,
+        offsetY,
+        offsetEdge,
         8
       )
       setCoords(result.coords)
@@ -402,9 +405,9 @@ const OverlayPositionerComponent = ({
     [
       anchorRef,
       placement,
-      paddingX,
-      paddingY,
-      edgePadding,
+      offsetX,
+      offsetY,
+      offsetEdge,
       resolvedPlacementFallback,
     ]
   )
@@ -464,7 +467,7 @@ const OverlayPositionerComponent = ({
   }, [isOpen, onOpen, onClose])
 
   useEffect(() => {
-    if (!isOpen || !closeOnOutsideClick) return
+    if (!isOpen || !closeOnClickOutside) return
 
     const handler = (e: MouseEvent) => {
       const target = e.target as Node | null
@@ -503,7 +506,7 @@ const OverlayPositionerComponent = ({
     window.addEventListener("mousedown", handler, true)
 
     return () => window.removeEventListener("mousedown", handler, true)
-  }, [isOpen, closeOnOutsideClick, anchorRef, isControlled, onClose])
+  }, [isOpen, closeOnClickOutside, anchorRef, isControlled, onClose])
 
   useEffect(() => {
     if (isControlled) return
@@ -523,27 +526,10 @@ const OverlayPositionerComponent = ({
     }
 
     if (trigger === "hover") {
-      const clearHoverTimer = () => {
-        if (hoverTimerRef.current != null) {
-          clearTimeout(hoverTimerRef.current)
-          hoverTimerRef.current = null
-        }
-      }
       const onEnterAnchor = () => {
-        clearHoverTimer()
-        const delay = Math.max(0, visibilityDelay)
-        if (delay === 0) {
-          setInternalOpen(true)
-        } else {
-          hoverTimerRef.current = window.setTimeout(() => {
-            hoverTimerRef.current = null
-            setInternalOpen(true)
-          }, delay)
-        }
+        setInternalOpen(true)
       }
       const onLeaveAnchor = () => {
-        // Hide immediately and cancel any pending show
-        clearHoverTimer()
         setInternalOpen(false)
       }
 
@@ -553,10 +539,9 @@ const OverlayPositionerComponent = ({
       return () => {
         anchorEl.removeEventListener("mouseenter", onEnterAnchor)
         anchorEl.removeEventListener("mouseleave", onLeaveAnchor)
-        clearHoverTimer()
       }
     }
-  }, [isControlled, trigger, anchorRef, visibilityDelay])
+  }, [isControlled, trigger, anchorRef])
 
   const effectiveTop = (manualPos ? manualPos.top : coords.top) || 0
   const effectiveLeft = (manualPos ? manualPos.left : coords.left) || 0
@@ -573,18 +558,6 @@ const OverlayPositionerComponent = ({
   })
 
   if (!isOpen) return null
-
-  const arrowComponent = (() => {
-    if (appliedPlacement === "over") return null
-
-    if (!arrow || !isReady || !arrowData) return null
-    const styleArrow: preact.JSX.CSSProperties = {
-      position: "absolute",
-      left: `${arrowData.left}px`,
-      top: `${arrowData.top}px`,
-    }
-    return <div className="OverlayPositioner__arrow" style={styleArrow}></div>
-  })()
 
   const isInteractiveElement = (node: HTMLElement | null): boolean => {
     if (!node) return false
@@ -653,7 +626,6 @@ const OverlayPositionerComponent = ({
       style={style}
       onMouseDown={(e) => handleMouseDown(e as unknown as MouseEvent)}
     >
-      {arrowComponent}
       {children}
     </div>
   )

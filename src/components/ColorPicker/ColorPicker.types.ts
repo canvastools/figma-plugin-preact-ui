@@ -15,7 +15,8 @@ export interface ColorPickerProps {
   value?: Color | null
   defaultValue?: Color
   showControls?: boolean
-  width?: number | "auto"
+  width?: number
+  fullWidth?: boolean
   onTypeChange?: (args: { type: ColorPickerType }) => void
   onValueChange?: (args: { rgba: Color; hex: string; opacity: number }) => void
 }
