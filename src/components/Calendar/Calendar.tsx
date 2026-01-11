@@ -73,10 +73,10 @@ const CalendarComponent = (
         maxDate={maxDate}
         minDetail={minDetail}
         maxDetail={maxDetail}
-        prevLabel={<Icon glyph={chevronLeft} />}
-        prev2Label={<Icon glyph={chevronDoubleLeft} />}
-        nextLabel={<Icon glyph={chevronRight} />}
-        next2Label={<Icon glyph={chevronDoubleRight} />}
+        prevLabel={<Icon glyph={chevronLeft} variant="scaled" />}
+        prev2Label={<Icon glyph={chevronDoubleLeft} variant="scaled" />}
+        nextLabel={<Icon glyph={chevronRight} variant="scaled" />}
+        next2Label={<Icon glyph={chevronDoubleRight} variant="scaled" />}
         onChange={(e) => {
           onChange?.({ value: e })
         }}

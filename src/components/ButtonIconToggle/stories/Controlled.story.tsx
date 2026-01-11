@@ -39,7 +39,7 @@ const [isSelected, setIsSelected] = useState(false)
         <ButtonIconToggle
           selected={isSelected}
           onSelectedChange={(args) => setIsSelected(args.selected)}
-          icon={{ glyph: link }}
+          icon={{ glyph: link, variant: "scaled" }}
         />
       </div>
     )

@@ -1,6 +1,6 @@
 import { StoryObj } from "@storybook/preact"
 
-import { Icon, link } from "../../../index"
+import { link, ButtonIcon } from "../../../index"
 
 import { Input } from "../Input"
 
@@ -18,21 +18,25 @@ export const SuffixStory: Story = {
         code: `
 <Input
   suffix={
-    <Icon
-      glyph={search}
-      intentModifier="secondary"
-      variant="scaled"
+    <ButtonIcon 
+      icon={{ 
+        glyph: link,
+        variant: "scaled"
+      }} 
+      translucent
     />
   }
 />
 
 <Input
-  showPrefixOnHover
-  prefix={
-    <Icon
-      glyph={search}
-      intentModifier="secondary"
-      variant="scaled"
+  showSuffixOnHover
+  suffix={
+    <ButtonIcon 
+      icon={{ 
+        glyph: link,
+        variant: "scaled"
+      }} 
+      translucent
     />
   }
 />
@@ -45,7 +49,7 @@ export const SuffixStory: Story = {
       <Input
         placeholder="Input with suffix"
         suffix={
-          <Icon glyph={link} intentModifier="secondary" variant="scaled" />
+          <ButtonIcon icon={{ glyph: link, variant: "scaled" }} translucent />
         }
       />
 
@@ -53,7 +57,7 @@ export const SuffixStory: Story = {
         placeholder="Show suffix on hover"
         showSuffixOnHover
         suffix={
-          <Icon glyph={link} intentModifier="secondary" variant="scaled" />
+          <ButtonIcon icon={{ glyph: link, variant: "scaled" }} translucent />
         }
       />
     </div>

@@ -76,7 +76,7 @@ export const Demo: Story = {
 
   render: (args) => (
     <div className="sb-column sb-width-full">
-      <ButtonIconToggle icon={{ glyph: link }} {...args} />
+      <ButtonIconToggle icon={{ glyph: link, variant: "scaled" }} {...args} />
     </div>
   ),
 }

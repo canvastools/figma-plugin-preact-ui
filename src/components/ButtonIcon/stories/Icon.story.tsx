@@ -22,14 +22,20 @@ export const IconStory: Story = {
         code: `
 import { link } from "figma-plugin-preact-ui"
 
-<ButtonIcon icon={{ glyph: link }} />
+<ButtonIcon 
+  icon={{
+    glyph: link,
+    variant: "scaled",
+    size: 24,
+  }}
+/>
 `,
       },
     },
   },
   render: () => (
     <div className="sb-column sb-width-420 sb-gap-16">
-      <ButtonIcon icon={{ glyph: link }} />
+      <ButtonIcon icon={{ glyph: link, variant: "scaled" }} />
     </div>
   ),
 }

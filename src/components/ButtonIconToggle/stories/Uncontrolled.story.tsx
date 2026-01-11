@@ -23,7 +23,10 @@ export const UncontrolledStory: Story = {
   },
   render: () => (
     <div className="sb-column sb-width-420 sb-gap-16">
-      <ButtonIconToggle defaultSelected={false} icon={{ glyph: link }} />
+      <ButtonIconToggle
+        defaultSelected={false}
+        icon={{ glyph: link, variant: "scaled" }}
+      />
     </div>
   ),
 }

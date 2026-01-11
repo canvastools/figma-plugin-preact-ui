@@ -38,7 +38,7 @@ const sizeCombinations = () => {
         ghost={ghost}
         size="medium"
       >
-        <Icon glyph={link} />
+        <Icon glyph={link} variant="scaled" />
       </ButtonIcon>
 
       <ButtonIcon

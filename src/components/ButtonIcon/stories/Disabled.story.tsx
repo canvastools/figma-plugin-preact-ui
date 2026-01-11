@@ -38,7 +38,7 @@ const disabledCombinations = () => {
         ghost={ghost}
         disabled
       >
-        <Icon glyph={link} />
+        <Icon glyph={link} variant="scaled" />
       </ButtonIcon>
 
       <ButtonIcon

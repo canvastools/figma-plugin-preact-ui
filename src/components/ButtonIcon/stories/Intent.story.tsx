@@ -37,7 +37,7 @@ const intentCombinations = () => {
         intentModifier={intentModifier as ButtonIconProps["intentModifier"]}
         ghost={ghost}
       >
-        <Icon glyph={link} />
+        <Icon glyph={link} variant="scaled" />
       </ButtonIcon>
     </div>
   ))

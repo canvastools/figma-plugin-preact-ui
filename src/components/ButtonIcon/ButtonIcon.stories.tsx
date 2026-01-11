@@ -116,7 +116,7 @@ export const Demo: Story = {
     translucent: false,
     disabled: false,
     tooltip: "Button tooltip",
-    children: <Icon glyph={link} />,
+    children: <Icon glyph={link} variant="scaled" />,
     onClick: fn(),
   },
   parameters: {

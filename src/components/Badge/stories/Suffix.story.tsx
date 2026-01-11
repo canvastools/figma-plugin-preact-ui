@@ -1,6 +1,6 @@
 import { StoryObj } from "@storybook/preact"
 
-import { Icon, Text, help } from "../../../index"
+import { Icon, Text, link } from "../../../index"
 import type { IconProps } from "../../../index"
 
 import { Badge } from "../Badge"
@@ -81,7 +81,7 @@ const suffixCombinations = () => {
         intentModifier={intentModifier as BadgeProps["intentModifier"]}
         suffix={
           <Icon
-            glyph={help}
+            glyph={link}
             size={16}
             intent={intent as IconProps["intent"]}
             intentModifier={intentModifier as IconProps["intentModifier"]}
@@ -108,7 +108,7 @@ export const SuffixStory: Story = {
   intent="neutral"
   suffix={
     <Icon
-      glyph={help}
+      glyph={link}
       size={16}
       intent="neutral"
     />
