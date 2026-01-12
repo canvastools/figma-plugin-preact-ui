@@ -9,13 +9,7 @@ import { RawMenuContext } from "../MenuContext/MenuContext"
 /* --- */
 
 const MenuContainerComponent = (
-  {
-    className,
-    width = "auto",
-    height = "auto",
-    children,
-    ...rest
-  }: MenuContainerProps,
+  { className, width, height, children, ...rest }: MenuContainerProps,
   ref: preact.Ref<HTMLDivElement>
 ) => {
   const context = useContext(RawMenuContext)
@@ -30,8 +24,8 @@ const MenuContainerComponent = (
       className={[_className, "no-drag", className].join(" ").trim()}
       ref={ref}
       style={{
-        width: width === "auto" ? undefined : (width as number),
-        height: height === "auto" ? undefined : (height as number),
+        width,
+        height,
       }}
       {...rest}
     >

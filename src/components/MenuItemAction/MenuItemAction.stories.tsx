@@ -100,7 +100,7 @@ export default meta
 type Story = StoryObj<typeof MenuItemAction>
 
 export const Demo: Story = {
-  // tags: ["!autodocs"],
+  tags: ["!autodocs"],
   args: {
     className: "",
     id: "menu-item-action",

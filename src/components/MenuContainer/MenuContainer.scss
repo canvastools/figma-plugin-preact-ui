@@ -1,17 +1,15 @@
 @use "../../shared.scss" as *;
 
 .MenuContainer {
-  $parent: &;
-
   padding: var(--pui-spacing-200) 0;
   background-color: var(--pui-color-neutral-inverted-fixed-bg-default);
   border-radius: var(--pui-radius-large);
 
+  width: fit-content;
+  height: auto;
+
   max-width: calc(100vw - 32px);
   overflow: hidden;
 
-  box-shadow: 0 8px 20px 4px var(--pui-color-shadow-menu-soft),
-    0 2px 8px 0 var(--pui-color-shadow-menu-hard),
-    inset 0 1px 0 0.5px var(--pui-color-shadow-menu-glare),
-    inset 0 0 0 1px var(--pui-color-shadow-menu-glare);
+  box-shadow: 0 8px 20px 4px var(--pui-color-shadow-menu-soft), 0 2px 8px 0 var(--pui-color-shadow-menu-hard), inset 0 1px 0 0.5px var(--pui-color-shadow-menu-glare), inset 0 0 0 1px var(--pui-color-shadow-menu-glare);
 }

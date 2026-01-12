@@ -1,6 +1,6 @@
 export interface MenuContainerProps {
   className?: string
-  width?: number | "auto"
-  height?: number | "auto"
+  width?: number
+  height?: number
   children: preact.ComponentChildren
 }

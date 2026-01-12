@@ -1,13 +1,23 @@
 import { Meta, StoryObj } from "@storybook/preact"
 
-import { MenuDivider } from "./MenuDivider"
+import { VariantStory } from "./stories/Variant.story"
 
-import { MenuContainer, MenuItemAction, MenuContext } from "../../index"
+import { MenuContainer, MenuItemAction } from "../../index"
+
+import { MenuDivider } from "./MenuDivider"
 
 const meta: Meta<typeof MenuDivider> = {
   title: "Components/MenuDivider",
   component: MenuDivider,
   tags: ["autodocs"],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "A component for creating dividers in a menu. Used inside <a href='/docs/components-menucontainer--docs'>`<MenuContainer/>`</a>.",
+      },
+    },
+  },
   argTypes: {
     className: {
       control: { type: "text" },
@@ -21,6 +31,7 @@ const meta: Meta<typeof MenuDivider> = {
 }
 
 export default meta
+
 type Story = StoryObj<typeof MenuDivider>
 
 export const Demo: Story = {
@@ -33,40 +44,26 @@ export const Demo: Story = {
     viewport: {
       defaultViewport: "large",
     },
+    docs: {
+      source: {
+        language: "tsx",
+        code: `
+<MenuDivider {...args} />
+`,
+      },
+    },
   },
   render: (args) => (
     <div className="sb-column sb-width-full">
-      <MenuContext>
-        <MenuContainer width={208}>
-          <MenuItemAction>Menu Item</MenuItemAction>
-          <MenuItemAction>Menu Item</MenuItemAction>
-          <MenuDivider {...args} />
-          <MenuItemAction>Menu Item</MenuItemAction>
-          <MenuItemAction>Menu Item</MenuItemAction>
-        </MenuContainer>
-      </MenuContext>
+      <MenuContainer width={208}>
+        <MenuItemAction>Menu Item</MenuItemAction>
+        <MenuItemAction>Menu Item</MenuItemAction>
+        <MenuDivider {...args} />
+        <MenuItemAction>Menu Item</MenuItemAction>
+        <MenuItemAction>Menu Item</MenuItemAction>
+      </MenuContainer>
     </div>
   ),
 }
 
-export const Variant: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => (
-    <div className="sb-column sb-width-full">
-      <MenuContext>
-        <MenuContainer width={208}>
-          <MenuItemAction>Full divider below</MenuItemAction>
-          <MenuDivider variant="full" />
-          <MenuItemAction>Menu Item</MenuItemAction>
-          <MenuDivider variant="inset" />
-          <MenuItemAction>Inset divider above</MenuItemAction>
-        </MenuContainer>
-      </MenuContext>
-    </div>
-  ),
-}
+export const Variant = VariantStory

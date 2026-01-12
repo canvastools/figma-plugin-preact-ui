@@ -1,15 +1,10 @@
 import { Meta, StoryObj } from "@storybook/preact"
 
+import { SizeStory } from "./stories/Size.story"
+
 import { MenuContainer } from "./MenuContainer"
 
-import {
-  MenuDivider,
-  MenuItemAction,
-  MenuItemOption,
-  MenuContext,
-  Text,
-  Stack,
-} from "../../index"
+import { MenuDivider, MenuItemAction, MenuItemOption } from "../../index"
 
 const meta: Meta<typeof MenuContainer> = {
   title: "Components/MenuContainer",
@@ -18,7 +13,8 @@ const meta: Meta<typeof MenuContainer> = {
   parameters: {
     docs: {
       description: {
-        component: "A wrapper component that displays menu items.",
+        component:
+          "A wrapper component that displays menu items. Used inside <a href='/docs/components-menucontext--docs'>`<MenuContext/>`</a>.",
       },
     },
   },
@@ -28,26 +24,15 @@ const meta: Meta<typeof MenuContainer> = {
     },
     width: {
       control: { type: "number" },
-      defaultValue: { summary: "auto" },
-      table: {
-        type: {
-          summary: "number | 'auto'",
-        },
-      },
+      description: "Takes the width of the menu items if not provided.",
     },
     height: {
       control: { type: "number" },
-      defaultValue: { summary: "auto" },
-      table: {
-        type: {
-          summary: "number | 'auto'",
-        },
-      },
+      description: "Takes the height of the menu items if not provided.",
     },
     children: {
       control: { disable: true },
-      description:
-        "Usually &lt;MenuItem/&gt;, &lt;MenuItemOption/&gt;, &lt;MenuDivider/&gt; components.",
+      description: `<strong>*</strong>`,
       table: {
         type: {
           summary: "JSX.Element",
@@ -61,87 +46,48 @@ export default meta
 type Story = StoryObj<typeof MenuContainer>
 
 export const Demo: Story = {
+  tags: ["!autodocs"],
   args: {
     className: "",
     width: 208,
-    height: 200,
+    height: 300,
   },
   parameters: {
     viewport: {
       defaultViewport: "large",
+    },
+    docs: {
+      source: {
+        language: "tsx",
+        code: `
+<MenuContainer {...args}>{children}</MenuContainer>
+
+// Use MenuContext to make menu items work together
+
+<MenuContext>
+  <MenuContainer {...args}>{children}</MenuContainer>
+</MenuContext>
+`,
+      },
     },
   },
   render: (args) => (
     <div className="sb-column sb-width-full">
-      <MenuContext>
-        <MenuContainer {...args}>
-          <MenuItemAction>Menu Item</MenuItemAction>
-          <MenuItemAction>Menu Item</MenuItemAction>
-          <MenuDivider />
-          <MenuItemOption selected>Option</MenuItemOption>
-          <MenuItemOption selected={false}>Option</MenuItemOption>
-          <MenuItemOption selected={false}>Option</MenuItemOption>
-          <MenuItemOption selected={false}>Option</MenuItemOption>
-        </MenuContainer>
-      </MenuContext>
+      <MenuContainer {...args}>
+        <MenuItemAction paddingLikeOption>Action 1</MenuItemAction>
+        <MenuItemAction paddingLikeOption>Action 2</MenuItemAction>
+        <MenuItemAction paddingLikeOption>Action 3</MenuItemAction>
+        <MenuDivider variant="inset" />
+        <MenuItemOption defaultSelected>Option 1</MenuItemOption>
+        <MenuItemOption>Option 2</MenuItemOption>
+        <MenuItemOption>Option 3</MenuItemOption>
+        <MenuDivider variant="full" />
+        <MenuItemAction paddingLikeOption intentModifier="danger">
+          Destructive action
+        </MenuItemAction>
+      </MenuContainer>
     </div>
   ),
 }
 
-export const Width: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => (
-    <div className="sb-column sb-width-full">
-      <Stack spacing={400}>
-        <Text>Width: 160</Text>
-        <MenuContext>
-          <MenuContainer width={160}>
-            <MenuItemAction>Menu Item</MenuItemAction>
-            <MenuItemAction>Menu Item</MenuItemAction>
-          </MenuContainer>
-        </MenuContext>
-        <Text>Width: auto</Text>
-        <MenuContext>
-          <MenuContainer width="auto">
-            <MenuItemAction>Menu Item</MenuItemAction>
-            <MenuItemAction>Menu Item</MenuItemAction>
-          </MenuContainer>
-        </MenuContext>
-      </Stack>
-    </div>
-  ),
-}
-
-export const Height: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => (
-    <div className="sb-column sb-width-full">
-      <Stack spacing={400}>
-        <Text>Height: 160</Text>
-        <MenuContext>
-          <MenuContainer height={160}>
-            <MenuItemAction>Menu Item</MenuItemAction>
-            <MenuItemAction>Menu Item</MenuItemAction>
-          </MenuContainer>
-        </MenuContext>
-        <Text>Height: auto</Text>
-        <MenuContext>
-          <MenuContainer height="auto">
-            <MenuItemAction>Menu Item</MenuItemAction>
-            <MenuItemAction>Menu Item</MenuItemAction>
-          </MenuContainer>
-        </MenuContext>
-      </Stack>
-    </div>
-  ),
-}
+export const Size = SizeStory
