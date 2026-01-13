@@ -16,9 +16,9 @@ const hoverIntentProps = {
 }
 
 const noopRegisterItem: MenuContextValue["registerItem"] = () => () => {}
-const noopClearFocusedItem: MenuContextValue["clearFocusedItem"] = () => {}
+const noopClearFocus: MenuContextValue["clearFocus"] = () => {}
 const noopSetHoveredItem: MenuContextValue["setHoveredItem"] = () => {}
-const noopFocusItem: MenuContextValue["focusItem"] = () => {}
+const noopSetFocusedItem: MenuContextValue["setFocusedItem"] = () => {}
 
 const MenuItemOptionComponent = (
   {
@@ -45,12 +45,12 @@ const MenuItemOptionComponent = (
     menuContext = null
   }
 
-  const { registerItem, clearFocusedItem, setHoveredItem, focusItem } =
+  const { registerItem, clearFocus, setHoveredItem, setFocusedItem } =
     menuContext || {
       registerItem: noopRegisterItem,
-      clearFocusedItem: noopClearFocusedItem,
+      clearFocus: noopClearFocus,
       setHoveredItem: noopSetHoveredItem,
-      focusItem: noopFocusItem,
+      setFocusedItem: noopSetFocusedItem,
     }
 
   const itemRef = useRef<HTMLElement>(null)
@@ -91,7 +91,7 @@ const MenuItemOptionComponent = (
       onSelectedChange?.({ event, id: internalId, selected: newSelected })
 
       if (internalId) {
-        focusItem(internalId)
+        setFocusedItem(internalId)
       }
     }
   }
@@ -104,7 +104,7 @@ const MenuItemOptionComponent = (
 
   const handleMouseEnter = () => {
     if (disabled) return
-    clearFocusedItem()
+    clearFocus()
     if (id) {
       setHoveredItem(id)
     }

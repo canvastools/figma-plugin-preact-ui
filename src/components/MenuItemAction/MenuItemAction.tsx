@@ -16,9 +16,9 @@ const hoverIntentProps = {
 }
 
 const noopRegisterItem: MenuContextValue["registerItem"] = () => () => {}
-const noopClearFocusedItem: MenuContextValue["clearFocusedItem"] = () => {}
+const noopClearFocus: MenuContextValue["clearFocus"] = () => {}
 const noopSetHoveredItem: MenuContextValue["setHoveredItem"] = () => {}
-const noopFocusItem: MenuContextValue["focusItem"] = () => {}
+const noopSetFocusedItem: MenuContextValue["setFocusedItem"] = () => {}
 
 const MenuItemActionComponent = (
   {
@@ -43,12 +43,12 @@ const MenuItemActionComponent = (
     menuContext = null
   }
 
-  const { registerItem, clearFocusedItem, setHoveredItem, focusItem } =
+  const { registerItem, clearFocus, setHoveredItem, setFocusedItem } =
     menuContext || {
       registerItem: noopRegisterItem,
-      clearFocusedItem: noopClearFocusedItem,
+      clearFocus: noopClearFocus,
       setHoveredItem: noopSetHoveredItem,
-      focusItem: noopFocusItem,
+      setFocusedItem: noopSetFocusedItem,
     }
 
   const itemRef = useRef<HTMLElement>(null)
@@ -84,13 +84,13 @@ const MenuItemActionComponent = (
     event.stopPropagation()
     onClick?.({ event, id: internalId })
     if (internalId) {
-      focusItem(internalId)
+      setFocusedItem(internalId)
     }
   }
 
   const handleMouseEnter = () => {
     if (disabled) return
-    clearFocusedItem()
+    clearFocus()
     if (internalId) {
       setHoveredItem(internalId)
     }

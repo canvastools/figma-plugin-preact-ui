@@ -24,11 +24,11 @@
     background-color: transparent;
   }
 
-  &_intentModifier-default &_focused &__content {
+  &_intentModifier-default:is(&_focused) &__content {
     background-color: var(--pui-color-brand-bg-default-hover);
   }
 
-  &_intentModifier-danger &_focused &__content {
+  &_intentModifier-danger:is(&_focused) &__content {
     background-color: var(--pui-color-danger-bg-default-hover);
   }
 

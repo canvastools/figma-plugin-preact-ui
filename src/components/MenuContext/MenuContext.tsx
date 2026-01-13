@@ -37,7 +37,7 @@ const MenuContext = ({
     lastTime: 0,
   })
 
-  const [focusedItemId, setFocusedItemId] = useState<string | null>(null)
+  const [focusedItem, setFocusedItemState] = useState<string | null>(null)
   const [lastHoveredItemId, setLastHoveredItemId] = useState<string | null>(
     null
   )
@@ -78,19 +78,19 @@ const MenuContext = ({
       const item = enabledItems.find((entry) => entry.id === targetId)
       if (item && item.ref.current) {
         item.ref.current.focus()
-        setFocusedItemId(targetId ?? null)
+        setFocusedItemState(targetId ?? null)
         setLastInteractionItemId(targetId ?? null)
       }
     },
     [getEnabledItemsInDomOrder]
   )
 
-  const clearFocusedItem = useCallback(() => {
+  const clearFocus = useCallback(() => {
     // While hover is frozen after a keyboard activation, ignore attempts
     // to clear the focused item from hover events so that focus remains
     // on the last keyboard-activated item.
     if (hoverFrozen) return
-    setFocusedItemId(null)
+    setFocusedItemState(null)
   }, [hoverFrozen])
 
   const setHoveredItem = useCallback(
@@ -115,7 +115,7 @@ const MenuContext = ({
       if (!enabledItems.length) return
 
       const currentIndex = enabledItems.findIndex(
-        (item) => item.id === focusedItemId
+        (item) => item.id === focusedItem
       )
 
       let nextIndex: number
@@ -131,11 +131,11 @@ const MenuContext = ({
       const target = enabledItems[nextIndex]
       if (target?.ref.current) {
         target.ref.current.focus()
-        setFocusedItemId(target.id)
+        setFocusedItemState(target.id)
         setLastInteractionItemId(target.id)
       }
     },
-    [focusedItemId, getEnabledItemsInDomOrder]
+    [focusedItem, getEnabledItemsInDomOrder]
   )
 
   useEffect(() => {
@@ -163,7 +163,7 @@ const MenuContext = ({
           if (!enabledItems.length) return
 
           const current =
-            enabledItems.find((item) => item.id === focusedItemId) ??
+            enabledItems.find((item) => item.id === focusedItem) ??
             enabledItems[0]
 
           current.ref.current?.click()
@@ -193,7 +193,7 @@ const MenuContext = ({
     return () => {
       triggerEl.removeEventListener("keydown", handleKeys)
     }
-  }, [triggerRef, open, setOpen, focusedItemId, moveFocus])
+  }, [triggerRef, open, setOpen, focusedItem, moveFocus])
 
   useEffect(() => {
     if (!triggerRef?.current) return
@@ -215,7 +215,7 @@ const MenuContext = ({
 
   useEffect(() => {
     if (!open) {
-      setFocusedItemId(null)
+      setFocusedItemState(null)
       setLastHoveredItemId(null)
       setKeyboardInteraction(false)
       setHoverFrozen(false)
@@ -275,8 +275,8 @@ const MenuContext = ({
 
         // Otherwise, or if there's no valid hovered item, fall back to the
         // currently focused item when in keyboard-navigation mode.
-        if (!activeItem && focusedItemId) {
-          activeItem = enabledItems.find((item) => item.id === focusedItemId)
+        if (!activeItem && focusedItem) {
+          activeItem = enabledItems.find((item) => item.id === focusedItem)
         }
 
         // As a final fallback (no hovered or focused item), use the first
@@ -291,7 +291,7 @@ const MenuContext = ({
 
           // Align logical focus and navigation anchor with the activated item
           activeItem.ref.current.focus()
-          setFocusedItemId(activeItem.id)
+          setFocusedItemState(activeItem.id)
           setLastInteractionItemId(activeItem.id)
           setKeyboardInteraction(true)
 
@@ -309,6 +309,8 @@ const MenuContext = ({
         event.stopPropagation()
         const direction = shiftKey ? "prev" : "next"
         moveFocus(direction)
+        // Tab-driven navigation is also considered keyboard interaction mode
+        setKeyboardInteraction(true)
         return
       }
 
@@ -335,7 +337,7 @@ const MenuContext = ({
         // If no item is currently focused (e.g. menu was opened via mouse or
         // focus was cleared by hover) we need to determine the *starting*
         // keyboard focus.
-        if (!focusedItemId) {
+        if (!focusedItem) {
           // 1) Fresh from pure hover (no keyboardInteraction yet) – apply the
           //    one-time "skip hovered" rule so the first ArrowUp/Down moves off
           //    the hovered item.
@@ -353,7 +355,7 @@ const MenuContext = ({
               const nextItem = enabledItems[nextIndex]
               if (nextItem?.ref.current) {
                 nextItem.ref.current.focus()
-                setFocusedItemId(nextItem.id)
+                setFocusedItemState(nextItem.id)
                 setLastInteractionItemId(nextItem.id)
                 // Keyboard navigation has now taken over from hover.
                 setKeyboardInteraction(true)
@@ -378,7 +380,7 @@ const MenuContext = ({
               const nextItem = enabledItems[nextIndex]
               if (nextItem?.ref.current) {
                 nextItem.ref.current.focus()
-                setFocusedItemId(nextItem.id)
+                setFocusedItemState(nextItem.id)
                 setLastInteractionItemId(nextItem.id)
                 setKeyboardInteraction(true)
               }
@@ -395,7 +397,7 @@ const MenuContext = ({
 
         // Normal sequential navigation starting from the currently focused item.
         const currentIndex = enabledItems.findIndex(
-          (item) => item.id === focusedItemId
+          (item) => item.id === focusedItem
         )
         const safeIndex = currentIndex === -1 ? 0 : currentIndex
         const nextIndex =
@@ -406,7 +408,7 @@ const MenuContext = ({
         const nextItem = enabledItems[nextIndex]
         if (nextItem?.ref.current) {
           nextItem.ref.current.focus()
-          setFocusedItemId(nextItem.id)
+          setFocusedItemState(nextItem.id)
           setLastInteractionItemId(nextItem.id)
           setKeyboardInteraction(true)
         }
@@ -421,7 +423,7 @@ const MenuContext = ({
     open,
     moveFocus,
     focusItem,
-    focusedItemId,
+    focusedItem,
     lastHoveredItemId,
     keyboardInteraction,
     lastInteractionItemId,
@@ -493,7 +495,7 @@ const MenuContext = ({
 
       if (target?.ref.current) {
         target.ref.current.focus()
-        setFocusedItemId(target.id)
+        setFocusedItemState(target.id)
         setLastInteractionItemId(target.id)
       }
     }
@@ -504,15 +506,19 @@ const MenuContext = ({
     }
   }, [open])
 
+  const setFocusedItem = useCallback((id: string | null) => {
+    setFocusedItemState(id)
+  }, [])
+
   const contextValue: MenuContextValue = {
     triggerRef: triggerRef as MenuContextValue["triggerRef"],
     anchorRef: resolvedAnchorRef,
     open: open !== undefined ? open : false,
     setOpen: setOpen !== undefined ? setOpen : () => {},
     registerItem,
-    focusedItemId,
-    focusItem,
-    clearFocusedItem,
+    focusedItem,
+    setFocusedItem,
+    clearFocus,
     setHoveredItem,
     keyboardInteraction,
   }
