@@ -3,10 +3,13 @@ import { fn } from "@storybook/test"
 
 import { useRef, useState } from "preact/hooks"
 
+import { UncontrolledStory } from "./stories/Uncontrolled.story"
+import { ControlledStory } from "./stories/Controlled.story"
+
 import { Menu } from "./Menu"
 import { MenuItemData } from "./Menu.types"
 
-import { Button, Text, Stack } from "../../index"
+import { Button } from "../../index"
 
 const meta: Meta = {
   title: "Components/Menu",
@@ -16,7 +19,7 @@ const meta: Meta = {
     docs: {
       description: {
         component:
-          "A facade component that uses simplified API to manage the open state, focus, and keyboard navigation of a menu overlay.",
+          "A facade component that provides a simplified API for menus.",
       },
     },
   },
@@ -24,160 +27,77 @@ const meta: Meta = {
     className: {
       control: { type: "text" },
     },
-    triggerRef: {
-      control: { disable: true },
-      description: "Ref to the trigger element.",
-      table: {
-        type: {
-          summary: "JSX.Element",
-        },
-      },
-    },
-    anchorRef: {
-      control: { disable: true },
-      description:
-        "Ref to the anchor element. If not provided, the triggerRef will be used.",
-      table: {
-        type: {
-          summary: "JSX.Element",
-        },
-      },
-    },
     items: {
       control: { disable: true },
-      description: `Array of items to render in the menu.
-      <pre>type MenuItemData =
-  | ({ type: "action", closeOnClick?: boolean } & Omit<MenuItemActionProps, "focused">)
-  | ({ type: "option", closeOnClick?: boolean } & Omit<MenuItemOptionProps, "focused">)
-  | ({ type: "divider" } & MenuDividerProps</pre>
-      `,
+      description: `<strong>*</strong>Array of items to render in the menu.`,
       table: {
         type: {
           summary: "MenuItemData[]",
+          detail: `
+
+// Action item
+
+{
+  type: "action", // required
+  closeOnClick: boolean,
+  ...Pick<MenuItemActionProps>
+}
+  
+// Option item
+
+{
+  type: "option", // required
+  closeOnClick: boolean,
+  ...Pick<MenuItemOptionProps>
+}
+  
+// Divider
+
+{
+  type: "divider", // required
+  ...Pick<MenuDividerProps>
+}
+          `,
         },
       },
     },
-    defaultOpen: {
-      control: { type: "boolean" },
-      defaultValue: { summary: false },
-      description: "Value for the uncontrolled mode.",
-      table: {
-        type: { summary: "boolean" },
-      },
-    },
-    open: {
+    _: {
       control: { disable: true },
-      description: "Value for the controlled mode.",
       table: {
         type: {
-          summary: "boolean",
+          summary: "...rest",
+          detail: `
+Pick<
+  MenuContextProps, 
+  MenuContainerProps,
+  OverlayPositionerProps
+>`,
         },
-      },
-    },
-    width: {
-      control: { disable: true },
-      defaultValue: { summary: "auto" },
-      description: "Width of the menu.",
-      table: {
-        type: {
-          summary: "number | 'auto'",
-        },
-      },
-    },
-    placement: {
-      control: { type: "radio" },
-      defaultValue: { summary: "bottom-left" },
-      options: [
-        "over",
-        "top",
-        "top-left",
-        "top-right",
-        "bottom",
-        "bottom-left",
-        "bottom-right",
-        "left",
-        "left-top",
-        "left-bottom",
-        "right",
-        "right-top",
-        "right-bottom",
-      ],
-      description: "Placement of the menu.",
-      table: {
-        type: {
-          summary: "OverlayPlacement",
-        },
-      },
-    },
-    placementFallback: {
-      control: { disable: true },
-      defaultValue: { summary: ["top-left"] },
-      description:
-        "Fallback placement when the primary placement is not possible.",
-      table: {
-        type: { summary: "false | OverlayPlacement[]" },
-      },
-    },
-    paddingX: {
-      control: { type: "number" },
-      defaultValue: { summary: 0 },
-      description: "Padding between the menu and the anchor.",
-      table: {
-        type: { summary: "number" },
-      },
-    },
-    paddingY: {
-      control: { type: "number" },
-      defaultValue: { summary: 4 },
-      description: "Padding between the menu and the anchor.",
-      table: {
-        type: { summary: "number" },
-      },
-    },
-    edgePadding: {
-      control: { type: "number" },
-      defaultValue: { summary: 16 },
-      description: "Padding between the menu and the viewport edges.",
-      table: {
-        type: { summary: "number" },
-      },
-    },
-    onOpen: {
-      control: { disable: true },
-      description: "Callback when the menu is opened.",
-      table: {
-        type: { summary: "() => void" },
-      },
-    },
-    onClose: {
-      control: { disable: true },
-      description: "Callback when the menu is closed.",
-      table: {
-        type: { summary: "() => void" },
       },
     },
   },
 }
 
 export default meta
+
 type Story = StoryObj
 
 export const Demo: Story = {
   tags: ["!autodocs"],
   args: {
     className: "",
-    defaultOpen: false,
-    width: "auto",
-    placement: "bottom-left",
-    paddingX: 0,
-    paddingY: 4,
-    edgePadding: 16,
-    onOpen: fn(),
-    onClose: fn(),
   },
   parameters: {
     viewport: {
       defaultViewport: "large",
+    },
+    docs: {
+      source: {
+        language: "tsx",
+        code: `
+<Menu {...args} />
+`,
+      },
     },
   },
   render: (args) => {
@@ -192,7 +112,7 @@ export const Demo: Story = {
         type: "action",
         id: "action-1",
         children: "Action 1",
-        optionLikePadding: true,
+        paddingLikeOption: true,
         closeOnClick: true,
         onClick: fn(),
       },
@@ -200,7 +120,7 @@ export const Demo: Story = {
         type: "action",
         id: "action-2",
         children: "Action 2",
-        optionLikePadding: true,
+        paddingLikeOption: true,
         closeOnClick: true,
         onClick: fn(),
       },
@@ -210,7 +130,7 @@ export const Demo: Story = {
         id: "option-1",
         selected: selectedOption === "option-1",
         children: "Option 1",
-        onChange: ({ selected }) =>
+        onSelectedChange: ({ selected }) =>
           setSelectedOption(selected ? "option-1" : null),
       },
       {
@@ -218,7 +138,7 @@ export const Demo: Story = {
         id: "option-2",
         selected: selectedOption === "option-2",
         children: "Option 2",
-        onChange: ({ selected }) =>
+        onSelectedChange: ({ selected }) =>
           setSelectedOption(selected ? "option-2" : null),
       },
     ]
@@ -232,102 +152,5 @@ export const Demo: Story = {
   },
 }
 
-export const Uncontrolled: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => {
-    const triggerRef = useRef<HTMLButtonElement | null>(null)
-
-    const items: MenuItemData[] = [
-      {
-        type: "action",
-        id: "action-1",
-        children: "Action 1",
-        closeOnClick: true,
-        onClick: fn(),
-      },
-      {
-        type: "action",
-        id: "action-2",
-        children: "Action 2",
-        closeOnClick: true,
-        onClick: fn(),
-      },
-      {
-        type: "action",
-        id: "action-3",
-        children: "Action 3",
-        closeOnClick: true,
-        onClick: fn(),
-      },
-    ]
-
-    return (
-      <div className="sb-column sb-width-full">
-        <Stack spacing={400}>
-          <Button ref={triggerRef}>Open menu</Button>
-          <Menu triggerRef={triggerRef} items={items} />
-        </Stack>
-      </div>
-    )
-  },
-}
-
-export const Controlled: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => {
-    const triggerRef = useRef<HTMLButtonElement | null>(null)
-
-    const [open, setOpen] = useState(false)
-
-    const items: MenuItemData[] = [
-      {
-        type: "action",
-        id: "action-1",
-        children: "Action 1",
-        closeOnClick: true,
-        onClick: fn(),
-      },
-      {
-        type: "action",
-        id: "action-2",
-        children: "Action 2",
-        closeOnClick: true,
-        onClick: fn(),
-      },
-      {
-        type: "action",
-        id: "action-3",
-        children: "Action 3",
-        closeOnClick: true,
-        onClick: fn(),
-      },
-    ]
-
-    return (
-      <div className="sb-column sb-width-full">
-        <Stack spacing={400}>
-          <Text>Open: {open ? "true" : "false"}</Text>
-          <Button ref={triggerRef} onClick={() => setOpen(!open)}>
-            Open menu
-          </Button>
-          <Menu
-            triggerRef={triggerRef}
-            items={items}
-            open={open}
-            onClose={() => setOpen(false)}
-          />
-        </Stack>
-      </div>
-    )
-  },
-}
+export const Uncontrolled = UncontrolledStory
+export const Controlled = ControlledStory

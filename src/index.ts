@@ -100,7 +100,7 @@ export type { MenuItemOptionProps } from "./components/MenuItemOption/MenuItemOp
 export { OverlayPositioner } from "./components/OverlayPositioner/OverlayPositioner"
 export type {
   OverlayPositionerProps,
-  OverlayPlacement,
+  OverlayPositionerPlacement,
 } from "./components/OverlayPositioner/OverlayPositioner.types"
 
 export { Popover } from "./components/Popover/Popover"

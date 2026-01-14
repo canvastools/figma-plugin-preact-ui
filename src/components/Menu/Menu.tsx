@@ -2,32 +2,35 @@ import { bem, typedForwardRef } from "../../utils"
 
 import { useEffect, useRef, useState } from "preact/hooks"
 
-import type { MenuProps, MenuItemData } from "./Menu.types"
-import "./Menu.scss"
-
 import {
   MenuContext,
   useMenuContext,
   MenuContainer,
   MenuItemAction,
-  type MenuItemActionProps,
   MenuItemOption,
-  type MenuItemOptionProps,
   MenuDivider,
   OverlayPositioner,
-  type OverlayPlacement,
 } from "../../index"
+import type {
+  MenuItemActionProps,
+  MenuItemOptionProps,
+  OverlayPositionerPlacement,
+} from "../../index"
+
+import type { MenuProps, MenuItemData } from "./Menu.types"
+import "./Menu.scss"
 
 /* --- */
 
 type MenuBodyProps = {
   items: MenuItemData[]
-  width: number | "auto"
-  placement: OverlayPlacement
-  placementFallback: false | OverlayPlacement[]
-  paddingX: number
-  paddingY: number
-  edgePadding: number
+  width?: number
+  height?: number
+  placement: OverlayPositionerPlacement
+  placementFallback: OverlayPositionerPlacement[]
+  offsetX: number
+  offsetY: number
+  offsetEdge: number
   onOpen?: () => void
   onClose?: () => void
 }
@@ -35,18 +38,19 @@ type MenuBodyProps = {
 const MenuBody = ({
   items,
   width,
+  height,
   placement,
   placementFallback,
-  paddingX,
-  paddingY,
-  edgePadding,
+  offsetX,
+  offsetY,
+  offsetEdge,
   onOpen,
   onClose,
 }: MenuBodyProps) => {
   const context = useMenuContext()
   if (!context) return null
 
-  const { triggerRef, anchorRef, open, focusedItemId, setOpen } = context
+  const { triggerRef, anchorRef, open, focusedItem, setOpen } = context
 
   const hasFiredOpenRef = useRef(false)
 
@@ -102,7 +106,7 @@ const MenuBody = ({
           {...rest}
           id={item.id}
           onClick={handleItemClick}
-          focused={item.id ? focusedItemId === item.id : false}
+          focused={item.id ? focusedItem === item.id : false}
         />
       )
     }
@@ -110,8 +114,10 @@ const MenuBody = ({
     if (item.type === "option") {
       const { type, ...rest } = item
 
-      const handleItemChange: MenuItemOptionProps["onChange"] = (args) => {
-        item.onChange?.(args)
+      const handleItemChange: MenuItemOptionProps["onSelectedChange"] = (
+        args
+      ) => {
+        item.onSelectedChange?.(args)
         if (item.closeOnClick) {
           handleClose()
         }
@@ -122,8 +128,8 @@ const MenuBody = ({
           key={item.id ?? index}
           {...rest}
           id={item.id}
-          onChange={handleItemChange}
-          focused={item.id ? focusedItemId === item.id : false}
+          onSelectedChange={handleItemChange}
+          focused={item.id ? focusedItem === item.id : false}
         />
       )
     }
@@ -141,14 +147,14 @@ const MenuBody = ({
       anchorRef={anchorRef as preact.RefObject<HTMLElement>}
       open={open}
       placement={placement}
-      placementFallback={placementFallback}
-      paddingX={paddingX}
-      paddingY={paddingY}
-      edgePadding={edgePadding}
+      placementFallback={placementFallback ?? []}
+      offsetX={offsetX}
+      offsetY={offsetY}
+      offsetEdge={offsetEdge}
       onClose={handleClose}
-      closeOnOutsideClick={true}
+      closeOnClickOutside={true}
     >
-      <MenuContainer width={width}>
+      <MenuContainer width={width} height={height}>
         {items.map((item, index) => renderItem(item, index))}
       </MenuContainer>
     </OverlayPositioner>
@@ -158,17 +164,18 @@ const MenuBody = ({
 const MenuComponent = (
   {
     className,
+    items,
     triggerRef,
     anchorRef,
-    items,
-    defaultOpen = false,
+    width,
+    height,
     open,
-    width = "auto",
+    defaultOpen = false,
     placement = "bottom-left",
     placementFallback = ["top-left"],
-    paddingX = 0,
-    paddingY = 4,
-    edgePadding = 16,
+    offsetX = 0,
+    offsetY = 4,
+    offsetEdge = 16,
     onOpen,
     onClose,
     ...rest
@@ -199,11 +206,12 @@ const MenuComponent = (
           <MenuBody
             items={items}
             width={width}
+            height={height}
             placement={placement}
             placementFallback={placementFallback}
-            paddingX={paddingX}
-            paddingY={paddingY}
-            edgePadding={edgePadding}
+            offsetX={offsetX}
+            offsetY={offsetY}
+            offsetEdge={offsetEdge}
             onOpen={onOpen}
             onClose={onClose}
           />

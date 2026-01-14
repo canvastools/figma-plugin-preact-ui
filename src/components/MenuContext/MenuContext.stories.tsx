@@ -90,8 +90,8 @@ const meta: Meta = {
 // Types
 
 type MenuItemMetadata = {
-  id: string // unique identifier for the item
-  ref: RefObject // ref to the item element
+  id: string // required, unique identifier for the item
+  ref: RefObject // required, ref to the item element
   disabled: boolean // whether the item is disabled
 }
 `,
@@ -102,6 +102,7 @@ type MenuItemMetadata = {
 }
 
 export default meta
+
 type Story = StoryObj
 
 export const Demo: Story = {
@@ -120,18 +121,6 @@ export const Demo: Story = {
 <MenuContext {...args}> 
   {children}
 </MenuContext>
-
-// Use useMenuContext hook to access the context
-
-import { useMenuContext } from "figma-plugin-preact-ui"
-
-const context = useMenuContext()
-
-context.registerItem({
-  id: "action-1",
-  ref: itemRef,
-  disabled: false,
-})
 `,
       },
     },

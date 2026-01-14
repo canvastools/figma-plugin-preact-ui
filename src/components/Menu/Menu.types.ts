@@ -1,34 +1,60 @@
 import {
+  MenuContextProps,
+  MenuContainerProps,
   MenuItemActionProps,
   MenuItemOptionProps,
   MenuDividerProps,
-  OverlayPlacement,
+  OverlayPositionerProps,
 } from "../../index"
 
 export type MenuItemData =
-  | ({ type: "action"; closeOnClick?: boolean } & Omit<
+  | ({ type: "action"; closeOnClick?: boolean } & Pick<
       MenuItemActionProps,
-      "focused"
+      | "id"
+      | "className"
+      | "intentModifier"
+      | "disabled"
+      | "prefix"
+      | "suffix"
+      | "children"
+      | "paddingLikeOption"
+      | "onClick"
     >)
-  | ({ type: "option"; closeOnClick?: boolean } & Omit<
+  | ({ type: "option"; closeOnClick?: boolean } & Pick<
       MenuItemOptionProps,
-      "focused"
+      | "id"
+      | "className"
+      | "defaultSelected"
+      | "selected"
+      | "disabled"
+      | "prefix"
+      | "suffix"
+      | "children"
+      | "onSelectedChange"
     >)
-  | ({ type: "divider" } & MenuDividerProps)
+  | ({ type: "divider" } & Pick<MenuDividerProps, "className" | "variant">)
 
-export interface MenuProps {
+type MenuContextPropsPick = Pick<MenuContextProps, "triggerRef" | "anchorRef">
+
+type MenuContainerPropsPick = Pick<MenuContainerProps, "width" | "height">
+
+type OverlayPositionerPropsPick = Pick<
+  OverlayPositionerProps,
+  | "open"
+  | "defaultOpen"
+  | "placement"
+  | "placementFallback"
+  | "offsetX"
+  | "offsetY"
+  | "offsetEdge"
+  | "onOpen"
+  | "onClose"
+>
+
+export interface MenuProps
+  extends MenuContextPropsPick,
+    MenuContainerPropsPick,
+    OverlayPositionerPropsPick {
   className?: string
-  triggerRef?: preact.RefObject<HTMLElement | null>
-  anchorRef?: preact.RefObject<HTMLElement | null>
   items: MenuItemData[]
-  defaultOpen?: boolean
-  open?: boolean | undefined
-  width?: number | "auto"
-  placement?: OverlayPlacement
-  placementFallback?: false | OverlayPlacement[]
-  paddingX?: number
-  paddingY?: number
-  edgePadding?: number
-  onOpen?: () => void
-  onClose?: () => void
 }
