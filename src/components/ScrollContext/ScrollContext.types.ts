@@ -15,6 +15,6 @@ export interface ScrollContextProps {
   positionY?: number
   onScroll?: (args: { positionY: number }) => void
   spyThreshold?: number
-  onSpyChange?: (args: { id: string | null }) => void
+  onSpyTargetChange?: (args: { id: string | null }) => void
   children: preact.ComponentChildren
 }

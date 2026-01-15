@@ -13,8 +13,30 @@ const ScrollContainerComponent = (
   { className, children, ...rest }: ScrollContainerProps,
   ref: preact.Ref<HTMLDivElement>
 ) => {
-  const { onScroll, positionY, isAtTop, isAtBottom, registerScrollRoot } =
-    useScrollContext()
+  let scrollContext: ReturnType<typeof useScrollContext> | undefined
+  try {
+    scrollContext = useScrollContext()
+  } catch {
+    scrollContext = undefined
+  }
+
+  const [localPositionY, setLocalPositionY] = useState<number | undefined>(
+    undefined
+  )
+  const [localIsAtTop, setLocalIsAtTop] = useState<boolean>(true)
+  const [localIsAtBottom, setLocalIsAtBottom] = useState<boolean>(false)
+
+  const positionY =
+    scrollContext && typeof scrollContext.positionY === "number"
+      ? scrollContext.positionY
+      : localPositionY
+  const isAtTop = scrollContext ? scrollContext.isAtTop : localIsAtTop
+  const isAtBottom = scrollContext ? scrollContext.isAtBottom : localIsAtBottom
+  const registerScrollRoot =
+    scrollContext?.registerScrollRoot ??
+    ((_: HTMLElement | null) => {
+      // no-op when no scroll context is present
+    })
 
   const rootRef = useRef<HTMLDivElement | null>(null)
   const contentRef = useRef<HTMLDivElement | null>(null)
@@ -129,7 +151,33 @@ const ScrollContainerComponent = (
   }, [recomputeThumb])
 
   const handleScroll = (e: Event) => {
-    onScroll(e)
+    if (scrollContext) {
+      scrollContext.onScroll(e)
+    } else {
+      const target =
+        ((e as { currentTarget?: EventTarget | null })
+          .currentTarget as HTMLElement | null) || (e.target as HTMLElement)
+
+      if (target) {
+        const maxScrollTop = target.scrollHeight - target.clientHeight
+        const hasScrollable = maxScrollTop > 0
+        let atTop = false
+        let atBottom = false
+        let newPositionY: number
+
+        if (!hasScrollable) {
+          newPositionY = 0
+        } else {
+          atTop = target.scrollTop <= 0
+          atBottom = target.scrollTop >= maxScrollTop
+          newPositionY = atTop ? 0 : atBottom ? maxScrollTop : target.scrollTop
+        }
+
+        setLocalIsAtTop(hasScrollable ? atTop : true)
+        setLocalIsAtBottom(hasScrollable ? atBottom : true)
+        setLocalPositionY(newPositionY)
+      }
+    }
     const el = contentRef.current
     if (el) {
       const maxScrollTop = Math.max(0, el.scrollHeight - el.clientHeight)

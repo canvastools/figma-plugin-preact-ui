@@ -23,7 +23,7 @@ const ScrollContext = ({
   positionY: controlledPositionY,
   onScroll,
   spyThreshold = 0,
-  onSpyChange,
+  onSpyTargetChange,
   children,
 }: ScrollContextProps) => {
   const [internalPositionY, setInternalPositionY] =
@@ -53,7 +53,7 @@ const ScrollContext = ({
     if (!targets.length) {
       if (spyActiveId !== null) {
         setSpyActiveId(null)
-        onSpyChange?.({ id: null })
+        onSpyTargetChange?.({ id: null })
       }
       return
     }
@@ -76,7 +76,7 @@ const ScrollContext = ({
 
     if (bestId !== spyActiveId) {
       setSpyActiveId(bestId)
-      onSpyChange?.({ id: bestId ?? null })
+      onSpyTargetChange?.({ id: bestId ?? null })
     }
   }
 

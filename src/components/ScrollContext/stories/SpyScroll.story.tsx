@@ -1,117 +1,16 @@
-import type { Meta, StoryObj } from "@storybook/preact"
-import { fn } from "@storybook/test"
+import { StoryObj } from "@storybook/preact"
 
-import { useRef, useEffect } from "preact/hooks"
+import { useState, useRef, useEffect } from "preact/hooks"
 
-import { UncontrolledStory } from "./stories/Uncontrolled.story"
-import { ControlledStory } from "./stories/Controlled.story"
-import { SpyScrollStory } from "./stories/SpyScroll.story"
+import { Text, ScrollContainer, Stack } from "../../../index"
 
-import { ScrollContainer, Text, Stack } from "../../index"
+import { ScrollContext, useScrollContext } from "../ScrollContext"
 
-import { ScrollContext, useScrollContext } from "./ScrollContext"
+type Story = StoryObj<typeof ScrollContainer>
 
-const meta: Meta<typeof ScrollContext> = {
-  title: "Layout/ScrollContext",
-  component: ScrollContext,
-  tags: ["autodocs"],
+export const SpyScrollStory: Story = {
   parameters: {
-    docs: {
-      description: {
-        component:
-          "A context provider that manages scroll states. It consumes the  state from <a href='/docs/layout-scrollcontainer--docs'>`<ScrollContainer/>`</a> component.",
-      },
-    },
-  },
-  argTypes: {
-    defaultPositionY: {
-      control: { type: "number" },
-      defaultValue: { summary: 0 },
-      description: "Scroll position for uncontrolled mode.",
-    },
-    positionY: {
-      control: { disable: true },
-      description: "Scroll position for controlled mode.",
-      table: {
-        type: {
-          summary: "number",
-        },
-      },
-    },
-    children: {
-      control: { disable: true },
-      description: "<strong>*</strong>",
-      table: {
-        type: {
-          summary: "JSX.Element",
-        },
-      },
-    },
-    spyThreshold: {
-      control: { type: "number" },
-      defaultValue: { summary: 0 },
-      description:
-        "Distance in pixels from the top of the scroll container at which a spy target is considered crossed.",
-    },
-    onScroll: {
-      table: {
-        type: {
-          summary: "(args) => void",
-          detail: `
-args: {
-  positionY: number
-}
-`,
-        },
-      },
-    },
-    onSpyTargetChange: {
-      table: {
-        type: {
-          summary: "(args) => void",
-          detail: `
-args: {
-  id: string | null // id of the last section that crossed the threshold
-}
-`,
-        },
-      },
-    },
-    useScrollContext: {
-      description: "Hook to access the context.",
-      table: {
-        type: {
-          summary: "Props",
-          detail: `
-{
-  positionY: number
-  isAtTop: boolean
-  isAtBottom: boolean
-  onScroll: (event: Event) => void
-  setPositionY: (positionY: number) => void // set the scroll position
-  resetPositionY: () => void // reset the scroll position to the top
-  spyActiveId: string | null // id of the last section that crossed the threshold
-  registerSpyTarget: (id: string, ref: HTMLElement | null) => void // register scroll spy targets
-  registerScrollRoot: (ref: HTMLElement | null) => void // register the scroll root element
-}`,
-        },
-      },
-    },
-  },
-}
-
-export default meta
-type Story = StoryObj<typeof ScrollContext>
-
-export const Demo: Story = {
-  tags: ["!autodocs"],
-  args: {
-    defaultPositionY: 0,
-    spyThreshold: 0,
-    onScroll: fn(),
-    onSpyTargetChange: fn(),
-  },
-  parameters: {
+    controls: { disable: true },
     viewport: {
       defaultViewport: "large",
     },
@@ -119,28 +18,65 @@ export const Demo: Story = {
       source: {
         language: "tsx",
         code: `
-<ScrollContext {...args}>
-  <ScrollContainer>{children}</ScrollContainer>
-</ScrollContext>
+
+const ScrollContent = () => {
+  const sectionRef1 = useRef<HTMLDivElement | null>(null)
+  const sectionRef2 = useRef<HTMLDivElement | null>(null)
+  const sectionRef3 = useRef<HTMLDivElement | null>(null)
+
+  const { registerSpyTarget } = useScrollContext()
+
+  useEffect(() => {
+    registerSpyTarget("section-1", sectionRef1.current)
+    registerSpyTarget("section-2", sectionRef2.current)
+    registerSpyTarget("section-3", sectionRef3.current)
+  }, [registerSpyTarget])
+
+  return (
+    <div>
+      <div id="section-1" ref={sectionRef1}>Section 1</div>
+      <div id="section-2" ref={sectionRef2}>Section 2</div>
+      <div id="section-3" ref={sectionRef3}>Section 3</div>
+    </div>
+  )
+}
+
+const Target = () => {
+  const { spyActiveId } = useScrollContext()
+  return <Text>Current spy target: {spyActiveId}</Text>
+}
+
+const SpyScroll = () => {
+  return (
+    <div>
+      <ScrollContext>
+        <Target />
+        <ScrollContainer>
+          <ScrollContent />
+        </ScrollContainer>
+      </ScrollContext>
+    </div>
+  )
+}
 `,
       },
     },
   },
-  render: (args) => {
-    const sectionRef1 = useRef<HTMLDivElement | null>(null)
-    const sectionRef2 = useRef<HTMLDivElement | null>(null)
-    const sectionRef3 = useRef<HTMLDivElement | null>(null)
-    const sectionRef4 = useRef<HTMLDivElement | null>(null)
-
+  render: () => {
     const Content = () => {
       const { registerSpyTarget } = useScrollContext()
+
+      const sectionRef1 = useRef<HTMLDivElement | null>(null)
+      const sectionRef2 = useRef<HTMLDivElement | null>(null)
+      const sectionRef3 = useRef<HTMLDivElement | null>(null)
+      const sectionRef4 = useRef<HTMLDivElement | null>(null)
 
       useEffect(() => {
         registerSpyTarget("section-1", sectionRef1.current)
         registerSpyTarget("section-2", sectionRef2.current)
         registerSpyTarget("section-3", sectionRef3.current)
         registerSpyTarget("section-4", sectionRef4.current)
-      }, [])
+      }, [registerSpyTarget])
 
       return (
         <Stack spacing={400}>
@@ -249,9 +185,24 @@ export const Demo: Story = {
       )
     }
 
+    const Target = () => {
+      const [currentSpyTarget, setCurrentSpyTarget] = useState<string | null>(
+        null
+      )
+
+      const { spyActiveId } = useScrollContext()
+
+      useEffect(() => {
+        setCurrentSpyTarget(spyActiveId)
+      }, [spyActiveId])
+
+      return <Text>Current spy target: {currentSpyTarget}</Text>
+    }
+
     return (
-      <div className="sb-column sb-width-full sb-height-300">
-        <ScrollContext {...args}>
+      <div className="sb-column sb-width-full sb-height-300 sb-gap-16">
+        <ScrollContext>
+          <Target />
           <ScrollContainer>
             <Content />
           </ScrollContainer>
@@ -260,7 +211,3 @@ export const Demo: Story = {
     )
   },
 }
-
-export const Uncontrolled = UncontrolledStory
-export const Controlled = ControlledStory
-export const SpyScroll = SpyScrollStory
