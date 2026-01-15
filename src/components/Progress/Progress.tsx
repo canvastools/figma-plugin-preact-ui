@@ -13,7 +13,7 @@ const ProgressComponent = (
   {
     className,
     variant = "indeterminate",
-    timeout = 0,
+    delay = 0,
     value = 0,
     ...rest
   }: ProgressProps,
@@ -24,8 +24,8 @@ const ProgressComponent = (
   useEffect(() => {
     setTimeout(() => {
       setIsVisible(true)
-    }, timeout)
-  }, [timeout])
+    }, delay)
+  }, [delay])
 
   const _className = bem("Progress", undefined, { variant, visible: isVisible })
 

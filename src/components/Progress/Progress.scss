@@ -1,9 +1,6 @@
 @use "../../shared.scss" as *;
-@use "../../mixins.scss" as *;
 
 .Progress {
-  $parent: &;
-
   position: relative;
   width: 100%;
   height: 4px;
@@ -15,12 +12,7 @@
   }
 
   &_variant-indeterminate {
-    background: linear-gradient(
-      90deg,
-      var(--pui-color-neutral-bg-secondary) 0%,
-      var(--pui-color-brand-bg-default) 50%,
-      var(--pui-color-neutral-bg-secondary) 100%
-    );
+    background: linear-gradient(90deg, var(--pui-color-neutral-bg-secondary) 0%, var(--pui-color-brand-bg-default) 50%, var(--pui-color-neutral-bg-secondary) 100%);
     background-size: 200% 100%;
     animation: progress 1.6s linear infinite;
 
