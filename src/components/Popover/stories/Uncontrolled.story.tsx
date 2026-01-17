@@ -38,7 +38,7 @@ const triggerRef = useRef(null)
     return (
       <div className="sb-column sb-width-full sb-gap-16">
         <Button ref={triggerRef}>Open Menu</Button>
-        <Popover triggerRef={triggerRef} header="Uncontrolled Popover">
+        <Popover triggerRef={triggerRef} headerChildren="Uncontrolled Popover">
           <Section>
             <Text>
               Lorem ipsum dolor sit amet consectetur adipisicing elit.

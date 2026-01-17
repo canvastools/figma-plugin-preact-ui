@@ -6,7 +6,14 @@ import "./Section.scss"
 /* --- */
 
 const SectionComponent = (
-  { className, children, padding, variant = "default", ...rest }: SectionProps,
+  {
+    id,
+    className,
+    children,
+    padding,
+    variant = "default",
+    ...rest
+  }: SectionProps,
   ref: preact.Ref<HTMLDivElement>
 ) => {
   const _className = bem("Section", undefined, {
@@ -25,6 +32,7 @@ const SectionComponent = (
 
   return (
     <div
+      id={id}
       className={[_className, className].join(" ").trim()}
       ref={ref}
       {...rest}

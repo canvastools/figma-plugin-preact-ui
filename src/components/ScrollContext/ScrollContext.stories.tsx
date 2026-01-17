@@ -101,6 +101,7 @@ args: {
 }
 
 export default meta
+
 type Story = StoryObj<typeof ScrollContext>
 
 export const Demo: Story = {

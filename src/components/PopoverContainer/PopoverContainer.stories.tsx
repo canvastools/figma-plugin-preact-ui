@@ -29,7 +29,7 @@ const meta: Meta<typeof PopoverContainer> = {
       control: { type: "number" },
       description: "Takes the height of the content if not provided.",
     },
-    arrow: {
+    showArrow: {
       control: { type: "boolean" },
       description:
         "Shows the arrow on the container based on the `<OverlayPositioner/>` placement.",
@@ -57,7 +57,7 @@ export const Demo: Story = {
     width: 300,
     height: 300,
     children: "Popover content",
-    arrow: false,
+    showArrow: false,
   },
   parameters: {
     viewport: {

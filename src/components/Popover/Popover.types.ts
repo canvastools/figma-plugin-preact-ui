@@ -11,7 +11,7 @@ type PopoverContextPropsPick = Pick<
 
 type PopoverContainerPropsPick = Pick<
   PopoverContainerProps,
-  "width" | "height" | "arrow"
+  "width" | "height" | "showArrow"
 >
 
 type OverlayPositionerPropsPick = Pick<
@@ -34,5 +34,5 @@ export interface PopoverProps
     PopoverContainerPropsPick {
   className?: string
   children: preact.ComponentChildren
-  header?: preact.ComponentChildren | string
+  headerChildren?: preact.ComponentChildren | string
 }

@@ -17,7 +17,7 @@ import "./Popover.scss"
 /* --- */
 
 type PopoverBodyProps = {
-  header: preact.ComponentChildren | string
+  headerChildren: preact.ComponentChildren | string
   draggable: boolean
   width?: number
   height?: number
@@ -26,14 +26,14 @@ type PopoverBodyProps = {
   offsetX: number
   offsetY: number
   offsetEdge: number
-  arrow: boolean
+  showArrow: boolean
   children: preact.ComponentChildren
   onOpen?: () => void
   onClose?: () => void
 }
 
 const PopoverBody = ({
-  header,
+  headerChildren,
   draggable,
   width,
   height,
@@ -42,7 +42,7 @@ const PopoverBody = ({
   offsetX,
   offsetY,
   offsetEdge,
-  arrow,
+  showArrow,
   children,
   onClose,
 }: PopoverBodyProps) => {
@@ -80,9 +80,9 @@ const PopoverBody = ({
         ref={containerRef}
         width={width}
         height={height}
-        arrow={arrow}
+        showArrow={showArrow}
       >
-        <PopoverHeader onClose={handleClose}>{header}</PopoverHeader>
+        <PopoverHeader onClose={handleClose}>{headerChildren}</PopoverHeader>
         {children}
       </PopoverContainer>
     </OverlayPositioner>
@@ -96,7 +96,7 @@ const PopoverComponent = (
     anchorRef,
     defaultOpen = false,
     open,
-    header,
+    headerChildren,
     draggable = true,
     width,
     height,
@@ -105,7 +105,7 @@ const PopoverComponent = (
     offsetX = 0,
     offsetY = 8,
     offsetEdge = 16,
-    arrow = false,
+    showArrow = false,
     children,
     onOpen,
     onClose,
@@ -148,7 +148,7 @@ const PopoverComponent = (
           {...rest}
         >
           <PopoverBody
-            header={header}
+            headerChildren={headerChildren}
             draggable={draggable}
             width={width}
             height={height}
@@ -157,7 +157,7 @@ const PopoverComponent = (
             offsetX={offsetX}
             offsetY={offsetY}
             offsetEdge={offsetEdge}
-            arrow={arrow}
+            showArrow={showArrow}
             onClose={onClose}
           >
             {children}

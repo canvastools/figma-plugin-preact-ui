@@ -3,6 +3,7 @@ import { spacing } from "../../themes"
 export type SectionPadding = keyof typeof spacing.variables
 
 export interface SectionProps {
+  id?: string
   className?: string
   variant?: "default" | "stacked"
   padding?: {

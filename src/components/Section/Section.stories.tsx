@@ -1,21 +1,28 @@
 import { Meta, StoryObj } from "@storybook/preact"
 
+import { StackedStory } from "./stories/Stacked.story"
+import { PaddingStory } from "./stories/Padding.story"
+
+import { Text } from "../../index"
+
 import { Section } from "./Section"
 
-import { Text, Stack } from "../../index"
-
 const meta: Meta<typeof Section> = {
-  title: "Components/Section",
+  title: "Layout/Section",
   component: Section,
   tags: ["autodocs"],
   parameters: {
     docs: {
       description: {
-        component: "A component that creates a section with built-in padding.",
+        component:
+          "A wrapper component that creates a typical section layout with built-in padding.",
       },
     },
   },
   argTypes: {
+    id: {
+      control: { type: "text" },
+    },
     className: {
       control: { type: "text" },
     },
@@ -23,30 +30,30 @@ const meta: Meta<typeof Section> = {
       control: { type: "radio" },
       options: ["default", "stacked"],
       defaultValue: { summary: "default" },
-      table: {
-        type: {
-          summary: "string",
-        },
-      },
     },
     padding: {
       control: { type: "object" },
-      description: `Custom padding for the section. Using the spacing variables names.
-      <pre>
-  padding?: {
-    top?: SectionPadding
-    right?: SectionPadding
-    bottom?: SectionPadding
-    left?: SectionPadding
-  }</pre>`,
       table: {
         type: {
-          summary: "SectionPadding = keyof typeof spacing.variables",
+          summary: "object",
+          detail: `
+padding?: {
+  top?: SectionPadding
+  right?: SectionPadding
+  bottom?: SectionPadding
+  left?: SectionPadding
+}
+
+// Types
+
+type SectionPadding = keyof typeof spacing.variables // string | number
+`,
         },
       },
     },
     children: {
-      control: { disable: true },
+      control: { control: "text" },
+      description: "<strong>*</strong>",
       table: {
         type: {
           summary: "string | number | JSX.Element",
@@ -60,52 +67,37 @@ export default meta
 type Story = StoryObj<typeof Section>
 
 export const Demo: Story = {
+  tags: ["!autodocs"],
   args: {
     className: "sb-container",
+    variant: "default",
     padding: {},
+    children: "Lorem ipsum dolor sit amet.",
   },
   parameters: {
     viewport: {
       defaultViewport: "large",
     },
+    docs: {
+      source: {
+        language: "tsx",
+        code: `
+<Section {...args}>
+  {children}
+</Section>
+`,
+      },
+    },
   },
   render: (args) => (
-    <div className="sb-column sb-height-300">
+    <div className="sb-column sb-width-fullk">
       <Section {...args}>
-        <Text>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
-        </Text>
+        {/* @ts-ignore-next-line */}
+        <Text>{args.children}</Text>
       </Section>
     </div>
   ),
 }
 
-export const Stacked: Story = {
-  render: () => (
-    <div className="sb-column sb-height-300">
-      <Stack direction="column" spacing={400} fullWidth>
-        <Section variant="default" className="sb-container">
-          <Text>Default Section</Text>
-        </Section>
-
-        <Stack direction="column" fullWidth>
-          <Section variant="stacked" className="sb-container">
-            <Text>Stacked Section</Text>
-          </Section>
-          <Section variant="stacked" className="sb-container">
-            <Text>Stacked Section</Text>
-          </Section>
-          <Section variant="stacked" className="sb-container">
-            <Text>Stacked Section</Text>
-          </Section>
-        </Stack>
-      </Stack>
-    </div>
-  ),
-}
+export const Stacked = StackedStory
+export const Padding = PaddingStory

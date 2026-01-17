@@ -55,7 +55,7 @@ const [open, setOpen] = useState(false)
           triggerRef={triggerRef}
           open={open}
           onClose={() => setOpen(false)}
-          header="Controlled Popover"
+          headerChildren="Controlled Popover"
         >
           <Section>
             <Text>

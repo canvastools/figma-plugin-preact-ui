@@ -6,9 +6,9 @@ import { ControlledStory } from "./stories/Controlled.story"
 import { UncontrolledStory } from "./stories/Uncontrolled.story"
 import { ArrowStory } from "./stories/Arrow.story"
 
-import { Popover } from "./Popover"
-
 import { Text, Section, Button } from "../../index"
+
+import { Popover } from "./Popover"
 
 const meta: Meta<typeof Popover> = {
   title: "Components/Popover",
@@ -26,7 +26,7 @@ const meta: Meta<typeof Popover> = {
     className: {
       control: { type: "text" },
     },
-    header: {
+    headerChildren: {
       control: { type: "text" },
       table: {
         type: {
@@ -68,7 +68,7 @@ export const Demo: Story = {
   tags: ["!autodocs"],
   args: {
     className: "",
-    header: "Header",
+    headerChildren: "Header",
     children: "Content",
   },
   parameters: {

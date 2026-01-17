@@ -7,8 +7,6 @@
 }
 
 .Stack {
-  $parent: &;
-
   position: relative;
   display: flex;
 
@@ -46,57 +44,67 @@
   @include Stack_spacing(800);
   @include Stack_spacing(1000);
 
-  &_direction-row,
-  &_direction-row-reverse {
-    &#{$parent}_x-start {
-      justify-content: flex-start;
-    }
+  //
 
-    &#{$parent}_x-center {
-      justify-content: center;
-    }
-
-    &#{$parent}_x-end {
-      justify-content: flex-end;
-    }
-
-    &#{$parent}_y-start {
-      align-items: flex-start;
-    }
-
-    &#{$parent}_y-center {
-      align-items: center;
-    }
-
-    &#{$parent}_y-end {
-      align-items: flex-end;
-    }
+  &_direction-row:is(&_x-start),
+  &_direction-row-reverse:is(&_x-start) {
+    justify-content: flex-start;
   }
 
-  &_direction-column,
-  &_direction-column-reverse {
-    &#{$parent}_x-start {
-      align-items: flex-start;
-    }
+  &_direction-row:is(&_x-center),
+  &_direction-row-reverse:is(&_x-center) {
+    justify-content: center;
+  }
 
-    &#{$parent}_x-center {
-      align-items: center;
-    }
+  &_direction-row:is(&_x-end),
+  &_direction-row-reverse:is(&_x-end) {
+    justify-content: flex-end;
+  }
 
-    &#{$parent}_x-end {
-      align-items: flex-end;
-    }
+  &_direction-row:is(&_y-start),
+  &_direction-row-reverse:is(&_y-start) {
+    align-items: flex-start;
+  }
 
-    &#{$parent}_y-start {
-      justify-content: flex-start;
-    }
+  &_direction-row:is(&_y-center),
+  &_direction-row-reverse:is(&_y-center) {
+    align-items: center;
+  }
 
-    &#{$parent}_y-center {
-      justify-content: center;
-    }
+  &_direction-row:is(&_y-end),
+  &_direction-row-reverse:is(&_y-end) {
+    align-items: flex-end;
+  }
 
-    &#{$parent}_y-end {
-      justify-content: flex-end;
-    }
+  //
+
+  &_direction-column:is(&_x-start),
+  &_direction-column-reverse:is(&_x-start) {
+    align-items: flex-start;
+  }
+
+  &_direction-column:is(&_x-center),
+  &_direction-column-reverse:is(&_x-center) {
+    align-items: center;
+  }
+
+  &_direction-column:is(&_x-end),
+  &_direction-column-reverse:is(&_x-end) {
+    align-items: flex-end;
+  }
+
+  &_direction-column:is(&_y-start),
+  &_direction-column-reverse:is(&_y-start) {
+    justify-content: flex-start;
+  }
+
+  &_direction-column:is(&_y-center),
+  &_direction-column-reverse:is(&_y-center) {
+    justify-content: center;
+  }
+
+  &_direction-column:is(&_y-end),
+  &_direction-column-reverse:is(&_y-end) {
+    justify-content: flex-end;
   }
 }

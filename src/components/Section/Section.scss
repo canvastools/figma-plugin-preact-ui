@@ -7,8 +7,6 @@
 }
 
 .Section {
-  $parent: &;
-
   width: 100%;
 
   &__content {
@@ -21,8 +19,7 @@
   }
 
   &_variant-stacked {
-    padding: var(--pui-spacing-100) var(--pui-spacing-400)
-      var(--pui-spacing-400) var(--pui-spacing-400);
+    padding: var(--pui-spacing-100) var(--pui-spacing-400) var(--pui-spacing-400) var(--pui-spacing-400);
   }
 
   &_variant-default {

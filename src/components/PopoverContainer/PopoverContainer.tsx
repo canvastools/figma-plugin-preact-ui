@@ -6,10 +6,19 @@ import "./PopoverContainer.scss"
 /* --- */
 
 const PopoverContainerComponent = (
-  { className, width, height, arrow, children, ...rest }: PopoverContainerProps,
+  {
+    className,
+    width,
+    height,
+    showArrow,
+    children,
+    ...rest
+  }: PopoverContainerProps,
   ref: preact.Ref<HTMLDivElement>
 ) => {
-  const _className = bem("PopoverContainer", undefined, undefined)
+  const _className = bem("PopoverContainer", undefined, {
+    arrow: showArrow,
+  })
 
   return (
     <div
@@ -22,7 +31,7 @@ const PopoverContainerComponent = (
       tabIndex={-1}
       {...rest}
     >
-      {arrow && <div className="PopoverContainer__arrow" />}
+      {showArrow && <div className="PopoverContainer__arrow" />}
       {children}
     </div>
   )

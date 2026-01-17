@@ -7,6 +7,7 @@ import "./Stack.scss"
 
 const StackComponent = (
   {
+    id,
     className,
     direction = "column",
     spacing,
@@ -30,6 +31,7 @@ const StackComponent = (
 
   return (
     <div
+      id={id}
       className={[_className, className].join(" ").trim()}
       ref={ref}
       {...rest}

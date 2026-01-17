@@ -18,6 +18,9 @@ const meta: Meta<typeof Stack> = {
     },
   },
   argTypes: {
+    id: {
+      control: { type: "text" },
+    },
     className: {
       control: { type: "text" },
     },
@@ -48,30 +51,22 @@ const meta: Meta<typeof Stack> = {
       },
       options: ["start", "center", "end"],
       defaultValue: { summary: "start" },
-      description: "Horizontal alignment of the children.",
+      description: "Vertical alignment of the children.",
     },
     fullHeight: {
       control: { type: "boolean" },
       defaultValue: { summary: false },
-      description:
-        "Set the height to 100% to occupy the entire height in flex containers. May requires &lt;ScrollContainer/&gt; to be used as it uses `overflow: hidden`.",
     },
     fullWidth: {
       control: { type: "boolean" },
       defaultValue: { summary: false },
-      description:
-        "Set the width to 100% to occupy the entire width in container.",
-      table: {
-        type: {
-          summary: "boolean",
-        },
-      },
     },
     children: {
       control: { disable: true },
+      description: "<strong>*</strong>",
       table: {
         type: {
-          summary: "JSX.Element",
+          summary: "string | number | JSX.Element",
         },
       },
     },
@@ -84,8 +79,8 @@ type Story = StoryObj<typeof Stack>
 export const Demo: Story = {
   args: {
     className: "sb-container",
-    spacing: 400,
     direction: "column",
+    spacing: 400,
     x: "start",
     y: "start",
     fullHeight: false,
@@ -95,16 +90,23 @@ export const Demo: Story = {
     viewport: {
       defaultViewport: "large",
     },
+    docs: {
+      source: {
+        language: "tsx",
+        code: `
+<Stack {...args}>
+  {children}
+</Stack>`,
+      },
+    },
   },
   render: (args) => (
-    <div className="sb-column sb-height-300">
-      <Section>
-        <Stack {...args}>
-          <Avatar>A</Avatar>
-          <Avatar>B</Avatar>
-          <Avatar>C</Avatar>
-        </Stack>
-      </Section>
+    <div className="sb-column sb-width-full sb-height-300">
+      <Stack {...args}>
+        <Avatar>A</Avatar>
+        <Avatar>B</Avatar>
+        <Avatar>C</Avatar>
+      </Stack>
     </div>
   ),
 }

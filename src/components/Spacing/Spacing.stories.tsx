@@ -10,13 +10,6 @@ const meta: Meta<typeof Spacing> = {
   title: "Layout/Spacing",
   component: Spacing,
   tags: ["autodocs"],
-  parameters: {
-    docs: {
-      description: {
-        component: "A component that creates a space between components.",
-      },
-    },
-  },
   argTypes: {
     className: {
       control: { type: "text" },
@@ -32,12 +25,14 @@ const meta: Meta<typeof Spacing> = {
       control: {
         type: "radio",
       },
+      description: "<strong>*</strong>",
       options: [undefined, ...Object.keys(spacing.variables).map(Number)],
     },
   },
 }
 
 export default meta
+
 type Story = StoryObj<typeof Spacing>
 
 export const Demo: Story = {
@@ -50,21 +45,30 @@ export const Demo: Story = {
     viewport: {
       defaultViewport: "large",
     },
+    docs: {
+      source: {
+        language: "tsx",
+        code: `
+<Spacing {...args} />
+`,
+      },
+    },
   },
   render: (args) => (
     <div className="sb-column sb-width-full">
-      <Stack
-        direction={
-          // @ts-expect-error - Storybook types hack
-          args.direction
-        }
-      >
+      {/* @ts-ignore-next-line */}
+      <Stack direction={args.direction}>
         <Avatar>A</Avatar>
-        <Spacing {...args} />
+        {/* @ts-ignore-next-line */}
+        <Spacing size={args.size} {...args} />
+
         <Avatar>B</Avatar>
-        <Spacing {...args} />
+        {/* @ts-ignore-next-line */}
+        <Spacing size={args.size} {...args} />
+
         <Avatar>C</Avatar>
-        <Spacing {...args} />
+        {/* @ts-ignore-next-line */}
+        <Spacing size={args.size} {...args} />
       </Stack>
     </div>
   ),
