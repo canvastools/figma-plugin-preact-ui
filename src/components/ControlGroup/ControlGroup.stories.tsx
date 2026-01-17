@@ -42,7 +42,9 @@ const meta: Meta<typeof ControlGroup> = {
     },
   },
 }
+
 export default meta
+
 type Story = StoryObj<typeof ControlGroup>
 
 export const Demo: Story = {

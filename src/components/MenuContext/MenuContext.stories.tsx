@@ -103,7 +103,7 @@ type MenuItemMetadata = {
 
 export default meta
 
-type Story = StoryObj
+type Story = StoryObj<typeof MenuContext>
 
 export const Demo: Story = {
   tags: ["!autodocs"],
@@ -126,8 +126,9 @@ export const Demo: Story = {
     },
   },
   render: (args) => {
-    const triggerRef = useRef<HTMLButtonElement | null>(null)
+    // @ts-ignore-next-line
     const [open, setOpen] = useState(args.open)
+    const triggerRef = useRef<HTMLButtonElement | null>(null)
 
     const MenuContent = () => {
       const context = useMenuContext()
@@ -177,7 +178,7 @@ export const Demo: Story = {
             setOpen(true)
           }}
         >
-          Open menu
+          Open Menu
         </Button>
         <MenuContext
           triggerRef={triggerRef}

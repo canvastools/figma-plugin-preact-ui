@@ -2,11 +2,11 @@ import { Fragment } from "preact"
 import { bem, typedForwardRef, override, uuid } from "../../utils"
 import { useState, useEffect, useRef } from "preact/hooks"
 
-import type { MenuItemActionProps } from "./MenuItemAction.types"
-import "./MenuItemAction.scss"
-
 import { Text, useMenuContext } from "../../index"
 import type { MenuContextValue } from "../../index"
+
+import type { MenuItemActionProps } from "./MenuItemAction.types"
+import "./MenuItemAction.scss"
 
 /* --- */
 

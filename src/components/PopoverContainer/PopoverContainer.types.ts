@@ -1,6 +1,7 @@
 export interface PopoverContainerProps {
   className?: string
-  width?: number | "auto"
-  height?: number | "auto"
+  width?: number
+  height?: number
+  arrow?: boolean
   children: preact.ComponentChildren
 }

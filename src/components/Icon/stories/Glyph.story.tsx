@@ -1,12 +1,18 @@
 import { StoryObj } from "@storybook/preact"
 
-import { Text } from "../../../index"
+import { Text, ButtonIcon, Stack } from "../../../index"
 
 import * as glyphs from "../glyphs"
 
 import { Icon } from "../Icon"
 
 type Story = StoryObj<typeof Icon>
+
+const copyToClipboard = (text: string) => {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    return navigator.clipboard.writeText(text)
+  }
+}
 
 const glyphCombinations = (glyph: string) => {
   const combinations: { variant: "default" | "scaled"; size: 16 | 24 }[] = [
@@ -95,9 +101,12 @@ import { help } from "figma-plugin-preact-ui"
       {Object.keys(glyphs).map((glyph) => {
         return (
           <div style={{ display: "flex", flexFlow: "row nowrap", gap: "16px" }}>
-            <Text strong fullWidth>
-              {glyph}
-            </Text>
+            <Stack direction="row" spacing={200} fullWidth y="center">
+              <Text strong>{glyph}</Text>
+              <ButtonIcon onClick={() => copyToClipboard(`${glyph}`)}>
+                <Icon glyph={glyphs.copy} variant="scaled" />
+              </ButtonIcon>
+            </Stack>
 
             <div
               style={{

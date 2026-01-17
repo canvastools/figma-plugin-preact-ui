@@ -51,7 +51,9 @@ args:{
     },
   },
 }
+
 export default meta
+
 type Story = StoryObj<typeof ButtonIconToggle>
 
 export const Demo: Story = {
@@ -68,7 +70,9 @@ export const Demo: Story = {
       source: {
         language: "tsx",
         code: `
-<ButtonIconToggle {...args}>{children}</ButtonIconToggle>
+<ButtonIconToggle {...args}>
+  {children}
+</ButtonIconToggle>
 `,
       },
     },

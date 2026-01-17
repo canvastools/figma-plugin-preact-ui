@@ -80,7 +80,7 @@ Pick<
 
 export default meta
 
-type Story = StoryObj
+type Story = StoryObj<typeof Menu>
 
 export const Demo: Story = {
   tags: ["!autodocs"],
@@ -145,7 +145,7 @@ export const Demo: Story = {
 
     return (
       <div className="sb-column sb-width-full">
-        <Button ref={triggerRef}>Open menu</Button>
+        <Button ref={triggerRef}>Open Menu</Button>
         <Menu triggerRef={triggerRef} items={items} {...args} />
       </div>
     )

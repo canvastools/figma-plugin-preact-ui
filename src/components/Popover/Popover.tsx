@@ -2,11 +2,8 @@ import { bem, typedForwardRef } from "../../utils"
 
 import { useEffect, useRef, useState } from "preact/hooks"
 
-import type { PopoverProps } from "./Popover.types"
-import "./Popover.scss"
-
 import {
-  OverlayPlacement,
+  OverlayPositionerPlacement,
   OverlayPositioner,
   PopoverContainer,
   PopoverHeader,
@@ -14,19 +11,25 @@ import {
   usePopoverContext,
 } from "../../index"
 
+import type { PopoverProps } from "./Popover.types"
+import "./Popover.scss"
+
 /* --- */
 
 type PopoverBodyProps = {
   header: preact.ComponentChildren | string
   draggable: boolean
-  width: number | "auto"
-  height: number | "auto"
-  placement: OverlayPlacement
-  placementFallback: false | OverlayPlacement[]
-  paddingX: number
-  paddingY: number
-  edgePadding: number
+  width?: number
+  height?: number
+  placement: OverlayPositionerPlacement
+  placementFallback: OverlayPositionerPlacement[]
+  offsetX: number
+  offsetY: number
+  offsetEdge: number
+  arrow: boolean
   children: preact.ComponentChildren
+  onOpen?: () => void
+  onClose?: () => void
 }
 
 const PopoverBody = ({
@@ -36,10 +39,12 @@ const PopoverBody = ({
   height,
   placement,
   placementFallback,
-  paddingX,
-  paddingY,
-  edgePadding,
+  offsetX,
+  offsetY,
+  offsetEdge,
+  arrow,
   children,
+  onClose,
 }: PopoverBodyProps) => {
   const context = usePopoverContext()
   if (!context) return null
@@ -50,6 +55,7 @@ const PopoverBody = ({
   const handleClose = () => {
     setOpen?.(false)
     triggerRef?.current?.focus()
+    onClose?.()
   }
 
   useEffect(() => {
@@ -63,14 +69,19 @@ const PopoverBody = ({
       open={open}
       draggable={draggable}
       placement={placement}
-      placementFallback={placementFallback}
-      paddingX={paddingX}
-      paddingY={paddingY}
-      edgePadding={edgePadding}
+      placementFallback={placementFallback ?? []}
+      offsetX={offsetX}
+      offsetY={offsetY}
+      offsetEdge={offsetEdge}
       onClose={handleClose}
-      closeOnOutsideClick={true}
+      closeOnClickOutside={true}
     >
-      <PopoverContainer ref={containerRef} width={width} height={height}>
+      <PopoverContainer
+        ref={containerRef}
+        width={width}
+        height={height}
+        arrow={arrow}
+      >
         <PopoverHeader onClose={handleClose}>{header}</PopoverHeader>
         {children}
       </PopoverContainer>
@@ -87,13 +98,14 @@ const PopoverComponent = (
     open,
     header,
     draggable = true,
-    width = "auto",
-    height = "auto",
+    width,
+    height,
     placement = "bottom-left",
     placementFallback = ["bottom-right", "top-left", "top-right"],
-    paddingX = 4,
-    paddingY = 4,
-    edgePadding = 16,
+    offsetX = 0,
+    offsetY = 8,
+    offsetEdge = 16,
+    arrow = false,
     children,
     onOpen,
     onClose,
@@ -142,9 +154,11 @@ const PopoverComponent = (
             height={height}
             placement={placement}
             placementFallback={placementFallback}
-            paddingX={paddingX}
-            paddingY={paddingY}
-            edgePadding={edgePadding}
+            offsetX={offsetX}
+            offsetY={offsetY}
+            offsetEdge={offsetEdge}
+            arrow={arrow}
+            onClose={onClose}
           >
             {children}
           </PopoverBody>

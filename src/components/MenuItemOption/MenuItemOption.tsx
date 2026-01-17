@@ -2,11 +2,11 @@ import { useState, useEffect, useRef } from "preact/hooks"
 
 import { bem, typedForwardRef, override, uuid } from "../../utils"
 
-import type { MenuItemOptionProps } from "./MenuItemOption.types"
-import "./MenuItemOption.scss"
-
 import { Text, Icon, check as checkGlyph, useMenuContext } from "../../index"
 import type { MenuContextValue } from "../../index"
+
+import type { MenuItemOptionProps } from "./MenuItemOption.types"
+import "./MenuItemOption.scss"
 
 /* --- */
 

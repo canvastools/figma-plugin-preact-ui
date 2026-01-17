@@ -2,6 +2,8 @@ import { Meta, StoryObj } from "@storybook/preact"
 
 import { useRef, useState } from "preact/hooks"
 
+import { ControlledStory } from "./stories/Controlled.story"
+
 import { PopoverContext, usePopoverContext } from "./PopoverContext"
 
 import {
@@ -21,7 +23,7 @@ const meta: Meta = {
     docs: {
       description: {
         component:
-          "A context provider that manages open state of a popover overlay.",
+          "A context provider that manages open state, focus, and keyboard navigation of Popover-related components.",
       },
     },
   },
@@ -31,35 +33,36 @@ const meta: Meta = {
       description: "Ref to the trigger element.",
       table: {
         type: {
-          summary: "JSX.Element",
+          summary: "preact.RefObject<HTMLElement>",
         },
       },
     },
     anchorRef: {
       control: { disable: true },
-      description: "Ref to the anchor element.",
+      description:
+        "Ref to the anchor element. If not provided, the triggerRef will be used",
       table: {
         type: {
-          summary: "JSX.Element",
+          summary: "preact.RefObject<HTMLElement>",
         },
       },
     },
     open: {
       control: { type: "boolean" },
-      description: "Controlled open state.",
+      description: "State for the controlled mode.",
     },
     setOpen: {
       control: { disable: true },
-      description: "Set the open state.",
+      description: "Function to set the open state.",
       table: {
         type: {
-          summary: "({ open: boolean }) => void",
+          summary: "(open: boolean) => void",
         },
       },
     },
     children: {
       control: { disable: true },
-      description: "Children components to render inside the popover.",
+      description: "<strong>*</strong>",
       table: {
         type: {
           summary: "JSX.Element",
@@ -67,27 +70,30 @@ const meta: Meta = {
       },
     },
     usePopoverContext: {
+      description: "Hook to access the context.",
       table: {
         type: {
-          summary: "Hook",
+          summary: "Props",
+          detail: `
+  {
+    triggerRef: RefObject | null,
+    anchorRef: RefObject | null, 
+    open: boolean,
+    setOpen: (open: boolean) => void,
+  }
+  `,
         },
       },
-      description: `Use this hook inside a child component to access the context. <br/>
-        <pre>
-        interface PopoverContextValue {
-          triggerRef?: preact.RefObject<HTMLElement | null> // ref to the trigger element
-          anchorRef?: preact.RefObject<HTMLElement | null> // ref to the anchor element
-          open?: boolean // open state
-          setOpen?: (open: boolean) => void // set the open state
-        }</pre>`,
     },
   },
 }
 
 export default meta
-type Story = StoryObj
+
+type Story = StoryObj<typeof PopoverContext>
 
 export const Demo: Story = {
+  tags: ["!autodocs"],
   args: {
     open: false,
   },
@@ -95,8 +101,19 @@ export const Demo: Story = {
     viewport: {
       defaultViewport: "large",
     },
+    docs: {
+      source: {
+        language: "tsx",
+        code: `
+<PopoverContext {...args}>
+  {children}
+</PopoverContext>
+`,
+      },
+    },
   },
   render: (args) => {
+    // @ts-ignore-next-line
     const [open, setOpen] = useState(args.open)
     const triggerRef = useRef<HTMLButtonElement | null>(null)
 
@@ -109,10 +126,10 @@ export const Demo: Story = {
           anchorRef={context?.anchorRef as preact.RefObject<HTMLElement>}
           open={context.open}
           placement="bottom-left"
-          paddingX={4}
-          paddingY={4}
+          offsetX={4}
+          offsetY={4}
+          offsetEdge={16}
           draggable={true}
-          edgePadding={16}
           onClose={() => context.setOpen?.(!open)}
         >
           <PopoverContainer width={300}>
@@ -130,7 +147,7 @@ export const Demo: Story = {
     return (
       <div className="sb-column sb-width-full">
         <Button ref={triggerRef} onClick={() => setOpen(true)}>
-          Open popover
+          Open Popover
         </Button>
         <PopoverContext
           triggerRef={triggerRef}
@@ -144,3 +161,5 @@ export const Demo: Story = {
     )
   },
 }
+
+export const Controlled = ControlledStory

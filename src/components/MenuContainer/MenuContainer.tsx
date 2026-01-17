@@ -2,9 +2,9 @@ import { useContext } from "preact/hooks"
 
 import { bem, typedForwardRef } from "../../utils"
 
+import { RawMenuContext } from "../MenuContext/MenuContext"
 import type { MenuContainerProps } from "./MenuContainer.types"
 import "./MenuContainer.scss"
-import { RawMenuContext } from "../MenuContext/MenuContext"
 
 /* --- */
 

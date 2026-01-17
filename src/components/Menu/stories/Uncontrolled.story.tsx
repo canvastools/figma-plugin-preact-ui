@@ -49,7 +49,10 @@ const items = [
 
 <Button ref={triggerRef}>{children}</Button>
 
-<Menu triggerRef={triggerRef} items={items} />
+<Menu 
+  triggerRef={triggerRef}
+  items={items}
+/>
 
 `,
       },
@@ -83,7 +86,7 @@ const items = [
     ]
     return (
       <div className="sb-column sb-width-full sb-gap-16">
-        <Button ref={triggerRef}>Open menu</Button>
+        <Button ref={triggerRef}>Open Menu</Button>
         <Menu triggerRef={triggerRef} items={items} />
       </div>
     )

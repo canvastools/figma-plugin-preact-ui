@@ -2,11 +2,11 @@ import { useRef } from "preact/hooks"
 
 import { bem, typedForwardRef } from "../../utils"
 
-import type { ColorSwatchProps } from "./ColorSwatch.types"
-import "./ColorSwatch.scss"
-
 import { Tooltip } from "../../index"
 import { colorToHex, colorToHexAlpha } from "../../index"
+
+import type { ColorSwatchProps } from "./ColorSwatch.types"
+import "./ColorSwatch.scss"
 
 /* --- */
 

@@ -43,6 +43,7 @@ const meta: Meta<typeof MenuContainer> = {
 }
 
 export default meta
+
 type Story = StoryObj<typeof MenuContainer>
 
 export const Demo: Story = {
@@ -60,12 +61,16 @@ export const Demo: Story = {
       source: {
         language: "tsx",
         code: `
-<MenuContainer {...args}>{children}</MenuContainer>
+<MenuContainer {...args}>
+  {children}
+</MenuContainer>
 
 // Use MenuContext to make menu items work together
 
 <MenuContext>
-  <MenuContainer {...args}>{children}</MenuContainer>
+  <MenuContainer {...args}>
+    {children}
+  </MenuContainer>
 </MenuContext>
 `,
       },

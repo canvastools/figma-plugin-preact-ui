@@ -131,6 +131,7 @@ args:{
 }
 
 export default meta
+
 type Story = StoryObj<typeof ColorPicker>
 
 export const Demo: Story = {

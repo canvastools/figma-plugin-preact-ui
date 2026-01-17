@@ -2,9 +2,6 @@ import { bem, typedForwardRef } from "../../utils"
 
 import { Calendar as ReactCalendar } from "react-calendar"
 
-import type { CalendarProps } from "./Calendar.types"
-import "./Calendar.scss"
-
 import {
   Icon,
   chevronLeft,
@@ -12,6 +9,9 @@ import {
   chevronDoubleLeft,
   chevronDoubleRight,
 } from "../../index"
+
+import type { CalendarProps } from "./Calendar.types"
+import "./Calendar.scss"
 
 /* --- */
 

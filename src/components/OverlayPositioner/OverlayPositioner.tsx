@@ -553,6 +553,15 @@ const OverlayPositionerComponent = ({
     pointerEvents: isReady ? undefined : "none",
   }
 
+  // Expose computed arrow coordinates via CSS variables so that
+  // popover / tooltip containers can position their arrow elements
+  // relative to the overlay content without needing direct access
+  // to layout calculations.
+  if (arrowData) {
+    ;(style as any)["--overlay-arrow-left"] = `${arrowData.left}px`
+    ;(style as any)["--overlay-arrow-top"] = `${arrowData.top}px`
+  }
+
   const _className = bem("OverlayPositioner", undefined, {
     placement: appliedPlacement,
   })
@@ -624,6 +633,7 @@ const OverlayPositionerComponent = ({
       className={[_className, className].join(" ").trim()}
       ref={containerRef}
       style={style}
+      data-arrow-side={arrowData?.side}
       onMouseDown={(e) => handleMouseDown(e as unknown as MouseEvent)}
     >
       {children}

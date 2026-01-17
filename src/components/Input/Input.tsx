@@ -3,10 +3,10 @@ import { useEffect, useRef, useState, useImperativeHandle } from "preact/hooks"
 
 import { bem, typedForwardRef } from "../../utils"
 
+import { Tooltip } from "../../index"
+
 import type { InputProps } from "./Input.types"
 import "./Input.scss"
-
-import { Tooltip } from "../../index"
 
 /* --- */
 

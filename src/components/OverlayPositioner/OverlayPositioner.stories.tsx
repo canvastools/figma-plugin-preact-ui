@@ -197,6 +197,7 @@ const meta: Meta<typeof OverlayPositioner> = {
 }
 
 export default meta
+
 type Story = StoryObj<typeof OverlayPositioner>
 
 export const Demo: Story = {
@@ -223,7 +224,9 @@ export const Demo: Story = {
       source: {
         language: "tsx",
         code: `
-<OverlayPositioner {...args}>{children}</OverlayPositioner>
+<OverlayPositioner {...args}>
+  {children}
+</OverlayPositioner>
 `,
       },
     },

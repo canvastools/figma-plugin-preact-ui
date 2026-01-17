@@ -26,7 +26,9 @@ export const PaddingStory: Story = {
       source: {
         language: "tsx",
         code: `
-<MenuItemAction paddingLikeOption>{children}</MenuItemAction>
+<MenuItemAction paddingLikeOption>
+  {children}
+</MenuItemAction>
 `,
       },
     },

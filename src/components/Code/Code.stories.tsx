@@ -21,7 +21,9 @@ const meta: Meta<typeof Code> = {
     },
   },
 }
+
 export default meta
+
 type Story = StoryObj<typeof Code>
 
 export const Demo: Story = {

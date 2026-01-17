@@ -12,6 +12,15 @@ import {
 } from "../../utils"
 
 import {
+  Input,
+  Text,
+  Select,
+  ControlGroup,
+  useNumericInput,
+  useStringInput,
+} from "../../index"
+
+import {
   RgbaColorPicker,
   HexColorPicker,
   HexAlphaColorPicker,
@@ -23,15 +32,6 @@ import type {
   ColorPickerType,
 } from "./ColorPicker.types"
 import "./ColorPicker.scss"
-
-import {
-  Input,
-  Text,
-  Select,
-  ControlGroup,
-  useNumericInput,
-  useStringInput,
-} from "../../index"
 
 /* --- */
 

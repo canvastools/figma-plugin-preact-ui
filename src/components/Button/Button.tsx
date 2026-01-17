@@ -3,10 +3,10 @@ import { bem, typedForwardRef } from "../../utils"
 import { Fragment } from "preact"
 import { useRef } from "preact/hooks"
 
+import { Text, Tooltip } from "../../index"
+
 import type { ButtonProps } from "./Button.types"
 import "./Button.scss"
-
-import { Text, Tooltip } from "../../index"
 
 /* --- */
 

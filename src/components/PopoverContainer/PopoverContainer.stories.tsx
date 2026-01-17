@@ -1,8 +1,10 @@
 import { Meta, StoryObj } from "@storybook/preact"
 
-import { PopoverContainer } from "./PopoverContainer"
+import { SizeStory } from "./stories/Size.story"
 
-import { Text, Stack, Section } from "../../index"
+import { Text } from "../../index"
+
+import { PopoverContainer } from "./PopoverContainer"
 
 const meta: Meta<typeof PopoverContainer> = {
   title: "Components/PopoverContainer",
@@ -11,8 +13,7 @@ const meta: Meta<typeof PopoverContainer> = {
   parameters: {
     docs: {
       description: {
-        component:
-          "A component that creates a container for a popover overlay.",
+        component: "A wrapper component that displays the popover content.",
       },
     },
   },
@@ -22,27 +23,23 @@ const meta: Meta<typeof PopoverContainer> = {
     },
     width: {
       control: { type: "number" },
-      defaultValue: { summary: "auto" },
-      table: {
-        type: {
-          summary: "number | 'auto'",
-        },
-      },
+      description: "Takes the width of the content if not provided.",
     },
     height: {
       control: { type: "number" },
-      defaultValue: { summary: "auto" },
-      table: {
-        type: {
-          summary: "number | 'auto'",
-        },
-      },
+      description: "Takes the height of the content if not provided.",
+    },
+    arrow: {
+      control: { type: "boolean" },
+      description:
+        "Shows the arrow on the container based on the `<OverlayPositioner/>` placement.",
     },
     children: {
-      control: { disable: true },
+      control: { type: "text" },
+      description: "<strong>*</strong>",
       table: {
         type: {
-          summary: "JSX.Element",
+          summary: "string | number | JSX.Element",
         },
       },
     },
@@ -50,6 +47,7 @@ const meta: Meta<typeof PopoverContainer> = {
 }
 
 export default meta
+
 type Story = StoryObj<typeof PopoverContainer>
 
 export const Demo: Story = {
@@ -58,78 +56,37 @@ export const Demo: Story = {
     className: "",
     width: 300,
     height: 300,
+    children: "Popover content",
+    arrow: false,
   },
   parameters: {
     viewport: {
       defaultViewport: "large",
     },
+    docs: {
+      source: {
+        language: "tsx",
+        code: `
+<PopoverContainer {...args}>
+  {children}
+</PopoverContainer>
+`,
+      },
+    },
   },
   render: (args) => {
     return (
-      <div className="sb-column sb-width-full">
+      <div
+        className="sb-column sb-width-300"
+        style={"--overlay-arrow-left: 150px; --overlay-arrow-top: 0px;"}
+      >
         <PopoverContainer {...args}>
-          <Text>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quae
-            autem dolorum quibusdam necessitatibus natus, ipsa aperiam eos animi
-            id nam tenetur adipisci? Amet nisi doloremque asperiores quisquam,
-            repudiandae similique magnam aspernatur esse dignissimos molestiae.
-          </Text>
+          {/* @ts-ignore-next-line */}
+          <Text>{args.children}</Text>
         </PopoverContainer>
       </div>
     )
   },
 }
 
-export const Width: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => {
-    return (
-      <div className="sb-column sb-width-full">
-        <Stack spacing={400}>
-          <PopoverContainer width={300}>
-            <Section>
-              <Text>Width: 300</Text>
-            </Section>
-          </PopoverContainer>
-          <PopoverContainer width="auto">
-            <Section>
-              <Text>Width: auto</Text>
-            </Section>
-          </PopoverContainer>
-        </Stack>
-      </div>
-    )
-  },
-}
-
-export const Height: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => {
-    return (
-      <div className="sb-column sb-width-full">
-        <Stack spacing={400}>
-          <PopoverContainer height={200}>
-            <Section>
-              <Text>Height: 200</Text>
-            </Section>
-          </PopoverContainer>
-          <PopoverContainer height="auto">
-            <Section>
-              <Text>Height: auto</Text>
-            </Section>
-          </PopoverContainer>
-        </Stack>
-      </div>
-    )
-  },
-}
+export const Size = SizeStory

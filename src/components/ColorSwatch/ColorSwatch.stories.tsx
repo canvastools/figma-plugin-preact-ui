@@ -89,6 +89,7 @@ args: {
 }
 
 export default meta
+
 type Story = StoryObj<typeof ColorSwatch>
 
 export const Demo: Story = {

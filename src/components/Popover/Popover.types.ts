@@ -1,21 +1,38 @@
-import { OverlayPlacement } from "../../index"
+import {
+  PopoverContextProps,
+  PopoverContainerProps,
+  OverlayPositionerProps,
+} from "../../index"
 
-export interface PopoverProps {
+type PopoverContextPropsPick = Pick<
+  PopoverContextProps,
+  "triggerRef" | "anchorRef"
+>
+
+type PopoverContainerPropsPick = Pick<
+  PopoverContainerProps,
+  "width" | "height" | "arrow"
+>
+
+type OverlayPositionerPropsPick = Pick<
+  OverlayPositionerProps,
+  | "defaultOpen"
+  | "open"
+  | "placement"
+  | "placementFallback"
+  | "draggable"
+  | "offsetX"
+  | "offsetY"
+  | "offsetEdge"
+  | "onOpen"
+  | "onClose"
+>
+
+export interface PopoverProps
+  extends PopoverContextPropsPick,
+    OverlayPositionerPropsPick,
+    PopoverContainerPropsPick {
   className?: string
-  triggerRef?: preact.RefObject<HTMLElement | null>
-  anchorRef?: preact.RefObject<HTMLElement | null>
-  defaultOpen?: boolean
-  open?: boolean
-  header: preact.ComponentChildren | string
-  draggable?: boolean
-  width?: number | "auto"
-  height?: number | "auto"
-  placement?: OverlayPlacement
-  placementFallback?: false | OverlayPlacement[]
-  paddingX?: number
-  paddingY?: number
-  edgePadding?: number
   children: preact.ComponentChildren
-  onOpen?: () => void
-  onClose?: () => void
+  header?: preact.ComponentChildren | string
 }

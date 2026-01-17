@@ -301,7 +301,7 @@ const ControlledMenu = () => {
     return (
       <div className="sb-column sb-width-full sb-gap-40">
         <Button ref={triggerRef} onClick={() => setOpen(true)}>
-          Open menu
+          Open Menu
         </Button>
         <MenuContext triggerRef={triggerRef} open={open} setOpen={setOpen}>
           <MenuContent />

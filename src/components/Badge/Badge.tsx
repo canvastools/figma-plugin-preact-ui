@@ -1,9 +1,9 @@
 import { bem, typedForwardRef } from "../../utils"
 
+import { Text } from "../../index"
+
 import type { BadgeProps } from "./Badge.types"
 import "./Badge.scss"
-
-import { Text } from "../../index"
 
 /* --- */
 

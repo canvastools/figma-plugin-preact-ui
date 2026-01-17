@@ -172,7 +172,7 @@ const MenuComponent = (
     open,
     defaultOpen = false,
     placement = "bottom-left",
-    placementFallback = ["top-left"],
+    placementFallback = ["bottom-right", "top-left", "top-right"],
     offsetX = 0,
     offsetY = 4,
     offsetEdge = 16,

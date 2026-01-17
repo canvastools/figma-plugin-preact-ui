@@ -3,7 +3,7 @@ import { fn } from "@storybook/test"
 
 import { PopoverHeader } from "./PopoverHeader"
 
-import { PopoverContainer, PopoverContext, Text, Section } from "../../index"
+import { PopoverContainer, Text, Section } from "../../index"
 
 const meta: Meta<typeof PopoverHeader> = {
   title: "Components/PopoverHeader",
@@ -13,7 +13,7 @@ const meta: Meta<typeof PopoverHeader> = {
     docs: {
       description: {
         component:
-          "A component that creates a header for a popover. Used inside &lt;PopoverContainer/&gt; component.",
+          "A header for the popover component. Used inside <a href='/docs/components-popovercontainer--docs'>`<PopoverContainer/>`</a> component.",
       },
     },
   },
@@ -22,10 +22,18 @@ const meta: Meta<typeof PopoverHeader> = {
       control: { type: "text" },
     },
     children: {
-      control: { disable: true },
+      control: { type: "text" },
+      description: "<strong>*</strong>",
       table: {
         type: {
-          summary: "JSX.Element",
+          summary: "string | number | JSX.Element",
+        },
+      },
+    },
+    onClose: {
+      table: {
+        type: {
+          summary: "() => void",
         },
       },
     },
@@ -33,35 +41,44 @@ const meta: Meta<typeof PopoverHeader> = {
 }
 
 export default meta
+
 type Story = StoryObj<typeof PopoverHeader>
 
 export const Demo: Story = {
   args: {
     className: "",
+    children: "Header",
     onClose: fn(),
   },
   parameters: {
     viewport: {
       defaultViewport: "large",
     },
+    docs: {
+      source: {
+        language: "tsx",
+        code: `
+<PopoverHeader {...args}>{children}</PopoverHeader>
+`,
+      },
+    },
   },
   render: (args) => {
     return (
-      <div className="sb-column sb-width-full">
-        <PopoverContext open={true}>
-          <PopoverContainer>
-            <PopoverHeader {...args}>Header</PopoverHeader>
-            <Section>
-              <Text>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui
-                quae autem dolorum quibusdam necessitatibus natus, ipsa aperiam
-                eos animi id nam tenetur adipisci? Amet nisi doloremque
-                asperiores quisquam, repudiandae similique magnam aspernatur
-                esse dignissimos molestiae.
-              </Text>
-            </Section>
-          </PopoverContainer>
-        </PopoverContext>
+      <div className="sb-column sb-width-300">
+        <PopoverContainer>
+          {/* @ts-ignore-next-line */}
+          <PopoverHeader {...args}>{args.children}</PopoverHeader>
+          <Section>
+            <Text>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quae
+              autem dolorum quibusdam necessitatibus natus, ipsa aperiam eos
+              animi id nam tenetur adipisci? Amet nisi doloremque asperiores
+              quisquam, repudiandae similique magnam aspernatur esse dignissimos
+              molestiae.
+            </Text>
+          </Section>
+        </PopoverContainer>
       </div>
     )
   },

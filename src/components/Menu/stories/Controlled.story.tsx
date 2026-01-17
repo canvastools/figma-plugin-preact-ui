@@ -96,7 +96,7 @@ const items = [
       <div className="sb-column sb-width-full sb-gap-16">
         <Text>Open: {open ? "true" : "false"}</Text>
         <Button ref={triggerRef} onClick={() => setOpen(!open)}>
-          Open menu
+          Open Menu
         </Button>
         <Menu
           triggerRef={triggerRef}

@@ -16,9 +16,13 @@ export const IntentStory: Story = {
       source: {
         language: "tsx",
         code: `
-<MenuItemAction intentModifier="default">{children}</MenuItemAction>
+<MenuItemAction intentModifier="default">
+  {children}
+</MenuItemAction>
 
-<MenuItemAction intentModifier="danger">{children}</MenuItemAction>
+<MenuItemAction intentModifier="danger">
+  {children}
+</MenuItemAction>
 `,
       },
     },

@@ -16,7 +16,9 @@ export const UncontrolledStory: Story = {
       source: {
         language: "tsx",
         code: `
-<MenuItemOption defaultSelected={true}>{children}</MenuItemOption>
+<MenuItemOption defaultSelected={true}>
+  {children}
+</MenuItemOption>
 `,
       },
     },
