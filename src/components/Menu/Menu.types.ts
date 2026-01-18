@@ -32,6 +32,14 @@ export type MenuItemData =
       | "children"
       | "onSelectedChange"
     >)
+  | {
+      type: "custom"
+      id?: string
+      disabled?: boolean
+      children?: preact.ComponentChildren
+      onClick?: (args: { event: MouseEvent; id: string }) => void
+      closeOnClick?: boolean
+    }
   | ({ type: "divider" } & Pick<MenuDividerProps, "className" | "variant">)
 
 type MenuContextPropsPick = Pick<MenuContextProps, "triggerRef" | "anchorRef">

@@ -1,5 +1,6 @@
 import { bem, typedForwardRef } from "../../utils"
 
+import { cloneElement } from "preact"
 import { useEffect, useRef, useState } from "preact/hooks"
 
 import {
@@ -132,6 +133,29 @@ const MenuBody = ({
           focused={item.id ? focusedItem === item.id : false}
         />
       )
+    }
+
+    if (item.type === "custom") {
+      const { type, ...rest } = item
+
+      const handleItemClick: MenuItemActionProps["onClick"] = (args) => {
+        item.onClick?.(args)
+        if (item.closeOnClick) {
+          handleClose()
+        }
+      }
+
+      if (item.children && typeof item.children !== "string") {
+        return cloneElement(item.children as preact.VNode, {
+          key: item.id ?? index,
+          id: item.id,
+          disabled: item.disabled,
+          focused: item.id ? focusedItem === item.id : false,
+          onClick: handleItemClick,
+        })
+      }
+
+      return null
     }
 
     if (item.type === "divider") {

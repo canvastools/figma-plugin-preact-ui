@@ -8,7 +8,6 @@ import { DisabledStory } from "./stories/Disabled.story"
 import { PrefixStory } from "./stories/Prefix.story"
 import { ItemGroupsStory } from "./stories/ItemGroups.story"
 import { CustomItemStory } from "./stories/CustomItem.story"
-import { RestStory } from "./stories/Rest.story"
 
 import { TooltipContext } from "../../index"
 
@@ -181,4 +180,3 @@ export const Disabled = DisabledStory
 export const Prefix = PrefixStory
 export const ItemGroups = ItemGroupsStory
 export const CustomItem = CustomItemStory
-export const Rest = RestStory

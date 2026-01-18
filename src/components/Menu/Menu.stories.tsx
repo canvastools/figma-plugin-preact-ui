@@ -5,6 +5,7 @@ import { useRef, useState } from "preact/hooks"
 
 import { UncontrolledStory } from "./stories/Uncontrolled.story"
 import { ControlledStory } from "./stories/Controlled.story"
+import { CustomItemStory } from "./stories/CustomItem.story"
 
 import { Menu } from "./Menu"
 import { MenuItemData } from "./Menu.types"
@@ -56,6 +57,17 @@ const meta: Meta = {
 {
   type: "divider" // required
   ...Pick<MenuDividerProps>
+}
+
+// Custom item
+
+{
+  type: "custom" // required
+  id: string
+  disabled: boolean
+  children: preact.ComponentChildren
+  onClick: (args: { event: MouseEvent; id: string }) => void
+  closeOnClick: boolean
 }
           `,
         },
@@ -188,3 +200,4 @@ export const Demo: Story = {
 
 export const Uncontrolled = UncontrolledStory
 export const Controlled = ControlledStory
+export const CustomItem = CustomItemStory
