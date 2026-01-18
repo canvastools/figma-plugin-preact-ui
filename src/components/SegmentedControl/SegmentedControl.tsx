@@ -13,12 +13,12 @@ import { Tooltip, Text, Icon, type Glyph } from "../../index"
 const SegmentedControlComponent = (
   {
     className,
-    options,
+    items = [],
     value,
     defaultValue,
     disabled = false,
     fullWidth = false,
-    onChange,
+    onValueChange,
     ...rest
   }: SegmentedControlProps,
   ref: preact.Ref<HTMLDivElement>
@@ -41,12 +41,12 @@ const SegmentedControlComponent = (
   })
 
   const itemRefs = useRef<Array<HTMLButtonElement | null>>([])
-  itemRefs.current = options.map((_, i) => itemRefs.current[i] || null)
+  itemRefs.current = items.map((_, i) => itemRefs.current[i] || null)
 
   const tooltipAnchorRefs = useRef<
     Array<preact.RefObject<HTMLButtonElement | null>>
   >([])
-  tooltipAnchorRefs.current = options.map(
+  tooltipAnchorRefs.current = items.map(
     (_, i) =>
       tooltipAnchorRefs.current[i] ||
       ({ current: null } as preact.RefObject<HTMLButtonElement | null>)
@@ -55,12 +55,12 @@ const SegmentedControlComponent = (
   const lastTabDirectionRef = useRef<"forward" | "backward" | null>(null)
 
   const selectedIndex = useMemo(
-    () => options.findIndex((opt) => opt.value === selectedValue),
-    [options, selectedValue]
+    () => items.findIndex((item) => item.value === selectedValue),
+    [items, selectedValue]
   )
 
   const focusItem = (index: number) => {
-    const clamped = Math.max(0, Math.min(options.length - 1, index))
+    const clamped = Math.max(0, Math.min(items.length - 1, index))
     const el = itemRefs.current[clamped]
     if (el) el.focus()
   }
@@ -70,7 +70,7 @@ const SegmentedControlComponent = (
     newValue: string
   ) => {
     if (!isControlled) setInternalValue(newValue)
-    onChange?.({ event, value: newValue })
+    onValueChange?.({ event, value: newValue })
   }
 
   // Track last Tab / Shift+Tab direction globally so that when focus enters
@@ -92,7 +92,7 @@ const SegmentedControlComponent = (
       const direction = lastTabDirectionRef.current
       if (!direction) return
 
-      const targetIndex = direction === "backward" ? options.length - 1 : 0
+      const targetIndex = direction === "backward" ? items.length - 1 : 0
       if (targetIndex < 0) return
 
       const nextEl = itemRefs.current[targetIndex]
@@ -111,7 +111,7 @@ const SegmentedControlComponent = (
       window.removeEventListener("keydown", handleGlobalKeyDown)
       window.removeEventListener("focusin", handleFocusIn)
     }
-  }, [options.length])
+  }, [items.length])
 
   const handleKeyDown = (
     e: preact.JSX.TargetedKeyboardEvent<HTMLDivElement>
@@ -144,7 +144,7 @@ const SegmentedControlComponent = (
       if (isTabKey) {
         lastTabDirectionRef.current = null
 
-        const lastIndex = options.length - 1
+        const lastIndex = items.length - 1
 
         // If we're on the last item and pressing Tab (forwards),
         // or on the first item and pressing Shift+Tab (backwards),
@@ -170,7 +170,7 @@ const SegmentedControlComponent = (
       event.preventDefault()
 
       const dir = key === "ArrowRight" || key === "ArrowDown" ? 1 : -1
-      const nextIndex = (currentIndex + dir + options.length) % options.length
+      const nextIndex = (currentIndex + dir + items.length) % items.length
       focusItem(nextIndex)
       return
     }
@@ -193,7 +193,7 @@ const SegmentedControlComponent = (
           : -1
 
       if (activeIndex >= 0) {
-        const option = options[activeIndex]
+        const option = items[activeIndex]
         if (option) {
           commitChange(event, option.value)
         }
@@ -220,61 +220,59 @@ const SegmentedControlComponent = (
       onKeyDown={handleKeyDown}
       {...rest}
     >
-      {options.map((option, idx) => {
-        const isActive = option.value === selectedValue
+      {items.map((item, idx) => {
+        const isActive = item.value === selectedValue
         const anchorRef = tooltipAnchorRefs.current[idx]
 
         const itemClassName = bem("SegmentedControl", "item", {
           selected: isActive,
           disabled,
-          icon: Boolean(option.icon),
+          icon: Boolean(item.glyph),
         })
 
         return (
-          <Fragment key={option.value}>
+          <Fragment key={item.value}>
             <button
               className={itemClassName}
-              key={option.value}
+              key={item.value}
               ref={(el) => {
                 itemRefs.current[idx] = el
                 anchorRef.current = el
               }}
               tabIndex={isActive ? 0 : -1}
-              onClick={(e) => commitChange(e as MouseEvent, option.value)}
+              onClick={(e) => commitChange(e as MouseEvent, item.value)}
               disabled={disabled}
             >
-              {option.icon && (
+              {item.glyph && (
                 <Icon
                   glyph={
-                    typeof option.icon === "function"
-                      ? (option.icon as Glyph)
+                    typeof item.glyph === "function"
+                      ? (item.glyph as Glyph)
                       : undefined
                   }
                   intent="neutral"
-                  intentModifiers={isActive ? "default" : "secondary"}
+                  intentModifier={isActive ? "default" : "secondary"}
                   variant="default"
                   size={24}
-                  interactive={true}
                   disabled={disabled}
                 >
-                  {typeof option.icon !== "function" ? option.icon : undefined}
+                  {typeof item.glyph !== "function" ? item.glyph : undefined}
                 </Icon>
               )}
 
-              {!option.icon && (
+              {!item.glyph && (
                 <Text
                   intent="neutral"
-                  intentModifiers={isActive ? "default" : "secondary"}
-                  interactive
+                  intentModifier={isActive ? "default" : "secondary"}
                   disabled={disabled}
                 >
-                  {option.title}
+                  {item.label}
                 </Text>
               )}
             </button>
-            {option.icon && (
+            {item.glyph && (
               <Tooltip triggerRef={anchorRef}>
-                <Text intent="neutral-inverted-fixed">{option.title}</Text>
+                <Text intent="neutral-inverted-fixed">{item.label}</Text>
               </Tooltip>
             )}
           </Fragment>

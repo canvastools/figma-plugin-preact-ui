@@ -12,7 +12,7 @@ const meta: Meta<WindowResizerProps> = {
     docs: {
       description: {
         component:
-          "A component that creates a window resizer control. Demo window is non-resizable.",
+          "A plugin window resizer control. Demo window is non-resizable.",
       },
     },
   },
@@ -22,22 +22,30 @@ const meta: Meta<WindowResizerProps> = {
     },
     minWidth: {
       control: { type: "number" },
+      description: "<strong>*</strong>",
     },
     minHeight: {
       control: { type: "number" },
+      description: "<strong>*</strong>",
     },
     maxWidth: {
       control: { type: "number" },
+      description: "<strong>*</strong>",
     },
     maxHeight: {
       control: { type: "number" },
+      description: "<strong>*</strong>",
     },
     onResize: {
-      action: "changed",
-      description: "Callback when user resizes the window.",
       table: {
         type: {
-          summary: "(args: { width: number; height: number }) => void",
+          summary: "(args) => void",
+          detail: `
+args: { 
+  width: number
+  height: number
+}
+          `,
         },
       },
     },
@@ -45,6 +53,7 @@ const meta: Meta<WindowResizerProps> = {
 }
 
 export default meta
+
 type Story = StoryObj<WindowResizerProps>
 
 export const Demo: Story = {
@@ -62,6 +71,14 @@ export const Demo: Story = {
   parameters: {
     viewport: {
       defaultViewport: "large",
+    },
+    docs: {
+      source: {
+        language: "tsx",
+        code: `
+<WindowResizer {...args} />
+`,
+      },
     },
   },
   render: (args) => (

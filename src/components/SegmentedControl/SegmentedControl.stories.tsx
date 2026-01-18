@@ -1,48 +1,50 @@
 import { Meta, StoryObj } from "@storybook/preact"
 import { fn } from "@storybook/test"
 
-import { useState } from "preact/hooks"
+import { UncontrolledStory } from "./stories/Uncontrolled.story"
+import { ControlledStory } from "./stories/Controlled.story"
+import { DisabledStory } from "./stories/Disabled.story"
+import { IconsStory } from "./stories/Icons.story"
 
 import { SegmentedControl } from "./SegmentedControl"
-import type { SegmentedControlOption } from "./SegmentedControl.types"
-
-import {
-  Stack,
-  Text,
-  viewList as viewListGlyph,
-  viewGrid as viewGridGlyph,
-  TooltipContext,
-} from "../../index"
+import type { SegmentedControlItemData } from "./SegmentedControl.types"
 
 const meta: Meta<typeof SegmentedControl> = {
   title: "Components/SegmentedControl",
   component: SegmentedControl,
   tags: ["autodocs"],
   argTypes: {
-    className: { control: { type: "text" } },
-    options: {
+    className: {
+      control: { type: "text" },
+    },
+    items: {
       control: { disable: true },
+      description: "<strong>*</strong>Array of items to render in the control.",
       table: {
         type: {
-          summary: "SegmentedControlOption[]",
+          summary: "SegmentedControlItemData[]",
+          detail: `
+{
+  value: string // required
+  label: string // required
+  glyph: Glyph | preact.ComponentChildren
+}
+          `,
         },
       },
-      description: `Array of items to manage. 
-      <pre>interface SegmentedControlOption {
-  value: string
-  title: string
-  icon?: Glyph | preact.ComponentChildren
-}</pre>
-      `,
     },
     value: {
       control: { disable: true },
-      description: "Value for the controlled mode.",
-      table: { type: { summary: "string" } },
+      description: "Value for controlled mode.",
+      table: {
+        type: {
+          summary: "string",
+        },
+      },
     },
     defaultValue: {
       control: { disable: true },
-      description: "Default value for the uncontrolled mode.",
+      description: "Value for uncontrolled mode.",
       table: { type: { summary: "string" } },
     },
     disabled: {
@@ -53,13 +55,16 @@ const meta: Meta<typeof SegmentedControl> = {
       control: { type: "boolean" },
       defaultValue: { summary: false },
     },
-    onChange: {
-      action: "onChange",
-      description: "Callback when the value is changed.",
+    onValueChange: {
       table: {
         type: {
-          summary:
-            "(args: { event: MouseEvent | KeyboardEvent, value: string }) => void",
+          summary: "(args) => void",
+          detail: `
+args: {
+  event: MouseEvent | KeyboardEvent
+  value: string
+}
+          `,
         },
       },
     },
@@ -67,6 +72,7 @@ const meta: Meta<typeof SegmentedControl> = {
 }
 
 export default meta
+
 type Story = StoryObj<typeof SegmentedControl>
 
 export const Demo: Story = {
@@ -76,229 +82,41 @@ export const Demo: Story = {
     defaultValue: "list",
     disabled: false,
     fullWidth: false,
-    onChange: fn(),
+    onValueChange: fn(),
   },
   parameters: {
     viewport: {
       defaultViewport: "large",
     },
+    docs: {
+      source: {
+        code: `
+<SegmentedControl {...args} />
+        `,
+      },
+    },
   },
   render: (args) => {
-    const sampleOptionsWihtoutIcons: SegmentedControlOption[] = [
+    const sampleOptionsWihtoutIcons: SegmentedControlItemData[] = [
       {
         value: "list",
-        title: "List view",
+        label: "List view",
       },
       {
         value: "grid",
-        title: "Grid view",
+        label: "Grid view",
       },
     ]
 
     return (
       <div className="sb-column">
-        <SegmentedControl options={sampleOptionsWihtoutIcons} {...args} />
+        <SegmentedControl items={sampleOptionsWihtoutIcons} {...args} />
       </div>
     )
   },
 }
 
-export const WithIcons: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-    docs: {
-      description: {
-        story:
-          "To make Tooltips work correctly, you need to wrap the SegmentedControl in a TooltipContext.",
-      },
-    },
-  },
-  render: () => {
-    const sampleOptions: SegmentedControlOption[] = [
-      {
-        value: "list",
-        title: "List view",
-        icon: viewListGlyph,
-      },
-      {
-        value: "grid",
-        title: "Grid view",
-        icon: viewGridGlyph,
-      },
-    ]
-
-    return (
-      <div className="sb-column sb-width-300">
-        <TooltipContext>
-          <SegmentedControl options={sampleOptions} defaultValue="list" />
-        </TooltipContext>
-      </div>
-    )
-  },
-}
-
-export const Uncontrolled: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => {
-    const sampleOptionsWihtoutIcons: SegmentedControlOption[] = [
-      {
-        value: "list",
-        title: "List view",
-      },
-      {
-        value: "grid",
-        title: "Grid view",
-      },
-    ]
-
-    return (
-      <div className="sb-column sb-width-300">
-        <SegmentedControl
-          options={sampleOptionsWihtoutIcons}
-          defaultValue="list"
-        />
-      </div>
-    )
-  },
-}
-
-export const Controlled: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => {
-    const [value, setValue] = useState("list")
-
-    const sampleOptionsWihtoutIcons: SegmentedControlOption[] = [
-      {
-        value: "list",
-        title: "List view",
-      },
-      {
-        value: "grid",
-        title: "Grid view",
-      },
-    ]
-    return (
-      <div className="sb-column sb-width-300">
-        <Stack spacing={400} fullWidth>
-          <Text>Value: {value}</Text>
-          <SegmentedControl
-            value={value}
-            options={sampleOptionsWihtoutIcons}
-            onChange={(e) => setValue(e.value)}
-          />
-        </Stack>
-      </div>
-    )
-  },
-}
-
-export const FullWidth: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => {
-    const sampleOptionsWihtoutIcons: SegmentedControlOption[] = [
-      {
-        value: "list",
-        title: "List view",
-      },
-      {
-        value: "grid",
-        title: "Grid view",
-      },
-    ]
-
-    const sampleOptions: SegmentedControlOption[] = [
-      {
-        value: "list",
-        title: "List view",
-        icon: viewListGlyph,
-      },
-      {
-        value: "grid",
-        title: "Grid view",
-        icon: viewGridGlyph,
-      },
-    ]
-
-    return (
-      <div className="sb-column sb-width-full">
-        <TooltipContext>
-          <Stack spacing={400} fullWidth>
-            <SegmentedControl
-              options={sampleOptions}
-              defaultValue="list"
-              fullWidth
-            />
-            <SegmentedControl
-              options={sampleOptionsWihtoutIcons}
-              defaultValue="list"
-              fullWidth
-            />
-          </Stack>
-        </TooltipContext>
-      </div>
-    )
-  },
-}
-
-export const Disabled: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => {
-    const sampleOptions: SegmentedControlOption[] = [
-      {
-        value: "list",
-        title: "List view",
-        icon: viewListGlyph,
-      },
-      {
-        value: "grid",
-        title: "Grid view",
-        icon: viewGridGlyph,
-      },
-    ]
-
-    return (
-      <div className="sb-column sb-width-300">
-        <TooltipContext>
-          <Stack spacing={400}>
-            <SegmentedControl
-              options={sampleOptions}
-              defaultValue="list"
-              disabled
-            />
-            <SegmentedControl
-              options={sampleOptions.map((option) => ({
-                ...option,
-                icon: undefined,
-              }))}
-              defaultValue="list"
-              disabled
-            />
-          </Stack>
-        </TooltipContext>
-      </div>
-    )
-  },
-}
+export const Uncontrolled = UncontrolledStory
+export const Controlled = ControlledStory
+export const Disabled = DisabledStory
+export const Icons = IconsStory

@@ -1,19 +1,19 @@
 import { Glyph } from "../../index"
 
-export interface SegmentedControlOption {
+export interface SegmentedControlItemData {
   value: string
-  title: string
-  icon?: Glyph | preact.ComponentChildren
+  label: string
+  glyph?: Glyph | preact.ComponentChildren
 }
 
 export interface SegmentedControlProps {
   className?: string
-  options: SegmentedControlOption[]
+  items: SegmentedControlItemData[]
   value?: string
   defaultValue?: string
   disabled?: boolean
   fullWidth?: boolean
-  onChange?: (args: {
+  onValueChange?: (args: {
     event: MouseEvent | KeyboardEvent
     value: string
   }) => void
