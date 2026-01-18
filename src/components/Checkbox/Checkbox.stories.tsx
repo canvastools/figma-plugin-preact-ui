@@ -58,7 +58,7 @@ const meta: Meta<typeof Checkbox> = {
           summary: "(args) => void",
           detail: `
 args:{
-  event: MouseEvent,
+  event: MouseEvent
   checked: boolean
 }
 `,

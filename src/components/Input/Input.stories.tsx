@@ -47,8 +47,7 @@ const meta: Meta<typeof Input> = {
     },
     grouped: {
       control: { type: "radio" },
-      options: ["none", "first", "last", "middle"],
-      defaultValue: { summary: "none" },
+      options: [undefined, "first", "last", "middle"],
     },
     error: {
       control: { type: "boolean" },
@@ -175,7 +174,7 @@ export const Demo: Story = {
     placeholder: "Placeholder",
     defaultValue: "",
     ghost: false,
-    grouped: "none",
+    grouped: undefined,
     error: false,
     disabled: false,
     showSuffixOnHover: false,

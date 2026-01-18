@@ -26,34 +26,75 @@ const meta: Meta<typeof Popover> = {
     className: {
       control: { type: "text" },
     },
-    headerChildren: {
-      control: { type: "text" },
-      table: {
-        type: {
-          summary: "string | number | JSX.Element",
-        },
-      },
-    },
     children: {
       control: { type: "text" },
       description: "<strong>*</strong>",
       table: {
         type: {
-          summary: "string | number | JSX.Element",
+          summary: "preact.ComponentChildren",
         },
       },
     },
-    _: {
+    popoverHeaderProps: {
       control: { disable: true },
       table: {
         type: {
-          summary: "...rest",
+          summary: "Pick<PopoverHeaderProps>",
           detail: `
-Pick<
-  PopoverContextProps, 
-  PopoverContainerProps,
-  OverlayPositionerProps
->`,
+{
+  children: preact.ComponentChildren
+}
+`,
+        },
+      },
+    },
+    "...PopoverContextProps": {
+      control: { disable: true },
+      table: {
+        type: {
+          summary: "Pick<PopoverContextProps>",
+          detail: `
+{
+  triggerRef: RefObject | null
+  anchorRef: RefObject | null
+}
+`,
+        },
+      },
+    },
+    "...PopoverContainerProps": {
+      control: { disable: true },
+      table: {
+        type: {
+          summary: "Pick<PopoverContainerProps>",
+          detail: `
+{
+  width: number
+  height: number
+  showArrow: boolean
+}
+`,
+        },
+      },
+    },
+    "...OverlayPositionerProps": {
+      control: { disable: true },
+      table: {
+        type: {
+          summary: "Pick<OverlayPositionerProps>",
+          detail: `
+{
+  open: boolean
+  defaultOpen: boolean
+  placement: OverlayPositionerPlacement
+  placementFallback: OverlayPositionerPlacement[]
+  draggable: boolean
+  offsetX: number
+  offsetY: number
+  offsetEdge: number
+  onOpen: () => void
+  onClose: () => void
+}`,
         },
       },
     },
@@ -68,8 +109,10 @@ export const Demo: Story = {
   tags: ["!autodocs"],
   args: {
     className: "",
-    headerChildren: "Header",
     children: "Content",
+    popoverHeaderProps: {
+      children: "Header",
+    },
   },
   parameters: {
     viewport: {

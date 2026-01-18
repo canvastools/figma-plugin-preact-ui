@@ -5,5 +5,8 @@ export interface SwitchProps {
   checked?: SwitchValue
   defaultChecked?: SwitchValue
   disabled?: boolean
-  onChange?: (args: { event: MouseEvent; checked: SwitchValue }) => void
+  onCheckedChange?: (args: {
+    event: MouseEvent | KeyboardEvent
+    checked: SwitchValue
+  }) => void
 }

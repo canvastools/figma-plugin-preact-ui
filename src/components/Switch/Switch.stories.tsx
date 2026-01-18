@@ -1,11 +1,11 @@
 import { Meta, StoryObj } from "@storybook/preact"
 import { fn } from "@storybook/test"
 
-import { useState } from "preact/hooks"
+import { UncontrolledStory } from "./stories/Uncontrolled.story"
+import { ControlledStory } from "./stories/Controlled.story"
+import { DisabledStory } from "./stories/Disabled.story"
 
 import { Switch } from "./Switch"
-
-import { Text, Stack } from "../../index"
 
 const meta: Meta<typeof Switch> = {
   title: "Components/Switch",
@@ -18,50 +18,55 @@ const meta: Meta<typeof Switch> = {
     checked: {
       control: { disable: true },
       description: "Value for controlled mode.",
-      table: {
-        type: {
-          summary: "boolean",
-        },
-      },
     },
     defaultChecked: {
       control: { type: "boolean" },
-      description: "Initial checked state for uncontrolled mode.",
+      description: "Value for uncontrolled mode.",
       defaultValue: { summary: false },
-      table: {
-        type: {
-          summary: "boolean",
-        },
-      },
     },
     disabled: {
       control: { type: "boolean" },
       defaultValue: { summary: false },
     },
-    onChange: {
-      action: "clicked",
-      description: "Callback when the switch is clicked.",
+    onCheckedChange: {
       table: {
         type: {
-          summary: "(args: {event: MouseEvent; checked: boolean}) => void",
+          summary: "(args) => void",
+          detail: `
+args: {
+  event: MouseEvent | KeyboardEvent
+  checked: boolean
+}
+`,
         },
       },
     },
   },
 }
+
 export default meta
+
 type Story = StoryObj<typeof Switch>
 
 export const Demo: Story = {
+  tags: ["!autodocs"],
   args: {
     className: "",
     defaultChecked: false,
     disabled: false,
-    onChange: fn(),
+    onCheckedChange: fn(),
   },
   parameters: {
     viewport: {
       defaultViewport: "large",
+    },
+    docs: {
+      source: {
+        language: "tsx",
+        code: `
+<Switch {...args} />
+`,
+      },
     },
   },
   render: (args) => (
@@ -71,74 +76,6 @@ export const Demo: Story = {
   ),
 }
 
-export const Uncontrolled: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => (
-    <div className="sb-column sb-width-full">
-      <Switch defaultChecked={true} />
-    </div>
-  ),
-}
-
-export const Controlled: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => {
-    const [isChecked, setIsChecked] = useState(false)
-
-    return (
-      <div className="sb-column sb-width-full">
-        <Stack spacing={400}>
-          <Text>Value: {isChecked ? "true" : "false"}</Text>
-          <Switch
-            checked={isChecked}
-            onChange={(args) => setIsChecked(args.checked)}
-          />
-        </Stack>
-      </div>
-    )
-  },
-}
-
-export const Checked: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => (
-    <div className="sb-column sb-width-full">
-      <Stack spacing={400}>
-        <Switch defaultChecked={true} />
-        <Switch defaultChecked={false} />
-      </Stack>
-    </div>
-  ),
-}
-
-export const Disabled: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => (
-    <div className="sb-column sb-width-full">
-      <Stack spacing={400}>
-        <Switch defaultChecked={true} disabled />
-        <Switch defaultChecked={false} disabled />
-      </Stack>
-    </div>
-  ),
-}
+export const Uncontrolled = UncontrolledStory
+export const Controlled = ControlledStory
+export const Disabled = DisabledStory

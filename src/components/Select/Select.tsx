@@ -3,7 +3,7 @@ import { useEffect, useMemo, useRef, useState } from "preact/hooks"
 
 import { bem, typedForwardRef } from "../../utils"
 
-import type { SelectProps, SelectOption } from "./Select.types"
+import type { SelectProps, SelectItemData } from "./Select.types"
 import "./Select.scss"
 
 import {
@@ -23,19 +23,19 @@ import {
 const SelectComponent = (
   {
     className,
-    options,
+    items,
     placeholder,
     defaultValue,
     value,
-    grouped = "none",
+    grouped,
     error = false,
     disabled = false,
     prefix,
-    menuWidth = "auto",
+    menuContainerProps,
     tooltip,
     onBlur,
     onFocus,
-    onChange,
+    onValueChange,
     ...rest
   }: SelectProps,
   ref: preact.Ref<HTMLDivElement>
@@ -53,22 +53,22 @@ const SelectComponent = (
 
   // Normalize options into groups: either a single group (flat list) or multiple groups
   const groups = useMemo(() => {
-    const opts = options ?? []
+    const opts = items ?? []
     if (
       Array.isArray(opts) &&
       opts.length > 0 &&
       Array.isArray((opts as unknown[])[0])
     ) {
-      return opts as SelectOption[][]
+      return opts as SelectItemData[][]
     }
-    return [opts as SelectOption[]]
-  }, [options])
+    return [opts as SelectItemData[]]
+  }, [items])
 
   const flatOptions = useMemo(
     () =>
-      groups.reduce<SelectOption[]>(
+      groups.reduce<SelectItemData[]>(
         (acc, group) => acc.concat(group),
-        [] as SelectOption[]
+        [] as SelectItemData[]
       ),
     [groups]
   )
@@ -102,7 +102,7 @@ const SelectComponent = (
   const _className = bem("Select", undefined, {
     filled: hasContent,
     grouped: Boolean(grouped),
-    groupedPosition: grouped,
+    groupedPosition: grouped ?? undefined,
     prefix: Boolean(prefix),
     error,
     disabled,
@@ -146,7 +146,6 @@ const SelectComponent = (
             glyph={chevronDownGlyph}
             size={16}
             intent="neutral"
-            interactive
             disabled={disabled}
           />
         </div>
@@ -161,14 +160,14 @@ const SelectComponent = (
         }}
       >
         <SelectMenu
-          menuWidth={menuWidth}
+          menuContainerProps={menuContainerProps}
           groups={groups}
           selectedValue={internalValue}
           onChange={({ event, value }) => {
             if (value !== undefined) {
               setInternalValue(value)
             }
-            onChange?.({ event, value })
+            onValueChange?.({ event, value })
             setIsOpen(false)
           }}
         />
@@ -180,14 +179,14 @@ const SelectComponent = (
 }
 
 type SelectMenuProps = {
-  menuWidth: number | "auto"
-  groups: SelectOption[][]
+  menuContainerProps: SelectProps["menuContainerProps"]
+  groups: SelectItemData[][]
   selectedValue?: string
   onChange?: (args: { event: MouseEvent; value: string }) => void
 }
 
 const SelectMenu = ({
-  menuWidth,
+  menuContainerProps,
   groups,
   selectedValue,
   onChange,
@@ -201,11 +200,11 @@ const SelectMenu = ({
     <OverlayPositioner
       anchorRef={context.anchorRef as preact.RefObject<HTMLElement>}
       placement="over"
-      edgePadding={16}
+      offsetEdge={16}
       open={context.open}
       onClose={() => context.setOpen(false)}
     >
-      <MenuContainer width={menuWidth}>
+      <MenuContainer {...menuContainerProps}>
         {groups.map((group, groupIndex) => (
           <Fragment key={`group-${groupIndex}`}>
             {groupIndex > 0 ? <MenuDivider variant="inset" /> : null}
@@ -219,7 +218,7 @@ const SelectMenu = ({
                   label: opt.label,
                   value: opt.value,
                   disabled: opt.disabled,
-                  focused: context.focusedItemId === opt.value,
+                  focused: context.focusedItem === opt.value,
                   selected: opt.value === selectedValue,
                   onChange: ({ event }) =>
                     onChange?.({ event, value: opt.value }),
@@ -231,9 +230,9 @@ const SelectMenu = ({
                   disabled={opt.disabled}
                   key={`${groupIndex}-${opt.value}`}
                   id={opt.value}
-                  focused={context.focusedItemId === opt.value}
+                  focused={context.focusedItem === opt.value}
                   selected={opt.value === selectedValue}
-                  onChange={({ event }) =>
+                  onSelectedChange={({ event }) =>
                     onChange?.({ event, value: opt.value })
                   }
                 >

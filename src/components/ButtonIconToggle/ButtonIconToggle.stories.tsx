@@ -49,6 +49,31 @@ args:{
         },
       },
     },
+    "...ButtonIconProps": {
+      control: { disable: true },
+      table: {
+        type: {
+          summary: "ButtonIconProps",
+          detail: `
+{
+  className: string
+  intent: "neutral"
+  intentModifier: "default" | "secondary"
+  ghost: boolean
+  size: "medium" | "large"
+  grouped: "none" | "first" | "last" | "middle"
+  translucent: boolean
+  disabled: boolean
+  selected: boolean
+  tooltip: preact.ComponentChildren
+  children: preact.ComponentChildren
+  icon: IconPropsPick
+  onClick: (args: { event: MouseEvent }) => void
+}
+`,
+        },
+      },
+    },
   },
 }
 

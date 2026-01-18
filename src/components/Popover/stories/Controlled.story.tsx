@@ -32,7 +32,9 @@ const [open, setOpen] = useState(false)
   triggerRef={triggerRef}
   open={open}
   onClose={() => setOpen(false)}
-  header="Controlled Popover"
+  popoverHeaderProps={{
+    children: "Controlled Popover",
+  }}
 >
   {children}
 </Popover>
@@ -55,7 +57,9 @@ const [open, setOpen] = useState(false)
           triggerRef={triggerRef}
           open={open}
           onClose={() => setOpen(false)}
-          headerChildren="Controlled Popover"
+          popoverHeaderProps={{
+            children: "Controlled Popover",
+          }}
         >
           <Section>
             <Text>

@@ -1,3 +1,5 @@
+import type { PopoverHeaderProps } from "../../index"
+
 import {
   PopoverContextProps,
   PopoverContainerProps,
@@ -28,11 +30,13 @@ type OverlayPositionerPropsPick = Pick<
   | "onClose"
 >
 
+type PopoverHeaderPropsPick = Pick<PopoverHeaderProps, "children">
+
 export interface PopoverProps
   extends PopoverContextPropsPick,
     OverlayPositionerPropsPick,
     PopoverContainerPropsPick {
   className?: string
   children: preact.ComponentChildren
-  headerChildren?: preact.ComponentChildren | string
+  popoverHeaderProps?: PopoverHeaderPropsPick
 }

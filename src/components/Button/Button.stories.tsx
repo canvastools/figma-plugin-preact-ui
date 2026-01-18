@@ -41,8 +41,7 @@ const meta: Meta<typeof Button> = {
     },
     grouped: {
       control: { type: "radio" },
-      options: ["none", "first", "last", "middle"],
-      defaultValue: { summary: "none" },
+      options: [undefined, "first", "last", "middle"],
     },
     disabled: {
       control: { type: "boolean" },
@@ -115,7 +114,7 @@ export const Demo: Story = {
     intentModifier: "default",
     ghost: false,
     size: "medium",
-    grouped: "none",
+    grouped: undefined,
     disabled: false,
     fullWidth: false,
     tooltip: "Button tooltip",

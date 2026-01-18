@@ -118,7 +118,7 @@ const meta: Meta<typeof Calendar> = {
           summary: "(args) => void",
           detail: `
 args:{
-  value: CalendarValue;
+  value: CalendarValue
 }
 `,
         },
@@ -130,10 +130,10 @@ args:{
           summary: "(args) => void",
           detail: `
 args:{
-  action: string;
-  activeStartDate: Date | null;
-  value: CalendarValue;
-  view: string;
+  action: string
+  activeStartDate: Date | null
+  value: CalendarValue
+  view: string
 }
 `,
         },
@@ -145,10 +145,10 @@ args:{
           summary: "(args) => void",
           detail: `
 args:{
-  action: string;
-  activeStartDate: Date | null;
-  value: CalendarValue;
-  view: string;
+  action: string
+  activeStartDate: Date | null
+  value: CalendarValue
+  view: string
 }
 `,
         },
@@ -160,10 +160,10 @@ args:{
           summary: "(args) => void",
           detail: `
 args:{
-  action: string;
-  activeStartDate: Date | null;
-  value: CalendarValue;
-  view: string;
+  action: string
+  activeStartDate: Date | null
+  value: CalendarValue
+  view: string
 }
 `,
         },

@@ -13,7 +13,7 @@ const SwitchComponent = (
     checked,
     defaultChecked = false,
     disabled = false,
-    onChange,
+    onCheckedChange,
     ...rest
   }: SwitchProps,
   ref: preact.Ref<HTMLDivElement>
@@ -45,8 +45,8 @@ const SwitchComponent = (
     if (!isControlled) {
       setIsChecked(nextChecked)
     }
-    onChange?.({
-      event: event as unknown as MouseEvent,
+    onCheckedChange?.({
+      event: event as unknown as MouseEvent | KeyboardEvent,
       checked: nextChecked,
     })
   }

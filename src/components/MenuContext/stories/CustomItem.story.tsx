@@ -25,7 +25,7 @@ export const CustomItemStory: Story = {
     docs: {
       description: {
         story:
-          "Custom menu items can be created using the useMenuContext hook to register the item and access the context for managing its states.<br/>It requires a custom CSS styling to be applied as well.",
+          "Custom items can be created using the useMenuContext hook to register the item and access the context for managing its states.<br/>It requires a custom CSS styling to be applied as well.",
       },
       source: {
         language: "tsx",
@@ -73,8 +73,8 @@ const CustomMenuItem = ({
 
   return (
     <div
-      className="CustomMenuItem"
       id={id}
+      className="CustomMenuItem"
       ref={itemRef}
       onClick={handleClick}
       onMouseEnter={handleMouseEnter}
@@ -236,8 +236,8 @@ const ControlledMenu = () => {
             `}
           </style>
           <div
-            className="CustomMenuItem"
             id={id}
+            className="CustomMenuItem"
             ref={itemRef as preact.Ref<HTMLDivElement>}
             onClick={handleClick}
             onMouseEnter={handleMouseEnter}

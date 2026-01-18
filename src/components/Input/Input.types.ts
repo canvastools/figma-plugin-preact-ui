@@ -5,7 +5,7 @@ export interface InputProps {
   defaultValue?: string
   value?: string
   ghost?: boolean
-  grouped?: "none" | "first" | "last" | "middle"
+  grouped?: "first" | "last" | "middle"
   error?: boolean
   disabled?: boolean
   prefix?: preact.ComponentChildren

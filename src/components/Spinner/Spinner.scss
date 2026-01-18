@@ -1,8 +1,6 @@
 @use "../../shared.scss" as *;
 
 .Spinner {
-  $parent: &;
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -10,8 +8,7 @@
   width: 24px;
 
   &__spinner {
-    --_m: conic-gradient(#0000 0, var(--pui-color-neutral-icon-secondary)),
-      linear-gradient(#000 0 0) content-box;
+    --_m: conic-gradient(#0000 0, var(--pui-color-neutral-icon-secondary)), linear-gradient(#000 0 0) content-box;
     -webkit-mask: var(--_m);
     mask: var(--_m);
 

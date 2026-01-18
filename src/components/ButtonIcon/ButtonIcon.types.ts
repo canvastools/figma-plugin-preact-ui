@@ -1,6 +1,4 @@
-import type { Glyph } from "../Icon/Icon.types"
-
-import type { IconProps } from "../Icon/Icon.types"
+import type { IconPropsPick } from "../Icon/Icon.types"
 
 export interface ButtonIconProps {
   className?: string
@@ -8,16 +6,12 @@ export interface ButtonIconProps {
   intentModifier?: "default" | "secondary"
   ghost?: boolean
   size?: "medium" | "large"
-  grouped?: "none" | "first" | "last" | "middle"
+  grouped?: "first" | "last" | "middle"
   translucent?: boolean
   disabled?: boolean
   selected?: boolean
   tooltip?: preact.ComponentChildren
   children?: preact.ComponentChildren
-  icon?: {
-    glyph: Glyph
-    variant?: IconProps["variant"]
-    size?: IconProps["size"]
-  }
+  icon?: IconPropsPick
   onClick?: (args: { event: MouseEvent }) => void
 }

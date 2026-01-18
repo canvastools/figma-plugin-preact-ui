@@ -169,11 +169,11 @@ const ControlsRgba = ({
       <div style={{ minWidth: "52px" }}>
         <Select
           ref={selectRef}
-          options={options}
+          items={options}
           value={type}
-          onChange={(e) => setType(e.value as ColorPickerType)}
+          onValueChange={(e) => setType(e.value as ColorPickerType)}
           tooltip="Color mode"
-          menuWidth={160}
+          menuContainerProps={{ width: 120 }}
         />
       </div>
       <div className="ColorPicker__controlsValues">
@@ -394,11 +394,11 @@ const ControlsHex = ({
       <div style={{ minWidth: "52px" }}>
         <Select
           ref={selectRef}
-          options={options}
+          items={options}
           value={type}
-          onChange={(e) => setType(e.value as ColorPickerType)}
+          onValueChange={(e) => setType(e.value as ColorPickerType)}
           tooltip="Color mode"
-          menuWidth={160}
+          menuContainerProps={{ width: 120 }}
         />
       </div>
       <div className="ColorPicker__controlsValues">
@@ -476,11 +476,11 @@ const ControlsHexAlpha = ({
       <div style={{ minWidth: "52px" }}>
         <Select
           ref={selectRef}
-          options={options}
+          items={options}
           value={type}
-          onChange={(e) => setType(e.value as ColorPickerType)}
+          onValueChange={(e) => setType(e.value as ColorPickerType)}
           tooltip="Color mode"
-          menuWidth={160}
+          menuContainerProps={{ width: 120 }}
         />
       </div>
       <div className="ColorPicker__controlsValues">

@@ -85,8 +85,8 @@ const meta: Meta<typeof MenuItemAction> = {
           summary: "(args) => void",
           detail: `
 args: {
-  event: MouseEvent,
-  id: string,
+  event: MouseEvent
+  id: string
 }
 `,
         },

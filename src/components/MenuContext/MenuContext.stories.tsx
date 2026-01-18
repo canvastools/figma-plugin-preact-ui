@@ -75,16 +75,16 @@ const meta: Meta = {
           summary: "Props",
           detail: `
 {
-  triggerRef: RefObject | null,
-  anchorRef: RefObject | null, 
-  open: boolean,
-  setOpen: (open: boolean) => void,
-  registerItem: (meta: MenuItemMetadata) => void, // register an item in the context
-  focusedItem: string | null, // id of the currently focused item
-  setFocusedItem: (id: string | null) => void, // set the focused item
-  clearFocus: () => void, // clear the focused item
-  setHoveredItem: (id: string | null) => void, // set the hovered item
-  keyboardInteraction: boolean, // flag indicating keyboard interaction mode
+  triggerRef: RefObject | null
+  anchorRef: RefObject | null
+  open: boolean
+  setOpen: (open: boolean) => void
+  registerItem: (meta: MenuItemMetadata) => void // register an item in the context
+  focusedItem: string | null // id of the currently focused item
+  setFocusedItem: (id: string | null) => void // set the focused item
+  clearFocus: () => void // clear the focused item
+  setHoveredItem: (id: string | null) => void // set the hovered item
+  keyboardInteraction: boolean // flag indicating keyboard interaction mode
 }
 
 // Types

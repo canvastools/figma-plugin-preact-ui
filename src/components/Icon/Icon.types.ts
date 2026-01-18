@@ -30,3 +30,5 @@ export interface IconProps {
   iconColor?: string
   children?: preact.ComponentChildren
 }
+
+export type IconPropsPick = Pick<IconProps, "glyph" | "variant" | "size">

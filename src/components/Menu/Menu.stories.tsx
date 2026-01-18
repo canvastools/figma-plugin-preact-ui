@@ -38,40 +38,74 @@ const meta: Meta = {
 // Action item
 
 {
-  type: "action", // required
-  closeOnClick: boolean,
+  type: "action" // required
+  closeOnClick: boolean
   ...Pick<MenuItemActionProps>
 }
   
 // Option item
 
 {
-  type: "option", // required
-  closeOnClick: boolean,
+  type: "option" // required
+  closeOnClick: boolean
   ...Pick<MenuItemOptionProps>
 }
   
 // Divider
 
 {
-  type: "divider", // required
+  type: "divider" // required
   ...Pick<MenuDividerProps>
 }
           `,
         },
       },
     },
-    _: {
+    "...MenuContextProps": {
       control: { disable: true },
       table: {
         type: {
-          summary: "...rest",
+          summary: "Pick<MenuContextProps>",
           detail: `
-Pick<
-  MenuContextProps, 
-  MenuContainerProps,
-  OverlayPositionerProps
->`,
+{
+  triggerRef: RefObject | null
+  anchorRef: RefObject | null 
+}
+`,
+        },
+      },
+    },
+    "...MenuContainerProps": {
+      control: { disable: true },
+      table: {
+        type: {
+          summary: "Pick<MenuContainerProps>",
+          detail: `
+{
+  width: number
+  height: number
+}
+`,
+        },
+      },
+    },
+    "...OverlayPositionerProps": {
+      control: { disable: true },
+      table: {
+        type: {
+          summary: "Pick<OverlayPositionerProps>",
+          detail: `
+{
+  open: boolean
+  defaultOpen: boolean
+  placement: OverlayPositionerPlacement
+  placementFallback: OverlayPositionerPlacement[]
+  offsetX: number
+  offsetY: number
+  offsetEdge: number
+  onOpen: () => void
+  onClose: () => void
+}`,
         },
       },
     },

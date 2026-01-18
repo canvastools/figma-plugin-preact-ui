@@ -40,8 +40,7 @@ const meta: Meta<typeof ButtonIcon> = {
     },
     grouped: {
       control: { type: "radio" },
-      options: ["none", "first", "last", "middle"],
-      defaultValue: { summary: "none" },
+      options: [undefined, "first", "last", "middle"],
     },
     translucent: {
       control: { type: "boolean" },
@@ -74,12 +73,12 @@ const meta: Meta<typeof ButtonIcon> = {
       description: `A shortcut for the displaying the icon (glyph) as a child.`,
       table: {
         type: {
-          summary: "object",
+          summary: "Pick<IconProps>",
           detail: `
 { 
-  glyph: Glyph, // required
-  variant: IconProps['variant'], 
-  size: IconProps['size']
+  glyph: Glyph
+  variant:"default" | "scaled"
+  size: 16 | 24
 }
           `,
         },
@@ -112,7 +111,7 @@ export const Demo: Story = {
     intentModifier: "default",
     ghost: false,
     size: "medium",
-    grouped: "none",
+    grouped: undefined,
     translucent: false,
     disabled: false,
     tooltip: "Button tooltip",

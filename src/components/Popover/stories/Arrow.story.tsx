@@ -24,7 +24,9 @@ const triggerRef = useRef(null)
 
 <Popover
   triggerRef={triggerRef}
-  header="Uncontrolled Popover"
+  popoverHeaderProps={{
+    children: "Uncontrolled Popover",
+  }}
   showArrow
 >
   {children}
@@ -41,7 +43,9 @@ const triggerRef = useRef(null)
         <Button ref={triggerRef}>Open Menu</Button>
         <Popover
           triggerRef={triggerRef}
-          headerChildren="Popover with an arrow"
+          popoverHeaderProps={{
+            children: "Popover with an arrow",
+          }}
           showArrow
         >
           <Section>

@@ -76,10 +76,10 @@ const meta: Meta = {
           summary: "Props",
           detail: `
   {
-    triggerRef: RefObject | null,
-    anchorRef: RefObject | null, 
-    open: boolean,
-    setOpen: (open: boolean) => void,
+    triggerRef: RefObject | null
+    anchorRef: RefObject | null
+    open: boolean
+    setOpen: (open: boolean) => void
   }
   `,
         },

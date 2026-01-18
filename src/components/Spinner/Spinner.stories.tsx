@@ -14,6 +14,7 @@ const meta: Meta<typeof Spinner> = {
 }
 
 export default meta
+
 type Story = StoryObj<typeof Spinner>
 
 export const Demo: Story = {
@@ -23,6 +24,14 @@ export const Demo: Story = {
   parameters: {
     viewport: {
       defaultViewport: "large",
+    },
+    docs: {
+      source: {
+        language: "tsx",
+        code: `
+<Spinner {...args} />
+`,
+      },
     },
   },
   render: (args) => (
