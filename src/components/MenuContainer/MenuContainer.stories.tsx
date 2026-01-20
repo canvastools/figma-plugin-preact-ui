@@ -64,14 +64,6 @@ export const Demo: Story = {
 <MenuContainer {...args}>
   {children}
 </MenuContainer>
-
-// Use MenuContext to make menu items work together
-
-<MenuContext>
-  <MenuContainer {...args}>
-    {children}
-  </MenuContainer>
-</MenuContext>
 `,
       },
     },

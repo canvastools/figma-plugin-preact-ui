@@ -5,7 +5,7 @@ import { VariantStory } from "./stories/Variant.story"
 import { PrefixStory } from "./stories/Prefix.story"
 import { SuffixStory } from "./stories/Suffix.story"
 
-import { TabContext, TabList, TabPanel, Section, Text } from "../../index"
+import { TabContext, TabList, Section } from "../../index"
 
 import { Tab } from "./Tab"
 
@@ -17,7 +17,7 @@ const meta: Meta<typeof Tab> = {
     docs: {
       description: {
         component:
-          "The component is always used within <a href='/docs/components-tabcontext--docs'>`<TabContext/>`</a> optionally in combination with <a href='/docs/components-tablist--docs'>`<TabList/>`</a>.",
+          "The component is always used within <a href='/docs/components-tabcontext--docs'>`<TabContext/>`</a>, and optionally in combination with <a href='/docs/components-tablist--docs'>`<TabList/>`</a>.",
       },
     },
   },
@@ -89,7 +89,6 @@ export const Demo: Story = {
   tags: ["!autodocs"],
   args: {
     className: "",
-    value: "tab-1",
     variant: "default",
     onClick: fn(),
   },
@@ -101,8 +100,15 @@ export const Demo: Story = {
       source: {
         language: "tsx",
         code: `
-<TabContext>
-  <Tab {...args}>{children}</Tab>
+<TabContext defaultValue="tab-1">
+  <TabList>
+    <Tab value="tab-1" {...args}>{children}</Tab>
+    <Tab value="tab-2" {...args}>{children}</Tab>
+    <Tab value="tab-3" {...args}>{children}</Tab>
+  </TabList>
+  <TabPanel value="tab-1">Tab 1 Panel</TabPanel>
+  <TabPanel value="tab-2">Tab 2 Panel</TabPanel>
+  <TabPanel value="tab-3">Tab 3 Panel</TabPanel>
 </TabContext>
         `,
       },
@@ -126,17 +132,6 @@ export const Demo: Story = {
                   Tab 3
                 </Tab>
               </TabList>
-            </Section>
-            <Section>
-              <TabPanel value="tab-1">
-                <Text>Tab 1 Panel</Text>
-              </TabPanel>
-              <TabPanel value="tab-2">
-                <Text>Tab 2 Panel</Text>
-              </TabPanel>
-              <TabPanel value="tab-3">
-                <Text>Tab 3 Panel</Text>
-              </TabPanel>
             </Section>
           </TabContext>
         </div>

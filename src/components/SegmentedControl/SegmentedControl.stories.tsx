@@ -91,7 +91,18 @@ export const Demo: Story = {
     docs: {
       source: {
         code: `
-<SegmentedControl {...args} />
+const items = [
+  {
+    value: "list",
+    label: "List view",
+  },
+  {
+    value: "grid",
+    label: "Grid view",
+  },
+]
+
+<SegmentedControl items={items} {...args} />
         `,
       },
     },

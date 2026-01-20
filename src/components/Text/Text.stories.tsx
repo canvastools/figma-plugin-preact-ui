@@ -96,6 +96,7 @@ const meta: Meta<typeof Text> = {
     },
     children: {
       control: { type: "text" },
+      description: "<strong>*</strong>",
       table: {
         type: {
           summary: "string",

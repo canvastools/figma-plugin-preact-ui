@@ -76,7 +76,13 @@ export const Demo: Story = {
       source: {
         language: "tsx",
         code: `
-<WindowResizer {...args} />
+<WindowResizer 
+  minWidth={380}
+  minHeight={480}
+  maxWidth={800}
+  maxHeight={600}
+  {...args} 
+/>
 `,
       },
     },

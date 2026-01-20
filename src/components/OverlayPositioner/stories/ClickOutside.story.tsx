@@ -18,23 +18,11 @@ export const ClickOutsideStory: Story = {
       source: {
         language: "tsx",
         code: `
-const anchorRef = useRef(null)
-const [open, setOpen] = useState(false)
-
-<Button
-  ref={anchorRef}
-  onClick={() => setOpen(!open)}
->
-  Show Overlay
-</Button>
-
 <OverlayPositioner
   anchorRef={anchorRef}
-  open={open}
-  onClose={() => setOpen(false)}
   closeOnClickOutside={false}
 >
-  <Button onClick={() => setOpen(false)}>Close</Button>
+  {children}
 </OverlayPositioner>
 `,
       },

@@ -49,7 +49,10 @@ export const Demo: Story = {
       source: {
         language: "tsx",
         code: `
-<Spacing {...args} />
+<Spacing
+  size={400}
+  {...args}
+/>
 `,
       },
     },

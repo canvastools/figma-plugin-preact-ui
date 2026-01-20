@@ -19,7 +19,7 @@ const meta: Meta<typeof ScrollContext> = {
     docs: {
       description: {
         component:
-          "A context provider that manages scroll states. It consumes the  state from <a href='/docs/layout-scrollcontainer--docs'>`<ScrollContainer/>`</a> component.",
+          "A context provider that manages scroll states. Always used with <a href='/docs/layout-scrollcontainer--docs'>`<ScrollContainer/>`</a> component.",
       },
     },
   },

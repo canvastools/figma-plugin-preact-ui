@@ -1,8 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/preact"
 
-import { TabList } from "./TabList"
+import { HorizontalScrollStory } from "./stories/HorizontalScroll.story"
 
 import { TabContext, TabPanel, Tab, Section, Text } from "../../index"
+
+import { TabList } from "./TabList"
 
 const meta: Meta<typeof TabList> = {
   title: "Components/TabList",
@@ -12,7 +14,7 @@ const meta: Meta<typeof TabList> = {
     docs: {
       description: {
         component:
-          "A wrapper component for aligning a list of &lt;Tab&gt; components.",
+          "A wrapper component for aligning a list of <a href='/docs/components-tab--docs'>`<Tab/>`</a> components.",
       },
     },
   },
@@ -21,13 +23,13 @@ const meta: Meta<typeof TabList> = {
       control: { type: "text" },
     },
     children: {
+      control: { disable: true },
+      description: "<strong>*</strong>",
       table: {
         type: {
-          summary: "JSX.Element",
+          summary: "preact.ComponentChildren",
         },
       },
-      control: { disable: true },
-      description: "Usually &lt;Tab&gt; components.",
     },
   },
 }
@@ -40,6 +42,23 @@ export const Demo: Story = {
   parameters: {
     viewport: {
       defaultViewport: "large",
+    },
+    docs: {
+      source: {
+        language: "tsx",
+        code: `
+<TabContext defaultValue="tab-1">
+  <TabList {...args}>
+    <Tab value="tab-1">Tab 1</Tab>
+    <Tab value="tab-2">Tab 2</Tab>
+    <Tab value="tab-3">Tab 3</Tab>
+  </TabList>
+  <TabPanel value="tab-1">Tab 1 Panel</TabPanel>
+  <TabPanel value="tab-2">Tab 2 Panel</TabPanel>
+  <TabPanel value="tab-3">Tab 3 Panel</TabPanel>
+</TabContext>
+`,
+      },
     },
   },
   args: {
@@ -55,54 +74,9 @@ export const Demo: Story = {
             <Tab value="tab-3">Tab 3</Tab>
           </TabList>
         </Section>
-        <Section>
-          <TabPanel value="tab-1">
-            <Text>Tab 1 Panel</Text>
-          </TabPanel>
-          <TabPanel value="tab-2">
-            <Text>Tab 2 Panel</Text>
-          </TabPanel>
-          <TabPanel value="tab-3">
-            <Text>Tab 3 Panel</Text>
-          </TabPanel>
-        </Section>
       </TabContext>
     </div>
   ),
 }
 
-export const HorizontalScroll: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => {
-    return (
-      <div className="sb-column sb-width-full">
-        <TabContext defaultValue="tab-1">
-          <Section>
-            <TabList>
-              <Tab value="tab-1">First Tab</Tab>
-              <Tab value="tab-2">Second Tab</Tab>
-              <Tab value="tab-3">Third Tab</Tab>
-              <Tab value="tab-4">Fourth Tab</Tab>
-              <Tab value="tab-5">Fifth Tab</Tab>
-              <Tab value="tab-6">Sixth Tab</Tab>
-              <Tab value="tab-7">Seventh Tab</Tab>
-              <Tab value="tab-8">Eighth Tab</Tab>
-              <Tab value="tab-9">Ninth Tab</Tab>
-              <Tab value="tab-10">Tenth Tab</Tab>
-              <Tab value="tab-11">Eleventh Tab</Tab>
-              <Tab value="tab-12">Twelfth Tab</Tab>
-              <Tab value="tab-13">Thirteenth Tab</Tab>
-              <Tab value="tab-14">Fourteenth Tab</Tab>
-              <Tab value="tab-15">Fifteenth Tab</Tab>
-            </TabList>
-          </Section>
-        </TabContext>
-      </div>
-    )
-  },
-}
+export const HorizontalScroll = HorizontalScrollStory

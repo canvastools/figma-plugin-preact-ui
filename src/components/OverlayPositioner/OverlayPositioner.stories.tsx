@@ -224,7 +224,14 @@ export const Demo: Story = {
       source: {
         language: "tsx",
         code: `
-<OverlayPositioner {...args}>
+const anchorRef = useRef(null)
+
+<Button ref={anchorRef}>Show Overlay</Button>
+
+<OverlayPositioner
+  anchorRef={anchorRef}
+  {...args}
+>
   {children}
 </OverlayPositioner>
 `,

@@ -48,7 +48,13 @@ export const Demo: Story = {
       source: {
         language: "tsx",
         code: `
-<MenuDivider {...args} />
+<MenuContainer>
+  <MenuItemAction>Menu Item</MenuItemAction>
+  <MenuItemAction>Menu Item</MenuItemAction>
+  <MenuDivider {...args} />
+  <MenuItemAction>Menu Item</MenuItemAction>
+  <MenuItemAction>Menu Item</MenuItemAction>
+</MenuContainer>
 `,
       },
     },

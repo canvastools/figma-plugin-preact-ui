@@ -12,7 +12,7 @@ const meta: Meta<typeof TabPanel> = {
     docs: {
       description: {
         component:
-          "A wrapper component that displays tab's content. Always used within &lt;TabContext/&gt;.",
+          "The component is always used within <a href='/docs/components-tabcontext--docs'>`<TabContext/>`</a>.",
       },
     },
   },
@@ -21,26 +21,26 @@ const meta: Meta<typeof TabPanel> = {
       control: { type: "text" },
     },
     value: {
+      control: { disable: true },
+      description: "<strong>*</strong>Value associated with the tab panel.",
       table: {
         type: {
           summary: "string",
         },
       },
-      description: "Value of the tab panel for controlled/uncontrolled mode.",
     },
     fullHeight: {
       control: { type: "boolean" },
       defaultValue: { summary: false },
-      description:
-        "Set the height to 100% to occupy the entire height in flex containers. May requires &lt;ScrollContainer/&gt; to be used as it uses `overflow: hidden`.",
     },
     children: {
+      control: { disable: true },
+      description: "<strong>*</strong>",
       table: {
         type: {
-          summary: "JSX.Element",
+          summary: "preact.ComponentChildren",
         },
       },
-      control: { disable: true },
     },
   },
 }
@@ -52,6 +52,23 @@ export const Demo: Story = {
   parameters: {
     viewport: {
       defaultViewport: "large",
+    },
+    docs: {
+      source: {
+        language: "tsx",
+        code: `
+<TabContext defaultValue="tab-1">
+  <TabList>
+    <Tab value="tab-1">Tab 1</Tab>
+    <Tab value="tab-2">Tab 2</Tab>
+    <Tab value="tab-3">Tab 3</Tab>
+  </TabList>
+  <TabPanel value="tab-1" {...args}>{children}</TabPanel>
+  <TabPanel value="tab-2" {...args}>{children}</TabPanel>
+  <TabPanel value="tab-3" {...args}>{children}</TabPanel>
+</TabContext>
+`,
+      },
     },
   },
   args: {

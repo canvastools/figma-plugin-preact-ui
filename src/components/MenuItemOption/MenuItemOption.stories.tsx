@@ -122,7 +122,9 @@ export const Demo: Story = {
       source: {
         language: "tsx",
         code: `
-<MenuItemOption {...args}>{children}</MenuItemOption>
+<MenuContainer>
+  <MenuItemOption {...args}>{children}</MenuItemOption>
+</MenuContainer>
 `,
       },
     },

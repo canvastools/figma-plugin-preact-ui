@@ -1,8 +1,6 @@
 @use "../../shared.scss" as *;
 
 .TabPanel {
-  $parent: &;
-
   display: flex;
   flex-flow: column nowrap;
   width: 100%;
