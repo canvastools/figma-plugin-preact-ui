@@ -26,7 +26,7 @@ const meta: Meta<typeof Icon> = {
         "Any library <a href='#glyphs'>glyph</a> to display as a child.",
       table: {
         type: {
-          summary: "JSX.Element",
+          summary: "preact.ComponentChildren",
         },
       },
     },
@@ -93,7 +93,7 @@ const meta: Meta<typeof Icon> = {
         "The SVG icon to display as a child if a custom glyph is required.",
       table: {
         type: {
-          summary: "JSX.Element",
+          summary: "preact.ComponentChildren",
         },
       },
     },

@@ -72,7 +72,7 @@ const meta: Meta<typeof Select> = {
       description: "Element displayed before value.",
       table: {
         type: {
-          summary: "string | number | JSX.Element",
+          summary: "preact.ComponentChildren",
         },
       },
     },
@@ -80,7 +80,7 @@ const meta: Meta<typeof Select> = {
       control: { control: "text" },
       table: {
         type: {
-          summary: "string | number | JSX.Element",
+          summary: "preact.ComponentChildren",
         },
       },
     },

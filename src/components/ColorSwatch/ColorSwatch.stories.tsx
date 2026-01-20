@@ -60,7 +60,7 @@ const meta: Meta<typeof ColorSwatch> = {
       description: "Tooltip content.",
       table: {
         type: {
-          summary: "string | number | JSX.Element",
+          summary: "preact.ComponentChildren",
         },
       },
     },
@@ -68,7 +68,7 @@ const meta: Meta<typeof ColorSwatch> = {
       control: { disable: true },
       table: {
         type: {
-          summary: "string | number | JSX.Element",
+          summary: "preact.ComponentChildren",
         },
       },
     },

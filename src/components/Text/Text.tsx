@@ -8,6 +8,7 @@ import "./Text.scss"
 const TextComponent = (
   {
     className,
+    id,
     intent = "neutral",
     intentModifier = "default",
     variant = "body",
@@ -43,6 +44,7 @@ const TextComponent = (
   return (
     <div
       className={[_className, className].join(" ").trim()}
+      id={id}
       ref={ref}
       {...rest}
       style={{

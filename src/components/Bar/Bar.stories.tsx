@@ -35,7 +35,7 @@ const meta: Meta<typeof Bar> = {
       description: "<strong>*</strong>",
       table: {
         type: {
-          summary: "string | number | JSX.Element",
+          summary: "preact.ComponentChildren",
         },
       },
     },

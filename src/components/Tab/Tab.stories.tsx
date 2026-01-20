@@ -1,21 +1,13 @@
 import type { Meta, StoryObj } from "@storybook/preact"
 import { fn } from "@storybook/test"
 
-import { useState } from "preact/hooks"
+import { VariantStory } from "./stories/Variant.story"
+import { PrefixStory } from "./stories/Prefix.story"
+import { SuffixStory } from "./stories/Suffix.story"
+
+import { TabContext, TabList, TabPanel, Section, Text } from "../../index"
 
 import { Tab } from "./Tab"
-
-import {
-  TabContext,
-  TabList,
-  TabPanel,
-  Badge,
-  Icon,
-  Section,
-  Text,
-  settings as settingsGlyph,
-  search as searchGlyph,
-} from "../../index"
 
 const meta: Meta<typeof Tab> = {
   title: "Components/Tab",
@@ -25,7 +17,7 @@ const meta: Meta<typeof Tab> = {
     docs: {
       description: {
         component:
-          "Always used within &lt;TabContext&gt;, optionally in combination with &lt;TabList&gt; and &lt;TabPanel&gt;",
+          "The component is always used within <a href='/docs/components-tabcontext--docs'>`<TabContext/>`</a> optionally in combination with <a href='/docs/components-tablist--docs'>`<TabList/>`</a>.",
       },
     },
   },
@@ -35,12 +27,12 @@ const meta: Meta<typeof Tab> = {
     },
     value: {
       control: { disable: true },
+      description: "<strong>*</strong>Value associated with the tab.",
       table: {
         type: {
           summary: "string",
         },
       },
-      description: "Value of the tab.",
     },
     variant: {
       control: { type: "radio" },
@@ -48,38 +40,42 @@ const meta: Meta<typeof Tab> = {
       defaultValue: { summary: "default" },
     },
     prefix: {
+      control: { disable: true },
+      description: "Element displayed before children.",
       table: {
         type: {
-          summary: "JSX.Element",
+          summary: "preact.ComponentChildren",
         },
       },
-      description: "Element displayed before children.",
-      control: { disable: true },
     },
     suffix: {
+      control: { disable: true },
+      description: "Element displayed after children.",
       table: {
         type: {
-          summary: "JSX.Element",
+          summary: "preact.ComponentChildren",
         },
       },
-      description: "Element displayed after children.",
-      control: { disable: true },
     },
     children: {
+      control: { disable: true },
+      description: "<strong>*</strong>",
       table: {
         type: {
-          summary: "string | number | JSX.Element",
+          summary: "preact.ComponentChildren",
         },
       },
-      control: { disable: true },
-      description: "Usually text content.",
     },
     onClick: {
-      action: "clicked",
-      description: "Callback when the tab is clicked. Returns its value.",
       table: {
         type: {
-          summary: "(args: {event: MouseEvent; value: string}) => void",
+          summary: "(args) => void",
+          detail: `
+args: {
+  event: MouseEvent
+  value: string
+}
+`,
         },
       },
     },
@@ -101,9 +97,19 @@ export const Demo: Story = {
     viewport: {
       defaultViewport: "large",
     },
+    docs: {
+      source: {
+        language: "tsx",
+        code: `
+<TabContext>
+  <Tab {...args}>{children}</Tab>
+</TabContext>
+        `,
+      },
+    },
   },
   render: (args) => {
-    // @ts-expect-error: Storybook types hack
+    // @ts-ignore-next-line
     if (args.variant === "default") {
       return (
         <div className="sb-column sb-width-full">
@@ -153,201 +159,6 @@ export const Demo: Story = {
   },
 }
 
-export const Variant: Story = {
-  parameters: {
-    controls: { disable: true },
-    docs: {
-      description: {
-        story:
-          "The 'single' variant can essentially act as a heading in cases where tabs may replace the heading.",
-      },
-    },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => (
-    <div className="sb-column sb-width-full">
-      <TabContext defaultValue="tab-1">
-        <Section>
-          <TabList>
-            <Tab variant="default" value="tab-1">
-              First Tab
-            </Tab>
-            <Tab variant="default" value="tab-2">
-              Second Tab
-            </Tab>
-          </TabList>
-        </Section>
-      </TabContext>
-      <TabContext value="tab-1">
-        <Section>
-          <TabList>
-            <Tab variant="single" value="tab-1">
-              Single
-            </Tab>
-          </TabList>
-        </Section>
-      </TabContext>
-    </div>
-  ),
-}
-
-export const Prefix: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => {
-    const [activeTab, setActiveTab] = useState("tab-1")
-
-    return (
-      <div className="sb-column sb-width-full">
-        <TabContext
-          value={activeTab}
-          onChange={(args) => {
-            setActiveTab(args.value)
-          }}
-        >
-          <Section>
-            <TabList>
-              <Tab
-                variant="default"
-                value="tab-1"
-                prefix={
-                  <Icon
-                    glyph={settingsGlyph}
-                    variant="scaled"
-                    intent="neutral"
-                    intentModifiers="default"
-                    interactive
-                  />
-                }
-              >
-                First Tab
-              </Tab>
-              <Tab
-                variant="default"
-                value="tab-2"
-                prefix={
-                  <Icon
-                    glyph={searchGlyph}
-                    variant="scaled"
-                    intent="neutral"
-                    intentModifiers="default"
-                    interactive
-                  />
-                }
-              >
-                Second Tab
-              </Tab>
-            </TabList>
-          </Section>
-        </TabContext>
-
-        <TabContext defaultValue="tab-1">
-          <Section>
-            <TabList>
-              <Tab
-                variant="single"
-                value="tab-1"
-                prefix={
-                  <Icon
-                    glyph={settingsGlyph}
-                    variant="scaled"
-                    intent="neutral"
-                    intentModifiers="default"
-                  />
-                }
-              >
-                Single
-              </Tab>
-            </TabList>
-          </Section>
-        </TabContext>
-      </div>
-    )
-  },
-}
-
-export const Suffix: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => {
-    const [activeTab, setActiveTab] = useState("tab-1")
-
-    return (
-      <div className="sb-column sb-width-full">
-        <TabContext
-          value={activeTab}
-          onChange={(args) => {
-            setActiveTab(args.value)
-          }}
-        >
-          <Section>
-            <TabList>
-              <Tab
-                variant="default"
-                value="tab-1"
-                suffix={
-                  <div style={{ paddingLeft: "var(--pui-spacing-100)" }}>
-                    <Badge
-                      intent={activeTab === "tab-1" ? "neutral" : "brand"}
-                      intentModifiers="default"
-                    >
-                      1
-                    </Badge>
-                  </div>
-                }
-              >
-                First Tab
-              </Tab>
-              <Tab
-                variant="default"
-                value="tab-2"
-                suffix={
-                  <div style={{ paddingLeft: "var(--pui-spacing-100)" }}>
-                    <Badge
-                      intent={activeTab === "tab-2" ? "neutral" : "brand"}
-                      intentModifiers="default"
-                    >
-                      2
-                    </Badge>
-                  </div>
-                }
-              >
-                Second Tab
-              </Tab>
-            </TabList>
-          </Section>
-        </TabContext>
-
-        <TabContext defaultValue="tab-1">
-          <Section>
-            <TabList>
-              <Tab
-                variant="single"
-                value="tab-1"
-                suffix={
-                  <div style={{ paddingLeft: "var(--pui-spacing-100)" }}>
-                    <Badge intent="neutral" intentModifiers="default">
-                      1
-                    </Badge>
-                  </div>
-                }
-              >
-                Single
-              </Tab>
-            </TabList>
-          </Section>
-        </TabContext>
-      </div>
-    )
-  },
-}
+export const Variant = VariantStory
+export const Prefix = PrefixStory
+export const Suffix = SuffixStory

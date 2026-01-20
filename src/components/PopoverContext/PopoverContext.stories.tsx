@@ -33,7 +33,7 @@ const meta: Meta = {
       description: "Ref to the trigger element.",
       table: {
         type: {
-          summary: "preact.RefObject<HTMLElement>",
+          summary: "preact.RefObject",
         },
       },
     },
@@ -43,7 +43,7 @@ const meta: Meta = {
         "Ref to the anchor element. If not provided, the triggerRef will be used",
       table: {
         type: {
-          summary: "preact.RefObject<HTMLElement>",
+          summary: "preact.RefObject",
         },
       },
     },
@@ -65,7 +65,7 @@ const meta: Meta = {
       description: "<strong>*</strong>",
       table: {
         type: {
-          summary: "JSX.Element",
+          summary: "preact.ComponentChildren",
         },
       },
     },

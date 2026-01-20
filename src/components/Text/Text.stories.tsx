@@ -18,6 +18,9 @@ const meta: Meta<typeof Text> = {
     className: {
       control: { type: "text" },
     },
+    id: {
+      control: { type: "text" },
+    },
     intent: {
       control: { type: "radio" },
       options: [
@@ -95,7 +98,7 @@ const meta: Meta<typeof Text> = {
       control: { type: "text" },
       table: {
         type: {
-          summary: "string | number | JSX.Element",
+          summary: "string",
         },
       },
     },

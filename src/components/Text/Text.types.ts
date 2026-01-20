@@ -1,5 +1,6 @@
 export interface TextProps {
   className?: string
+  id?: string
   intent?:
     | "neutral"
     | "neutral-inverted"

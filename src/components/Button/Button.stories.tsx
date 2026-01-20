@@ -56,7 +56,7 @@ const meta: Meta<typeof Button> = {
       description: "Tooltip content.",
       table: {
         type: {
-          summary: "string | number | JSX.Element",
+          summary: "preact.ComponentChildren",
         },
       },
     },
@@ -65,7 +65,7 @@ const meta: Meta<typeof Button> = {
       description: "Element displayed before children.",
       table: {
         type: {
-          summary: "string | number | JSX.Element",
+          summary: "preact.ComponentChildren",
         },
       },
     },
@@ -74,7 +74,7 @@ const meta: Meta<typeof Button> = {
       description: "Element displayed after children.",
       table: {
         type: {
-          summary: "string | number | JSX.Element",
+          summary: "preact.ComponentChildren",
         },
       },
     },
@@ -83,7 +83,7 @@ const meta: Meta<typeof Button> = {
       description: "<strong>*</strong>",
       table: {
         type: {
-          summary: "string | number | JSX.Element",
+          summary: "preact.ComponentChildren",
         },
       },
     },

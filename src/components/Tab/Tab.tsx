@@ -1,11 +1,14 @@
 import { bem, typedForwardRef } from "../../utils"
 
+import { toChildArray, cloneElement } from "preact"
 import { useRef } from "preact/hooks"
+
+import type { VNode } from "preact"
+
+import { useTabContext, Text, Icon } from "../../index"
 
 import type { TabProps } from "./Tab.types"
 import "./Tab.scss"
-
-import { useTabContext, Text } from "../../index"
 
 /* --- */
 
@@ -52,9 +55,30 @@ const TabComponent = (
 
   type ContentProps = { fake?: boolean; selected: boolean }
 
+  const renderAdditionalContent = (
+    content: preact.ComponentChildren,
+    selected: boolean
+  ) => {
+    return toChildArray(content).map((contentChild) => {
+      if (typeof contentChild === "object" && contentChild !== null) {
+        const maybeVNode = contentChild as VNode
+        if (maybeVNode.type === Icon) {
+          return cloneElement(maybeVNode, {
+            intentModifier: selected ? "default" : "secondary",
+          })
+        }
+      }
+      return contentChild
+    })
+  }
+
   const Content = ({ fake = false, selected = false }: ContentProps) => (
     <div className="Tab__content">
-      {prefix && <div className="Tab__prefix">{prefix}</div>}
+      {prefix && (
+        <div className="Tab__prefix">
+          {prefix && renderAdditionalContent(prefix, selected)}
+        </div>
+      )}
       {children && (
         <div className="Tab__children">
           <Text
@@ -62,14 +86,17 @@ const TabComponent = (
             size="medium"
             strong={fake || value === activeValue}
             intent="neutral"
-            intentModifiers={selected ? "default" : "secondary"}
-            interactive
+            intentModifier={selected ? "default" : "secondary"}
           >
             {children}
           </Text>
         </div>
       )}
-      {suffix && <div className="Tab__suffix">{suffix}</div>}
+      {suffix && (
+        <div className="Tab__suffix">
+          {suffix && renderAdditionalContent(suffix, selected)}
+        </div>
+      )}
     </div>
   )
 

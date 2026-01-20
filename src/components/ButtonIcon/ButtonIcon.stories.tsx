@@ -56,7 +56,7 @@ const meta: Meta<typeof ButtonIcon> = {
       description: "Tooltip content.",
       table: {
         type: {
-          summary: "string | number | JSX.Element",
+          summary: "preact.ComponentChildren",
         },
       },
     },
@@ -64,7 +64,7 @@ const meta: Meta<typeof ButtonIcon> = {
       control: { disable: true },
       table: {
         type: {
-          summary: "string | number | JSX.Element",
+          summary: "preact.ComponentChildren",
         },
       },
     },

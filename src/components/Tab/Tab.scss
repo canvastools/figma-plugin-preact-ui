@@ -2,8 +2,6 @@
 @use "../../mixins.scss" as *;
 
 .Tab {
-  $parent: &;
-
   position: relative;
   display: flex;
   justify-content: center;
@@ -14,7 +12,7 @@
   padding: 0;
 
   &:focus-visible {
-    outline: 1px solid var(--pui-color-system-border-focus);
+    outline: 1px solid var(--pui-color-system-border-focused);
     outline-offset: -1px;
     box-shadow: none;
   }
@@ -62,27 +60,25 @@
     padding-right: var(--pui-spacing-200);
   }
 
-  &_variant {
-    &-default {
-      border: none;
-      background-color: var(--pui-color-neutral-bg-default-interactive);
-      @include curson-feedback;
+  &_variant-default {
+    border: none;
+    background-color: var(--pui-color-neutral-bg-default-interactive);
+    cursor: default;
 
-      &:hover {
-        background-color: var(--pui-color-neutral-bg-default-interactive-hover);
-      }
-
-      &#{$parent}_selected,
-      &#{$parent}_selected:hover {
-        background-color: var(--pui-color-neutral-bg-default-interactive-hover);
-      }
+    &:hover {
+      background-color: var(--pui-color-neutral-bg-default-interactive-hover);
     }
+  }
 
-    &-single {
-      border: none;
-      background-color: unset;
+  &_variant-default &_selected,
+  &_variant-default &_selected:hover {
+    background-color: var(--pui-color-neutral-bg-default-interactive-hover);
+  }
 
-      cursor: auto;
-    }
+  &_variant-single {
+    border: none;
+    background-color: unset;
+
+    cursor: auto;
   }
 }

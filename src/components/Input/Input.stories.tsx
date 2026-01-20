@@ -62,7 +62,7 @@ const meta: Meta<typeof Input> = {
       description: "Element displayed before value.",
       table: {
         type: {
-          summary: "string | number | JSX.Element",
+          summary: "preact.ComponentChildren",
         },
       },
     },
@@ -72,7 +72,7 @@ const meta: Meta<typeof Input> = {
 
       table: {
         type: {
-          summary: "string | number | JSX.Element",
+          summary: "preact.ComponentChildren",
         },
       },
     },
@@ -99,7 +99,7 @@ const meta: Meta<typeof Input> = {
       description: "Tooltip content.",
       table: {
         type: {
-          summary: "string | number | JSX.Element",
+          summary: "preact.ComponentChildren",
         },
       },
     },

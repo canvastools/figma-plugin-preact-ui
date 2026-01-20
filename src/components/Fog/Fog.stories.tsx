@@ -29,7 +29,7 @@ const meta: Meta<typeof Fog> = {
       control: { type: "text" },
       table: {
         type: {
-          summary: "string | number | JSX.Element",
+          summary: "preact.ComponentChildren",
         },
       },
     },

@@ -60,7 +60,7 @@ const meta: Meta<typeof MenuItemOption> = {
       description: "Element displayed before children.",
       table: {
         type: {
-          summary: "string | number | JSX.Element",
+          summary: "preact.ComponentChildren",
         },
       },
     },
@@ -69,7 +69,7 @@ const meta: Meta<typeof MenuItemOption> = {
       description: "Element displayed after children.",
       table: {
         type: {
-          summary: "string | number | JSX.Element",
+          summary: "preact.ComponentChildren",
         },
       },
     },
@@ -78,7 +78,7 @@ const meta: Meta<typeof MenuItemOption> = {
       description: "<strong>*</strong>",
       table: {
         type: {
-          summary: "string | number | JSX.Element",
+          summary: "preact.ComponentChildren",
         },
       },
     },

@@ -43,7 +43,7 @@ const meta: Meta<typeof ScrollContext> = {
       description: "<strong>*</strong>",
       table: {
         type: {
-          summary: "JSX.Element",
+          summary: "preact.ComponentChildren",
         },
       },
     },

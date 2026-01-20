@@ -38,7 +38,7 @@ const meta: Meta<typeof OverlayPositioner> = {
         "<strong>*</strong> Element's ref the overlay is anchored to.",
       table: {
         type: {
-          summary: "preact.RefObject<HTMLElement>",
+          summary: "preact.RefObject",
         },
       },
     },
@@ -189,7 +189,7 @@ const meta: Meta<typeof OverlayPositioner> = {
       description: "<strong>*</strong>",
       table: {
         type: {
-          summary: "string | number | JSX.Element",
+          summary: "preact.ComponentChildren",
         },
       },
     },

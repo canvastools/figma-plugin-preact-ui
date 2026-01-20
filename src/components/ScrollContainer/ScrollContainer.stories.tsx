@@ -26,7 +26,7 @@ const meta: Meta<typeof ScrollContainer> = {
       description: "<strong>*</strong>",
       table: {
         type: {
-          summary: "string | number | JSX.Element",
+          summary: "preact.ComponentChildren",
         },
       },
     },
