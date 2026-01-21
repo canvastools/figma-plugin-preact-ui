@@ -4,6 +4,7 @@
   display: flex;
   flex-flow: column nowrap;
   overflow: hidden;
+  width: fit-content;
 
   background-color: var(--pui-color-neutral-bg-default);
   border-radius: var(--pui-radius-large);

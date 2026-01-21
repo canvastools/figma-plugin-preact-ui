@@ -1,6 +1,7 @@
 export interface TooltipContainerProps {
   className?: string
-  width?: number | "auto"
-  height?: number | "auto"
+  width?: number
+  height?: number
+  showArrow?: boolean
   children: preact.ComponentChildren
 }

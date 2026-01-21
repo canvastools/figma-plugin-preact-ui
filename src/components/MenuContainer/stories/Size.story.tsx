@@ -16,8 +16,6 @@ export const SizeStory: Story = {
       source: {
         language: "tsx",
         code: `
-<MenuContainer>{children}</MenuContainer>
-
 <MenuContainer
   width={200}
   height={300}

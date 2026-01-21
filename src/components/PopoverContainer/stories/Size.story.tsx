@@ -16,8 +16,6 @@ export const SizeStory: Story = {
       source: {
         language: "tsx",
         code: `
-<PopoverContainer>{children}</PopoverContainer>
-
 <PopoverContainer
   width={200}
   height={300}

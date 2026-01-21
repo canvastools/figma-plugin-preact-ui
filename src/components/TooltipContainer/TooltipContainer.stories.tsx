@@ -1,9 +1,10 @@
 import { Meta, StoryObj } from "@storybook/preact"
-import { useRef } from "preact/hooks"
+
+import { SizeStory } from "./stories/Size.story"
+
+import { Text } from "../../index"
 
 import { TooltipContainer } from "./TooltipContainer"
-
-import { Stack, Text, OverlayPositioner } from "../../index"
 
 const meta: Meta<typeof TooltipContainer> = {
   title: "Components/TooltipContainer",
@@ -12,8 +13,7 @@ const meta: Meta<typeof TooltipContainer> = {
   parameters: {
     docs: {
       description: {
-        component:
-          "A wrapper component that creates a tooltip-like container. Used inside &lt;OverlayPositioner/&gt; component.",
+        component: "A wrapper component that displays the tooltip content.",
       },
     },
   },
@@ -23,27 +23,21 @@ const meta: Meta<typeof TooltipContainer> = {
     },
     width: {
       control: { type: "number" },
-      defaultValue: { summary: "auto" },
-      table: {
-        type: {
-          summary: "number | 'auto'",
-        },
-      },
     },
     height: {
       control: { type: "number" },
-      defaultValue: { summary: "auto" },
-      table: {
-        type: {
-          summary: "number | 'auto'",
-        },
-      },
+    },
+    showArrow: {
+      control: { type: "boolean" },
+      description:
+        "Shows the arrow on the container based on the `<OverlayPositioner/>` placement.",
     },
     children: {
-      control: { disable: true },
+      control: { control: "text" },
+      description: "<strong>*</strong>",
       table: {
         type: {
-          summary: "JSX.Element",
+          summary: "preact.ComponentChildren",
         },
       },
     },
@@ -59,69 +53,37 @@ export const Demo: Story = {
     className: "",
     width: 300,
     height: 100,
+    showArrow: false,
+    children: "Tooltip content",
   },
   parameters: {
     viewport: {
       defaultViewport: "large",
     },
+    docs: {
+      source: {
+        language: "tsx",
+        code: `
+<TooltipContainer {...args}>
+  {children}
+</TooltipContainer>
+`,
+      },
+    },
   },
   render: (args) => {
     return (
-      <div className="sb-column sb-width-full">
+      <div
+        className="sb-column sb-width-full"
+        style={"--overlay-arrow-left: 150px; --overlay-arrow-top: 0px;"}
+      >
         <TooltipContainer {...args}>
-          <Text intent="neutral-inverted-fixed">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quae
-            autem dolorum quibusdam necessitatibus natus, ipsa aperiam eos animi
-            id nam tenetur adipisci?
-          </Text>
+          {/* @ts-ignore-next-line */}
+          {args.children}
         </TooltipContainer>
       </div>
     )
   },
 }
 
-export const Width: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => {
-    return (
-      <div className="sb-column sb-width-full">
-        <Stack spacing={400}>
-          <Text>Width: 200</Text>
-          <TooltipContainer width={200}>TooltipContainer</TooltipContainer>
-          <Text>Width: auto</Text>
-          <TooltipContainer width="auto">
-            Auto Size TooltipContainer
-          </TooltipContainer>
-        </Stack>
-      </div>
-    )
-  },
-}
-
-export const Height: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => {
-    return (
-      <div className="sb-column sb-width-full">
-        <Stack spacing={400}>
-          <Text>Height: 100</Text>
-          <TooltipContainer height={100}>TooltipContainer</TooltipContainer>
-          <Text>Height: auto</Text>
-          <TooltipContainer height="auto">
-            Auto Size TooltipContainer
-          </TooltipContainer>
-        </Stack>
-      </div>
-    )
-  },
-}
+export const Size = SizeStory

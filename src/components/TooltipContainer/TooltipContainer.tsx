@@ -10,25 +10,29 @@ import { Text } from "../Text/Text"
 const TooltipContainerComponent = (
   {
     className,
-    width = "auto",
-    height = "auto",
+    width,
+    height,
+    showArrow,
     children,
     ...rest
   }: TooltipContainerProps,
   ref: preact.Ref<HTMLDivElement>
 ) => {
-  const _className = bem("TooltipContainer", undefined, undefined)
+  const _className = bem("TooltipContainer", undefined, {
+    arrow: showArrow,
+  })
 
   return (
     <div
       className={[_className, "no-drag", className].join(" ").trim()}
       ref={ref}
       style={{
-        width: width === "auto" ? undefined : (width as number),
-        height: height === "auto" ? undefined : (height as number),
+        width,
+        height,
       }}
       {...rest}
     >
+      {showArrow && <div className="TooltipContainer__arrow" />}
       <Text intent="neutral-inverted-fixed">{children}</Text>
     </div>
   )
