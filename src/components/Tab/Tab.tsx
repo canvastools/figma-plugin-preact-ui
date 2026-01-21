@@ -15,7 +15,7 @@ import "./Tab.scss"
 const TabComponent = (
   {
     className,
-    value,
+    id,
     variant = "default",
     prefix,
     suffix,
@@ -25,13 +25,13 @@ const TabComponent = (
   }: TabProps,
   ref: preact.Ref<HTMLButtonElement>
 ) => {
-  const { value: activeValue, onChange, registerTab } = useTabContext()
+  const { activeId, onTabChange, registerTab } = useTabContext()
 
   const buttonRef = useRef<HTMLButtonElement | null>(null)
 
   const setRef = (el: HTMLButtonElement | null) => {
     buttonRef.current = el
-    registerTab(value, el)
+    registerTab(id, el)
 
     if (typeof ref === "function") {
       ref(el)
@@ -42,15 +42,15 @@ const TabComponent = (
 
   const _className = bem("Tab", undefined, {
     variant,
-    selected: value === activeValue,
+    selected: id === activeId,
     prefix: Boolean(prefix),
     suffix: Boolean(suffix),
   })
 
   const handleClick = (event: MouseEvent) => {
     event.stopPropagation()
-    onChange(value)
-    onClick?.({ event, value })
+    onTabChange(id)
+    onClick?.({ event, id })
   }
 
   type ContentProps = { fake?: boolean; selected: boolean }
@@ -84,7 +84,7 @@ const TabComponent = (
           <Text
             variant="body"
             size="medium"
-            strong={fake || value === activeValue}
+            strong={fake || id === activeId}
             intent="neutral"
             intentModifier={selected ? "default" : "secondary"}
           >
@@ -104,15 +104,15 @@ const TabComponent = (
     <button
       className={[_className, "no-drag", className].join(" ").trim()}
       ref={setRef}
-      tabIndex={value === activeValue ? 0 : -1}
+      tabIndex={id === activeId ? 0 : -1}
       onClick={handleClick}
       {...rest}
     >
       <div className="Tab__container Tab__container_fake">
-        <Content fake selected={value === activeValue} />
+        <Content fake selected={id === activeId} />
       </div>
       <div className="Tab__container Tab__container_real">
-        <Content selected={value === activeValue} />
+        <Content selected={id === activeId} />
       </div>
     </button>
   )

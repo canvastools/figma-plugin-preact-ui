@@ -14,37 +14,37 @@ const useTabContext = () => {
 }
 
 const TabContext = ({
-  defaultValue = "",
-  value: controlledValue,
-  onChange,
+  defaultActiveId = "",
+  activeId: controlledActiveId,
+  onTabChange,
   children,
 }: TabContextProps) => {
-  const [internalValue, setInternalValue] = useState(defaultValue)
+  const [internalActiveId, setInternalActiveId] = useState(defaultActiveId)
 
-  const currentValue =
-    controlledValue !== undefined ? controlledValue : internalValue
+  const currentId =
+    controlledActiveId !== undefined ? controlledActiveId : internalActiveId
 
-  const handleChange = (newValue: string) => {
-    if (controlledValue === undefined) {
-      setInternalValue(newValue)
+  const handleChange = (newId: string) => {
+    if (controlledActiveId === undefined) {
+      setInternalActiveId(newId)
     }
-    onChange?.({ value: newValue })
+    onTabChange?.({ id: newId })
   }
 
   useEffect(() => {
-    if (controlledValue !== undefined) {
-      setInternalValue(controlledValue)
+    if (controlledActiveId !== undefined) {
+      setInternalActiveId(controlledActiveId)
     }
-  }, [controlledValue])
+  }, [controlledActiveId])
 
   const tabRegistryRef = useRef<
-    { value: string; ref: HTMLButtonElement | null }[]
+    { id: string; ref: HTMLButtonElement | null }[]
   >([])
   const lastTabDirectionRef = useRef<"forward" | "backward" | null>(null)
 
-  const registerTab = (value: string, ref: HTMLButtonElement | null) => {
+  const registerTab = (id: string, ref: HTMLButtonElement | null) => {
     const registry = tabRegistryRef.current
-    const existingIndex = registry.findIndex((tab) => tab.value === value)
+    const existingIndex = registry.findIndex((tab) => tab.id === id)
 
     // Unregister when ref becomes null (unmount)
     if (!ref) {
@@ -55,21 +55,20 @@ const TabContext = ({
     }
 
     if (existingIndex === -1) {
-      registry.push({ value, ref })
+      registry.push({ id, ref })
     } else {
       registry[existingIndex].ref = ref
     }
   }
 
-  const focusTab = (id?: string) => {
+  const setFocusedTab = (id?: string) => {
     const registry = tabRegistryRef.current
     if (!registry.length) return
 
-    const targetValue = id ?? registry[0]?.value
-    if (!targetValue) return
+    const targetId = id ?? registry[0]?.id
+    if (!targetId) return
 
-    const target =
-      registry.find((tab) => tab.value === targetValue) ?? registry[0]
+    const target = registry.find((tab) => tab.id === targetId) ?? registry[0]
     if (target?.ref) {
       target.ref.focus()
     }
@@ -173,11 +172,11 @@ const TabContext = ({
   }
 
   const contextValue: TabContextValue = {
-    value: currentValue,
-    onChange: handleChange,
-    setValue: setInternalValue,
+    activeId: currentId,
+    onTabChange: handleChange,
+    setActiveTab: setInternalActiveId,
     registerTab,
-    focusTab,
+    setFocusedTab,
   }
 
   useEffect(() => {

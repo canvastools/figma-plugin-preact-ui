@@ -1,19 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/preact"
 import { fn } from "@storybook/test"
 
-import { useState } from "preact/hooks"
+import { ControlledStory } from "./stories/Controlled.story"
+import { UncontrolledStory } from "./stories/Uncontrolled.story"
+
+import { TabPanel, TabList, Tab, Text, Section } from "../../index"
 
 import { TabContext } from "./TabContext"
-
-import {
-  TabPanel,
-  TabList,
-  Tab,
-  Text,
-  Section,
-  Button,
-  Stack,
-} from "../../index"
 
 const meta: Meta<typeof TabContext> = {
   title: "Components/TabContext",
@@ -22,65 +15,62 @@ const meta: Meta<typeof TabContext> = {
   parameters: {
     docs: {
       description: {
-        component: "A context provider that manages tab states.",
+        component:
+          "A context provider that manages states, focus, and keyboard navigation of Tab-related components.",
       },
     },
   },
   argTypes: {
-    defaultValue: {
-      table: {
-        type: {
-          summary: "string",
-        },
-      },
-      defaultValue: { summary: "" },
-      control: { disable: true },
-      description: "Initial value for uncontrolled mode.",
+    defaultActiveId: {
+      control: { type: "text" },
+      description: "Active tab ID for uncontrolled mode.",
     },
-    value: {
+    activeId: {
+      control: { disable: true },
+      description: "Active tab ID for controlled mode.",
       table: {
         type: {
           summary: "string",
         },
       },
-      control: { disable: true },
-      description: "Value for controlled mode.",
     },
     children: {
+      control: { disable: true },
+      description: "<strong>*</strong>",
       table: {
         type: {
-          summary: "JSX.Element",
+          summary: "preact.ComponentChildren",
         },
       },
-      control: { disable: true },
-      description: "Usually &lt;Tab&gt; and &lt;TabPanel&gt; components.",
     },
-    onChange: {
-      action: "changed",
-      description: "Callback when the tab is changed. Returns the new value.",
+    onTabChange: {
       table: {
         type: {
-          summary: "(args: {value: string}) => void",
+          summary: "(args) => void",
+          detail: `
+args: {
+  id: string
+}
+`,
         },
       },
     },
     useTabContext: {
+      description: "Hook to access the context.",
       table: {
         type: {
-          summary: "Hook",
+          summary: "Props",
+          detail: `
+{
+  activeId: string
+  onTabChange: (id: string) => void
+  setActiveTab: (id: string) => void
+  registerTab: (id: string, ref: HTMLButtonElement | null) => void
+  setFocusedTab: (id: string | undefined) => void
+}
+`,
         },
       },
-      description: `Use this hook inside a child component to access the context. <br/>
-        <pre>
-        interface TabContextValue {
-          value: string // current tab value
-          onChange: (value: string) => void // callback when the tab is changed
-          setValue: (value: string) => void // set the tab value
-          registerTab: (value: string, ref: HTMLButtonElement | null) => void // register a tab
-          focusTab: (id?: string) => void // focus a tab
-        }
-        </pre>
-        `,
     },
   },
 }
@@ -91,31 +81,49 @@ type Story = StoryObj<typeof TabContext>
 export const Demo: Story = {
   tags: ["!autodocs"],
   args: {
-    onChange: fn(),
+    defaultActiveId: "tab-1",
+    onTabChange: fn(),
   },
   parameters: {
     viewport: {
       defaultViewport: "large",
     },
+    docs: {
+      source: {
+        language: "tsx",
+        code: `
+<TabContext defaultActiveId="tab-1" {...args}>
+  <TabList>
+    <Tab id="tab-1">Tab 1</Tab>
+    <Tab id="tab-2">Tab 2</Tab>
+    <Tab id="tab-3">Tab 3</Tab>
+  </TabList>
+  <TabPanel tabId="tab-1">Tab 1 Panel</TabPanel>
+  <TabPanel tabId="tab-2">Tab 2 Panel</TabPanel>
+  <TabPanel tabId="tab-3">Tab 3 Panel</TabPanel>
+</TabContext>
+`,
+      },
+    },
   },
   render: (args) => (
-    <div className="sb-column sb-width-full sb-container">
-      <TabContext {...args} defaultValue="tab-1">
+    <div className="sb-column sb-width-full">
+      <TabContext {...args} defaultActiveId="tab-1">
         <Section>
           <TabList>
-            <Tab value="tab-1">Tab 1</Tab>
-            <Tab value="tab-2">Tab 2</Tab>
-            <Tab value="tab-3">Tab 3</Tab>
+            <Tab id="tab-1">Tab 1</Tab>
+            <Tab id="tab-2">Tab 2</Tab>
+            <Tab id="tab-3">Tab 3</Tab>
           </TabList>
         </Section>
         <Section>
-          <TabPanel value="tab-1">
+          <TabPanel tabId="tab-1">
             <Text>Tab 1 Panel</Text>
           </TabPanel>
-          <TabPanel value="tab-2">
+          <TabPanel tabId="tab-2">
             <Text>Tab 2 Panel</Text>
           </TabPanel>
-          <TabPanel value="tab-3">
+          <TabPanel tabId="tab-3">
             <Text>Tab 3 Panel</Text>
           </TabPanel>
         </Section>
@@ -124,93 +132,5 @@ export const Demo: Story = {
   ),
 }
 
-export const Uncontrolled: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => {
-    return (
-      <div className="sb-column sb-width-full">
-        <TabContext defaultValue="tab-1">
-          <Section>
-            <TabList>
-              <Tab value="tab-1">First Tab</Tab>
-              <Tab value="tab-2">Second Tab</Tab>
-              <Tab value="tab-3">Third Tab</Tab>
-            </TabList>
-          </Section>
-          <Section>
-            <TabPanel value="tab-1">
-              <Text>Tab 1 Panel</Text>
-            </TabPanel>
-            <TabPanel value="tab-2">
-              <Text>Tab 2 Panel</Text>
-            </TabPanel>
-            <TabPanel value="tab-3">
-              <Text>Tab 3 Panel</Text>
-            </TabPanel>
-          </Section>
-        </TabContext>
-      </div>
-    )
-  },
-}
-
-export const Controlled: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => {
-    const [activeTab, setActiveTab] = useState("tab-1")
-
-    return (
-      <div className="sb-column sb-width-full">
-        <Section>
-          <Stack direction="row" spacing={400} y="center">
-            <Text>Active Tab: {activeTab}</Text>
-            <Button onClick={() => setActiveTab("tab-1")}>
-              Set to First Tab
-            </Button>
-            <Button onClick={() => setActiveTab("tab-2")}>
-              Set to Second Tab
-            </Button>
-            <Button onClick={() => setActiveTab("tab-3")}>
-              Set to Third Tab
-            </Button>
-          </Stack>
-        </Section>
-        <TabContext
-          value={activeTab}
-          onChange={(args) => {
-            setActiveTab(args.value)
-          }}
-        >
-          <Section>
-            <TabList>
-              <Tab value="tab-1">First Tab</Tab>
-              <Tab value="tab-2">Second Tab</Tab>
-              <Tab value="tab-3">Third Tab</Tab>
-            </TabList>
-          </Section>
-          <Section>
-            <TabPanel value="tab-1">
-              <Text>Tab 1 Panel</Text>
-            </TabPanel>
-            <TabPanel value="tab-2">
-              <Text>Tab 2 Panel</Text>
-            </TabPanel>
-            <TabPanel value="tab-3">
-              <Text>Tab 3 Panel</Text>
-            </TabPanel>
-          </Section>
-        </TabContext>
-      </div>
-    )
-  },
-}
+export const Uncontrolled = UncontrolledStory
+export const Controlled = ControlledStory

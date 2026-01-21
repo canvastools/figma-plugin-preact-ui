@@ -80,7 +80,7 @@ const meta: Meta = {
   open: boolean
   setOpen: (open: boolean) => void
   registerItem: (meta: MenuItemMetadata) => void // register an item in the context
-  focusedItem: string | null // id of the currently focused item
+  focusedItemId: string | null // id of the currently focused item
   setFocusedItem: (id: string | null) => void // set the focused item
   clearFocus: () => void // clear the focused item
   setHoveredItem: (id: string | null) => void // set the hovered item
@@ -147,21 +147,21 @@ export const Demo: Story = {
             <MenuItemAction
               id="action-1"
               onClick={() => context.setOpen(false)}
-              focused={context.focusedItem === "action-1"}
+              focused={context.focusedItemId === "action-1"}
             >
               Action 1
             </MenuItemAction>
             <MenuItemAction
               id="action-2"
               onClick={() => context.setOpen(false)}
-              focused={context.focusedItem === "action-2"}
+              focused={context.focusedItemId === "action-2"}
             >
               Action 2
             </MenuItemAction>
             <MenuItemAction
               id="action-3"
               onClick={() => context.setOpen(false)}
-              focused={context.focusedItem === "action-3"}
+              focused={context.focusedItemId === "action-3"}
             >
               Action 3
             </MenuItemAction>

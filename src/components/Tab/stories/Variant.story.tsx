@@ -25,23 +25,23 @@ export const VariantStory: Story = {
   },
   render: () => (
     <div className="sb-column sb-width-full">
-      <TabContext defaultValue="tab-1">
+      <TabContext defaultActiveId="tab-1">
         <Section>
           <TabList>
-            <Tab variant="default" value="tab-1">
+            <Tab variant="default" id="tab-1">
               First Tab
             </Tab>
-            <Tab variant="default" value="tab-2">
+            <Tab variant="default" id="tab-2">
               Second Tab
             </Tab>
           </TabList>
         </Section>
       </TabContext>
 
-      <TabContext value="tab-1">
+      <TabContext defaultActiveId="tab-1">
         <Section>
           <TabList>
-            <Tab variant="single" value="tab-1">
+            <Tab variant="single" id="tab-1">
               Single
             </Tab>
           </TabList>

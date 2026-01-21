@@ -47,15 +47,15 @@ export const Demo: Story = {
       source: {
         language: "tsx",
         code: `
-<TabContext defaultValue="tab-1">
+<TabContext defaultActiveId="tab-1">
   <TabList {...args}>
-    <Tab value="tab-1">Tab 1</Tab>
-    <Tab value="tab-2">Tab 2</Tab>
-    <Tab value="tab-3">Tab 3</Tab>
+    <Tab id="tab-1">Tab 1</Tab>
+    <Tab id="tab-2">Tab 2</Tab>
+    <Tab id="tab-3">Tab 3</Tab>
   </TabList>
-  <TabPanel value="tab-1">Tab 1 Panel</TabPanel>
-  <TabPanel value="tab-2">Tab 2 Panel</TabPanel>
-  <TabPanel value="tab-3">Tab 3 Panel</TabPanel>
+  <TabPanel tabId="tab-1">Tab 1 Panel</TabPanel>
+  <TabPanel tabId="tab-2">Tab 2 Panel</TabPanel>
+  <TabPanel tabId="tab-3">Tab 3 Panel</TabPanel>
 </TabContext>
 `,
       },
@@ -66,12 +66,12 @@ export const Demo: Story = {
   },
   render: (args) => (
     <div className="sb-column sb-width-full">
-      <TabContext defaultValue="tab-1">
+      <TabContext defaultActiveId="tab-1">
         <Section>
           <TabList {...args}>
-            <Tab value="tab-1">Tab 1</Tab>
-            <Tab value="tab-2">Tab 2</Tab>
-            <Tab value="tab-3">Tab 3</Tab>
+            <Tab id="tab-1">Tab 1</Tab>
+            <Tab id="tab-2">Tab 2</Tab>
+            <Tab id="tab-3">Tab 3</Tab>
           </TabList>
         </Section>
       </TabContext>

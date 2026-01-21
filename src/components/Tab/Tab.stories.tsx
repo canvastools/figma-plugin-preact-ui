@@ -25,9 +25,9 @@ const meta: Meta<typeof Tab> = {
     className: {
       control: { type: "text" },
     },
-    value: {
+    id: {
       control: { disable: true },
-      description: "<strong>*</strong>Value associated with the tab.",
+      description: "<strong>*</strong>",
       table: {
         type: {
           summary: "string",
@@ -73,7 +73,7 @@ const meta: Meta<typeof Tab> = {
           detail: `
 args: {
   event: MouseEvent
-  value: string
+  id: string
 }
 `,
         },
@@ -100,15 +100,15 @@ export const Demo: Story = {
       source: {
         language: "tsx",
         code: `
-<TabContext defaultValue="tab-1">
+<TabContext defaultActiveId="tab-1">
   <TabList>
-    <Tab value="tab-1" {...args}>{children}</Tab>
-    <Tab value="tab-2" {...args}>{children}</Tab>
-    <Tab value="tab-3" {...args}>{children}</Tab>
+    <Tab id="tab-1" {...args}>{children}</Tab>
+    <Tab id="tab-2" {...args}>{children}</Tab>
+    <Tab id="tab-3" {...args}>{children}</Tab>
   </TabList>
-  <TabPanel value="tab-1">Tab 1 Panel</TabPanel>
-  <TabPanel value="tab-2">Tab 2 Panel</TabPanel>
-  <TabPanel value="tab-3">Tab 3 Panel</TabPanel>
+  <TabPanel tabId="tab-1">Tab 1 Panel</TabPanel>
+  <TabPanel tabId="tab-2">Tab 2 Panel</TabPanel>
+  <TabPanel tabId="tab-3">Tab 3 Panel</TabPanel>
 </TabContext>
         `,
       },
@@ -119,16 +119,16 @@ export const Demo: Story = {
     if (args.variant === "default") {
       return (
         <div className="sb-column sb-width-full">
-          <TabContext defaultValue="tab-1">
+          <TabContext defaultActiveId="tab-1">
             <Section>
               <TabList>
-                <Tab {...args} value="tab-1">
+                <Tab {...args} id="tab-1">
                   Tab 1
                 </Tab>
-                <Tab {...args} value="tab-2">
+                <Tab {...args} id="tab-2">
                   Tab 2
                 </Tab>
-                <Tab {...args} value="tab-3">
+                <Tab {...args} id="tab-3">
                   Tab 3
                 </Tab>
               </TabList>
@@ -139,10 +139,10 @@ export const Demo: Story = {
     } else {
       return (
         <div className="sb-column sb-width-full">
-          <TabContext value="tab-1">
+          <TabContext defaultActiveId="tab-1">
             <Section>
               <TabList>
-                <Tab {...args} value="tab-1" variant="single">
+                <Tab {...args} id="tab-1" variant="single">
                   Single
                 </Tab>
               </TabList>

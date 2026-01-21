@@ -10,15 +10,15 @@ import { useTabContext } from "../../index"
 /* --- */
 
 const TabPanelComponent = (
-  { className, value, fullHeight = false, children, ...rest }: TabPanelProps,
+  { className, tabId, fullHeight = false, children, ...rest }: TabPanelProps,
   ref: preact.Ref<HTMLDivElement>
 ) => {
-  const { value: activeValue } = useTabContext()
+  const { activeId } = useTabContext()
 
-  if (value !== activeValue) return <Fragment />
+  if (tabId !== activeId) return <Fragment />
 
   const _className = bem("TabPanel", undefined, {
-    selected: value === activeValue,
+    selected: tabId === activeId,
     fullHeight,
   })
 

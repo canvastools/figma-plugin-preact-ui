@@ -20,9 +20,9 @@ const meta: Meta<typeof TabPanel> = {
     className: {
       control: { type: "text" },
     },
-    value: {
+    tabId: {
       control: { disable: true },
-      description: "<strong>*</strong>Value associated with the tab panel.",
+      description: "<strong>*</strong>",
       table: {
         type: {
           summary: "string",
@@ -57,15 +57,15 @@ export const Demo: Story = {
       source: {
         language: "tsx",
         code: `
-<TabContext defaultValue="tab-1">
+<TabContext defaultActiveId="tab-1">
   <TabList>
-    <Tab value="tab-1">Tab 1</Tab>
-    <Tab value="tab-2">Tab 2</Tab>
-    <Tab value="tab-3">Tab 3</Tab>
+    <Tab id="tab-1">Tab 1</Tab>
+    <Tab id="tab-2">Tab 2</Tab>
+    <Tab id="tab-3">Tab 3</Tab>
   </TabList>
-  <TabPanel value="tab-1" {...args}>{children}</TabPanel>
-  <TabPanel value="tab-2" {...args}>{children}</TabPanel>
-  <TabPanel value="tab-3" {...args}>{children}</TabPanel>
+    <TabPanel tabId="tab-1" {...args}>{children}</TabPanel>
+  <TabPanel tabId="tab-2" {...args}>{children}</TabPanel>
+  <TabPanel tabId="tab-3" {...args}>{children}</TabPanel>
 </TabContext>
 `,
       },
@@ -77,23 +77,25 @@ export const Demo: Story = {
   },
   render: (args) => (
     <div className="sb-column sb-width-full sb-height-300">
-      <TabContext defaultValue="tab-1">
+      <TabContext defaultActiveId="tab-1">
         <Section>
           <TabList>
-            <Tab value="tab-1">Tab 1</Tab>
-            <Tab value="tab-2">Tab 2</Tab>
-            <Tab value="tab-3">Tab 3</Tab>
+            <Tab id="tab-1">Tab 1</Tab>
+            <Tab id="tab-2">Tab 2</Tab>
+            <Tab id="tab-3">Tab 3</Tab>
           </TabList>
         </Section>
-        <TabPanel {...args} value="tab-1">
-          <Text>Tab 1 Panel</Text>
-        </TabPanel>
-        <TabPanel {...args} value="tab-2">
-          <Text>Tab 2 Panel</Text>
-        </TabPanel>
-        <TabPanel {...args} value="tab-3">
-          <Text>Tab 3 Panel</Text>
-        </TabPanel>
+        <Section>
+          <TabPanel {...args} tabId="tab-1">
+            <Text>Tab 1 Panel</Text>
+          </TabPanel>
+          <TabPanel {...args} tabId="tab-2">
+            <Text>Tab 2 Panel</Text>
+          </TabPanel>
+          <TabPanel {...args} tabId="tab-3">
+            <Text>Tab 3 Panel</Text>
+          </TabPanel>
+        </Section>
       </TabContext>
     </div>
   ),

@@ -10,7 +10,7 @@ export interface MenuContextValue {
   open?: boolean
   setOpen: (open: boolean) => void
   registerItem: (meta: MenuItemMetadata) => () => void
-  focusedItem: string | null
+  focusedItemId: string | null
   setFocusedItem: (id: string | null) => void
   clearFocus: () => void
   setHoveredItem: (id: string | null) => void

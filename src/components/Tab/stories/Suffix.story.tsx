@@ -31,19 +31,19 @@ export const SuffixStory: Story = {
   },
   render: () => (
     <div className="sb-column sb-width-full">
-      <TabContext defaultValue="tab-1">
+      <TabContext defaultActiveId="tab-1">
         <Section>
           <TabList>
             <Tab
               variant="default"
-              value="tab-1"
+              id="tab-1"
               suffix={<Icon glyph={link} variant="scaled" />}
             >
               First Tab
             </Tab>
             <Tab
               variant="default"
-              value="tab-2"
+              id="tab-2"
               suffix={<Icon glyph={link} variant="scaled" />}
             >
               Second Tab
@@ -52,12 +52,12 @@ export const SuffixStory: Story = {
         </Section>
       </TabContext>
 
-      <TabContext value="tab-1">
+      <TabContext defaultActiveId="tab-1">
         <Section>
           <TabList>
             <Tab
               variant="single"
-              value="tab-1"
+              id="tab-1"
               suffix={<Icon glyph={link} variant="scaled" />}
             >
               Single

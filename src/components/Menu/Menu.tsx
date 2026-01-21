@@ -51,7 +51,7 @@ const MenuBody = ({
   const context = useMenuContext()
   if (!context) return null
 
-  const { triggerRef, anchorRef, open, focusedItem, setOpen } = context
+  const { triggerRef, anchorRef, open, focusedItemId, setOpen } = context
 
   const hasFiredOpenRef = useRef(false)
 
@@ -107,7 +107,7 @@ const MenuBody = ({
           {...rest}
           id={item.id}
           onClick={handleItemClick}
-          focused={item.id ? focusedItem === item.id : false}
+          focused={item.id ? focusedItemId === item.id : false}
         />
       )
     }
@@ -130,7 +130,7 @@ const MenuBody = ({
           {...rest}
           id={item.id}
           onSelectedChange={handleItemChange}
-          focused={item.id ? focusedItem === item.id : false}
+          focused={item.id ? focusedItemId === item.id : false}
         />
       )
     }
@@ -150,7 +150,7 @@ const MenuBody = ({
           key: item.id ?? index,
           id: item.id,
           disabled: item.disabled,
-          focused: item.id ? focusedItem === item.id : false,
+          focused: item.id ? focusedItemId === item.id : false,
           onClick: handleItemClick,
         })
       }
