@@ -98,7 +98,7 @@ const triggerRef = useRef(null)
   <Text ref={triggerRef}>Hover to see Tooltip</Text>
   
   <Tooltip
-    anchorRef={triggerRef}
+    triggerRef={triggerRef}
     {...args}
   >
     {children}
