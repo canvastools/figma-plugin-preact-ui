@@ -1,6 +1,6 @@
 import { StoryObj } from "@storybook/preact"
 
-import { viewList, viewGrid } from "../../../index"
+import { viewList, viewGrid, TooltipContext } from "../../../index"
 
 import { SegmentedControl } from "../SegmentedControl"
 import { SegmentedControlItemData } from "../SegmentedControl.types"
@@ -36,6 +36,15 @@ const items = [
   items={items}
   defaultValue="list"
 />
+
+// Use TooltipContext to make tooltips work
+
+<TooltipContext>
+  <SegmentedControl
+    items={items}
+    defaultValue="list"
+  />
+</TooltipContext>
 `,
       },
     },
@@ -56,7 +65,9 @@ const items = [
 
     return (
       <div className="sb-column sb-width-300">
-        <SegmentedControl items={items} defaultValue="list" />
+        <TooltipContext>
+          <SegmentedControl items={items} defaultValue="list" />
+        </TooltipContext>
       </div>
     )
   },

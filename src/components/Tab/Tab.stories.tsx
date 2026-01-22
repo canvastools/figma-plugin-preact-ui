@@ -83,6 +83,7 @@ args: {
 }
 
 export default meta
+
 type Story = StoryObj<typeof Tab>
 
 export const Demo: Story = {

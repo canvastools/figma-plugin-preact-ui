@@ -1,6 +1,5 @@
-import type { PopoverHeaderProps } from "../../index"
-
-import {
+import type {
+  PopoverHeaderProps,
   PopoverContextProps,
   PopoverContainerProps,
   OverlayPositionerProps,

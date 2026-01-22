@@ -45,6 +45,7 @@ const meta: Meta<typeof TooltipContainer> = {
 }
 
 export default meta
+
 type Story = StoryObj<typeof TooltipContainer>
 
 export const Demo: Story = {

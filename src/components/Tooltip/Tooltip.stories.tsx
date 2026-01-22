@@ -3,9 +3,9 @@ import { fn } from "@storybook/test"
 
 import { useRef } from "preact/hooks"
 
-import { Tooltip } from "./Tooltip"
-
 import { Text, TooltipContext } from "../../index"
+
+import { Tooltip } from "./Tooltip"
 
 const meta: Meta<typeof Tooltip> = {
   title: "Components/Tooltip",
@@ -15,7 +15,7 @@ const meta: Meta<typeof Tooltip> = {
     docs: {
       description: {
         component:
-          "A wrapper component that creates a tooltip-like container. Must be used inside &lt;TooltipContext/&gt; so that all tooltips share the same context.",
+          "A facade component that provides a simplified API for tooltips.",
       },
     },
   },
@@ -27,144 +27,96 @@ const meta: Meta<typeof Tooltip> = {
       control: { disable: true },
       description: "Ref to the trigger element.",
       table: {
-        type: { summary: "JSX.Element" },
-      },
-    },
-    anchorRef: {
-      control: { disable: true },
-      description: "Ref to the anchor element.",
-      table: {
-        type: { summary: "JSX.Element" },
-      },
-    },
-    width: {
-      control: { type: "number" },
-      defaultValue: { summary: "auto" },
-      table: {
-        type: { summary: "number | 'auto'" },
-      },
-    },
-    height: {
-      control: { disable: true },
-      defaultValue: { summary: "auto" },
-      table: {
-        type: { summary: "number | 'auto'" },
-      },
-    },
-    placement: {
-      control: { type: "radio" },
-      defaultValue: { summary: "bottom" },
-      options: [
-        "over",
-        "top",
-        "top-left",
-        "top-right",
-        "bottom",
-        "bottom-left",
-        "bottom-right",
-        "left",
-        "left-top",
-        "left-bottom",
-        "right",
-        "right-top",
-        "right-bottom",
-      ],
-      description: "Placement of the popover.",
-      table: {
-        type: {
-          summary: "OverlayPlacement",
-        },
-      },
-    },
-    placementFallback: {
-      control: { disable: true },
-      defaultValue: { summary: ["top"] },
-      description: "Fallback placement of the popover.",
-      table: {
-        type: {
-          summary: "false | OverlayPlacement[]",
-        },
-      },
-    },
-    paddingX: {
-      control: { type: "number" },
-      defaultValue: { summary: 0 },
-      table: {
-        type: { summary: "number" },
-      },
-    },
-    paddingY: {
-      control: { type: "number" },
-      defaultValue: { summary: 8 },
-      table: {
-        type: { summary: "number" },
-      },
-    },
-    edgePadding: {
-      control: { type: "number" },
-      defaultValue: { summary: 8 },
-      table: {
-        type: { summary: "number" },
+        type: { summary: "preact.RefObject" },
       },
     },
     children: {
-      control: { disable: true },
+      control: { control: "text" },
       description: "Children elements.",
       table: {
         type: { summary: "JSX.Element" },
       },
     },
-    onOpen: {
+    "...TooltipContainerProps": {
       control: { disable: true },
-      description: "Callback when the tooltip is opened.",
       table: {
-        type: { summary: "() => void" },
+        type: {
+          summary: "Pick<TooltipContainerProps>",
+          detail: `
+{
+  width: number
+  height: number
+  showArrow: boolean
+}
+          `,
+        },
       },
     },
-    onClose: {
+    "...OverlayPositionerProps": {
       control: { disable: true },
-      description: "Callback when the tooltip is closed.",
       table: {
-        type: { summary: "() => void" },
+        type: {
+          summary: "Pick<OverlayPositionerProps>",
+          detail: `
+{
+  anchorRef: RefObject | null
+  placement: OverlayPositionerPlacement
+  placementFallback: OverlayPositionerPlacement[]
+  offsetX: number
+  offsetY: number
+  offsetEdge: number
+  onOpen: () => void
+  onClose: () => void
+}
+          `,
+        },
       },
     },
   },
 }
 
 export default meta
+
 type Story = StoryObj<typeof Tooltip>
 
 export const Demo: Story = {
   args: {
     className: "",
-    width: 140,
-    placement: "bottom",
-    paddingX: 0,
-    paddingY: 8,
-    edgePadding: 8,
-    onOpen: fn(),
-    onClose: fn(),
+    children: "Tooltip content",
   },
   parameters: {
     viewport: {
       defaultViewport: "large",
+    },
+    docs: {
+      source: {
+        language: "tsx",
+        code: `
+const triggerRef = useRef(null)
+
+<TooltipContext>
+  <Text ref={triggerRef}>Hover to see Tooltip</Text>
+  
+  <Tooltip
+    anchorRef={triggerRef}
+    {...args}
+  >
+    {children}
+  </Tooltip>
+</TooltipContext>
+`,
+      },
     },
   },
   render: (args) => {
     const triggerRef = useRef<HTMLDivElement | null>(null)
 
     return (
-      <div className="sb-column sb-width-300">
+      <div className="sb-column sb-width-300 sb-container">
         <TooltipContext>
-          <Text ref={triggerRef}>
-            Hover to see Tooltip. Qui quae autem dolorum quibusdam
-            necessitatibus natus, ipsa aperiam eos animi id nam tenetur
-            adipisci? Amet nisi doloremque asperiores quisquam, repudiandae
-            similique magnam aspernatur esse dignissimos molestiae.
-          </Text>
-          <Tooltip triggerRef={triggerRef} {...args}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          </Tooltip>
+          <Text ref={triggerRef}>Hover to see Tooltip.</Text>
+          {/* @ts-ignore-next-line */}
+          <Tooltip triggerRef={triggerRef} {...args} />
         </TooltipContext>
       </div>
     )

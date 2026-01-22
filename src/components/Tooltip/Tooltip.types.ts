@@ -1,17 +1,26 @@
-import { OverlayPlacement } from "../../index"
+import type { OverlayPositionerProps, TooltipContainerProps } from "../../index"
 
-export interface TooltipProps {
+type TooltipContainerPropsPick = Pick<
+  TooltipContainerProps,
+  "width" | "height" | "showArrow"
+>
+
+type OverlayPositionerPropsPick = Pick<
+  OverlayPositionerProps,
+  | "anchorRef"
+  | "placement"
+  | "placementFallback"
+  | "offsetX"
+  | "offsetY"
+  | "offsetEdge"
+  | "onOpen"
+  | "onClose"
+>
+
+export interface TooltipProps
+  extends OverlayPositionerPropsPick,
+    TooltipContainerPropsPick {
   className?: string
   triggerRef?: preact.RefObject<HTMLElement | null>
-  anchorRef?: preact.RefObject<HTMLElement | null>
-  width?: number | "auto"
-  height?: number | "auto"
-  placement?: OverlayPlacement
-  placementFallback?: false | OverlayPlacement[]
-  paddingX?: number
-  paddingY?: number
-  edgePadding?: number
   children: preact.ComponentChildren
-  onOpen?: () => void
-  onClose?: () => void
 }

@@ -46,6 +46,7 @@ const meta: Meta<typeof TabPanel> = {
 }
 
 export default meta
+
 type Story = StoryObj<typeof TabPanel>
 
 export const Demo: Story = {

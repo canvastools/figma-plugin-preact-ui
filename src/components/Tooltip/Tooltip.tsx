@@ -2,14 +2,14 @@ import { bem, typedForwardRef } from "../../utils"
 
 import { useEffect, useState } from "preact/hooks"
 
-import type { TooltipProps } from "./Tooltip.types"
-import "./Tooltip.scss"
-
 import {
   OverlayPositioner,
   TooltipContainer,
   useTooltipContext,
 } from "../../index"
+
+import type { TooltipProps } from "./Tooltip.types"
+import "./Tooltip.scss"
 
 /* --- */
 
@@ -20,14 +20,15 @@ const TooltipComponent = (
     anchorRef,
     width,
     height,
+    showArrow = true,
     placement = "bottom",
-    placementFallback = ["top"],
-    paddingX = 0,
-    paddingY = 8,
-    edgePadding = 8,
-    children,
+    placementFallback = ["top", "left", "right"],
+    offsetX = 0,
+    offsetY = 8,
+    offsetEdge = 16,
     onOpen,
     onClose,
+    children,
     ...rest
   }: TooltipProps,
   ref: preact.Ref<HTMLDivElement>
@@ -83,12 +84,10 @@ const TooltipComponent = (
       open={open}
       placement={placement}
       placementFallback={placementFallback}
-      paddingX={paddingX}
-      paddingY={paddingY}
-      edgePadding={edgePadding}
-      closeOnOutsideClick={false}
+      offsetX={offsetX}
+      offsetY={offsetY}
+      offsetEdge={offsetEdge}
       trigger="hover"
-      arrow={true}
       onClose={() => setOpen(false)}
     >
       <div
@@ -96,7 +95,7 @@ const TooltipComponent = (
         ref={ref}
         {...rest}
       >
-        <TooltipContainer width={width} height={height}>
+        <TooltipContainer width={width} height={height} showArrow={showArrow}>
           {children}
         </TooltipContainer>
       </div>

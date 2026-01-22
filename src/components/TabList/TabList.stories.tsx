@@ -35,6 +35,7 @@ const meta: Meta<typeof TabList> = {
 }
 
 export default meta
+
 type Story = StoryObj<typeof TabList>
 
 export const Demo: Story = {

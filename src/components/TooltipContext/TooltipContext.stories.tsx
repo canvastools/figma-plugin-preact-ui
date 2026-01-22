@@ -1,8 +1,6 @@
 import { Meta, StoryObj } from "@storybook/preact"
 import { useRef } from "preact/hooks"
 
-import { TooltipContext } from "./TooltipContext"
-
 import {
   Button,
   Stack,
@@ -18,6 +16,8 @@ import {
   ColorSwatch,
 } from "../../index"
 
+import { TooltipContext } from "./TooltipContext"
+
 const meta: Meta<typeof TooltipContext> = {
   title: "Components/TooltipContext",
   component: TooltipContext,
@@ -26,37 +26,45 @@ const meta: Meta<typeof TooltipContext> = {
     docs: {
       description: {
         component:
-          "A wrapper component that makes all tooltips in its context aware of each other. When one tooltip is opened, immediate hover on another tooltip will open it without a delay.",
+          "A context provider that manages visibility of multiple tooltips.",
       },
     },
   },
   argTypes: {
     children: {
       control: { disable: true },
-      description: "Children elements.",
+      description: "<strong>*</strong>",
       table: {
         type: {
-          summary: "JSX.Element",
+          summary: "preact.ComponentChildren",
         },
       },
     },
     useTooltipContext: {
+      description: "Hook to access the context.",
       table: {
         type: {
-          summary: "Hook",
+          summary: "Props",
+          detail: `
+{
+  registerHoverStart: (
+    ref: preact.RefObject,
+    setOpen: (open: boolean) => void
+  ) => void
+  registerHoverEnd: (
+    ref: preact.RefObject,
+    setOpen: (open: boolean) => void
+  ) => void
+}
+`,
         },
       },
-      description: `Use this hook inside a child component to access the shared tooltip logic. <br/>
-      <pre>
-      interface TooltipContextValue {
-        registerHoverStart: (ref: preact.RefObject<HTMLElement>, setOpen: (open: boolean) => void) => void
-        registerHoverEnd: (ref: preact.RefObject<HTMLElement>, setOpen: (open: boolean) => void) => void
-      }</pre>`,
     },
   },
 }
 
 export default meta
+
 type Story = StoryObj<typeof TooltipContext>
 
 export const Demo: Story = {
@@ -64,10 +72,25 @@ export const Demo: Story = {
     viewport: {
       defaultViewport: "large",
     },
+    docs: {
+      source: {
+        language: "tsx",
+        code: `
+const triggerRef = useRef(null)
+
+<TooltipContext>
+  <Text ref={triggerRef}>{children}</Text>
+  
+  <Tooltip triggerRef={triggerRef}>Tooltip 1</Tooltip>
+
+  <Button tooltip="Tooltip 2">{children}</Button>
+</TooltipContext>
+        `,
+      },
+    },
   },
   render: () => {
     const triggerRef = useRef<HTMLDivElement | null>(null)
-    const triggerRef2 = useRef<HTMLDivElement | null>(null)
 
     return (
       <div className="sb-column sb-width-300">
@@ -76,12 +99,7 @@ export const Demo: Story = {
             <Text ref={triggerRef}>Hover to see Tooltip 1</Text>
             <Tooltip triggerRef={triggerRef}>Text Tooltip 1</Tooltip>
 
-            <Text ref={triggerRef2}>Hover to see Tooltip 2</Text>
-            <Tooltip triggerRef={triggerRef2}>Text Tooltip 2</Tooltip>
-
             <Button tooltip="Button Tooltip">Hover to see Tooltip</Button>
-
-            <ColorSwatch tooltip="ColorSwatch Tooltip" />
 
             <ButtonIcon
               icon={{ glyph: viewListGlyph }}
@@ -93,18 +111,20 @@ export const Demo: Story = {
               tooltip="ButtonIcon Tooltip"
             />
 
+            <ColorSwatch tooltip="ColorSwatch Tooltip" />
+
             <Input tooltip="Input Tooltip" placeholder="Placeholder" />
 
             <SegmentedControl
               defaultValue="list"
-              options={[
-                { value: "list", title: "List", icon: viewListGlyph },
-                { value: "grid", title: "Grid", icon: viewGridGlyph },
+              items={[
+                { value: "list", label: "List", glyph: viewListGlyph },
+                { value: "grid", label: "Grid", glyph: viewGridGlyph },
               ]}
             />
 
             <Select
-              options={[
+              items={[
                 { value: "list", label: "List" },
                 { value: "grid", label: "Grid" },
               ]}
