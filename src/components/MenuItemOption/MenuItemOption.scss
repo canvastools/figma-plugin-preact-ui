@@ -12,7 +12,7 @@
   }
 
   &:not(&_focused) &__content:hover {
-    background-color: var(--pui-color-brand-bg-default-hover);
+    background-color: var(--pui-color-brand-bg-default);
   }
 
   .MenuContainer_keyboard-interaction &:not(&_focused) &__content:hover {
@@ -20,7 +20,7 @@
   }
 
   &_focused &__content {
-    background-color: var(--pui-color-brand-bg-default-hover);
+    background-color: var(--pui-color-brand-bg-default);
   }
 
   &:focus {

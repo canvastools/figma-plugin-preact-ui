@@ -12,11 +12,11 @@
   }
 
   &_intentModifier-default:not(&_focused) &__content:hover {
-    background-color: var(--pui-color-brand-bg-default-hover);
+    background-color: var(--pui-color-brand-bg-default);
   }
 
   &_intentModifier-danger:not(&_focused) &__content:hover {
-    background-color: var(--pui-color-danger-bg-default-hover);
+    background-color: var(--pui-color-danger-bg-default);
   }
 
   .MenuContainer_keyboard-interaction &_intentModifier-default:not(&_focused) &__content:hover,
@@ -25,11 +25,11 @@
   }
 
   &_intentModifier-default:is(&_focused) &__content {
-    background-color: var(--pui-color-brand-bg-default-hover);
+    background-color: var(--pui-color-brand-bg-default);
   }
 
   &_intentModifier-danger:is(&_focused) &__content {
-    background-color: var(--pui-color-danger-bg-default-hover);
+    background-color: var(--pui-color-danger-bg-default);
   }
 
   &:focus {

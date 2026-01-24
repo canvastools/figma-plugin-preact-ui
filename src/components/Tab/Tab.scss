@@ -62,17 +62,17 @@
 
   &_variant-default {
     border: none;
-    background-color: var(--pui-color-neutral-bg-default-interactive);
+    background-color: var(--pui-color-neutral-bg-default);
     cursor: default;
 
     &:hover {
-      background-color: var(--pui-color-neutral-bg-default-interactive-hover);
+      background-color: var(--pui-color-neutral-bg-default-hover);
     }
   }
 
-  &_variant-default &_selected,
-  &_variant-default &_selected:hover {
-    background-color: var(--pui-color-neutral-bg-default-interactive-hover);
+  &_variant-default:is(&_selected),
+  &_variant-default:is(&_selected):hover {
+    background-color: var(--pui-color-neutral-bg-default-hover);
   }
 
   &_variant-single {

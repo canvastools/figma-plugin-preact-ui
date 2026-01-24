@@ -23,7 +23,11 @@ const PopoverHeaderComponent = (
         <Text strong fullWidth>
           {children}
         </Text>
-        <ButtonIcon ghost icon={{ glyph: iconClose }} onClick={onClose} />
+        <ButtonIcon
+          ghost
+          icon={{ glyph: iconClose, variant: "scaled" }}
+          onClick={onClose}
+        />
       </div>
     </div>
   )

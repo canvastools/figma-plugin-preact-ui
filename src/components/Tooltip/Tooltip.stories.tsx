@@ -32,7 +32,7 @@ const meta: Meta<typeof Tooltip> = {
     },
     children: {
       control: { control: "text" },
-      description: "Children elements.",
+      description: "<strong>*</strong>",
       table: {
         type: { summary: "JSX.Element" },
       },

@@ -21,7 +21,7 @@ export const PlaceholderStory: Story = {
   },
   render: () => (
     <div className="sb-column sb-width-300 sb-gap-16">
-      <Input disabled placeholder="Placeholder" />
+      <Input placeholder="Placeholder" />
     </div>
   ),
 }
