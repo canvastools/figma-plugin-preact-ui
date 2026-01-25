@@ -28,7 +28,7 @@
 
   &_focused,
   &:hover:is(:focus-within) {
-    outline-color: var(--pui-color-neutral-border-default-selected);
+    outline-color: var(--pui-color-neutral-border-default-selected) !important;
   }
 
   &_error {

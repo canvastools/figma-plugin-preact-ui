@@ -22,7 +22,7 @@ const meta: Meta<typeof ColorPicker> = {
       control: { type: "radio" },
       options: ["rgba", "hex", "hexAlpha"],
       defaultValue: { summary: "hex" },
-      description: "Picker mode for uncontrolled mode.",
+      description: "Picker mode for uncontrolled state.",
       table: {
         type: {
           summary: "ColorPickerType",
@@ -33,7 +33,7 @@ const meta: Meta<typeof ColorPicker> = {
     type: {
       control: { disable: true },
       options: ["rgba", "hex", "hexAlpha"],
-      description: "Picker mode for controlled mode.",
+      description: "Picker mode for controlled state.",
       table: {
         type: {
           summary: "ColorPickerType",
@@ -55,7 +55,7 @@ const meta: Meta<typeof ColorPicker> = {
     },
     defaultValue: {
       control: { type: "object" },
-      description: "Color value for uncontrolled mode.",
+      description: "Color value for uncontrolled state.",
       defaultValue: { summary: `{ r: 255, g: 0, b: 0, a: 1 }` },
       table: {
         type: {
@@ -73,7 +73,7 @@ const meta: Meta<typeof ColorPicker> = {
     },
     value: {
       control: { disable: true },
-      description: "Color value for controlled mode.",
+      description: "Color value for controlled state.",
       table: {
         type: {
           summary: "Color",

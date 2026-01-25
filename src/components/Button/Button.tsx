@@ -64,7 +64,8 @@ const ButtonComponent = (
   return (
     <Fragment>
       <button
-        className={[_className, "no-drag", className].join(" ").trim()}
+        className={[_className, className].join(" ").trim()}
+        data-pui-interactive="true"
         ref={(el) => {
           if (typeof ref === "function") {
             ref(el)
@@ -97,7 +98,7 @@ const ButtonComponent = (
           {suffix && <div className="Button__suffix">{suffix}</div>}
         </div>
       </button>
-      {tooltip && <Tooltip triggerRef={itemRef}>{tooltip}</Tooltip>}
+      {tooltip && <Tooltip anchorRef={itemRef}>{tooltip}</Tooltip>}
     </Fragment>
   )
 }

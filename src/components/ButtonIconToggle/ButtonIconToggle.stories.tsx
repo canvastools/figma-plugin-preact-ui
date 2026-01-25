@@ -23,7 +23,7 @@ const meta: Meta<typeof ButtonIconToggle> = {
   argTypes: {
     selected: {
       control: { disable: true },
-      description: "Value for controlled mode.",
+      description: "Value for controlled state.",
       table: {
         type: {
           summary: "boolean",
@@ -33,7 +33,7 @@ const meta: Meta<typeof ButtonIconToggle> = {
     defaultSelected: {
       control: { type: "boolean" },
       defaultValue: false,
-      description: "Value for uncontrolled mode.",
+      description: "Value for uncontrolled state.",
     },
     onSelectedChange: {
       action: "changed",

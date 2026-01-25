@@ -94,7 +94,8 @@ const CheckboxComponent = (
 
   return (
     <div
-      className={[_className, "no-drag", className].join(" ").trim()}
+      className={[_className, className].join(" ").trim()}
+      data-pui-interactive="true"
       {...rest}
     >
       <div className="Checkbox__input">

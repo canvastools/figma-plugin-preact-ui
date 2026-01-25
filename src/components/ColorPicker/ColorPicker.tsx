@@ -581,7 +581,7 @@ const ColorPickerComponent = (
     return { r: 255, g: 0, b: 0, a: 1 }
   })
 
-  // Keep internal color in sync when used in controlled mode
+  // Keep internal color in sync when used in controlled state
   useEffect(() => {
     if (value) {
       setInternalColor(value)
@@ -618,7 +618,7 @@ const ColorPickerComponent = (
   )
 
   useEffect(() => {
-    // In controlled mode (`type` provided), `defaultType` should not
+    // In controlled state (`type` provided), `defaultType` should not
     // override the externally controlled value.
     if (type) {
       return
@@ -759,7 +759,8 @@ const ColorPickerComponent = (
 
   return (
     <div
-      className={[_className, "no-drag", className].join(" ").trim()}
+      className={[_className, className].join(" ").trim()}
+      data-pui-interactive="true"
       ref={ref}
       onKeyDownCapture={handleInteractionKeyDownCapture}
       onMouseDownCapture={handleInteractionMouseDownCapture}

@@ -30,11 +30,11 @@ const meta: Meta<typeof Input> = {
     },
     defaultValue: {
       control: { type: "text" },
-      description: "Value for uncontrolled mode.",
+      description: "Value for uncontrolled state.",
     },
     value: {
       control: { disable: true },
-      description: "Value for controlled mode.",
+      description: "Value for controlled state.",
       table: {
         type: {
           summary: "string",

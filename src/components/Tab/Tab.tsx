@@ -102,7 +102,8 @@ const TabComponent = (
 
   return (
     <button
-      className={[_className, "no-drag", className].join(" ").trim()}
+      className={[_className, className].join(" ").trim()}
+      data-pui-interactive="true"
       ref={setRef}
       tabIndex={id === activeId ? 0 : -1}
       onClick={handleClick}

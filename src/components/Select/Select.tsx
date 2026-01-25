@@ -125,7 +125,8 @@ const SelectComponent = (
   return (
     <Fragment>
       <div
-        className={[_className, "no-drag", className].join(" ").trim()}
+        className={[_className, className].join(" ").trim()}
+        data-pui-interactive="true"
         ref={attachTriggerRef}
         tabIndex={disabled ? -1 : 0}
         onFocus={handleFocus as preact.JSX.FocusEventHandler<HTMLDivElement>}
@@ -173,7 +174,11 @@ const SelectComponent = (
         />
       </MenuContext>
 
-      {tooltip && <Tooltip triggerRef={triggerRef}>{tooltip}</Tooltip>}
+      {tooltip && (
+        <Tooltip anchorRef={triggerRef as preact.RefObject<HTMLElement>}>
+          {tooltip}
+        </Tooltip>
+      )}
     </Fragment>
   )
 }
@@ -218,7 +223,7 @@ const SelectMenu = ({
                   label: opt.label,
                   value: opt.value,
                   disabled: opt.disabled,
-                  focused: context.focusedItem === opt.value,
+                  focused: context.focusedItemId === opt.value,
                   selected: opt.value === selectedValue,
                   onChange: ({ event }) =>
                     onChange?.({ event, value: opt.value }),
@@ -230,7 +235,7 @@ const SelectMenu = ({
                   disabled={opt.disabled}
                   key={`${groupIndex}-${opt.value}`}
                   id={opt.value}
-                  focused={context.focusedItem === opt.value}
+                  focused={context.focusedItemId === opt.value}
                   selected={opt.value === selectedValue}
                   onSelectedChange={({ event }) =>
                     onChange?.({ event, value: opt.value })

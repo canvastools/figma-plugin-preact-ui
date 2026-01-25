@@ -41,10 +41,10 @@
     position: relative;
     background-color: var(--pui-color-neutral-bg-secondary);
     border-radius: var(--pui-radius-medium);
+    outline-offset: 1px;
 
-    &:focus-within {
+    &:has(:focus-visible) {
       outline: 1px solid var(--pui-color-system-border-focused);
-      outline-offset: 1px;
       box-shadow: none;
     }
 

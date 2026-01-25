@@ -27,11 +27,11 @@ const meta: Meta<typeof ScrollContext> = {
     defaultPositionY: {
       control: { type: "number" },
       defaultValue: { summary: 0 },
-      description: "Scroll position for uncontrolled mode.",
+      description: "Scroll position for uncontrolled state.",
     },
     positionY: {
       control: { disable: true },
-      description: "Scroll position for controlled mode.",
+      description: "Scroll position for controlled state.",
       table: {
         type: {
           summary: "number",

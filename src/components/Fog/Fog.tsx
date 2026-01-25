@@ -23,7 +23,7 @@ const FogComponent = (
 
   return (
     <div
-      className={[_className, "no-drag", className].join(" ").trim()}
+      className={[_className, className].join(" ").trim()}
       ref={ref}
       {...rest}
       onClick={(e) => {

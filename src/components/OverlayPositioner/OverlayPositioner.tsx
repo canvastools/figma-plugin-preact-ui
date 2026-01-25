@@ -581,7 +581,7 @@ const OverlayPositionerComponent = ({
       "canvas",
       "video",
       "audio",
-      ".no-drag",
+      "[data-pui-interactive='true']",
     ].join(",")
     if (
       (node as HTMLElement).closest &&

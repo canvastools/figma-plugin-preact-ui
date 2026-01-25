@@ -153,7 +153,8 @@ const InputComponent = (
   return (
     <Fragment>
       <div
-        className={[_className, "no-drag", className].join(" ").trim()}
+        className={[_className, className].join(" ").trim()}
+        data-pui-interactive={focusOnDoubleClick ? "false" : "true"}
         ref={rootRef as preact.Ref<HTMLDivElement>}
         {...rest}
       >
@@ -183,7 +184,7 @@ const InputComponent = (
         />
         {suffix && <div className="Input__suffix">{suffix}</div>}
       </div>
-      {tooltip && <Tooltip triggerRef={rootRef}>{tooltip}</Tooltip>}
+      {tooltip && <Tooltip anchorRef={rootRef}>{tooltip}</Tooltip>}
     </Fragment>
   )
 }

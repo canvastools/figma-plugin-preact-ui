@@ -118,7 +118,8 @@ const MenuItemOptionComponent = (
 
   return (
     <div
-      className={[_className, "no-drag", className].join(" ").trim()}
+      className={[_className, className].join(" ").trim()}
+      data-pui-interactive="true"
       ref={(el) => {
         if (typeof ref === "function") {
           ref(el)

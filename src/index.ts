@@ -145,13 +145,13 @@ export type {
 export { SegmentedControl } from "./components/SegmentedControl/SegmentedControl"
 export type {
   SegmentedControlProps,
-  SegmentedControlOption,
+  SegmentedControlItemData,
 } from "./components/SegmentedControl/SegmentedControl.types"
 
 export { Select } from "./components/Select/Select"
 export type {
   SelectProps,
-  SelectOption,
+  SelectItemData,
 } from "./components/Select/Select.types"
 
 export { Spacing } from "./components/Spacing/Spacing"
@@ -253,11 +253,13 @@ export {
   duplicate,
   filter,
   filterFilled,
+  frame,
   help,
   home,
   imports,
   info,
   insert,
+  instance,
   letterSpacing,
   lineHeight,
   link,

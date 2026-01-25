@@ -22,7 +22,7 @@ const ListItemComponent = (
     nestingLevel = 0,
     draggable = false,
     acceptsChildren = false,
-    selectionScope = "item",
+    selectionScope = "individual",
     collapsed,
     collapsable = false,
     onCollapsedChange,
@@ -31,23 +31,23 @@ const ListItemComponent = (
     selectable = false,
     hoverable = false,
     onSelect,
-    nestedItems,
+    items,
     children,
-    reducedPaddingRight = false,
     ...rest
   }: ListItemProps,
   ref: preact.Ref<HTMLDivElement>
 ) => {
   const {
-    selectedItems,
+    selectedItemIds,
     selectionOriginIds,
     toggleSelect,
     selectionMode,
-    setExactSelection,
-    registerItemMeta,
+    setSelection,
+    registerItem,
     dragImage,
   } = useListContext()
   const [isDragging, setIsDragging] = useState(false)
+  const [isFocused, setIsFocused] = useState(false)
   const selfRef = useRef<HTMLDivElement | null>(null)
 
   // Collapsed (controlled/uncontrolled)
@@ -63,16 +63,16 @@ const ListItemComponent = (
     ? Boolean(collapsed)
     : internalCollapsed
 
-  const isSelected = selectedItems.has(id)
+  const isSelected = selectedItemIds.has(id)
   const isSelectionOrigin =
-    selectionScope === "item"
+    selectionScope === "individual"
       ? isSelected
       : Boolean(selectionOriginIds?.has(id))
-  const hasChildren = Boolean(nestedItems)
+  const hasChildren = Boolean(items)
 
   useEffect(() => {
     // register meta for range selection filtering
-    const unregister = registerItemMeta?.(id, {
+    const unregister = registerItem?.(id, {
       selectable,
       selectionScope,
     })
@@ -92,7 +92,7 @@ const ListItemComponent = (
       document.removeEventListener("resetDragStates", handleResetDragStates)
       unregister?.()
     }
-  }, [id, registerItemMeta, selectable, selectionScope])
+  }, [id, registerItem, selectable, selectionScope])
 
   const _className = bem("ListItem", undefined, {
     "selection-scope-descendants": selectionScope === "withDescendants",
@@ -102,31 +102,137 @@ const ListItemComponent = (
     selectable: selectable,
     selected: isSelected,
     "selection-origin": isSelectionOrigin,
+    focused: isFocused,
     hoverable: hoverable,
     "has-children": hasChildren,
     collapsed: effectiveCollapsed,
     collapsable,
     dragging: isDragging,
-    "reduced-padding-right": reducedPaddingRight,
   })
 
+  const isInteractiveTarget = (target: HTMLElement | null): boolean => {
+    if (!target) return false
+
+    let el: HTMLElement | null = target
+    while (el && el !== selfRef.current) {
+      const interactiveAttr = el.getAttribute("data-pui-interactive")
+      if (interactiveAttr === "true") {
+        return true
+      }
+      if (interactiveAttr === "false") {
+        return false
+      }
+
+      if (el.classList.contains("ListItem__drag-handle")) {
+        return true
+      }
+
+      el = el.parentElement
+    }
+
+    return false
+  }
+
   const handleClick = (e: MouseEvent) => {
-    if (!selectable || selectionMode === "none") return
+    // Ignore multi-clicks (second click of a double-click, etc.) so that
+    // double-click can be used by nested controls (e.g. Input focusOnDoubleClick)
+    // without toggling selection twice.
+    if (e.detail > 1) return
+
+    if (isInteractiveTarget(e.target as HTMLElement | null)) return
+    if (!selectable || selectionMode === undefined) return
     const range = e.shiftKey
     const additive = e.metaKey || e.ctrlKey
     toggleSelect(id, { range, additive })
     onSelect?.({ event: e, selected: !isSelected })
   }
 
+  const moveFocus = (direction: "prev" | "next") => {
+    const allItems = Array.from(
+      document.querySelectorAll<HTMLElement>(".ListItem")
+    )
+    if (!allItems.length) return
+    const current = selfRef.current
+    const visibleItems = allItems.filter((el) => {
+      // Skip items that are not visible (collapsed or display:none)
+      return el.offsetParent !== null
+    })
+    const index = visibleItems.indexOf(current as HTMLElement)
+    if (index === -1) return
+    const nextIndex =
+      direction === "prev"
+        ? Math.max(0, index - 1)
+        : Math.min(visibleItems.length - 1, index + 1)
+    const target = visibleItems[nextIndex]
+    if (target && target !== current) {
+      target.focus()
+    }
+  }
+
+  const handleKeyDown = (e: KeyboardEvent) => {
+    if (isInteractiveTarget(e.target as HTMLElement | null)) return
+    switch (e.key) {
+      case "ArrowUp":
+        e.preventDefault()
+        e.stopPropagation()
+        moveFocus("prev")
+        break
+      case "ArrowDown":
+        e.preventDefault()
+        e.stopPropagation()
+        moveFocus("next")
+        break
+      case "Enter":
+        // Keyboard "click" – toggle selection like a mouse click
+        if (selectable && selectionMode !== undefined) {
+          e.preventDefault()
+          e.stopPropagation()
+          const range = e.shiftKey
+          const additive = e.metaKey || e.ctrlKey
+          toggleSelect(id, { range, additive })
+          onSelect?.({
+            event: e as unknown as MouseEvent,
+            selected: !isSelected,
+          })
+        }
+        break
+      case " ":
+      case "Spacebar": {
+        // Toggle collapse for collapsable items on Space
+        if (collapsable) {
+          e.preventDefault()
+          e.stopPropagation()
+          const nextCollapsed = !effectiveCollapsed
+          if (isCollapsedControlled) {
+            onCollapsedChange?.({
+              // Cast to MouseEvent for compatibility with callback type
+              event: e as unknown as MouseEvent,
+              collapsed: nextCollapsed,
+            })
+          } else {
+            setInternalCollapsed(nextCollapsed)
+            onCollapsedChange?.({
+              event: e as unknown as MouseEvent,
+              collapsed: nextCollapsed,
+            })
+          }
+        }
+        break
+      }
+      default:
+        break
+    }
+  }
+
   const handleDragHandleDragStart = (e: DragEvent) => {
     if (draggable) {
       setIsDragging(true)
       // Determine if this drag should be multi based on current selection BEFORE mutating it
-      const isMultiDrag = selectedItems.has(id) && selectedItems.size > 1
-      const ids = isMultiDrag ? Array.from(selectedItems) : [id]
+      const isMultiDrag = selectedItemIds.has(id) && selectedItemIds.size > 1
+      const ids = isMultiDrag ? Array.from(selectedItemIds) : [id]
       // If not multi, set exact selection to this id only
-      if (selectionMode !== "none" && !isMultiDrag) {
-        setExactSelection([id])
+      if (selectionMode !== undefined && !isMultiDrag) {
+        setSelection([id])
       }
       const payload = { ids }
       try {
@@ -160,7 +266,8 @@ const ListItemComponent = (
 
   return (
     <div
-      className={[_className, "no-drag", className].join(" ").trim()}
+      className={[_className, className].join(" ").trim()}
+      data-pui-interactive="true"
       ref={(node) => {
         selfRef.current = node
         if (typeof ref === "function") ref(node as HTMLDivElement)
@@ -168,6 +275,18 @@ const ListItemComponent = (
       }}
       key={id}
       {...rest}
+      tabIndex={0}
+      onFocus={(e) => {
+        if (e.currentTarget === e.target) {
+          setIsFocused(true)
+        }
+      }}
+      onBlur={(e) => {
+        if (e.currentTarget === e.target) {
+          setIsFocused(false)
+        }
+      }}
+      onKeyDown={handleKeyDown}
       data-nesting-level={nestingLevel}
       data-item-id={id}
       data-accepts-children={acceptsChildren ? "true" : "false"}
@@ -202,7 +321,7 @@ const ListItemComponent = (
             >
               <Icon
                 intent="neutral"
-                intentModifiers="secondary"
+                intentModifier="secondary"
                 glyph={
                   effectiveCollapsed ? chevronRightGlyph : chevronDownGlyph
                 }
@@ -220,7 +339,7 @@ const ListItemComponent = (
             >
               <Icon
                 glyph={dragHandleGlyph}
-                fill="var(--pui-color-neutral-icon-tertiary)"
+                iconColor="var(--pui-color-neutral-icon-tertiary)"
                 size={16}
               />
             </div>
@@ -230,9 +349,7 @@ const ListItemComponent = (
         </div>
       </div>
 
-      {nestedItems && (
-        <div className="ListItem__nested-items">{nestedItems}</div>
-      )}
+      {items && <div className="ListItem__items">{items}</div>}
     </div>
   )
 }

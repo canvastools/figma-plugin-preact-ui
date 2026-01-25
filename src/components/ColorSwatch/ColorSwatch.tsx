@@ -51,7 +51,8 @@ const ColorSwatchComponent = (
 
   return (
     <button
-      className={[_className, className, "no-drag"].join(" ").trim()}
+      className={[_className, className].join(" ").trim()}
+      data-pui-interactive="true"
       ref={(el) => {
         if (typeof ref === "function") {
           ref(el)
@@ -93,7 +94,7 @@ const ColorSwatchComponent = (
 
       {children && <div className="ColorSwatch__children">{children}</div>}
 
-      {tooltip && <Tooltip triggerRef={anchorRef}>{tooltip}</Tooltip>}
+      {tooltip && <Tooltip anchorRef={anchorRef}>{tooltip}</Tooltip>}
     </button>
   )
 }

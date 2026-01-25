@@ -26,9 +26,9 @@ const useListContext = () => {
 const ListContext = (props: ListContextProps) => {
   const {
     items: controlledItems,
-    selectedItems: controlledSelectedItems = [],
-    selectionMode = "single",
-    deselectOnOutsideClick = false,
+    selectedItemIds: controlledSelectedItemIds = [],
+    selectionMode,
+    deselectOnClickOutside = false,
     onItemsChange,
     onSelectionChange,
     children,
@@ -41,19 +41,22 @@ const ListContext = (props: ListContextProps) => {
   )
   const [internalSelectedItems, setInternalSelectedItems] = useState<
     Set<string>
-  >(new Set(controlledSelectedItems))
+  >(new Set(controlledSelectedItemIds))
   const [selectionOriginIds, setSelectionOriginIds] = useState<Set<string>>(
     new Set()
   )
   const itemMetaRef = useRef<
     Map<
       string,
-      { selectable?: boolean; selectionScope?: "item" | "withDescendants" }
+      {
+        selectable?: boolean
+        selectionScope?: "individual" | "withDescendants"
+      }
     >
   >(new Map())
   const idToPathRef = useRef<Map<string, number[]>>(new Map())
 
-  // Determine if we're in controlled mode for each aspect
+  // Determine if we're in controlled state for each aspect
   const isItemsControlled = hasControlledItems && onItemsChange !== undefined
   const isSelectionControlled = onSelectionChange !== undefined
 
@@ -66,9 +69,9 @@ const ListContext = (props: ListContextProps) => {
   const currentSelectedItems = useMemo(
     () =>
       isSelectionControlled
-        ? new Set(controlledSelectedItems)
+        ? new Set(controlledSelectedItemIds)
         : internalSelectedItems,
-    [isSelectionControlled, controlledSelectedItems, internalSelectedItems]
+    [isSelectionControlled, controlledSelectedItemIds, internalSelectedItems]
   )
 
   // Track anchor for range-selection and the root elements for outside-click detection
@@ -81,8 +84,8 @@ const ListContext = (props: ListContextProps) => {
       const walk = (nodes: ListItemData[]) => {
         nodes.forEach((n) => {
           result.push(n.id)
-          if (n.children && n.children.length) {
-            walk(n.children)
+          if (n.items && n.items.length) {
+            walk(n.items)
           }
         })
       }
@@ -104,13 +107,13 @@ const ListContext = (props: ListContextProps) => {
               for (let j = 0; j < children.length; j++) {
                 const c = children[j]
                 ids.push(c.id)
-                addAll(c.children)
+                addAll(c.items)
               }
             }
-            addAll(n.children)
+            addAll(n.items)
             return true
           }
-          if (n.children && walk(n.children)) return true
+          if (n.items && walk(n.items)) return true
         }
         return false
       }
@@ -120,28 +123,8 @@ const ListContext = (props: ListContextProps) => {
     [currentItems]
   )
 
-  const setSelection = useCallback(
-    (itemIds: string[], selected: boolean) => {
-      const newSelectedItems = new Set(currentSelectedItems)
-
-      itemIds.forEach((id) => {
-        if (selected) {
-          newSelectedItems.add(id)
-        } else {
-          newSelectedItems.delete(id)
-        }
-      })
-
-      if (!isSelectionControlled) {
-        setInternalSelectedItems(newSelectedItems)
-      }
-      onSelectionChange?.({ selectedItems: Array.from(newSelectedItems) })
-    },
-    [currentSelectedItems, onSelectionChange, isSelectionControlled]
-  )
-
   // Replace selection with exactly these ids (uncontrolled or via callback)
-  const setExactSelection = useCallback(
+  const setSelection = useCallback(
     (itemIds: string[]) => {
       const next = new Set(itemIds)
       if (!isSelectionControlled) setInternalSelectedItems(next)
@@ -152,7 +135,7 @@ const ListContext = (props: ListContextProps) => {
 
   const toggleSelect = useCallback(
     (itemId: string, options?: { range?: boolean; additive?: boolean }) => {
-      if (selectionMode === "none") return
+      if (selectionMode === undefined) return
 
       const meta = itemMetaRef.current.get(itemId)
       const isWithDescendants = meta?.selectionScope === "withDescendants"
@@ -212,7 +195,7 @@ const ListContext = (props: ListContextProps) => {
         const buildParents = (nodes: ListItemData[], parent: string | null) => {
           nodes.forEach((n) => {
             parentOf.set(n.id, parent)
-            if (n.children) buildParents(n.children, n.id)
+            if (n.items) buildParents(n.items, n.id)
           })
         }
         buildParents(currentItems, null)
@@ -331,7 +314,7 @@ const ListContext = (props: ListContextProps) => {
           nodes.forEach((n, idx) => {
             const p = [...path, idx]
             map.set(n.id, p)
-            if (n.children && n.children.length) walk(n.children, p)
+            if (n.items && n.items.length) walk(n.items, p)
           })
         }
         walk(currentItems, [])
@@ -370,8 +353,8 @@ const ListContext = (props: ListContextProps) => {
 
         // Remove from children recursively
         items.forEach((item) => {
-          if (item.children) {
-            const childRemoved = findAndRemoveItems(item.children, ids)
+          if (item.items) {
+            const childRemoved = findAndRemoveItems(item.items, ids)
             removedItems.push(...childRemoved)
           }
         })
@@ -403,32 +386,29 @@ const ListContext = (props: ListContextProps) => {
         // If path is [x], insert into the children of the item at index x
         if (path.length === 1) {
           if (!current) return
-          if (!current.children) current.children = []
+          if (!current.items) current.items = []
           const clamped = Math.max(
             0,
-            Math.min(targetIndex, current.children.length)
+            Math.min(targetIndex, current.items.length)
           )
-          current.children.splice(clamped, 0, ...itemsToInsert)
+          current.items.splice(clamped, 0, ...itemsToInsert)
           return
         }
 
         // For deeper paths, navigate to the nested container, clamping indices
         for (let i = 1; i < path.length; i++) {
           if (!current) return
-          if (!current.children) current.children = []
+          if (!current.items) current.items = []
           const idx = Math.max(
             0,
-            Math.min(path[i], Math.max(0, current.children.length - 1))
+            Math.min(path[i], Math.max(0, current.items.length - 1))
           )
-          current = current.children[idx]
+          current = current.items[idx]
         }
         if (!current) return
-        if (!current.children) current.children = []
-        const clamped = Math.max(
-          0,
-          Math.min(targetIndex, current.children.length)
-        )
-        current.children.splice(clamped, 0, ...itemsToInsert)
+        if (!current.items) current.items = []
+        const clamped = Math.max(0, Math.min(targetIndex, current.items.length))
+        current.items.splice(clamped, 0, ...itemsToInsert)
       }
 
       // Find and remove the dragged items from anywhere in the tree
@@ -500,7 +480,7 @@ const ListContext = (props: ListContextProps) => {
 
   // Outside-click to clear selection in single/multi modes
   useEffect(() => {
-    if (selectionMode === "none" || !deselectOnOutsideClick) return
+    if (selectionMode === undefined || !deselectOnClickOutside) return
     const handlePointerDown = (e: Event) => {
       const target = e.target as Node | null
       if (!target) return
@@ -517,7 +497,7 @@ const ListContext = (props: ListContextProps) => {
     return () => document.removeEventListener("pointerdown", handlePointerDown)
   }, [
     selectionMode,
-    deselectOnOutsideClick,
+    deselectOnClickOutside,
     currentSelectedItems,
     isSelectionControlled,
     onSelectionChange,
@@ -552,12 +532,12 @@ const ListContext = (props: ListContextProps) => {
     }
   }, [])
 
-  const registerItemMeta = useCallback(
+  const registerItem = useCallback(
     (
       id: string,
       meta: {
         selectable?: boolean
-        selectionScope?: "item" | "withDescendants"
+        selectionScope?: "individual" | "withDescendants"
       }
     ) => {
       itemMetaRef.current.set(id, meta)
@@ -586,7 +566,7 @@ const ListContext = (props: ListContextProps) => {
       nodes.forEach((n, idx) => {
         const p = [...path, idx]
         map.set(n.id, p)
-        if (n.children && n.children.length) walk(n.children, p)
+        if (n.items && n.items.length) walk(n.items, p)
       })
     }
     walk(currentItems, [])
@@ -595,13 +575,13 @@ const ListContext = (props: ListContextProps) => {
 
   useEffect(() => {
     if (isSelectionControlled) {
-      const next = new Set(controlledSelectedItems)
+      const next = new Set(controlledSelectedItemIds)
       setInternalSelectedItems(next)
     }
-  }, [controlledSelectedItems, isSelectionControlled])
+  }, [controlledSelectedItemIds, isSelectionControlled])
 
   // Recompute selection origins based on the current selection and items tree.
-  // - For items with selectionScope="item", every selected item is an origin.
+  // - For items with selectionScope="individual", every selected item is an origin.
   // - For items with selectionScope="withDescendants", a branch origin is any
   //   item whose entire subtree is selected, and which does not have an
   //   ancestor that also meets this condition.
@@ -617,8 +597,8 @@ const ListContext = (props: ListContextProps) => {
     const buildParents = (nodes: ListItemData[], parentId: string | null) => {
       nodes.forEach((n) => {
         parentOf.set(n.id, parentId)
-        if (n.children && n.children.length) {
-          buildParents(n.children, n.id)
+        if (n.items && n.items.length) {
+          buildParents(n.items, n.id)
         }
       })
     }
@@ -640,9 +620,9 @@ const ListContext = (props: ListContextProps) => {
 
     const origins = new Set<string>()
 
-    // 1) All selected "item"-scope entries are simple origins.
+    // 1) All selected "individual"-scope entries are simple origins.
     itemMetaRef.current.forEach((meta, id) => {
-      if (meta.selectionScope === "item" && selected.has(id)) {
+      if (meta.selectionScope === "individual" && selected.has(id)) {
         origins.add(id)
       }
     })
@@ -675,16 +655,15 @@ const ListContext = (props: ListContextProps) => {
 
   const contextValue: ListContextValue = {
     items: currentItems,
-    selectedItems: currentSelectedItems,
+    selectedItemIds: currentSelectedItems,
     selectionOriginIds,
-    deselectOnOutsideClick,
+    deselectOnClickOutside,
     setSelection,
-    setExactSelection,
     toggleSelect,
     reorderItems,
     selectionMode,
     registerRootElement,
-    registerItemMeta,
+    registerItem,
     getPathForId,
     registerItemPath,
     dragImage: dragImageRef.current,

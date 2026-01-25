@@ -27,15 +27,24 @@ const meta: Meta<typeof SegmentedControl> = {
 {
   value: string // required
   label: string // required
-  glyph: Glyph | preact.ComponentChildren
+  icon: IconPropsPick 
 }
+
+// Types
+
+type IconPropsPick = {
+  glyph: Glyph
+  variant: "default" | "scaled"
+  size: 16 | 24
+}
+
           `,
         },
       },
     },
     value: {
       control: { disable: true },
-      description: "Value for controlled mode.",
+      description: "Value for controlled state.",
       table: {
         type: {
           summary: "string",
@@ -44,7 +53,7 @@ const meta: Meta<typeof SegmentedControl> = {
     },
     defaultValue: {
       control: { disable: true },
-      description: "Value for uncontrolled mode.",
+      description: "Value for uncontrolled state.",
       table: { type: { summary: "string" } },
     },
     disabled: {

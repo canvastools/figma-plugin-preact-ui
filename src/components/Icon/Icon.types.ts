@@ -23,6 +23,7 @@ export interface IconProps {
     | "danger"
     | "warning"
     | "success"
+    | "component"
   variant?: "default" | "scaled"
   size?: 16 | 24
   disabled?: boolean

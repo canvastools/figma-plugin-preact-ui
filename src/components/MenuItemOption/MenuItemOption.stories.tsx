@@ -35,11 +35,11 @@ const meta: Meta<typeof MenuItemOption> = {
     defaultSelected: {
       control: { type: "boolean" },
       defaultValue: { summary: false },
-      description: "Value for uncontrolled mode.",
+      description: "Value for uncontrolled state.",
     },
     selected: {
       control: { disable: true },
-      description: "Value for controlled mode.",
+      description: "Value for controlled state.",
       table: {
         type: {
           summary: "boolean",

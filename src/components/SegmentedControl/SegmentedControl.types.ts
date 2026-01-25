@@ -1,9 +1,11 @@
 import { Glyph } from "../../index"
 
+import type { IconPropsPick } from "../Icon/Icon.types"
+
 export interface SegmentedControlItemData {
   value: string
   label: string
-  glyph?: Glyph | preact.ComponentChildren
+  icon?: IconPropsPick
 }
 
 export interface SegmentedControlProps {

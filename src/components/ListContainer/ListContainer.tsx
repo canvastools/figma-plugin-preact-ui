@@ -257,14 +257,8 @@ const ListContainerComponent = (
       const selfHasChildren = selfChild.classList.contains(
         "ListItem_has-children"
       )
-      const selfIsCollapsed = selfChild.classList.contains(
-        "ListItem_collapsed"
-      )
-      if (
-        selfPos === "below" &&
-        selfHasChildren &&
-        !selfIsCollapsed
-      ) {
+      const selfIsCollapsed = selfChild.classList.contains("ListItem_collapsed")
+      if (selfPos === "below" && selfHasChildren && !selfIsCollapsed) {
         selfPos = "inside"
       }
 
@@ -828,7 +822,8 @@ const ListContainerComponent = (
 
   return (
     <div
-      className={[_className, "no-drag", className].join(" ").trim()}
+      className={[_className, className].join(" ").trim()}
+      data-pui-interactive="true"
       ref={(node) => {
         rootRef.current = node
         // Keep ListContext root elements in sync with the current DOM node

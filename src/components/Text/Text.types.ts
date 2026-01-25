@@ -16,6 +16,7 @@ export interface TextProps {
     | "danger"
     | "warning"
     | "success"
+    | "component"
   variant?: "heading" | "body"
   size?: "small" | "medium" | "large"
   strong?: boolean

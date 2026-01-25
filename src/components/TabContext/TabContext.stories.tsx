@@ -23,11 +23,11 @@ const meta: Meta<typeof TabContext> = {
   argTypes: {
     defaultActiveId: {
       control: { type: "text" },
-      description: "Active tab ID for uncontrolled mode.",
+      description: "Active tab ID for uncontrolled state.",
     },
     activeId: {
       control: { disable: true },
-      description: "Active tab ID for controlled mode.",
+      description: "Active tab ID for controlled state.",
       table: {
         type: {
           summary: "string",

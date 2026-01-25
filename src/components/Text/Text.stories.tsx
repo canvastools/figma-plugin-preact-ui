@@ -43,6 +43,7 @@ const meta: Meta<typeof Text> = {
         "danger",
         "warning",
         "success",
+        "component",
       ],
       defaultValue: { summary: "default" },
     },

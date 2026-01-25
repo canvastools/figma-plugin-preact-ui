@@ -38,12 +38,12 @@ const meta: Meta<typeof Calendar> = {
       control: { type: "radio" },
       options: ["month", "year", "decade", "century"],
       defaultValue: { summary: "month" },
-      description: "View for uncontrolled mode.",
+      description: "View for uncontrolled state.",
     },
     view: {
       control: { disable: true },
       options: ["month", "year", "decade", "century"],
-      description: "View for controlled mode.",
+      description: "View for controlled state.",
       table: {
         type: {
           summary: "string",
@@ -53,7 +53,7 @@ const meta: Meta<typeof Calendar> = {
     defaultValue: {
       control: { type: "date" },
       defaultValue: { summary: "null" },
-      description: "Value for uncontrolled mode.",
+      description: "Value for uncontrolled state.",
       table: {
         type: {
           summary: "CalendarValue",
@@ -63,7 +63,7 @@ const meta: Meta<typeof Calendar> = {
     },
     value: {
       control: { disable: true },
-      description: `Value for controlled mode.`,
+      description: `Value for controlled state.`,
       table: {
         type: {
           summary: "CalendarValue",

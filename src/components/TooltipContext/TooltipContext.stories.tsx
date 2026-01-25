@@ -8,8 +8,7 @@ import {
   Input,
   Text,
   SegmentedControl,
-  viewList as viewListGlyph,
-  viewGrid as viewGridGlyph,
+  link,
   Select,
   ButtonIcon,
   ButtonIconToggle,
@@ -97,17 +96,17 @@ const triggerRef = useRef(null)
         <TooltipContext>
           <Stack spacing={400}>
             <Text ref={triggerRef}>Hover to see Tooltip 1</Text>
-            <Tooltip triggerRef={triggerRef}>Text Tooltip 1</Tooltip>
+            <Tooltip anchorRef={triggerRef}>Text Tooltip 1</Tooltip>
 
             <Button tooltip="Button Tooltip">Hover to see Tooltip</Button>
 
             <ButtonIcon
-              icon={{ glyph: viewListGlyph }}
+              icon={{ glyph: link, variant: "scaled", size: 24 }}
               tooltip="ButtonIcon Tooltip"
             />
 
             <ButtonIconToggle
-              icon={{ glyph: viewListGlyph }}
+              icon={{ glyph: link, variant: "scaled", size: 24 }}
               tooltip="ButtonIcon Tooltip"
             />
 
@@ -118,8 +117,16 @@ const triggerRef = useRef(null)
             <SegmentedControl
               defaultValue="list"
               items={[
-                { value: "list", label: "List", glyph: viewListGlyph },
-                { value: "grid", label: "Grid", glyph: viewGridGlyph },
+                {
+                  value: "list",
+                  label: "List",
+                  icon: { glyph: link, variant: "scaled", size: 24 },
+                },
+                {
+                  value: "grid",
+                  label: "Grid",
+                  icon: { glyph: link, variant: "scaled", size: 24 },
+                },
               ]}
             />
 

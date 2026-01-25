@@ -44,7 +44,7 @@ const meta: Meta<typeof OverlayPositioner> = {
     },
     open: {
       control: { disable: true },
-      description: "Visibility for controlled mode.",
+      description: "Visibility for controlled state.",
       table: {
         type: {
           summary: "boolean",
@@ -54,7 +54,7 @@ const meta: Meta<typeof OverlayPositioner> = {
     defaultOpen: {
       control: { type: "boolean" },
       defaultValue: { summary: false },
-      description: "Visibility for uncontrolled mode.",
+      description: "Visibility for uncontrolled state.",
     },
     placement: {
       control: { type: "radio" },
@@ -141,13 +141,13 @@ const meta: Meta<typeof OverlayPositioner> = {
       options: ["click", "hover"],
       defaultValue: { summary: "click" },
       description:
-        "Trigger action for the overlay. Only works in uncontrolled mode.",
+        "Trigger action for the overlay. Only works in uncontrolled state.",
     },
     draggable: {
       control: { type: "boolean" },
       defaultValue: { summary: false },
       description:
-        "Allow the overlay to be dragged. `.no-drag` class can be applied to elements inside the overlay to prevent drag initiation.",
+        "Allow the overlay to be dragged. `data-pui-interactive='true'` attribute can be applied to elements inside the overlay to prevent drag initiation.",
     },
     offsetX: {
       control: { type: "number" },

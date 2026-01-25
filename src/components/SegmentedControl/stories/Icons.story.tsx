@@ -1,6 +1,6 @@
 import { StoryObj } from "@storybook/preact"
 
-import { viewList, viewGrid, TooltipContext } from "../../../index"
+import { link, TooltipContext } from "../../../index"
 
 import { SegmentedControl } from "../SegmentedControl"
 import { SegmentedControlItemData } from "../SegmentedControl.types"
@@ -23,12 +23,20 @@ const items = [
   {
     value: "list",
     label: "List view",
-    glyph: viewList,
+    icon: {
+      glyph: link,
+      variant: "scaled",
+      size: 24,
+    },
   },
   {
     value: "grid",
     label: "Grid view",
-    glyph: viewGrid,
+    icon: {
+      glyph: link,
+      variant: "scaled",
+      size: 24,
+    },
   },
 ]
 
@@ -54,12 +62,20 @@ const items = [
       {
         value: "list",
         label: "List view",
-        glyph: viewList,
+        icon: {
+          glyph: link,
+          variant: "scaled",
+          size: 24,
+        },
       },
       {
         value: "grid",
         label: "Grid view",
-        glyph: viewGrid,
+        icon: {
+          glyph: link,
+          variant: "scaled",
+          size: 24,
+        },
       },
     ]
 

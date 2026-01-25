@@ -43,6 +43,11 @@ const validIntentCombinations = [
     intent: "neutral",
     intentModifier: "success",
   },
+  {
+    bg: "--pui-color-neutral-bg-default",
+    intent: "neutral",
+    intentModifier: "component",
+  },
 
   // neutral-inverted
   {

@@ -17,11 +17,11 @@ const meta: Meta<typeof Switch> = {
     },
     checked: {
       control: { disable: true },
-      description: "Value for controlled mode.",
+      description: "Value for controlled state.",
     },
     defaultChecked: {
       control: { type: "boolean" },
-      description: "Value for uncontrolled mode.",
+      description: "Value for uncontrolled state.",
       defaultValue: { summary: false },
     },
     disabled: {

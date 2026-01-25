@@ -215,7 +215,8 @@ const SegmentedControlComponent = (
 
   return (
     <div
-      className={[_className, "no-drag", className].join(" ").trim()}
+      className={[_className, className].join(" ").trim()}
+      data-pui-interactive="true"
       ref={ref}
       onKeyDown={handleKeyDown}
       {...rest}
@@ -227,7 +228,7 @@ const SegmentedControlComponent = (
         const itemClassName = bem("SegmentedControl", "item", {
           selected: isActive,
           disabled,
-          icon: Boolean(item.glyph),
+          icon: Boolean(item.icon),
         })
 
         return (
@@ -243,24 +244,26 @@ const SegmentedControlComponent = (
               onClick={(e) => commitChange(e as MouseEvent, item.value)}
               disabled={disabled}
             >
-              {item.glyph && (
+              {item.icon && (
                 <Icon
                   glyph={
-                    typeof item.glyph === "function"
-                      ? (item.glyph as Glyph)
+                    typeof item.icon.glyph === "function"
+                      ? (item.icon.glyph as Glyph)
                       : undefined
                   }
                   intent="neutral"
                   intentModifier={isActive ? "default" : "secondary"}
-                  variant="default"
-                  size={24}
+                  variant={item.icon.variant}
+                  size={item.icon.size}
                   disabled={disabled}
                 >
-                  {typeof item.glyph !== "function" ? item.glyph : undefined}
+                  {typeof item.icon.glyph !== "function"
+                    ? item.icon.glyph
+                    : undefined}
                 </Icon>
               )}
 
-              {!item.glyph && (
+              {!item.icon && (
                 <Text
                   intent="neutral"
                   intentModifier={isActive ? "default" : "secondary"}
@@ -270,9 +273,9 @@ const SegmentedControlComponent = (
                 </Text>
               )}
             </button>
-            {item.glyph && (
-              <Tooltip triggerRef={anchorRef}>
-                <Text intent="neutral-inverted-fixed">{item.label}</Text>
+            {item.icon && (
+              <Tooltip anchorRef={anchorRef as preact.RefObject<HTMLElement>}>
+                {item.label}
               </Tooltip>
             )}
           </Fragment>

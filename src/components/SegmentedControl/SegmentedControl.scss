@@ -10,6 +10,10 @@
   background-color: var(--pui-color-neutral-bg-secondary);
   border-radius: var(--pui-radius-medium);
 
+  &:has(:focus-visible) {
+    outline-color: transparent !important;
+  }
+
   &_fullWidth {
     width: 100%;
   }

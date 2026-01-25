@@ -29,7 +29,7 @@ const meta: Meta<typeof Checkbox> = {
     },
     checked: {
       control: { disable: true },
-      description: "Value for controlled mode.",
+      description: "Value for controlled state.",
       table: {
         type: {
           summary: "boolean",
@@ -38,7 +38,7 @@ const meta: Meta<typeof Checkbox> = {
     },
     defaultChecked: {
       control: { type: "boolean" },
-      description: "Value for uncontrolled mode.",
+      description: "Value for uncontrolled state.",
       defaultValue: { summary: false },
     },
     mixed: {

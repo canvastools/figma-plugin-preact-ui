@@ -93,7 +93,8 @@ const WindowResizerComponent = (
   return (
     <div
       id="WindowResizer"
-      className={[_className, className, "no-drag"].join(" ").trim()}
+      className={[_className, className].join(" ").trim()}
+      data-pui-interactive="true"
       ref={ref}
       {...rest}
     />

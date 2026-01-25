@@ -59,9 +59,9 @@ const CalendarComponent = (
   const ReactCalendarAny = ReactCalendar as any
 
   return (
-    <div onKeyDown={handleKeyDown}>
+    <div onKeyDown={handleKeyDown} data-pui-interactive="true">
       <ReactCalendar
-        className={[_className, "no-drag", className].join(" ").trim()}
+        className={[_className, className].join(" ").trim()}
         inputRef={ref as preact.Ref<HTMLDivElement> | undefined}
         locale={locale}
         calendarType={type}

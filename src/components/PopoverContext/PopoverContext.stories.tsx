@@ -49,7 +49,7 @@ const meta: Meta = {
     },
     open: {
       control: { type: "boolean" },
-      description: "State for controlled mode.",
+      description: "State for controlled state.",
     },
     setOpen: {
       control: { disable: true },

@@ -42,6 +42,7 @@
   @include Icon_intent("neutral", "danger");
   @include Icon_intent("neutral", "warning");
   @include Icon_intent("neutral", "success");
+  @include Icon_intent("neutral", "component");
   @include Icon_intent("neutral-inverted", "default");
   @include Icon_intent("neutral-inverted-fixed", "default");
   @include Icon_intent("neutral-inverted-fixed", "secondary");
