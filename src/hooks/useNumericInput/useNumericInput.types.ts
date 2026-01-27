@@ -16,6 +16,7 @@ export interface NumericInputConfig {
   required?: boolean
   normalizeOnError?: boolean
   doubleValue?: boolean
+  math?: boolean
 }
 
 export interface NumericInputParseResult {

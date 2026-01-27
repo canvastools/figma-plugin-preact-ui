@@ -148,7 +148,7 @@ export const ContentStory: Story = {
               selectionScope={
                 variant === "layer" ? "withDescendants" : "individual"
               }
-              collapsable={variant === "layer"}
+              collapsable={true}
               hoverable={true}
               items={
                 item.items

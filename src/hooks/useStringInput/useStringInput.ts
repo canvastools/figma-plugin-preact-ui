@@ -19,7 +19,7 @@ const buildResult = (
     minLength,
     maxLength,
     allowedCharacters,
-    mask,
+    format,
     normalizeOnError,
   } = config
 
@@ -80,7 +80,7 @@ const buildResult = (
     }
 
     normalizedValue = base
-    formattedValue = mask ? mask(base) : base
+    formattedValue = format ? format(base) : base
 
     // Apply trimming again after normalization/masking in case they
     // introduced leading/trailing whitespace.

@@ -11,7 +11,7 @@ export type StringInputConfig = {
   maxLength?: number
   allowedCharacters?: string
   trim?: boolean
-  mask?: (value: string) => string
+  format?: (value: string) => string
   normalizeOnError?: boolean
 }
 

@@ -97,7 +97,6 @@ export const VariantStory: Story = {
               selectionScope={
                 variant === "layer" ? "withDescendants" : "individual"
               }
-              collapsable={variant === "layer"}
               hoverable={true}
               items={
                 item.items
@@ -107,20 +106,16 @@ export const VariantStory: Story = {
             >
               <Stack direction="row" y="center" fullWidth>
                 {variant === "layer" && <Spacing direction="row" size={200} />}
-                <Stack direction="row" spacing={100} y="center">
+                <Stack direction="row" spacing={200} y="center">
                   {item.id === "Frame 2" && (
                     <Icon
                       glyph={instance}
-                      variant="scaled"
+                      size={16}
                       intentModifier="component"
                     />
                   )}
                   {item.id.startsWith("Frame 2-") && (
-                    <Icon
-                      glyph={frame}
-                      variant="scaled"
-                      intentModifier="component"
-                    />
+                    <Icon glyph={frame} size={16} intentModifier="component" />
                   )}
                   <Text
                     wrap={false}

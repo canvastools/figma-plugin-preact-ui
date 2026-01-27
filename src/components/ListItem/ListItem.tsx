@@ -123,10 +123,6 @@ const ListItemComponent = (
         return false
       }
 
-      if (el.classList.contains("ListItem__drag-handle")) {
-        return true
-      }
-
       el = el.parentElement
     }
 
@@ -267,7 +263,6 @@ const ListItemComponent = (
   return (
     <div
       className={[_className, className].join(" ").trim()}
-      data-pui-interactive="true"
       ref={(node) => {
         selfRef.current = node
         if (typeof ref === "function") ref(node as HTMLDivElement)
@@ -303,6 +298,7 @@ const ListItemComponent = (
           {collapsable && (
             <div
               className="ListItem__collapse-toggle"
+              data-pui-interactive="true"
               onClick={(e) => {
                 e.stopPropagation()
                 if (isCollapsedControlled) {
@@ -333,6 +329,7 @@ const ListItemComponent = (
           {draggable && (
             <div
               className="ListItem__drag-handle"
+              data-pui-interactive="true"
               draggable={true}
               onDragStart={handleDragHandleDragStart}
               onDragEnd={handleDragHandleDragEnd}

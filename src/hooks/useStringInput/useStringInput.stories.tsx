@@ -2,14 +2,13 @@ import { Meta, StoryObj } from "@storybook/preact"
 
 import { useState } from "preact/hooks"
 
-import { useStringInput } from "./useStringInput"
-import {
-  type StringInputConfig,
-  type StringInputError,
-  type StringInputParseResult,
-} from "./useStringInput.types"
+import { NormalizationStory } from "./stories/Normalization.story"
+import { MaskStory } from "./stories/Mask.story"
 
-import { Input, Section, Stack, Text } from "../../index"
+import { Input, Text } from "../../index"
+
+import { useStringInput } from "./useStringInput"
+import type { StringInputConfig,  StringInputError } from "./useStringInput.types"
 
 const meta: Meta<typeof useStringInput> = {
   title: "Hooks/useStringInput",
@@ -19,187 +18,143 @@ const meta: Meta<typeof useStringInput> = {
     docs: {
       description: {
         component:
-          "A hook that validates and normalizes a string based on the provided configuration.",
+          "A hook that validates and formats a string input based on the provided configuration.",
       },
     },
   },
   argTypes: {
     value: {
-      control: { disable: true },
-      description: "Initial string value",
-      table: {
-        type: { summary: "string" },
-      },
-    },
-    required: {
-      control: { type: "boolean" },
-      defaultValue: { summary: false },
-      description: "Whether the value is required.",
-      table: {
-        type: { summary: "boolean" },
-      },
+      control: { type: "text" },
+      description: "<strong>*</strong>Initial string value",
     },
     minLength: {
       control: { type: "number" },
       description: "Minimum allowed string length.",
-      table: {
-        type: { summary: "number" },
-      },
     },
     maxLength: {
       control: { type: "number" },
       description: "Maximum allowed string length.",
-      table: {
-        type: { summary: "number" },
-      },
     },
     allowedCharacters: {
       control: { type: "text" },
       description:
         "Optional set of allowed characters. Any character not included here will be treated as invalid.",
-      table: {
-        type: { summary: "string" },
-      },
+    },
+    required: {
+      control: { type: "boolean" },
+      defaultValue: { summary: false },
     },
     trim: {
       control: { type: "boolean" },
       defaultValue: { summary: false },
       description: "Trim the string before validation.",
-      table: {
-        type: { summary: "boolean" },
-      },
     },
     normalizeOnError: {
       control: { type: "boolean" },
       defaultValue: { summary: false },
       description:
-        "Whether to normalize and format the raw value on error, otherwise undefined will be returned for normalized value and formatted value.",
-      table: {
-        type: { summary: "boolean" },
-      },
+        "Whether to normalize and format the raw value on error, otherwise `undefined` will be returned for normalized value and formatted value.",
     },
-    mask: {
+    format: {
       control: { disable: true },
       description:
-        "Optional formatter that receives the normalized value and returns a formatted display string (e.g. for time masks).",
+        "Optional formatter function that receives the normalized value and returns a formatted display string (e.g. for masks).",
       table: {
-        type: { summary: "(value: string) => string" },
+        type: { summary: "(value: string) => string"},
       },
     },
     useStringInput: {
       control: { disable: true },
-      description: `The hook instance.<br/><pre>interface StringInput {
-  parse: (raw: string) => StringInputParseResult
-  handleKeyDown: (args: { event: KeyboardEvent; value: string }) => void
-}</pre>
-
-<pre>interface StringInputParseResult {
-  // raw value
-rawValue: string 
-  // raw value after trimming, maxLength clamping, and allowedCharacters filtering
-  normalizedValue: string | undefined 
-  // normalized value after applying mask
-  formattedValue: string | undefined 
-  error: StringInputError | null
-}</pre>
-
-<pre>type StringInputError = "required" | "too_short" | "too_long" | "invalid_characters"</pre>
-`,
       table: {
-        type: { summary: "Hook" },
+        type: { 
+          summary: "Hook",
+          detail: `
+{
+  handleKeyDown: (
+    args: { 
+      event: KeyboardEvent
+      value: string
+    }
+    onValueChange: (next: string) => void
+  parse: (raw: string) => StringInputParseResult
+}  
+
+// Types
+
+type StringInputParseResult = {
+  rawValue: string
+  normalizedValue: string | undefined
+  formattedValue: string | undefined
+  error: StringInputError | null
+}
+
+type StringInputError = "required" | "too_short" | "too_long" | "invalid_characters"
+          `
+         },
       },
     },
   },
 }
 
-export default meta
+export default meta 
 
 type Story = StoryObj<typeof useStringInput>
 
 export const Demo: Story = {
+  tags: ["!autodocs"],
   args: {
-    required: false,
+    value: "Hello world!",
     minLength: 3,
     maxLength: 12,
+    required: false,
     trim: false,
+    allowedCharacters: "",
     normalizeOnError: false,
   },
   parameters: {
     viewport: {
       defaultViewport: "large",
     },
-  },
-  render: (args) => {
-    const stringInput = useStringInput({
-      value: "Hello there", // initial value
-      ...args,
-    })
+    docs: {
+      source: {
+        language: "tsx",
+        code: `
+const stringInput = useStringInput({
+  value: "Hello world!",
+  minLength: 3,
+  maxLength: 12,
+  required: false,
+  trim: false,
+  normalizeOnError: false,
+})
 
-    const [inputValue, setInputValue] = useState(
-      stringInput.formattedValue ?? ""
-    )
-    const [error, setError] = useState<StringInputError | null>(null)
+const [inputValue, setInputValue] = useState(stringInput.formattedValue ?? "")  
+const [error, setError] = useState(null)
 
-    return (
-      <div className="sb-column sb-width-300">
-        <Section>
-          <Stack spacing={200}>
-            <Input
-              value={inputValue}
-              error={!!error}
-              placeholder="Your name"
-              onChange={(e) => {
-                setInputValue(e.value)
-              }}
-              onBlur={(e) => {
-                const parsed = stringInput.parse(e.value)
+<Input
+  value={inputValue}
+  placeholder="Any string"
+  onValueChange={(e) => {
+    setInputValue(e.value)
+  }}
+  onBlur={(e) => {
+    const parsed = stringInput.parse(e.value)
 
-                if (parsed.error) {
-                  setInputValue(parsed.rawValue)
-                  setError(parsed.error)
-                  return
-                }
-
-                setInputValue(parsed.formattedValue ?? "")
-                setError(null)
-              }}
-            />
-            <Text intentModifiers={error ? "danger" : "default"}>
-              {error || "No errors"}
-            </Text>
-          </Stack>
-        </Section>
-      </div>
-    )
-  },
-}
-
-export const MaskAndPattern: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => {
-    const timeMask = (value: string): string => {
-      const digits = value.replace(/\D/g, "").slice(0, 4)
-
-      if (digits.length <= 2) return digits
-
-      const hours = digits.slice(0, 2)
-      const minutes = digits.slice(2)
-      return `${hours}:${minutes}`
+    if (parsed.error) {
+      setInputValue(parsed.rawValue)
+      setError(parsed.error)
+      return
     }
 
-    const stringInput = useStringInput({
-      value: "", // initial value
-      required: false,
-      trim: true,
-      allowedCharacters: "0123456789:",
-      mask: timeMask,
-      normalizeOnError: true,
-    })
+    setInputValue(parsed.formattedValue ?? "")
+    setError(null)
+  }}
+/>`,
+      },
+    },
+  },
+  render: (args) => {
+    const stringInput = useStringInput(args as unknown as StringInputConfig)
 
     const [inputValue, setInputValue] = useState(
       stringInput.formattedValue ?? ""
@@ -207,95 +162,34 @@ export const MaskAndPattern: Story = {
     const [error, setError] = useState<StringInputError | null>(null)
 
     return (
-      <div className="sb-column sb-width-300">
-        <Section>
-          <Stack spacing={200}>
-            <Input
-              value={inputValue}
-              error={!!error}
-              placeholder="HH:MM (24h)"
-              onChange={(e) => {
-                const parsed: StringInputParseResult = stringInput.parse(
-                  e.value
-                )
+      <div className="sb-column sb-width-300 sb-gap-16">
+        <Input
+          value={inputValue}
+          error={!!error}
+          placeholder="Any string"
+          onValueChange={(e) => {
+            setInputValue(e.value)
+          }}
+          onBlur={(e) => {
+            const parsed = stringInput.parse(e.value)
 
-                setInputValue(parsed.formattedValue ?? "")
+            if (parsed.error) {
+              setInputValue(parsed.rawValue)
+              setError(parsed.error)
+              return
+            }
 
-                if (parsed.error) {
-                  setError(parsed.error)
-                  return
-                }
-
-                setError(null)
-              }}
-              onKeyDown={(e) => stringInput.handleKeyDown(e)}
-            />
-            <Text intentModifiers={error ? "danger" : "default"}>
-              {error || "No errors"}
-            </Text>
-          </Stack>
-        </Section>
+            setInputValue(parsed.formattedValue ?? "")
+            setError(null)
+          }}
+        />
+        <Text intentModifier={error ? "danger" : "default"}>
+          {error || "No errors"}
+        </Text>
       </div>
     )
   },
 }
 
-export const FigmaLikeExperience: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => {
-    const stringInput = useStringInput({
-      value: "", // initial value
-      required: true,
-      minLength: 1,
-      maxLength: 12,
-      trim: true,
-      allowedCharacters:
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-!*()[] .",
-      normalizeOnError: true,
-    })
-
-    const [inputValue, setInputValue] = useState(
-      stringInput.formattedValue ?? ""
-    )
-
-    return (
-      <div className="sb-column sb-width-300">
-        <Section>
-          <Stack spacing={200}>
-            <Input
-              value={inputValue}
-              placeholder="Your name"
-              onChange={(e) => setInputValue(e.value)}
-              onBlur={(e) => {
-                const parsed = stringInput.parse(e.value)
-
-                if (
-                  parsed.error === "required" ||
-                  parsed.error === "too_short"
-                ) {
-                  setInputValue("Username")
-                  return
-                }
-
-                if (
-                  parsed.error === "too_long" ||
-                  parsed.error === "invalid_characters"
-                ) {
-                  setInputValue(parsed.formattedValue ?? "")
-                  return
-                }
-
-                setInputValue(parsed.formattedValue ?? "")
-              }}
-            />
-          </Stack>
-        </Section>
-      </div>
-    )
-  },
-}
+export const Normalization = NormalizationStory
+export const Mask = MaskStory

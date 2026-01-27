@@ -27,12 +27,29 @@
   }
 
   &_focused,
-  &:hover:is(:focus-within) {
+  &_focused:hover:is(:focus-within) {
+    outline-color: var(--pui-color-neutral-border-default-selected) !important;
+  }
+
+  &_keyboardFocus {
     outline-color: var(--pui-color-neutral-border-default-selected) !important;
   }
 
   &_error {
     outline-color: var(--pui-color-neutral-border-danger-error) !important;
+  }
+
+  &__display {
+    padding: 0 var(--pui-spacing-200);
+    width: 100%;
+    cursor: default;
+
+    @include typography-styles-default;
+    @include typography-body-medium;
+  }
+
+  &__display_placeholder {
+    color: var(--pui-color-neutral-text-placeholder);
   }
 
   &__input-native {
@@ -130,7 +147,7 @@
   }
 
   &_ghost:is(&_focused),
-  &_ghost:hover:is(:focus-within) {
+  &_ghost:hover:is(:focus-within):not(&_doubleClick) {
     background-color: var(--pui-color-neutral-bg-default);
   }
 

@@ -44,8 +44,15 @@
     justify-content: flex-start;
     align-items: center;
     min-height: 24px;
-    padding-left: calc(var(--pui-spacing-400) * var(--level));
     z-index: 1;
+  }
+
+  &:is([data-nesting-level="0"]) &__children {
+    padding-left: calc(var(--pui-spacing-400) * var(--level));
+  }
+
+  &:not([data-nesting-level="0"]) &__children {
+    padding-left: calc((var(--pui-spacing-400) + var(--pui-spacing-200)) * var(--level));
   }
 
   &__drag-handle {
@@ -75,7 +82,7 @@
     display: none;
     align-items: center;
     justify-content: center;
-    z-index: 1;
+    z-index: 5;
   }
 
   &_focused {
@@ -91,7 +98,7 @@
   // Default
 
   &_variant-default &__drag-handle {
-    left: calc(var(--pui-spacing-400) * var(--level));
+    left: calc((var(--pui-spacing-400) + var(--pui-spacing-200)) * var(--level));
   }
 
   &_variant-default &__content-inner {
@@ -155,7 +162,6 @@
 
   /* Selection overrides */
 
-  // TODO
   &_selected > &__content > &__content-inner > &__children .Input:not(.Input_ghost) {
     outline: 1px solid var(--pui-color-neutral-border-default-selected-contrast);
   }
@@ -222,13 +228,17 @@
   }
 
   &_drag-above:is(&_variant-default) > &__content > &__content-inner > &__children::before {
-    left: calc(var(--level) * var(--pui-spacing-400));
-    width: calc(100% + var(--pui-spacing-400) - var(--level) * var(--pui-spacing-400));
+    --padding-left: calc(var(--pui-spacing-400) + var(--pui-spacing-200));
+
+    left: calc(var(--level) * var(--padding-left));
+    width: calc(100% - var(--pui-spacing-200) + var(--padding-left) - var(--level) * var(--padding-left));
   }
 
   &_drag-above:is(&_variant-layer) > &__content > &__content-inner > &__children::before {
-    left: calc(var(--pui-spacing-100) + var(--level) * var(--pui-spacing-400));
-    width: calc(100% + var(--pui-spacing-100) - var(--level) * var(--pui-spacing-400));
+    --padding-left: calc(var(--pui-spacing-400) + var(--pui-spacing-200) + 2px);
+
+    left: calc(var(--pui-spacing-100) + var(--level) * (var(--padding-left)));
+    width: calc(100% + var(--pui-spacing-100) - var(--level) * (var(--padding-left)));
   }
 
   // Drop inside
@@ -238,13 +248,19 @@
   }
 
   &_drag-inside:is(&_variant-default) > &__content > &__content-inner > &__children::after {
-    left: calc((var(--level) + 1) * var(--pui-spacing-400));
-    width: calc(100% - var(--level) * var(--pui-spacing-400));
+    --padding-left: calc(var(--pui-spacing-400) + var(--pui-spacing-200));
+    --nesting: calc(var(--pui-spacing-400) + var(--pui-spacing-400));
+
+    left: calc((var(--level) + 1) * var(--padding-left));
+    width: calc(100% - var(--nesting) + var(--padding-left) - var(--level) * var(--padding-left));
   }
 
   &_drag-inside:is(&_variant-layer) > &__content > &__content-inner > &__children::after {
-    left: calc(var(--pui-spacing-100) + (var(--level) + 1) * var(--pui-spacing-400));
-    width: calc(100% - (var(--pui-spacing-200) + var(--pui-spacing-100)) - var(--level) * var(--pui-spacing-400));
+    --padding-left: calc(var(--pui-spacing-400) + var(--pui-spacing-200) + var(--pui-spacing-100));
+    --nesting: calc(var(--pui-spacing-400) + var(--pui-spacing-400) + var(--pui-spacing-400));
+
+    left: calc((var(--level) + 1) * var(--padding-left));
+    width: calc(100% - var(--nesting) + var(--padding-left) - var(--level) * var(--padding-left));
   }
 
   // Drop below
@@ -254,13 +270,17 @@
   }
 
   &_drag-below:is(&_variant-default) > &__content > &__content-inner > &__children::after {
-    left: calc(var(--level) * var(--pui-spacing-400));
-    width: calc(100% + var(--pui-spacing-400) - var(--level) * var(--pui-spacing-400));
+    --padding-left: calc(var(--pui-spacing-400) + var(--pui-spacing-200));
+
+    left: calc(var(--level) * var(--padding-left));
+    width: calc(100% - var(--pui-spacing-200) + var(--padding-left) - var(--level) * var(--padding-left));
   }
 
   &_drag-below:is(&_variant-layer) > &__content > &__content-inner > &__children::after {
-    left: calc(var(--pui-spacing-100) + var(--level) * var(--pui-spacing-400));
-    width: calc(100% + var(--pui-spacing-100) - var(--level) * var(--pui-spacing-400));
+    --padding-left: calc(var(--pui-spacing-400) + var(--pui-spacing-200) + 2px);
+
+    left: calc(var(--pui-spacing-100) + var(--level) * (var(--padding-left)));
+    width: calc(100% + var(--pui-spacing-100) - var(--level) * (var(--padding-left)));
   }
 
   // Drop parent, inside
@@ -324,15 +344,20 @@
   }
 
   &_variant-default:is(&_collapsable):is(&_draggable) > &__content > &__content-inner > &__collapse-toggle {
-    left: calc(var(--pui-spacing-400) * var(--level) + var(--pui-spacing-200) + var(--pui-spacing-100));
+    left: calc(var(--pui-spacing-200) + var(--pui-spacing-100) + var(--level) * (var(--pui-spacing-400) + var(--pui-spacing-200)));
   }
 
   &_variant-default:is(&_collapsable):is(&_draggable) > &__items > .ListContainer > .ListContainer__end-dropzone {
-    left: calc((var(--level) + 1) * var(--pui-spacing-400) + var(--pui-spacing-200) + var(--pui-spacing-100)) !important;
-    width: calc(100% - var(--pui-spacing-400) * (var(--level) + 1) - var(--pui-spacing-200) - var(--pui-spacing-100)) !important;
+    left: calc(var(--pui-spacing-100) + (var(--level) + 1) * (var(--pui-spacing-400) + var(--pui-spacing-200))) !important;
+    width: calc(100% - var(--pui-spacing-100) - (var(--level) + 1) * (var(--pui-spacing-400) + var(--pui-spacing-200))) !important;
+  }
+
+  &_variant-layer:is(&_collapsable):is(&_draggable) > &__items > .ListContainer > .ListContainer__end-dropzone {
+    left: calc((var(--level) + 1) * (var(--pui-spacing-400) + var(--pui-spacing-200) - 2px)) !important;
+    width: calc(100% - (var(--level) + 1) * (var(--pui-spacing-400) + var(--pui-spacing-200) - 2px)) !important;
   }
 
   &_variant-layer:is(&_collapsable):is(&_nested) > &__content > &__content-inner > &__collapse-toggle {
-    left: calc(var(--pui-spacing-400) + (var(--level) - 1) * var(--pui-spacing-400));
+    left: calc(var(--level) * (var(--pui-spacing-400) + var(--pui-spacing-200)));
   }
 }

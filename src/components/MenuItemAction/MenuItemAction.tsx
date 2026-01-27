@@ -1,5 +1,5 @@
-import { Fragment } from "preact"
-import { bem, typedForwardRef, override, uuid } from "../../utils"
+import { Fragment, cloneElement } from "preact"
+import { bem, typedForwardRef, uuid } from "../../utils"
 import { useState, useEffect, useRef } from "preact/hooks"
 
 import { Text, useMenuContext } from "../../index"
@@ -100,6 +100,31 @@ const MenuItemActionComponent = (
   const handleMouseLeave = () => {
     if (disabled) return
     setIsHovered(false)
+  }
+
+  const override = (
+    node: preact.ComponentChildren,
+    props: Record<string, unknown>
+  ): preact.ComponentChildren => {
+    if (Array.isArray(node)) {
+      return node.map((n) => override(n, props))
+    }
+
+    if (
+      node &&
+      typeof node === "object" &&
+      "type" in node &&
+      typeof node.type !== "string"
+    ) {
+      const vnode = node as preact.VNode
+      const originalProps = vnode.props || {}
+
+      const overrideProps: Record<string, unknown> = { ...props }
+
+      return cloneElement(vnode, overrideProps, originalProps.children)
+    }
+
+    return node
   }
 
   return (

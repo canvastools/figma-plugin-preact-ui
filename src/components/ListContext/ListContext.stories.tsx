@@ -250,7 +250,7 @@ const renderItems = (
 
     const renderItems = (items: ListItemData[], level: number) => {
       return (
-        <ListContainer {...args}>
+        <ListContainer>
           {items.map((item) => (
             <ListItem
               key={item.id}
@@ -288,7 +288,6 @@ const renderItems = (
           {...args}
           items={items}
           selectedItemIds={selectedItems}
-          selectionMode="multi"
           onItemsChange={(args) => {
             setItems(args.items)
           }}

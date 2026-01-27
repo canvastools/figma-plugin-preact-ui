@@ -1,6 +1,7 @@
+import { cloneElement } from "preact"
 import { useState, useEffect, useRef } from "preact/hooks"
 
-import { bem, typedForwardRef, override, uuid } from "../../utils"
+import { bem, typedForwardRef, uuid } from "../../utils"
 
 import { Text, Icon, check as checkGlyph, useMenuContext } from "../../index"
 import type { MenuContextValue } from "../../index"
@@ -114,6 +115,31 @@ const MenuItemOptionComponent = (
   const handleMouseLeave = () => {
     if (disabled) return
     setIsHovered(false)
+  }
+
+  const override = (
+    node: preact.ComponentChildren,
+    props: Record<string, unknown>
+  ): preact.ComponentChildren => {
+    if (Array.isArray(node)) {
+      return node.map((n) => override(n, props))
+    }
+
+    if (
+      node &&
+      typeof node === "object" &&
+      "type" in node &&
+      typeof node.type !== "string"
+    ) {
+      const vnode = node as preact.VNode
+      const originalProps = vnode.props || {}
+
+      const overrideProps: Record<string, unknown> = { ...props }
+
+      return cloneElement(vnode, overrideProps, originalProps.children)
+    }
+
+    return node
   }
 
   return (

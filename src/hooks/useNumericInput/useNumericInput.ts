@@ -6,6 +6,7 @@ import {
 } from "./useNumericInput.types"
 
 const NUMBER_REGEX = /[-+]?\d*\.?\d+/
+const MATH_ALLOWED_CHARS = /[0-9+\-*/().\s]/
 
 const clamp = (value: number, min?: number, max?: number): number => {
   if (typeof min === "number" && value < min) return min
@@ -32,11 +33,211 @@ type InternalParse = {
   error: NumericInputError | null
 }
 
+type MathToken =
+  | { type: "number"; value: number }
+  | { type: "op"; value: "+" | "-" | "*" | "/" }
+  | { type: "paren"; value: "(" | ")" }
+
+const isDigit = (char: string): boolean => char >= "0" && char <= "9"
+
+const sanitizeMathInput = (raw: string): string => {
+  let result = ""
+
+  for (const char of raw) {
+    if (MATH_ALLOWED_CHARS.test(char)) {
+      result += char
+    }
+  }
+
+  return result
+}
+
+const tokenizeMathInput = (raw: string): MathToken[] => {
+  const tokens: MathToken[] = []
+  let index = 0
+
+  while (index < raw.length) {
+    const char = raw[index]
+
+    if (char === " " || char === "\t" || char === "\n") {
+      index += 1
+      continue
+    }
+
+    if (isDigit(char) || char === ".") {
+      const start = index
+      let hasDot = char === "."
+      index += 1
+
+      while (index < raw.length) {
+        const next = raw[index]
+
+        if (isDigit(next)) {
+          index += 1
+          continue
+        }
+
+        if (next === "." && !hasDot) {
+          hasDot = true
+          index += 1
+          continue
+        }
+
+        break
+      }
+
+      const value = raw.slice(start, index)
+
+      if (value !== ".") {
+        const numberValue = Number(value)
+
+        if (Number.isFinite(numberValue)) {
+          tokens.push({ type: "number", value: numberValue })
+        }
+      }
+
+      continue
+    }
+
+    if (char === "+" || char === "-" || char === "*" || char === "/") {
+      tokens.push({ type: "op", value: char })
+      index += 1
+      continue
+    }
+
+    if (char === "(" || char === ")") {
+      tokens.push({ type: "paren", value: char })
+      index += 1
+      continue
+    }
+
+    index += 1
+  }
+
+  return tokens
+}
+
+const evaluateMathExpression = (raw: string): number | null => {
+  const sanitized = sanitizeMathInput(raw)
+  const tokens = tokenizeMathInput(sanitized)
+  let index = 0
+
+  const peek = (): MathToken | undefined => tokens[index]
+  const consume = (): MathToken | undefined => {
+    const token = tokens[index]
+    index += 1
+    return token
+  }
+
+  const parseFactor = (): number | null => {
+    const token = peek()
+
+    if (!token) {
+      return null
+    }
+
+    if (token.type === "op" && (token.value === "+" || token.value === "-")) {
+      consume()
+      const value = parseFactor()
+      if (value === null) return null
+      return token.value === "-" ? -value : value
+    }
+
+    if (token.type === "paren" && token.value === "(") {
+      consume()
+      const value = parseExpression()
+
+      if (peek()?.type === "paren" && peek()?.value === ")") {
+        consume()
+      }
+
+      return value
+    }
+
+    if (token.type === "number") {
+      consume()
+      return token.value
+    }
+
+    // Consume unexpected tokens to avoid infinite loops.
+    consume()
+    return null
+  }
+
+  const parseTerm = (): number | null => {
+    let value = parseFactor()
+
+    if (value === null) {
+      return null
+    }
+
+    while (true) {
+      const token = peek()
+      if (!token || token.type !== "op" || (token.value !== "*" && token.value !== "/")) {
+        break
+      }
+
+      consume()
+      const next = parseFactor()
+
+      if (next === null) {
+        break
+      }
+
+      value = token.value === "*" ? value * next : value / next
+    }
+
+    return value
+  }
+
+  const parseExpression = (): number | null => {
+    let value = parseTerm()
+
+    if (value === null) {
+      return null
+    }
+
+    while (true) {
+      const token = peek()
+      if (!token || token.type !== "op" || (token.value !== "+" && token.value !== "-")) {
+        break
+      }
+
+      consume()
+      const next = parseTerm()
+
+      if (next === null) {
+        break
+      }
+
+      value = token.value === "+" ? value + next : value - next
+    }
+
+    return value
+  }
+
+  if (tokens.length === 0) {
+    return null
+  }
+
+  const result = parseExpression()
+
+  if (result === null || !Number.isFinite(result)) {
+    return null
+  }
+
+  return result
+}
+
 /**
  * Extracts the first signed number from the input string.
  * Returns `invalid_number` when no valid number can be found.
  */
-const parseNumericInput = (raw: unknown, required?: boolean): InternalParse => {
+const parseNumericInput = (
+  raw: unknown,
+  required?: boolean,
+  math?: boolean
+): InternalParse => {
   if (raw === null || raw === undefined) {
     return {
       value: undefined,
@@ -54,6 +255,19 @@ const parseNumericInput = (raw: unknown, required?: boolean): InternalParse => {
     }
   }
 
+  const num = math ? evaluateMathExpression(trimmed) : null
+
+  if (math) {
+    if (num === null) {
+      return {
+        value: undefined,
+        error: "invalid_number",
+      }
+    }
+
+    return { value: num, error: null }
+  }
+
   const match = NUMBER_REGEX.exec(trimmed)
 
   if (!match) {
@@ -63,16 +277,16 @@ const parseNumericInput = (raw: unknown, required?: boolean): InternalParse => {
     }
   }
 
-  const num = Number(match[0])
+  const parsed = Number(match[0])
 
-  if (!Number.isFinite(num)) {
+  if (!Number.isFinite(parsed)) {
     return {
       value: undefined,
       error: "invalid_number",
     }
   }
 
-  return { value: num, error: null }
+  return { value: parsed, error: null }
 }
 
 const buildSingleResult = (
@@ -81,7 +295,11 @@ const buildSingleResult = (
 ): NumericInputParseResult => {
   const { min, max, required, unit, normalizeOnError = false } = config
 
-  const { value: parsed, error: parseError } = parseNumericInput(raw, required)
+  const { value: parsed, error: parseError } = parseNumericInput(
+    raw,
+    required,
+    config.math
+  )
 
   const precision =
     typeof config.precision === "number"
@@ -248,7 +466,7 @@ const useNumericInput = (config: NumericInputConfig): NumericInput => {
     direction: "increment" | "decrement",
     options?: { shiftKey?: boolean }
   ): number => {
-    const { value: currentValue } = parseNumericInput(raw, required)
+    const { value: currentValue } = parseNumericInput(raw, required, config.math)
 
     const effectiveStep =
       options?.shiftKey && typeof stepLarge === "number" ? stepLarge : step

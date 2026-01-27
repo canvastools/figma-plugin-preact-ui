@@ -43,12 +43,16 @@ const InputComponent = (
     () => defaultValue ?? ""
   )
   const [isFocused, setIsFocused] = useState(false)
+  const [isKeyboardEditing, setIsKeyboardEditing] = useState(false)
+  const [isWrapperFocused, setIsWrapperFocused] = useState(false)
   const [hasContent, setHasContent] = useState<boolean>(
     Boolean(value ?? internalValue ?? "")
   )
+  const [isEditing, setIsEditing] = useState(false)
 
   const rootRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
+  const wrapperLastInteractionWasMouse = useRef(false)
 
   // Expose the root wrapper element to consumers (stable anchor for tooltips)
   useImperativeHandle(ref, () => rootRef.current as HTMLDivElement, [])
@@ -77,7 +81,17 @@ const InputComponent = (
     suffix: Boolean(suffix),
     suffixOnHover: Boolean(showSuffixOnHover),
     focused: isFocused,
+    // For double-click mode, apply keyboardFocus only when the wrapper
+    // itself is focused via keyboard (Tab), not mouse.
+    keyboardFocus:
+      focusOnDoubleClick && isWrapperFocused && isKeyboardEditing,
+    editing: isEditing,
+    doubleClick: focusOnDoubleClick,
     error,
+  })
+
+  const _displayClassName = bem("Input__display", undefined, {
+    placeholder: Boolean(placeholder && !hasContent),
   })
 
   const handleChange = (
@@ -105,6 +119,30 @@ const InputComponent = (
       event: event as unknown as MouseEvent,
       value: event.currentTarget.value,
     })
+
+    if (focusOnDoubleClick && rootRef.current && isEditing) {
+      setTimeout(() => {
+        rootRef.current && rootRef.current.focus()
+      }, 0)
+    }
+  }
+
+  const handleRootFocus = (
+    event: preact.JSX.TargetedFocusEvent<HTMLDivElement>
+  ) => {
+    if (event.currentTarget === event.target) {
+      setIsWrapperFocused(true)
+      setIsKeyboardEditing(!wrapperLastInteractionWasMouse.current)
+    }
+  }
+
+  const handleRootBlur = (
+    event: preact.JSX.TargetedFocusEvent<HTMLDivElement>
+  ) => {
+    if (event.currentTarget === event.target) {
+      setIsWrapperFocused(false)
+      setIsKeyboardEditing(false)
+    }
   }
 
   const handleFocus = (
@@ -139,49 +177,87 @@ const InputComponent = (
   const handleClick = (
     event: preact.JSX.TargetedMouseEvent<HTMLInputElement>
   ) => {
-    if (!focusOnDoubleClick) {
+    event.stopPropagation()
+  }
+
+  const handleRootMouseDown = () => {
+    // Any pointer press on the wrapper marks this as a mouse-driven interaction.
+    wrapperLastInteractionWasMouse.current = true
+  }
+
+  const handleRootKeyDown = (
+    event: preact.JSX.TargetedKeyboardEvent<HTMLDivElement>
+  ) => {
+    if (event.key === " " || event.key === "Spacebar" || event.key === "Enter") {
+      event.preventDefault()
       event.stopPropagation()
+      wrapperLastInteractionWasMouse.current = false
+      setIsEditing(true)
     }
   }
 
-  const handleDoubleClick = () => {
-    if (focusOnDoubleClick) {
-      inputRef.current?.focus()
-    }
+  const handleDoubleClickDisplay = () => {
+    if (!focusOnDoubleClick) return
+    wrapperLastInteractionWasMouse.current = true
+    setIsEditing(true)
   }
+
+  useEffect(() => {
+    if (focusOnDoubleClick && isEditing) {
+      setTimeout(() => {
+        inputRef.current?.focus()
+        inputRef.current?.select?.()
+      }, 0)
+    }
+  }, [focusOnDoubleClick, isEditing])
+
+  const showEditableInput = !focusOnDoubleClick || isEditing
+  const displayedValue = isControlled ? value ?? "" : internalValue
 
   return (
     <Fragment>
       <div
         className={[_className, className].join(" ").trim()}
-        data-pui-interactive={focusOnDoubleClick ? "false" : "true"}
+        data-pui-interactive={showEditableInput ? "true" : "false"}
+        tabIndex={focusOnDoubleClick ? 0 : undefined}
+        onKeyDown={handleRootKeyDown}
+        onMouseDown={handleRootMouseDown}
+        onFocus={handleRootFocus}
+        onBlur={handleRootBlur}
         ref={rootRef as preact.Ref<HTMLDivElement>}
+        onDblClick={handleDoubleClickDisplay}
         {...rest}
       >
         {prefix && <div className="Input__prefix">{prefix}</div>}
-        <input
-          className="Input__input-native"
-          ref={(el) => {
-            inputRef.current = el
-          }}
-          minLength={minLength}
-          maxLength={maxLength}
-          type={type}
-          disabled={disabled}
-          placeholder={placeholder}
-          value={isControlled ? value : internalValue}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          onFocus={handleFocus}
-          onKeyDown={handleKeyDown}
-          onClick={handleClick}
-          onDblClick={handleDoubleClick}
-          onMouseDown={(e) => {
-            if (focusOnDoubleClick) {
-              e.preventDefault()
-            }
-          }}
-        />
+        {showEditableInput ? (
+          <input
+            className="Input__input-native"
+            ref={(el) => {
+              inputRef.current = el
+            }}
+            minLength={minLength}
+            maxLength={maxLength}
+            type={type}
+            disabled={disabled}
+            placeholder={placeholder}
+            value={isControlled ? value : internalValue}
+            onChange={handleChange}
+            onClick={handleClick}
+            onBlur={(event) => {
+              handleBlur(event)
+              if (focusOnDoubleClick) {
+                setIsEditing(false)
+                setIsKeyboardEditing(false)
+              }
+            }}
+            onFocus={handleFocus}
+            onKeyDown={handleKeyDown}
+          />
+        ) : (
+          <div className={_displayClassName}>
+            {displayedValue || placeholder}
+          </div>
+        )}
         {suffix && <div className="Input__suffix">{suffix}</div>}
       </div>
       {tooltip && <Tooltip anchorRef={rootRef}>{tooltip}</Tooltip>}
