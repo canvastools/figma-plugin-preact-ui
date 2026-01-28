@@ -43,7 +43,7 @@ export { ControlGroup } from "./components/ControlGroup/ControlGroup"
 export type { ControlGroupProps } from "./components/ControlGroup/ControlGroup.types"
 
 export { Calendar } from "./components/Calendar/Calendar"
-export type { CalendarProps } from "./components/Calendar/Calendar.types"
+export type { CalendarProps, CalendarDate } from "./components/Calendar/Calendar.types"
 
 export { Divider } from "./components/Divider/Divider"
 export type { DividerProps } from "./components/Divider/Divider.types"
@@ -145,13 +145,13 @@ export type {
 export { SegmentedControl } from "./components/SegmentedControl/SegmentedControl"
 export type {
   SegmentedControlProps,
-  SegmentedControlItemData,
+  SegmentedControlOptionData,
 } from "./components/SegmentedControl/SegmentedControl.types"
 
 export { Select } from "./components/Select/Select"
 export type {
   SelectProps,
-  SelectItemData,
+  SelectOptionData,
 } from "./components/Select/Select.types"
 
 export { Spacing } from "./components/Spacing/Spacing"

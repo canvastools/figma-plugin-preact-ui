@@ -1,7 +1,7 @@
 import { StoryObj } from "@storybook/preact"
 
 import { SegmentedControl } from "../SegmentedControl"
-import { SegmentedControlItemData } from "../SegmentedControl.types"
+import { SegmentedControlOptionData } from "../SegmentedControl.types"
 
 type Story = StoryObj<typeof SegmentedControl>
 
@@ -15,7 +15,7 @@ export const UncontrolledStory: Story = {
       source: {
         language: "tsx",
         code: `
-const items = [
+const options = [
   {
     value: "list",
     label: "List view",
@@ -28,14 +28,14 @@ const items = [
 
 <SegmentedControl
   defaultValue="list"
-  items={items}
+  options={options}
 />
 `,
       },
     },
   },
   render: () => {
-    const items: SegmentedControlItemData[] = [
+    const options: SegmentedControlOptionData[] = [
       {
         value: "list",
         label: "List view",
@@ -48,7 +48,7 @@ const items = [
 
     return (
       <div className="sb-column sb-width-300">
-        <SegmentedControl items={items} defaultValue="list" />
+        <SegmentedControl options={options} defaultValue="list" />
       </div>
     )
   },

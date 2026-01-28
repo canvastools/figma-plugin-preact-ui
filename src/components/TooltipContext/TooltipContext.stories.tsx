@@ -116,7 +116,7 @@ const triggerRef = useRef(null)
 
             <SegmentedControl
               defaultValue="list"
-              items={[
+              options={[
                 {
                   value: "list",
                   label: "List",
@@ -131,7 +131,7 @@ const triggerRef = useRef(null)
             />
 
             <Select
-              items={[
+              options={[
                 { value: "list", label: "List" },
                 { value: "grid", label: "Grid" },
               ]}

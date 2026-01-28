@@ -14,14 +14,14 @@ export const UncontrolledStory: Story = {
       source: {
         language: "tsx",
         code: `
-<Calendar defaultValue={new Date()}/>
+<Calendar defaultDate={new Date()}/>
 `,
       },
     },
   },
   render: () => (
     <div className="sb-column sb-width-300 sb-gap-16">
-      <Calendar defaultValue={new Date()} />
+      <Calendar defaultDate={new Date()} />
     </div>
   ),
 }

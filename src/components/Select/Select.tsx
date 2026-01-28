@@ -3,7 +3,7 @@ import { useEffect, useMemo, useRef, useState } from "preact/hooks"
 
 import { bem, typedForwardRef } from "../../utils"
 
-import type { SelectProps, SelectItemData } from "./Select.types"
+import type { SelectProps, SelectOptionData } from "./Select.types"
 import "./Select.scss"
 
 import {
@@ -23,7 +23,7 @@ import {
 const SelectComponent = (
   {
     className,
-    items,
+    options,
     placeholder,
     defaultValue,
     value,
@@ -53,22 +53,22 @@ const SelectComponent = (
 
   // Normalize options into groups: either a single group (flat list) or multiple groups
   const groups = useMemo(() => {
-    const opts = items ?? []
+    const opts = options ?? []
     if (
       Array.isArray(opts) &&
       opts.length > 0 &&
       Array.isArray((opts as unknown[])[0])
     ) {
-      return opts as SelectItemData[][]
+      return opts as SelectOptionData[][]
     }
-    return [opts as SelectItemData[]]
-  }, [items])
+    return [opts as SelectOptionData[]]
+  }, [options])
 
   const flatOptions = useMemo(
     () =>
-      groups.reduce<SelectItemData[]>(
+      groups.reduce<SelectOptionData[]>(
         (acc, group) => acc.concat(group),
-        [] as SelectItemData[]
+        [] as SelectOptionData[]
       ),
     [groups]
   )
@@ -118,7 +118,7 @@ const SelectComponent = (
     if (typeof ref === "function") {
       ref(el)
     } else {
-      ;(ref as preact.RefObject<HTMLDivElement | null>).current = el
+      ; (ref as preact.RefObject<HTMLDivElement | null>).current = el
     }
   }
 
@@ -185,7 +185,7 @@ const SelectComponent = (
 
 type SelectMenuProps = {
   menuContainerProps: SelectProps["menuContainerProps"]
-  groups: SelectItemData[][]
+  groups: SelectOptionData[][]
   selectedValue?: string
   onChange?: (args: { event: MouseEvent; value: string }) => void
 }

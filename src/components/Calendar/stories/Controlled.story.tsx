@@ -18,25 +18,25 @@ export const ControlledStory: Story = {
       source: {
         language: "tsx",
         code: `
-const [value, setValue] = useState(new Date())
+const [date, setDate] = useState(new Date())
 
 <Calendar
-  value={value}
-  onChange={(args) => setValue(args.value)}
+  date={date}
+  onDateChange={(args) => setDate(args.date)}
 />
 `,
       },
     },
   },
   render: () => {
-    const [value, setValue] = useState<Date | null>(new Date())
+    const [date, setDate] = useState<Date | null>(new Date())
 
     return (
       <div className="sb-column sb-width-300 sb-gap-16">
-        <Text>value: {value?.toString()}</Text>
+        <Text>date: {date?.toString()}</Text>
         <Calendar
-          value={value}
-          onChange={(args) => setValue(args.value as Date)}
+          date={date}
+          onDateChange={(args) => setDate(args.date as Date)}
         />
       </div>
     )

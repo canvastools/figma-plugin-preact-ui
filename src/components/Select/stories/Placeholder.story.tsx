@@ -1,7 +1,7 @@
 import { StoryObj } from "@storybook/preact"
 
 import { Select } from "../Select"
-import { SelectItemData } from "../Select.types"
+import { SelectOptionData } from "../Select.types"
 
 type Story = StoryObj<typeof Select>
 
@@ -21,7 +21,7 @@ export const PlaceholderStory: Story = {
     },
   },
   render: () => {
-    const items: SelectItemData[] = [
+    const options: SelectOptionData[] = [
       { value: "option-1", label: "Option one" },
       { value: "option-2", label: "Option two" },
       { value: "option-3", label: "Option three" },
@@ -29,7 +29,7 @@ export const PlaceholderStory: Story = {
 
     return (
       <div className="sb-column sb-width-300">
-        <Select items={items} placeholder="Placeholder" />
+        <Select options={options} placeholder="Placeholder" />
       </div>
     )
   },

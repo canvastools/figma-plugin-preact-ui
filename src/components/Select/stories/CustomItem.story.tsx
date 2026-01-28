@@ -6,7 +6,7 @@ import { useRef, useEffect } from "preact/hooks"
 import { useMenuContext, Text, Icon, check } from "../../../index"
 
 import { Select } from "../Select"
-import { SelectItemData } from "../Select.types"
+import { SelectOptionData } from "../Select.types"
 
 type Story = StoryObj<typeof Select>
 
@@ -24,7 +24,6 @@ export const CustomItemStory: Story = {
       source: {
         language: "tsx",
         code: `
-
 const CustomItem = ({
   label,
   value,
@@ -90,15 +89,15 @@ const CustomItem = ({
   )
 }
 
-const items = [
+const options = [
   { value: "option-1", label: "Option one" },
   { value: "option-2", label: "Option two" },
   { value: "option-3", label: "Option three" },
-  { value: "custom-item", label: "Custom item", children: <CustomItem /> },
+  { value: "custom-value", label: "Custom option", children: <CustomItem /> },
 ]
 
 <Select
-  items={items}
+  options={options}
   defaultValue="option-1"
 />
 `,
@@ -207,17 +206,17 @@ const items = [
       )
     }
 
-    const items: SelectItemData[] = [
+    const options: SelectOptionData[] = [
       { value: "option-1", label: "Option one" },
       { value: "option-2", label: "Option two" },
       { value: "option-3", label: "Option three" },
-      { value: "custom-item", label: "Custom item", children: <CustomItem /> },
+      { value: "custom-value", label: "Custom option", children: <CustomItem /> },
     ]
 
     return (
       <div className="sb-column sb-width-300">
         <Select
-          items={items}
+          options={options}
           defaultValue="option-1"
           onValueChange={(args) => console.log("onValueChange", args)}
         />

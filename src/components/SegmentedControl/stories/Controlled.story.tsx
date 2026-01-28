@@ -5,7 +5,7 @@ import { useState } from "preact/hooks"
 import { Text } from "../../../index"
 
 import { SegmentedControl } from "../SegmentedControl"
-import { SegmentedControlItemData } from "../SegmentedControl.types"
+import { SegmentedControlOptionData } from "../SegmentedControl.types"
 
 type Story = StoryObj<typeof SegmentedControl>
 
@@ -21,7 +21,7 @@ export const ControlledStory: Story = {
         code: `
 const [value, setValue] = useState("list")
 
-const items = [
+const options = [
   {
     value: "list",
     label: "List view",
@@ -35,7 +35,7 @@ const items = [
 <SegmentedControl
   value={value}
   onValueChange={(args) => setValue(args.value)}
-  items={items}
+  options={options}
 />
 `,
       },
@@ -44,7 +44,7 @@ const items = [
   render: () => {
     const [value, setValue] = useState("list")
 
-    const items: SegmentedControlItemData[] = [
+    const options: SegmentedControlOptionData[] = [
       {
         value: "list",
         label: "List view",
@@ -59,7 +59,7 @@ const items = [
       <div className="sb-column sb-width-300 sb-gap-16">
         <Text>value: {value}</Text>
         <SegmentedControl
-          items={items}
+          options={options}
           value={value}
           onValueChange={(args) => setValue(args.value)}
         />

@@ -2,7 +2,7 @@ import { Glyph } from "../../index"
 
 import type { IconPropsPick } from "../Icon/Icon.types"
 
-export interface SegmentedControlItemData {
+export interface SegmentedControlOptionData {
   value: string
   label: string
   icon?: IconPropsPick
@@ -10,7 +10,7 @@ export interface SegmentedControlItemData {
 
 export interface SegmentedControlProps {
   className?: string
-  items: SegmentedControlItemData[]
+  options: SegmentedControlOptionData[]
   value?: string
   defaultValue?: string
   disabled?: boolean

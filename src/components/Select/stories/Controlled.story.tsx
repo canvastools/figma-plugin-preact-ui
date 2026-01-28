@@ -5,7 +5,7 @@ import { useState } from "preact/hooks"
 import { Text } from "../../../index"
 
 import { Select } from "../Select"
-import { SelectItemData } from "../Select.types"
+import { SelectOptionData } from "../Select.types"
 
 type Story = StoryObj<typeof Select>
 
@@ -21,7 +21,7 @@ export const ControlledStory: Story = {
         code: `
 const [value, setValue] = useState("option-1")
 
-const items = [
+const options = [
   { 
     value: "option-1",
     label: "Option one"
@@ -37,7 +37,7 @@ const items = [
 ]
 
 <Select
-  items={items}
+  options={options}
   value={value}
   onValueChange={(args) => setValue(args.value)}
 />
@@ -48,7 +48,7 @@ const items = [
   render: () => {
     const [value, setValue] = useState("option-1")
 
-    const items: SelectItemData[] = [
+    const options: SelectOptionData[] = [
       { value: "option-1", label: "Option one" },
       { value: "option-2", label: "Option two" },
       { value: "option-3", label: "Option three" },
@@ -58,7 +58,7 @@ const items = [
       <div className="sb-column sb-width-300 sb-gap-16">
         <Text>value: {value}</Text>
         <Select
-          items={items}
+          options={options}
           value={value}
           onValueChange={(args) => setValue(args.value)}
         />

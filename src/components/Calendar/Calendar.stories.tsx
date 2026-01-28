@@ -50,23 +50,23 @@ const meta: Meta<typeof Calendar> = {
         },
       },
     },
-    defaultValue: {
+    defaultDate: {
       control: { type: "date" },
       defaultValue: { summary: "null" },
-      description: "Value for uncontrolled state.",
+      description: "Date for uncontrolled state.",
       table: {
         type: {
-          summary: "CalendarValue",
+          summary: "CalendarDate",
           detail: `Date | [Date | null, Date | null] | null`,
         },
       },
     },
-    value: {
+    date: {
       control: { disable: true },
-      description: `Value for controlled state.`,
+      description: `Date for controlled state.`,
       table: {
         type: {
-          summary: "CalendarValue",
+          summary: "CalendarDate",
           detail: `Date | [Date | null, Date | null] | null`,
         },
       },
@@ -112,13 +112,13 @@ const meta: Meta<typeof Calendar> = {
       options: ["full", "simple"],
       defaultValue: { summary: "full" },
     },
-    onChange: {
+    onDateChange: {
       table: {
         type: {
           summary: "(args) => void",
           detail: `
 args:{
-  value: CalendarValue
+  date: CalendarDate
 }
 `,
         },
@@ -132,7 +132,7 @@ args:{
 args:{
   action: string
   activeStartDate: Date | null
-  value: CalendarValue
+  date: CalendarDate
   view: string
 }
 `,
@@ -147,7 +147,7 @@ args:{
 args:{
   action: string
   activeStartDate: Date | null
-  value: CalendarValue
+  date: CalendarDate
   view: string
 }
 `,
@@ -162,7 +162,7 @@ args:{
 args:{
   action: string
   activeStartDate: Date | null
-  value: CalendarValue
+  date: CalendarDate
   view: string
 }
 `,
@@ -184,15 +184,15 @@ export const Demo: Story = {
     type: "iso8601",
     defaultView: "month",
     view: null,
-    defaultValue: new Date(),
-    value: null,
+    defaultDate: new Date(),
+    date: null,
     minDate: new Date(new Date().setFullYear(new Date().getFullYear() - 5)),
     maxDate: new Date(new Date().setFullYear(new Date().getFullYear() + 5)),
     minDetail: "century",
     maxDetail: "month",
     showNavigation: true,
     navigation: "full",
-    onChange: fn(),
+    onDateChange: fn(),
     onDetailUp: fn(),
     onDetailDown: fn(),
     onViewChange: fn(),

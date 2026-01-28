@@ -22,15 +22,15 @@ const CalendarComponent = (
     type = "iso8601",
     defaultView = "month",
     view,
-    defaultValue = null,
-    value = null,
+    defaultDate = null,
+    date = null,
     minDate = new Date(new Date().setFullYear(new Date().getFullYear() - 5)),
     maxDate = new Date(new Date().setFullYear(new Date().getFullYear() + 5)),
     minDetail = "century",
     maxDetail = "month",
     showNavigation = true,
     navigation = "full",
-    onChange,
+    onDateChange,
     onDetailUp,
     onDetailDown,
     onViewChange,
@@ -67,8 +67,8 @@ const CalendarComponent = (
         calendarType={type}
         defaultView={defaultView}
         view={view}
-        defaultValue={defaultValue}
-        value={value}
+        defaultValue={defaultDate}
+        value={date}
         minDate={minDate}
         maxDate={maxDate}
         minDetail={minDetail}
@@ -78,11 +78,23 @@ const CalendarComponent = (
         nextLabel={<Icon glyph={chevronRight} variant="scaled" />}
         next2Label={<Icon glyph={chevronDoubleRight} variant="scaled" />}
         onChange={(e) => {
-          onChange?.({ value: e })
+          onDateChange?.({ date: e })
         }}
-        onDrillUp={(e) => onDetailUp?.({ ...e })}
-        onDrillDown={(e) => onDetailDown?.({ ...e })}
-        onViewChange={(e) => onViewChange?.({ ...e })}
+        onDrillUp={(e) => {
+          const args = { ...e, date: e.value }
+          delete (args as any).value
+          onDetailUp?.(args)
+        }}
+        onDrillDown={(e) => {
+          const args = { ...e, date: e.value }
+          delete (args as any).value
+          onDetailDown?.(args)
+        }}
+        onViewChange={(e) => {
+          const args = { ...e, date: e.value }
+          delete (args as any).value
+          onViewChange?.(args)
+        }}
         {...rest}
       />
     </div>

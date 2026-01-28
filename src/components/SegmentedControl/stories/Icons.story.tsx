@@ -3,7 +3,7 @@ import { StoryObj } from "@storybook/preact"
 import { link, TooltipContext } from "../../../index"
 
 import { SegmentedControl } from "../SegmentedControl"
-import { SegmentedControlItemData } from "../SegmentedControl.types"
+import { SegmentedControlOptionData } from "../SegmentedControl.types"
 
 type Story = StoryObj<typeof SegmentedControl>
 
@@ -19,7 +19,7 @@ export const IconsStory: Story = {
         code: `
 import { viewList, viewGrid } from "figma-plugin-preact-ui"
 
-const items = [
+const options = [
   {
     value: "list",
     label: "List view",
@@ -41,7 +41,7 @@ const items = [
 ]
 
 <SegmentedControl
-  items={items}
+  options={options}
   defaultValue="list"
 />
 
@@ -49,7 +49,7 @@ const items = [
 
 <TooltipContext>
   <SegmentedControl
-    items={items}
+    options={options}
     defaultValue="list"
   />
 </TooltipContext>
@@ -58,7 +58,7 @@ const items = [
     },
   },
   render: () => {
-    const items: SegmentedControlItemData[] = [
+    const options: SegmentedControlOptionData[] = [
       {
         value: "list",
         label: "List view",
@@ -82,7 +82,7 @@ const items = [
     return (
       <div className="sb-column sb-width-300">
         <TooltipContext>
-          <SegmentedControl items={items} defaultValue="list" />
+          <SegmentedControl options={options} defaultValue="list" />
         </TooltipContext>
       </div>
     )

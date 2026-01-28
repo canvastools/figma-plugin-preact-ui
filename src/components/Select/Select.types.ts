@@ -1,6 +1,6 @@
 import type { MenuContainerProps } from "../../index"
 
-export interface SelectItemData {
+export interface SelectOptionData {
   label: string
   value: string
   disabled?: boolean
@@ -11,7 +11,7 @@ type MenuContainerPropsPick = Pick<MenuContainerProps, "width">
 
 export interface SelectProps {
   className?: string
-  items?: SelectItemData[] | SelectItemData[][]
+  options?: SelectOptionData[] | SelectOptionData[][]
   placeholder?: string
   defaultValue?: string
   value?: string

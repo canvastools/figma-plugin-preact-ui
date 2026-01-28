@@ -21,12 +21,12 @@ const meta: Meta<typeof Select> = {
     className: {
       control: { type: "text" },
     },
-    items: {
+    options: {
       control: { disable: true },
-      description: `Array of items (options) to render in the select.`,
+      description: `Array of options to render in the select.`,
       table: {
         type: {
-          summary: "SelectItemData[] | SelectItemData[][]",
+          summary: "SelectOptionData[] | SelectOptionData[][]",
           detail: `
 {
   label: string // required
@@ -157,7 +157,7 @@ export const Demo: Story = {
     },
   },
   render: (args) => {
-    const items = [
+    const options = [
       { value: "option-1", label: "Option one" },
       { value: "option-2", label: "Option two" },
       { value: "option-3", label: "Option three" },
@@ -166,7 +166,7 @@ export const Demo: Story = {
     return (
       <div className="sb-column sb-width-300">
         <TooltipContext>
-          <Select items={items} {...args} />
+          <Select options={options} {...args} />
         </TooltipContext>
       </div>
     )

@@ -7,7 +7,7 @@ import { DisabledStory } from "./stories/Disabled.story"
 import { IconsStory } from "./stories/Icons.story"
 
 import { SegmentedControl } from "./SegmentedControl"
-import type { SegmentedControlItemData } from "./SegmentedControl.types"
+import type { SegmentedControlOptionData } from "./SegmentedControl.types"
 
 const meta: Meta<typeof SegmentedControl> = {
   title: "Components/SegmentedControl",
@@ -17,12 +17,12 @@ const meta: Meta<typeof SegmentedControl> = {
     className: {
       control: { type: "text" },
     },
-    items: {
+    options: {
       control: { disable: true },
-      description: "<strong>*</strong>Array of items to render in the control.",
+      description: "<strong>*</strong>Array of options to render in the control.",
       table: {
         type: {
-          summary: "SegmentedControlItemData[]",
+          summary: "SegmentedControlOptionData[]",
           detail: `
 {
   value: string // required
@@ -52,7 +52,7 @@ type IconPropsPick = {
       },
     },
     defaultValue: {
-      control: { disable: true },
+      control: { type: "text" },
       description: "Value for uncontrolled state.",
       table: { type: { summary: "string" } },
     },
@@ -100,7 +100,7 @@ export const Demo: Story = {
     docs: {
       source: {
         code: `
-const items = [
+const options = [
   {
     value: "list",
     label: "List view",
@@ -111,13 +111,13 @@ const items = [
   },
 ]
 
-<SegmentedControl items={items} {...args} />
+<SegmentedControl options={options} {...args} />
         `,
       },
     },
   },
   render: (args) => {
-    const sampleOptionsWihtoutIcons: SegmentedControlItemData[] = [
+    const sampleOptionsWithoutIcons: SegmentedControlOptionData[] = [
       {
         value: "list",
         label: "List view",
@@ -130,7 +130,7 @@ const items = [
 
     return (
       <div className="sb-column">
-        <SegmentedControl items={sampleOptionsWihtoutIcons} {...args} />
+        <SegmentedControl options={sampleOptionsWithoutIcons} {...args} />
       </div>
     )
   },
