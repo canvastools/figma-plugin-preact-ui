@@ -19,12 +19,12 @@ export const ControlledStory: Story = {
         language: "tsx",
         code: `
 const [type, setType] = useState("hex")
-const [value, setValue] = useState({ r: 255, g: 0, b: 0, a: 1 })
+const [color, setColor] = useState({ r: 255, g: 0, b: 0, a: 1 })
 
 <ColorPicker
   type={type}
-  value={value}
-  onValueChange={(args) => setValue(args.rgba)}
+  color={color}
+  onColorChange={(args) => setColor(args.color)}
   onTypeChange={(args) => setType(args.type)}
 />
 `,
@@ -33,18 +33,18 @@ const [value, setValue] = useState({ r: 255, g: 0, b: 0, a: 1 })
   },
   render: () => {
     const [type, setType] = useState<"rgba" | "hex" | "hexAlpha">("hex")
-    const [value, setValue] = useState({ r: 255, g: 0, b: 0, a: 1 })
+    const [color, setColor] = useState({ r: 255, g: 0, b: 0, a: 1 })
 
     return (
       <div className="sb-column sb-width-420 sb-gap-16">
         <Text>type: {type}</Text>
         <Text>
-          value: {value.r}, {value.g}, {value.b}, {value.a}
+          color: {color.r}, {color.g}, {color.b}, {color.a}
         </Text>
         <ColorPicker
           type={type}
-          value={value}
-          onValueChange={(args) => setValue(args.rgba)}
+          color={color}
+          onColorChange={(args) => setColor(args.color)}
           onTypeChange={(args) => setType(args.type)}
         />
       </div>

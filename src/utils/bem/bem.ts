@@ -6,14 +6,12 @@ type Modifiers = Record<string, string | boolean | undefined>
  * @param block - the block name
  * @param element - the element name (without __), if any
  * @param mods - an object with modifiers (string or boolean values)
- * @param extra - an array of additional class names
  * @returns a space-separated string of class names
  */
 const bem = (
   block: string,
   element?: string,
   mods: Modifiers = {},
-  extra: string[] = []
 ): string => {
   const base = element ? `${block}__${element}` : block
   const classList = [base]
@@ -26,7 +24,7 @@ const bem = (
     }
   }
 
-  return classList.concat(extra).join(" ")
+  return classList.join(" ")
 }
 
 export { bem }

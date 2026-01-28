@@ -1,7 +1,5 @@
 import { StoryObj } from "@storybook/preact"
 
-import { Text } from "../../../index"
-
 import { TooltipContainer } from "../TooltipContainer"
 
 type Story = StoryObj<typeof TooltipContainer>

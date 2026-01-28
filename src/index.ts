@@ -225,11 +225,9 @@ export {
   hexToColor,
   colorToHexAlpha,
   hexAlphaToColor,
-  roundAlpha,
-  clamp,
-} from "./utils/color"
+} from "./utils"
 
-export { bem } from "./utils/bem"
+export { bem } from "./utils"
 
 // Glyphs
 

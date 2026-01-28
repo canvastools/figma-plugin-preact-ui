@@ -12,11 +12,11 @@ export interface ColorPickerProps {
   defaultType?: ColorPickerType
   type?: ColorPickerType
   types?: ColorPickerType[]
-  value?: Color | null
-  defaultValue?: Color
+  color?: Color | null
+  defaultColor?: Color
   showControls?: boolean
   width?: number
   fullWidth?: boolean
   onTypeChange?: (args: { type: ColorPickerType }) => void
-  onValueChange?: (args: { rgba: Color; hex: string; opacity: number }) => void
+  onColorChange?: (args: { color: Color; hex: string; opacity: number }) => void
 }

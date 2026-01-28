@@ -2,7 +2,7 @@ import { Meta, StoryObj } from "@storybook/preact"
 import { fn } from "@storybook/test"
 
 import { SizeStory } from "./stories/Size.story"
-import { ValueStory } from "./stories/Value.story"
+import { ColorStory } from "./stories/Color.story"
 import { DisabledStory } from "./stories/Disabled.story"
 import { SelectionStory } from "./stories/Selection.story"
 import { ChildrenStory } from "./stories/Children.story"
@@ -25,7 +25,7 @@ const meta: Meta<typeof ColorSwatch> = {
       options: ["small", "medium", "large"],
       defaultValue: { summary: "medium" },
     },
-    value: {
+    color: {
       control: { type: "object" },
       table: {
         type: {
@@ -79,7 +79,7 @@ const meta: Meta<typeof ColorSwatch> = {
           detail: `
 args: { 
   event: MouseEvent
-  value: Color | undefined
+  color: Color | undefined
 }
           `,
         },
@@ -97,7 +97,7 @@ export const Demo: Story = {
   args: {
     className: "",
     size: "medium",
-    value: { r: 255, g: 0, b: 0, a: 1 } as Color,
+    color: { r: 255, g: 0, b: 0, a: 1 } as Color,
     disabled: false,
     selected: false,
     selection: "default",
@@ -133,7 +133,7 @@ export const Demo: Story = {
 }
 
 export const Size = SizeStory
-export const Value = ValueStory
+export const _Color = ColorStory
 export const Disabled = DisabledStory
 export const Selection = SelectionStory
 export const Children = ChildrenStory

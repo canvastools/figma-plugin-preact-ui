@@ -385,7 +385,7 @@ const ControlsHex = ({
     maxLength: 6,
     allowedCharacters: "0123456789abcdefABCDEF",
     trim: true,
-    mask: hexMask,
+    format: hexMask,
     normalizeOnError: true,
   })
 
@@ -447,7 +447,7 @@ const ControlsHexAlpha = ({
     maxLength: 6,
     allowedCharacters: "0123456789abcdefABCDEF",
     trim: true,
-    mask: hexMask,
+    format: hexMask,
     normalizeOnError: true,
   })
 
@@ -563,30 +563,30 @@ const ColorPickerComponent = (
     className,
     defaultType = "hex",
     type,
-    defaultValue,
+    defaultColor,
     types,
-    value,
+    color,
     showControls = true,
     width = 207,
     fullWidth = false,
     onTypeChange,
-    onValueChange,
+    onColorChange,
     ...rest
   }: ColorPickerProps,
   ref: preact.Ref<HTMLDivElement>
 ) => {
   const [internalColor, setInternalColor] = useState<Color>(() => {
-    if (value) return value
-    if (defaultValue) return defaultValue
+    if (color) return color
+    if (defaultColor) return defaultColor
     return { r: 255, g: 0, b: 0, a: 1 }
   })
 
   // Keep internal color in sync when used in controlled state
   useEffect(() => {
-    if (value) {
-      setInternalColor(value)
+    if (color) {
+      setInternalColor(color)
     }
-  }, [value])
+  }, [color])
 
   // compute allowed types list
   const allowedTypes: ColorPickerType[] = useMemo(
@@ -670,8 +670,8 @@ const ColorPickerComponent = (
       setInternalColor(normalized)
     }
 
-    onValueChange?.({
-      rgba: normalized,
+    onColorChange?.({
+      color: normalized,
       hex: colorToHex(normalized),
       opacity: normalized.a,
     })

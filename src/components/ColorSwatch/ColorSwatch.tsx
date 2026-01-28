@@ -10,7 +10,7 @@ import "./ColorSwatch.scss"
 
 /* --- */
 
-const hasOpacity = (color: ColorSwatchProps["value"]) => {
+const hasOpacity = (color: ColorSwatchProps["color"]) => {
   if (!color) return false
   return color.a < 1
 }
@@ -19,7 +19,7 @@ const ColorSwatchComponent = (
   {
     className,
     size = "medium",
-    value,
+    color,
     disabled = false,
     selected = false,
     selection = "default",
@@ -34,7 +34,7 @@ const ColorSwatchComponent = (
 
   const _className = bem("ColorSwatch", undefined, {
     selection: selection,
-    value: !!value,
+    value: !!color,
     size,
     disabled,
     selected,
@@ -65,29 +65,29 @@ const ColorSwatchComponent = (
       disabled={disabled}
       onClick={(event) => {
         if (disabled) return
-        onClick?.({ event, value })
+        onClick?.({ event, color })
       }}
       onKeyDown={handleKeyDown}
       {...rest}
     >
       <div className="ColorSwatch__container">
-        {value && hasOpacity(value) && (
+        {color && hasOpacity(color) && (
           <>
             <div
               className="ColorSwatch__fill"
-              style={{ backgroundColor: colorToHex(value) }}
+              style={{ backgroundColor: colorToHex(color) }}
             />
             <div
               className="ColorSwatch__fill"
-              style={{ backgroundColor: colorToHexAlpha(value) }}
+              style={{ backgroundColor: colorToHexAlpha(color) }}
             />
           </>
         )}
 
-        {value && !hasOpacity(value) && (
+        {color && !hasOpacity(color) && (
           <div
             className="ColorSwatch__fill"
-            style={{ backgroundColor: colorToHex(value) }}
+            style={{ backgroundColor: colorToHex(color) }}
           />
         )}
       </div>

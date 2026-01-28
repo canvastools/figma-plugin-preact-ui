@@ -53,7 +53,7 @@ const meta: Meta<typeof ColorPicker> = {
         },
       },
     },
-    defaultValue: {
+    defaultColor: {
       control: { type: "object" },
       description: "Color value for uncontrolled state.",
       defaultValue: { summary: `{ r: 255, g: 0, b: 0, a: 1 }` },
@@ -71,7 +71,7 @@ const meta: Meta<typeof ColorPicker> = {
         },
       },
     },
-    value: {
+    color: {
       control: { disable: true },
       description: "Color value for controlled state.",
       table: {
@@ -113,13 +113,13 @@ args:{
         },
       },
     },
-    onValueChange: {
+    onColorChange: {
       table: {
         type: {
           summary: "(args) => void",
           detail: `
 args:{
-  rgba: Color
+  color: Color
   hex: string
   opacity: number
 }
@@ -140,7 +140,7 @@ export const Demo: Story = {
     className: "",
     defaultType: "hex",
     types: ["rgba", "hex", "hexAlpha"],
-    defaultValue: {
+    defaultColor: {
       r: 255,
       g: 0,
       b: 0,
@@ -149,7 +149,7 @@ export const Demo: Story = {
     showControls: true,
     width: 207,
     fullWidth: false,
-    onValueChange: fn(),
+    onColorChange: fn(),
   },
   parameters: {
     viewport: {

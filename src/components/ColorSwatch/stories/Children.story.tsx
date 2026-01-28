@@ -31,7 +31,7 @@ import { ai } from "figma-plugin-preact-ui"
   },
   render: () => (
     <div className="sb-row sb-width-full sb-gap-16">
-      <ColorSwatch value={{ r: 255, g: 0, b: 0, a: 0.5 }}>
+      <ColorSwatch color={{ r: 255, g: 0, b: 0, a: 0.5 }}>
         <Icon glyph={ai} size={16} />
       </ColorSwatch>
       <ColorSwatch>

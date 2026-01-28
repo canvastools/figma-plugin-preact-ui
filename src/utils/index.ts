@@ -1,4 +1,4 @@
-export { bem } from "./bem"
+export { bem } from "./bem/bem"
 export {
   colorToHex,
   hexToColor,
@@ -6,6 +6,6 @@ export {
   hexAlphaToColor,
   roundAlpha,
   clamp,
-} from "./color"
+} from "./color/color"
 export { typedForwardRef } from "./typedForwardRef"
 export { uuid } from "./uuid"
