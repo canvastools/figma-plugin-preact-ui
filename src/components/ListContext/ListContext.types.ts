@@ -39,6 +39,6 @@ export interface ListContextProps {
   selectionMode?: "single" | "multi"
   deselectOnClickOutside?: boolean
   onItemsChange?: (args: { items: ListItemData[] }) => void
-  onSelectionChange?: (args: { selectedItems: string[] }) => void
+  onSelectionChange?: (args: { selectedItemIds: string[] }) => void
   children: preact.ComponentChildren
 }

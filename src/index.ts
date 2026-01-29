@@ -60,6 +60,9 @@ export type { InputProps } from "./components/Input/Input.types"
 export { ListContainer } from "./components/ListContainer/ListContainer"
 export type { ListContainerProps } from "./components/ListContainer/ListContainer.types"
 
+export { List } from "./components/List/List"
+export type { ListProps, ListItemPropsPick } from "./components/List/List.types"
+
 export {
   ListContext,
   useListContext,

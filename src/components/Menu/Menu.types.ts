@@ -11,7 +11,6 @@ export type MenuItemData =
   | ({ type: "action"; closeOnClick?: boolean } & Pick<
       MenuItemActionProps,
       | "id"
-      | "className"
       | "intentModifier"
       | "disabled"
       | "prefix"
@@ -23,7 +22,6 @@ export type MenuItemData =
   | ({ type: "option"; closeOnClick?: boolean } & Pick<
       MenuItemOptionProps,
       | "id"
-      | "className"
       | "defaultSelected"
       | "selected"
       | "disabled"

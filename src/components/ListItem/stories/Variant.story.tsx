@@ -71,12 +71,14 @@ export const VariantStory: Story = {
     ] as ListItemData[]
 
     const [items_default, setItems_default] = useState(itemsSample)
-    const [selectedItems_default, setSelectedItems_default] = useState<
+    const [selectedItemIds_default, setSelectedItemIds_default] = useState<
       string[]
     >([])
 
     const [items_layer, setItems_layer] = useState(itemsSample)
-    const [selectedItems_layer, setSelectedItems_layer] = useState<string[]>([])
+    const [selectedItemIds_layer, setSelectedItemIds_layer] = useState<
+      string[]
+    >([])
 
     const renderItems = (
       items: ListItemData[],
@@ -140,13 +142,13 @@ export const VariantStory: Story = {
       <div className="sb-row sb-width-full sb-gap-40">
         <ListContext
           items={items_default}
-          selectedItemIds={selectedItems_default}
+          selectedItemIds={selectedItemIds_default}
           selectionMode="multi"
           onItemsChange={(args) => {
             setItems_default(args.items)
           }}
           onSelectionChange={(args) => {
-            setSelectedItems_default(args.selectedItems)
+            setSelectedItemIds_default(args.selectedItemIds)
           }}
         >
           {renderItems(items_default, 0, "default")}
@@ -154,14 +156,12 @@ export const VariantStory: Story = {
 
         <ListContext
           items={items_layer}
-          selectedItemIds={selectedItems_layer}
+          selectedItemIds={selectedItemIds_layer}
           selectionMode="multi"
-          onItemsChange={(args) => {
-            setItems_layer(args.items)
-          }}
-          onSelectionChange={(args) => {
-            setSelectedItems_layer(args.selectedItems)
-          }}
+          onItemsChange={(args) => setItems_layer(args.items)}
+          onSelectionChange={(args) =>
+            setSelectedItemIds_layer(args.selectedItemIds)
+          }
         >
           {renderItems(items_layer, 0, "layer")}
         </ListContext>

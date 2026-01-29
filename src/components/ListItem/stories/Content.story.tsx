@@ -56,7 +56,7 @@ export const ContentStory: Story = {
           <Input value={label} />,
           <Select
             placeholder="Select an option"
-            items={[
+            options={[
               { label: "Option 1", value: "option1" },
               { label: "Option 2", value: "option2" },
             ]}
@@ -66,7 +66,7 @@ export const ContentStory: Story = {
           <Checkbox defaultChecked />,
           <SegmentedControl
             defaultValue="option1"
-            items={[
+            options={[
               {
                 label: "Option 1",
                 value: "option1",
@@ -157,7 +157,6 @@ export const ContentStory: Story = {
               }
             >
               <Stack direction="row" y="center" fullWidth>
-                {variant === "layer" && <Spacing direction="row" size={200} />}
                 <Stack direction="row" spacing={200} y="center" fullWidth>
                   <ItemContent label={item.id} variant={variant} />
                 </Stack>
@@ -174,12 +173,10 @@ export const ContentStory: Story = {
           items={items_default}
           selectedItemIds={selectedItems_default}
           selectionMode="multi"
-          onItemsChange={(args) => {
-            setItems_default(args.items)
-          }}
-          onSelectionChange={(args) => {
-            setSelectedItems_default(args.selectedItems)
-          }}
+          onItemsChange={(args) => setItems_default(args.items)}
+          onSelectionChange={(args) =>
+            setSelectedItems_default(args.selectedItemIds)
+          }
         >
           {renderItems(items_default, 0, "default")}
         </ListContext>
@@ -192,7 +189,7 @@ export const ContentStory: Story = {
             setItems_layer(args.items)
           }}
           onSelectionChange={(args) => {
-            setSelectedItems_layer(args.selectedItems)
+            setSelectedItems_layer(args.selectedItemIds)
           }}
         >
           {renderItems(items_layer, 0, "layer")}

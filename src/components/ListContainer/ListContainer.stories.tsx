@@ -80,18 +80,23 @@ export const Demo: Story = {
     docs: {
       source: {
         code: `
-const [selectedItems, setSelectedItems] = useState([])
+const [selectedItemIds, setSelectedItemIds] = useState([])
 const [items, setItems] = useState([
   {
     id: "Frame 0",
     items: [
       {
         id: "Frame 0-0",
-        items: [{ id: "Frame 0-0-0" }, { id: "Frame 0-0-1" }],
+        items: [
+          { id: "Frame 0-0-0" },
+          { id: "Frame 0-0-1" },
+        ],
       },
       {
         id: "Frame 0-1",
-        items: [{ id: "Frame 0-1-0" }],
+        items: [
+          { id: "Frame 0-1-0" },
+        ],
       },
     ],
   },
@@ -116,7 +121,7 @@ const renderItems = (
   level
 ) => {
   return (
-    <ListContainer>
+    <ListContainer {...args}>
       {items.map((item) => (
         <ListItem 
           key={item.id}
@@ -133,9 +138,9 @@ const renderItems = (
 
 <ListContext
   items={items}
-  selectedItemIds={selectedItems}
+  selectedItemIds={selectedItemIds}
   onItemsChange={(args) => setItems(args.items)}
-  onSelectionChange={(args) => setSelectedItems(args.selectedItems)}
+  onSelectionChange={(args) => setSelectedItemIds(args.selectedItemIds)}
 >
   {renderItems(items, 0)}
 </ListContext>
@@ -145,6 +150,7 @@ const renderItems = (
   },
   render: (args) => {
     const [items, setItems] = useState(itemsSample)
+    const [selectedItemIds, setSelectedItemIds] = useState<string[]>([])
 
     const renderItems = (items: ListItemData[], level: number) => {
       return (
@@ -179,6 +185,9 @@ const renderItems = (
           selectionMode="multi"
           onItemsChange={(args) => {
             setItems(args.items)
+          }}
+          onSelectionChange={(args) => {
+            setSelectedItemIds(args.selectedItemIds)
           }}
         >
           {renderItems(items, 0)}

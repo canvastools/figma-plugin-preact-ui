@@ -128,7 +128,7 @@ const ListContext = (props: ListContextProps) => {
     (itemIds: string[]) => {
       const next = new Set(itemIds)
       if (!isSelectionControlled) setInternalSelectedItems(next)
-      onSelectionChange?.({ selectedItems: Array.from(next) })
+      onSelectionChange?.({ selectedItemIds: Array.from(next) })
     },
     [isSelectionControlled, onSelectionChange]
   )
@@ -168,7 +168,7 @@ const ListContext = (props: ListContextProps) => {
           return
         }
         if (!isSelectionControlled) setInternalSelectedItems(next)
-        onSelectionChange?.({ selectedItems: Array.from(next) })
+        onSelectionChange?.({ selectedItemIds: Array.from(next) })
         lastSelectedAnchorRef.current = itemId
         return
       }
@@ -233,7 +233,7 @@ const ListContext = (props: ListContextProps) => {
           return
         }
         if (!isSelectionControlled) setInternalSelectedItems(next)
-        onSelectionChange?.({ selectedItems: Array.from(next) })
+        onSelectionChange?.({ selectedItemIds: Array.from(next) })
         lastSelectedAnchorRef.current = itemId
         return
       }
@@ -258,7 +258,7 @@ const ListContext = (props: ListContextProps) => {
           return
         }
         if (!isSelectionControlled) setInternalSelectedItems(next)
-        onSelectionChange?.({ selectedItems: Array.from(next) })
+        onSelectionChange?.({ selectedItemIds: Array.from(next) })
         lastSelectedAnchorRef.current = itemId
         return
       }
@@ -286,7 +286,7 @@ const ListContext = (props: ListContextProps) => {
         return
       }
       if (!isSelectionControlled) setInternalSelectedItems(next)
-      onSelectionChange?.({ selectedItems: Array.from(next) })
+      onSelectionChange?.({ selectedItemIds: Array.from(next) })
       lastSelectedAnchorRef.current = itemId
     },
     [
@@ -490,7 +490,7 @@ const ListContext = (props: ListContextProps) => {
       if (currentSelectedItems.size > 0) {
         const next = new Set<string>()
         if (!isSelectionControlled) setInternalSelectedItems(next)
-        onSelectionChange?.({ selectedItems: Array.from(next) })
+        onSelectionChange?.({ selectedItemIds: Array.from(next) })
       }
     }
     document.addEventListener("pointerdown", handlePointerDown)

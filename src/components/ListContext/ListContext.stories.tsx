@@ -69,7 +69,7 @@ args: {
           summary: "(args) => void",
           detail: `
 args: {
-  selectedItems: string[]
+  selectedItemIds: string[]
 }
           `,
         },
@@ -177,18 +177,23 @@ export const Demo: Story = {
     docs: {
       source: {
         code: `
-const [selectedItems, setSelectedItems] = useState([])
+const [selectedItemIds, setSelectedItemIds] = useState([])
 const [items, setItems] = useState([
   {
     id: "Frame 0",
     items: [
       {
         id: "Frame 0-0",
-        items: [{ id: "Frame 0-0-0" }, { id: "Frame 0-0-1" }],
+        items: [
+          { id: "Frame 0-0-0" },
+          { id: "Frame 0-0-1" },
+        ],
       },
       {
         id: "Frame 0-1",
-        items: [{ id: "Frame 0-1-0" }],
+        items: [
+          { id: "Frame 0-1-0" },
+        ],
       },
     ],
   },
@@ -234,9 +239,10 @@ const renderItems = (
 
 <ListContext
   items={items}
-  selectedItemIds={selectedItems}
-  onItemsChange={(args) => setItems(args.items)}
-  onSelectionChange={(args) => setSelectedItems(args.selectedItems)}
+  selectedItemIds={selectedItemIds}
+  onItemsChange={(args) => {setItems(args.items)}}
+  onSelectionChange={(args) => {setSelectedItemIds(args.selectedItemIds)}}
+  {...args}
 >
   {renderItems(items, 0)}
 </ListContext>        
@@ -246,7 +252,7 @@ const renderItems = (
   },
   render: (args) => {
     const [items, setItems] = useState(itemsSample)
-    const [selectedItems, setSelectedItems] = useState<string[]>([])
+    const [selectedItemIds, setSelectedItemIds] = useState<string[]>([])
 
     const renderItems = (items: ListItemData[], level: number) => {
       return (
@@ -287,13 +293,9 @@ const renderItems = (
         <ListContext
           {...args}
           items={items}
-          selectedItemIds={selectedItems}
-          onItemsChange={(args) => {
-            setItems(args.items)
-          }}
-          onSelectionChange={(args) => {
-            setSelectedItems(args.selectedItems)
-          }}
+          selectedItemIds={selectedItemIds}
+          onItemsChange={(args) => setItems(args.items)}
+          onSelectionChange={(args) => setSelectedItemIds(args.selectedItemIds)}
         >
           {renderItems(items, 0)}
         </ListContext>
