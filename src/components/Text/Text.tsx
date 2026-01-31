@@ -38,7 +38,7 @@ const TextComponent = (
     align,
     fullWidth,
     wrap,
-    truncate,
+    truncated: truncate,
   })
 
   return (

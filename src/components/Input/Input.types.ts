@@ -1,6 +1,8 @@
 export interface InputProps {
   className?: string
   type?: "text" | "number"
+  variant?: "default" | "list"
+  label?: string
   placeholder?: string
   defaultValue?: string
   value?: string
@@ -15,6 +17,7 @@ export interface InputProps {
   tooltip?: preact.ComponentChildren
   minLength?: number
   maxLength?: number
+  maxWidth?: number
   autoFocus?: boolean
   onValueChange?: (args: { event: MouseEvent; value: string }) => void
   onBlur?: (args: { event: MouseEvent; value: string }) => void

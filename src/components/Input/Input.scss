@@ -4,38 +4,61 @@
 .Input {
   position: relative;
   display: flex;
-  align-items: center;
-  height: 24px;
   width: 100%;
 
-  border-radius: var(--pui-radius-medium);
-  overflow: hidden;
+  &__label {
+    flex-shrink: 0;
+  }
 
-  outline-width: 1px;
-  outline-style: solid;
-  outline-color: transparent;
-  outline-offset: -1px;
-  background-color: var(--pui-color-neutral-bg-secondary);
+  &_variant-default {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--pui-spacing-100);
+  }
 
-  &:hover {
+  &_variant-default &__label {
+    @include typography-body-small;
+  }
+
+  &_variant-list {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--pui-spacing-400);
+  }
+
+  &__container {
+    display: flex;
+    align-items: center;
+    height: 24px;
+    width: 100%;
+    border-radius: var(--pui-radius-medium);
+    overflow: hidden;
+    outline-width: 1px;
+    outline-style: solid;
+    outline-color: transparent;
+    outline-offset: -1px;
+    background-color: var(--pui-color-neutral-bg-secondary);
+  }
+
+  &:hover &__container {
     outline-color: var(--pui-color-neutral-border-default-hover);
   }
 
-  &:hover > &__suffix,
-  &:focus-within > &__suffix {
+  &:hover &__suffix,
+  &:focus-within &__suffix {
     display: flex;
   }
 
-  &_focused,
-  &_focused:hover:is(:focus-within) {
+  &_focused &__container,
+  &_focused:hover:is(:focus-within) &__container {
     outline-color: var(--pui-color-neutral-border-default-selected) !important;
   }
 
-  &_keyboardFocus {
+  &_keyboardFocus &__container {
     outline-color: var(--pui-color-neutral-border-default-selected) !important;
   }
 
-  &_error {
+  &_error &__container {
     outline-color: var(--pui-color-neutral-border-danger-error) !important;
   }
 
@@ -103,12 +126,16 @@
     display: none;
   }
 
-  &_suffixOnHover:hover &__suffix {
+  &_suffixOnHover:hover &__suffix,
+  &_suffixOnHover:focus-within &__suffix {
     display: flex;
   }
 
   &_disabled {
     cursor: auto;
+  }
+
+  &_disabled &__container {
     background-color: transparent !important;
     outline-width: 1px;
     outline-style: solid;
@@ -117,6 +144,10 @@
 
   &_disabled &__input-native,
   &_disabled &__input-native::placeholder {
+    color: var(--pui-color-neutral-text-disabled);
+  }
+
+  &_disabled &__label {
     color: var(--pui-color-neutral-text-disabled);
   }
 
@@ -138,7 +169,7 @@
 
   // Ghost
 
-  &_ghost {
+  &_ghost &__container {
     background-color: transparent;
 
     &:hover {
@@ -146,12 +177,16 @@
     }
   }
 
-  &_ghost:is(&_focused),
-  &_ghost:hover:is(:focus-within):not(&_doubleClick) {
+  &_ghost:hover &__container {
+    outline-color: transparent;
+  }
+
+  &_ghost:is(&_focused) &__container,
+  &_ghost:hover:is(:focus-within):not(&_doubleClick) &__container {
     background-color: var(--pui-color-neutral-bg-default);
   }
 
-  &_ghost:is(&_disabled) {
+  &_ghost:is(&_disabled) &__container {
     background-color: transparent;
     color: var(--pui-color-neutral-text-disabled);
     outline-color: transparent;

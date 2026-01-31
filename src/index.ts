@@ -43,7 +43,10 @@ export { ControlGroup } from "./components/ControlGroup/ControlGroup"
 export type { ControlGroupProps } from "./components/ControlGroup/ControlGroup.types"
 
 export { Calendar } from "./components/Calendar/Calendar"
-export type { CalendarProps, CalendarDate } from "./components/Calendar/Calendar.types"
+export type {
+  CalendarProps,
+  CalendarDate,
+} from "./components/Calendar/Calendar.types"
 
 export { Divider } from "./components/Divider/Divider"
 export type { DividerProps } from "./components/Divider/Divider.types"
@@ -57,11 +60,11 @@ export type { IconProps, Glyph, GlyphProps } from "./components/Icon/Icon.types"
 export { Input } from "./components/Input/Input"
 export type { InputProps } from "./components/Input/Input.types"
 
+export { List } from "./components/List/List"
+export type { ListProps } from "./components/List/List.types"
+
 export { ListContainer } from "./components/ListContainer/ListContainer"
 export type { ListContainerProps } from "./components/ListContainer/ListContainer.types"
-
-export { List } from "./components/List/List"
-export type { ListProps, ListItemPropsPick } from "./components/List/List.types"
 
 export {
   ListContext,

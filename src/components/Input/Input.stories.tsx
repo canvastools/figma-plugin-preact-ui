@@ -3,6 +3,7 @@ import { fn } from "@storybook/test"
 
 import { UncontrolledStory } from "./stories/Uncontrolled.story"
 import { ControlledStory } from "./stories/Controlled.story"
+import { VariantStory } from "./stories/Variant.story"
 import { PlaceholderStory } from "./stories/Placeholder.story"
 import { DisabledStory } from "./stories/Disabled.story"
 import { PrefixStory } from "./stories/Prefix.story"
@@ -18,6 +19,14 @@ const meta: Meta<typeof Input> = {
   tags: ["autodocs"],
   argTypes: {
     className: {
+      control: { type: "text" },
+    },
+    variant: {
+      control: { type: "radio" },
+      options: ["default", "list"],
+      defaultValue: { summary: "default" },
+    },
+    label: {
       control: { type: "text" },
     },
     placeholder: {
@@ -107,6 +116,10 @@ const meta: Meta<typeof Input> = {
       control: { type: "boolean" },
       defaultValue: { summary: false },
     },
+    maxWidth: {
+      control: { type: "number" },
+      description: "Maximum width of the input (excluding label).",
+    },
     onValueChange: {
       table: {
         type: {
@@ -170,6 +183,8 @@ export const Demo: Story = {
   tags: ["!autodocs"],
   args: {
     className: "",
+    variant: "default",
+    label: "Label",
     type: "text",
     placeholder: "Placeholder",
     defaultValue: "",
@@ -183,6 +198,7 @@ export const Demo: Story = {
     minLength: 0,
     maxLength: 9999,
     autoFocus: false,
+    maxWidth: undefined,
     onValueChange: fn(),
     onBlur: fn(),
     onFocus: fn(),
@@ -218,6 +234,7 @@ export const Demo: Story = {
 
 export const Uncontrolled = UncontrolledStory
 export const Controlled = ControlledStory
+export const Variant = VariantStory
 export const Placeholder = PlaceholderStory
 export const Disabled = DisabledStory
 export const Prefix = PrefixStory
