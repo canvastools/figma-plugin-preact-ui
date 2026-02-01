@@ -5,7 +5,7 @@ import { useState } from "preact/hooks"
 import {
   ListContainer,
   Stack,
-  Spacing,
+  TimePicker,
   ListContext,
   Input,
   Select,
@@ -54,6 +54,7 @@ export const ContentStory: Story = {
       if (variant === "default") {
         return [
           <Input value={label} />,
+          <TimePicker />,
           <Select
             placeholder="Select an option"
             options={[

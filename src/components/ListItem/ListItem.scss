@@ -162,12 +162,19 @@
 
   /* Selection overrides */
 
-  &_selected > &__content > &__content-inner > &__children .Input:not(.Input_ghost) {
+  &_selected > &__content > &__content-inner > &__children .Input:not(.Input_ghost) > .Input__container {
     outline: 1px solid var(--pui-color-neutral-border-default-selected-contrast);
+    outline-offset: 0px;
+  }
+
+  &_selected > &__content > &__content-inner > &__children .react-time-picker__inputGroup {
+    outline: 1px solid var(--pui-color-neutral-border-default-selected-contrast);
+    outline-offset: 0px;
   }
 
   &_selected > &__content > &__content-inner > &__children .Select {
     outline: 1px solid var(--pui-color-neutral-border-default-selected-contrast);
+    outline-offset: 0px;
   }
 
   &_selected > &__content > &__content-inner > &__children .SegmentedControl {

@@ -52,11 +52,11 @@
 
   &_focused &__container,
   &_focused:hover:is(:focus-within) &__container {
-    outline-color: var(--pui-color-neutral-border-default-selected);
+    outline-color: var(--pui-color-neutral-border-default-selected) !important;
   }
 
   &_keyboardFocus &__container {
-    outline-color: var(--pui-color-neutral-border-default-selected);
+    outline-color: var(--pui-color-neutral-border-default-selected) !important;
   }
 
   &_error &__container {

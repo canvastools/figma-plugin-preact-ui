@@ -52,6 +52,7 @@
 
   &_groupFocus:hover .Input__container:hover,
   &_groupFocus:focus-within .Input__container:focus-within,
+  &_groupFocus:focus-within .Input__container:hover:is(:focus-within),
   &_groupFocus:hover .react-time-picker__inputGroup:hover,
   &_groupFocus:focus-within .react-time-picker__inputGroup:focus-within {
     outline-color: transparent !important;
