@@ -24,6 +24,17 @@
   user-select: none;
   white-space: nowrap;
 
+  &__link {
+    color: inherit;
+    text-decoration: underline;
+    cursor: default;
+
+    &:hover {
+      text-decoration: none;
+      color: var(--pui-color-neutral-text-brand);
+    }
+  }
+
   @include Text_intent("neutral", "default");
   @include Text_intent("neutral", "secondary");
   @include Text_intent("neutral", "brand");

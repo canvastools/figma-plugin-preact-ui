@@ -5,6 +5,60 @@ import "./Text.scss"
 
 /* --- */
 
+const parseMarkdownLinks = (text: string) => {
+  const parts: preact.ComponentChildren[] = []
+  const linkPattern = /\[([^\]]+)\]\(([^)]+)\)/g
+  let lastIndex = 0
+  let match = linkPattern.exec(text)
+  let linkIndex = 0
+
+  while (match) {
+    const [fullMatch, label, url] = match
+
+    if (match.index > lastIndex) {
+      parts.push(text.slice(lastIndex, match.index))
+    }
+
+    parts.push(
+      <a key={`Text-link-${linkIndex}`} className="Text__link" href={url}>
+        {label}
+      </a>
+    )
+
+    linkIndex += 1
+    lastIndex = match.index + fullMatch.length
+    match = linkPattern.exec(text)
+  }
+
+  if (lastIndex < text.length) {
+    parts.push(text.slice(lastIndex))
+  }
+
+  return parts.length > 0 ? parts : text
+}
+
+const renderChildrenWithLinks = (children: preact.ComponentChildren) => {
+  const renderChild = (child: preact.ComponentChildren) =>
+    typeof child === "string" ? parseMarkdownLinks(child) : child
+
+  if (Array.isArray(children)) {
+    const rendered: preact.ComponentChildren[] = []
+
+    children.forEach((child) => {
+      const result = renderChild(child)
+      if (Array.isArray(result)) {
+        rendered.push(...result)
+      } else {
+        rendered.push(result)
+      }
+    })
+
+    return rendered
+  }
+
+  return renderChild(children)
+}
+
 const TextComponent = (
   {
     className,
@@ -51,7 +105,7 @@ const TextComponent = (
         ...(textColor && { color: textColor }),
       }}
     >
-      {children}
+      {renderChildrenWithLinks(children)}
     </div>
   )
 }

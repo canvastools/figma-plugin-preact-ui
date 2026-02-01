@@ -185,7 +185,7 @@ const TimePickerComponent = (
   const handleKeyDown = (event: KeyboardEvent) => {
     const key = event.key
 
-    if (key === "Escape" || key === "Esc") {
+    if (key === "Escape" || key === "Esc" || key === "Enter") {
       event.stopPropagation()
       event.preventDefault()
 

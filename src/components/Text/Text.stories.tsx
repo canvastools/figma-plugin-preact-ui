@@ -6,6 +6,7 @@ import { SizeStory } from "./stories/Size.story"
 import { StrongStory } from "./stories/Strong.story"
 import { AlignStory } from "./stories/Align.story"
 import { DisabledStory } from "./stories/Disabled.story"
+import { LinksStory } from "./stories/Links.story"
 import { ColorStory } from "./stories/Color.story"
 
 import { Text } from "./Text"
@@ -155,4 +156,5 @@ export const Size = SizeStory
 export const Strong = StrongStory
 export const Align = AlignStory
 export const Disabled = DisabledStory
+export const Links = LinksStory
 export const Color = ColorStory
