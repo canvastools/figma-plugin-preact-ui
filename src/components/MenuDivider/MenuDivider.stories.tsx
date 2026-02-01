@@ -19,6 +19,14 @@ const meta: Meta<typeof MenuDivider> = {
     },
   },
   argTypes: {
+    id: {
+      control: { type: "text" },
+      table: {
+        type: {
+          summary: "string",
+        },
+      },
+    },
     className: {
       control: { type: "text" },
     },
@@ -37,6 +45,7 @@ type Story = StoryObj<typeof MenuDivider>
 export const Demo: Story = {
   tags: ["!autodocs"],
   args: {
+    id: undefined,
     className: "",
     variant: "full",
   },

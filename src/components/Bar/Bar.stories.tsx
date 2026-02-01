@@ -19,6 +19,14 @@ const meta: Meta<typeof Bar> = {
     },
   },
   argTypes: {
+    id: {
+      control: { type: "text" },
+      table: {
+        type: {
+          summary: "string",
+        },
+      },
+    },
     className: {
       control: { type: "text" },
     },
@@ -49,6 +57,7 @@ type Story = StoryObj<typeof Bar>
 export const Demo = {
   tags: ["!autodocs"],
   args: {
+    id: undefined,
     className: "",
     showDividerTop: false,
     showDividerBottom: false,

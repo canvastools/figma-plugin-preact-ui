@@ -15,6 +15,14 @@ const meta: Meta<typeof ColorPicker> = {
   component: ColorPicker,
   tags: ["autodocs"],
   argTypes: {
+    id: {
+      control: { type: "text" },
+      table: {
+        type: {
+          summary: "string",
+        },
+      },
+    },
     className: {
       control: { type: "text" },
     },
@@ -137,6 +145,7 @@ type Story = StoryObj<typeof ColorPicker>
 export const Demo: Story = {
   tags: ["!autodocs"],
   args: {
+    id: undefined,
     className: "",
     defaultType: "hex",
     types: ["rgba", "hex", "hexAlpha"],

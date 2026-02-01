@@ -9,6 +9,7 @@ import "./ControlGroup.scss"
 
 const ControlGroupComponent = (
   {
+    id,
     className,
     groupFocus = false,
     fullWidth = false,
@@ -26,6 +27,7 @@ const ControlGroupComponent = (
 
   return (
     <div
+      id={id}
       className={[_className, className].join(" ").trim()}
       data-pui-interactive="true"
       ref={ref}

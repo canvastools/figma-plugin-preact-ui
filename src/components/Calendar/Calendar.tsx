@@ -17,6 +17,7 @@ import "./Calendar.scss"
 
 const CalendarComponent = (
   {
+    id,
     className,
     locale = "en-US",
     type = "iso8601",
@@ -57,7 +58,7 @@ const CalendarComponent = (
   }
 
   return (
-    <div onKeyDown={handleKeyDown} data-pui-interactive="true">
+    <div id={id} onKeyDown={handleKeyDown} data-pui-interactive="true">
       <ReactCalendar
         className={[_className, className].join(" ").trim()}
         inputRef={ref as preact.Ref<HTMLDivElement> | undefined}

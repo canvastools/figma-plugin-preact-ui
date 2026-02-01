@@ -15,6 +15,7 @@ import "./TimePicker.scss"
 
 const TimePickerComponent = (
   {
+    id,
     className,
     locale = "en-US",
     variant = "default",
@@ -199,6 +200,7 @@ const TimePickerComponent = (
   return (
     <Fragment>
       <div
+        id={id}
         className={[_className, className].join(" ").trim()}
         ref={setWrapperRef}
       >

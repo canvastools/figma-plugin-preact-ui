@@ -61,6 +61,7 @@ export interface MenuProps
   extends MenuContextPropsPick,
     MenuContainerPropsPick,
     OverlayPositionerPropsPick {
+  id?: string
   className?: string
   items: MenuItemData[]
 }

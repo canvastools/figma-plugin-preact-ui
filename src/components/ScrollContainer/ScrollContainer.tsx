@@ -10,7 +10,7 @@ import { useScrollContext } from "../../index"
 /* --- */
 
 const ScrollContainerComponent = (
-  { className, children, ...rest }: ScrollContainerProps,
+  { id, className, children, ...rest }: ScrollContainerProps,
   ref: preact.Ref<HTMLDivElement>
 ) => {
   let scrollContext: ReturnType<typeof useScrollContext> | undefined
@@ -252,6 +252,7 @@ const ScrollContainerComponent = (
 
   return (
     <div
+      id={id}
       className={[_className, className].join(" ").trim()}
       ref={(node) => {
         rootRef.current = node

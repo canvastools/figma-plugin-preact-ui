@@ -15,6 +15,7 @@ import "./Tooltip.scss"
 
 const TooltipComponent = (
   {
+    id,
     className,
     triggerRef,
     anchorRef,
@@ -91,6 +92,7 @@ const TooltipComponent = (
       onClose={() => setOpen(false)}
     >
       <div
+        id={id}
         className={[_className, className].join(" ").trim()}
         data-pui-interactive="true"
         ref={ref}

@@ -6,7 +6,7 @@ import "./MenuDivider.scss"
 /* --- */
 
 const MenuDividerComponent = (
-  { className, variant = "full", ...rest }: MenuDividerProps,
+  { id, className, variant = "full", ...rest }: MenuDividerProps,
   ref: preact.Ref<HTMLDivElement>
 ) => {
   const _className = bem("MenuDivider", undefined, {
@@ -15,6 +15,7 @@ const MenuDividerComponent = (
 
   return (
     <div
+      id={id}
       className={[_className, className].join(" ").trim()}
       ref={ref}
       {...rest}

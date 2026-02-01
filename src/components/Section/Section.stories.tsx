@@ -22,6 +22,11 @@ const meta: Meta<typeof Section> = {
   argTypes: {
     id: {
       control: { type: "text" },
+      table: {
+        type: {
+          summary: "string",
+        },
+      },
     },
     className: {
       control: { type: "text" },
@@ -69,6 +74,7 @@ type Story = StoryObj<typeof Section>
 export const Demo: Story = {
   tags: ["!autodocs"],
   args: {
+    id: undefined,
     className: "sb-container",
     variant: "default",
     padding: {},

@@ -16,8 +16,8 @@ import {
 
 const ListItemComponent = (
   {
-    className,
     id,
+    className,
     variant = "default",
     nestingLevel = 0,
     draggable = false,
@@ -262,6 +262,7 @@ const ListItemComponent = (
 
   return (
     <div
+      id={id}
       className={[_className, className].join(" ").trim()}
       ref={(node) => {
         selfRef.current = node

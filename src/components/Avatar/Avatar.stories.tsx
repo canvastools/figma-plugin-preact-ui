@@ -12,6 +12,14 @@ const meta: Meta<typeof Avatar> = {
   component: Avatar,
   tags: ["autodocs"],
   argTypes: {
+    id: {
+      control: { type: "text" },
+      table: {
+        type: {
+          summary: "string",
+        },
+      },
+    },
     className: {
       control: { type: "text" },
     },
@@ -74,6 +82,7 @@ type Story = StoryObj<typeof Avatar>
 export const Demo: Story = {
   tags: ["!autodocs"],
   args: {
+    id: undefined,
     className: "",
     variant: "circle",
     size: "medium",

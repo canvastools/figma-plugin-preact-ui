@@ -17,6 +17,14 @@ const meta: Meta<typeof ColorSwatch> = {
   component: ColorSwatch,
   tags: ["autodocs"],
   argTypes: {
+    id: {
+      control: { type: "text" },
+      table: {
+        type: {
+          summary: "string",
+        },
+      },
+    },
     className: {
       control: { type: "text" },
     },
@@ -95,6 +103,7 @@ type Story = StoryObj<typeof ColorSwatch>
 export const Demo: Story = {
   tags: ["!autodocs"],
   args: {
+    id: undefined,
     className: "",
     size: "medium",
     color: { r: 255, g: 0, b: 0, a: 1 } as Color,

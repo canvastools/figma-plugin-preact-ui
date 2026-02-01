@@ -12,6 +12,7 @@ import { Tooltip, Text, Icon, type Glyph } from "../../index"
 
 const SegmentedControlComponent = (
   {
+    id,
     className,
     options = [],
     value,
@@ -189,8 +190,8 @@ const SegmentedControlComponent = (
         currentIndex >= 0
           ? currentIndex
           : selectedIndex >= 0
-            ? selectedIndex
-            : -1
+          ? selectedIndex
+          : -1
 
       if (activeIndex >= 0) {
         const option = options[activeIndex]
@@ -215,6 +216,7 @@ const SegmentedControlComponent = (
 
   return (
     <div
+      id={id}
       className={[_className, className].join(" ").trim()}
       data-pui-interactive="true"
       ref={ref}

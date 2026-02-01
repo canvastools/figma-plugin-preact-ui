@@ -14,12 +14,21 @@ const meta: Meta<typeof SegmentedControl> = {
   component: SegmentedControl,
   tags: ["autodocs"],
   argTypes: {
+    id: {
+      control: { type: "text" },
+      table: {
+        type: {
+          summary: "string",
+        },
+      },
+    },
     className: {
       control: { type: "text" },
     },
     options: {
       control: { disable: true },
-      description: "<strong>*</strong>Array of options to render in the control.",
+      description:
+        "<strong>*</strong>Array of options to render in the control.",
       table: {
         type: {
           summary: "SegmentedControlOptionData[]",
@@ -87,6 +96,7 @@ type Story = StoryObj<typeof SegmentedControl>
 export const Demo: Story = {
   tags: ["!autodocs"],
   args: {
+    id: undefined,
     className: "",
     defaultValue: "list",
     disabled: false,

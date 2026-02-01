@@ -17,6 +17,14 @@ const meta: Meta<typeof TabPanel> = {
     },
   },
   argTypes: {
+    id: {
+      control: { type: "text" },
+      table: {
+        type: {
+          summary: "string",
+        },
+      },
+    },
     className: {
       control: { type: "text" },
     },
@@ -73,6 +81,7 @@ export const Demo: Story = {
     },
   },
   args: {
+    id: undefined,
     className: "sb-container",
     fullHeight: false,
   },

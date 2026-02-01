@@ -12,6 +12,7 @@ import "./Input.scss"
 
 const InputComponent = (
   {
+    id,
     className,
     variant = "default",
     label,
@@ -225,6 +226,7 @@ const InputComponent = (
   return (
     <Fragment>
       <div
+        id={id}
         className={[_className, className].join(" ").trim()}
         data-pui-interactive={showEditableInput ? "true" : "false"}
         ref={rootRef as preact.Ref<HTMLDivElement>}

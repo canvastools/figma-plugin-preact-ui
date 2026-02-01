@@ -11,6 +11,7 @@ import { Spinner } from "../Spinner/Spinner"
 
 const ProgressComponent = (
   {
+    id,
     className,
     variant = "indeterminate",
     delay = 0,
@@ -31,6 +32,7 @@ const ProgressComponent = (
 
   return (
     <div
+      id={id}
       className={[_className, className].join(" ").trim()}
       data-pui-interactive="true"
       ref={ref}

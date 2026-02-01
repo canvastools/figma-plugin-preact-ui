@@ -8,6 +8,7 @@ import "./WindowResizer.scss"
 
 const WindowResizerComponent = (
   {
+    id,
     className,
     minWidth,
     minHeight,
@@ -21,7 +22,7 @@ const WindowResizerComponent = (
   const _className = bem("WindowResizer", undefined, undefined)
 
   useEffect(() => {
-    const resizer = document.getElementById("WindowResizer")
+    const resizer = document.getElementById(id ?? "WindowResizer")
 
     if (!resizer) return
 
@@ -92,7 +93,7 @@ const WindowResizerComponent = (
 
   return (
     <div
-      id="WindowResizer"
+      id={id ?? "WindowResizer"}
       className={[_className, className].join(" ").trim()}
       data-pui-interactive="true"
       ref={ref}

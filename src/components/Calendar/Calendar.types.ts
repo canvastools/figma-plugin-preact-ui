@@ -1,6 +1,7 @@
 export type CalendarDate = Date | [Date | null, Date | null] | null
 
 export interface CalendarProps {
+  id?: string
   className?: string
   locale?: string
   type?: "iso8601" | "islamic" | "hebrew" | "gregory"

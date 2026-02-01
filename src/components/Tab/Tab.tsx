@@ -14,8 +14,8 @@ import "./Tab.scss"
 
 const TabComponent = (
   {
-    className,
     id,
+    className,
     variant = "default",
     prefix,
     suffix,
@@ -102,6 +102,7 @@ const TabComponent = (
 
   return (
     <button
+      id={id}
       className={[_className, className].join(" ").trim()}
       data-pui-interactive="true"
       ref={setRef}

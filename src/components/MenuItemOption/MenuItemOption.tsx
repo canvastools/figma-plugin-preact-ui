@@ -144,6 +144,7 @@ const MenuItemOptionComponent = (
 
   return (
     <div
+      id={id}
       className={[_className, className].join(" ").trim()}
       data-pui-interactive="true"
       ref={(el) => {

@@ -20,6 +20,14 @@ const meta: Meta<typeof ListContainer> = {
     },
   },
   argTypes: {
+    id: {
+      control: { type: "text" },
+      table: {
+        type: {
+          summary: "string",
+        },
+      },
+    },
     className: {
       control: { type: "text" },
     },
@@ -71,6 +79,7 @@ const itemsSample = [
 
 export const Demo: Story = {
   args: {
+    id: undefined,
     className: "sb-container",
   },
   parameters: {

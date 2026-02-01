@@ -9,6 +9,7 @@ import "./Badge.scss"
 
 const BadgeComponent = (
   {
+    id,
     className,
     intent = "neutral",
     intentModifier = "default",
@@ -27,6 +28,7 @@ const BadgeComponent = (
 
   return (
     <div
+      id={id}
       className={[_className, className].join(" ").trim()}
       ref={ref}
       {...rest}

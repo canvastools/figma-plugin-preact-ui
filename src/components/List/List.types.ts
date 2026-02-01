@@ -26,6 +26,7 @@ type ListContextPropsPick = Pick<
 >
 
 export interface ListProps extends ListContextPropsPick {
+  id?: string
   className?: string
   items: ListItemData[]
   listItemProps: ListItemPropsPick

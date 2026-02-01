@@ -1,4 +1,5 @@
 export interface WindowResizerProps {
+  id?: string
   className?: string
   minWidth: number
   minHeight: number

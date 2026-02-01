@@ -8,7 +8,7 @@ import "./Fog.scss"
 /* --- */
 
 const FogComponent = (
-  { className, delay = 0, children, ...rest }: FogProps,
+  { id, className, delay = 0, children, ...rest }: FogProps,
   ref: preact.Ref<HTMLDivElement>
 ) => {
   const [isVisible, setIsVisible] = useState(false)
@@ -23,6 +23,7 @@ const FogComponent = (
 
   return (
     <div
+      id={id}
       className={[_className, className].join(" ").trim()}
       ref={ref}
       {...rest}

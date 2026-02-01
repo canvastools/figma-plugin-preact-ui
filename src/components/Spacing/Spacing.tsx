@@ -6,7 +6,7 @@ import "./Spacing.scss"
 /* --- */
 
 const SpacingComponent = (
-  { className, size, direction = "column", ...rest }: SpacingProps,
+  { id, className, size, direction = "column", ...rest }: SpacingProps,
   ref: preact.Ref<HTMLDivElement>
 ) => {
   const _className = bem("Spacing", undefined, {
@@ -16,6 +16,7 @@ const SpacingComponent = (
 
   return (
     <div
+      id={id}
       className={[_className, className].join(" ").trim()}
       ref={ref}
       {...rest}

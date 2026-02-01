@@ -9,7 +9,7 @@ import "./MenuContainer.scss"
 /* --- */
 
 const MenuContainerComponent = (
-  { className, width, height, children, ...rest }: MenuContainerProps,
+  { id, className, width, height, children, ...rest }: MenuContainerProps,
   ref: preact.Ref<HTMLDivElement>
 ) => {
   const context = useContext(RawMenuContext)
@@ -21,6 +21,7 @@ const MenuContainerComponent = (
 
   return (
     <div
+      id={id}
       className={[_className, className].join(" ").trim()}
       data-pui-interactive="true"
       ref={ref}

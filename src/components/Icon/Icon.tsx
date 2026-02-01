@@ -7,6 +7,7 @@ import "./Icon.scss"
 
 const IconComponent = (
   {
+    id,
     className,
     glyph,
     intent = "neutral",
@@ -45,6 +46,7 @@ const IconComponent = (
 
   return (
     <div
+      id={id}
       className={[_className, className].join(" ").trim()}
       ref={ref}
       {...rest}

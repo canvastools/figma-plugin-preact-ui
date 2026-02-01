@@ -17,6 +17,7 @@ const hasOpacity = (color: ColorSwatchProps["color"]) => {
 
 const ColorSwatchComponent = (
   {
+    id,
     className,
     size = "medium",
     color,
@@ -51,6 +52,7 @@ const ColorSwatchComponent = (
 
   return (
     <button
+      id={id}
       className={[_className, className].join(" ").trim()}
       data-pui-interactive="true"
       ref={(el) => {

@@ -24,13 +24,18 @@ const meta: Meta<typeof MenuItemOption> = {
     },
   },
   argTypes: {
-    className: {
-      control: { type: "text" },
-    },
     id: {
       control: { type: "text" },
       description:
         "Unique identifier for the menu item used to track focus the item in the menu context. If not provided, a random UUID will be generated.",
+      table: {
+        type: {
+          summary: "string",
+        },
+      },
+    },
+    className: {
+      control: { type: "text" },
     },
     defaultSelected: {
       control: { type: "boolean" },
@@ -106,8 +111,8 @@ type Story = StoryObj<typeof MenuItemOption>
 export const Demo: Story = {
   tags: ["!autodocs"],
   args: {
-    className: "",
     id: "menu-item-option",
+    className: "",
     defaultSelected: true,
     disabled: false,
     focused: false,

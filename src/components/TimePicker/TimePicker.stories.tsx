@@ -24,6 +24,14 @@ const meta: Meta<typeof TimePicker> = {
   },
   tags: ["autodocs"],
   argTypes: {
+    id: {
+      control: { type: "text" },
+      table: {
+        type: {
+          summary: "string",
+        },
+      },
+    },
     className: {
       control: { type: "text" },
     },
@@ -120,6 +128,7 @@ type Story = StoryObj<typeof TimePicker>
 export const Demo: Story = {
   tags: ["!autodocs"],
   args: {
+    id: undefined,
     className: "",
     locale: "en-US",
     variant: "default",

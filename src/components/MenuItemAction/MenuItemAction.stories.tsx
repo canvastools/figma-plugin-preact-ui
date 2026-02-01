@@ -24,13 +24,18 @@ const meta: Meta<typeof MenuItemAction> = {
     },
   },
   argTypes: {
-    className: {
-      control: { type: "text" },
-    },
     id: {
       control: { type: "text" },
       description:
         "Unique identifier for the menu item used to track focus the item in the menu context. If not provided, a random UUID will be generated.",
+      table: {
+        type: {
+          summary: "string",
+        },
+      },
+    },
+    className: {
+      control: { type: "text" },
     },
     intentModifier: {
       control: { type: "radio" },
@@ -102,8 +107,8 @@ type Story = StoryObj<typeof MenuItemAction>
 export const Demo: Story = {
   tags: ["!autodocs"],
   args: {
-    className: "",
     id: "menu-item-action",
+    className: "",
     intentModifier: "default",
     disabled: false,
     focused: false,

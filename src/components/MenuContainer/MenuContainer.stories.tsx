@@ -19,6 +19,14 @@ const meta: Meta<typeof MenuContainer> = {
     },
   },
   argTypes: {
+    id: {
+      control: { type: "text" },
+      table: {
+        type: {
+          summary: "string",
+        },
+      },
+    },
     className: {
       control: { type: "text" },
     },
@@ -49,6 +57,7 @@ type Story = StoryObj<typeof MenuContainer>
 export const Demo: Story = {
   tags: ["!autodocs"],
   args: {
+    id: undefined,
     className: "",
     width: 208,
     height: 300,

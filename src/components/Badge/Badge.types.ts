@@ -1,4 +1,5 @@
 export interface BadgeProps {
+  id?: string
   className?: string
   intent?:
     | "neutral"

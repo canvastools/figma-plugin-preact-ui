@@ -18,6 +18,14 @@ const meta: Meta<typeof PopoverHeader> = {
     },
   },
   argTypes: {
+    id: {
+      control: { type: "text" },
+      table: {
+        type: {
+          summary: "string",
+        },
+      },
+    },
     className: {
       control: { type: "text" },
     },
@@ -46,6 +54,7 @@ type Story = StoryObj<typeof PopoverHeader>
 
 export const Demo: Story = {
   args: {
+    id: undefined,
     className: "",
     children: "Header",
     onClose: fn(),

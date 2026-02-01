@@ -14,6 +14,7 @@ export type OverlayPositionerPlacement =
   | "right-bottom"
 
 export interface OverlayPositionerProps {
+  id?: string
   className?: string
   anchorRef: preact.RefObject<HTMLElement>
   open?: boolean

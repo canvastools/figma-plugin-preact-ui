@@ -19,6 +19,14 @@ const meta: Meta<typeof TabList> = {
     },
   },
   argTypes: {
+    id: {
+      control: { type: "text" },
+      table: {
+        type: {
+          summary: "string",
+        },
+      },
+    },
     className: {
       control: { type: "text" },
     },
@@ -63,6 +71,7 @@ export const Demo: Story = {
     },
   },
   args: {
+    id: undefined,
     className: "sb-container-inset",
   },
   render: (args) => (

@@ -6,7 +6,7 @@ import "./Divider.scss"
 /* --- */
 
 const DividerComponent = (
-  { className, variant = "full", ...rest }: DividerProps,
+  { id, className, variant = "full", ...rest }: DividerProps,
   ref: preact.Ref<HTMLDivElement>
 ) => {
   const _className = bem("Divider", undefined, {
@@ -15,6 +15,7 @@ const DividerComponent = (
 
   return (
     <div
+      id={id}
       className={[_className, className].join(" ").trim()}
       ref={ref}
       {...rest}

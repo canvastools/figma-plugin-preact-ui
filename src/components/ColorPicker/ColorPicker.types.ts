@@ -8,6 +8,7 @@ export type Color = {
 export type ColorPickerType = "rgba" | "hex" | "hexAlpha"
 
 export interface ColorPickerProps {
+  id?: string
   className?: string
   defaultType?: ColorPickerType
   type?: ColorPickerType

@@ -35,6 +35,7 @@ export interface PopoverProps
   extends PopoverContextPropsPick,
     OverlayPositionerPropsPick,
     PopoverContainerPropsPick {
+  id?: string
   className?: string
   children: preact.ComponentChildren
   popoverHeaderProps?: PopoverHeaderPropsPick

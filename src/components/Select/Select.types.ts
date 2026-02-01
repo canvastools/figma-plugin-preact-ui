@@ -10,6 +10,7 @@ export interface SelectOptionData {
 type MenuContainerPropsPick = Pick<MenuContainerProps, "width">
 
 export interface SelectProps {
+  id?: string
   className?: string
   options?: SelectOptionData[] | SelectOptionData[][]
   placeholder?: string

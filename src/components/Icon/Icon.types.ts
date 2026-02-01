@@ -6,6 +6,7 @@ export interface GlyphProps {
 export type Glyph = (props: GlyphProps) => preact.VNode
 
 export interface IconProps {
+  id?: string
   className?: string
   glyph?: Glyph
   intent?:

@@ -13,6 +13,7 @@ import "./ButtonIcon.scss"
 
 const ButtonIconComponent = (
   {
+    id,
     className,
     intent = "neutral",
     intentModifier = "default",
@@ -64,6 +65,7 @@ const ButtonIconComponent = (
   return (
     <Fragment>
       <button
+        id={id}
         className={[_className, className].join(" ").trim()}
         data-pui-interactive="true"
         ref={(el) => {

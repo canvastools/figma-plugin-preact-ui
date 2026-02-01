@@ -16,6 +16,14 @@ const meta: Meta<typeof ButtonIcon> = {
   component: ButtonIcon,
   tags: ["autodocs"],
   argTypes: {
+    id: {
+      control: { type: "text" },
+      table: {
+        type: {
+          summary: "string",
+        },
+      },
+    },
     className: {
       control: { type: "text" },
     },
@@ -106,6 +114,7 @@ type Story = StoryObj<typeof ButtonIcon>
 export const Demo: Story = {
   tags: ["!autodocs"],
   args: {
+    id: undefined,
     className: "",
     intent: "neutral",
     intentModifier: "default",

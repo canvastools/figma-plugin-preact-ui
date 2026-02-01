@@ -25,6 +25,14 @@ const meta: Meta = {
     },
   },
   argTypes: {
+    id: {
+      control: { type: "text" },
+      table: {
+        type: {
+          summary: "string",
+        },
+      },
+    },
     className: {
       control: { type: "text" },
     },
@@ -131,6 +139,7 @@ type Story = StoryObj<typeof Menu>
 export const Demo: Story = {
   tags: ["!autodocs"],
   args: {
+    id: undefined,
     className: "",
   },
   parameters: {

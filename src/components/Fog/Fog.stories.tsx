@@ -16,6 +16,14 @@ const meta: Meta<typeof Fog> = {
     },
   },
   argTypes: {
+    id: {
+      control: { type: "text" },
+      table: {
+        type: {
+          summary: "string",
+        },
+      },
+    },
     className: {
       control: { type: "text" },
     },
@@ -42,6 +50,7 @@ type Story = StoryObj<typeof Fog>
 
 export const Demo: Story = {
   args: {
+    id: undefined,
     className: "",
     delay: 1000,
     children: "",

@@ -9,6 +9,7 @@ import "./Switch.scss"
 
 const SwitchComponent = (
   {
+    id,
     className,
     checked,
     defaultChecked = false,
@@ -67,6 +68,7 @@ const SwitchComponent = (
 
   return (
     <div
+      id={id}
       className={[_className, className].join(" ").trim()}
       data-pui-interactive="true"
       ref={ref}

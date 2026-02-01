@@ -29,6 +29,14 @@ const meta: Meta<typeof OverlayPositioner> = {
     },
   },
   argTypes: {
+    id: {
+      control: { type: "text" },
+      table: {
+        type: {
+          summary: "string",
+        },
+      },
+    },
     className: {
       control: { type: "text" },
     },
@@ -203,6 +211,7 @@ type Story = StoryObj<typeof OverlayPositioner>
 export const Demo: Story = {
   tags: ["!autodocs"],
   args: {
+    id: undefined,
     className: "",
     defaultOpen: false,
     placement: "bottom",

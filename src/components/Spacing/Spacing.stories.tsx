@@ -11,6 +11,14 @@ const meta: Meta<typeof Spacing> = {
   component: Spacing,
   tags: ["autodocs"],
   argTypes: {
+    id: {
+      control: { type: "text" },
+      table: {
+        type: {
+          summary: "string",
+        },
+      },
+    },
     className: {
       control: { type: "text" },
     },
@@ -37,6 +45,7 @@ type Story = StoryObj<typeof Spacing>
 
 export const Demo: Story = {
   args: {
+    id: undefined,
     className: "sb-container",
     direction: "column",
     size: 400,

@@ -17,6 +17,14 @@ const meta: Meta<WindowResizerProps> = {
     },
   },
   argTypes: {
+    id: {
+      control: { type: "text" },
+      table: {
+        type: {
+          summary: "string",
+        },
+      },
+    },
     className: {
       control: { type: "text" },
     },
@@ -58,6 +66,7 @@ type Story = StoryObj<WindowResizerProps>
 
 export const Demo: Story = {
   args: {
+    id: undefined,
     className: "",
     minWidth: 380,
     minHeight: 480,

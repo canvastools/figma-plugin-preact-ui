@@ -16,6 +16,14 @@ const meta: Meta<typeof Icon> = {
   component: Icon,
   tags: ["autodocs"],
   argTypes: {
+    id: {
+      control: { type: "text" },
+      table: {
+        type: {
+          summary: "string",
+        },
+      },
+    },
     className: {
       control: { type: "text" },
     },
@@ -107,6 +115,7 @@ type Story = StoryObj<typeof Icon>
 export const Demo: Story = {
   tags: ["!autodocs"],
   args: {
+    id: undefined,
     className: "",
     glyph: "link",
     intent: "neutral",

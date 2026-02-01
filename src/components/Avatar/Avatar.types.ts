@@ -1,4 +1,5 @@
 export interface AvatarProps {
+  id?: string
   className?: string
   variant?: "circle" | "square"
   size?: "small" | "medium" | "large"

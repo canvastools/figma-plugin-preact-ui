@@ -6,13 +6,14 @@ import "./Code.scss"
 /* --- */
 
 const CodeComponent = (
-  { className, variant = "inline", children, ...rest }: CodeProps,
+  { id, className, variant = "inline", children, ...rest }: CodeProps,
   ref: preact.Ref<HTMLDivElement>
 ) => {
   const _className = bem("Code", undefined, { variant })
 
   return (
     <div
+      id={id}
       className={[_className, className].join(" ").trim()}
       ref={ref}
       {...rest}

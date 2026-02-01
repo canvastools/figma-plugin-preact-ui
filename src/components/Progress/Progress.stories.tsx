@@ -10,6 +10,14 @@ const meta: Meta<typeof Progress> = {
   component: Progress,
   tags: ["autodocs"],
   argTypes: {
+    id: {
+      control: { type: "text" },
+      table: {
+        type: {
+          summary: "string",
+        },
+      },
+    },
     className: {
       control: { type: "text" },
     },
@@ -39,6 +47,7 @@ type Story = StoryObj<typeof Progress>
 export const Demo: Story = {
   tags: ["!autodocs"],
   args: {
+    id: undefined,
     className: "",
     variant: "indeterminate",
     delay: 0,

@@ -1,4 +1,5 @@
 export interface ButtonProps {
+  id?: string
   className?: string
   intent?: "neutral" | "neutral-inverted" | "brand" | "danger" | "success"
   intentModifier?: "default" | "secondary" | "brand" | "danger" | "success"

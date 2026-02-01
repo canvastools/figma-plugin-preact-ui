@@ -169,7 +169,7 @@ const ControlsRgba = ({
       <div style={{ minWidth: "52px" }}>
         <Select
           ref={selectRef}
-          items={options}
+          options={options}
           value={type}
           onValueChange={(e) => setType(e.value as ColorPickerType)}
           tooltip="Color mode"
@@ -394,7 +394,7 @@ const ControlsHex = ({
       <div style={{ minWidth: "52px" }}>
         <Select
           ref={selectRef}
-          items={options}
+          options={options}
           value={type}
           onValueChange={(e) => setType(e.value as ColorPickerType)}
           tooltip="Color mode"
@@ -476,7 +476,7 @@ const ControlsHexAlpha = ({
       <div style={{ minWidth: "52px" }}>
         <Select
           ref={selectRef}
-          items={options}
+          options={options}
           value={type}
           onValueChange={(e) => setType(e.value as ColorPickerType)}
           tooltip="Color mode"
@@ -560,6 +560,7 @@ const ControlsHexAlpha = ({
 
 const ColorPickerComponent = (
   {
+    id,
     className,
     defaultType = "hex",
     type,
@@ -759,6 +760,7 @@ const ColorPickerComponent = (
 
   return (
     <div
+      id={id}
       className={[_className, className].join(" ").trim()}
       data-pui-interactive="true"
       ref={ref}

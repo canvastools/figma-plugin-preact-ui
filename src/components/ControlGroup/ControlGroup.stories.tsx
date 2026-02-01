@@ -20,6 +20,14 @@ const meta: Meta<typeof ControlGroup> = {
     },
   },
   argTypes: {
+    id: {
+      control: { type: "text" },
+      table: {
+        type: {
+          summary: "string",
+        },
+      },
+    },
     className: {
       control: { type: "text" },
     },
@@ -50,6 +58,7 @@ type Story = StoryObj<typeof ControlGroup>
 export const Demo: Story = {
   tags: ["!autodocs"],
   args: {
+    id: undefined,
     className: "",
     groupFocus: false,
     fullWidth: false,

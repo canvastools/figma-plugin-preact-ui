@@ -22,6 +22,7 @@ import {
 
 const SelectComponent = (
   {
+    id,
     className,
     options,
     placeholder,
@@ -118,13 +119,14 @@ const SelectComponent = (
     if (typeof ref === "function") {
       ref(el)
     } else {
-      ; (ref as preact.RefObject<HTMLDivElement | null>).current = el
+      ;(ref as preact.RefObject<HTMLDivElement | null>).current = el
     }
   }
 
   return (
     <Fragment>
       <div
+        id={id}
         className={[_className, className].join(" ").trim()}
         data-pui-interactive="true"
         ref={attachTriggerRef}

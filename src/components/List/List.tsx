@@ -10,6 +10,7 @@ import "./List.scss"
 
 const ListComponent = (
   {
+    id,
     className,
     items,
     listItemProps,
@@ -88,6 +89,7 @@ const ListComponent = (
       onSelectionChange={onSelectionChange}
     >
       <div
+        id={id}
         className={[_className, className].join(" ").trim()}
         ref={ref}
         {...rest}

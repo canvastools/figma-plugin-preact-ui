@@ -9,6 +9,7 @@ export interface SegmentedControlOptionData {
 }
 
 export interface SegmentedControlProps {
+  id?: string
   className?: string
   options: SegmentedControlOptionData[]
   value?: string

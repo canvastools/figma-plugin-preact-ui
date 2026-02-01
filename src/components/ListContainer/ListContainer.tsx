@@ -9,6 +9,7 @@ import "./ListContainer.scss"
 
 const ListContainerComponent = (
   {
+    id,
     className,
     children,
     ...rest
@@ -822,6 +823,7 @@ const ListContainerComponent = (
 
   return (
     <div
+      id={id}
       className={[_className, className].join(" ").trim()}
       data-pui-interactive="true"
       ref={(node) => {

@@ -12,6 +12,14 @@ const meta: Meta<typeof Switch> = {
   component: Switch,
   tags: ["autodocs"],
   argTypes: {
+    id: {
+      control: { type: "text" },
+      table: {
+        type: {
+          summary: "string",
+        },
+      },
+    },
     className: {
       control: { type: "text" },
     },
@@ -51,6 +59,7 @@ type Story = StoryObj<typeof Switch>
 export const Demo: Story = {
   tags: ["!autodocs"],
   args: {
+    id: undefined,
     className: "",
     defaultChecked: false,
     disabled: false,

@@ -1,6 +1,7 @@
 export type TimePickerDate = Date | string | number | null
 
 export interface TimePickerProps {
+  id?: string
   className?: string
   locale?: string
   variant?: "default" | "list"

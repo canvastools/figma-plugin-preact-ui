@@ -23,6 +23,14 @@ const meta: Meta<typeof Popover> = {
     },
   },
   argTypes: {
+    id: {
+      control: { type: "text" },
+      table: {
+        type: {
+          summary: "string",
+        },
+      },
+    },
     className: {
       control: { type: "text" },
     },
@@ -108,6 +116,7 @@ type Story = StoryObj<typeof Popover>
 export const Demo: Story = {
   tags: ["!autodocs"],
   args: {
+    id: undefined,
     className: "",
     children: "Content",
     popoverHeaderProps: {

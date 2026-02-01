@@ -9,6 +9,7 @@ import { Text } from "../Text/Text"
 
 const TooltipContainerComponent = (
   {
+    id,
     className,
     width,
     height,
@@ -24,6 +25,7 @@ const TooltipContainerComponent = (
 
   return (
     <div
+      id={id}
       className={[_className, className].join(" ").trim()}
       data-pui-interactive="true"
       ref={ref}

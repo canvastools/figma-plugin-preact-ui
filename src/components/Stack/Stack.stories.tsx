@@ -20,6 +20,11 @@ const meta: Meta<typeof Stack> = {
   argTypes: {
     id: {
       control: { type: "text" },
+      table: {
+        type: {
+          summary: "string",
+        },
+      },
     },
     className: {
       control: { type: "text" },
@@ -78,6 +83,7 @@ type Story = StoryObj<typeof Stack>
 
 export const Demo: Story = {
   args: {
+    id: undefined,
     className: "sb-container",
     direction: "column",
     spacing: 400,

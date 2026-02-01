@@ -1,6 +1,6 @@
 export interface ListItemProps {
-  className?: string
   id: string
+  className?: string
   nestingLevel: number
   variant?: "default" | "layer"
   draggable?: boolean

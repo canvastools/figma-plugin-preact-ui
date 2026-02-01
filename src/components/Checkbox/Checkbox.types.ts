@@ -1,6 +1,7 @@
 export type CheckboxValue = boolean
 
 export interface CheckboxProps {
+  id?: string
   className?: string
   intent?: "neutral" | "brand"
   intentModifier?: "default"

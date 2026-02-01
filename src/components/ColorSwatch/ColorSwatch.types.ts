@@ -1,6 +1,7 @@
 import type { Color } from "../ColorPicker/ColorPicker.types"
 
 export interface ColorSwatchProps {
+  id?: string
   className?: string
   size?: "small" | "medium" | "large"
   color?: Color

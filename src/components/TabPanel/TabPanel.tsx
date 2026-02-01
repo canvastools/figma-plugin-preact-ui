@@ -10,7 +10,14 @@ import { useTabContext } from "../../index"
 /* --- */
 
 const TabPanelComponent = (
-  { className, tabId, fullHeight = false, children, ...rest }: TabPanelProps,
+  {
+    id,
+    className,
+    tabId,
+    fullHeight = false,
+    children,
+    ...rest
+  }: TabPanelProps,
   ref: preact.Ref<HTMLDivElement>
 ) => {
   const { activeId } = useTabContext()
@@ -24,6 +31,7 @@ const TabPanelComponent = (
 
   return (
     <div
+      id={id}
       className={[_className, className].join(" ").trim()}
       ref={ref}
       {...rest}

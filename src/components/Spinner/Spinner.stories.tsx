@@ -7,6 +7,14 @@ const meta: Meta<typeof Spinner> = {
   component: Spinner,
   tags: ["autodocs"],
   argTypes: {
+    id: {
+      control: { type: "text" },
+      table: {
+        type: {
+          summary: "string",
+        },
+      },
+    },
     className: {
       control: { type: "text" },
     },
@@ -19,6 +27,7 @@ type Story = StoryObj<typeof Spinner>
 
 export const Demo: Story = {
   args: {
+    id: undefined,
     className: "",
   },
   parameters: {

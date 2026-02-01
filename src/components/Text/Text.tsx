@@ -61,8 +61,8 @@ const renderChildrenWithLinks = (children: preact.ComponentChildren) => {
 
 const TextComponent = (
   {
-    className,
     id,
+    className,
     intent = "neutral",
     intentModifier = "default",
     variant = "body",
@@ -97,8 +97,8 @@ const TextComponent = (
 
   return (
     <div
-      className={[_className, className].join(" ").trim()}
       id={id}
+      className={[_className, className].join(" ").trim()}
       ref={ref}
       {...rest}
       style={{

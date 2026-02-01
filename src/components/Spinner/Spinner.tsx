@@ -6,13 +6,14 @@ import "./Spinner.scss"
 /* --- */
 
 const SpinnerComponent = (
-  { className, ...rest }: SpinnerProps,
+  { id, className, ...rest }: SpinnerProps,
   ref: preact.Ref<HTMLDivElement>
 ) => {
   const _className = bem("Spinner", undefined, undefined)
 
   return (
     <div
+      id={id}
       className={[_className, className].join(" ").trim()}
       ref={ref}
       {...rest}

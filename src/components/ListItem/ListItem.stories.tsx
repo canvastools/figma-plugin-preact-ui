@@ -199,7 +199,7 @@ const itemsSample = [
 export const Demo: Story = {
   tags: ["!autodocs"],
   args: {
-    id: "",
+    id: undefined,
     className: "",
     nestingLevel: 0,
     variant: "default",

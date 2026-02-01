@@ -325,6 +325,7 @@ const computePlacement = (
 }
 
 const OverlayPositionerComponent = ({
+  id,
   className,
   anchorRef,
   placement = "bottom",
@@ -630,6 +631,7 @@ const OverlayPositionerComponent = ({
 
   const content = (
     <div
+      id={id}
       className={[_className, className].join(" ").trim()}
       ref={containerRef}
       style={style}

@@ -1,4 +1,5 @@
 export interface TabPanelProps {
+  id?: string
   className?: string
   tabId: string
   fullHeight?: boolean

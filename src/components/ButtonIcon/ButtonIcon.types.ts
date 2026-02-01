@@ -1,6 +1,7 @@
 import type { IconPropsPick } from "../Icon/Icon.types"
 
 export interface ButtonIconProps {
+  id?: string
   className?: string
   intent?: "neutral"
   intentModifier?: "default" | "secondary"

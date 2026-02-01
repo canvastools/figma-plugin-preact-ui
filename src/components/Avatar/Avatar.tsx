@@ -9,6 +9,7 @@ import "./Avatar.scss"
 
 const AvatarComponent = (
   {
+    id,
     className,
     variant = "circle",
     size = "medium",
@@ -28,6 +29,7 @@ const AvatarComponent = (
 
   return (
     <div
+      id={id}
       className={[_className, className].join(" ").trim()}
       ref={ref}
       {...rest}

@@ -16,10 +16,15 @@ const meta: Meta<typeof Text> = {
   component: Text,
   tags: ["autodocs"],
   argTypes: {
-    className: {
-      control: { type: "text" },
-    },
     id: {
+      control: { type: "text" },
+      table: {
+        type: {
+          summary: "string",
+        },
+      },
+    },
+    className: {
       control: { type: "text" },
     },
     intent: {
@@ -113,6 +118,7 @@ type Story = StoryObj<typeof Text>
 export const Demo: Story = {
   tags: ["!autodocs"],
   args: {
+    id: undefined,
     className: "",
     intent: "neutral",
     intentModifier: "default",

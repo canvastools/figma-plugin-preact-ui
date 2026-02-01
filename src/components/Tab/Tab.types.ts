@@ -1,6 +1,6 @@
 export interface TabProps {
-  className?: string
   id: string
+  className?: string
   variant?: "default" | "single"
   prefix?: preact.ComponentChildren
   suffix?: preact.ComponentChildren

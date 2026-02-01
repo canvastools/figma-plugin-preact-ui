@@ -20,6 +20,14 @@ const meta: Meta<typeof Tooltip> = {
     },
   },
   argTypes: {
+    id: {
+      control: { type: "text" },
+      table: {
+        type: {
+          summary: "string",
+        },
+      },
+    },
     className: {
       control: { type: "text" },
     },
@@ -81,6 +89,7 @@ type Story = StoryObj<typeof Tooltip>
 
 export const Demo: Story = {
   args: {
+    id: undefined,
     className: "",
     children: "Tooltip content",
   },

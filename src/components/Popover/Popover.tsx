@@ -93,6 +93,7 @@ const PopoverBody = ({
 
 const PopoverComponent = (
   {
+    id,
     className,
     triggerRef,
     anchorRef,
@@ -145,6 +146,7 @@ const PopoverComponent = (
     >
       {internalOpen && (
         <div
+          id={id}
           className={[_className, className].join(" ").trim()}
           ref={ref}
           {...rest}

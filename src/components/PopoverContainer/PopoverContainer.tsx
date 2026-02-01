@@ -7,6 +7,7 @@ import "./PopoverContainer.scss"
 
 const PopoverContainerComponent = (
   {
+    id,
     className,
     width,
     height,
@@ -22,6 +23,7 @@ const PopoverContainerComponent = (
 
   return (
     <div
+      id={id}
       className={[_className, className].join(" ").trim()}
       ref={ref}
       style={{

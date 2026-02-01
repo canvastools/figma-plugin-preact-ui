@@ -16,6 +16,7 @@ import "./Checkbox.scss"
 
 const CheckboxComponent = (
   {
+    id,
     className,
     intent = "neutral",
     intentModifier = "default",
@@ -94,6 +95,7 @@ const CheckboxComponent = (
 
   return (
     <div
+      id={id}
       className={[_className, className].join(" ").trim()}
       data-pui-interactive="true"
       {...rest}

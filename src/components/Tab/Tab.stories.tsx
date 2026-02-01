@@ -22,9 +22,6 @@ const meta: Meta<typeof Tab> = {
     },
   },
   argTypes: {
-    className: {
-      control: { type: "text" },
-    },
     id: {
       control: { disable: true },
       description: "<strong>*</strong>",
@@ -33,6 +30,9 @@ const meta: Meta<typeof Tab> = {
           summary: "string",
         },
       },
+    },
+    className: {
+      control: { type: "text" },
     },
     variant: {
       control: { type: "radio" },

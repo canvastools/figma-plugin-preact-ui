@@ -7,6 +7,14 @@ const meta: Meta<typeof Code> = {
   component: Code,
   tags: ["autodocs"],
   argTypes: {
+    id: {
+      control: { type: "text" },
+      table: {
+        type: {
+          summary: "string",
+        },
+      },
+    },
     className: {
       control: { type: "text" },
     },
@@ -28,6 +36,7 @@ type Story = StoryObj<typeof Code>
 
 export const Demo: Story = {
   args: {
+    id: undefined,
     className: "",
     variant: "inline",
     children: "Hello, world!",

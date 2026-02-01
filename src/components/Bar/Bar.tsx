@@ -7,6 +7,7 @@ import "./Bar.scss"
 
 const BarComponent = (
   {
+    id,
     className,
     showDividerTop = false,
     showDividerBottom = false,
@@ -22,6 +23,7 @@ const BarComponent = (
 
   return (
     <div
+      id={id}
       className={[_className, className].join(" ").trim()}
       ref={ref}
       {...rest}
