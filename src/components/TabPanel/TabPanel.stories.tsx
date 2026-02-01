@@ -67,14 +67,17 @@ export const Demo: Story = {
         language: "tsx",
         code: `
 <TabContext defaultActiveId="tab-1">
+
   <TabList>
     <Tab id="tab-1">Tab 1</Tab>
     <Tab id="tab-2">Tab 2</Tab>
     <Tab id="tab-3">Tab 3</Tab>
   </TabList>
-    <TabPanel tabId="tab-1" {...args}>{children}</TabPanel>
+
+  <TabPanel tabId="tab-1" {...args}>{children}</TabPanel>
   <TabPanel tabId="tab-2" {...args}>{children}</TabPanel>
   <TabPanel tabId="tab-3" {...args}>{children}</TabPanel>
+
 </TabContext>
 `,
       },

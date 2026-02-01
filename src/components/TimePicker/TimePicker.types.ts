@@ -6,7 +6,7 @@ export interface TimePickerProps {
   locale?: string
   variant?: "default" | "list"
   label?: preact.ComponentChildren
-  maxWidth?: number
+  maxWidth?: number | string
   defaultDate?: TimePickerDate
   date?: TimePickerDate
   format?: string

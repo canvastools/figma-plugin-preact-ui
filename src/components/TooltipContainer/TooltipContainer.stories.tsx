@@ -74,9 +74,7 @@ export const Demo: Story = {
       source: {
         language: "tsx",
         code: `
-<TooltipContainer {...args}>
-  {children}
-</TooltipContainer>
+<TooltipContainer {...args}>{children}</TooltipContainer>
 `,
       },
     },

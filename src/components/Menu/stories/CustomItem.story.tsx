@@ -83,7 +83,7 @@ const CustomMenuItem = ({
   )
 }
 
-const items: MenuItemData[] = [
+const items = [
   {
     type: "action",
     id: "action-1",

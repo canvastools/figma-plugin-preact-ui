@@ -51,7 +51,8 @@ const meta: Meta = {
       control: { disable: true },
       table: {
         type: {
-          summary: "Pick<ListItemProps>",
+          summary:
+            "Pick<ListItemProps> | ((item: ListItemData) => Pick<ListItemProps>)",
           detail: `
 {
   variant: "default" | "layer"

@@ -126,7 +126,13 @@ const meta: Meta<typeof Input> = {
     },
     maxWidth: {
       control: { type: "number" },
-      description: "Maximum width of the input (excluding label).",
+      description:
+        "Maximum width of the input (excluding label). Only applicable when variant is `list`.",
+      table: {
+        type: {
+          summary: "number | string",
+        },
+      },
     },
     onValueChange: {
       table: {

@@ -76,9 +76,7 @@ export const Demo: Story = {
       source: {
         language: "tsx",
         code: `
-<PopoverContainer {...args}>
-  {children}
-</PopoverContainer>
+<PopoverContainer {...args}>{children}</PopoverContainer>
 `,
       },
     },

@@ -57,11 +57,9 @@ const items = [
 <Menu
   triggerRef={triggerRef}
   open={open
-   onClose={() => setOpen(false)}
-   items={items}
-/>
-
-`,
+  onClose={() => setOpen(false)}
+  items={items}
+/>`,
       },
     },
   },

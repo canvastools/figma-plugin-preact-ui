@@ -1,4 +1,4 @@
-import type { MenuContainerProps } from "../../index"
+import type { MenuContainerProps, MenuContainerPropsPick } from "../../index"
 
 export interface SelectOptionData {
   label: string
@@ -6,8 +6,6 @@ export interface SelectOptionData {
   disabled?: boolean
   children?: preact.ComponentChildren
 }
-
-type MenuContainerPropsPick = Pick<MenuContainerProps, "width">
 
 export interface SelectProps {
   id?: string

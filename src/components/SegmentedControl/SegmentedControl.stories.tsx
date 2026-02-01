@@ -121,8 +121,7 @@ const options = [
   },
 ]
 
-<SegmentedControl options={options} {...args} />
-        `,
+<SegmentedControl options={options} {...args} />`,
       },
     },
   },

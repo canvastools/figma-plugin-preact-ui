@@ -17,14 +17,17 @@ export const UncontrolledStory: Story = {
         language: "tsx",
         code: `
 <TabContext defaultActiveId="tab-1">
+
   <TabList>
     <Tab id="tab-1">First Tab</Tab>
     <Tab id="tab-2">Second Tab</Tab>
     <Tab id="tab-3">Third Tab</Tab>
   </TabList>
+
   <TabPanel tabId="tab-1">Tab 1 Panel</TabPanel>
   <TabPanel tabId="tab-2">Tab 2 Panel</TabPanel>
   <TabPanel tabId="tab-3">Tab 3 Panel</TabPanel>
+
 </TabContext>
 `,
       },

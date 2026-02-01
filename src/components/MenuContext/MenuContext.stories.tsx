@@ -118,9 +118,7 @@ export const Demo: Story = {
       source: {
         language: "tsx",
         code: `
-<MenuContext {...args}> 
-  {children}
-</MenuContext>
+<MenuContext {...args}>{children}</MenuContext>
 `,
       },
     },

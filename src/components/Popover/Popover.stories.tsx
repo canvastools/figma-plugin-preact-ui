@@ -131,9 +131,7 @@ export const Demo: Story = {
       source: {
         language: "tsx",
         code: `
-<Popover {...args}>
-  {children}
-</Popover>
+<Popover {...args}>{children}</Popover>
 `,
       },
     },

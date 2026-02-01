@@ -31,6 +31,10 @@ const ListComponent = (
       <ListContainer>
         {items.map((item) => {
           const { id, items: nestedItems } = item
+          const resolvedListItemProps =
+            typeof listItemProps === "function"
+              ? listItemProps(item)
+              : listItemProps
           const {
             variant,
             draggable,
@@ -44,7 +48,7 @@ const ListComponent = (
             collapsed,
             collapsable,
             onCollapsedChange,
-          } = listItemProps
+          } = resolvedListItemProps
 
           const content = renderItem ? renderItem(item) : undefined
 

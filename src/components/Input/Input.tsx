@@ -251,7 +251,12 @@ const InputComponent = (
           onDblClick={handleDoubleClickDisplay}
           tabIndex={focusOnDoubleClick ? 0 : undefined}
           style={{
-            maxWidth: maxWidth ? `${maxWidth}px` : undefined,
+            maxWidth:
+              variant === "default"
+                ? undefined
+                : typeof maxWidth === "number"
+                ? `${maxWidth}px`
+                : maxWidth,
             flexShrink: maxWidth ? 0 : undefined,
           }}
         >

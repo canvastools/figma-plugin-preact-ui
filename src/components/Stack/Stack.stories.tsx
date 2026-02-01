@@ -100,9 +100,7 @@ export const Demo: Story = {
       source: {
         language: "tsx",
         code: `
-<Stack {...args}>
-  {children}
-</Stack>`,
+<Stack {...args}>{children}</Stack>`,
       },
     },
   },

@@ -11,7 +11,7 @@ const meta: Meta<typeof Fog> = {
   parameters: {
     docs: {
       description: {
-        component: `The component blocks mouse interaction with the entire parent container. User can still navigate the page using keyboard (you should prevent it with your own code).`,
+        component: `The component blocks mouse interaction with the entire parent container.<br/>User can still navigate the page using keyboard (you should prevent it with your own code).`,
       },
     },
   },

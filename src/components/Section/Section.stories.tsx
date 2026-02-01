@@ -88,9 +88,7 @@ export const Demo: Story = {
       source: {
         language: "tsx",
         code: `
-<Section {...args}>
-  {children}
-</Section>
+<Section {...args}>{children}</Section>
 `,
       },
     },

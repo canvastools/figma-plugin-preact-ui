@@ -18,7 +18,7 @@ export interface InputProps {
   tooltip?: preact.ComponentChildren
   minLength?: number
   maxLength?: number
-  maxWidth?: number
+  maxWidth?: number | string
   autoFocus?: boolean
   onValueChange?: (args: { event: MouseEvent; value: string }) => void
   onBlur?: (args: { event: MouseEvent; value: string }) => void

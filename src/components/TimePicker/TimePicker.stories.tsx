@@ -108,7 +108,13 @@ const meta: Meta<typeof TimePicker> = {
     },
     maxWidth: {
       control: { type: "number" },
-      description: "Maximum width of the TimePicker (excluding label).",
+      description:
+        "Maximum width of the TimePicker (excluding label). Only applicable when variant is `list`.",
+      table: {
+        type: {
+          summary: "number | string",
+        },
+      },
     },
     onTimeChange: {
       description:
@@ -160,6 +166,12 @@ export const Demo: Story = {
         language: "tsx",
         code: `
 <TimePicker {...args} />
+
+// Use TooltipContext to make tooltips work
+
+<TooltipContext>
+  <TimePicker {...args} />
+</TooltipContext>
 `,
       },
     },

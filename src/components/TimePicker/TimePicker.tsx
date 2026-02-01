@@ -224,8 +224,14 @@ const TimePickerComponent = (
           onMouseDown={handleInputGroupMouseDown}
           onBlur={handleInputGroupBlur}
           style={{
-            maxWidth: maxWidth ? `${maxWidth}px` : undefined,
-            flexShrink: maxWidth ? 0 : undefined,
+            maxWidth:
+              variant === "default"
+                ? undefined
+                : typeof maxWidth === "number"
+                ? `${maxWidth}px`
+                : maxWidth,
+            flexShrink:
+              variant === "default" ? undefined : maxWidth ? 0 : undefined,
           }}
         >
           <ReactTimePicker

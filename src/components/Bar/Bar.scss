@@ -7,11 +7,11 @@
   flex-flow: column nowrap;
   background-color: var(--pui-color-neutral-bg-default);
 
-  &_showDividerTop {
+  &_dividerTop {
     box-shadow: inset 0 1px 0 0 var(--pui-color-neutral-border-default);
   }
 
-  &_showDividerBottom {
+  &_dividerBottom {
     box-shadow: inset 0 -1px 0 0 var(--pui-color-neutral-border-default);
   }
 }

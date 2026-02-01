@@ -55,13 +55,18 @@ export { Fog } from "./components/Fog/Fog"
 export type { FogProps } from "./components/Fog/Fog.types"
 
 export { Icon } from "./components/Icon/Icon"
-export type { IconProps, Glyph, GlyphProps } from "./components/Icon/Icon.types"
+export type {
+  IconProps,
+  Glyph,
+  GlyphProps,
+  IconPropsPick,
+} from "./components/Icon/Icon.types"
 
 export { Input } from "./components/Input/Input"
 export type { InputProps } from "./components/Input/Input.types"
 
 export { List } from "./components/List/List"
-export type { ListProps } from "./components/List/List.types"
+export type { ListProps, ListItemPropsPick } from "./components/List/List.types"
 
 export { ListContainer } from "./components/ListContainer/ListContainer"
 export type { ListContainerProps } from "./components/ListContainer/ListContainer.types"
@@ -83,7 +88,10 @@ export { Menu } from "./components/Menu/Menu"
 export type { MenuProps, MenuItemData } from "./components/Menu/Menu.types"
 
 export { MenuContainer } from "./components/MenuContainer/MenuContainer"
-export type { MenuContainerProps } from "./components/MenuContainer/MenuContainer.types"
+export type {
+  MenuContainerProps,
+  MenuContainerPropsPick,
+} from "./components/MenuContainer/MenuContainer.types"
 
 export {
   MenuContext,

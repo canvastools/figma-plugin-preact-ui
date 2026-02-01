@@ -22,9 +22,7 @@ const anchorRef = useRef(null)
 
 <Button ref={anchorRef}>Show Overlay</Button>
 
-<OverlayPositioner
-  anchorRef={anchorRef}
->
+<OverlayPositioner anchorRef={anchorRef}>
   {children}
 </OverlayPositioner>
 `,

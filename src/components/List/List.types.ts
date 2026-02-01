@@ -1,6 +1,6 @@
 import type { ListContextProps, ListItemProps, ListItemData } from "../../index"
 
-type ListItemPropsPick = Pick<
+export type ListItemPropsPick = Pick<
   ListItemProps,
   | "variant"
   | "draggable"
@@ -29,6 +29,6 @@ export interface ListProps extends ListContextPropsPick {
   id?: string
   className?: string
   items: ListItemData[]
-  listItemProps: ListItemPropsPick
+  listItemProps: ListItemPropsPick | ((item: ListItemData) => ListItemPropsPick)
   renderItem?: (item: ListItemData) => preact.ComponentChildren
 }

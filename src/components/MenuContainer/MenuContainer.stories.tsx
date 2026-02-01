@@ -70,9 +70,7 @@ export const Demo: Story = {
       source: {
         language: "tsx",
         code: `
-<MenuContainer {...args}>
-  {children}
-</MenuContainer>
+<MenuContainer {...args}>{children}</MenuContainer>
 `,
       },
     },
