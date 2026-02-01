@@ -1,0 +1,23 @@
+export type TimePickerDate = Date | string | number | null
+
+export interface TimePickerProps {
+  className?: string
+  locale?: string
+  variant?: "default" | "list"
+  label?: preact.ComponentChildren
+  maxWidth?: number
+  defaultDate?: TimePickerDate
+  date?: TimePickerDate
+  format?: string
+  hourPlaceholder?: string
+  minutePlaceholder?: string
+  maxTime?: string
+  minTime?: string
+  disabled?: boolean
+  autoFocus?: boolean
+  tooltip?: preact.ComponentChildren
+  onTimeChange?: (args: {
+    date: TimePickerDate | undefined
+    time: string
+  }) => void
+}

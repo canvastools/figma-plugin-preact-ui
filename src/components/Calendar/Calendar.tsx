@@ -56,8 +56,6 @@ const CalendarComponent = (
     }
   }
 
-  const ReactCalendarAny = ReactCalendar as any
-
   return (
     <div onKeyDown={handleKeyDown} data-pui-interactive="true">
       <ReactCalendar

@@ -248,7 +248,10 @@ const InputComponent = (
           onBlur={handleRootBlur}
           onDblClick={handleDoubleClickDisplay}
           tabIndex={focusOnDoubleClick ? 0 : undefined}
-          style={{ maxWidth: maxWidth ? `${maxWidth}px` : undefined }}
+          style={{
+            maxWidth: maxWidth ? `${maxWidth}px` : undefined,
+            flexShrink: maxWidth ? 0 : undefined,
+          }}
         >
           {prefix && <div className="Input__prefix">{prefix}</div>}
           {showEditableInput ? (

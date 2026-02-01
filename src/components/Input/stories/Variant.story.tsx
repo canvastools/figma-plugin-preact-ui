@@ -18,7 +18,9 @@ export const VariantStory: Story = {
       source: {
         language: "tsx",
         code: `
-<Input defaultValue="Hello World!" />
+<Input variant="default" />
+
+<Input variant="list" />
 `,
       },
     },

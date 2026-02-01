@@ -66,6 +66,7 @@
   },
   "dependencies": {
     "react-calendar": "^6.0.0",
-    "react-colorful": "^5.6.1"
+    "react-colorful": "^5.6.1",
+    "react-time-picker": "^8.0.2"
   }
 }
