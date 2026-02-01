@@ -7,6 +7,7 @@ import {
   Icon,
   link,
   chevronDown,
+  TimePicker,
 } from "../../../index"
 
 import { ControlGroup } from "../ControlGroup"
@@ -72,6 +73,11 @@ export const CombinationsStory: Story = {
         <ButtonIcon intentModifier="secondary">
           <Icon glyph={chevronDown} variant="scaled" intentModifier="default" />
         </ButtonIcon>
+      </ControlGroup>
+
+      <ControlGroup groupFocus fullWidth>
+        <Input placeholder="Input" />
+        <TimePicker />
       </ControlGroup>
     </div>
   ),

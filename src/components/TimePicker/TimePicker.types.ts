@@ -16,6 +16,7 @@ export interface TimePickerProps {
   minTime?: string
   disabled?: boolean
   autoFocus?: boolean
+  grouped?: "first" | "last" | "middle"
   tooltip?: preact.ComponentChildren
   onTimeChange?: (args: {
     date: TimePickerDate | undefined

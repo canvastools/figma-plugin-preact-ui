@@ -52,15 +52,15 @@
 
   &_focused &__container,
   &_focused:hover:is(:focus-within) &__container {
-    outline-color: var(--pui-color-neutral-border-default-selected) !important;
+    outline-color: var(--pui-color-neutral-border-default-selected);
   }
 
   &_keyboardFocus &__container {
-    outline-color: var(--pui-color-neutral-border-default-selected) !important;
+    outline-color: var(--pui-color-neutral-border-default-selected);
   }
 
   &_error &__container {
-    outline-color: var(--pui-color-neutral-border-danger-error) !important;
+    outline-color: var(--pui-color-neutral-border-danger-error);
   }
 
   &__display {
@@ -152,20 +152,18 @@
     color: var(--pui-color-neutral-text-disabled);
   }
 
-  &_groupedPosition {
-    &-first {
-      border-top-right-radius: 0;
-      border-bottom-right-radius: 0;
-    }
+  &_groupedPosition-first &__container {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
 
-    &-last {
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
-    }
+  &_groupedPosition-last &__container {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
 
-    &-middle {
-      border-radius: 0;
-    }
+  &_groupedPosition-middle &__container {
+    border-radius: 0;
   }
 
   // Ghost

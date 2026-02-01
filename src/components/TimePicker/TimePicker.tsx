@@ -31,6 +31,7 @@ const TimePickerComponent = (
     disabled = false,
     autoFocus = false,
     tooltip,
+    grouped,
     onTimeChange,
     ...rest
   }: TimePickerProps,
@@ -87,6 +88,8 @@ const TimePickerComponent = (
     disabled: Boolean(disabled),
     variant,
     label: Boolean(label),
+    grouped: Boolean(grouped),
+    groupedPosition: grouped ?? undefined,
   })
 
   const wrapperRef = useRef<HTMLDivElement | null>(null)

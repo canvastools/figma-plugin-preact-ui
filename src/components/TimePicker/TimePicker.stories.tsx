@@ -101,6 +101,11 @@ const meta: Meta<typeof TimePicker> = {
     tooltip: {
       control: { type: "text" },
     },
+    grouped: {
+      control: { type: "radio" },
+      defaultValue: { summary: "undefined" },
+      options: [undefined, "first", "last", "middle"],
+    },
     maxWidth: {
       control: { type: "number" },
       description: "Maximum width of the TimePicker (excluding label).",
@@ -143,6 +148,7 @@ export const Demo: Story = {
     autoFocus: false,
     tooltip: "TimePicker tooltip",
     maxWidth: undefined,
+    grouped: undefined,
     onTimeChange: fn(),
   },
   parameters: {

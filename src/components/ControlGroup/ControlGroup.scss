@@ -27,23 +27,18 @@
     width: 100%;
   }
 
-  & .Input_grouped + .Input_grouped {
-    margin-left: 1px;
-  }
-
-  & .Select_grouped + .Select_grouped {
-    margin-left: -1px;
-  }
-
   & .Button_grouped + .Button_grouped,
   & .ButtonIcon_grouped + .ButtonIcon_grouped,
   & .ButtonIconToggle_grouped + .ButtonIconToggle_grouped {
     margin-left: -1px;
   }
 
-  & .Input_grouped + .Button_grouped,
-  & .Input_grouped + .ButtonIcon_grouped,
-  & .Input_grouped + .ButtonIconToggle_grouped {
+  & * + .Input_grouped,
+  & * + .Button_grouped,
+  & * + .ButtonIcon_grouped,
+  & * + .ButtonIconToggle_grouped,
+  & * + .TimePicker_grouped,
+  & * + .Select_grouped {
     margin-left: 1px;
   }
 
@@ -55,8 +50,10 @@
     outline-color: var(--pui-color-neutral-border-default-selected);
   }
 
-  &_groupFocus:hover .Input:hover,
-  &_groupFocus:focus-within .Input:focus-within {
+  &_groupFocus:hover .Input__container:hover,
+  &_groupFocus:focus-within .Input__container:focus-within,
+  &_groupFocus:hover .react-time-picker__inputGroup:hover,
+  &_groupFocus:focus-within .react-time-picker__inputGroup:focus-within {
     outline-color: transparent !important;
   }
 

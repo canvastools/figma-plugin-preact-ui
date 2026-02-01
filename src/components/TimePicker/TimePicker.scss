@@ -124,4 +124,18 @@
       color: var(--pui-color-neutral-text-disabled);
     }
   }
+
+  &_groupedPosition-first .react-time-picker__inputGroup {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  &_groupedPosition-last .react-time-picker__inputGroup {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  &_groupedPosition-middle .react-time-picker__inputGroup {
+    border-radius: 0;
+  }
 }
