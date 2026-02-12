@@ -21,9 +21,13 @@ import path from "path"
  * - globalScss: array of SCSS file paths (relative to project root) whose CSS
  *   output should be stripped from individual component CSS files to avoid
  *   duplicating global/base styles (e.g. body, #root resets in shared.scss).
+ *   Their compiled CSS is appended to themes.css so it's available in the
+ *   tree-shakeable flow.
+ * - themesFileName: the name of the themes CSS asset to append global styles to
+ *   (default: "themes.css").
  */
 export function cssSplitPlugin(options = {}) {
-  const { globalScss = [] } = options
+  const { globalScss = [], themesFileName = "themes.css" } = options
 
   let projectRoot = ""
 
@@ -88,6 +92,18 @@ export function cssSplitPlugin(options = {}) {
           }
         } catch {
           // ignore — file may not exist
+        }
+      }
+
+      // 1b. Append global CSS to themes.css so it's available in the
+      //     tree-shakeable flow (import "themes.css" + per-component CSS)
+      if (globalCssBlocks.length > 0) {
+        const themesAsset = Object.values(bundle).find(
+          (asset) => asset.type === "asset" && asset.fileName === themesFileName
+        )
+        if (themesAsset) {
+          const sep = themesAsset.source.endsWith("\n") ? "" : "\n"
+          themesAsset.source += sep + globalCssBlocks.join("\n") + "\n"
         }
       }
 
