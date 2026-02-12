@@ -26,8 +26,11 @@
     "@preact/compat": "^17.1.2",
     "preact": "^10.26.5"
   },
-  "sideEffects": false,
+  "sideEffects": [
+    "**/*.css"
+  ],
   "devDependencies": {
+    "sass": "^1.83.0",
     "@chromatic-com/storybook": "^1.5.0",
     "@preact/compat": "^17.1.2",
     "@preact/preset-vite": "^2.10.1",

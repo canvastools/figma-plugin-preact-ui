@@ -1,4 +1,4 @@
-export { figmaLight, figmaDark, spacing, radius } from "./themes"
+export { figmaLight, figmaDark, figjamLight, spacing, radius } from "./themes"
 
 // Components
 

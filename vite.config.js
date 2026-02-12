@@ -2,6 +2,7 @@ import { defineConfig } from "vite"
 import preact from "@preact/preset-vite"
 import themeCssPlugin from "./scripts/vite-theme-css-plugin.js"
 import appendThemesCssPlugin from "./scripts/vite-append-themes-plugin.js"
+import cssSplitPlugin from "./scripts/vite-css-split-plugin.js"
 
 export default defineConfig(({ command }) => ({
   plugins: [
@@ -12,6 +13,7 @@ export default defineConfig(({ command }) => ({
       defaultPrefix: "--pui",
     }),
     appendThemesCssPlugin({ themesFile: "themes.css", styleFile: "style.css" }),
+    cssSplitPlugin({ globalScss: ["src/shared.scss"] }),
   ],
   build: {
     minify: true,
@@ -25,6 +27,8 @@ export default defineConfig(({ command }) => ({
       external: ["preact", "preact/compat", "preact/hooks"],
       output: {
         exports: "named",
+        preserveModules: true,
+        preserveModulesRoot: "src",
       },
     },
   },
