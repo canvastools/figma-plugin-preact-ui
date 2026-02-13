@@ -8,6 +8,5 @@ export interface StackProps {
   x?: "start" | "center" | "end"
   y?: "start" | "center" | "end"
   fullHeight?: boolean
-  fullWidth?: boolean
   children?: preact.ComponentChildren
 }

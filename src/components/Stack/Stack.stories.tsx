@@ -62,10 +62,6 @@ const meta: Meta<typeof Stack> = {
       control: { type: "boolean" },
       defaultValue: { summary: false },
     },
-    fullWidth: {
-      control: { type: "boolean" },
-      defaultValue: { summary: false },
-    },
     children: {
       control: { disable: true },
       description: "<strong>*</strong>",
@@ -90,7 +86,6 @@ export const Demo: Story = {
     x: "start",
     y: "start",
     fullHeight: false,
-    fullWidth: false,
   },
   parameters: {
     viewport: {

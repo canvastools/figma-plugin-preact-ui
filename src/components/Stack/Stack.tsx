@@ -14,7 +14,6 @@ const StackComponent = (
     x = "start",
     y = "start",
     fullHeight = false,
-    fullWidth = false,
     children,
     ...rest
   }: StackProps,
@@ -26,7 +25,6 @@ const StackComponent = (
     x,
     y,
     fullHeight,
-    fullWidth,
   })
 
   return (

@@ -33,10 +33,6 @@
     overflow: hidden;
   }
 
-  &_fullWidth {
-    width: 100%;
-  }
-
   @include Stack_spacing(100);
   @include Stack_spacing(200);
   @include Stack_spacing(400);
