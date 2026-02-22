@@ -12,7 +12,7 @@ const meta: Meta<typeof colorToHexAlpha> = {
     docs: {
       description: {
         component:
-          "Utility function to convert `Color` type to hex string with alpha.",
+          "Utility function to convert `Color` type (r, g, b, a all in 0–1) to an 8-digit hex string (#RRGGBBAA).",
       },
     },
   },
@@ -24,13 +24,13 @@ const meta: Meta<typeof colorToHexAlpha> = {
         type: {
           summary: "(color: Color) => string",
           detail: `
-// Types
+// Types — all channels are 0–1
 
 type Color = {
-  r: number
-  g: number
-  b: number
-  a: number
+  r: number // 0–1
+  g: number // 0–1
+  b: number // 0–1
+  a: number // 0–1
 }`
         },
       },
@@ -53,8 +53,8 @@ export const Demo: Story = {
         code: `
 import { colorToHexAlpha } from "figma-plugin-preact-ui"
 
-const hex = colorToHexAlpha({ r: 255, g: 0, b: 0, a: 1 }) // #ff0000ff
-const hexTransparent = colorToHexAlpha({ r: 255, g: 0, b: 0, a: 0.5 }) // #ff000080
+const hex = colorToHexAlpha({ r: 1, g: 0, b: 0, a: 1 }) // #FF0000FF
+const hexTransparent = colorToHexAlpha({ r: 1, g: 0, b: 0, a: 0.5 }) // #FF000080
         `,
       },
     },
@@ -63,9 +63,9 @@ const hexTransparent = colorToHexAlpha({ r: 255, g: 0, b: 0, a: 0.5 }) // #ff000
     return (
       <div className="sb-column sb-width-full">
         <Stack direction="row" spacing="200">
-          <Code variant="inline">{'colorToHexAlpha({ r: 255, g: 0, b: 0, a: 0.5 })'}</Code>
+          <Code variant="inline">{'colorToHexAlpha({ r: 1, g: 0, b: 0, a: 0.5 })'}</Code>
           <Text>→</Text>
-          <Code variant="inline">"#ff000080"</Code>
+          <Code variant="inline">"#FF000080"</Code>
         </Stack>
       </div>
     )

@@ -12,7 +12,7 @@ const meta: Meta<typeof colorToHex> = {
     docs: {
       description: {
         component:
-          "Utility function to convert `Color` type to hex string.",
+          "Utility function to convert `Color` type (r, g, b in 0–1) to a 6-digit hex string.",
       },
     },
   },
@@ -24,13 +24,13 @@ const meta: Meta<typeof colorToHex> = {
         type: {
           summary: "(color: Color) => string",
           detail: `
-// Types
+// Types — all channels are 0–1
 
 type Color = {
-  r: number
-  g: number
-  b: number
-  a: number
+  r: number // 0–1
+  g: number // 0–1
+  b: number // 0–1
+  a: number // 0–1
 }`
         },
       },
@@ -53,7 +53,7 @@ export const Demo: Story = {
         code: `
 import { colorToHex } from "figma-plugin-preact-ui"
 
-const hex = colorToHex({ r: 255, g: 0, b: 0, a: 1 }) // #ff0000
+const hex = colorToHex({ r: 1, g: 0, b: 0, a: 1 }) // #FF0000
         `,
       },
     },
@@ -62,9 +62,9 @@ const hex = colorToHex({ r: 255, g: 0, b: 0, a: 1 }) // #ff0000
     return (
       <div className="sb-column sb-width-full">
         <Stack direction="row" spacing="200">
-          <Code variant="inline">{'colorToHex({ r: 255, g: 0, b: 0, a: 1 })'}</Code>
+          <Code variant="inline">{'colorToHex({ r: 1, g: 0, b: 0, a: 1 })'}</Code>
           <Text>→</Text>
-          <Code variant="inline">"#ff0000"</Code>
+          <Code variant="inline">"#FF0000"</Code>
         </Stack>
       </div>
     )

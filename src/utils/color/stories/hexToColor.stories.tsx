@@ -12,7 +12,7 @@ const meta: Meta<typeof hexToColor> = {
     docs: {
       description: {
         component:
-          "Utility function to convert hex string to `Color` type.",
+          "Utility function to convert a 6-digit hex string to `Color` type (r, g, b in 0–1).",
       },
     },
   },
@@ -44,8 +44,8 @@ export const Demo: Story = {
         code: `
 import { hexToColor } from "figma-plugin-preact-ui"
 
-const color = hexToColor("#ff0000") // { r: 255, g: 0, b: 0, a: 1 }
-const colorTransparent = hexToColor("#ff0000", 0.5) // { r: 255, g: 0, b: 0, a: 0.5 }
+const color = hexToColor("#ff0000") // { r: 1, g: 0, b: 0, a: 1 }
+const colorTransparent = hexToColor("#ff0000", 0.5) // { r: 1, g: 0, b: 0, a: 0.5 }
         `,
       },
     },
@@ -56,7 +56,7 @@ const colorTransparent = hexToColor("#ff0000", 0.5) // { r: 255, g: 0, b: 0, a: 
         <Stack direction="row" spacing="200">
           <Code variant="inline">{'hexToColor("#ff0000")'}</Code>
           <Text>→</Text>
-          <Code variant="inline">{'{ r: 255, g: 0, b: 0, a: 1 }'}</Code>
+          <Code variant="inline">{'{ r: 1, g: 0, b: 0, a: 1 }'}</Code>
         </Stack>
       </div>
     )

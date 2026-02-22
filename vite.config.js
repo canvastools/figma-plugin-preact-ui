@@ -1,5 +1,6 @@
 import { defineConfig } from "vite"
 import preact from "@preact/preset-vite"
+import dts from "vite-plugin-dts"
 import themeCssPlugin from "./scripts/vite-theme-css-plugin.js"
 import appendThemesCssPlugin from "./scripts/vite-append-themes-plugin.js"
 import cssSplitPlugin from "./scripts/vite-css-split-plugin.js"
@@ -7,6 +8,16 @@ import cssSplitPlugin from "./scripts/vite-css-split-plugin.js"
 export default defineConfig(({ command }) => ({
   plugins: [
     preact(),
+    dts({
+      tsconfigPath: "./tsconfig.types.json",
+      beforeWriteFile: (filePath, content) => ({
+        filePath,
+        content: content.replace(
+          /^\s*import\s+['"][^'"]+\.scss['"];?\s*$/gm,
+          ""
+        ),
+      }),
+    }),
     themeCssPlugin({
       themesDir: "src/themes",
       output: "themes.css",
