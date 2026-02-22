@@ -193,6 +193,8 @@ const InputComponent = (
   const handleRootKeyDown = (
     event: preact.JSX.TargetedKeyboardEvent<HTMLDivElement>
   ) => {
+    if (!focusOnDoubleClick) return
+    if (event.target !== event.currentTarget) return
     if (
       event.key === " " ||
       event.key === "Spacebar" ||
