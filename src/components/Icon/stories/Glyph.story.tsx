@@ -1,10 +1,10 @@
-import { StoryObj } from "@storybook/preact"
+import { StoryObj } from '@storybook/preact'
 
-import { Text, ButtonIcon, Stack } from "../../../index"
+import { Text, ButtonIcon, Stack } from '../../../index'
 
-import * as glyphs from "../glyphs"
+import * as glyphs from '../glyphs'
 
-import { Icon } from "../Icon"
+import { Icon } from '../Icon'
 
 type Story = StoryObj<typeof Icon>
 
@@ -15,10 +15,10 @@ const copyToClipboard = (text: string) => {
 }
 
 const glyphCombinations = (glyph: string) => {
-  const combinations: { variant: "default" | "scaled"; size: 16 | 24 }[] = [
-    { variant: "default", size: 24 },
-    { variant: "scaled", size: 24 },
-    { variant: "default", size: 16 },
+  const combinations: { variant: 'default' | 'scaled'; size: 16 | 24 }[] = [
+    { variant: 'default', size: 24 },
+    { variant: 'scaled', size: 24 },
+    { variant: 'default', size: 16 },
   ]
 
   return combinations.map(({ variant, size }) => {
@@ -28,10 +28,10 @@ const glyphCombinations = (glyph: string) => {
       return (
         <div
           style={{
-            display: "flex",
-            flexFlow: "column nowrap",
-            gap: "12px",
-            minWidth: "80px",
+            display: 'flex',
+            flexFlow: 'column nowrap',
+            gap: '12px',
+            minWidth: '80px',
           }}
         >
           <Icon
@@ -49,22 +49,14 @@ const glyphCombinations = (glyph: string) => {
       return (
         <div
           style={{
-            display: "flex",
-            flexFlow: "column nowrap",
-            gap: "12px",
-            minWidth: "80px",
+            display: 'flex',
+            flexFlow: 'column nowrap',
+            gap: '12px',
+            minWidth: '80px',
           }}
         >
-          <div
-            className="sb-container-shape"
-            style={{ width: size, height: size }}
-          ></div>
-          <Text
-            size="small"
-            intent="neutral"
-            intentModifier="danger"
-            wrap={false}
-          >
+          <div className="sb-container-shape" style={{ width: size, height: size }}></div>
+          <Text size="small" intent="neutral" intentModifier="danger" wrap={false}>
             {size}, {variant}
           </Text>
         </div>
@@ -77,11 +69,11 @@ export const GlyphsStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 import { help } from "figma-plugin-preact-ui"
 
@@ -93,15 +85,15 @@ import { help } from "figma-plugin-preact-ui"
   render: () => (
     <div
       style={{
-        display: "flex",
-        flexFlow: "column nowrap",
-        gap: "16px",
+        display: 'flex',
+        flexFlow: 'column nowrap',
+        gap: '16px',
       }}
     >
       {Object.keys(glyphs).map((glyph) => {
         return (
-          <div style={{ display: "flex", flexFlow: "row nowrap", gap: "16px" }}>
-            <Stack direction="row" spacing={200} fullWidth y="center">
+          <div style={{ display: 'flex', flexFlow: 'row nowrap', gap: '16px' }}>
+            <Stack direction="row" spacing={200} y="center">
               <Text strong>{glyph}</Text>
               <ButtonIcon onClick={() => copyToClipboard(`${glyph}`)}>
                 <Icon glyph={glyphs.copy} variant="scaled" />
@@ -110,10 +102,10 @@ import { help } from "figma-plugin-preact-ui"
 
             <div
               style={{
-                display: "flex",
-                flexFlow: "row nowrap",
-                alignItems: "flex-end",
-                gap: "16px",
+                display: 'flex',
+                flexFlow: 'row nowrap',
+                alignItems: 'flex-end',
+                gap: '16px',
               }}
             >
               {glyphCombinations(glyph)}

@@ -1,156 +1,156 @@
-import { StoryObj } from "@storybook/preact"
+import { StoryObj } from '@storybook/preact'
 
-import { Text } from "../../../index"
+import { Text } from '../../../index'
 
-import { link } from "../glyphs"
+import { link } from '../glyphs'
 
-import { Icon } from "../Icon"
-import type { IconProps } from "../Icon.types"
+import { Icon } from '../Icon'
+import type { IconProps } from '../Icon.types'
 
 type Story = StoryObj<typeof Icon>
 
 const validIntentCombinations = [
   // neutral
   {
-    bg: "--pui-color-neutral-bg-default",
-    intent: "neutral",
-    intentModifier: "default",
+    bg: '--pui-color-neutral-bg-default',
+    intent: 'neutral',
+    intentModifier: 'default',
   },
   {
-    bg: "--pui-color-neutral-bg-default",
-    intent: "neutral",
-    intentModifier: "default",
+    bg: '--pui-color-neutral-bg-default',
+    intent: 'neutral',
+    intentModifier: 'default',
     selected: true,
   },
   {
-    bg: "--pui-color-neutral-bg-default",
-    intent: "neutral",
-    intentModifier: "secondary",
+    bg: '--pui-color-neutral-bg-default',
+    intent: 'neutral',
+    intentModifier: 'secondary',
   },
   {
-    bg: "--pui-color-neutral-bg-default",
-    intent: "neutral",
-    intentModifier: "tertiary",
+    bg: '--pui-color-neutral-bg-default',
+    intent: 'neutral',
+    intentModifier: 'tertiary',
   },
   {
-    bg: "--pui-color-neutral-bg-default",
-    intent: "neutral",
-    intentModifier: "brand",
+    bg: '--pui-color-neutral-bg-default',
+    intent: 'neutral',
+    intentModifier: 'brand',
   },
   {
-    bg: "--pui-color-neutral-bg-default",
-    intent: "neutral",
-    intentModifier: "danger",
+    bg: '--pui-color-neutral-bg-default',
+    intent: 'neutral',
+    intentModifier: 'danger',
   },
   {
-    bg: "--pui-color-neutral-bg-default",
-    intent: "neutral",
-    intentModifier: "warning",
+    bg: '--pui-color-neutral-bg-default',
+    intent: 'neutral',
+    intentModifier: 'warning',
   },
   {
-    bg: "--pui-color-neutral-bg-default",
-    intent: "neutral",
-    intentModifier: "success",
+    bg: '--pui-color-neutral-bg-default',
+    intent: 'neutral',
+    intentModifier: 'success',
   },
   {
-    bg: "--pui-color-neutral-bg-default",
-    intent: "neutral",
-    intentModifier: "component",
+    bg: '--pui-color-neutral-bg-default',
+    intent: 'neutral',
+    intentModifier: 'component',
   },
 
   // neutral-inverted
   {
-    bg: "--pui-color-neutral-inverted-bg-default",
-    intent: "neutral-inverted",
-    intentModifier: "default",
+    bg: '--pui-color-neutral-inverted-bg-default',
+    intent: 'neutral-inverted',
+    intentModifier: 'default',
   },
 
   // neutral-inverted-fixed
   {
-    bg: "--pui-color-neutral-inverted-fixed-bg-default",
-    intent: "neutral-inverted-fixed",
-    intentModifier: "default",
+    bg: '--pui-color-neutral-inverted-fixed-bg-default',
+    intent: 'neutral-inverted-fixed',
+    intentModifier: 'default',
   },
   {
-    bg: "--pui-color-neutral-inverted-fixed-bg-default",
-    intent: "neutral-inverted-fixed",
-    intentModifier: "secondary",
+    bg: '--pui-color-neutral-inverted-fixed-bg-default',
+    intent: 'neutral-inverted-fixed',
+    intentModifier: 'secondary',
   },
 
   // brand
   {
-    bg: "--pui-color-brand-bg-default",
-    intent: "brand",
-    intentModifier: "default",
+    bg: '--pui-color-brand-bg-default',
+    intent: 'brand',
+    intentModifier: 'default',
+  },
+  {
+    bg: '--pui-color-brand-bg-default',
+    intent: 'brand',
+    intentModifier: 'secondary',
   },
 
   // danger
   {
-    bg: "--pui-color-danger-bg-default",
-    intent: "danger",
-    intentModifier: "default",
+    bg: '--pui-color-danger-bg-default',
+    intent: 'danger',
+    intentModifier: 'default',
   },
 
   // warning
   {
-    bg: "--pui-color-warning-bg-default",
-    intent: "warning",
-    intentModifier: "default",
+    bg: '--pui-color-warning-bg-default',
+    intent: 'warning',
+    intentModifier: 'default',
   },
 
   // success
   {
-    bg: "--pui-color-success-bg-default",
-    intent: "success",
-    intentModifier: "default",
+    bg: '--pui-color-success-bg-default',
+    intent: 'success',
+    intentModifier: 'default',
   },
 ]
 
 const intentCombinations = () => {
-  return validIntentCombinations.map(
-    ({ bg, intent, intentModifier, selected }) => (
-      <div
-        className="sb-row sb-width-full sb-gap-16"
-        style={{ alignItems: "center" }}
-      >
-        <Text fullWidth>
-          {intent}, {intentModifier}
-          {selected ? ", selected" : ""}
-        </Text>
+  return validIntentCombinations.map(({ bg, intent, intentModifier, selected }) => (
+    <div className="sb-row sb-width-full sb-gap-16" style={{ alignItems: 'center' }}>
+      <Text fullWidth>
+        {intent}, {intentModifier}
+        {selected ? ', selected' : ''}
+      </Text>
 
+      <div
+        style={{
+          backgroundColor: `var(${bg})`,
+        }}
+      >
         <div
+          className="sb-padding-16"
           style={{
-            backgroundColor: `var(${bg})`,
+            backgroundColor: `var(${bg}${selected ? '-selected' : ''})`,
           }}
         >
-          <div
-            className="sb-padding-16"
-            style={{
-              backgroundColor: `var(${bg}${selected ? "-selected" : ""})`,
-            }}
-          >
-            <Icon
-              glyph={link}
-              intent={intent as IconProps["intent"]}
-              intentModifier={intentModifier as IconProps["intentModifier"]}
-              selected={selected}
-            />
-          </div>
+          <Icon
+            glyph={link}
+            intent={intent as IconProps['intent']}
+            intentModifier={intentModifier as IconProps['intentModifier']}
+            selected={selected}
+          />
         </div>
       </div>
-    )
-  )
+    </div>
+  ))
 }
 
 export const IntentStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <Icon
   glyph={help}
@@ -171,9 +171,5 @@ export const IntentStory: Story = {
       },
     },
   },
-  render: () => (
-    <div className="sb-column sb-width-420 sb-gap-16">
-      {intentCombinations()}
-    </div>
-  ),
+  render: () => <div className="sb-column sb-width-420 sb-gap-16">{intentCombinations()}</div>,
 }
