@@ -1,8 +1,8 @@
-import { StoryObj } from "@storybook/preact"
+import { StoryObj } from '@storybook/preact'
 
-import { Icon, link, MenuContainer } from "../../../index"
+import { Icon, link, MenuContainer, Text } from '../../../index'
 
-import { MenuItemAction } from "../MenuItemAction"
+import { MenuItemAction } from '../MenuItemAction'
 
 type Story = StoryObj<typeof MenuItemAction>
 
@@ -10,11 +10,11 @@ export const SuffixStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <MenuItemAction 
   suffix={
@@ -36,25 +36,15 @@ export const SuffixStory: Story = {
       <MenuContainer width={208}>
         <MenuItemAction
           suffix={
-            <Icon glyph={link} size={16} intent="neutral-inverted-fixed" />
+            <Text intent="neutral-inverted-fixed" intentModifier="secondary">
+              Suffix
+            </Text>
           }
         >
           Action 1
         </MenuItemAction>
-        <MenuItemAction
-          suffix={
-            <Icon glyph={link} size={16} intent="neutral-inverted-fixed" />
-          }
-        >
-          Action 2
-        </MenuItemAction>
-        <MenuItemAction
-          suffix={
-            <Icon glyph={link} size={16} intent="neutral-inverted-fixed" />
-          }
-        >
-          Action 3
-        </MenuItemAction>
+        <MenuItemAction suffix={<Icon glyph={link} size={16} intent="neutral-inverted-fixed" />}>Action 2</MenuItemAction>
+        <MenuItemAction suffix={<Icon glyph={link} size={16} intent="neutral-inverted-fixed" />}>Action 3</MenuItemAction>
       </MenuContainer>
     </div>
   ),

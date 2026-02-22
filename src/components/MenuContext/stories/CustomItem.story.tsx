@@ -1,18 +1,11 @@
-import { StoryObj } from "@storybook/preact"
+import { StoryObj } from '@storybook/preact'
 
-import { Fragment } from "preact"
-import { useRef, useState, useEffect } from "preact/hooks"
+import { Fragment } from 'preact'
+import { useRef, useState, useEffect } from 'preact/hooks'
 
-import {
-  MenuItemAction,
-  MenuContainer,
-  Button,
-  OverlayPositioner,
-  Text,
-  spacing,
-} from "../../../index"
+import { MenuItemAction, MenuContainer, Button, OverlayPositioner, Text, spacing } from '../../../index'
 
-import { MenuContext, useMenuContext } from "../MenuContext"
+import { MenuContext, useMenuContext } from '../MenuContext'
 
 type Story = StoryObj<typeof MenuContext>
 
@@ -20,15 +13,15 @@ export const CustomItemStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       description: {
         story:
-          "Custom items can be created using the useMenuContext hook to register the item and access the context for managing its states.<br/>It requires a custom CSS styling to be applied as well.",
+          'Custom items can be created using the useMenuContext hook to register the item and access the context for managing its states.<br/>It requires a custom CSS styling to be applied as well.',
       },
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 
 const CustomMenuItem = ({
@@ -245,7 +238,7 @@ const CustomMenu = () => {
           >
             <div className="CustomMenuItem__content">
               <Text intent="neutral-inverted-fixed">
-                {children} {focused ? " [focused]" : null}
+                {children} {focused ? ' [focused]' : null}
               </Text>
             </div>
           </div>
@@ -267,29 +260,20 @@ const CustomMenu = () => {
           onClose={() => context.setOpen(false)}
         >
           <MenuContainer>
-            <MenuItemAction
-              id="action-1"
-              focused={context.focusedItem === "action-1"}
-            >
+            <MenuItemAction id="action-1" focused={context.focusedItemId === 'action-1'}>
               Action 1
             </MenuItemAction>
-            <MenuItemAction
-              id="action-2"
-              focused={context.focusedItem === "action-2"}
-            >
+            <MenuItemAction id="action-2" focused={context.focusedItemId === 'action-2'}>
               Action 2
             </MenuItemAction>
-            <MenuItemAction
-              id="action-3"
-              focused={context.focusedItem === "action-3"}
-            >
+            <MenuItemAction id="action-3" focused={context.focusedItemId === 'action-3'}>
               Action 3
             </MenuItemAction>
             <CustomMenuItem
               id="custom-1"
               disabled={false}
-              focused={context.focusedItem === "custom-1"}
-              onClick={(args) => console.log("Custom item clicked", args)}
+              focused={context.focusedItemId === 'custom-1'}
+              onClick={(args) => console.log('Custom item clicked', args)}
             >
               Custom Item
             </CustomMenuItem>

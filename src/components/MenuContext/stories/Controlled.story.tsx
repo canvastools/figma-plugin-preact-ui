@@ -1,15 +1,10 @@
-import { StoryObj } from "@storybook/preact"
+import { StoryObj } from '@storybook/preact'
 
-import { useRef, useState } from "preact/hooks"
+import { useRef, useState } from 'preact/hooks'
 
-import {
-  MenuItemAction,
-  MenuContainer,
-  Button,
-  OverlayPositioner,
-} from "../../../index"
+import { MenuItemAction, MenuContainer, Button, OverlayPositioner } from '../../../index'
 
-import { MenuContext, useMenuContext } from "../MenuContext"
+import { MenuContext, useMenuContext } from '../MenuContext'
 
 type Story = StoryObj<typeof MenuContext>
 
@@ -17,11 +12,11 @@ export const ControlledStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 const MenuContent = () => {
   const context = useMenuContext()
@@ -110,22 +105,13 @@ const ControlledMenu = () => {
           onClose={() => context.setOpen(false)}
         >
           <MenuContainer>
-            <MenuItemAction
-              id="action-1"
-              focused={context.focusedItem === "action-1"}
-            >
+            <MenuItemAction id="action-1" focused={context.focusedItemId === 'action-1'}>
               Action 1
             </MenuItemAction>
-            <MenuItemAction
-              id="action-2"
-              focused={context.focusedItem === "action-2"}
-            >
+            <MenuItemAction id="action-2" focused={context.focusedItemId === 'action-2'}>
               Action 2
             </MenuItemAction>
-            <MenuItemAction
-              id="action-3"
-              focused={context.focusedItem === "action-3"}
-            >
+            <MenuItemAction id="action-3" focused={context.focusedItemId === 'action-3'}>
               Action 3
             </MenuItemAction>
           </MenuContainer>
