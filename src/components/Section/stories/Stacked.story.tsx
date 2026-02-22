@@ -1,10 +1,10 @@
-import { StoryObj } from "@storybook/preact"
+import { StoryObj } from '@storybook/preact'
 
-import { useRef } from "preact/hooks"
+import { useRef } from 'preact/hooks'
 
-import { Stack, Text } from "../../../index"
+import { Stack, Text } from '../../../index'
 
-import { Section } from "../Section"
+import { Section } from '../Section'
 
 type Story = StoryObj<typeof Section>
 
@@ -12,11 +12,11 @@ export const StackedStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <Section variant="default">
   {children}
@@ -38,7 +38,7 @@ export const StackedStory: Story = {
           <Text>Default Section</Text>
         </Section>
 
-        <Stack direction="column" fullWidth>
+        <Stack direction="column">
           <Section variant="stacked" className="sb-container">
             <Text>Stacked Section</Text>
           </Section>

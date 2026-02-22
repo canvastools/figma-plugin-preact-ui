@@ -1,4 +1,4 @@
-@use "../../shared.scss" as *;
+@use '../../shared.scss' as *;
 
 @mixin Stack_spacing($spacing) {
   &_spacing-#{$spacing} {
@@ -31,6 +31,10 @@
   &_fullHeight {
     flex: 1;
     overflow: hidden;
+  }
+
+  &_fullWidth {
+    width: 100%;
   }
 
   @include Stack_spacing(100);
