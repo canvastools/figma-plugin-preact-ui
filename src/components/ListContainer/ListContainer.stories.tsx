@@ -1,16 +1,16 @@
-import type { Meta, StoryObj } from "@storybook/preact"
+import type { Meta, StoryObj } from '@storybook/preact'
 
-import { useState } from "preact/hooks"
+import { useState } from 'preact/hooks'
 
-import { ListContext, ListItem, Stack, Text, Spacing } from "../../index"
-import type { ListItemData } from "../../index"
+import { ListContext, ListItem, Stack, Text, Spacing } from '../../index'
+import type { ListItemData } from '../../index'
 
-import { ListContainer } from "./ListContainer"
+import { ListContainer } from './ListContainer'
 
 const meta: Meta<typeof ListContainer> = {
-  title: "Components/ListContainer",
+  title: 'Components/ListContainer',
   component: ListContainer,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
@@ -21,22 +21,22 @@ const meta: Meta<typeof ListContainer> = {
   },
   argTypes: {
     id: {
-      control: { type: "text" },
+      control: { type: 'text' },
       table: {
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
     className: {
-      control: { type: "text" },
+      control: { type: 'text' },
     },
     children: {
       control: { disable: true },
-      description: "<strong>*</strong>",
+      description: '<strong>*</strong>',
       table: {
         type: {
-          summary: "preact.ComponentChildren",
+          summary: 'preact.ComponentChildren',
         },
       },
     },
@@ -49,29 +49,25 @@ type Story = StoryObj<typeof ListContainer>
 
 const itemsSample = [
   {
-    id: "Frame 0",
+    id: 'Frame 0',
     items: [
       {
-        id: "Frame 0-0",
-        items: [{ id: "Frame 0-0-0" }, { id: "Frame 0-0-1" }],
+        id: 'Frame 0-0',
+        items: [{ id: 'Frame 0-0-0' }, { id: 'Frame 0-0-1' }],
       },
       {
-        id: "Frame 0-1",
-        items: [{ id: "Frame 0-1-0" }],
+        id: 'Frame 0-1',
+        items: [{ id: 'Frame 0-1-0' }],
       },
     ],
   },
-  { id: "Frame 1" },
+  { id: 'Frame 1' },
   {
-    id: "Frame 2",
+    id: 'Frame 2',
     items: [
       {
-        id: "Frame 2-0",
-        items: [
-          { id: "Frame 2-0-0" },
-          { id: "Frame 2-0-1" },
-          { id: "Frame 2-0-2" },
-        ],
+        id: 'Frame 2-0',
+        items: [{ id: 'Frame 2-0-0' }, { id: 'Frame 2-0-1' }, { id: 'Frame 2-0-2' }],
       },
     ],
   },
@@ -80,11 +76,11 @@ const itemsSample = [
 export const Demo: Story = {
   args: {
     id: undefined,
-    className: "sb-container",
+    className: 'sb-container',
   },
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
@@ -169,11 +165,9 @@ const renderItems = (
               key={item.id}
               id={item.id}
               nestingLevel={level}
-              items={
-                item.items ? renderItems(item.items, level + 1) : undefined
-              }
+              items={item.items ? renderItems(item.items, level + 1) : undefined}
             >
-              <Stack direction="row" y="center" fullWidth>
+              <Stack direction="row" y="center">
                 <Stack direction="row" y="center">
                   <Text wrap={false}>{item.id}</Text>
                 </Stack>

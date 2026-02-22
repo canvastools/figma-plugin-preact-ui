@@ -1,21 +1,21 @@
-import type { Meta, StoryObj } from "@storybook/preact"
-import { fn } from "@storybook/test"
+import type { Meta, StoryObj } from '@storybook/preact'
+import { fn } from '@storybook/test'
 
-import { useState } from "preact/hooks"
+import { useState } from 'preact/hooks'
 
-import { ListContainer, ListItem, Text, Stack, Spacing } from "../../index"
+import { ListContainer, ListItem, Text, Stack, Spacing } from '../../index'
 
-import { ListContext } from "./ListContext"
-import type { ListItemData } from "./ListContext.types"
+import { ListContext } from './ListContext'
+import type { ListItemData } from './ListContext.types'
 
 const meta: Meta<typeof ListContext> = {
-  title: "Components/ListContext",
+  title: 'Components/ListContext',
   component: ListContext,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
-        component: "A context provider that manages a list state.",
+        component: 'A context provider that manages a list state.',
       },
     },
   },
@@ -24,7 +24,7 @@ const meta: Meta<typeof ListContext> = {
       control: { disable: true },
       table: {
         type: {
-          summary: "ListItemData[]",
+          summary: 'ListItemData[]',
           detail: `
 {
   id: string // required
@@ -39,22 +39,22 @@ const meta: Meta<typeof ListContext> = {
       control: { disable: true },
       table: {
         type: {
-          summary: "string[]",
+          summary: 'string[]',
         },
       },
     },
     selectionMode: {
-      control: { type: "radio" },
-      options: [undefined, "single", "multi"],
+      control: { type: 'radio' },
+      options: [undefined, 'single', 'multi'],
     },
     deselectOnClickOutside: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       defaultValue: { summary: false },
     },
     onItemsChange: {
       table: {
         type: {
-          summary: "(args) => void",
+          summary: '(args) => void',
           detail: `
 args: {
   items: ListItemData[]
@@ -66,7 +66,7 @@ args: {
     onSelectionChange: {
       table: {
         type: {
-          summary: "(args) => void",
+          summary: '(args) => void',
           detail: `
 args: {
   selectedItemIds: string[]
@@ -77,10 +77,10 @@ args: {
     },
     children: {
       control: { disable: true },
-      description: "<strong>*</strong>",
+      description: '<strong>*</strong>',
       table: {
         type: {
-          summary: "preact.ComponentChildren",
+          summary: 'preact.ComponentChildren',
         },
       },
     },
@@ -134,29 +134,25 @@ type Story = StoryObj<typeof ListContext>
 
 const itemsSample = [
   {
-    id: "Frame 0",
+    id: 'Frame 0',
     items: [
       {
-        id: "Frame 0-0",
-        items: [{ id: "Frame 0-0-0" }, { id: "Frame 0-0-1" }],
+        id: 'Frame 0-0',
+        items: [{ id: 'Frame 0-0-0' }, { id: 'Frame 0-0-1' }],
       },
       {
-        id: "Frame 0-1",
-        items: [{ id: "Frame 0-1-0" }],
+        id: 'Frame 0-1',
+        items: [{ id: 'Frame 0-1-0' }],
       },
     ],
   },
-  { id: "Frame 1" },
+  { id: 'Frame 1' },
   {
-    id: "Frame 2",
+    id: 'Frame 2',
     items: [
       {
-        id: "Frame 2-0",
-        items: [
-          { id: "Frame 2-0-0" },
-          { id: "Frame 2-0-1" },
-          { id: "Frame 2-0-2" },
-        ],
+        id: 'Frame 2-0',
+        items: [{ id: 'Frame 2-0-0' }, { id: 'Frame 2-0-1' }, { id: 'Frame 2-0-2' }],
       },
     ],
   },
@@ -172,7 +168,7 @@ export const Demo: Story = {
   },
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
@@ -266,16 +262,12 @@ const renderItems = (
               draggable={true}
               acceptsChildren={true}
               hoverable={true}
-              items={
-                item.items ? renderItems(item.items, level + 1) : undefined
-              }
+              items={item.items ? renderItems(item.items, level + 1) : undefined}
             >
-              <Stack direction="row" y="center" fullWidth>
+              <Stack direction="row" y="center">
                 <Stack direction="row" y="center">
                   {/* @ts-expect-error - Storybook types hack */}
-                  {args.variant === "layer" && (
-                    <Spacing direction="row" size={100} />
-                  )}
+                  {args.variant === 'layer' && <Spacing direction="row" size={100} />}
                   <Text wrap={false}>{item.id}</Text>
                 </Stack>
                 <Text intentModifier="secondary" wrap={false}>

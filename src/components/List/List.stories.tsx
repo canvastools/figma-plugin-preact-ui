@@ -1,42 +1,41 @@
-import { Meta, StoryObj } from "@storybook/preact"
+import { Meta, StoryObj } from '@storybook/preact'
 
-import { useState } from "preact/hooks"
+import { useState } from 'preact/hooks'
 
-import { Text } from "../../index"
+import { Text } from '../../index'
 
-import { List } from "./List"
-import type { ListItemData } from "../../index"
+import { List } from './List'
+import type { ListItemData } from '../../index'
 
 const meta: Meta = {
-  title: "Components/List",
+  title: 'Components/List',
   component: List,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
-        component:
-          "A facade component that provides a simplified API for lists.",
+        component: 'A facade component that provides a simplified API for lists.',
       },
     },
   },
   argTypes: {
     id: {
-      control: { type: "text" },
+      control: { type: 'text' },
       table: {
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
     className: {
-      control: { type: "text" },
+      control: { type: 'text' },
     },
     items: {
       control: { disable: true },
       description: `<strong>*</strong>Array of items to render in the list.`,
       table: {
         type: {
-          summary: "ListItemData[]",
+          summary: 'ListItemData[]',
           detail: `
 {
   id: string // required
@@ -49,10 +48,10 @@ const meta: Meta = {
     },
     listItemProps: {
       control: { disable: true },
+      description: `<strong>*</strong>`,
       table: {
         type: {
-          summary:
-            "Pick<ListItemProps> | ((item: ListItemData) => Pick<ListItemProps>)",
+          summary: 'Pick<ListItemProps> | ((item: ListItemData) => Pick<ListItemProps>)',
           detail: `
 {
   variant: "default" | "layer"
@@ -73,18 +72,18 @@ const meta: Meta = {
     },
     renderItem: {
       control: { disable: true },
-      description: "Function to render the item.",
+      description: 'Function to render the item.',
       table: {
         type: {
-          summary: "(item: ListItemData) => preact.ComponentChildren",
+          summary: '(item: ListItemData) => preact.ComponentChildren',
         },
       },
     },
-    "...ListContextProps": {
+    '...ListContextProps': {
       control: { disable: true },
       table: {
         type: {
-          summary: "Pick<ListContextProps>",
+          summary: 'Pick<ListContextProps>',
           detail: `
 {
   selectedItemIds: string[]
@@ -106,29 +105,25 @@ type Story = StoryObj<typeof List>
 
 const itemsSample = [
   {
-    id: "Frame 0",
+    id: 'Frame 0',
     items: [
       {
-        id: "Frame 0-0",
-        items: [{ id: "Frame 0-0-0" }, { id: "Frame 0-0-1" }],
+        id: 'Frame 0-0',
+        items: [{ id: 'Frame 0-0-0' }, { id: 'Frame 0-0-1' }],
       },
       {
-        id: "Frame 0-1",
-        items: [{ id: "Frame 0-1-0" }],
+        id: 'Frame 0-1',
+        items: [{ id: 'Frame 0-1-0' }],
       },
     ],
   },
-  { id: "Frame 1" },
+  { id: 'Frame 1' },
   {
-    id: "Frame 2",
+    id: 'Frame 2',
     items: [
       {
-        id: "Frame 2-0",
-        items: [
-          { id: "Frame 2-0-0" },
-          { id: "Frame 2-0-1" },
-          { id: "Frame 2-0-2" },
-        ],
+        id: 'Frame 2-0',
+        items: [{ id: 'Frame 2-0-0' }, { id: 'Frame 2-0-1' }, { id: 'Frame 2-0-2' }],
       },
     ],
   },
@@ -137,15 +132,15 @@ const itemsSample = [
 export const Demo: Story = {
   args: {
     id: undefined,
-    className: "",
+    className: '',
   },
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 
 const [selectedItemIds, setSelectedItemIds] = useState([])
@@ -214,7 +209,7 @@ const [items, setItems] = useState([
           {...args}
           items={items}
           listItemProps={{
-            variant: "default",
+            variant: 'default',
             draggable: true,
             selectable: true,
             hoverable: true,

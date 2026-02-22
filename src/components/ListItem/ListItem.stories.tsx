@@ -1,26 +1,19 @@
-import type { Meta, StoryObj } from "@storybook/preact"
-import { fn } from "@storybook/test"
+import type { Meta, StoryObj } from '@storybook/preact'
+import { fn } from '@storybook/test'
 
-import { useState } from "preact/hooks"
+import { useState } from 'preact/hooks'
 
-import { VariantStory } from "./stories/Variant.story"
-import { ContentStory } from "./stories/Content.story"
+import { VariantStory } from './stories/Variant.story'
+import { ContentStory } from './stories/Content.story'
 
-import {
-  ListContext,
-  ListContainer,
-  Stack,
-  Text,
-  Spacing,
-  type ListItemData,
-} from "../../index"
+import { ListContext, ListContainer, Stack, Text, Spacing, type ListItemData } from '../../index'
 
-import { ListItem } from "./ListItem"
+import { ListItem } from './ListItem'
 
 const meta: Meta<typeof ListItem> = {
-  title: "Components/ListItem",
+  title: 'Components/ListItem',
   component: ListItem,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
@@ -31,35 +24,35 @@ const meta: Meta<typeof ListItem> = {
   },
   argTypes: {
     id: {
-      control: { type: "text" },
-      description: "<strong>*</strong>",
+      control: { type: 'text' },
+      description: '<strong>*</strong>',
     },
     className: {
-      control: { type: "text" },
+      control: { type: 'text' },
     },
     variant: {
-      control: { type: "radio" },
-      options: ["default", "layer"],
-      defaultValue: { summary: "default" },
+      control: { type: 'radio' },
+      options: ['default', 'layer'],
+      defaultValue: { summary: 'default' },
     },
     nestingLevel: {
-      control: { type: "number" },
+      control: { type: 'number' },
       defaultValue: { summary: 0 },
-      description: "<strong>*</strong>",
+      description: '<strong>*</strong>',
       table: {
         type: {
-          summary: "number",
+          summary: 'number',
         },
       },
     },
     draggable: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       defaultValue: { summary: false },
     },
     onDragStart: {
       table: {
         type: {
-          summary: "(args) => void",
+          summary: '(args) => void',
           detail: `
 {
   event: DragEvent
@@ -71,7 +64,7 @@ const meta: Meta<typeof ListItem> = {
     onDragEnd: {
       table: {
         type: {
-          summary: "(args) => void",
+          summary: '(args) => void',
           detail: `
 {
   event: DragEvent
@@ -81,26 +74,26 @@ const meta: Meta<typeof ListItem> = {
       },
     },
     acceptsChildren: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       defaultValue: { summary: false },
     },
     selectable: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       description:
         "`data-pui-interactive='true'` attribute can be applied to elements inside the list item to stop propagation of click events.",
       defaultValue: { summary: false },
     },
     selectionScope: {
-      control: { type: "radio" },
-      options: ["individual", "withDescendants"],
-      defaultValue: { summary: "individual" },
+      control: { type: 'radio' },
+      options: ['individual', 'withDescendants'],
+      defaultValue: { summary: 'individual' },
       description:
-        "Defines how the item can be selected. If set to `item`, the item can be selected individually. If set to `withDescendants`, the item and all its descendants can be selected at once.",
+        'Defines how the item can be selected. If set to `item`, the item can be selected individually. If set to `withDescendants`, the item and all its descendants can be selected at once.',
     },
     onSelect: {
       table: {
         type: {
-          summary: "(args) => void",
+          summary: '(args) => void',
           detail: `
 {
   event: MouseEvent
@@ -111,26 +104,26 @@ const meta: Meta<typeof ListItem> = {
       },
     },
     hoverable: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       defaultValue: { summary: false },
     },
     collapsed: {
       control: { disable: true },
-      description: "Value for controlled state.",
+      description: 'Value for controlled state.',
       table: {
         type: {
-          summary: "boolean",
+          summary: 'boolean',
         },
       },
     },
     collapsable: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       defaultValue: { summary: false },
     },
     onCollapsedChange: {
       table: {
         type: {
-          summary: "(args) => void",
+          summary: '(args) => void',
           detail: `
 {
   event: MouseEvent
@@ -142,20 +135,19 @@ const meta: Meta<typeof ListItem> = {
     },
     items: {
       control: { disable: true },
-      description:
-        "Nested items. It takes only one level of nesting. Items must be wrapped in `<ListContainer/>`.",
+      description: 'Nested items. It takes only one level of nesting. Items must be wrapped in `<ListContainer/>`.',
       table: {
         type: {
-          summary: "preact.ComponentChildren",
+          summary: 'preact.ComponentChildren',
         },
       },
     },
     children: {
       control: { disable: true },
-      description: "<strong>*</strong>",
+      description: '<strong>*</strong>',
       table: {
         type: {
-          summary: "preact.ComponentChildren",
+          summary: 'preact.ComponentChildren',
         },
       },
     },
@@ -168,45 +160,41 @@ type Story = StoryObj<typeof ListItem>
 
 const itemsSample = [
   {
-    id: "Frame 0",
+    id: 'Frame 0',
     items: [
       {
-        id: "Frame 0-0",
-        items: [{ id: "Frame 0-0-0" }, { id: "Frame 0-0-1" }],
+        id: 'Frame 0-0',
+        items: [{ id: 'Frame 0-0-0' }, { id: 'Frame 0-0-1' }],
       },
       {
-        id: "Frame 0-1",
-        items: [{ id: "Frame 0-1-0" }],
+        id: 'Frame 0-1',
+        items: [{ id: 'Frame 0-1-0' }],
       },
     ],
   },
-  { id: "Frame 1" },
+  { id: 'Frame 1' },
   {
-    id: "Frame 2",
+    id: 'Frame 2',
     items: [
       {
-        id: "Frame 2-0",
-        items: [
-          { id: "Frame 2-0-0" },
-          { id: "Frame 2-0-1" },
-          { id: "Frame 2-0-2" },
-        ],
+        id: 'Frame 2-0',
+        items: [{ id: 'Frame 2-0-0' }, { id: 'Frame 2-0-1' }, { id: 'Frame 2-0-2' }],
       },
     ],
   },
 ] as ListItemData[]
 
 export const Demo: Story = {
-  tags: ["!autodocs"],
+  tags: ['!autodocs'],
   args: {
     id: undefined,
-    className: "",
+    className: '',
     nestingLevel: 0,
-    variant: "default",
+    variant: 'default',
     draggable: true,
     acceptsChildren: true,
     selectable: true,
-    selectionScope: "individual",
+    selectionScope: 'individual',
     hoverable: true,
     collapsable: false,
     onDragStart: fn(),
@@ -216,7 +204,7 @@ export const Demo: Story = {
   },
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
@@ -308,16 +296,12 @@ const renderItems = (
               key={item.id}
               id={item.id}
               nestingLevel={level}
-              items={
-                item.items ? renderItems(item.items, level + 1) : undefined
-              }
+              items={item.items ? renderItems(item.items, level + 1) : undefined}
             >
-              <Stack direction="row" y="center" fullWidth>
+              <Stack direction="row" y="center">
                 <Stack direction="row" y="center">
                   {/* @ts-expect-error - Storybook types hack */}
-                  {args.variant === "layer" && (
-                    <Spacing direction="row" size={200} />
-                  )}
+                  {args.variant === 'layer' && <Spacing direction="row" size={200} />}
                   <Text wrap={false}>{item.id}</Text>
                 </Stack>
                 <Text intentModifier="secondary" wrap={false}>

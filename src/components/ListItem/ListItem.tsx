@@ -1,16 +1,12 @@
-import { bem, typedForwardRef } from "../../utils"
-import { useState, useEffect, useRef } from "preact/hooks"
+import { bem, typedForwardRef } from '../../utils'
+import { useState, useEffect, useRef } from 'preact/hooks'
 
-import type { ListItemProps } from "./ListItem.types"
-import "./ListItem.scss"
+import type { ListItemProps } from './ListItem.types'
+import './ListItem.scss'
 
-import { useListContext } from "../../index"
-import { Icon } from "../../index"
-import {
-  chevronRight as chevronRightGlyph,
-  chevronDown as chevronDownGlyph,
-  dragHandle as dragHandleGlyph,
-} from "../../index"
+import { useListContext } from '../../index'
+import { Icon } from '../../index'
+import { chevronRight as chevronRightGlyph, chevronDown as chevronDownGlyph, dragHandle as dragHandleGlyph } from '../../index'
 
 /* --- */
 
@@ -18,11 +14,11 @@ const ListItemComponent = (
   {
     id,
     className,
-    variant = "default",
+    variant = 'default',
     nestingLevel = 0,
     draggable = false,
     acceptsChildren = false,
-    selectionScope = "individual",
+    selectionScope = 'individual',
     collapsed,
     collapsable = false,
     onCollapsedChange,
@@ -35,39 +31,26 @@ const ListItemComponent = (
     children,
     ...rest
   }: ListItemProps,
-  ref: preact.Ref<HTMLDivElement>
+  ref: preact.Ref<HTMLDivElement>,
 ) => {
-  const {
-    selectedItemIds,
-    selectionOriginIds,
-    toggleSelect,
-    selectionMode,
-    setSelection,
-    registerItem,
-    dragImage,
-  } = useListContext()
+  const { selectedItemIds, selectionOriginIds, toggleSelect, selectionMode, setSelection, registerItem, dragImage } =
+    useListContext()
   const [isDragging, setIsDragging] = useState(false)
   const [isFocused, setIsFocused] = useState(false)
   const selfRef = useRef<HTMLDivElement | null>(null)
+  const mouseDownTargetRef = useRef<HTMLElement | null>(null)
 
   // Collapsed (controlled/uncontrolled)
   const isCollapsedControlled = collapsed !== undefined
-  const [internalCollapsed, setInternalCollapsed] = useState<boolean>(
-    Boolean(collapsed)
-  )
+  const [internalCollapsed, setInternalCollapsed] = useState<boolean>(Boolean(collapsed))
   useEffect(() => {
     if (isCollapsedControlled) setInternalCollapsed(Boolean(collapsed))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [collapsed])
-  const effectiveCollapsed = isCollapsedControlled
-    ? Boolean(collapsed)
-    : internalCollapsed
+  const effectiveCollapsed = isCollapsedControlled ? Boolean(collapsed) : internalCollapsed
 
   const isSelected = selectedItemIds.has(id)
-  const isSelectionOrigin =
-    selectionScope === "individual"
-      ? isSelected
-      : Boolean(selectionOriginIds?.has(id))
+  const isSelectionOrigin = selectionScope === 'individual' ? isSelected : Boolean(selectionOriginIds?.has(id))
   const hasChildren = Boolean(items)
 
   useEffect(() => {
@@ -84,27 +67,27 @@ const ListItemComponent = (
       setIsDragging(false)
     }
 
-    document.addEventListener("dragend", handleGlobalDragEnd)
-    document.addEventListener("resetDragStates", handleResetDragStates)
+    document.addEventListener('dragend', handleGlobalDragEnd)
+    document.addEventListener('resetDragStates', handleResetDragStates)
 
     return () => {
-      document.removeEventListener("dragend", handleGlobalDragEnd)
-      document.removeEventListener("resetDragStates", handleResetDragStates)
+      document.removeEventListener('dragend', handleGlobalDragEnd)
+      document.removeEventListener('resetDragStates', handleResetDragStates)
       unregister?.()
     }
   }, [id, registerItem, selectable, selectionScope])
 
-  const _className = bem("ListItem", undefined, {
-    "selection-scope-descendants": selectionScope === "withDescendants",
+  const _className = bem('ListItem', undefined, {
+    'selection-scope-descendants': selectionScope === 'withDescendants',
     variant,
     nested: nestingLevel > 0,
     draggable: draggable,
     selectable: selectable,
     selected: isSelected,
-    "selection-origin": isSelectionOrigin,
+    'selection-origin': isSelectionOrigin,
     focused: isFocused,
     hoverable: hoverable,
-    "has-children": hasChildren,
+    'has-children': hasChildren,
     collapsed: effectiveCollapsed,
     collapsable,
     dragging: isDragging,
@@ -115,11 +98,11 @@ const ListItemComponent = (
 
     let el: HTMLElement | null = target
     while (el && el !== selfRef.current) {
-      const interactiveAttr = el.getAttribute("data-pui-interactive")
-      if (interactiveAttr === "true") {
+      const interactiveAttr = el.getAttribute('data-pui-interactive')
+      if (interactiveAttr === 'true') {
         return true
       }
-      if (interactiveAttr === "false") {
+      if (interactiveAttr === 'false') {
         return false
       }
 
@@ -143,10 +126,8 @@ const ListItemComponent = (
     onSelect?.({ event: e, selected: !isSelected })
   }
 
-  const moveFocus = (direction: "prev" | "next") => {
-    const allItems = Array.from(
-      document.querySelectorAll<HTMLElement>(".ListItem")
-    )
+  const moveFocus = (direction: 'prev' | 'next') => {
+    const allItems = Array.from(document.querySelectorAll<HTMLElement>('.ListItem'))
     if (!allItems.length) return
     const current = selfRef.current
     const visibleItems = allItems.filter((el) => {
@@ -155,10 +136,7 @@ const ListItemComponent = (
     })
     const index = visibleItems.indexOf(current as HTMLElement)
     if (index === -1) return
-    const nextIndex =
-      direction === "prev"
-        ? Math.max(0, index - 1)
-        : Math.min(visibleItems.length - 1, index + 1)
+    const nextIndex = direction === 'prev' ? Math.max(0, index - 1) : Math.min(visibleItems.length - 1, index + 1)
     const target = visibleItems[nextIndex]
     if (target && target !== current) {
       target.focus()
@@ -168,17 +146,17 @@ const ListItemComponent = (
   const handleKeyDown = (e: KeyboardEvent) => {
     if (isInteractiveTarget(e.target as HTMLElement | null)) return
     switch (e.key) {
-      case "ArrowUp":
+      case 'ArrowUp':
         e.preventDefault()
         e.stopPropagation()
-        moveFocus("prev")
+        moveFocus('prev')
         break
-      case "ArrowDown":
+      case 'ArrowDown':
         e.preventDefault()
         e.stopPropagation()
-        moveFocus("next")
+        moveFocus('next')
         break
-      case "Enter":
+      case 'Enter':
         // Keyboard "click" – toggle selection like a mouse click
         if (selectable && selectionMode !== undefined) {
           e.preventDefault()
@@ -192,8 +170,8 @@ const ListItemComponent = (
           })
         }
         break
-      case " ":
-      case "Spacebar": {
+      case ' ':
+      case 'Spacebar': {
         // Toggle collapse for collapsable items on Space
         if (collapsable) {
           e.preventDefault()
@@ -232,11 +210,11 @@ const ListItemComponent = (
       }
       const payload = { ids }
       try {
-        e.dataTransfer?.setData("application/json", JSON.stringify(payload))
+        e.dataTransfer?.setData('application/json', JSON.stringify(payload))
       } catch {
         // Ignore setData errors
       }
-      e.dataTransfer?.setData("text/plain", ids[0])
+      e.dataTransfer?.setData('text/plain', ids[0])
       ;(window as { __puiDraggingIds?: string[] }).__puiDraggingIds = ids
       // Hide default drag preview
       try {
@@ -263,10 +241,10 @@ const ListItemComponent = (
   return (
     <div
       id={id}
-      className={[_className, className].join(" ").trim()}
+      className={[_className, className].join(' ').trim()}
       ref={(node) => {
         selfRef.current = node
-        if (typeof ref === "function") ref(node as HTMLDivElement)
+        if (typeof ref === 'function') ref(node as HTMLDivElement)
         else if (ref) (ref as preact.RefObject<HTMLDivElement>).current = node
       }}
       key={id}
@@ -285,14 +263,31 @@ const ListItemComponent = (
       onKeyDown={handleKeyDown}
       data-nesting-level={nestingLevel}
       data-item-id={id}
-      data-accepts-children={acceptsChildren ? "true" : "false"}
+      data-accepts-children={acceptsChildren ? 'true' : 'false'}
       style={`--level: ${nestingLevel}`}
     >
       <div
         className="ListItem__content"
         onClick={handleClick}
         draggable={draggable}
-        onDragStart={draggable ? handleDragHandleDragStart : undefined}
+        onMouseDown={
+          draggable
+            ? (e: MouseEvent) => {
+                mouseDownTargetRef.current = e.target as HTMLElement
+              }
+            : undefined
+        }
+        onDragStart={
+          draggable
+            ? (e: DragEvent) => {
+                if (isInteractiveTarget(mouseDownTargetRef.current)) {
+                  e.preventDefault()
+                  return
+                }
+                handleDragHandleDragStart(e)
+              }
+            : undefined
+        }
         onDragEnd={draggable ? handleDragHandleDragEnd : undefined}
       >
         <div className="ListItem__content-inner">
@@ -319,9 +314,7 @@ const ListItemComponent = (
               <Icon
                 intent="neutral"
                 intentModifier="secondary"
-                glyph={
-                  effectiveCollapsed ? chevronRightGlyph : chevronDownGlyph
-                }
+                glyph={effectiveCollapsed ? chevronRightGlyph : chevronDownGlyph}
                 size={16}
               />
             </div>
@@ -332,14 +325,13 @@ const ListItemComponent = (
               className="ListItem__drag-handle"
               data-pui-interactive="true"
               draggable={true}
-              onDragStart={handleDragHandleDragStart}
+              onDragStart={(e: DragEvent) => {
+                e.stopPropagation()
+                handleDragHandleDragStart(e)
+              }}
               onDragEnd={handleDragHandleDragEnd}
             >
-              <Icon
-                glyph={dragHandleGlyph}
-                iconColor="var(--pui-color-neutral-icon-tertiary)"
-                size={16}
-              />
+              <Icon glyph={dragHandleGlyph} iconColor="var(--pui-color-neutral-icon-tertiary)" size={16} />
             </div>
           )}
 
@@ -352,6 +344,4 @@ const ListItemComponent = (
   )
 }
 
-export const ListItem = typedForwardRef<ListItemProps, HTMLDivElement>(
-  ListItemComponent
-)
+export const ListItem = typedForwardRef<ListItemProps, HTMLDivElement>(ListItemComponent)
