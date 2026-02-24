@@ -1,28 +1,25 @@
-import type { ListContextProps, ListItemProps, ListItemData } from "../../index"
+import type { ListContextProps, ListItemProps, ListItemData } from '../../index'
 
 export type ListItemPropsPick = Pick<
   ListItemProps,
-  | "variant"
-  | "draggable"
-  | "onDragStart"
-  | "onDragEnd"
-  | "acceptsChildren"
-  | "selectable"
-  | "selectionScope"
-  | "onSelect"
-  | "hoverable"
-  | "collapsed"
-  | "collapsable"
-  | "onCollapsedChange"
+  | 'variant'
+  | 'padding'
+  | 'draggable'
+  | 'onDragStart'
+  | 'onDragEnd'
+  | 'acceptsChildren'
+  | 'selectable'
+  | 'selectionScope'
+  | 'onSelect'
+  | 'hoverable'
+  | 'collapsed'
+  | 'collapsable'
+  | 'onCollapsedChange'
 >
 
 type ListContextPropsPick = Pick<
   ListContextProps,
-  | "selectedItemIds"
-  | "selectionMode"
-  | "deselectOnClickOutside"
-  | "onItemsChange"
-  | "onSelectionChange"
+  'selectedItemIds' | 'selectionMode' | 'deselectOnClickOutside' | 'onItemsChange' | 'onSelectionChange'
 >
 
 export interface ListProps extends ListContextPropsPick {

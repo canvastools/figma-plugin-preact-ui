@@ -142,8 +142,8 @@ export const ContentStory: Story = {
               hoverable={true}
               items={item.items ? renderItems(item.items, level + 1, variant) : undefined}
             >
-              <Stack direction="row" y="center">
-                <Stack direction="row" spacing={200} y="center">
+              <Stack direction="row" y="center" fullWidth>
+                <Stack direction="row" spacing={200} y="center" fullWidth>
                   <ItemContent label={item.id} variant={variant} />
                 </Stack>
               </Stack>

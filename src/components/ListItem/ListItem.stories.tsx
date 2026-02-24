@@ -4,6 +4,8 @@ import { fn } from '@storybook/test'
 import { useState } from 'preact/hooks'
 
 import { VariantStory } from './stories/Variant.story'
+import { CollapsableStory } from './stories/Collapsable.story'
+import { PaddingStory } from './stories/Padding.story'
 import { ContentStory } from './stories/Content.story'
 
 import { ListContext, ListContainer, Stack, Text, Spacing, type ListItemData } from '../../index'
@@ -42,6 +44,26 @@ const meta: Meta<typeof ListItem> = {
       table: {
         type: {
           summary: 'number',
+        },
+      },
+    },
+    padding: {
+      control: { type: 'object' },
+      table: {
+        type: {
+          summary: 'object',
+          detail: `
+padding: {
+  top: SectionPadding
+  right: SectionPadding
+  bottom: SectionPadding
+  left: SectionPadding
+}
+
+// Types
+
+type ListItemPadding = keyof typeof spacing.variables // string | number
+          `,
         },
       },
     },
@@ -335,4 +357,6 @@ const renderItems = (
 }
 
 export const Variant = VariantStory
+export const Collapsable = CollapsableStory
+export const Padding = PaddingStory
 export const Content = ContentStory

@@ -1,8 +1,8 @@
-import { StoryObj } from "@storybook/preact"
+import { StoryObj } from '@storybook/preact'
 
-import { Stack } from "../../../index"
+import { Stack } from '../../../index'
 
-import { Button } from "../Button"
+import { Button } from '../Button'
 
 type Story = StoryObj<typeof Button>
 
@@ -10,11 +10,11 @@ export const WidthStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <Button widthFull>{children}</Button>
 `,
@@ -36,13 +36,7 @@ export const WidthStory: Story = {
           Brand
         </Button>
 
-        <Button
-          intent="neutral"
-          intentModifier="danger"
-          size="large"
-          fullWidth
-          ghost
-        >
+        <Button intent="neutral" intentModifier="danger" size="large" fullWidth ghost>
           Neutral Danger Ghost
         </Button>
 
