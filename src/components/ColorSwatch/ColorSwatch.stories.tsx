@@ -1,43 +1,43 @@
-import { Meta, StoryObj } from "@storybook/preact"
-import { fn } from "@storybook/test"
+import { Meta, StoryObj } from '@storybook/preact'
+import { fn } from '@storybook/test'
 
-import { SizeStory } from "./stories/Size.story"
-import { ColorStory } from "./stories/Color.story"
-import { DisabledStory } from "./stories/Disabled.story"
-import { SelectionStory } from "./stories/Selection.story"
-import { ChildrenStory } from "./stories/Children.story"
+import { SizeStory } from './stories/Size.story'
+import { ColorStory } from './stories/Color.story'
+import { DisabledStory } from './stories/Disabled.story'
+import { SelectionStory } from './stories/Selection.story'
+import { ChildrenStory } from './stories/Children.story'
 
-import { TooltipContext } from "../../index"
+import { TooltipContext } from '../../index'
 
-import { ColorSwatch } from "./ColorSwatch"
-import type { Color } from "../ColorPicker/ColorPicker.types"
+import { ColorSwatch } from './ColorSwatch'
+import type { Color } from '../ColorPicker/ColorPicker.types'
 
 const meta: Meta<typeof ColorSwatch> = {
-  title: "Components/ColorSwatch",
+  title: 'Components/ColorSwatch',
   component: ColorSwatch,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     id: {
-      control: { type: "text" },
+      control: { type: 'text' },
       table: {
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
     className: {
-      control: { type: "text" },
+      control: { type: 'text' },
     },
     size: {
-      control: { type: "radio" },
-      options: ["small", "medium", "large"],
-      defaultValue: { summary: "medium" },
+      control: { type: 'radio' },
+      options: ['small', 'medium', 'large'],
+      defaultValue: { summary: 'medium' },
     },
     color: {
-      control: { type: "object" },
+      control: { type: 'object' },
       table: {
         type: {
-          summary: "Color",
+          summary: 'Color',
           detail: `
 {
   r: number
@@ -50,25 +50,25 @@ const meta: Meta<typeof ColorSwatch> = {
       },
     },
     disabled: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       defaultValue: { summary: false },
     },
     selected: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       defaultValue: { summary: false },
     },
     selection: {
-      control: { type: "radio" },
-      options: ["default", "rainbow"],
-      description: "Selection border style.",
-      defaultValue: { summary: "default" },
+      control: { type: 'radio' },
+      options: ['default', 'rainbow'],
+      description: 'Selection border style.',
+      defaultValue: { summary: 'default' },
     },
     tooltip: {
-      control: { type: "text" },
-      description: "Tooltip content.",
+      control: { type: 'text' },
+      description: 'Tooltip content.',
       table: {
         type: {
-          summary: "preact.ComponentChildren",
+          summary: 'preact.ComponentChildren',
         },
       },
     },
@@ -76,14 +76,14 @@ const meta: Meta<typeof ColorSwatch> = {
       control: { disable: true },
       table: {
         type: {
-          summary: "preact.ComponentChildren",
+          summary: 'preact.ComponentChildren',
         },
       },
     },
     onClick: {
       table: {
         type: {
-          summary: "(args) => void",
+          summary: '(args) => void',
           detail: `
 args: { 
   event: MouseEvent
@@ -101,25 +101,25 @@ export default meta
 type Story = StoryObj<typeof ColorSwatch>
 
 export const Demo: Story = {
-  tags: ["!autodocs"],
+  tags: ['!autodocs'],
   args: {
     id: undefined,
-    className: "",
-    size: "medium",
-    color: { r: 255, g: 0, b: 0, a: 1 } as Color,
+    className: '',
+    size: 'medium',
+    color: { r: 1, g: 0, b: 0, a: 1 } as Color,
     disabled: false,
     selected: false,
-    selection: "default",
-    tooltip: "ColorSwatch tooltip",
+    selection: 'default',
+    tooltip: 'ColorSwatch tooltip',
     onClick: fn(),
   },
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <ColorSwatch {...args} />
 

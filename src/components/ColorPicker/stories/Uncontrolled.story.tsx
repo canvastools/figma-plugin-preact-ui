@@ -1,6 +1,6 @@
-import { StoryObj } from "@storybook/preact"
+import { StoryObj } from '@storybook/preact'
 
-import { ColorPicker } from "../ColorPicker"
+import { ColorPicker } from '../ColorPicker'
 
 type Story = StoryObj<typeof ColorPicker>
 
@@ -8,14 +8,14 @@ export const UncontrolledStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <ColorPicker 
-  defaultColor={{ r: 255, g: 0, b: 0, a: 1 }}
+  defaultColor={{ r: 1, g: 0, b: 0, a: 1 }}
   defaultType="hex"
 />
 `,
@@ -24,10 +24,7 @@ export const UncontrolledStory: Story = {
   },
   render: () => (
     <div className="sb-column sb-width-full sb-gap-16">
-      <ColorPicker
-        defaultColor={{ r: 255, g: 0, b: 0, a: 1 }}
-        defaultType="hex"
-      />
+      <ColorPicker defaultColor={{ r: 1, g: 0, b: 0, a: 1 }} defaultType="hex" />
     </div>
   ),
 }

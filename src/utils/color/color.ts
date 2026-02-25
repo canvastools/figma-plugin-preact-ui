@@ -65,3 +65,26 @@ export const hexAlphaToColor = (hex: string): Color | null => {
 export const roundAlpha = (a: number): number => {
   return Math.round(a * 100) / 100
 }
+
+/** RGBA with r, g, b in 0–255, a in 0–1. */
+export type Rgba = { r: number; g: number; b: number; a: number }
+
+/** Converts a `Color` (0–1) to RGBA (r, g, b in 0–255, a in 0–1). */
+export const colorToRgba = (color: Color): Rgba => {
+  return {
+    r: clamp(Math.round(color.r * 255), 0, 255),
+    g: clamp(Math.round(color.g * 255), 0, 255),
+    b: clamp(Math.round(color.b * 255), 0, 255),
+    a: clamp(color.a, 0, 1),
+  }
+}
+
+/** Converts RGBA (r, g, b in 0–255, a in 0–1) to a `Color` (0–1). */
+export const rgbaToColor = (rgba: Rgba): Color => {
+  return {
+    r: clamp(rgba.r, 0, 255) / 255,
+    g: clamp(rgba.g, 0, 255) / 255,
+    b: clamp(rgba.b, 0, 255) / 255,
+    a: clamp(rgba.a, 0, 1),
+  }
+}

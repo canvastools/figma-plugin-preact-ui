@@ -19,7 +19,7 @@ export const ControlledStory: Story = {
         language: "tsx",
         code: `
 const [type, setType] = useState("hex")
-const [color, setColor] = useState({ r: 255, g: 0, b: 0, a: 1 })
+const [color, setColor] = useState({ r: 1, g: 0, b: 0, a: 1 })
 
 <ColorPicker
   type={type}
@@ -33,7 +33,7 @@ const [color, setColor] = useState({ r: 255, g: 0, b: 0, a: 1 })
   },
   render: () => {
     const [type, setType] = useState<"rgba" | "hex" | "hexAlpha">("hex")
-    const [color, setColor] = useState({ r: 255, g: 0, b: 0, a: 1 })
+    const [color, setColor] = useState({ r: 1, g: 0, b: 0, a: 1 })
 
     return (
       <div className="sb-column sb-width-420 sb-gap-16">

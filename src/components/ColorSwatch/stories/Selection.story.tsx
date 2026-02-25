@@ -1,10 +1,10 @@
-import { StoryObj } from "@storybook/preact"
+import { StoryObj } from '@storybook/preact'
 
-import { useState } from "preact/hooks"
+import { useState } from 'preact/hooks'
 
-import { Text } from "../../../index"
+import { Text } from '../../../index'
 
-import { ColorSwatch } from "../ColorSwatch"
+import { ColorSwatch } from '../ColorSwatch'
 
 type Story = StoryObj<typeof ColorSwatch>
 
@@ -12,11 +12,11 @@ export const SelectionStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <ColorSwatch selected />
 
@@ -35,15 +35,19 @@ export const SelectionStory: Story = {
     return (
       <div className="sb-column sb-width-300 sb-gap-16">
         <div className="sb-row sb-width-full sb-gap-16">
-          <Text fullWidth>default, {selectedDefault ? "true" : "false"}</Text>
+          <Text fullWidth>default, {selectedDefault ? 'true' : 'false'}</Text>
+          <ColorSwatch selected={selectedDefault} onClick={() => setSelectedDefault(!selectedDefault)} />
           <ColorSwatch
+            color={{ r: 255, g: 0, b: 0, a: 1 }}
             selected={selectedDefault}
             onClick={() => setSelectedDefault(!selectedDefault)}
           />
         </div>
         <div className="sb-row sb-width-full sb-gap-16">
-          <Text fullWidth>rainbow, {selectedRainbow ? "true" : "false"}</Text>
+          <Text fullWidth>rainbow, {selectedRainbow ? 'true' : 'false'}</Text>
+          <ColorSwatch selection="rainbow" selected={selectedRainbow} onClick={() => setSelectedRainbow(!selectedRainbow)} />
           <ColorSwatch
+            color={{ r: 255, g: 0, b: 0, a: 1 }}
             selection="rainbow"
             selected={selectedRainbow}
             onClick={() => setSelectedRainbow(!selectedRainbow)}

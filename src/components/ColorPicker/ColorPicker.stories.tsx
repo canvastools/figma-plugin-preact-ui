@@ -1,73 +1,73 @@
-import { Meta, StoryObj } from "@storybook/preact"
-import { fn } from "@storybook/test"
+import { Meta, StoryObj } from '@storybook/preact'
+import { fn } from '@storybook/test'
 
-import { UncontrolledStory } from "./stories/Uncontrolled.story"
-import { ControlledStory } from "./stories/Controlled.story"
-import { TypeStory } from "./stories/Type.story"
-import { WidthStory } from "./stories/Width.story"
+import { UncontrolledStory } from './stories/Uncontrolled.story'
+import { ControlledStory } from './stories/Controlled.story'
+import { TypeStory } from './stories/Type.story'
+import { WidthStory } from './stories/Width.story'
 
-import { TooltipContext } from "../../index"
+import { TooltipContext } from '../../index'
 
-import { ColorPicker } from "./ColorPicker"
+import { ColorPicker } from './ColorPicker'
 
 const meta: Meta<typeof ColorPicker> = {
-  title: "Components/ColorPicker",
+  title: 'Components/ColorPicker',
   component: ColorPicker,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     id: {
-      control: { type: "text" },
+      control: { type: 'text' },
       table: {
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
     className: {
-      control: { type: "text" },
+      control: { type: 'text' },
     },
     defaultType: {
-      control: { type: "radio" },
-      options: ["rgba", "hex", "hexAlpha"],
-      defaultValue: { summary: "hex" },
-      description: "Picker mode for uncontrolled state.",
+      control: { type: 'radio' },
+      options: ['rgba', 'hex', 'hexAlpha'],
+      defaultValue: { summary: 'hex' },
+      description: 'Picker mode for uncontrolled state.',
       table: {
         type: {
-          summary: "ColorPickerType",
+          summary: 'ColorPickerType',
           detail: `"rgba" | "hex" | "hexAlpha"`,
         },
       },
     },
     type: {
       control: { disable: true },
-      options: ["rgba", "hex", "hexAlpha"],
-      description: "Picker mode for controlled state.",
+      options: ['rgba', 'hex', 'hexAlpha'],
+      description: 'Picker mode for controlled state.',
       table: {
         type: {
-          summary: "ColorPickerType",
+          summary: 'ColorPickerType',
           detail: `"rgba" | "hex" | "hexAlpha"`,
         },
       },
     },
     types: {
-      control: { type: "check" },
-      options: ["rgba", "hex", "hexAlpha"],
+      control: { type: 'check' },
+      options: ['rgba', 'hex', 'hexAlpha'],
       defaultValue: { summary: `["hex", "hexAlpha", "rgba"]` },
-      description: "Allowed color picker modes in the picker.",
+      description: 'Allowed color picker modes in the picker.',
       table: {
         type: {
-          summary: "ColorPickerType[]",
+          summary: 'ColorPickerType[]',
           detail: `["rgba", "hex", "hexAlpha"]`,
         },
       },
     },
     defaultColor: {
-      control: { type: "object" },
-      description: "Color value for uncontrolled state.",
-      defaultValue: { summary: `{ r: 255, g: 0, b: 0, a: 1 }` },
+      control: { type: 'object' },
+      description: 'Color value for uncontrolled state.',
+      defaultValue: { summary: `{ r: 1, g: 0, b: 0, a: 1 }` },
       table: {
         type: {
-          summary: "Color",
+          summary: 'Color',
           detail: `
 {
   r: number
@@ -81,10 +81,10 @@ const meta: Meta<typeof ColorPicker> = {
     },
     color: {
       control: { disable: true },
-      description: "Color value for controlled state.",
+      description: 'Color value for controlled state.',
       table: {
         type: {
-          summary: "Color",
+          summary: 'Color',
           detail: `
 {
   r: number
@@ -97,22 +97,22 @@ const meta: Meta<typeof ColorPicker> = {
       },
     },
     showControls: {
-      control: { type: "boolean" },
-      defaultValue: { summary: "true" },
+      control: { type: 'boolean' },
+      defaultValue: { summary: 'true' },
     },
     width: {
-      control: { type: "number" },
-      defaultValue: { summary: "207" },
+      control: { type: 'number' },
+      defaultValue: { summary: '207' },
     },
     fullWidth: {
-      control: { type: "boolean" },
-      defaultValue: { summary: "false" },
-      description: "Overrides `width` property.",
+      control: { type: 'boolean' },
+      defaultValue: { summary: 'false' },
+      description: 'Overrides `width` property.',
     },
     onTypeChange: {
       table: {
         type: {
-          summary: "(args) => void",
+          summary: '(args) => void',
           detail: `
 args:{
   type: ColorPickerType
@@ -124,7 +124,7 @@ args:{
     onColorChange: {
       table: {
         type: {
-          summary: "(args) => void",
+          summary: '(args) => void',
           detail: `
 args:{
   color: Color
@@ -143,14 +143,14 @@ export default meta
 type Story = StoryObj<typeof ColorPicker>
 
 export const Demo: Story = {
-  tags: ["!autodocs"],
+  tags: ['!autodocs'],
   args: {
     id: undefined,
-    className: "",
-    defaultType: "hex",
-    types: ["rgba", "hex", "hexAlpha"],
+    className: '',
+    defaultType: 'hex',
+    types: ['rgba', 'hex', 'hexAlpha'],
     defaultColor: {
-      r: 255,
+      r: 1,
       g: 0,
       b: 0,
       a: 1,
@@ -162,11 +162,11 @@ export const Demo: Story = {
   },
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <ColorPicker {...args} />
 `,
