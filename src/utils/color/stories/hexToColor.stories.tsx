@@ -1,28 +1,27 @@
-import { Meta, StoryObj } from "@storybook/preact"
+import { Meta, StoryObj } from '@storybook/preact'
 
-import { Code, Stack, Text } from "../../../index"
+import { Code, Stack, Text } from '../../../index'
 
-import { hexToColor } from "../color"
+import { hexToColor } from '../color'
 
 const meta: Meta<typeof hexToColor> = {
-  title: "Utils/hexToColor",
+  title: 'Utils/hexToColor',
   component: hexToColor,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
-        component:
-          "Utility function to convert a 6-digit hex string to `Color` type (r, g, b in 0–1).",
+        component: 'Utility function to convert a 6-digit hex string to `Color` type (r, g, b in 0–1).',
       },
     },
   },
   argTypes: {
     args: {
       control: { disable: true },
-      description: "<strong>*</strong>",
+      description: '<strong>*</strong>',
       table: {
         type: {
-          summary: "(hex: string, alpha: number = 1) => Color | null",
+          summary: '(hex: string, alpha: number = 1) => Color | undefined',
         },
       },
     },
@@ -36,11 +35,11 @@ type Story = StoryObj<typeof hexToColor>
 export const Demo: Story = {
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 import { hexToColor } from "figma-plugin-preact-ui"
 

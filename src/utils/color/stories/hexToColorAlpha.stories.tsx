@@ -21,7 +21,7 @@ const meta: Meta<typeof hexAlphaToColor> = {
       description: '<strong>*</strong>',
       table: {
         type: {
-          summary: '(hex: string) => Color | null',
+          summary: '(hex: string) => Color | undefined',
         },
       },
     },
