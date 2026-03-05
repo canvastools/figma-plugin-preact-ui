@@ -1,37 +1,36 @@
-import { Meta, StoryObj } from "@storybook/preact"
-import { fn } from "@storybook/test"
+import { Meta, StoryObj } from '@storybook/preact'
+import { fn } from '@storybook/test'
 
-import { UncontrolledStory } from "./stories/Uncontrolled.story"
-import { ControlledStory } from "./stories/Controlled.story"
-import { DisabledStory } from "./stories/Disabled.story"
-import { IconsStory } from "./stories/Icons.story"
+import { UncontrolledStory } from './stories/Uncontrolled.story'
+import { ControlledStory } from './stories/Controlled.story'
+import { DisabledStory } from './stories/Disabled.story'
+import { IconsStory } from './stories/Icons.story'
 
-import { SegmentedControl } from "./SegmentedControl"
-import type { SegmentedControlOptionData } from "./SegmentedControl.types"
+import { SegmentedControl } from './SegmentedControl'
+import type { SegmentedControlOptionData } from './SegmentedControl.types'
 
 const meta: Meta<typeof SegmentedControl> = {
-  title: "Components/SegmentedControl",
+  title: 'Components/SegmentedControl',
   component: SegmentedControl,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     id: {
-      control: { type: "text" },
+      control: { type: 'text' },
       table: {
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
     className: {
-      control: { type: "text" },
+      control: { type: 'text' },
     },
     options: {
       control: { disable: true },
-      description:
-        "<strong>*</strong>Array of options to render in the control.",
+      description: '<strong>*</strong>Array of options to render in the control.',
       table: {
         type: {
-          summary: "SegmentedControlOptionData[]",
+          summary: 'SegmentedControlOptionData[]',
           detail: `
 {
   value: string // required
@@ -43,7 +42,7 @@ const meta: Meta<typeof SegmentedControl> = {
 
 type IconPropsPick = {
   glyph: Glyph
-  variant: "default" | "scaled"
+  variant: "default" | "upscaled"
   size: 16 | 24
 }
 
@@ -53,30 +52,30 @@ type IconPropsPick = {
     },
     value: {
       control: { disable: true },
-      description: "Value for controlled state.",
+      description: 'Value for controlled state.',
       table: {
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
     defaultValue: {
-      control: { type: "text" },
-      description: "Value for uncontrolled state.",
-      table: { type: { summary: "string" } },
+      control: { type: 'text' },
+      description: 'Value for uncontrolled state.',
+      table: { type: { summary: 'string' } },
     },
     disabled: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       defaultValue: { summary: false },
     },
     fullWidth: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       defaultValue: { summary: false },
     },
     onValueChange: {
       table: {
         type: {
-          summary: "(args) => void",
+          summary: '(args) => void',
           detail: `
 args: {
   event: MouseEvent | KeyboardEvent
@@ -94,18 +93,18 @@ export default meta
 type Story = StoryObj<typeof SegmentedControl>
 
 export const Demo: Story = {
-  tags: ["!autodocs"],
+  tags: ['!autodocs'],
   args: {
     id: undefined,
-    className: "",
-    defaultValue: "list",
+    className: '',
+    defaultValue: 'list',
     disabled: false,
     fullWidth: false,
     onValueChange: fn(),
   },
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
@@ -128,12 +127,12 @@ const options = [
   render: (args) => {
     const sampleOptionsWithoutIcons: SegmentedControlOptionData[] = [
       {
-        value: "list",
-        label: "List view",
+        value: 'list',
+        label: 'List view',
       },
       {
-        value: "grid",
-        label: "Grid view",
+        value: 'grid',
+        label: 'Grid view',
       },
     ]
 

@@ -1,8 +1,8 @@
-import { StoryObj } from "@storybook/preact"
+import { StoryObj } from '@storybook/preact'
 
-import { link } from "../glyphs"
+import { link } from '../glyphs'
 
-import { Icon } from "../Icon"
+import { Icon } from '../Icon'
 
 type Story = StoryObj<typeof Icon>
 
@@ -10,11 +10,11 @@ export const VariantStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <Icon
   glyph={link}
@@ -23,7 +23,7 @@ export const VariantStory: Story = {
 
 <Icon
   glyph={link}
-  variant="scaled"
+  variant="upscaled"
 />
 `,
       },
@@ -32,7 +32,7 @@ export const VariantStory: Story = {
   render: () => (
     <div className="sb-row sb-width-full sb-gap-16">
       <Icon glyph={link} variant="default" />
-      <Icon glyph={link} variant="scaled" />
+      <Icon glyph={link} variant="upscaled" />
     </div>
   ),
 }

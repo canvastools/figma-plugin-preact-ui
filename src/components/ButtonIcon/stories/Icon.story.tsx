@@ -1,8 +1,8 @@
-import { StoryObj } from "@storybook/preact"
+import { StoryObj } from '@storybook/preact'
 
-import { link } from "../../../index"
+import { link } from '../../../index'
 
-import { ButtonIcon } from "../ButtonIcon"
+import { ButtonIcon } from '../ButtonIcon'
 
 type Story = StoryObj<typeof ButtonIcon>
 
@@ -10,7 +10,7 @@ export const IconStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       description: {
@@ -18,14 +18,13 @@ export const IconStory: Story = {
           "The `icon` prop is a shortcut for the displaying the icon (glyph) as a child. There is no need to import the <a href='/docs/components-icon--docs'>`<Icon/>`</a> component separately.",
       },
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 import { link } from "figma-plugin-preact-ui"
 
 <ButtonIcon 
   icon={{
     glyph: link,
-    variant: "scaled",
     size: 24,
   }}
 />
@@ -35,7 +34,7 @@ import { link } from "figma-plugin-preact-ui"
   },
   render: () => (
     <div className="sb-column sb-width-420 sb-gap-16">
-      <ButtonIcon icon={{ glyph: link, variant: "scaled" }} />
+      <ButtonIcon icon={{ glyph: link }} />
     </div>
   ),
 }

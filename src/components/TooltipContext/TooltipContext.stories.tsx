@@ -1,5 +1,5 @@
-import { Meta, StoryObj } from "@storybook/preact"
-import { useRef } from "preact/hooks"
+import { Meta, StoryObj } from '@storybook/preact'
+import { useRef } from 'preact/hooks'
 
 import {
   Button,
@@ -13,37 +13,36 @@ import {
   ButtonIcon,
   ButtonIconToggle,
   ColorSwatch,
-} from "../../index"
+} from '../../index'
 
-import { TooltipContext } from "./TooltipContext"
+import { TooltipContext } from './TooltipContext'
 
 const meta: Meta<typeof TooltipContext> = {
-  title: "Components/TooltipContext",
+  title: 'Components/TooltipContext',
   component: TooltipContext,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
-        component:
-          "A context provider that manages visibility of multiple tooltips.",
+        component: 'A context provider that manages visibility of multiple tooltips.',
       },
     },
   },
   argTypes: {
     children: {
       control: { disable: true },
-      description: "<strong>*</strong>",
+      description: '<strong>*</strong>',
       table: {
         type: {
-          summary: "preact.ComponentChildren",
+          summary: 'preact.ComponentChildren',
         },
       },
     },
     useTooltipContext: {
-      description: "Hook to access the context.",
+      description: 'Hook to access the context.',
       table: {
         type: {
-          summary: "Props",
+          summary: 'Props',
           detail: `
 {
   registerHoverStart: (
@@ -69,11 +68,11 @@ type Story = StoryObj<typeof TooltipContext>
 export const Demo: Story = {
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 const triggerRef = useRef(null)
 
@@ -100,15 +99,9 @@ const triggerRef = useRef(null)
 
             <Button tooltip="Button Tooltip">Hover to see Tooltip</Button>
 
-            <ButtonIcon
-              icon={{ glyph: link, variant: "scaled", size: 24 }}
-              tooltip="ButtonIcon Tooltip"
-            />
+            <ButtonIcon icon={{ glyph: link, size: 24 }} tooltip="ButtonIcon Tooltip" />
 
-            <ButtonIconToggle
-              icon={{ glyph: link, variant: "scaled", size: 24 }}
-              tooltip="ButtonIcon Tooltip"
-            />
+            <ButtonIconToggle icon={{ glyph: link, size: 24 }} tooltip="ButtonIcon Tooltip" />
 
             <ColorSwatch tooltip="ColorSwatch Tooltip" />
 
@@ -118,22 +111,22 @@ const triggerRef = useRef(null)
               defaultValue="list"
               options={[
                 {
-                  value: "list",
-                  label: "List",
-                  icon: { glyph: link, variant: "scaled", size: 24 },
+                  value: 'list',
+                  label: 'List',
+                  icon: { glyph: link, size: 24 },
                 },
                 {
-                  value: "grid",
-                  label: "Grid",
-                  icon: { glyph: link, variant: "scaled", size: 24 },
+                  value: 'grid',
+                  label: 'Grid',
+                  icon: { glyph: link, size: 24 },
                 },
               ]}
             />
 
             <Select
               options={[
-                { value: "list", label: "List" },
-                { value: "grid", label: "Grid" },
+                { value: 'list', label: 'List' },
+                { value: 'grid', label: 'Grid' },
               ]}
               defaultValue="list"
               placeholder="Select an option"

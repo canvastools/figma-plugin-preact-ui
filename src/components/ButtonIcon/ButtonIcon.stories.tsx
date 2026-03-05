@@ -1,70 +1,70 @@
-import { Meta, StoryObj } from "@storybook/preact"
-import { fn } from "@storybook/test"
+import { Meta, StoryObj } from '@storybook/preact'
+import { fn } from '@storybook/test'
 
-import { IntentStory } from "./stories/Intent.story"
-import { SizeStory } from "./stories/Size.story"
-import { DisabledStory } from "./stories/Disabled.story"
-import { TranslucentStory } from "./stories/Translucent.story"
-import { IconStory } from "./stories/Icon.story"
+import { IntentStory } from './stories/Intent.story'
+import { SizeStory } from './stories/Size.story'
+import { DisabledStory } from './stories/Disabled.story'
+import { TranslucentStory } from './stories/Translucent.story'
+import { IconStory } from './stories/Icon.story'
 
-import { Icon, link, TooltipContext } from "../../index"
+import { Icon, link, TooltipContext } from '../../index'
 
-import { ButtonIcon } from "./ButtonIcon"
+import { ButtonIcon } from './ButtonIcon'
 
 const meta: Meta<typeof ButtonIcon> = {
-  title: "Components/ButtonIcon",
+  title: 'Components/ButtonIcon',
   component: ButtonIcon,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     id: {
-      control: { type: "text" },
+      control: { type: 'text' },
       table: {
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
     className: {
-      control: { type: "text" },
+      control: { type: 'text' },
     },
     intent: {
-      control: { type: "radio" },
-      options: ["neutral"],
-      defaultValue: { summary: "neutral" },
+      control: { type: 'radio' },
+      options: ['neutral'],
+      defaultValue: { summary: 'neutral' },
     },
     intentModifier: {
-      control: { type: "radio" },
-      options: ["default", "secondary"],
-      defaultValue: { summary: "default" },
+      control: { type: 'radio' },
+      options: ['default', 'secondary'],
+      defaultValue: { summary: 'default' },
     },
     ghost: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       defaultValue: { summary: false },
     },
     size: {
-      control: { type: "radio" },
-      options: ["medium", "large"],
-      defaultValue: { summary: "medium" },
+      control: { type: 'radio' },
+      options: ['medium', 'large'],
+      defaultValue: { summary: 'medium' },
     },
     grouped: {
-      control: { type: "radio" },
-      options: [undefined, "first", "last", "middle"],
+      control: { type: 'radio' },
+      options: [undefined, 'first', 'last', 'middle'],
     },
     translucent: {
-      control: { type: "boolean" },
-      description: "Used for cases when the button is inside an input.",
+      control: { type: 'boolean' },
+      description: 'Used for cases when the button is inside an input.',
       defaultValue: { summary: false },
     },
     disabled: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       defaultValue: { summary: false },
     },
     tooltip: {
-      control: { type: "text" },
-      description: "Tooltip content.",
+      control: { type: 'text' },
+      description: 'Tooltip content.',
       table: {
         type: {
-          summary: "preact.ComponentChildren",
+          summary: 'preact.ComponentChildren',
         },
       },
     },
@@ -72,7 +72,7 @@ const meta: Meta<typeof ButtonIcon> = {
       control: { disable: true },
       table: {
         type: {
-          summary: "preact.ComponentChildren",
+          summary: 'preact.ComponentChildren',
         },
       },
     },
@@ -81,11 +81,11 @@ const meta: Meta<typeof ButtonIcon> = {
       description: `A shortcut for the displaying the icon (glyph) as a child.`,
       table: {
         type: {
-          summary: "Pick<IconProps>",
+          summary: 'Pick<IconProps>',
           detail: `
 { 
   glyph: Glyph
-  variant:"default" | "scaled"
+  variant: "default" | "upscaled"
   size: 16 | 24
 }
           `,
@@ -95,7 +95,7 @@ const meta: Meta<typeof ButtonIcon> = {
     onClick: {
       table: {
         type: {
-          summary: "(args) => void",
+          summary: '(args) => void',
           detail: `
 args: { 
   event: MouseEvent
@@ -112,28 +112,28 @@ export default meta
 type Story = StoryObj<typeof ButtonIcon>
 
 export const Demo: Story = {
-  tags: ["!autodocs"],
+  tags: ['!autodocs'],
   args: {
     id: undefined,
-    className: "",
-    intent: "neutral",
-    intentModifier: "default",
+    className: '',
+    intent: 'neutral',
+    intentModifier: 'default',
     ghost: false,
-    size: "medium",
+    size: 'medium',
     grouped: undefined,
     translucent: false,
     disabled: false,
-    tooltip: "Button tooltip",
-    children: <Icon glyph={link} variant="scaled" />,
+    tooltip: 'Button tooltip',
+    children: <Icon glyph={link} />,
     onClick: fn(),
   },
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <ButtonIcon {...args}>{children}</ButtonIcon>
 

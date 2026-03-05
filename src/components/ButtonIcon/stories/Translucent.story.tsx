@@ -1,8 +1,8 @@
-import { StoryObj } from "@storybook/preact"
+import { StoryObj } from '@storybook/preact'
 
-import { Input, Icon, link } from "../../../index"
+import { Input, Icon, link } from '../../../index'
 
-import { ButtonIcon } from "../ButtonIcon"
+import { ButtonIcon } from '../ButtonIcon'
 
 type Story = StoryObj<typeof ButtonIcon>
 
@@ -10,15 +10,14 @@ export const TranslucentStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       description: {
-        story:
-          "A special variant used inside <a href='/docs/components-input--docs'>`<Input/>`</a>.",
+        story: "A special variant used inside <a href='/docs/components-input--docs'>`<Input/>`</a>.",
       },
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <Input
   placeholder="Placeholder"
@@ -26,7 +25,6 @@ export const TranslucentStory: Story = {
     <ButtonIcon translucent>
       <Icon 
         glyph={link}
-        variant="scaled"
       />
     </ButtonIcon>
   }
@@ -41,7 +39,7 @@ export const TranslucentStory: Story = {
         placeholder="Placeholder"
         suffix={
           <ButtonIcon translucent>
-            <Icon glyph={link} variant="scaled" />
+            <Icon glyph={link} />
           </ButtonIcon>
         }
       />

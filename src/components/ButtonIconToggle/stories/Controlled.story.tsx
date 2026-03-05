@@ -1,10 +1,10 @@
-import { StoryObj } from "@storybook/preact"
+import { StoryObj } from '@storybook/preact'
 
-import { useState } from "preact/hooks"
+import { useState } from 'preact/hooks'
 
-import { Text, link } from "../../../index"
+import { Text, link } from '../../../index'
 
-import { ButtonIconToggle } from "../ButtonIconToggle"
+import { ButtonIconToggle } from '../ButtonIconToggle'
 
 type Story = StoryObj<typeof ButtonIconToggle>
 
@@ -12,11 +12,11 @@ export const ControlledStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 const [isSelected, setIsSelected] = useState(false)
 
@@ -35,11 +35,11 @@ const [isSelected, setIsSelected] = useState(false)
 
     return (
       <div className="sb-column sb-width-420 sb-gap-16">
-        <Text>selected: {isSelected ? "true" : "false"}</Text>
+        <Text>selected: {isSelected ? 'true' : 'false'}</Text>
         <ButtonIconToggle
           selected={isSelected}
           onSelectedChange={(args) => setIsSelected(args.selected)}
-          icon={{ glyph: link, variant: "scaled" }}
+          icon={{ glyph: link }}
         />
       </div>
     )

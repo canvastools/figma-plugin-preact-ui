@@ -1,17 +1,17 @@
-import { Meta, StoryObj } from "@storybook/preact"
-import { fn } from "@storybook/test"
+import { Meta, StoryObj } from '@storybook/preact'
+import { fn } from '@storybook/test'
 
-import { UncontrolledStory } from "./stories/Uncontrolled.story"
-import { ControlledStory } from "./stories/Controlled.story"
+import { UncontrolledStory } from './stories/Uncontrolled.story'
+import { ControlledStory } from './stories/Controlled.story'
 
-import { link } from "../../index"
+import { link } from '../../index'
 
-import { ButtonIconToggle } from "./ButtonIconToggle"
+import { ButtonIconToggle } from './ButtonIconToggle'
 
 const meta: Meta<typeof ButtonIconToggle> = {
-  title: "Components/ButtonIconToggle",
+  title: 'Components/ButtonIconToggle',
   component: ButtonIconToggle,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
@@ -23,23 +23,23 @@ const meta: Meta<typeof ButtonIconToggle> = {
   argTypes: {
     selected: {
       control: { disable: true },
-      description: "Value for controlled state.",
+      description: 'Value for controlled state.',
       table: {
         type: {
-          summary: "boolean",
+          summary: 'boolean',
         },
       },
     },
     defaultSelected: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       defaultValue: false,
-      description: "Value for uncontrolled state.",
+      description: 'Value for uncontrolled state.',
     },
     onSelectedChange: {
-      action: "changed",
+      action: 'changed',
       table: {
         type: {
-          summary: "(args) => void",
+          summary: '(args) => void',
           detail: `
 args:{
   event: MouseEvent,
@@ -49,11 +49,11 @@ args:{
         },
       },
     },
-    "...ButtonIconProps": {
+    '...ButtonIconProps': {
       control: { disable: true },
       table: {
         type: {
-          summary: "ButtonIconProps",
+          summary: 'ButtonIconProps',
           detail: `
 {
   className: string
@@ -82,18 +82,18 @@ export default meta
 type Story = StoryObj<typeof ButtonIconToggle>
 
 export const Demo: Story = {
-  tags: ["!autodocs"],
+  tags: ['!autodocs'],
   args: {
     defaultSelected: false,
     onSelectedChange: fn(),
   },
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <ButtonIconToggle {...args}>
   {children}
@@ -105,7 +105,7 @@ export const Demo: Story = {
 
   render: (args) => (
     <div className="sb-column sb-width-full">
-      <ButtonIconToggle icon={{ glyph: link, variant: "scaled" }} {...args} />
+      <ButtonIconToggle icon={{ glyph: link }} {...args} />
     </div>
   ),
 }

@@ -1,17 +1,11 @@
-import { bem, typedForwardRef } from "../../utils"
+import { bem, typedForwardRef } from '../../utils'
 
-import { Calendar as ReactCalendar } from "react-calendar"
+import { Calendar as ReactCalendar } from 'react-calendar'
 
-import {
-  Icon,
-  chevronLeft,
-  chevronRight,
-  chevronDoubleLeft,
-  chevronDoubleRight,
-} from "../../index"
+import { Icon, chevronLeft, chevronRight, chevronDoubleLeft, chevronDoubleRight } from '../../index'
 
-import type { CalendarProps } from "./Calendar.types"
-import "./Calendar.scss"
+import type { CalendarProps } from './Calendar.types'
+import './Calendar.scss'
 
 /* --- */
 
@@ -19,39 +13,39 @@ const CalendarComponent = (
   {
     id,
     className,
-    locale = "en-US",
-    type = "iso8601",
-    defaultView = "month",
+    locale = 'en-US',
+    type = 'iso8601',
+    defaultView = 'month',
     view,
     defaultDate = null,
     date = null,
     minDate = new Date(new Date().setFullYear(new Date().getFullYear() - 5)),
     maxDate = new Date(new Date().setFullYear(new Date().getFullYear() + 5)),
-    minDetail = "century",
-    maxDetail = "month",
+    minDetail = 'century',
+    maxDetail = 'month',
     showNavigation = true,
-    navigation = "full",
+    navigation = 'full',
     onDateChange,
     onDetailUp,
     onDetailDown,
     onViewChange,
     ...rest
   }: CalendarProps,
-  ref: preact.Ref<HTMLDivElement>
+  ref: preact.Ref<HTMLDivElement>,
 ) => {
-  const _className = bem("Calendar", undefined, {
+  const _className = bem('Calendar', undefined, {
     navigation: showNavigation ? navigation : undefined,
   })
 
   const handleKeyDown = (event: KeyboardEvent) => {
     const key = event.key
 
-    if (key === "Escape" || key === "Esc") {
+    if (key === 'Escape' || key === 'Esc') {
       event.stopPropagation()
       event.preventDefault()
 
       const target = event.target as HTMLElement | null
-      if (target && typeof target.blur === "function") {
+      if (target && typeof target.blur === 'function') {
         target.blur()
       }
     }
@@ -60,7 +54,7 @@ const CalendarComponent = (
   return (
     <div id={id} onKeyDown={handleKeyDown} data-pui-interactive="true">
       <ReactCalendar
-        className={[_className, className].join(" ").trim()}
+        className={[_className, className].join(' ').trim()}
         inputRef={ref as preact.Ref<HTMLDivElement> | undefined}
         locale={locale}
         calendarType={type}
@@ -72,10 +66,10 @@ const CalendarComponent = (
         maxDate={maxDate}
         minDetail={minDetail}
         maxDetail={maxDetail}
-        prevLabel={<Icon glyph={chevronLeft} variant="scaled" />}
-        prev2Label={<Icon glyph={chevronDoubleLeft} variant="scaled" />}
-        nextLabel={<Icon glyph={chevronRight} variant="scaled" />}
-        next2Label={<Icon glyph={chevronDoubleRight} variant="scaled" />}
+        prevLabel={<Icon glyph={chevronLeft} />}
+        prev2Label={<Icon glyph={chevronDoubleLeft} />}
+        nextLabel={<Icon glyph={chevronRight} />}
+        next2Label={<Icon glyph={chevronDoubleRight} />}
         onChange={(e) => {
           onDateChange?.({ date: e })
         }}
@@ -100,6 +94,4 @@ const CalendarComponent = (
   )
 }
 
-export const Calendar = typedForwardRef<CalendarProps, HTMLDivElement>(
-  CalendarComponent
-)
+export const Calendar = typedForwardRef<CalendarProps, HTMLDivElement>(CalendarComponent)

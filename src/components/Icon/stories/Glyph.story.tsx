@@ -15,9 +15,9 @@ const copyToClipboard = (text: string) => {
 }
 
 const glyphCombinations = (glyph: string) => {
-  const combinations: { variant: 'default' | 'scaled'; size: 16 | 24 }[] = [
+  const combinations: { variant: 'default' | 'upscaled'; size: 16 | 24 }[] = [
+    { variant: 'upscaled', size: 24 },
     { variant: 'default', size: 24 },
-    { variant: 'scaled', size: 24 },
     { variant: 'default', size: 16 },
   ]
 
@@ -93,10 +93,10 @@ import { help } from "figma-plugin-preact-ui"
       {Object.keys(glyphs).map((glyph) => {
         return (
           <div style={{ display: 'flex', flexFlow: 'row nowrap', gap: '16px' }}>
-            <Stack direction="row" spacing={200} y="center">
+            <Stack direction="row" spacing={200} y="center" fullWidth>
               <Text strong>{glyph}</Text>
               <ButtonIcon onClick={() => copyToClipboard(`${glyph}`)}>
-                <Icon glyph={glyphs.copy} variant="scaled" />
+                <Icon glyph={glyphs.copy} />
               </ButtonIcon>
             </Stack>
 

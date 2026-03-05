@@ -1,16 +1,8 @@
-import { StoryObj } from "@storybook/preact"
+import { StoryObj } from '@storybook/preact'
 
-import {
-  Input,
-  Button,
-  ButtonIcon,
-  Icon,
-  link,
-  chevronDown,
-  TimePicker,
-} from "../../../index"
+import { Input, Button, ButtonIcon, Icon, link, chevronDown, TimePicker } from '../../../index'
 
-import { ControlGroup } from "../ControlGroup"
+import { ControlGroup } from '../ControlGroup'
 
 type Story = StoryObj<typeof ControlGroup>
 
@@ -18,11 +10,11 @@ export const CombinationsStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <ControlGroup>
   <Button>Button</Button>
@@ -39,10 +31,7 @@ export const CombinationsStory: Story = {
   <Input/>
   <ButtonIcon
     intentModifier="secondary"
-    icon={{ 
-      glyph: chevronDown,
-      variant: "scaled",
-    }}
+    icon={{ glyph: chevronDown }}
   />
 </ControlGroup>
 `,
@@ -71,7 +60,7 @@ export const CombinationsStory: Story = {
       <ControlGroup groupFocus fullWidth>
         <Input placeholder="Input" />
         <ButtonIcon intentModifier="secondary">
-          <Icon glyph={chevronDown} variant="scaled" intentModifier="default" />
+          <Icon glyph={chevronDown} intentModifier="default" />
         </ButtonIcon>
       </ControlGroup>
 

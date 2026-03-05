@@ -1,8 +1,8 @@
-import { StoryObj } from "@storybook/preact"
+import { StoryObj } from '@storybook/preact'
 
-import { TabContext, Section, TabList, Icon, link } from "../../../index"
+import { TabContext, Section, TabList, Icon, link } from '../../../index'
 
-import { Tab } from "../Tab"
+import { Tab } from '../Tab'
 
 type Story = StoryObj<typeof Tab>
 
@@ -10,17 +10,14 @@ export const PrefixStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <Tab prefix={
-    <Icon 
-      glyph={link}
-      variant="scaled"
-    />
+    <Icon glyph={link} />
   }
 >
   {children}
@@ -34,18 +31,10 @@ export const PrefixStory: Story = {
       <TabContext defaultActiveId="tab-1">
         <Section>
           <TabList>
-            <Tab
-              variant="default"
-              id="tab-1"
-              prefix={<Icon glyph={link} variant="scaled" />}
-            >
+            <Tab variant="default" id="tab-1" prefix={<Icon glyph={link} />}>
               First Tab
             </Tab>
-            <Tab
-              variant="default"
-              id="tab-2"
-              prefix={<Icon glyph={link} variant="scaled" />}
-            >
+            <Tab variant="default" id="tab-2" prefix={<Icon glyph={link} />}>
               Second Tab
             </Tab>
           </TabList>
@@ -55,11 +44,7 @@ export const PrefixStory: Story = {
       <TabContext defaultActiveId="tab-1">
         <Section>
           <TabList>
-            <Tab
-              variant="single"
-              id="tab-1"
-              prefix={<Icon glyph={link} variant="scaled" />}
-            >
+            <Tab variant="single" id="tab-1" prefix={<Icon glyph={link} />}>
               Single
             </Tab>
           </TabList>

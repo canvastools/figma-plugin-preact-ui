@@ -64,7 +64,7 @@ export const ContentStory: Story = {
               { label: 'Option 2', value: 'option2' },
             ]}
           />,
-          <ButtonIcon icon={{ glyph: link, variant: 'scaled' }} />,
+          <ButtonIcon icon={{ glyph: link }} />,
           <Switch />,
           <Checkbox defaultChecked />,
           <SegmentedControl
@@ -73,12 +73,12 @@ export const ContentStory: Story = {
               {
                 label: 'Option 1',
                 value: 'option1',
-                icon: { glyph: link, variant: 'scaled', size: 24 },
+                icon: { glyph: link, size: 24 },
               },
               {
                 label: 'Option 2',
                 value: 'option2',
-                icon: { glyph: link, variant: 'scaled', size: 24 },
+                icon: { glyph: link, size: 24 },
               },
             ]}
           />,
@@ -88,7 +88,7 @@ export const ContentStory: Story = {
       if (variant === 'layer') {
         return [
           <Input value={label} ghost={true} focusOnDoubleClick={true} />,
-          <ButtonIconToggle ghost icon={{ glyph: link, variant: 'scaled' }} />,
+          <ButtonIconToggle ghost icon={{ glyph: link }} />,
         ]
       }
     }
