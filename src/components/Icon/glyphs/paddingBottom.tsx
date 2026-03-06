@@ -1,30 +1,44 @@
-import { GlyphProps } from "../Icon.types"
+import { GlyphProps } from '../Icon.types'
 
 export const paddingBottom = ({ variant, size }: GlyphProps) => {
-  const combination = size + "_" + variant
+  const combination = size + '_' + variant
 
   switch (combination) {
-    case "24_default":
+    case '16_default':
       return (
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             fill-rule="evenodd"
             clip-rule="evenodd"
-            d="M11 11H13V13H11V11ZM10 11C10 10.4477 10.4477 10 11 10H13C13.5523 10 14 10.4477 14 11V13C14 13.5523 13.5523 14 13 14H11C10.4477 14 10 13.5523 10 13V11ZM7.5 16C7.22386 16 7 16.2239 7 16.5C7 16.7761 7.22386 17 7.5 17H16.5C16.7761 17 17 16.7761 17 16.5C17 16.2239 16.7761 16 16.5 16H7.5Z"
+            d="M11.5002 12C11.7763 12.0001 12.0002 12.2239 12.0002 12.5C12.0002 12.7761 11.7763 12.9999 11.5002 13H4.50024C4.22409 13 4.00024 12.7761 4.00024 12.5C4.00024 12.2239 4.22409 12 4.50024 12H11.5002ZM9.10278 6.00488C9.60679 6.05632 10.0002 6.4824 10.0002 7V9L9.99535 9.10254C9.94403 9.60659 9.51781 9.99988 9.00024 10H7.00024C6.44795 10 6.00024 9.55228 6.00024 9V7C6.00024 6.44772 6.44795 6 7.00024 6H9.00024L9.10278 6.00488ZM7.00024 9H9.00024V7H7.00024V9Z"
+            fill="currentColor"
+          />
+        </svg>
+      )
+
+    case '24_default':
+      return (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M16.5 16C16.7761 16 17 16.2239 17 16.5C17 16.7761 16.7761 17 16.5 17H7.5C7.22386 17 7 16.7761 7 16.5C7 16.2239 7.22386 16 7.5 16H16.5ZM13.1025 10.0049C13.6067 10.0562 14 10.4823 14 11V13L13.9951 13.1025C13.9438 13.6067 13.5177 14 13 14H11C10.4477 14 10 13.5523 10 13V11C10 10.4477 10.4477 10 11 10H13L13.1025 10.0049ZM11 13H13V11H11V13Z"
+            fill="currentColor"
+          />
+        </svg>
+      )
+
+    case '24_upscaled':
+      return (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M18.5003 18C18.7763 18.0002 19.0003 18.224 19.0003 18.5C19.0003 18.776 18.7763 18.9998 18.5003 19H5.50031C5.22417 19 5.00031 18.7761 5.00031 18.5C5.00031 18.2239 5.22417 18 5.50031 18H18.5003ZM14.1028 9.00488C14.6068 9.05636 15.0003 9.48243 15.0003 10V14L14.9954 14.1025C14.9475 14.5729 14.5731 14.9471 14.1028 14.9951L14.0003 15H10.0003C9.48264 15 9.05654 14.6067 9.00519 14.1025L9.00031 14V10C9.00031 9.44772 9.44802 9 10.0003 9H14.0003L14.1028 9.00488ZM10.0003 14H14.0003V10H10.0003V14Z"
             fill="currentColor"
           />
         </svg>
       )
 
     default:
-      throw new Error(
-        `paddingBottom icon error: Unsupported combination size=${size}, variant=${variant}`
-      )
+      throw new Error(`paddingBottom icon error: Unsupported combination size=${size}, variant=${variant}`)
   }
 }

@@ -1,62 +1,42 @@
-import { GlyphProps } from "../Icon.types"
+import { GlyphProps } from '../Icon.types'
 
 export const chevronLeft = ({ variant, size }: GlyphProps) => {
-  const combination = size + "_" + variant
+  const combination = size + '_' + variant
 
   switch (combination) {
-    case "16_default":
+    case '16_default':
       return (
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 16 16"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M8.85164 9.76864C9.04686 9.96386 9.04677 10.2804 8.85164 10.4757C8.65638 10.6709 8.33987 10.6709 8.14461 10.4757L5.67 8.00106L8.14461 5.52645C8.33987 5.33119 8.65638 5.33119 8.85164 5.52645C9.04674 5.72173 9.04685 6.03828 8.85164 6.23348L7.08407 8.00106L8.85164 9.76864Z"
+            fill="currentColor"
+          />
+        </svg>
+      )
+
+    case '24_default':
+      return (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M12.8516 13.7686C13.0469 13.9639 13.0469 14.2814 12.8516 14.4766C12.6564 14.6715 12.3398 14.6716 12.1446 14.4766L9.66996 12.001L12.1446 9.52643C12.3398 9.33118 12.6563 9.33121 12.8516 9.52643C13.0469 9.7217 13.0469 10.0382 12.8516 10.2335L11.084 12.001L12.8516 13.7686Z"
+            fill="currentColor"
+          />
+        </svg>
+      )
+
+    case '24_upscaled':
+      return (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             fill-rule="evenodd"
             clip-rule="evenodd"
-            d="M9.23246 10.4749C9.0372 10.6702 8.72062 10.6702 8.52535 10.4749L6.40404 8.35357L6.05048 8.00001L6.40404 7.64646L8.52535 5.52514C8.72062 5.32988 9.0372 5.32988 9.23246 5.52514C9.42772 5.7204 9.42772 6.03698 9.23246 6.23225L7.46469 8.00001L9.23246 9.76778C9.42772 9.96305 9.42772 10.2796 9.23246 10.4749Z"
-            fill="currentColor"
-          />
-        </svg>
-      )
-
-    case "24_scaled":
-      return (
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M13.8536 15.1466C14.0488 15.3419 14.0488 15.6584 13.8536 15.8536C13.6583 16.0488 13.3418 16.0488 13.1465 15.8536L9.64654 12.3536C9.45131 12.1584 9.45137 11.8419 9.64654 11.6466L13.1465 8.1466C13.3418 7.95134 13.6583 7.95134 13.8536 8.1466C14.0488 8.34186 14.0488 8.65838 13.8536 8.85363L10.7071 12.0001L13.8536 15.1466Z"
-            fill="currentColor"
-          />
-        </svg>
-      )
-
-    case "24_default":
-      return (
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M14.8536 17.8534C14.6584 18.0487 14.3418 18.0486 14.1466 17.8534L8.64658 12.3534C8.45132 12.1582 8.45132 11.8417 8.64658 11.6464L14.1466 6.1464C14.3418 5.95118 14.6584 5.95115 14.8536 6.1464C15.0488 6.34165 15.0488 6.65819 14.8536 6.85343L9.70712 11.9999L14.8536 17.1464C15.0488 17.3417 15.0488 17.6582 14.8536 17.8534Z"
+            d="M8.15291 4.17528C8.36527 3.95067 8.72012 3.94057 8.9449 4.15282L16.8228 11.5923C16.9346 11.6979 16.9984 11.8447 16.9986 11.9985C16.9986 12.1525 16.9347 12.3 16.8228 12.4057L8.9449 19.8452C8.72007 20.0575 8.36525 20.0475 8.1529 19.8227C7.94062 19.5979 7.95064 19.2431 8.17536 19.0307L15.6226 11.9995L8.17537 4.96727C7.95058 4.75493 7.9406 4.40012 8.15291 4.17528Z"
             fill="currentColor"
           />
         </svg>
       )
 
     default:
-      throw new Error(
-        `chevronLeft icon error: Unsupported combination size=${size}, variant=${variant}`
-      )
+      throw new Error(`chevronLeft icon error: Unsupported combination size=${size}, variant=${variant}`)
   }
 }

@@ -1,30 +1,38 @@
-import { GlyphProps } from "../Icon.types"
+import { GlyphProps } from '../Icon.types'
 
 export const strokeSolid = ({ variant, size }: GlyphProps) => {
-  const combination = size + "_" + variant
+  const combination = size + '_' + variant
 
   switch (combination) {
-    case "24_default":
+    case '16_default':
       return (
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
-            fill-rule="evenodd"
-            clip-rule="evenodd"
-            d="M5 11.5C5 11.2239 5.22386 11 5.5 11H18.5C18.7761 11 19 11.2239 19 11.5C19 11.7761 18.7761 12 18.5 12H5.5C5.22386 12 5 11.7761 5 11.5Z"
+            d="M12.5 8C12.7761 8 13 8.22386 13 8.5C12.9999 8.77609 12.7761 9 12.5 9H3.5C3.2239 9 3.00007 8.77609 3 8.5C3 8.22386 3.22386 8 3.5 8H12.5Z"
+            fill="currentColor"
+          />
+        </svg>
+      )
+    case '24_default':
+      return (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M17.5001 12.0001C17.7762 12.0002 18.0001 12.224 18.0001 12.5001C18 12.7761 17.7762 13.0001 17.5001 13.0001H6.50013C6.22405 13.0001 6.00022 12.7762 6.00013 12.5001C6.00013 12.224 6.22399 12.0001 6.50013 12.0001H17.5001Z"
+            fill="currentColor"
+          />
+        </svg>
+      )
+    case '24_upscaled':
+      return (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M19.4997 11.9996C19.7757 11.9996 19.9995 12.2237 19.9997 12.4996C19.9997 12.7758 19.7758 12.9996 19.4997 12.9996H4.49967C4.22368 12.9995 3.99967 12.7757 3.99967 12.4996C3.99986 12.2238 4.2238 11.9998 4.49967 11.9996H19.4997Z"
             fill="currentColor"
           />
         </svg>
       )
 
     default:
-      throw new Error(
-        `strokeSolid icon error: Unsupported combination size=${size}, variant=${variant}`
-      )
+      throw new Error(`strokeSolid icon error: Unsupported combination size=${size}, variant=${variant}`)
   }
 }
