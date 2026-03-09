@@ -240,4 +240,5 @@ export {
   viewGrid,
   viewList,
   warning,
+  widget,
 } from './components/Icon/glyphs'

@@ -1,7 +1,7 @@
 import type { ColorTokenTree } from './index'
 
 const figjamLight: ColorTokenTree = {
-  class: 'figjam-light',
+  class: 'figjam',
   prefix: '--pui-color',
   variables: {
     neutral: {
