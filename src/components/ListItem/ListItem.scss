@@ -17,6 +17,7 @@
     justify-content: flex-start;
     align-items: stretch;
     z-index: 1;
+    overflow: hidden;
 
     outline-width: 1px;
     outline-color: transparent;
@@ -30,6 +31,7 @@
     flex-direction: row;
     justify-content: flex-start;
     align-items: stretch;
+    overflow: hidden;
   }
 
   &__items {

@@ -123,6 +123,33 @@ const ListContext = (props: ListContextProps) => {
     [currentItems]
   )
 
+  // If `itemId` is the sole child of a parent whose selectionScope is
+  // "withDescendants", return that parent's id so the whole branch toggles.
+  const resolveBranchRoot = useCallback(
+    (itemId: string): string => {
+      const walk = (nodes: ListItemData[], parent: ListItemData | null): string | undefined => {
+        for (const n of nodes) {
+          if (n.id === itemId) {
+            if (
+              parent &&
+              parent.items?.length === 1 &&
+              itemMetaRef.current.get(parent.id)?.selectionScope === "withDescendants"
+            ) {
+              return parent.id
+            }
+            return itemId
+          }
+          if (n.items?.length) {
+            const r = walk(n.items, n)
+            if (r !== undefined) return r
+          }
+        }
+      }
+      return walk(currentItems, null) ?? itemId
+    },
+    [currentItems]
+  )
+
   // Replace selection with exactly these ids (uncontrolled or via callback)
   const setSelection = useCallback(
     (itemIds: string[]) => {
@@ -137,7 +164,8 @@ const ListContext = (props: ListContextProps) => {
     (itemId: string, options?: { range?: boolean; additive?: boolean }) => {
       if (selectionMode === undefined) return
 
-      const meta = itemMetaRef.current.get(itemId)
+      const effectiveItemId = resolveBranchRoot(itemId)
+      const meta = itemMetaRef.current.get(effectiveItemId)
       const isWithDescendants = meta?.selectionScope === "withDescendants"
       const areSetsEqual = (a: Set<string>, b: Set<string>) => {
         if (a.size !== b.size) return false
@@ -153,35 +181,35 @@ const ListContext = (props: ListContextProps) => {
       if (selectionMode === "single") {
         let next: Set<string>
         if (isWithDescendants) {
-          const branchIds = [itemId, ...collectDescendantsForId(itemId)]
+          const branchIds = [effectiveItemId, ...collectDescendantsForId(effectiveItemId)]
           const allSelected =
             branchIds.length > 0 &&
             branchIds.every((id) => currentSelectedItems.has(id))
           next = allSelected ? new Set<string>() : new Set<string>(branchIds)
         } else {
-          const already = currentSelectedItems.has(itemId)
+          const already = currentSelectedItems.has(effectiveItemId)
           next = new Set<string>()
-          if (!already) next.add(itemId)
+          if (!already) next.add(effectiveItemId)
         }
         if (areSetsEqual(next, currentSelectedItems)) {
-          lastSelectedAnchorRef.current = itemId
+          lastSelectedAnchorRef.current = effectiveItemId
           return
         }
         if (!isSelectionControlled) setInternalSelectedItems(next)
         onSelectionChange?.({ selectedItemIds: Array.from(next) })
-        lastSelectedAnchorRef.current = itemId
+        lastSelectedAnchorRef.current = effectiveItemId
         return
       }
 
       // multi
       if (range) {
         const order = flattenItemsDepthFirst(currentItems)
-        let anchor = lastSelectedAnchorRef.current || itemId
+        let anchor = lastSelectedAnchorRef.current || effectiveItemId
         let start = order.indexOf(anchor)
-        const end = order.indexOf(itemId)
+        const end = order.indexOf(effectiveItemId)
         // If previous anchor no longer exists (e.g. after items tree change), fall back to current item
         if (start === -1) {
-          anchor = itemId
+          anchor = effectiveItemId
           start = order.indexOf(anchor)
         }
         if (start === -1 || end === -1) return
@@ -229,19 +257,19 @@ const ListContext = (props: ListContextProps) => {
           }
         })
         if (areSetsEqual(next, currentSelectedItems)) {
-          lastSelectedAnchorRef.current = itemId
+          lastSelectedAnchorRef.current = effectiveItemId
           return
         }
         if (!isSelectionControlled) setInternalSelectedItems(next)
         onSelectionChange?.({ selectedItemIds: Array.from(next) })
-        lastSelectedAnchorRef.current = itemId
+        lastSelectedAnchorRef.current = effectiveItemId
         return
       }
 
       if (additive) {
         const next = new Set(currentSelectedItems)
         if (isWithDescendants) {
-          const branchIds = [itemId, ...collectDescendantsForId(itemId)]
+          const branchIds = [effectiveItemId, ...collectDescendantsForId(effectiveItemId)]
           const branchSelected =
             branchIds.length > 0 && branchIds.every((id) => next.has(id))
           if (branchSelected) {
@@ -250,16 +278,16 @@ const ListContext = (props: ListContextProps) => {
             branchIds.forEach((id) => next.add(id))
           }
         } else {
-          if (next.has(itemId)) next.delete(itemId)
-          else next.add(itemId)
+          if (next.has(effectiveItemId)) next.delete(effectiveItemId)
+          else next.add(effectiveItemId)
         }
         if (areSetsEqual(next, currentSelectedItems)) {
-          lastSelectedAnchorRef.current = itemId
+          lastSelectedAnchorRef.current = effectiveItemId
           return
         }
         if (!isSelectionControlled) setInternalSelectedItems(next)
         onSelectionChange?.({ selectedItemIds: Array.from(next) })
-        lastSelectedAnchorRef.current = itemId
+        lastSelectedAnchorRef.current = effectiveItemId
         return
       }
 
@@ -268,7 +296,7 @@ const ListContext = (props: ListContextProps) => {
       // - otherwise, replace selection with just this item (or its branch)
       let next: Set<string>
       if (isWithDescendants) {
-        const branchIds = [itemId, ...collectDescendantsForId(itemId)]
+        const branchIds = [effectiveItemId, ...collectDescendantsForId(effectiveItemId)]
         const branchSet = new Set<string>(branchIds)
         const isExactlyBranchSelected =
           branchSet.size === currentSelectedItems.size &&
@@ -276,18 +304,18 @@ const ListContext = (props: ListContextProps) => {
         next = isExactlyBranchSelected ? new Set<string>() : branchSet
       } else {
         const isSingleItemSelected =
-          currentSelectedItems.size === 1 && currentSelectedItems.has(itemId)
+          currentSelectedItems.size === 1 && currentSelectedItems.has(effectiveItemId)
         next = isSingleItemSelected
           ? new Set<string>()
-          : new Set<string>([itemId])
+          : new Set<string>([effectiveItemId])
       }
       if (areSetsEqual(next, currentSelectedItems)) {
-        lastSelectedAnchorRef.current = itemId
+        lastSelectedAnchorRef.current = effectiveItemId
         return
       }
       if (!isSelectionControlled) setInternalSelectedItems(next)
       onSelectionChange?.({ selectedItemIds: Array.from(next) })
-      lastSelectedAnchorRef.current = itemId
+      lastSelectedAnchorRef.current = effectiveItemId
     },
     [
       selectionMode,
@@ -297,6 +325,7 @@ const ListContext = (props: ListContextProps) => {
       currentItems,
       flattenItemsDepthFirst,
       collectDescendantsForId,
+      resolveBranchRoot,
     ]
   )
 
