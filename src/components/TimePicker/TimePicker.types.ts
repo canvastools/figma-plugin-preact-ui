@@ -4,7 +4,7 @@ export interface TimePickerProps {
   id?: string
   className?: string
   locale?: string
-  variant?: "default" | "list"
+  variant?: 'default' | 'list'
   label?: preact.ComponentChildren
   maxWidth?: number | string
   defaultDate?: TimePickerDate
@@ -16,10 +16,10 @@ export interface TimePickerProps {
   minTime?: string
   disabled?: boolean
   autoFocus?: boolean
-  grouped?: "first" | "last" | "middle"
+  grouped?: 'first' | 'last' | 'middle'
   tooltip?: preact.ComponentChildren
-  onTimeChange?: (args: {
-    date: TimePickerDate | undefined
-    time: string
-  }) => void
+  onTimeChange?: (args: { date: TimePickerDate | undefined; time: string }) => void
+  onBlur?: (args: { event: FocusEvent; date: TimePickerDate | undefined; time: string }) => void
+  onFocus?: (args: { event: FocusEvent; date: TimePickerDate | undefined; time: string }) => void
+  onKeyDown?: (args: { event: KeyboardEvent; date: TimePickerDate | undefined; time: string }) => void
 }

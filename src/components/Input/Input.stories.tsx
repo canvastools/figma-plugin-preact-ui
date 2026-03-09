@@ -1,143 +1,142 @@
-import { Meta, StoryObj } from "@storybook/preact"
-import { fn } from "@storybook/test"
+import { Meta, StoryObj } from '@storybook/preact'
+import { fn } from '@storybook/test'
 
-import { UncontrolledStory } from "./stories/Uncontrolled.story"
-import { ControlledStory } from "./stories/Controlled.story"
-import { VariantStory } from "./stories/Variant.story"
-import { PlaceholderStory } from "./stories/Placeholder.story"
-import { DisabledStory } from "./stories/Disabled.story"
-import { PrefixStory } from "./stories/Prefix.story"
-import { SuffixStory } from "./stories/Suffix.story"
+import { UncontrolledStory } from './stories/Uncontrolled.story'
+import { ControlledStory } from './stories/Controlled.story'
+import { VariantStory } from './stories/Variant.story'
+import { PlaceholderStory } from './stories/Placeholder.story'
+import { DisabledStory } from './stories/Disabled.story'
+import { PrefixStory } from './stories/Prefix.story'
+import { SuffixStory } from './stories/Suffix.story'
 
-import { TooltipContext } from "../../index"
+import { TooltipContext } from '../../index'
 
-import { Input } from "./Input"
+import { Input } from './Input'
 
 const meta: Meta<typeof Input> = {
-  title: "Components/Input",
+  title: 'Components/Input',
   component: Input,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     id: {
-      control: { type: "text" },
+      control: { type: 'text' },
       table: {
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
     className: {
-      control: { type: "text" },
+      control: { type: 'text' },
     },
     variant: {
-      control: { type: "radio" },
-      options: ["default", "list"],
-      defaultValue: { summary: "default" },
+      control: { type: 'radio' },
+      options: ['default', 'list'],
+      defaultValue: { summary: 'default' },
     },
     label: {
-      control: { type: "text" },
+      control: { type: 'text' },
     },
     placeholder: {
-      control: { type: "text" },
+      control: { type: 'text' },
     },
     type: {
-      control: { type: "radio" },
-      options: ["text", "number"],
-      defaultValue: { summary: "text" },
+      control: { type: 'radio' },
+      options: ['text', 'number'],
+      defaultValue: { summary: 'text' },
     },
     defaultValue: {
-      control: { type: "text" },
-      description: "Value for uncontrolled state.",
+      control: { type: 'text' },
+      description: 'Value for uncontrolled state.',
     },
     value: {
       control: { disable: true },
-      description: "Value for controlled state.",
+      description: 'Value for controlled state.',
       table: {
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
     ghost: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       defaultValue: { summary: false },
     },
     grouped: {
-      control: { type: "radio" },
-      options: [undefined, "first", "last", "middle"],
+      control: { type: 'radio' },
+      options: [undefined, 'first', 'last', 'middle'],
     },
     error: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       defaultValue: { summary: false },
     },
     disabled: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       defaultValue: { summary: false },
     },
     prefix: {
       control: { disable: true },
-      description: "Element displayed before value.",
+      description: 'Element displayed before value.',
       table: {
         type: {
-          summary: "preact.ComponentChildren",
+          summary: 'preact.ComponentChildren',
         },
       },
     },
     suffix: {
       control: { disable: true },
-      description: "Element displayed after value.",
+      description: 'Element displayed after value.',
 
       table: {
         type: {
-          summary: "preact.ComponentChildren",
+          summary: 'preact.ComponentChildren',
         },
       },
     },
     showSuffixOnHover: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       defaultValue: { summary: false },
     },
     focusOnDoubleClick: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       defaultValue: { summary: false },
     },
     minLength: {
-      control: { type: "number" },
+      control: { type: 'number' },
       defaultValue: { summary: 0 },
-      description: "Minimum length of the input value.",
+      description: 'Minimum length of the input value.',
     },
     maxLength: {
-      control: { type: "number" },
+      control: { type: 'number' },
       defaultValue: { summary: Infinity },
-      description: "Maximum length of the input value.",
+      description: 'Maximum length of the input value.',
     },
     tooltip: {
-      control: { type: "text" },
-      description: "Tooltip content.",
+      control: { type: 'text' },
+      description: 'Tooltip content.',
       table: {
         type: {
-          summary: "preact.ComponentChildren",
+          summary: 'preact.ComponentChildren',
         },
       },
     },
     autoFocus: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       defaultValue: { summary: false },
     },
     maxWidth: {
-      control: { type: "number" },
-      description:
-        "Maximum width of the input (excluding label). Only applicable when variant is `list`.",
+      control: { type: 'number' },
+      description: 'Maximum width of the input (excluding label). Only applicable when variant is `list`.',
       table: {
         type: {
-          summary: "number | string",
+          summary: 'number | string',
         },
       },
     },
     onValueChange: {
       table: {
         type: {
-          summary: "(args) => void",
+          summary: '(args) => void',
           detail: `
 args: { 
   event: MouseEvent
@@ -150,10 +149,10 @@ args: {
     onBlur: {
       table: {
         type: {
-          summary: "(args) => void",
+          summary: '(args) => void',
           detail: `
 args: { 
-  event: MouseEvent
+  event: FocusEvent
   value: string
 }
           `,
@@ -163,10 +162,10 @@ args: {
     onFocus: {
       table: {
         type: {
-          summary: "(args) => void",
+          summary: '(args) => void',
           detail: `
 args: { 
-  event: MouseEvent
+  event: FocusEvent
   value: string
 }
           `,
@@ -176,7 +175,7 @@ args: {
     onKeyDown: {
       table: {
         type: {
-          summary: "(args) => void",
+          summary: '(args) => void',
           detail: `
 args: { 
   event: KeyboardEvent
@@ -194,22 +193,22 @@ export default meta
 type Story = StoryObj<typeof Input>
 
 export const Demo: Story = {
-  tags: ["!autodocs"],
+  tags: ['!autodocs'],
   args: {
     id: undefined,
-    className: "",
-    variant: "default",
-    label: "Label",
-    type: "text",
-    placeholder: "Placeholder",
-    defaultValue: "",
+    className: '',
+    variant: 'default',
+    label: 'Label',
+    type: 'text',
+    placeholder: 'Placeholder',
+    defaultValue: '',
     ghost: false,
     grouped: undefined,
     error: false,
     disabled: false,
     showSuffixOnHover: false,
     focusOnDoubleClick: false,
-    tooltip: "Input tooltip",
+    tooltip: 'Input tooltip',
     minLength: 0,
     maxLength: 9999,
     autoFocus: false,
@@ -221,11 +220,11 @@ export const Demo: Story = {
   },
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <Input {...args} />
 

@@ -33,6 +33,9 @@ const TimePickerComponent = (
     tooltip,
     grouped,
     onTimeChange,
+    onBlur,
+    onFocus,
+    onKeyDown,
     ...rest
   }: TimePickerProps,
   ref: preact.Ref<HTMLDivElement>
@@ -127,7 +130,7 @@ const TimePickerComponent = (
     }
     setHasContent(hasValue(committedValue))
     onTimeChange?.({
-      date: shouldUseDate ? committedValue : undefined,
+      date: committedValue,
       time: timeString,
     })
   }
@@ -161,7 +164,22 @@ const TimePickerComponent = (
     hourInput.focus()
   }
 
-  const handleInputGroupBlur = (event: FocusEvent) => {
+  const handleContainerFocus = (event: FocusEvent) => {
+    const container = (event.currentTarget as HTMLElement) ?? undefined
+    const related = event.relatedTarget as Node | null
+    if (related && container?.contains(related)) return
+    onFocus?.({ ...getCurrentValue(), event })
+  }
+
+  const handleContainerBlur = (event: FocusEvent) => {
+    const container = (event.currentTarget as HTMLElement) ?? undefined
+    const related = event.relatedTarget as Node | null
+    const focusStaysInside = related && container?.contains(related)
+
+    if (!focusStaysInside) {
+      onBlur?.({ ...getCurrentValue(), event })
+    }
+
     const target = event.target as HTMLInputElement | null
     if (!target) return
     const isHour = target.classList.contains(
@@ -186,8 +204,18 @@ const TimePickerComponent = (
     commitTime(`${hourValue}:00`)
   }
 
+  const getCurrentValue = () => {
+    const currentDate = isControlled ? date : internalDate
+    return {
+      date: normalizeTimeValue(currentDate) ?? undefined,
+      time: getTimeString(currentDate),
+    }
+  }
+
   const handleKeyDown = (event: KeyboardEvent) => {
     const key = event.key
+
+    onKeyDown?.({ ...getCurrentValue(), event })
 
     if (key === "Escape" || key === "Esc" || key === "Enter") {
       event.stopPropagation()
@@ -222,7 +250,8 @@ const TimePickerComponent = (
           data-pui-interactive="true"
           onKeyDown={handleKeyDown}
           onMouseDown={handleInputGroupMouseDown}
-          onBlur={handleInputGroupBlur}
+          onFocus={handleContainerFocus}
+          onBlur={handleContainerBlur}
           style={{
             maxWidth:
               variant === "default"

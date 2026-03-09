@@ -1,12 +1,12 @@
-import { Fragment } from "preact"
-import { useEffect, useRef, useState, useImperativeHandle } from "preact/hooks"
+import { Fragment } from 'preact'
+import { useEffect, useRef, useState, useImperativeHandle } from 'preact/hooks'
 
-import { bem, typedForwardRef } from "../../utils"
+import { bem, typedForwardRef } from '../../utils'
 
-import { Tooltip, Text } from "../../index"
+import { Tooltip, Text } from '../../index'
 
-import type { InputProps } from "./Input.types"
-import "./Input.scss"
+import type { InputProps } from './Input.types'
+import './Input.scss'
 
 /* --- */
 
@@ -14,10 +14,10 @@ const InputComponent = (
   {
     id,
     className,
-    variant = "default",
+    variant = 'default',
     label,
     placeholder,
-    type = "text",
+    type = 'text',
     value,
     defaultValue,
     ghost = false,
@@ -39,19 +39,15 @@ const InputComponent = (
     onKeyDown,
     ...rest
   }: InputProps,
-  ref: preact.Ref<HTMLDivElement>
+  ref: preact.Ref<HTMLDivElement>,
 ) => {
   const isControlled = value !== undefined
 
-  const [internalValue, setInternalValue] = useState<string>(
-    () => defaultValue ?? ""
-  )
+  const [internalValue, setInternalValue] = useState<string>(() => defaultValue ?? '')
   const [isFocused, setIsFocused] = useState(false)
   const [isKeyboardEditing, setIsKeyboardEditing] = useState(false)
   const [isWrapperFocused, setIsWrapperFocused] = useState(false)
-  const [hasContent, setHasContent] = useState<boolean>(
-    Boolean(value ?? internalValue ?? "")
-  )
+  const [hasContent, setHasContent] = useState<boolean>(Boolean(value ?? internalValue ?? ''))
   const [isEditing, setIsEditing] = useState(false)
 
   const rootRef = useRef<HTMLDivElement>(null)
@@ -75,7 +71,7 @@ const InputComponent = (
     }
   }, [isControlled, value])
 
-  const _className = bem("Input", undefined, {
+  const _className = bem('Input', undefined, {
     filled: hasContent,
     ghost,
     disabled,
@@ -95,13 +91,11 @@ const InputComponent = (
     error,
   })
 
-  const _displayClassName = bem("Input__display", undefined, {
+  const _displayClassName = bem('Input__display', undefined, {
     placeholder: Boolean(placeholder && !hasContent),
   })
 
-  const handleChange = (
-    event: preact.JSX.TargetedEvent<HTMLInputElement, Event>
-  ) => {
+  const handleChange = (event: preact.JSX.TargetedEvent<HTMLInputElement, Event>) => {
     event.stopPropagation()
     const nextValue = event.currentTarget.value
     if (!isControlled) {
@@ -114,14 +108,12 @@ const InputComponent = (
     })
   }
 
-  const handleBlur = (
-    event: preact.JSX.TargetedFocusEvent<HTMLInputElement>
-  ) => {
+  const handleBlur = (event: preact.JSX.TargetedFocusEvent<HTMLInputElement>) => {
     event.stopPropagation()
     setIsFocused(false)
     setHasContent(event.currentTarget.value.length > 0)
     onBlur?.({
-      event: event as unknown as MouseEvent,
+      event: event as FocusEvent,
       value: event.currentTarget.value,
     })
 
@@ -132,56 +124,42 @@ const InputComponent = (
     }
   }
 
-  const handleRootFocus = (
-    event: preact.JSX.TargetedFocusEvent<HTMLDivElement>
-  ) => {
+  const handleRootFocus = (event: preact.JSX.TargetedFocusEvent<HTMLDivElement>) => {
     if (event.currentTarget === event.target) {
       setIsWrapperFocused(true)
       setIsKeyboardEditing(!wrapperLastInteractionWasMouse.current)
     }
   }
 
-  const handleRootBlur = (
-    event: preact.JSX.TargetedFocusEvent<HTMLDivElement>
-  ) => {
+  const handleRootBlur = (event: preact.JSX.TargetedFocusEvent<HTMLDivElement>) => {
     if (event.currentTarget === event.target) {
       setIsWrapperFocused(false)
       setIsKeyboardEditing(false)
     }
   }
 
-  const handleFocus = (
-    event: preact.JSX.TargetedFocusEvent<HTMLInputElement>
-  ) => {
+  const handleFocus = (event: preact.JSX.TargetedFocusEvent<HTMLInputElement>) => {
     event.stopPropagation()
     setIsFocused(true)
     onFocus?.({
-      event: event as unknown as MouseEvent,
+      event: event as FocusEvent,
       value: event.currentTarget.value,
     })
   }
 
-  const handleKeyDown = (
-    event: preact.JSX.TargetedKeyboardEvent<HTMLInputElement>
-  ) => {
+  const handleKeyDown = (event: preact.JSX.TargetedKeyboardEvent<HTMLInputElement>) => {
     event.stopPropagation()
     onKeyDown?.({
       event: event as KeyboardEvent,
       value: event.currentTarget.value,
     })
 
-    if (
-      event.key === "Enter" ||
-      event.key === "Escape" ||
-      event.key === "Esc"
-    ) {
+    if (event.key === 'Enter' || event.key === 'Escape' || event.key === 'Esc') {
       event.currentTarget.blur()
     }
   }
 
-  const handleClick = (
-    event: preact.JSX.TargetedMouseEvent<HTMLInputElement>
-  ) => {
+  const handleClick = (event: preact.JSX.TargetedMouseEvent<HTMLInputElement>) => {
     event.stopPropagation()
   }
 
@@ -190,16 +168,10 @@ const InputComponent = (
     wrapperLastInteractionWasMouse.current = true
   }
 
-  const handleRootKeyDown = (
-    event: preact.JSX.TargetedKeyboardEvent<HTMLDivElement>
-  ) => {
+  const handleRootKeyDown = (event: preact.JSX.TargetedKeyboardEvent<HTMLDivElement>) => {
     if (!focusOnDoubleClick) return
     if (event.target !== event.currentTarget) return
-    if (
-      event.key === " " ||
-      event.key === "Spacebar" ||
-      event.key === "Enter"
-    ) {
+    if (event.key === ' ' || event.key === 'Spacebar' || event.key === 'Enter') {
       event.preventDefault()
       event.stopPropagation()
       wrapperLastInteractionWasMouse.current = false
@@ -223,24 +195,19 @@ const InputComponent = (
   }, [focusOnDoubleClick, isEditing])
 
   const showEditableInput = !focusOnDoubleClick || isEditing
-  const displayedValue = isControlled ? value ?? "" : internalValue
+  const displayedValue = isControlled ? value ?? '' : internalValue
 
   return (
     <Fragment>
       <div
         id={id}
-        className={[_className, className].join(" ").trim()}
-        data-pui-interactive={showEditableInput ? "true" : "false"}
+        className={[_className, className].join(' ').trim()}
+        data-pui-interactive={showEditableInput ? 'true' : 'false'}
         ref={rootRef as preact.Ref<HTMLDivElement>}
         {...rest}
       >
         {label && (
-          <Text
-            className="Input__label"
-            intentModifier="secondary"
-            size={variant === "list" ? "medium" : "small"}
-            truncate
-          >
+          <Text className="Input__label" intentModifier="secondary" size={variant === 'list' ? 'medium' : 'small'} truncate>
             {label}
           </Text>
         )}
@@ -253,12 +220,7 @@ const InputComponent = (
           onDblClick={handleDoubleClickDisplay}
           tabIndex={focusOnDoubleClick ? 0 : undefined}
           style={{
-            maxWidth:
-              variant === "default"
-                ? undefined
-                : typeof maxWidth === "number"
-                ? `${maxWidth}px`
-                : maxWidth,
+            maxWidth: variant === 'default' ? undefined : typeof maxWidth === 'number' ? `${maxWidth}px` : maxWidth,
             flexShrink: maxWidth ? 0 : undefined,
           }}
         >
@@ -288,9 +250,7 @@ const InputComponent = (
               onKeyDown={handleKeyDown}
             />
           ) : (
-            <div className={_displayClassName}>
-              {displayedValue || placeholder}
-            </div>
+            <div className={_displayClassName}>{displayedValue || placeholder}</div>
           )}
           {suffix && <div className="Input__suffix">{suffix}</div>}
         </div>
