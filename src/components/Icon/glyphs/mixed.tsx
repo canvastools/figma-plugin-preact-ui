@@ -35,6 +35,6 @@ export const mixed = ({ variant, size }: GlyphProps) => {
       )
 
     default:
-      throw new Error(`Mixed icon error: Unsupported combination size=${size}, variant=${variant}`)
+      throw new Error(`mixed icon error: Unsupported combination size=${size}, variant=${variant}`)
   }
 }
