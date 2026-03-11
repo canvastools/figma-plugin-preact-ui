@@ -77,7 +77,7 @@ const MenuContext = ({
       const targetId = id ?? enabledItems[0]?.id
       const item = enabledItems.find((entry) => entry.id === targetId)
       if (item && item.ref.current) {
-        item.ref.current.focus()
+        item.ref.current.focus({ preventScroll: true })
         setFocusedItemState(targetId ?? null)
         setLastInteractionItemId(targetId ?? null)
       }
@@ -130,7 +130,7 @@ const MenuContext = ({
 
       const target = enabledItems[nextIndex]
       if (target?.ref.current) {
-        target.ref.current.focus()
+        target.ref.current.focus({ preventScroll: true })
         setFocusedItemState(target.id)
         setLastInteractionItemId(target.id)
       }
@@ -290,7 +290,7 @@ const MenuContext = ({
           activeItem.ref.current.click()
 
           // Align logical focus and navigation anchor with the activated item
-          activeItem.ref.current.focus()
+          activeItem.ref.current.focus({ preventScroll: true })
           setFocusedItemState(activeItem.id)
           setLastInteractionItemId(activeItem.id)
           setKeyboardInteraction(true)
@@ -354,7 +354,7 @@ const MenuContext = ({
 
               const nextItem = enabledItems[nextIndex]
               if (nextItem?.ref.current) {
-                nextItem.ref.current.focus()
+                nextItem.ref.current.focus({ preventScroll: true })
                 setFocusedItemState(nextItem.id)
                 setLastInteractionItemId(nextItem.id)
                 // Keyboard navigation has now taken over from hover.
@@ -379,7 +379,7 @@ const MenuContext = ({
 
               const nextItem = enabledItems[nextIndex]
               if (nextItem?.ref.current) {
-                nextItem.ref.current.focus()
+                nextItem.ref.current.focus({ preventScroll: true })
                 setFocusedItemState(nextItem.id)
                 setLastInteractionItemId(nextItem.id)
                 setKeyboardInteraction(true)
@@ -407,7 +407,7 @@ const MenuContext = ({
 
         const nextItem = enabledItems[nextIndex]
         if (nextItem?.ref.current) {
-          nextItem.ref.current.focus()
+          nextItem.ref.current.focus({ preventScroll: true })
           setFocusedItemState(nextItem.id)
           setLastInteractionItemId(nextItem.id)
           setKeyboardInteraction(true)
@@ -494,7 +494,7 @@ const MenuContext = ({
         enabledItems.find((item) => getText(item).includes(normalizedQuery))
 
       if (target?.ref.current) {
-        target.ref.current.focus()
+        target.ref.current.focus({ preventScroll: true })
         setFocusedItemState(target.id)
         setLastInteractionItemId(target.id)
       }

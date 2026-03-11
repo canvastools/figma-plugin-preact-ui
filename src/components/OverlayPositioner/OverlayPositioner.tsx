@@ -563,6 +563,14 @@ const OverlayPositionerComponent = ({
     ;(style as any)["--overlay-arrow-top"] = `${arrowData.top}px`
   }
 
+  const availableHeight =
+    typeof window !== "undefined"
+      ? Math.max(window.innerHeight - effectiveTop - offsetEdge, 100)
+      : undefined
+  if (availableHeight != null) {
+    ;(style as any)["--overlay-available-height"] = `${availableHeight}px`
+  }
+
   const _className = bem("OverlayPositioner", undefined, {
     placement: appliedPlacement,
   })

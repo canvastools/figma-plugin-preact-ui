@@ -133,6 +133,7 @@ const MenuItemActionComponent = (
         id={id}
         className={[_className, className].join(" ").trim()}
         data-pui-interactive="true"
+        tabIndex={-1}
         ref={(el) => {
           if (typeof ref === "function") {
             ref(el)

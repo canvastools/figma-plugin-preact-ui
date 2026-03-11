@@ -1,47 +1,46 @@
-import { Meta, StoryObj } from "@storybook/preact"
-import { fn } from "@storybook/test"
+import { Meta, StoryObj } from '@storybook/preact'
+import { fn } from '@storybook/test'
 
-import { useRef, useState } from "preact/hooks"
+import { useRef, useState } from 'preact/hooks'
 
-import { UncontrolledStory } from "./stories/Uncontrolled.story"
-import { ControlledStory } from "./stories/Controlled.story"
-import { CustomItemStory } from "./stories/CustomItem.story"
+import { UncontrolledStory } from './stories/Uncontrolled.story'
+import { ControlledStory } from './stories/Controlled.story'
+import { CustomItemStory } from './stories/CustomItem.story'
 
-import { Menu } from "./Menu"
-import { MenuItemData } from "./Menu.types"
+import { Menu } from './Menu'
+import { MenuItemData } from './Menu.types'
 
-import { Button } from "../../index"
+import { Button } from '../../index'
 
 const meta: Meta = {
-  title: "Components/Menu",
+  title: 'Components/Menu',
   component: Menu,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
-        component:
-          "A facade component that provides a simplified API for menus.",
+        component: 'A facade component that provides a simplified API for menus.',
       },
     },
   },
   argTypes: {
     id: {
-      control: { type: "text" },
+      control: { type: 'text' },
       table: {
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
     className: {
-      control: { type: "text" },
+      control: { type: 'text' },
     },
     items: {
       control: { disable: true },
       description: `<strong>*</strong>Array of items to render in the menu.`,
       table: {
         type: {
-          summary: "MenuItemData[]",
+          summary: 'MenuItemData[]',
           detail: `
 
 // Action item
@@ -81,11 +80,11 @@ const meta: Meta = {
         },
       },
     },
-    "...MenuContextProps": {
+    '...MenuContextProps': {
       control: { disable: true },
       table: {
         type: {
-          summary: "Pick<MenuContextProps>",
+          summary: 'Pick<MenuContextProps>',
           detail: `
 {
   triggerRef: RefObject | null
@@ -95,11 +94,11 @@ const meta: Meta = {
         },
       },
     },
-    "...MenuContainerProps": {
+    '...MenuContainerProps': {
       control: { disable: true },
       table: {
         type: {
-          summary: "Pick<MenuContainerProps>",
+          summary: 'Pick<MenuContainerProps>',
           detail: `
 {
   width: number
@@ -109,11 +108,11 @@ const meta: Meta = {
         },
       },
     },
-    "...OverlayPositionerProps": {
+    '...OverlayPositionerProps': {
       control: { disable: true },
       table: {
         type: {
-          summary: "Pick<OverlayPositionerProps>",
+          summary: 'Pick<OverlayPositionerProps>',
           detail: `
 {
   open: boolean
@@ -137,18 +136,18 @@ export default meta
 type Story = StoryObj<typeof Menu>
 
 export const Demo: Story = {
-  tags: ["!autodocs"],
+  tags: ['!autodocs'],
   args: {
     id: undefined,
-    className: "",
+    className: '',
   },
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <Menu {...args} />
 `,
@@ -158,43 +157,39 @@ export const Demo: Story = {
   render: (args) => {
     const triggerRef = useRef<HTMLButtonElement | null>(null)
 
-    const [selectedOption, setSelectedOption] = useState<string | null>(
-      "option-1"
-    )
+    const [selectedOption, setSelectedOption] = useState<string | null>('option-1')
 
     const items: MenuItemData[] = [
       {
-        type: "action",
-        id: "action-1",
-        children: "Action 1",
+        type: 'action',
+        id: 'action-1',
+        children: 'Action 1',
         paddingLikeOption: true,
         closeOnClick: true,
         onClick: fn(),
       },
       {
-        type: "action",
-        id: "action-2",
-        children: "Action 2",
+        type: 'action',
+        id: 'action-2',
+        children: 'Action 2',
         paddingLikeOption: true,
         closeOnClick: true,
         onClick: fn(),
       },
-      { type: "divider" },
+      { type: 'divider' },
       {
-        type: "option",
-        id: "option-1",
-        selected: selectedOption === "option-1",
-        children: "Option 1",
-        onSelectedChange: ({ selected }) =>
-          setSelectedOption(selected ? "option-1" : null),
+        type: 'option',
+        id: 'option-1',
+        selected: selectedOption === 'option-1',
+        children: 'Option 1',
+        onSelectedChange: ({ selected }) => setSelectedOption(selected ? 'option-1' : null),
       },
       {
-        type: "option",
-        id: "option-2",
-        selected: selectedOption === "option-2",
-        children: "Option 2",
-        onSelectedChange: ({ selected }) =>
-          setSelectedOption(selected ? "option-2" : null),
+        type: 'option',
+        id: 'option-2',
+        selected: selectedOption === 'option-2',
+        children: 'Option 2',
+        onSelectedChange: ({ selected }) => setSelectedOption(selected ? 'option-2' : null),
       },
     ]
 

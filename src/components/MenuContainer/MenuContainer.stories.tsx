@@ -1,15 +1,16 @@
-import { Meta, StoryObj } from "@storybook/preact"
+import { Meta, StoryObj } from '@storybook/preact'
 
-import { SizeStory } from "./stories/Size.story"
+import { SizeStory } from './stories/Size.story'
+import { ManyItemsStory } from './stories/ManyItems.story'
 
-import { MenuContainer } from "./MenuContainer"
+import { MenuContainer } from './MenuContainer'
 
-import { MenuDivider, MenuItemAction, MenuItemOption } from "../../index"
+import { MenuDivider, MenuItemAction, MenuItemOption } from '../../index'
 
 const meta: Meta<typeof MenuContainer> = {
-  title: "Components/MenuContainer",
+  title: 'Components/MenuContainer',
   component: MenuContainer,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
@@ -20,30 +21,30 @@ const meta: Meta<typeof MenuContainer> = {
   },
   argTypes: {
     id: {
-      control: { type: "text" },
+      control: { type: 'text' },
       table: {
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
     className: {
-      control: { type: "text" },
+      control: { type: 'text' },
     },
     width: {
-      control: { type: "number" },
-      description: "Takes the width of the menu items if not provided.",
+      control: { type: 'number' },
+      description: 'Takes the width of the menu items if not provided.',
     },
     height: {
-      control: { type: "number" },
-      description: "Takes the height of the menu items if not provided.",
+      control: { type: 'number' },
+      description: 'Takes the height of the menu items if not provided.',
     },
     children: {
       control: { disable: true },
       description: `<strong>*</strong>`,
       table: {
         type: {
-          summary: "preact.ComponentChildren",
+          summary: 'preact.ComponentChildren',
         },
       },
     },
@@ -55,20 +56,20 @@ export default meta
 type Story = StoryObj<typeof MenuContainer>
 
 export const Demo: Story = {
-  tags: ["!autodocs"],
+  tags: ['!autodocs'],
   args: {
     id: undefined,
-    className: "",
+    className: '',
     width: 208,
     height: 300,
   },
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <MenuContainer {...args}>{children}</MenuContainer>
 `,
@@ -95,3 +96,4 @@ export const Demo: Story = {
 }
 
 export const Size = SizeStory
+export const ManyItems = ManyItemsStory
