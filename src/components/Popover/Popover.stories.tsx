@@ -6,7 +6,7 @@ import { ControlledStory } from './stories/Controlled.story'
 import { UncontrolledStory } from './stories/Uncontrolled.story'
 import { ArrowStory } from './stories/Arrow.story'
 
-import { Text, Section, Button, ColorPicker } from '../../index'
+import { Text, Section, Button } from '../../index'
 
 import { Popover } from './Popover'
 
@@ -147,7 +147,6 @@ export const Demo: Story = {
             <Text>
               {/* @ts-ignore-next-line */}
               {args.children}
-              <ColorPicker />
             </Text>
           </Section>
         </Popover>
