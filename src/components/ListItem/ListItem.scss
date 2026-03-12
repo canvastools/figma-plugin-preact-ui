@@ -17,7 +17,6 @@
     justify-content: flex-start;
     align-items: stretch;
     z-index: 1;
-    overflow: hidden;
 
     outline-width: 1px;
     outline-color: transparent;
@@ -50,6 +49,22 @@
     width: 100%;
     z-index: 1;
     padding-left: calc((var(--li-pl) + var(--pui-spacing-200)) * var(--level));
+  }
+
+  &__end-dropzone {
+    position: absolute;
+    bottom: -1px;
+    height: 8px;
+    pointer-events: auto;
+    z-index: calc(var(--level) + 1);
+    left: var(--li-pr);
+    right: 0;
+    width: auto;
+
+    &-active {
+      box-shadow: inset 0 -2px 0 0 var(--pui-color-neutral-border-drop-position);
+      pointer-events: auto;
+    }
   }
 
   &__drag-handle {
@@ -187,8 +202,8 @@
     position: relative;
   }
 
-  &__content > &__content-inner > &__children::before,
-  &__content > &__content-inner > &__children::after {
+  &__content::before,
+  &__content::after {
     content: '';
     position: absolute;
     right: 0;
@@ -200,38 +215,40 @@
     display: block; //
   }
 
-  &_drag-above > &__content > &__content-inner > &__children::before,
-  &_drag-inside > &__content > &__content-inner > &__children::after,
-  &_drag-below > &__content > &__content-inner > &__children::after {
+  &_drag-above > &__content::before,
+  &_drag-inside > &__content::after,
+  &_drag-below > &__content::after {
     display: block;
   }
 
   // Drop above
-  & > &__content > &__content-inner > &__children::before,
-  &_drag-above > &__content > &__content-inner > &__children::before {
+
+  & > &__content::before,
+  &_drag-above > &__content::before {
     top: -1px;
   }
 
-  &_drag-above > &__content > &__content-inner > &__children::before {
+  &_drag-above > &__content::before {
     left: var(--indent-same-level);
   }
+
   // Drop inside
 
-  &_drag-inside > &__content > &__content-inner > &__children::after {
+  &_drag-inside > &__content::after {
     bottom: -1px;
   }
 
-  &_drag-inside > &__content > &__content-inner > &__children::after {
+  &_drag-inside > &__content::after {
     left: var(--indent-next-level);
   }
 
   // Drop below
 
-  &_drag-below > &__content > &__content-inner > &__children::after {
+  &_drag-below > &__content::after {
     bottom: -1px;
   }
 
-  &_drag-below > &__content > &__content-inner > &__children::after {
+  &_drag-below > &__content::after {
     left: var(--indent-same-level);
   }
 
@@ -244,43 +261,43 @@
 
   /* Drop parent inside its own tree */
 
-  &_dragging:is(&_selection-origin):is(&_drop-parent) > &__content,
-  &_dragging:is(&_selection-origin) &:is(&_drop-parent) > &__content,
-  &_dragging:is(&_selection-origin) &:is(&_drag-inside) > &__content {
+  &_draggable:is(&_selection-origin):is(&_drop-parent) > &__content,
+  &_draggable:is(&_selection-origin) &:is(&_drop-parent) > &__content,
+  &_draggable:is(&_selection-origin) &:is(&_drag-inside) > &__content {
     outline-color: var(--pui-color-neutral-border-danger-error);
   }
 
-  &_dragging:is(&_selection-origin) & > &__content > &__content-inner > &__children::before,
-  &_dragging:is(&_selection-origin) & > &__content > &__content-inner > &__children::after {
+  &_draggable:is(&_selection-origin) & > &__content::before,
+  &_draggable:is(&_selection-origin) & > &__content::after {
     background-color: var(--pui-color-neutral-border-danger-error);
   }
 
-  &_dragging:is(&_selection-origin) &__items > .ListContainer > .ListContainer__end-dropzone-active {
+  &_draggable:is(&_selection-origin) &__items &__end-dropzone-active {
     box-shadow: inset 0 -2px 0 0 var(--pui-color-neutral-border-danger-error) !important;
   }
 
   // With descendants
 
-  &_dragging:is(&_selection-scope-descendants):is(&_selection-origin):is(&_drop-parent) > &__content,
-  &_dragging:is(&_selection-scope-descendants):is(&_selection-origin) &:is(&_drop-parent) > &__content,
-  &_dragging:is(&_selection-scope-descendants):is(&_selection-origin) &:is(&_drag-inside) > &__content {
+  &_draggable:is(&_selection-scope-descendants):is(&_selection-origin):is(&_drop-parent) > &__content,
+  &_draggable:is(&_selection-scope-descendants):is(&_selection-origin) &:is(&_drop-parent) > &__content,
+  &_draggable:is(&_selection-scope-descendants):is(&_selection-origin) &:is(&_drag-inside) > &__content {
     outline-color: transparent;
   }
 
-  &_dragging:is(&_selection-scope-descendants):is(&_drag-self):is(&_drag-below) > &__content > &__content-inner > &__children::after,
-  &_dragging:is(&_selection-scope-descendants):is(&_selection-origin) & > &__content > &__content-inner > &__children::before,
-  &_dragging:is(&_selection-scope-descendants):is(&_selection-origin) & > &__content > &__content-inner &__children::after {
+  &_draggable:is(&_selection-scope-descendants):is(&_drag-self):is(&_drag-below) > &__content::after,
+  &_draggable:is(&_selection-scope-descendants):is(&_selection-origin) & > &__content::before,
+  &_draggable:is(&_selection-scope-descendants):is(&_selection-origin) & > &__content::after {
     display: none;
   }
 
-  &_dragging:is(&_selection-scope-descendants):is(&_selection-origin) &__items > .ListContainer > .ListContainer__end-dropzone-active {
+  &_draggable:is(&_selection-scope-descendants):is(&_selection-origin) &__items &__end-dropzone-active {
     box-shadow: inset 0 -2px 0 0 transparent !important;
   }
 
   /* Drop zone */
 
-  &_draggable > &__items > .ListContainer > .ListContainer__end-dropzone {
-    left: var(--indent-next-level) !important;
+  &_draggable > &__end-dropzone {
+    left: var(--indent-same-level) !important;
   }
 
   /* Collapsable */
@@ -305,20 +322,20 @@
     padding-left: calc(var(--li-pl) + var(--indent-extra-collapsible));
   }
 
-  &_drag-above:is(&_variant-default):is(&_collapsable):is(&_draggable) > &__content > &__content-inner > &__children::before {
+  &_drag-above:is(&_variant-default):is(&_collapsable):is(&_draggable) > &__content::before {
     left: calc(var(--indent-same-level) + var(--indent-extra-collapsible));
   }
 
-  &_drag-inside:is(&_variant-default):is(&_collapsable):is(&_draggable) > &__content > &__content-inner > &__children::after {
+  &_drag-inside:is(&_variant-default):is(&_collapsable):is(&_draggable) > &__content::after {
     left: calc(var(--indent-next-level) + var(--indent-extra-collapsible));
   }
 
-  &_drag-below:is(&_variant-default):is(&_collapsable):is(&_draggable) > &__content > &__content-inner > &__children::after {
+  &_drag-below:is(&_variant-default):is(&_collapsable):is(&_draggable) > &__content::after {
     left: calc(var(--indent-same-level) + var(--indent-extra-collapsible));
   }
 
-  &_variant-default:is(&_collapsable):is(&_draggable) > &__items > .ListContainer > .ListContainer__end-dropzone {
-    left: calc(var(--indent-next-level) + var(--indent-extra-collapsible)) !important;
+  &_variant-default:is(&_collapsable):is(&_draggable) > &__items &__end-dropzone {
+    left: calc(var(--indent-same-level) + var(--indent-extra-collapsible)) !important;
   }
 
   /* Selection overrides */

@@ -320,14 +320,15 @@ const renderItems = (
               nestingLevel={level}
               items={item.items ? renderItems(item.items, level + 1) : undefined}
             >
-              <Stack direction="row" y="center">
+              <Stack direction="row" y="center" fullWidth>
                 <Stack direction="row" y="center">
                   {/* @ts-expect-error - Storybook types hack */}
                   {args.variant === 'layer' && <Spacing direction="row" size={200} />}
                   <Text wrap={false}>{item.id}</Text>
                 </Stack>
-                <Text intentModifier="secondary" wrap={false}>
-                   (Level {level})
+                <Text intentModifier="secondary" wrap={false} truncate fullWidth>
+                   (Level {level}) on the parent watches for child list changes (reorders, additions, removals) and recalculates
+                  which item is last.
                 </Text>
               </Stack>
             </ListItem>
