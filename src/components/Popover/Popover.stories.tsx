@@ -1,45 +1,44 @@
-import { Meta, StoryObj } from "@storybook/preact"
+import { Meta, StoryObj } from '@storybook/preact'
 
-import { useRef } from "preact/hooks"
+import { useRef } from 'preact/hooks'
 
-import { ControlledStory } from "./stories/Controlled.story"
-import { UncontrolledStory } from "./stories/Uncontrolled.story"
-import { ArrowStory } from "./stories/Arrow.story"
+import { ControlledStory } from './stories/Controlled.story'
+import { UncontrolledStory } from './stories/Uncontrolled.story'
+import { ArrowStory } from './stories/Arrow.story'
 
-import { Text, Section, Button } from "../../index"
+import { Text, Section, Button, ColorPicker } from '../../index'
 
-import { Popover } from "./Popover"
+import { Popover } from './Popover'
 
 const meta: Meta<typeof Popover> = {
-  title: "Components/Popover",
+  title: 'Components/Popover',
   component: Popover,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
-        component:
-          "A facade component that provides a simplified API for popovers.",
+        component: 'A facade component that provides a simplified API for popovers.',
       },
     },
   },
   argTypes: {
     id: {
-      control: { type: "text" },
+      control: { type: 'text' },
       table: {
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
     className: {
-      control: { type: "text" },
+      control: { type: 'text' },
     },
     children: {
-      control: { type: "text" },
-      description: "<strong>*</strong>",
+      control: { type: 'text' },
+      description: '<strong>*</strong>',
       table: {
         type: {
-          summary: "preact.ComponentChildren",
+          summary: 'preact.ComponentChildren',
         },
       },
     },
@@ -47,7 +46,7 @@ const meta: Meta<typeof Popover> = {
       control: { disable: true },
       table: {
         type: {
-          summary: "Pick<PopoverHeaderProps>",
+          summary: 'Pick<PopoverHeaderProps>',
           detail: `
 {
   children: preact.ComponentChildren
@@ -56,11 +55,11 @@ const meta: Meta<typeof Popover> = {
         },
       },
     },
-    "...PopoverContextProps": {
+    '...PopoverContextProps': {
       control: { disable: true },
       table: {
         type: {
-          summary: "Pick<PopoverContextProps>",
+          summary: 'Pick<PopoverContextProps>',
           detail: `
 {
   triggerRef: RefObject | null
@@ -70,11 +69,11 @@ const meta: Meta<typeof Popover> = {
         },
       },
     },
-    "...PopoverContainerProps": {
+    '...PopoverContainerProps': {
       control: { disable: true },
       table: {
         type: {
-          summary: "Pick<PopoverContainerProps>",
+          summary: 'Pick<PopoverContainerProps>',
           detail: `
 {
   width: number
@@ -85,11 +84,11 @@ const meta: Meta<typeof Popover> = {
         },
       },
     },
-    "...OverlayPositionerProps": {
+    '...OverlayPositionerProps': {
       control: { disable: true },
       table: {
         type: {
-          summary: "Pick<OverlayPositionerProps>",
+          summary: 'Pick<OverlayPositionerProps>',
           detail: `
 {
   open: boolean
@@ -114,22 +113,22 @@ export default meta
 type Story = StoryObj<typeof Popover>
 
 export const Demo: Story = {
-  tags: ["!autodocs"],
+  tags: ['!autodocs'],
   args: {
     id: undefined,
-    className: "",
-    children: "Content",
+    className: '',
+    children: 'Content',
     popoverHeaderProps: {
-      children: "Header",
+      children: 'Header',
     },
   },
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <Popover {...args}>{children}</Popover>
 `,
@@ -148,6 +147,7 @@ export const Demo: Story = {
             <Text>
               {/* @ts-ignore-next-line */}
               {args.children}
+              <ColorPicker />
             </Text>
           </Section>
         </Popover>

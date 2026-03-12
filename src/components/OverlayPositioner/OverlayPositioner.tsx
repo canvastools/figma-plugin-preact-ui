@@ -495,13 +495,20 @@ const OverlayPositionerComponent = ({
 
       const insideOverlay = overlay.contains(target)
       const insideAnchor = anchorEl.contains(target as Node)
-      const insideAnyOverlay = (target as HTMLElement | null)?.closest
-        ? Boolean((target as HTMLElement).closest(".OverlayPositioner"))
-        : false
-      if (!insideOverlay && !insideAnchor && !insideAnyOverlay) {
-        if (isControlled) onClose?.()
-        else setInternalOpen(false)
-      }
+
+      if (insideOverlay || insideAnchor) return
+
+      // If the click landed inside another OverlayPositioner, only stay open
+      // when that overlay is a descendant (its anchor lives inside our
+      // container).  Clicks inside an ancestor overlay that contains our
+      // anchor should still close us.
+      const clickedOverlay = (target as HTMLElement)?.closest
+        ? (target as HTMLElement).closest(".OverlayPositioner")
+        : null
+      if (clickedOverlay && !clickedOverlay.contains(anchorEl)) return
+
+      if (isControlled) onClose?.()
+      else setInternalOpen(false)
     }
 
     window.addEventListener("mousedown", handler, true)

@@ -1,10 +1,10 @@
-import { Fragment, cloneElement } from "preact"
-import { useEffect, useMemo, useRef, useState } from "preact/hooks"
+import { Fragment, cloneElement } from 'preact'
+import { useEffect, useMemo, useRef, useState } from 'preact/hooks'
 
-import { bem, typedForwardRef } from "../../utils"
+import { bem, typedForwardRef } from '../../utils'
 
-import type { SelectProps, SelectOptionData } from "./Select.types"
-import "./Select.scss"
+import type { SelectProps, SelectOptionData } from './Select.types'
+import './Select.scss'
 
 import {
   MenuContext,
@@ -16,7 +16,7 @@ import {
   Icon,
   chevronDown as chevronDownGlyph,
   Tooltip,
-} from "../../index"
+} from '../../index'
 
 /* --- */
 
@@ -39,39 +39,29 @@ const SelectComponent = (
     onValueChange,
     ...rest
   }: SelectProps,
-  ref: preact.Ref<HTMLDivElement>
+  ref: preact.Ref<HTMLDivElement>,
 ) => {
   const [isFocused, setIsFocused] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
 
-  const [internalValue, setInternalValue] = useState<string | undefined>(
-    value !== undefined ? value : defaultValue
-  )
+  const [internalValue, setInternalValue] = useState<string | undefined>(value !== undefined ? value : defaultValue)
 
   const triggerRef = useRef<HTMLDivElement>(null)
 
-  const hasContent = Boolean((value ?? internalValue ?? "").length)
+  const hasContent = Boolean((value ?? internalValue ?? '').length)
 
   // Normalize options into groups: either a single group (flat list) or multiple groups
   const groups = useMemo(() => {
     const opts = options ?? []
-    if (
-      Array.isArray(opts) &&
-      opts.length > 0 &&
-      Array.isArray((opts as unknown[])[0])
-    ) {
+    if (Array.isArray(opts) && opts.length > 0 && Array.isArray((opts as unknown[])[0])) {
       return opts as SelectOptionData[][]
     }
     return [opts as SelectOptionData[]]
   }, [options])
 
   const flatOptions = useMemo(
-    () =>
-      groups.reduce<SelectOptionData[]>(
-        (acc, group) => acc.concat(group),
-        [] as SelectOptionData[]
-      ),
-    [groups]
+    () => groups.reduce<SelectOptionData[]>((acc, group) => acc.concat(group), [] as SelectOptionData[]),
+    [groups],
   )
 
   useEffect(() => {
@@ -92,15 +82,13 @@ const SelectComponent = (
     onBlur?.()
   }
 
-  const handleKeyDown = (
-    event: preact.JSX.TargetedKeyboardEvent<HTMLDivElement>
-  ) => {
-    if (event.key === "Escape" || event.key === "Esc") {
+  const handleKeyDown = (event: preact.JSX.TargetedKeyboardEvent<HTMLDivElement>) => {
+    if (event.key === 'Escape' || event.key === 'Esc') {
       event.currentTarget.blur()
     }
   }
 
-  const _className = bem("Select", undefined, {
+  const _className = bem('Select', undefined, {
     filled: hasContent,
     grouped: Boolean(grouped),
     groupedPosition: grouped ?? undefined,
@@ -116,7 +104,7 @@ const SelectComponent = (
 
     if (!ref) return
 
-    if (typeof ref === "function") {
+    if (typeof ref === 'function') {
       ref(el)
     } else {
       ;(ref as preact.RefObject<HTMLDivElement | null>).current = el
@@ -127,7 +115,7 @@ const SelectComponent = (
     <Fragment>
       <div
         id={id}
-        className={[_className, className].join(" ").trim()}
+        className={[_className, className].join(' ').trim()}
         data-pui-interactive="true"
         ref={attachTriggerRef}
         tabIndex={disabled ? -1 : 0}
@@ -138,19 +126,12 @@ const SelectComponent = (
       >
         {prefix && <div className="Select__prefix">{prefix}</div>}
 
-        <div className={"Select__content"}>
-          {hasContent
-            ? flatOptions.find((opt) => opt.value === internalValue)?.label
-            : placeholder}
+        <div className={'Select__content'}>
+          {hasContent ? flatOptions.find((opt) => opt.value === internalValue)?.label : placeholder}
         </div>
 
         <div className="Select__suffix">
-          <Icon
-            glyph={chevronDownGlyph}
-            size={16}
-            intent="neutral"
-            disabled={disabled}
-          />
+          <Icon glyph={chevronDownGlyph} size={16} intent="neutral" disabled={disabled} />
         </div>
       </div>
 
@@ -176,28 +157,19 @@ const SelectComponent = (
         />
       </MenuContext>
 
-      {tooltip && (
-        <Tooltip anchorRef={triggerRef as preact.RefObject<HTMLElement>}>
-          {tooltip}
-        </Tooltip>
-      )}
+      {tooltip && <Tooltip anchorRef={triggerRef as preact.RefObject<HTMLElement>}>{tooltip}</Tooltip>}
     </Fragment>
   )
 }
 
 type SelectMenuProps = {
-  menuContainerProps: SelectProps["menuContainerProps"]
+  menuContainerProps: SelectProps['menuContainerProps']
   groups: SelectOptionData[][]
   selectedValue?: string
   onChange?: (args: { event: MouseEvent; value: string }) => void
 }
 
-const SelectMenu = ({
-  menuContainerProps,
-  groups,
-  selectedValue,
-  onChange,
-}: SelectMenuProps) => {
+const SelectMenu = ({ menuContainerProps, groups, selectedValue, onChange }: SelectMenuProps) => {
   const context = useMenuContext()
   if (!context) return null
 
@@ -209,6 +181,7 @@ const SelectMenu = ({
       placement="over"
       offsetEdge={16}
       open={context.open}
+      closeOnClickOutside={true}
       onClose={() => context.setOpen(false)}
     >
       <MenuContainer {...menuContainerProps}>
@@ -218,7 +191,7 @@ const SelectMenu = ({
             {group.map((opt) => {
               flatCursor += 1
 
-              if (opt.children && typeof opt.children !== "string") {
+              if (opt.children && typeof opt.children !== 'string') {
                 return cloneElement(opt.children as preact.VNode, {
                   key: `${groupIndex}-${opt.value}`,
                   id: opt.value,
@@ -227,8 +200,7 @@ const SelectMenu = ({
                   disabled: opt.disabled,
                   focused: context.focusedItemId === opt.value,
                   selected: opt.value === selectedValue,
-                  onChange: ({ event }) =>
-                    onChange?.({ event, value: opt.value }),
+                  onChange: ({ event }) => onChange?.({ event, value: opt.value }),
                 })
               }
 
@@ -239,9 +211,7 @@ const SelectMenu = ({
                   id={opt.value}
                   focused={context.focusedItemId === opt.value}
                   selected={opt.value === selectedValue}
-                  onSelectedChange={({ event }) =>
-                    onChange?.({ event, value: opt.value })
-                  }
+                  onSelectedChange={({ event }) => onChange?.({ event, value: opt.value })}
                 >
                   {opt.label}
                 </MenuItemOption>
@@ -254,6 +224,4 @@ const SelectMenu = ({
   )
 }
 
-export const Select = typedForwardRef<SelectProps, HTMLDivElement>(
-  SelectComponent
-)
+export const Select = typedForwardRef<SelectProps, HTMLDivElement>(SelectComponent)
