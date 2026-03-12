@@ -2,6 +2,8 @@ import { Meta, StoryObj } from '@storybook/preact'
 
 import { Spinner } from './Spinner'
 
+import { ButtonIcon } from '../../index'
+
 const meta: Meta<typeof Spinner> = {
   title: 'Components/Spinner',
   component: Spinner,
@@ -18,6 +20,11 @@ const meta: Meta<typeof Spinner> = {
     className: {
       control: { type: 'text' },
     },
+    size: {
+      control: { type: 'radio' },
+      options: ['small', 'medium'],
+      defaultValue: 'medium',
+    },
   },
 }
 
@@ -29,6 +36,7 @@ export const Demo: Story = {
   args: {
     id: undefined,
     className: '',
+    size: 'medium',
   },
   parameters: {
     viewport: {

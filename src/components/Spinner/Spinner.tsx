@@ -5,8 +5,8 @@ import './Spinner.scss'
 
 /* --- */
 
-const SpinnerComponent = ({ id, className, ...rest }: SpinnerProps, ref: preact.Ref<HTMLDivElement>) => {
-  const _className = bem('Spinner', undefined, undefined)
+const SpinnerComponent = ({ id, className, size = 'medium', ...rest }: SpinnerProps, ref: preact.Ref<HTMLDivElement>) => {
+  const _className = bem('Spinner', undefined, { size })
 
   return (
     <div id={id} className={[_className, className].join(' ').trim()} ref={ref} {...rest}>
