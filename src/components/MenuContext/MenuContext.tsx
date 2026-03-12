@@ -309,8 +309,8 @@ const MenuContext = ({
         event.stopPropagation()
         const direction = shiftKey ? "prev" : "next"
         moveFocus(direction)
-        // Tab-driven navigation is also considered keyboard interaction mode
         setKeyboardInteraction(true)
+        setHoverFrozen(true)
         return
       }
 
@@ -357,8 +357,8 @@ const MenuContext = ({
                 nextItem.ref.current.focus({ preventScroll: true })
                 setFocusedItemState(nextItem.id)
                 setLastInteractionItemId(nextItem.id)
-                // Keyboard navigation has now taken over from hover.
                 setKeyboardInteraction(true)
+                setHoverFrozen(true)
               }
               return
             }
@@ -383,6 +383,7 @@ const MenuContext = ({
                 setFocusedItemState(nextItem.id)
                 setLastInteractionItemId(nextItem.id)
                 setKeyboardInteraction(true)
+                setHoverFrozen(true)
               }
               return
             }
@@ -392,6 +393,7 @@ const MenuContext = ({
           //    the first enabled item.
           focusItem(undefined)
           setKeyboardInteraction(true)
+          setHoverFrozen(true)
           return
         }
 
@@ -411,6 +413,7 @@ const MenuContext = ({
           setFocusedItemState(nextItem.id)
           setLastInteractionItemId(nextItem.id)
           setKeyboardInteraction(true)
+          setHoverFrozen(true)
         }
       }
     }
