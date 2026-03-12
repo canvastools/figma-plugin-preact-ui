@@ -1,6 +1,6 @@
-import { StoryObj } from "@storybook/preact"
+import { StoryObj } from '@storybook/preact'
 
-import { Avatar } from "../Avatar"
+import { Avatar } from '../Avatar'
 
 type Story = StoryObj<typeof Avatar>
 
@@ -8,11 +8,11 @@ export const SrcStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <Avatar src="https://thispersondoesnotexist.com/">{children}</Avatar>
 `,

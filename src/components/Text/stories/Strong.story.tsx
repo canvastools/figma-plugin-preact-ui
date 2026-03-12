@@ -1,6 +1,6 @@
-import { StoryObj } from "@storybook/preact"
+import { StoryObj } from '@storybook/preact'
 
-import { Text } from "../Text"
+import { Text } from '../Text'
 
 type Story = StoryObj<typeof Text>
 
@@ -8,11 +8,11 @@ export const StrongStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <Text strong>{children}</Text>
 `,

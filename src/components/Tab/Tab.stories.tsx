@@ -1,18 +1,18 @@
-import type { Meta, StoryObj } from "@storybook/preact"
-import { fn } from "@storybook/test"
+import type { Meta, StoryObj } from '@storybook/preact'
+import { fn } from '@storybook/test'
 
-import { VariantStory } from "./stories/Variant.story"
-import { PrefixStory } from "./stories/Prefix.story"
-import { SuffixStory } from "./stories/Suffix.story"
+import { VariantStory } from './stories/Variant.story'
+import { PrefixStory } from './stories/Prefix.story'
+import { SuffixStory } from './stories/Suffix.story'
 
-import { TabContext, TabList, Section } from "../../index"
+import { TabContext, TabList, Section } from '../../index'
 
-import { Tab } from "./Tab"
+import { Tab } from './Tab'
 
 const meta: Meta<typeof Tab> = {
-  title: "Components/Tab",
+  title: 'Components/Tab',
   component: Tab,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
@@ -24,52 +24,52 @@ const meta: Meta<typeof Tab> = {
   argTypes: {
     id: {
       control: { disable: true },
-      description: "<strong>*</strong>",
+      description: '<strong>*</strong>',
       table: {
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
     className: {
-      control: { type: "text" },
+      control: { type: 'text' },
     },
     variant: {
-      control: { type: "radio" },
-      options: ["default", "single"],
-      defaultValue: { summary: "default" },
+      control: { type: 'radio' },
+      options: ['default', 'single'],
+      defaultValue: { summary: 'default' },
     },
     prefix: {
       control: { disable: true },
-      description: "Element displayed before children.",
+      description: 'Element displayed before children.',
       table: {
         type: {
-          summary: "preact.ComponentChildren",
+          summary: 'preact.ComponentChildren',
         },
       },
     },
     suffix: {
       control: { disable: true },
-      description: "Element displayed after children.",
+      description: 'Element displayed after children.',
       table: {
         type: {
-          summary: "preact.ComponentChildren",
+          summary: 'preact.ComponentChildren',
         },
       },
     },
     children: {
       control: { disable: true },
-      description: "<strong>*</strong>",
+      description: '<strong>*</strong>',
       table: {
         type: {
-          summary: "preact.ComponentChildren",
+          summary: 'preact.ComponentChildren',
         },
       },
     },
     onClick: {
       table: {
         type: {
-          summary: "(args) => void",
+          summary: '(args) => void',
           detail: `
 args: {
   event: MouseEvent
@@ -87,19 +87,19 @@ export default meta
 type Story = StoryObj<typeof Tab>
 
 export const Demo: Story = {
-  tags: ["!autodocs"],
+  tags: ['!autodocs'],
   args: {
-    className: "",
-    variant: "default",
+    className: '',
+    variant: 'default',
     onClick: fn(),
   },
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <TabContext defaultActiveId="tab-1">
 
@@ -120,7 +120,7 @@ export const Demo: Story = {
   },
   render: (args) => {
     // @ts-ignore-next-line
-    if (args.variant === "default") {
+    if (args.variant === 'default') {
       return (
         <div className="sb-column sb-width-full">
           <TabContext defaultActiveId="tab-1">

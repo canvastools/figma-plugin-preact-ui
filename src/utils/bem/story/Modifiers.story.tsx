@@ -1,19 +1,19 @@
-import { StoryObj } from "@storybook/preact"
+import { StoryObj } from '@storybook/preact'
 
-import { Code, Stack, Text } from "../../../index"
+import { Code, Stack, Text } from '../../../index'
 
-import { bem } from "../bem"
+import { bem } from '../bem'
 
 type Story = StoryObj<typeof bem>
 
 export const ModifiersStory: Story = {
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 import { bem } from "figma-plugin-preact-ui"
 

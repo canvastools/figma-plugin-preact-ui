@@ -8,23 +8,19 @@ type Modifiers = Record<string, string | boolean | undefined>
  * @param mods - an object with modifiers (string or boolean values)
  * @returns a space-separated string of class names
  */
-const bem = (
-  block: string,
-  element?: string,
-  mods: Modifiers = {},
-): string => {
+const bem = (block: string, element?: string, mods: Modifiers = {}): string => {
   const base = element ? `${block}__${element}` : block
   const classList = [base]
 
   for (const [key, value] of Object.entries(mods)) {
-    if (typeof value === "string") {
+    if (typeof value === 'string') {
       classList.push(`${base}_${key}-${value}`)
     } else if (value === true) {
       classList.push(`${base}_${key}`)
     }
   }
 
-  return classList.join(" ")
+  return classList.join(' ')
 }
 
 export { bem }

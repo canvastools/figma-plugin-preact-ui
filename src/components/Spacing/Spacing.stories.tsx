@@ -1,39 +1,39 @@
-import { Meta, StoryObj } from "@storybook/preact"
+import { Meta, StoryObj } from '@storybook/preact'
 
-import { spacing } from "../../themes"
+import { spacing } from '../../themes'
 
-import { Spacing } from "./Spacing"
+import { Spacing } from './Spacing'
 
-import { Avatar, Stack } from "../../index"
+import { Avatar, Stack } from '../../index'
 
 const meta: Meta<typeof Spacing> = {
-  title: "Layout/Spacing",
+  title: 'Layout/Spacing',
   component: Spacing,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     id: {
-      control: { type: "text" },
+      control: { type: 'text' },
       table: {
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
     className: {
-      control: { type: "text" },
+      control: { type: 'text' },
     },
     direction: {
       control: {
-        type: "radio",
+        type: 'radio',
       },
-      options: ["row", "column"],
-      defaultValue: { summary: "column" },
+      options: ['row', 'column'],
+      defaultValue: { summary: 'column' },
     },
     size: {
       control: {
-        type: "radio",
+        type: 'radio',
       },
-      description: "<strong>*</strong>",
+      description: '<strong>*</strong>',
       options: [undefined, ...Object.keys(spacing.variables).map(Number)],
     },
   },
@@ -46,17 +46,17 @@ type Story = StoryObj<typeof Spacing>
 export const Demo: Story = {
   args: {
     id: undefined,
-    className: "sb-container",
-    direction: "column",
+    className: 'sb-container',
+    direction: 'column',
     size: 400,
   },
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <Spacing
   size={400}

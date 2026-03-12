@@ -1,15 +1,15 @@
-import { Fragment } from "preact"
+import { Fragment } from 'preact'
 
-import { bem, typedForwardRef } from "../../utils"
+import { bem, typedForwardRef } from '../../utils'
 
-import { useEffect, useRef, useState } from "preact/hooks"
+import { useEffect, useRef, useState } from 'preact/hooks'
 
-import { TimePicker as ReactTimePicker } from "react-time-picker"
+import { TimePicker as ReactTimePicker } from 'react-time-picker'
 
-import { Text, Tooltip } from "../../index"
+import { Text, Tooltip } from '../../index'
 
-import type { TimePickerDate, TimePickerProps } from "./TimePicker.types"
-import "./TimePicker.scss"
+import type { TimePickerDate, TimePickerProps } from './TimePicker.types'
+import './TimePicker.scss'
 
 /* --- */
 
@@ -17,17 +17,17 @@ const TimePickerComponent = (
   {
     id,
     className,
-    locale = "en-US",
-    variant = "default",
+    locale = 'en-US',
+    variant = 'default',
     label,
     maxWidth,
     defaultDate = undefined,
     date,
-    format = "HH:mm",
-    hourPlaceholder = "Hour",
-    minutePlaceholder = "Minute",
-    maxTime = "23:59",
-    minTime = "00:00",
+    format = 'HH:mm',
+    hourPlaceholder = 'Hour',
+    minutePlaceholder = 'Minute',
+    maxTime = '23:59',
+    minTime = '00:00',
     disabled = false,
     autoFocus = false,
     tooltip,
@@ -38,32 +38,29 @@ const TimePickerComponent = (
     onKeyDown,
     ...rest
   }: TimePickerProps,
-  ref: preact.Ref<HTMLDivElement>
+  ref: preact.Ref<HTMLDivElement>,
 ) => {
   const isControlled = date !== undefined
 
   const normalizeTimeValue = (value: TimePickerDate | undefined) => {
-    if (value === null || value === undefined || value === "") return null
-    if (typeof value === "number") return new Date(value)
+    if (value === null || value === undefined || value === '') return null
+    if (typeof value === 'number') return new Date(value)
     return value
   }
 
   const getTimeString = (value: TimePickerDate | undefined) => {
     const normalized = normalizeTimeValue(value)
-    if (!normalized) return ""
-    if (typeof normalized === "string") return normalized
-    const hours = normalized.getHours().toString().padStart(2, "0")
-    const minutes = normalized.getMinutes().toString().padStart(2, "0")
+    if (!normalized) return ''
+    if (typeof normalized === 'string') return normalized
+    const hours = normalized.getHours().toString().padStart(2, '0')
+    const minutes = normalized.getMinutes().toString().padStart(2, '0')
     return `${hours}:${minutes}`
   }
 
-  const toUpdatedDate = (
-    baseDate: Date,
-    timeValue: TimePickerDate | undefined
-  ) => {
+  const toUpdatedDate = (baseDate: Date, timeValue: TimePickerDate | undefined) => {
     const timeString = getTimeString(timeValue)
     if (!timeString) return null
-    const [hoursRaw, minutesRaw, secondsRaw] = timeString.split(":")
+    const [hoursRaw, minutesRaw, secondsRaw] = timeString.split(':')
     const hours = Number(hoursRaw ?? 0)
     const minutes = Number(minutesRaw ?? 0)
     const seconds = Number(secondsRaw ?? 0)
@@ -79,14 +76,14 @@ const TimePickerComponent = (
   const initialValue = isControlled ? date : internalDate
 
   const hasValue = (value: TimePickerDate | undefined) => {
-    return value !== null && value !== undefined && value !== ""
+    return value !== null && value !== undefined && value !== ''
   }
 
   const [hasContent, setHasContent] = useState<boolean>(() => {
     return hasValue(initialValue)
   })
 
-  const _className = bem("TimePicker", undefined, {
+  const _className = bem('TimePicker', undefined, {
     filled: hasContent,
     disabled: Boolean(disabled),
     variant,
@@ -97,12 +94,9 @@ const TimePickerComponent = (
 
   const wrapperRef = useRef<HTMLDivElement | null>(null)
 
-  const setRef = <T,>(
-    targetRef: preact.Ref<T> | undefined,
-    value: T | null
-  ) => {
+  const setRef = <T,>(targetRef: preact.Ref<T> | undefined, value: T | null) => {
     if (!targetRef) return
-    if (typeof targetRef === "function") {
+    if (typeof targetRef === 'function') {
       targetRef(value)
       return
     }
@@ -118,13 +112,9 @@ const TimePickerComponent = (
     const currentValue = isControlled ? date : internalDate
     const normalizedValue = normalizeTimeValue(nextValue)
     const timeString = getTimeString(normalizedValue)
-    const shouldUseDate =
-      normalizeTimeValue(currentValue) instanceof Date &&
-      normalizedValue !== null
+    const shouldUseDate = normalizeTimeValue(currentValue) instanceof Date && normalizedValue !== null
     const committedValue =
-      shouldUseDate && currentValue instanceof Date
-        ? toUpdatedDate(currentValue, normalizedValue)
-        : normalizedValue
+      shouldUseDate && currentValue instanceof Date ? toUpdatedDate(currentValue, normalizedValue) : normalizedValue
     if (!isControlled) {
       setInternalDate(committedValue)
     }
@@ -143,9 +133,7 @@ const TimePickerComponent = (
   useEffect(() => {
     if (!autoFocus || disabled) return
     const timeout = setTimeout(() => {
-      const hourInput = wrapperRef.current?.querySelector<HTMLInputElement>(
-        ".react-time-picker__inputGroup__hour"
-      )
+      const hourInput = wrapperRef.current?.querySelector<HTMLInputElement>('.react-time-picker__inputGroup__hour')
       hourInput?.focus()
     }, 0)
     return () => clearTimeout(timeout)
@@ -153,12 +141,10 @@ const TimePickerComponent = (
 
   const handleInputGroupMouseDown = (event: MouseEvent) => {
     const target = event.target as HTMLElement | null
-    const group = target?.closest(".react-time-picker__inputGroup")
+    const group = target?.closest('.react-time-picker__inputGroup')
     if (!group) return
-    if (target?.closest("input, select, textarea, button")) return
-    const hourInput = group.querySelector<HTMLInputElement>(
-      ".react-time-picker__inputGroup__hour"
-    )
+    if (target?.closest('input, select, textarea, button')) return
+    const hourInput = group.querySelector<HTMLInputElement>('.react-time-picker__inputGroup__hour')
     if (!hourInput) return
     event.preventDefault()
     hourInput.focus()
@@ -182,25 +168,19 @@ const TimePickerComponent = (
 
     const target = event.target as HTMLInputElement | null
     if (!target) return
-    const isHour = target.classList.contains(
-      "react-time-picker__inputGroup__hour"
-    )
-    const isMinute = target.classList.contains(
-      "react-time-picker__inputGroup__minute"
-    )
+    const isHour = target.classList.contains('react-time-picker__inputGroup__hour')
+    const isMinute = target.classList.contains('react-time-picker__inputGroup__minute')
     if (!isHour && !isMinute) return
     if (isHour) {
-      if (target.value !== "") return
+      if (target.value !== '') return
       commitTime(null)
       return
     }
-    if (target.value !== "") return
-    const group = target.closest(".react-time-picker__inputGroup")
-    const hourInput = group?.querySelector<HTMLInputElement>(
-      ".react-time-picker__inputGroup__hour"
-    )
-    if (!hourInput || hourInput.value === "") return
-    const hourValue = hourInput.value.padStart(2, "0")
+    if (target.value !== '') return
+    const group = target.closest('.react-time-picker__inputGroup')
+    const hourInput = group?.querySelector<HTMLInputElement>('.react-time-picker__inputGroup__hour')
+    if (!hourInput || hourInput.value === '') return
+    const hourValue = hourInput.value.padStart(2, '0')
     commitTime(`${hourValue}:00`)
   }
 
@@ -217,12 +197,12 @@ const TimePickerComponent = (
 
     onKeyDown?.({ ...getCurrentValue(), event })
 
-    if (key === "Escape" || key === "Esc" || key === "Enter") {
+    if (key === 'Escape' || key === 'Esc' || key === 'Enter') {
       event.stopPropagation()
       event.preventDefault()
 
       const target = event.target as HTMLElement | null
-      if (target && typeof target.blur === "function") {
+      if (target && typeof target.blur === 'function') {
         target.blur()
       }
     }
@@ -230,16 +210,12 @@ const TimePickerComponent = (
 
   return (
     <Fragment>
-      <div
-        id={id}
-        className={[_className, className].join(" ").trim()}
-        ref={setWrapperRef}
-      >
+      <div id={id} className={[_className, className].join(' ').trim()} ref={setWrapperRef}>
         {label && (
           <Text
             className="TimePicker__label"
             intentModifier="secondary"
-            size={variant === "list" ? "medium" : "small"}
+            size={variant === 'list' ? 'medium' : 'small'}
             truncate
           >
             {label}
@@ -253,14 +229,8 @@ const TimePickerComponent = (
           onFocus={handleContainerFocus}
           onBlur={handleContainerBlur}
           style={{
-            maxWidth:
-              variant === "default"
-                ? undefined
-                : typeof maxWidth === "number"
-                ? `${maxWidth}px`
-                : maxWidth,
-            flexShrink:
-              variant === "default" ? undefined : maxWidth ? 0 : undefined,
+            maxWidth: variant === 'default' ? undefined : typeof maxWidth === 'number' ? `${maxWidth}px` : maxWidth,
+            flexShrink: variant === 'default' ? undefined : maxWidth ? 0 : undefined,
           }}
         >
           <ReactTimePicker
@@ -286,6 +256,4 @@ const TimePickerComponent = (
   )
 }
 
-export const TimePicker = typedForwardRef<TimePickerProps, HTMLDivElement>(
-  TimePickerComponent
-)
+export const TimePicker = typedForwardRef<TimePickerProps, HTMLDivElement>(TimePickerComponent)

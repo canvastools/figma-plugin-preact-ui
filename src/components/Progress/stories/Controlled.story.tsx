@@ -1,10 +1,10 @@
-import { StoryObj } from "@storybook/preact"
+import { StoryObj } from '@storybook/preact'
 
-import { useState } from "preact/hooks"
+import { useState } from 'preact/hooks'
 
-import { Button, Text, Stack } from "../../../index"
+import { Button, Text, Stack } from '../../../index'
 
-import { Progress } from "../Progress"
+import { Progress } from '../Progress'
 
 type Story = StoryObj<typeof Progress>
 
@@ -12,11 +12,11 @@ export const ControlledStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 const [value, setValue] = useState(0)
 

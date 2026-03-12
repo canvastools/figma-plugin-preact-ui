@@ -1,112 +1,96 @@
-import { Meta, StoryObj } from "@storybook/preact"
+import { Meta, StoryObj } from '@storybook/preact'
 
-import { IntentStory } from "./stories/Intent.story"
-import { VariantStory } from "./stories/Variant.story"
-import { SizeStory } from "./stories/Size.story"
-import { StrongStory } from "./stories/Strong.story"
-import { AlignStory } from "./stories/Align.story"
-import { DisabledStory } from "./stories/Disabled.story"
-import { LinksStory } from "./stories/Links.story"
-import { ColorStory } from "./stories/Color.story"
+import { IntentStory } from './stories/Intent.story'
+import { VariantStory } from './stories/Variant.story'
+import { SizeStory } from './stories/Size.story'
+import { StrongStory } from './stories/Strong.story'
+import { AlignStory } from './stories/Align.story'
+import { DisabledStory } from './stories/Disabled.story'
+import { LinksStory } from './stories/Links.story'
+import { ColorStory } from './stories/Color.story'
 
-import { Text } from "./Text"
+import { Text } from './Text'
 
 const meta: Meta<typeof Text> = {
-  title: "Components/Text",
+  title: 'Components/Text',
   component: Text,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     id: {
-      control: { type: "text" },
+      control: { type: 'text' },
       table: {
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
     className: {
-      control: { type: "text" },
+      control: { type: 'text' },
     },
     intent: {
-      control: { type: "radio" },
-      options: [
-        "neutral",
-        "neutral-inverted",
-        "neutral-inverted-fixed",
-        "brand",
-        "danger",
-        "warning",
-        "success",
-      ],
-      defaultValue: { summary: "neutral" },
+      control: { type: 'radio' },
+      options: ['neutral', 'neutral-inverted', 'neutral-inverted-fixed', 'brand', 'danger', 'warning', 'success'],
+      defaultValue: { summary: 'neutral' },
     },
     intentModifier: {
-      control: { type: "radio" },
-      options: [
-        "default",
-        "secondary",
-        "brand",
-        "danger",
-        "warning",
-        "success",
-        "component",
-      ],
-      defaultValue: { summary: "default" },
+      control: { type: 'radio' },
+      options: ['default', 'secondary', 'brand', 'danger', 'warning', 'success', 'component'],
+      defaultValue: { summary: 'default' },
     },
     variant: {
-      control: { type: "radio" },
-      options: ["heading", "body"],
-      defaultValue: { summary: "body" },
+      control: { type: 'radio' },
+      options: ['heading', 'body'],
+      defaultValue: { summary: 'body' },
     },
     size: {
-      control: { type: "radio" },
-      options: ["small", "medium", "large"],
-      defaultValue: { summary: "medium" },
+      control: { type: 'radio' },
+      options: ['small', 'medium', 'large'],
+      defaultValue: { summary: 'medium' },
     },
     strong: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       defaultValue: { summary: false },
     },
     align: {
-      control: { type: "radio" },
-      options: ["left", "center", "right"],
-      defaultValue: { summary: "left" },
+      control: { type: 'radio' },
+      options: ['left', 'center', 'right'],
+      defaultValue: { summary: 'left' },
     },
     disabled: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       defaultValue: { summary: false },
     },
     selected: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       defaultValue: { summary: false },
     },
     textColor: {
-      control: { type: "color" },
-      description: "Overrides the intent color.",
+      control: { type: 'color' },
+      description: 'Overrides the intent color.',
       table: {
         type: {
-          summary: "HEX | RGB | RGBA | var()",
+          summary: 'HEX | RGB | RGBA | var()',
         },
       },
     },
     wrap: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       defaultValue: { summary: true },
     },
     truncate: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       defaultValue: { summary: false },
     },
     fullWidth: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       defaultValue: { summary: false },
     },
     children: {
-      control: { type: "text" },
-      description: "<strong>*</strong>",
+      control: { type: 'text' },
+      description: '<strong>*</strong>',
       table: {
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
@@ -116,32 +100,31 @@ export default meta
 type Story = StoryObj<typeof Text>
 
 export const Demo: Story = {
-  tags: ["!autodocs"],
+  tags: ['!autodocs'],
   args: {
     id: undefined,
-    className: "",
-    intent: "neutral",
-    intentModifier: "default",
-    variant: "body",
-    size: "medium",
+    className: '',
+    intent: 'neutral',
+    intentModifier: 'default',
+    variant: 'body',
+    size: 'medium',
     strong: false,
-    align: "left",
+    align: 'left',
     disabled: false,
     selected: false,
     textColor: undefined,
     wrap: true,
     truncate: false,
     fullWidth: false,
-    children:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    children: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
   },
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <Text {...args}>{children}</Text>
 `,

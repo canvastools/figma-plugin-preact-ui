@@ -1,8 +1,8 @@
-import { StoryObj } from "@storybook/preact"
+import { StoryObj } from '@storybook/preact'
 
-import { MenuContainer } from "../../../index"
+import { MenuContainer } from '../../../index'
 
-import { MenuItemAction } from "../MenuItemAction"
+import { MenuItemAction } from '../MenuItemAction'
 
 type Story = StoryObj<typeof MenuItemAction>
 
@@ -10,11 +10,11 @@ export const DisabledStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <MenuItemAction disabled>{children}</MenuItemAction>
 `,

@@ -1,11 +1,11 @@
-import { StoryObj } from "@storybook/preact"
+import { StoryObj } from '@storybook/preact'
 
-import { useRef } from "preact/hooks"
+import { useRef } from 'preact/hooks'
 
-import { Button } from "../../../index"
+import { Button } from '../../../index'
 
-import { Menu } from "../Menu"
-import { MenuItemData } from "../Menu.types"
+import { Menu } from '../Menu'
+import { MenuItemData } from '../Menu.types'
 
 type Story = StoryObj<typeof Menu>
 
@@ -13,11 +13,11 @@ export const UncontrolledStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 const triggerRef = useRef(null)
 
@@ -63,25 +63,25 @@ const items = [
 
     const items: MenuItemData[] = [
       {
-        type: "action",
-        id: "action-1",
-        children: "Action 1",
+        type: 'action',
+        id: 'action-1',
+        children: 'Action 1',
         closeOnClick: true,
-        onClick: () => console.log("action-1 clicked"),
+        onClick: () => console.log('action-1 clicked'),
       },
       {
-        type: "action",
-        id: "action-2",
-        children: "Action 2",
+        type: 'action',
+        id: 'action-2',
+        children: 'Action 2',
         closeOnClick: true,
-        onClick: () => console.log("action-2 clicked"),
+        onClick: () => console.log('action-2 clicked'),
       },
       {
-        type: "action",
-        id: "action-3",
-        children: "Action 3",
+        type: 'action',
+        id: 'action-3',
+        children: 'Action 3',
         closeOnClick: true,
-        onClick: () => console.log("action-3 clicked"),
+        onClick: () => console.log('action-3 clicked'),
       },
     ]
     return (

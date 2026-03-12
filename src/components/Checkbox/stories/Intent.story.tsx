@@ -1,47 +1,44 @@
-import { StoryObj } from "@storybook/preact"
+import { StoryObj } from '@storybook/preact'
 
-import { Text } from "../../../index"
+import { Text } from '../../../index'
 
-import { Checkbox } from "../Checkbox"
-import type { CheckboxProps } from "../Checkbox.types"
+import { Checkbox } from '../Checkbox'
+import type { CheckboxProps } from '../Checkbox.types'
 
 type Story = StoryObj<typeof Checkbox>
 
 const validIntentCombinations = [
   // neutral
   {
-    intent: "neutral",
-    intentModifier: "default",
+    intent: 'neutral',
+    intentModifier: 'default',
   },
 
   // brand
   {
-    intent: "brand",
-    intentModifier: "default",
+    intent: 'brand',
+    intentModifier: 'default',
     ghost: false,
   },
 ]
 
 const intentCombinations = () => {
   return validIntentCombinations.map(({ intent, intentModifier, ghost }) => (
-    <div
-      className="sb-row sb-width-full sb-gap-16"
-      style={{ alignItems: "center" }}
-    >
+    <div className="sb-row sb-width-full sb-gap-16" style={{ alignItems: 'center' }}>
       <Text fullWidth>
         {intent}, {intentModifier}
       </Text>
 
       <Checkbox
-        intent={intent as CheckboxProps["intent"]}
-        intentModifier={intentModifier as CheckboxProps["intentModifier"]}
+        intent={intent as CheckboxProps['intent']}
+        intentModifier={intentModifier as CheckboxProps['intentModifier']}
         defaultChecked={true}
         label="Checked True"
       />
 
       <Checkbox
-        intent={intent as CheckboxProps["intent"]}
-        intentModifier={intentModifier as CheckboxProps["intentModifier"]}
+        intent={intent as CheckboxProps['intent']}
+        intentModifier={intentModifier as CheckboxProps['intentModifier']}
         defaultChecked={false}
         label="Checked False"
       />
@@ -53,11 +50,11 @@ export const IntentStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <Checkbox intent="neutral" />
 
@@ -66,9 +63,5 @@ export const IntentStory: Story = {
       },
     },
   },
-  render: () => (
-    <div className="sb-column sb-width-full sb-gap-16">
-      {intentCombinations()}
-    </div>
-  ),
+  render: () => <div className="sb-column sb-width-full sb-gap-16">{intentCombinations()}</div>,
 }

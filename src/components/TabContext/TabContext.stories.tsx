@@ -1,52 +1,51 @@
-import type { Meta, StoryObj } from "@storybook/preact"
-import { fn } from "@storybook/test"
+import type { Meta, StoryObj } from '@storybook/preact'
+import { fn } from '@storybook/test'
 
-import { ControlledStory } from "./stories/Controlled.story"
-import { UncontrolledStory } from "./stories/Uncontrolled.story"
+import { ControlledStory } from './stories/Controlled.story'
+import { UncontrolledStory } from './stories/Uncontrolled.story'
 
-import { TabPanel, TabList, Tab, Text, Section } from "../../index"
+import { TabPanel, TabList, Tab, Text, Section } from '../../index'
 
-import { TabContext } from "./TabContext"
+import { TabContext } from './TabContext'
 
 const meta: Meta<typeof TabContext> = {
-  title: "Components/TabContext",
+  title: 'Components/TabContext',
   component: TabContext,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
-        component:
-          "A context provider that manages states, focus, and keyboard navigation of Tab-related components.",
+        component: 'A context provider that manages states, focus, and keyboard navigation of Tab-related components.',
       },
     },
   },
   argTypes: {
     defaultActiveId: {
-      control: { type: "text" },
-      description: "Active tab ID for uncontrolled state.",
+      control: { type: 'text' },
+      description: 'Active tab ID for uncontrolled state.',
     },
     activeId: {
       control: { disable: true },
-      description: "Active tab ID for controlled state.",
+      description: 'Active tab ID for controlled state.',
       table: {
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
     children: {
       control: { disable: true },
-      description: "<strong>*</strong>",
+      description: '<strong>*</strong>',
       table: {
         type: {
-          summary: "preact.ComponentChildren",
+          summary: 'preact.ComponentChildren',
         },
       },
     },
     onTabChange: {
       table: {
         type: {
-          summary: "(args) => void",
+          summary: '(args) => void',
           detail: `
 args: {
   id: string
@@ -56,10 +55,10 @@ args: {
       },
     },
     useTabContext: {
-      description: "Hook to access the context.",
+      description: 'Hook to access the context.',
       table: {
         type: {
-          summary: "Props",
+          summary: 'Props',
           detail: `
 {
   activeId: string
@@ -80,18 +79,18 @@ export default meta
 type Story = StoryObj<typeof TabContext>
 
 export const Demo: Story = {
-  tags: ["!autodocs"],
+  tags: ['!autodocs'],
   args: {
-    defaultActiveId: "tab-1",
+    defaultActiveId: 'tab-1',
     onTabChange: fn(),
   },
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <TabContext defaultActiveId="tab-1" {...args}>
 

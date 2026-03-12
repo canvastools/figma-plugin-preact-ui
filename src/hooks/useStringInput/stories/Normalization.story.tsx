@@ -1,12 +1,11 @@
-import { StoryObj } from "@storybook/preact"
+import { StoryObj } from '@storybook/preact'
 
-import { useState } from "preact/hooks"
+import { useState } from 'preact/hooks'
 
-import { Input, Text } from "../../../index"
+import { Input, Text } from '../../../index'
 
-import { useStringInput } from "../useStringInput"
-import type { StringInputConfig } from "../useStringInput.types"
-
+import { useStringInput } from '../useStringInput'
+import type { StringInputConfig } from '../useStringInput.types'
 
 type Story = StoryObj<typeof useStringInput>
 
@@ -14,15 +13,15 @@ export const NormalizationStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       description: {
         story:
-          "To replicate an experience similar to Figma, errors should be avoided and default values should be applied in most cases.<br/>Value normalisation, trimming and allowed characters ensure that a value is always returned.",
+          'To replicate an experience similar to Figma, errors should be avoided and default values should be applied in most cases.<br/>Value normalisation, trimming and allowed characters ensure that a value is always returned.',
       },
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 const stringInput = useStringInput({
   value: "",
@@ -61,22 +60,20 @@ const [inputValue, setInputValue] = useState(stringInput.formattedValue ?? "")
   },
   render: () => {
     const stringInput = useStringInput({
-      value: "abc/*123",
+      value: 'abc/*123',
       minLength: 3,
       maxLength: 12,
       required: false,
       trim: true,
-      allowedCharacters: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
+      allowedCharacters: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',
       normalizeOnError: true,
     } as StringInputConfig)
 
-    const [inputValue, setInputValue] = useState(
-      stringInput.formattedValue ?? ""
-    )
+    const [inputValue, setInputValue] = useState(stringInput.formattedValue ?? '')
 
     const [parsed, setParsed] = useState({
-      rawValue: "abc/*123",
-      normalizedValue: "abc123",
+      rawValue: 'abc/*123',
+      normalizedValue: 'abc123',
     })
 
     return (
@@ -92,18 +89,15 @@ const [inputValue, setInputValue] = useState(stringInput.formattedValue ?? "")
 
             setParsed({
               rawValue: parsed.rawValue,
-              normalizedValue: parsed.normalizedValue ?? ""
+              normalizedValue: parsed.normalizedValue ?? '',
             })
 
-            if (
-              parsed.error === "required" ||
-              parsed.error === "too_short"
-            ) {
-              setInputValue("Hello world!")
+            if (parsed.error === 'required' || parsed.error === 'too_short') {
+              setInputValue('Hello world!')
               return
             }
 
-            setInputValue(parsed.formattedValue ?? "")
+            setInputValue(parsed.formattedValue ?? '')
           }}
         />
         <Text>rawValue: "{parsed.rawValue}"</Text>

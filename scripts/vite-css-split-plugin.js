@@ -1,4 +1,4 @@
-import path from "path"
+import path from 'path'
 
 /**
  * Vite plugin that emits per-component CSS files for CSS tree-shaking.
@@ -27,16 +27,16 @@ import path from "path"
  *   (default: "themes.css").
  */
 export function cssSplitPlugin(options = {}) {
-  const { globalScss = [], themesFileName = "themes.css" } = options
+  const { globalScss = [], themesFileName = 'themes.css' } = options
 
-  let projectRoot = ""
+  let projectRoot = ''
 
   // Map: absolute path of source module (.tsx/.ts) → absolute path of its .scss import
   const moduleScssMap = new Map()
 
   return {
-    name: "css-split",
-    apply: "build",
+    name: 'css-split',
+    apply: 'build',
 
     configResolved(config) {
       projectRoot = config.root
@@ -47,7 +47,7 @@ export function cssSplitPlugin(options = {}) {
      * We don't modify anything here — Vite's CSS pipeline processes them normally.
      */
     transform(code, id) {
-      if (!id.match(/\.(tsx?|jsx?)$/) || id.includes("node_modules")) {
+      if (!id.match(/\.(tsx?|jsx?)$/) || id.includes('node_modules')) {
         return null
       }
 
@@ -70,12 +70,12 @@ export function cssSplitPlugin(options = {}) {
     async generateBundle(_opts, bundle) {
       let sass
       try {
-        sass = await import("sass")
+        sass = await import('sass')
         if (sass.default) sass = sass.default
       } catch {
         console.warn(
           "[css-split] 'sass' package not found. Per-component CSS will not be emitted.\n" +
-            "  Install with: npm install -D sass"
+            '  Install with: npm install -D sass',
         )
         return
       }
@@ -86,7 +86,7 @@ export function cssSplitPlugin(options = {}) {
       for (const rel of globalScss) {
         const abs = path.resolve(projectRoot, rel)
         try {
-          const result = sass.compile(abs, { style: "compressed" })
+          const result = sass.compile(abs, { style: 'compressed' })
           if (result.css && result.css.trim().length > 0) {
             globalCssBlocks.push(result.css.trim())
           }
@@ -98,12 +98,10 @@ export function cssSplitPlugin(options = {}) {
       // 1b. Append global CSS to themes.css so it's available in the
       //     tree-shakeable flow (import "themes.css" + per-component CSS)
       if (globalCssBlocks.length > 0) {
-        const themesAsset = Object.values(bundle).find(
-          (asset) => asset.type === "asset" && asset.fileName === themesFileName
-        )
+        const themesAsset = Object.values(bundle).find((asset) => asset.type === 'asset' && asset.fileName === themesFileName)
         if (themesAsset) {
-          const sep = themesAsset.source.endsWith("\n") ? "" : "\n"
-          themesAsset.source += sep + globalCssBlocks.join("\n") + "\n"
+          const sep = themesAsset.source.endsWith('\n') ? '' : '\n'
+          themesAsset.source += sep + globalCssBlocks.join('\n') + '\n'
         }
       }
 
@@ -113,12 +111,12 @@ export function cssSplitPlugin(options = {}) {
 
       for (const scssPath of uniqueScss) {
         try {
-          const result = sass.compile(scssPath, { style: "compressed" })
-          let css = result.css || ""
+          const result = sass.compile(scssPath, { style: 'compressed' })
+          let css = result.css || ''
 
           // Strip global CSS blocks to avoid duplicating base/reset styles
           for (const block of globalCssBlocks) {
-            css = css.replace(block, "")
+            css = css.replace(block, '')
           }
           css = css.trim()
 
@@ -126,24 +124,22 @@ export function cssSplitPlugin(options = {}) {
             compiledCss.set(scssPath, css)
           }
         } catch (e) {
-          console.warn(
-            `[css-split] Failed to compile ${scssPath}: ${e.message}`
-          )
+          console.warn(`[css-split] Failed to compile ${scssPath}: ${e.message}`)
         }
       }
 
       // 3. For each JS chunk, emit a CSS file and inject the import
       for (const [fileName, chunk] of Object.entries(bundle)) {
-        if (chunk.type !== "chunk" || !chunk.facadeModuleId) continue
+        if (chunk.type !== 'chunk' || !chunk.facadeModuleId) continue
 
         const scssPath = moduleScssMap.get(chunk.facadeModuleId)
         if (!scssPath || !compiledCss.has(scssPath)) continue
 
-        const cssFileName = fileName.replace(/\.js$/, ".css")
+        const cssFileName = fileName.replace(/\.js$/, '.css')
 
         // Emit the individual CSS file
         this.emitFile({
-          type: "asset",
+          type: 'asset',
           fileName: cssFileName,
           source: compiledCss.get(scssPath),
         })
@@ -152,11 +148,8 @@ export function cssSplitPlugin(options = {}) {
         // Vite replaces SCSS imports with "/* empty css */" comments — replace that,
         // or prepend the import if the comment isn't found
         const cssBaseName = path.basename(cssFileName)
-        if (chunk.code.includes("/* empty css")) {
-          chunk.code = chunk.code.replace(
-            /\/\*\s*empty css\s*\*\//,
-            `import "./${cssBaseName}";`
-          )
+        if (chunk.code.includes('/* empty css')) {
+          chunk.code = chunk.code.replace(/\/\*\s*empty css\s*\*\//, `import "./${cssBaseName}";`)
         } else {
           chunk.code = `import "./${cssBaseName}";\n${chunk.code}`
         }

@@ -1,7 +1,7 @@
-import { bem, typedForwardRef } from "../../utils"
+import { bem, typedForwardRef } from '../../utils'
 
-import { cloneElement } from "preact"
-import { useEffect, useRef, useState } from "preact/hooks"
+import { cloneElement } from 'preact'
+import { useEffect, useRef, useState } from 'preact/hooks'
 
 import {
   MenuContext,
@@ -11,15 +11,11 @@ import {
   MenuItemOption,
   MenuDivider,
   OverlayPositioner,
-} from "../../index"
-import type {
-  MenuItemActionProps,
-  MenuItemOptionProps,
-  OverlayPositionerPlacement,
-} from "../../index"
+} from '../../index'
+import type { MenuItemActionProps, MenuItemOptionProps, OverlayPositionerPlacement } from '../../index'
 
-import type { MenuProps, MenuItemData } from "./Menu.types"
-import "./Menu.scss"
+import type { MenuProps, MenuItemData } from './Menu.types'
+import './Menu.scss'
 
 /* --- */
 
@@ -76,7 +72,7 @@ const MenuBody = ({
 
     const handleKeyDown = (event: KeyboardEvent) => {
       const { key } = event
-      if (key === "Escape" || key === "Esc") {
+      if (key === 'Escape' || key === 'Esc') {
         event.preventDefault()
         setOpen(false)
         onClose?.()
@@ -84,17 +80,17 @@ const MenuBody = ({
       }
     }
 
-    window.addEventListener("keydown", handleKeyDown)
+    window.addEventListener('keydown', handleKeyDown)
     return () => {
-      window.removeEventListener("keydown", handleKeyDown)
+      window.removeEventListener('keydown', handleKeyDown)
     }
   }, [open, setOpen, onClose, triggerRef])
 
   const renderItem = (item: MenuItemData, index: number) => {
-    if (item.type === "action") {
+    if (item.type === 'action') {
       const { type, ...rest } = item
 
-      const handleItemClick: MenuItemActionProps["onClick"] = (args) => {
+      const handleItemClick: MenuItemActionProps['onClick'] = (args) => {
         item.onClick?.(args)
         if (item.closeOnClick) {
           handleClose()
@@ -112,12 +108,10 @@ const MenuBody = ({
       )
     }
 
-    if (item.type === "option") {
+    if (item.type === 'option') {
       const { type, ...rest } = item
 
-      const handleItemChange: MenuItemOptionProps["onSelectedChange"] = (
-        args
-      ) => {
+      const handleItemChange: MenuItemOptionProps['onSelectedChange'] = (args) => {
         item.onSelectedChange?.(args)
         if (item.closeOnClick) {
           handleClose()
@@ -135,17 +129,17 @@ const MenuBody = ({
       )
     }
 
-    if (item.type === "custom") {
+    if (item.type === 'custom') {
       const { type, ...rest } = item
 
-      const handleItemClick: MenuItemActionProps["onClick"] = (args) => {
+      const handleItemClick: MenuItemActionProps['onClick'] = (args) => {
         item.onClick?.(args)
         if (item.closeOnClick) {
           handleClose()
         }
       }
 
-      if (item.children && typeof item.children !== "string") {
+      if (item.children && typeof item.children !== 'string') {
         return cloneElement(item.children as preact.VNode, {
           key: item.id ?? index,
           id: item.id,
@@ -158,7 +152,7 @@ const MenuBody = ({
       return null
     }
 
-    if (item.type === "divider") {
+    if (item.type === 'divider') {
       const { type, ...rest } = item
       return <MenuDivider key={index} {...rest} />
     }
@@ -196,8 +190,8 @@ const MenuComponent = (
     height,
     open,
     defaultOpen = false,
-    placement = "bottom-left",
-    placementFallback = ["bottom-right", "top-left", "top-right"],
+    placement = 'bottom-left',
+    placementFallback = ['bottom-right', 'top-left', 'top-right'],
     offsetX = 0,
     offsetY = 4,
     offsetEdge = 16,
@@ -205,9 +199,9 @@ const MenuComponent = (
     onClose,
     ...rest
   }: MenuProps,
-  ref: preact.Ref<HTMLDivElement>
+  ref: preact.Ref<HTMLDivElement>,
 ) => {
-  const _className = bem("Menu", undefined, undefined)
+  const _className = bem('Menu', undefined, undefined)
 
   const [internalOpen, setInternalOpen] = useState<boolean>(open ?? defaultOpen)
 
@@ -216,19 +210,9 @@ const MenuComponent = (
   }, [open])
 
   return (
-    <MenuContext
-      triggerRef={triggerRef}
-      anchorRef={anchorRef}
-      open={internalOpen}
-      setOpen={setInternalOpen}
-    >
+    <MenuContext triggerRef={triggerRef} anchorRef={anchorRef} open={internalOpen} setOpen={setInternalOpen}>
       {internalOpen && (
-        <div
-          id={id}
-          className={[_className, className].join(" ").trim()}
-          ref={ref}
-          {...rest}
-        >
+        <div id={id} className={[_className, className].join(' ').trim()} ref={ref} {...rest}>
           <MenuBody
             items={items}
             width={width}

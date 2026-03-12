@@ -1,6 +1,6 @@
-import { StoryObj } from "@storybook/preact"
+import { StoryObj } from '@storybook/preact'
 
-import { Avatar } from "../Avatar"
+import { Avatar } from '../Avatar'
 
 type Story = StoryObj<typeof Avatar>
 
@@ -8,11 +8,11 @@ export const ColorStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <Avatar 
   backgroundColor="var(--pui-color-brand-bg-default)"
@@ -34,10 +34,7 @@ export const ColorStory: Story = {
   },
   render: () => (
     <div className="sb-column sb-width-full">
-      <Avatar
-        backgroundColor="var(--pui-color-brand-bg-default)"
-        textColor="#ffff00"
-      >
+      <Avatar backgroundColor="var(--pui-color-brand-bg-default)" textColor="#ffff00">
         A
       </Avatar>
     </div>

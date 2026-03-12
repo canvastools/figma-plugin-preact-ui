@@ -1,4 +1,4 @@
-import type { ButtonIconProps } from "../../index"
+import type { ButtonIconProps } from '../../index'
 
 export interface ButtonIconToggleProps extends ButtonIconProps {
   selected?: boolean

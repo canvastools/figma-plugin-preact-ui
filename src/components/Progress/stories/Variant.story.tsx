@@ -1,6 +1,6 @@
-import { StoryObj } from "@storybook/preact"
+import { StoryObj } from '@storybook/preact'
 
-import { Progress } from "../Progress"
+import { Progress } from '../Progress'
 
 type Story = StoryObj<typeof Progress>
 
@@ -8,11 +8,11 @@ export const VariantStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <Progress variant="indeterminate" />
 

@@ -1,7 +1,7 @@
-import { StoryObj } from "@storybook/preact"
+import { StoryObj } from '@storybook/preact'
 
-import { Select } from "../Select"
-import { SelectOptionData } from "../Select.types"
+import { Select } from '../Select'
+import { SelectOptionData } from '../Select.types'
 
 type Story = StoryObj<typeof Select>
 
@@ -9,11 +9,11 @@ export const DisabledStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <Select disabled />
 `,
@@ -22,9 +22,9 @@ export const DisabledStory: Story = {
   },
   render: () => {
     const options: SelectOptionData[] = [
-      { value: "option-1", label: "Option one" },
-      { value: "option-2", label: "Option two" },
-      { value: "option-3", label: "Option three" },
+      { value: 'option-1', label: 'Option one' },
+      { value: 'option-2', label: 'Option two' },
+      { value: 'option-3', label: 'Option three' },
     ]
 
     return (

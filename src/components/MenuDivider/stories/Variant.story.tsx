@@ -1,8 +1,8 @@
-import { StoryObj } from "@storybook/preact"
+import { StoryObj } from '@storybook/preact'
 
-import { MenuContainer, MenuItemAction } from "../../../index"
+import { MenuContainer, MenuItemAction } from '../../../index'
 
-import { MenuDivider } from "../MenuDivider"
+import { MenuDivider } from '../MenuDivider'
 
 type Story = StoryObj<typeof MenuDivider>
 
@@ -10,11 +10,11 @@ export const VariantStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <MenuDivider variant="full" />
 

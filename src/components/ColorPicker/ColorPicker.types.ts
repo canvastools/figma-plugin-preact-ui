@@ -5,7 +5,7 @@ export type Color = {
   a: number
 }
 
-export type ColorPickerType = "rgba" | "hex" | "hexAlpha"
+export type ColorPickerType = 'rgba' | 'hex' | 'hexAlpha'
 
 export interface ColorPickerProps {
   id?: string

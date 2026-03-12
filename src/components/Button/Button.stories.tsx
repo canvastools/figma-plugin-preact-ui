@@ -1,104 +1,104 @@
-import { Meta, StoryObj } from "@storybook/preact"
-import { fn } from "@storybook/test"
+import { Meta, StoryObj } from '@storybook/preact'
+import { fn } from '@storybook/test'
 
-import { IntentStory } from "./stories/Intent.story"
-import { SizeStory } from "./stories/Size.story"
-import { DisabledStory } from "./stories/Disabled.story"
-import { WidthStory } from "./stories/Width.story"
-import { PrefixStory } from "./stories/Prefix.story"
-import { SuffixStory } from "./stories/Suffix.story"
+import { IntentStory } from './stories/Intent.story'
+import { SizeStory } from './stories/Size.story'
+import { DisabledStory } from './stories/Disabled.story'
+import { WidthStory } from './stories/Width.story'
+import { PrefixStory } from './stories/Prefix.story'
+import { SuffixStory } from './stories/Suffix.story'
 
-import { TooltipContext } from "../../index"
+import { TooltipContext } from '../../index'
 
-import { Button } from "./Button"
+import { Button } from './Button'
 
 const meta: Meta<typeof Button> = {
-  title: "Components/Button",
+  title: 'Components/Button',
   component: Button,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     id: {
-      control: { type: "text" },
+      control: { type: 'text' },
       table: {
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
     className: {
-      control: { type: "text" },
+      control: { type: 'text' },
     },
     intent: {
-      control: { type: "radio" },
-      options: ["neutral", "neutral-inverted", "brand", "danger", "success"],
-      defaultValue: { summary: "neutral" },
+      control: { type: 'radio' },
+      options: ['neutral', 'neutral-inverted', 'brand', 'danger', 'success'],
+      defaultValue: { summary: 'neutral' },
     },
     intentModifier: {
-      control: { type: "radio" },
-      options: ["default", "secondary", "brand", "danger", "success"],
-      defaultValue: { summary: "default" },
+      control: { type: 'radio' },
+      options: ['default', 'secondary', 'brand', 'danger', 'success'],
+      defaultValue: { summary: 'default' },
     },
     ghost: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       defaultValue: { summary: false },
     },
     size: {
-      control: { type: "radio" },
-      options: ["medium", "large"],
-      defaultValue: { summary: "medium" },
+      control: { type: 'radio' },
+      options: ['medium', 'large'],
+      defaultValue: { summary: 'medium' },
     },
     grouped: {
-      control: { type: "radio" },
-      options: [undefined, "first", "last", "middle"],
+      control: { type: 'radio' },
+      options: [undefined, 'first', 'last', 'middle'],
     },
     disabled: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       defaultValue: { summary: false },
     },
     fullWidth: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       defaultValue: { summary: false },
     },
     tooltip: {
-      control: { type: "text" },
-      description: "Tooltip content.",
+      control: { type: 'text' },
+      description: 'Tooltip content.',
       table: {
         type: {
-          summary: "preact.ComponentChildren",
+          summary: 'preact.ComponentChildren',
         },
       },
     },
     prefix: {
       control: { disable: true },
-      description: "Element displayed before children.",
+      description: 'Element displayed before children.',
       table: {
         type: {
-          summary: "preact.ComponentChildren",
+          summary: 'preact.ComponentChildren',
         },
       },
     },
     suffix: {
       control: { disable: true },
-      description: "Element displayed after children.",
+      description: 'Element displayed after children.',
       table: {
         type: {
-          summary: "preact.ComponentChildren",
+          summary: 'preact.ComponentChildren',
         },
       },
     },
     children: {
-      control: { type: "text" },
-      description: "<strong>*</strong>",
+      control: { type: 'text' },
+      description: '<strong>*</strong>',
       table: {
         type: {
-          summary: "preact.ComponentChildren",
+          summary: 'preact.ComponentChildren',
         },
       },
     },
     onClick: {
       table: {
         type: {
-          summary: "(args) => void",
+          summary: '(args) => void',
           detail: `
 args: { 
   event: MouseEvent
@@ -115,28 +115,28 @@ export default meta
 type Story = StoryObj<typeof Button>
 
 export const Demo: Story = {
-  tags: ["!autodocs"],
+  tags: ['!autodocs'],
   args: {
     id: undefined,
-    className: "",
-    intent: "neutral",
-    intentModifier: "default",
+    className: '',
+    intent: 'neutral',
+    intentModifier: 'default',
     ghost: false,
-    size: "medium",
+    size: 'medium',
     grouped: undefined,
     disabled: false,
     fullWidth: false,
-    tooltip: "Button tooltip",
-    children: "Button",
+    tooltip: 'Button tooltip',
+    children: 'Button',
     onClick: fn(),
   },
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <Button {...args}>{children}</Button>
 

@@ -1,13 +1,13 @@
-import { Fragment, cloneElement, toChildArray } from "preact"
-import { useRef } from "preact/hooks"
-import type { VNode } from "preact"
+import { Fragment, cloneElement, toChildArray } from 'preact'
+import { useRef } from 'preact/hooks'
+import type { VNode } from 'preact'
 
-import { bem, typedForwardRef } from "../../utils"
+import { bem, typedForwardRef } from '../../utils'
 
-import { Icon, Tooltip } from "../../index"
+import { Icon, Tooltip } from '../../index'
 
-import type { ButtonIconProps } from "./ButtonIcon.types"
-import "./ButtonIcon.scss"
+import type { ButtonIconProps } from './ButtonIcon.types'
+import './ButtonIcon.scss'
 
 /* --- */
 
@@ -15,10 +15,10 @@ const ButtonIconComponent = (
   {
     id,
     className,
-    intent = "neutral",
-    intentModifier = "default",
+    intent = 'neutral',
+    intentModifier = 'default',
     ghost = false,
-    size = "medium",
+    size = 'medium',
     grouped,
     translucent = false,
     disabled = false,
@@ -29,9 +29,9 @@ const ButtonIconComponent = (
     onClick,
     ...rest
   }: ButtonIconProps,
-  ref: preact.Ref<HTMLButtonElement>
+  ref: preact.Ref<HTMLButtonElement>,
 ) => {
-  const _className = bem("ButtonIcon", undefined, {
+  const _className = bem('ButtonIcon', undefined, {
     intent: `${intent}-${intentModifier}`,
     ghost,
     size,
@@ -52,10 +52,8 @@ const ButtonIconComponent = (
     onClick?.({ event })
   }
 
-  const handleKeyDown = (
-    event: preact.JSX.TargetedKeyboardEvent<HTMLButtonElement>
-  ) => {
-    if (event.key === "Escape" || event.key === "Esc") {
+  const handleKeyDown = (event: preact.JSX.TargetedKeyboardEvent<HTMLButtonElement>) => {
+    if (event.key === 'Escape' || event.key === 'Esc') {
       event.currentTarget.blur()
     }
   }
@@ -66,10 +64,10 @@ const ButtonIconComponent = (
     <Fragment>
       <button
         id={id}
-        className={[_className, className].join(" ").trim()}
+        className={[_className, className].join(' ').trim()}
         data-pui-interactive="true"
         ref={(el) => {
-          if (typeof ref === "function") {
+          if (typeof ref === 'function') {
             ref(el)
           } else if (ref) {
             // eslint-disable-next-line
@@ -99,7 +97,7 @@ const ButtonIconComponent = (
             {children &&
               !icon &&
               toChildArray(children).map((child) => {
-                if (typeof child === "object" && child !== null) {
+                if (typeof child === 'object' && child !== null) {
                   const maybeVNode = child as VNode
                   if (maybeVNode.type === Icon) {
                     return cloneElement(maybeVNode, {
@@ -118,6 +116,4 @@ const ButtonIconComponent = (
   )
 }
 
-export const ButtonIcon = typedForwardRef<ButtonIconProps, HTMLButtonElement>(
-  ButtonIconComponent
-)
+export const ButtonIcon = typedForwardRef<ButtonIconProps, HTMLButtonElement>(ButtonIconComponent)

@@ -1,6 +1,6 @@
-import { StoryObj } from "@storybook/preact"
+import { StoryObj } from '@storybook/preact'
 
-import { TooltipContainer } from "../TooltipContainer"
+import { TooltipContainer } from '../TooltipContainer'
 
 type Story = StoryObj<typeof TooltipContainer>
 
@@ -8,11 +8,11 @@ export const SizeStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <TooltipContainer
   width={200}

@@ -1,11 +1,11 @@
 /* Typography */
 
 @mixin typography-styles-default {
-  font-family: "Inter", sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 @mixin typography-styles-code {
-  font-family: "Roboto Mono", monospace;
+  font-family: 'Roboto Mono', monospace;
 }
 
 @mixin typography-code {

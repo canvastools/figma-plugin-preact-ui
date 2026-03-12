@@ -1,4 +1,4 @@
-import type { MenuContainerProps, MenuContainerPropsPick } from "../../index"
+import type { MenuContainerProps, MenuContainerPropsPick } from '../../index'
 
 export interface SelectOptionData {
   label: string
@@ -14,7 +14,7 @@ export interface SelectProps {
   placeholder?: string
   defaultValue?: string
   value?: string
-  grouped?: "first" | "last" | "middle"
+  grouped?: 'first' | 'last' | 'middle'
   error?: boolean
   disabled?: boolean
   prefix?: preact.ComponentChildren

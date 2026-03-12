@@ -1,29 +1,29 @@
-import { Meta, StoryObj } from "@storybook/preact"
+import { Meta, StoryObj } from '@storybook/preact'
 
-import { Divider } from "./Divider"
+import { Divider } from './Divider'
 
-import { Text, Section } from "../../index"
+import { Text, Section } from '../../index'
 
 const meta: Meta<typeof Divider> = {
-  title: "Components/Divider",
+  title: 'Components/Divider',
   component: Divider,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     id: {
-      control: { type: "text" },
+      control: { type: 'text' },
       table: {
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
     className: {
-      control: { type: "text" },
+      control: { type: 'text' },
     },
     variant: {
-      control: { type: "radio" },
-      options: ["full", "inset"],
-      defaultValue: { summary: "full" },
+      control: { type: 'radio' },
+      options: ['full', 'inset'],
+      defaultValue: { summary: 'full' },
     },
   },
 }
@@ -35,16 +35,16 @@ type Story = StoryObj<typeof Divider>
 export const Demo: Story = {
   args: {
     id: undefined,
-    className: "",
-    variant: "full",
+    className: '',
+    variant: 'full',
   },
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <Divider {...args} />
 `,

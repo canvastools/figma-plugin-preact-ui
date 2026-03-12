@@ -1,12 +1,11 @@
-import { StoryObj } from "@storybook/preact"
+import { StoryObj } from '@storybook/preact'
 
-import { useState } from "preact/hooks"
+import { useState } from 'preact/hooks'
 
-import { Input, Text } from "../../../index"
+import { Input, Text } from '../../../index'
 
-import { useStringInput } from "../useStringInput"
-import type { StringInputConfig } from "../useStringInput.types"
-
+import { useStringInput } from '../useStringInput'
+import type { StringInputConfig } from '../useStringInput.types'
 
 type Story = StoryObj<typeof useStringInput>
 
@@ -14,15 +13,14 @@ export const MaskStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       description: {
-        story:
-          "A mask function can be provided to format the input value as desired.",
+        story: 'A mask function can be provided to format the input value as desired.',
       },
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 const stringInput = useStringInput({
   value: "",
@@ -72,37 +70,34 @@ const [inputValue, setInputValue] = useState(stringInput.formattedValue ?? "")
     },
   },
   render: () => {
-    
     const stringInput = useStringInput({
-      value: "9h41",
+      value: '9h41',
       minLength: 4,
       maxLength: 4,
       required: false,
       trim: true,
-      allowedCharacters: "0123456789:",
+      allowedCharacters: '0123456789:',
       format: (value) => {
-        const digits = value.replace(/\D/g, "")
+        const digits = value.replace(/\D/g, '')
 
         if (digits.length <= 2) {
-          return `${digits.padStart(2, "0")}:00`
+          return `${digits.padStart(2, '0')}:00`
         }
 
         return digits
-          .padStart(4, "0")
+          .padStart(4, '0')
           .slice(0, 4)
-          .replace(/(\d{2})(\d{2})/, "$1:$2")
+          .replace(/(\d{2})(\d{2})/, '$1:$2')
       },
       normalizeOnError: true,
     } as StringInputConfig)
 
-    const [inputValue, setInputValue] = useState(
-      stringInput.formattedValue ?? ""
-    )
+    const [inputValue, setInputValue] = useState(stringInput.formattedValue ?? '')
 
     const [parsed, setParsed] = useState({
-      rawValue: "9h41",
-      normalizedValue: "941",
-      formattedValue: "9:41",
+      rawValue: '9h41',
+      normalizedValue: '941',
+      formattedValue: '9:41',
     })
 
     return (
@@ -118,19 +113,16 @@ const [inputValue, setInputValue] = useState(stringInput.formattedValue ?? "")
 
             setParsed({
               rawValue: parsed.rawValue,
-              normalizedValue: parsed.normalizedValue ?? "",
-              formattedValue: parsed.formattedValue ?? "",
+              normalizedValue: parsed.normalizedValue ?? '',
+              formattedValue: parsed.formattedValue ?? '',
             })
 
-            if (
-              parsed.error === "required" ||
-              parsed.error === "too_short"
-            ) {
-              setInputValue("00:00")
+            if (parsed.error === 'required' || parsed.error === 'too_short') {
+              setInputValue('00:00')
               return
             }
 
-            setInputValue(parsed.formattedValue ?? "")
+            setInputValue(parsed.formattedValue ?? '')
           }}
         />
         <Text>rawValue: "{parsed.rawValue}"</Text>

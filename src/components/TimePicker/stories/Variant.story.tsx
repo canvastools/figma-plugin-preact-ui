@@ -1,6 +1,6 @@
-import { StoryObj } from "@storybook/preact"
+import { StoryObj } from '@storybook/preact'
 
-import { TimePicker } from "../TimePicker"
+import { TimePicker } from '../TimePicker'
 
 type Story = StoryObj<typeof TimePicker>
 
@@ -8,11 +8,11 @@ export const VariantStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <TimePicker variant="default" />
 

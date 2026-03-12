@@ -1,41 +1,40 @@
-import type { Meta, StoryObj } from "@storybook/preact"
+import type { Meta, StoryObj } from '@storybook/preact'
 
-import { HorizontalScrollStory } from "./stories/HorizontalScroll.story"
+import { HorizontalScrollStory } from './stories/HorizontalScroll.story'
 
-import { TabContext, TabPanel, Tab, Section, Text } from "../../index"
+import { TabContext, TabPanel, Tab, Section, Text } from '../../index'
 
-import { TabList } from "./TabList"
+import { TabList } from './TabList'
 
 const meta: Meta<typeof TabList> = {
-  title: "Components/TabList",
+  title: 'Components/TabList',
   component: TabList,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
-        component:
-          "A wrapper component for aligning a list of <a href='/docs/components-tab--docs'>`<Tab/>`</a> components.",
+        component: "A wrapper component for aligning a list of <a href='/docs/components-tab--docs'>`<Tab/>`</a> components.",
       },
     },
   },
   argTypes: {
     id: {
-      control: { type: "text" },
+      control: { type: 'text' },
       table: {
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
     className: {
-      control: { type: "text" },
+      control: { type: 'text' },
     },
     children: {
       control: { disable: true },
-      description: "<strong>*</strong>",
+      description: '<strong>*</strong>',
       table: {
         type: {
-          summary: "preact.ComponentChildren",
+          summary: 'preact.ComponentChildren',
         },
       },
     },
@@ -47,14 +46,14 @@ export default meta
 type Story = StoryObj<typeof TabList>
 
 export const Demo: Story = {
-  tags: ["!autodocs"],
+  tags: ['!autodocs'],
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <TabContext defaultActiveId="tab-1">
 
@@ -75,7 +74,7 @@ export const Demo: Story = {
   },
   args: {
     id: undefined,
-    className: "sb-container-inset",
+    className: 'sb-container-inset',
   },
   render: (args) => (
     <div className="sb-column sb-width-full">

@@ -1,20 +1,20 @@
-import type { Meta, StoryObj } from "@storybook/preact"
-import { fn } from "@storybook/test"
+import type { Meta, StoryObj } from '@storybook/preact'
+import { fn } from '@storybook/test'
 
-import { useRef, useEffect } from "preact/hooks"
+import { useRef, useEffect } from 'preact/hooks'
 
-import { UncontrolledStory } from "./stories/Uncontrolled.story"
-import { ControlledStory } from "./stories/Controlled.story"
-import { SpyScrollStory } from "./stories/SpyScroll.story"
+import { UncontrolledStory } from './stories/Uncontrolled.story'
+import { ControlledStory } from './stories/Controlled.story'
+import { SpyScrollStory } from './stories/SpyScroll.story'
 
-import { ScrollContainer, Text, Stack } from "../../index"
+import { ScrollContainer, Text, Stack } from '../../index'
 
-import { ScrollContext, useScrollContext } from "./ScrollContext"
+import { ScrollContext, useScrollContext } from './ScrollContext'
 
 const meta: Meta<typeof ScrollContext> = {
-  title: "Layout/ScrollContext",
+  title: 'Layout/ScrollContext',
   component: ScrollContext,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
@@ -25,38 +25,37 @@ const meta: Meta<typeof ScrollContext> = {
   },
   argTypes: {
     defaultPositionY: {
-      control: { type: "number" },
+      control: { type: 'number' },
       defaultValue: { summary: 0 },
-      description: "Scroll position for uncontrolled state.",
+      description: 'Scroll position for uncontrolled state.',
     },
     positionY: {
       control: { disable: true },
-      description: "Scroll position for controlled state.",
+      description: 'Scroll position for controlled state.',
       table: {
         type: {
-          summary: "number",
+          summary: 'number',
         },
       },
     },
     children: {
       control: { disable: true },
-      description: "<strong>*</strong>",
+      description: '<strong>*</strong>',
       table: {
         type: {
-          summary: "preact.ComponentChildren",
+          summary: 'preact.ComponentChildren',
         },
       },
     },
     spyThreshold: {
-      control: { type: "number" },
+      control: { type: 'number' },
       defaultValue: { summary: 0 },
-      description:
-        "Distance in pixels from the top of the scroll container at which a spy target is considered crossed.",
+      description: 'Distance in pixels from the top of the scroll container at which a spy target is considered crossed.',
     },
     onScroll: {
       table: {
         type: {
-          summary: "(args) => void",
+          summary: '(args) => void',
           detail: `
 args: {
   positionY: number
@@ -68,7 +67,7 @@ args: {
     onSpyTargetChange: {
       table: {
         type: {
-          summary: "(args) => void",
+          summary: '(args) => void',
           detail: `
 args: {
   id: string | null // id of the last section that crossed the threshold
@@ -78,10 +77,10 @@ args: {
       },
     },
     useScrollContext: {
-      description: "Hook to access the context.",
+      description: 'Hook to access the context.',
       table: {
         type: {
-          summary: "Props",
+          summary: 'Props',
           detail: `
 {
   positionY: number
@@ -105,7 +104,7 @@ export default meta
 type Story = StoryObj<typeof ScrollContext>
 
 export const Demo: Story = {
-  tags: ["!autodocs"],
+  tags: ['!autodocs'],
   args: {
     defaultPositionY: 0,
     spyThreshold: 0,
@@ -114,11 +113,11 @@ export const Demo: Story = {
   },
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <ScrollContext {...args}>
   <ScrollContainer>{children}</ScrollContainer>
@@ -137,10 +136,10 @@ export const Demo: Story = {
       const { registerSpyTarget } = useScrollContext()
 
       useEffect(() => {
-        registerSpyTarget("section-1", sectionRef1.current)
-        registerSpyTarget("section-2", sectionRef2.current)
-        registerSpyTarget("section-3", sectionRef3.current)
-        registerSpyTarget("section-4", sectionRef4.current)
+        registerSpyTarget('section-1', sectionRef1.current)
+        registerSpyTarget('section-2', sectionRef2.current)
+        registerSpyTarget('section-3', sectionRef3.current)
+        registerSpyTarget('section-4', sectionRef4.current)
       }, [])
 
       return (
@@ -149,102 +148,69 @@ export const Demo: Story = {
             Section 1
           </Text>
           <Text>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet,
-            consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut
-            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-            exercitation ullamco laboris nisi ut aliquip ex ea commodo
-            consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-            nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet,
-            consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut
-            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-            exercitation ullamco laboris nisi ut aliquip ex ea commodo
-            consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna
+            aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna
+            aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna
+            aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna
+            aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna
+            aliqua.
           </Text>
           <Text id="section-2" variant="heading" ref={sectionRef2}>
             Section 2
           </Text>
           <Text>
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-            nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet,
-            consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut
-            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-            exercitation ullamco laboris nisi ut aliquip ex ea commodo
-            consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-            nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet,
-            consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut
-            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-            exercitation ullamco laboris nisi ut aliquip ex ea commodo
-            consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-            nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet,
-            consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut
-            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-            exercitation ullamco laboris nisi ut aliquip ex ea commodo
-            consequat.
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem
+            ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna
+            aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna
+            aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna
+            aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna
+            aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna
+            aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
           </Text>
           <Text id="section-3" variant="heading" ref={sectionRef3}>
             Section 3
           </Text>
           <Text>
-            Lorem ipsum dolorsit amet, consectetur adipiscing elit. Sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet,
-            consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut
-            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-            exercitation ullamco laboris nisi ut aliquip ex ea commodo
-            consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-            nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet,
-            consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut
-            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-            exercitation ullamco laboris nisi ut aliquip ex ea commodo
-            consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-            nisi ut aliquip ex ea commodo consequat.Lorem ipsum dolor sit amet,
-            consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut
-            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-            exercitation ullamco laboris nisi ut aliquip ex ea commodo
-            consequat.Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-            nisi ut aliquip ex ea commodo consequat.Lorem ipsum dolor sit amet,
-            consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut
-            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-            exercitation ullamco laboris nisi ut aliquip ex ea commodo
-            consequat.
+            Lorem ipsum dolorsit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna
+            aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna
+            aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna
+            aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna
+            aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna
+            aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et
+            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+            commodo consequat.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut
+            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+            ea commodo consequat.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut
+            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+            ea commodo consequat.
           </Text>
           <Text id="section-4" variant="heading" ref={sectionRef4}>
             Section 4
           </Text>
           <Text>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet,
-            consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut
-            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-            exercitation ullamco laboris nisi ut aliquip ex ea commodo
-            consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-            nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet,
-            consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut
-            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-            exercitation ullamco laboris nisi ut aliquip ex ea commodo
-            consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna
+            aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna
+            aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna
+            aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna
+            aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna
+            aliqua.
           </Text>
         </Stack>
       )

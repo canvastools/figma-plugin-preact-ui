@@ -1,10 +1,10 @@
-import { StoryObj } from "@storybook/preact"
+import { StoryObj } from '@storybook/preact'
 
-import { useRef, useState } from "preact/hooks"
+import { useRef, useState } from 'preact/hooks'
 
-import { Button, PopoverContainer, Section, Text, Stack } from "../../../index"
+import { Button, PopoverContainer, Section, Text, Stack } from '../../../index'
 
-import { OverlayPositioner } from "../OverlayPositioner"
+import { OverlayPositioner } from '../OverlayPositioner'
 
 type Story = StoryObj<typeof OverlayPositioner>
 
@@ -12,11 +12,11 @@ export const ClickOutsideStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <OverlayPositioner
   anchorRef={anchorRef}
@@ -37,37 +37,22 @@ export const ClickOutsideStory: Story = {
 
     return (
       <div className="sb-column sb-width-full sb-gap-16">
-        <Button
-          ref={anchorRefClickOutside}
-          onClick={() => setOpenClickOutside(!openClickOutside)}
-        >
+        <Button ref={anchorRefClickOutside} onClick={() => setOpenClickOutside(!openClickOutside)}>
           Show Overlay (click outside or button to close)
         </Button>
 
-        <OverlayPositioner
-          anchorRef={anchorRefClickOutside}
-          open={openClickOutside}
-          onClose={() => setOpenClickOutside(false)}
-        >
+        <OverlayPositioner anchorRef={anchorRefClickOutside} open={openClickOutside} onClose={() => setOpenClickOutside(false)}>
           <PopoverContainer width={300}>
             <Section>
               <Stack spacing={200}>
-                <Text>
-                  It can be closed by clicking the close button or clicking
-                  outside.
-                </Text>
-                <Button onClick={() => setOpenClickOutside(false)}>
-                  Close
-                </Button>
+                <Text>It can be closed by clicking the close button or clicking outside.</Text>
+                <Button onClick={() => setOpenClickOutside(false)}>Close</Button>
               </Stack>
             </Section>
           </PopoverContainer>
         </OverlayPositioner>
 
-        <Button
-          ref={anchorRefNoClickOutside}
-          onClick={() => setOpenNoClickOutside(!openNoClickOutside)}
-        >
+        <Button ref={anchorRefNoClickOutside} onClick={() => setOpenNoClickOutside(!openNoClickOutside)}>
           Show Overlay (click close button to close)
         </Button>
 
@@ -81,9 +66,7 @@ export const ClickOutsideStory: Story = {
             <Section>
               <Stack spacing={200}>
                 <Text>It can be closed by clicking the close button only.</Text>
-                <Button onClick={() => setOpenNoClickOutside(false)}>
-                  Close
-                </Button>
+                <Button onClick={() => setOpenNoClickOutside(false)}>Close</Button>
               </Stack>
             </Section>
           </PopoverContainer>

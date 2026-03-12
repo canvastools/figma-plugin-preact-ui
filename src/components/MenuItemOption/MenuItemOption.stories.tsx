@@ -1,20 +1,20 @@
-import { Meta, StoryObj } from "@storybook/preact"
-import { fn } from "@storybook/test"
+import { Meta, StoryObj } from '@storybook/preact'
+import { fn } from '@storybook/test'
 
-import { UncontrolledStory } from "./stories/Uncontrolled.story"
-import { ControlledStory } from "./stories/Controlled.story"
-import { DisabledStory } from "./stories/Disabled.story"
-import { PrefixStory } from "./stories/Prefix.story"
-import { SuffixStory } from "./stories/Suffix.story"
+import { UncontrolledStory } from './stories/Uncontrolled.story'
+import { ControlledStory } from './stories/Controlled.story'
+import { DisabledStory } from './stories/Disabled.story'
+import { PrefixStory } from './stories/Prefix.story'
+import { SuffixStory } from './stories/Suffix.story'
 
-import { MenuContainer, MenuContext } from "../../index"
+import { MenuContainer, MenuContext } from '../../index'
 
-import { MenuItemOption } from "./MenuItemOption"
+import { MenuItemOption } from './MenuItemOption'
 
 const meta: Meta<typeof MenuItemOption> = {
-  title: "Components/MenuItemOption",
+  title: 'Components/MenuItemOption',
   component: MenuItemOption,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
@@ -25,72 +25,72 @@ const meta: Meta<typeof MenuItemOption> = {
   },
   argTypes: {
     id: {
-      control: { type: "text" },
+      control: { type: 'text' },
       description:
-        "Unique identifier for the menu item used to track focus the item in the menu context. If not provided, a random UUID will be generated.",
+        'Unique identifier for the menu item used to track focus the item in the menu context. If not provided, a random UUID will be generated.',
       table: {
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
     className: {
-      control: { type: "text" },
+      control: { type: 'text' },
     },
     defaultSelected: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       defaultValue: { summary: false },
-      description: "Value for uncontrolled state.",
+      description: 'Value for uncontrolled state.',
     },
     selected: {
       control: { disable: true },
-      description: "Value for controlled state.",
+      description: 'Value for controlled state.',
       table: {
         type: {
-          summary: "boolean",
+          summary: 'boolean',
         },
       },
     },
     disabled: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       defaultValue: { summary: false },
     },
     focused: {
-      control: { type: "boolean" },
-      description: "Works only when the componet is inside `<MenuContext/>`.",
+      control: { type: 'boolean' },
+      description: 'Works only when the componet is inside `<MenuContext/>`.',
       defaultValue: { summary: false },
     },
     prefix: {
       control: { disable: true },
-      description: "Element displayed before children.",
+      description: 'Element displayed before children.',
       table: {
         type: {
-          summary: "preact.ComponentChildren",
+          summary: 'preact.ComponentChildren',
         },
       },
     },
     suffix: {
       control: { disable: true },
-      description: "Element displayed after children.",
+      description: 'Element displayed after children.',
       table: {
         type: {
-          summary: "preact.ComponentChildren",
+          summary: 'preact.ComponentChildren',
         },
       },
     },
     children: {
-      control: { type: "text" },
-      description: "<strong>*</strong>",
+      control: { type: 'text' },
+      description: '<strong>*</strong>',
       table: {
         type: {
-          summary: "preact.ComponentChildren",
+          summary: 'preact.ComponentChildren',
         },
       },
     },
     onSelectedChange: {
       table: {
         type: {
-          summary: "(args) => void",
+          summary: '(args) => void',
           detail: `
 args: {
   event: MouseEvent
@@ -109,23 +109,23 @@ export default meta
 type Story = StoryObj<typeof MenuItemOption>
 
 export const Demo: Story = {
-  tags: ["!autodocs"],
+  tags: ['!autodocs'],
   args: {
-    id: "menu-item-option",
-    className: "",
+    id: 'menu-item-option',
+    className: '',
     defaultSelected: true,
     disabled: false,
     focused: false,
-    children: "Menu Item Option",
+    children: 'Menu Item Option',
     onSelectedChange: fn(),
   },
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <MenuContainer>
   <MenuItemOption {...args}>{children}</MenuItemOption>

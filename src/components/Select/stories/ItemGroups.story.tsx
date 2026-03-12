@@ -1,7 +1,7 @@
-import { StoryObj } from "@storybook/preact"
+import { StoryObj } from '@storybook/preact'
 
-import { Select } from "../Select"
-import { SelectOptionData } from "../Select.types"
+import { Select } from '../Select'
+import { SelectOptionData } from '../Select.types'
 
 type Story = StoryObj<typeof Select>
 
@@ -9,15 +9,14 @@ export const ItemGroupsStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       description: {
-        story:
-          "Use an array of arrays for the `items` property to group options.",
+        story: 'Use an array of arrays for the `items` property to group options.',
       },
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 const options = [
   [
@@ -43,14 +42,14 @@ const options = [
   render: () => {
     const options: SelectOptionData[][] = [
       [
-        { value: "option-1", label: "Option one" },
-        { value: "option-2", label: "Option two" },
-        { value: "option-3", label: "Option three" },
+        { value: 'option-1', label: 'Option one' },
+        { value: 'option-2', label: 'Option two' },
+        { value: 'option-3', label: 'Option three' },
       ],
       [
-        { value: "option-4", label: "Option four" },
-        { value: "option-5", label: "Option five" },
-        { value: "ooptionpt-6", label: "Option six" },
+        { value: 'option-4', label: 'Option four' },
+        { value: 'option-5', label: 'Option five' },
+        { value: 'ooptionpt-6', label: 'Option six' },
       ],
     ]
 

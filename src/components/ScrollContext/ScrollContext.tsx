@@ -1,20 +1,15 @@
-import { createContext } from "preact"
-import { useContext, useState, useEffect, useRef } from "preact/hooks"
+import { createContext } from 'preact'
+import { useContext, useState, useEffect, useRef } from 'preact/hooks'
 
-import type {
-  ScrollContextValue,
-  ScrollContextProps,
-} from "./ScrollContext.types"
+import type { ScrollContextValue, ScrollContextProps } from './ScrollContext.types'
 
 /* --- */
 
-const RawScrollContext = createContext<ScrollContextValue | undefined>(
-  undefined
-)
+const RawScrollContext = createContext<ScrollContextValue | undefined>(undefined)
 
 const useScrollContext = () => {
   const context = useContext(RawScrollContext)
-  if (!context) throw new Error("ScrollContext not found")
+  if (!context) throw new Error('ScrollContext not found')
   return context
 }
 
@@ -26,8 +21,7 @@ const ScrollContext = ({
   onSpyTargetChange,
   children,
 }: ScrollContextProps) => {
-  const [internalPositionY, setInternalPositionY] =
-    useState<number>(defaultPositionY)
+  const [internalPositionY, setInternalPositionY] = useState<number>(defaultPositionY)
   const [isAtTop, setIsAtTop] = useState<boolean>(defaultPositionY === 0)
   const [isAtBottom, setIsAtBottom] = useState<boolean>(false)
 
@@ -37,13 +31,10 @@ const ScrollContext = ({
 
   const spyThresholdRef = useRef<number>(spyThreshold)
   const spyRootRef = useRef<HTMLElement | null>(null)
-  const spyTargetsRef = useRef<{ id: string; element: HTMLElement | null }[]>(
-    []
-  )
+  const spyTargetsRef = useRef<{ id: string; element: HTMLElement | null }[]>([])
   const spyRafIdRef = useRef<number | null>(null)
 
-  const currentPositionY =
-    controlledPositionY !== undefined ? controlledPositionY : internalPositionY
+  const currentPositionY = controlledPositionY !== undefined ? controlledPositionY : internalPositionY
 
   const evaluateSpyActiveId = () => {
     const root = spyRootRef.current
@@ -124,8 +115,7 @@ const ScrollContext = ({
 
   const handleScroll = (event: Event) => {
     const target =
-      ((event as { currentTarget?: EventTarget | null })
-        .currentTarget as HTMLElement | null) || (event.target as HTMLElement)
+      ((event as { currentTarget?: EventTarget | null }).currentTarget as HTMLElement | null) || (event.target as HTMLElement)
 
     if (!target) return
 
@@ -162,7 +152,7 @@ const ScrollContext = ({
   const updatePositionY = (positionY: number) => {
     setInternalPositionY(positionY)
     const max = lastKnownMaxScrollTopRef.current
-    const hasScrollable = typeof max === "number" && max > 0
+    const hasScrollable = typeof max === 'number' && max > 0
     setIsAtTop(hasScrollable ? positionY === 0 : true)
     setIsAtBottom(hasScrollable ? positionY >= (max as number) : true)
   }
@@ -195,11 +185,7 @@ const ScrollContext = ({
     registerScrollRoot,
   }
 
-  return (
-    <RawScrollContext.Provider value={contextValue}>
-      {children}
-    </RawScrollContext.Provider>
-  )
+  return <RawScrollContext.Provider value={contextValue}>{children}</RawScrollContext.Provider>
 }
 
 export { ScrollContext, useScrollContext }

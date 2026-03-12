@@ -1,53 +1,52 @@
-import { Meta, StoryObj } from "@storybook/preact"
-import { fn } from "@storybook/test"
+import { Meta, StoryObj } from '@storybook/preact'
+import { fn } from '@storybook/test'
 
-import { WindowResizer } from "./WindowResizer"
-import type { WindowResizerProps } from "./WindowResizer.types"
+import { WindowResizer } from './WindowResizer'
+import type { WindowResizerProps } from './WindowResizer.types'
 
 const meta: Meta<WindowResizerProps> = {
-  title: "Layout/WindowResizer",
+  title: 'Layout/WindowResizer',
   component: WindowResizer,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
-        component:
-          "A plugin window resizer control. Demo window is non-resizable.",
+        component: 'A plugin window resizer control. Demo window is non-resizable.',
       },
     },
   },
   argTypes: {
     id: {
-      control: { type: "text" },
+      control: { type: 'text' },
       table: {
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
     className: {
-      control: { type: "text" },
+      control: { type: 'text' },
     },
     minWidth: {
-      control: { type: "number" },
-      description: "<strong>*</strong>",
+      control: { type: 'number' },
+      description: '<strong>*</strong>',
     },
     minHeight: {
-      control: { type: "number" },
-      description: "<strong>*</strong>",
+      control: { type: 'number' },
+      description: '<strong>*</strong>',
     },
     maxWidth: {
-      control: { type: "number" },
-      description: "<strong>*</strong>",
+      control: { type: 'number' },
+      description: '<strong>*</strong>',
     },
     maxHeight: {
-      control: { type: "number" },
-      description: "<strong>*</strong>",
+      control: { type: 'number' },
+      description: '<strong>*</strong>',
     },
     onResize: {
       table: {
         type: {
-          summary: "(args) => void",
+          summary: '(args) => void',
           detail: `
 args: { 
   width: number
@@ -67,7 +66,7 @@ type Story = StoryObj<WindowResizerProps>
 export const Demo: Story = {
   args: {
     id: undefined,
-    className: "",
+    className: '',
     minWidth: 380,
     minHeight: 480,
     maxWidth: 800,
@@ -75,15 +74,15 @@ export const Demo: Story = {
     onResize: fn(),
   },
   globals: {
-    background: "secondary",
+    background: 'secondary',
   },
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <WindowResizer 
   minWidth={380}

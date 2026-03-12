@@ -1,28 +1,27 @@
-import { Meta, StoryObj } from "@storybook/preact"
+import { Meta, StoryObj } from '@storybook/preact'
 
-import { Code, Stack, Text } from "../../../index"
+import { Code, Stack, Text } from '../../../index'
 
-import { colorToHexAlpha } from "../color"
+import { colorToHexAlpha } from '../color'
 
 const meta: Meta<typeof colorToHexAlpha> = {
-  title: "Utils/colorToHexAlpha",
+  title: 'Utils/colorToHexAlpha',
   component: colorToHexAlpha,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
-        component:
-          "Utility function to convert `Color` type (r, g, b, a all in 0–1) to an 8-digit hex string (#RRGGBBAA).",
+        component: 'Utility function to convert `Color` type (r, g, b, a all in 0–1) to an 8-digit hex string (#RRGGBBAA).',
       },
     },
   },
   argTypes: {
     args: {
       control: { disable: true },
-      description: "<strong>*</strong>",
+      description: '<strong>*</strong>',
       table: {
         type: {
-          summary: "(color: Color) => string",
+          summary: '(color: Color) => string',
           detail: `
 // Types — all channels are 0–1
 
@@ -31,7 +30,7 @@ type Color = {
   g: number // 0–1
   b: number // 0–1
   a: number // 0–1
-}`
+}`,
         },
       },
     },
@@ -45,11 +44,11 @@ type Story = StoryObj<typeof colorToHexAlpha>
 export const Demo: Story = {
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 import { colorToHexAlpha } from "figma-plugin-preact-ui"
 

@@ -1,30 +1,22 @@
-import { bem, typedForwardRef } from "../../utils"
+import { bem, typedForwardRef } from '../../utils'
 
-import type { PopoverContainerProps } from "./PopoverContainer.types"
-import "./PopoverContainer.scss"
+import type { PopoverContainerProps } from './PopoverContainer.types'
+import './PopoverContainer.scss'
 
 /* --- */
 
 const PopoverContainerComponent = (
-  {
-    id,
-    className,
-    width,
-    height,
-    showArrow,
-    children,
-    ...rest
-  }: PopoverContainerProps,
-  ref: preact.Ref<HTMLDivElement>
+  { id, className, width, height, showArrow, children, ...rest }: PopoverContainerProps,
+  ref: preact.Ref<HTMLDivElement>,
 ) => {
-  const _className = bem("PopoverContainer", undefined, {
+  const _className = bem('PopoverContainer', undefined, {
     arrow: showArrow,
   })
 
   return (
     <div
       id={id}
-      className={[_className, className].join(" ").trim()}
+      className={[_className, className].join(' ').trim()}
       ref={ref}
       style={{
         width,
@@ -39,7 +31,4 @@ const PopoverContainerComponent = (
   )
 }
 
-export const PopoverContainer = typedForwardRef<
-  PopoverContainerProps,
-  HTMLDivElement
->(PopoverContainerComponent)
+export const PopoverContainer = typedForwardRef<PopoverContainerProps, HTMLDivElement>(PopoverContainerComponent)

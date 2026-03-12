@@ -1,74 +1,72 @@
-import { Meta, StoryObj } from "@storybook/preact"
+import { Meta, StoryObj } from '@storybook/preact'
 
-import { VariantStory } from "./stories/Variant.story"
-import { SizeStory } from "./stories/Size.story"
-import { SrcStory } from "./stories/Src.story"
-import { ColorStory } from "./stories/Color.story"
+import { VariantStory } from './stories/Variant.story'
+import { SizeStory } from './stories/Size.story'
+import { SrcStory } from './stories/Src.story'
+import { ColorStory } from './stories/Color.story'
 
-import { Avatar } from "./Avatar"
+import { Avatar } from './Avatar'
 
 const meta: Meta<typeof Avatar> = {
-  title: "Components/Avatar",
+  title: 'Components/Avatar',
   component: Avatar,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     id: {
-      control: { type: "text" },
+      control: { type: 'text' },
       table: {
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
     className: {
-      control: { type: "text" },
+      control: { type: 'text' },
     },
     variant: {
-      control: { type: "radio" },
-      options: ["circle", "square"],
-      defaultValue: { summary: "circle" },
+      control: { type: 'radio' },
+      options: ['circle', 'square'],
+      defaultValue: { summary: 'circle' },
     },
     size: {
-      control: { type: "radio" },
-      options: ["small", "medium", "large"],
-      defaultValue: { summary: "medium" },
+      control: { type: 'radio' },
+      options: ['small', 'medium', 'large'],
+      defaultValue: { summary: 'medium' },
     },
     src: {
-      control: { type: "text" },
-      description: "Image URL or data URI.",
+      control: { type: 'text' },
+      description: 'Image URL or data URI.',
     },
     backgroundColor: {
-      control: { type: "color" },
-      description:
-        "Background color for the avatar container when no image is provided.",
+      control: { type: 'color' },
+      description: 'Background color for the avatar container when no image is provided.',
       table: {
         type: {
-          summary: "HEX | RGB | RGBA | var()",
+          summary: 'HEX | RGB | RGBA | var()',
         },
         defaultValue: {
-          summary: "var(--pui-color-neutral-inverted-bg-default)",
+          summary: 'var(--pui-color-neutral-inverted-bg-default)',
         },
       },
     },
     textColor: {
-      control: { type: "color" },
-      description:
-        "Text color for the children text content when no image is provided.",
+      control: { type: 'color' },
+      description: 'Text color for the children text content when no image is provided.',
       table: {
         type: {
-          summary: "HEX | RGB | RGBA | var()",
+          summary: 'HEX | RGB | RGBA | var()',
         },
         defaultValue: {
-          summary: "var(--pui-color-neutral-inverted-text-default)",
+          summary: 'var(--pui-color-neutral-inverted-text-default)',
         },
       },
     },
     children: {
-      control: { type: "text" },
-      description: "<strong>*</strong>",
+      control: { type: 'text' },
+      description: '<strong>*</strong>',
       table: {
         type: {
-          summary: "preact.ComponentChildren",
+          summary: 'preact.ComponentChildren',
         },
       },
     },
@@ -80,22 +78,22 @@ export default meta
 type Story = StoryObj<typeof Avatar>
 
 export const Demo: Story = {
-  tags: ["!autodocs"],
+  tags: ['!autodocs'],
   args: {
     id: undefined,
-    className: "",
-    variant: "circle",
-    size: "medium",
-    src: "",
-    children: "A",
+    className: '',
+    variant: 'circle',
+    size: 'medium',
+    src: '',
+    children: 'A',
   },
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `<Avatar {...args}>{children}</Avatar>`,
       },
     },

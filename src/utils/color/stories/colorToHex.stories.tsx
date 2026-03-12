@@ -1,28 +1,27 @@
-import { Meta, StoryObj } from "@storybook/preact"
+import { Meta, StoryObj } from '@storybook/preact'
 
-import { Code, Stack, Text } from "../../../index"
+import { Code, Stack, Text } from '../../../index'
 
-import { colorToHex } from "../color"
+import { colorToHex } from '../color'
 
 const meta: Meta<typeof colorToHex> = {
-  title: "Utils/colorToHex",
+  title: 'Utils/colorToHex',
   component: colorToHex,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
-        component:
-          "Utility function to convert `Color` type (r, g, b in 0–1) to a 6-digit hex string.",
+        component: 'Utility function to convert `Color` type (r, g, b in 0–1) to a 6-digit hex string.',
       },
     },
   },
   argTypes: {
     args: {
       control: { disable: true },
-      description: "<strong>*</strong>",
+      description: '<strong>*</strong>',
       table: {
         type: {
-          summary: "(color: Color) => string",
+          summary: '(color: Color) => string',
           detail: `
 // Types — all channels are 0–1
 
@@ -31,7 +30,7 @@ type Color = {
   g: number // 0–1
   b: number // 0–1
   a: number // 0–1
-}`
+}`,
         },
       },
     },
@@ -45,11 +44,11 @@ type Story = StoryObj<typeof colorToHex>
 export const Demo: Story = {
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 import { colorToHex } from "figma-plugin-preact-ui"
 

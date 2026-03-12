@@ -1,78 +1,71 @@
-import { Meta, StoryObj } from "@storybook/preact"
+import { Meta, StoryObj } from '@storybook/preact'
 
-import { ControlledStory } from "./stories/Controlled.story"
-import { CustomItemStory } from "./stories/CustomItem.story"
+import { ControlledStory } from './stories/Controlled.story'
+import { CustomItemStory } from './stories/CustomItem.story'
 
-import { useRef, useState } from "preact/hooks"
+import { useRef, useState } from 'preact/hooks'
 
-import { MenuContext, useMenuContext } from "./MenuContext"
+import { MenuContext, useMenuContext } from './MenuContext'
 
-import {
-  Button,
-  MenuContainer,
-  MenuItemAction,
-  OverlayPositioner,
-} from "../../index"
+import { Button, MenuContainer, MenuItemAction, OverlayPositioner } from '../../index'
 
 const meta: Meta = {
-  title: "Components/MenuContext",
+  title: 'Components/MenuContext',
   component: MenuContext,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
-        component:
-          "A context provider that manages open state, focus, and keyboard navigation of Menu-related components.",
+        component: 'A context provider that manages open state, focus, and keyboard navigation of Menu-related components.',
       },
     },
   },
   argTypes: {
     triggerRef: {
       control: { disable: true },
-      description: "Ref to the trigger element.",
+      description: 'Ref to the trigger element.',
       table: {
         type: {
-          summary: "preact.RefObject",
+          summary: 'preact.RefObject',
         },
       },
     },
     anchorRef: {
       control: { disable: true },
-      description:
-        "Ref to the anchor element. If not provided, the triggerRef will be used.",
+      description: 'Ref to the anchor element. If not provided, the triggerRef will be used.',
       table: {
         type: {
-          summary: "preact.RefObject",
+          summary: 'preact.RefObject',
         },
       },
     },
     open: {
-      control: { type: "boolean" },
-      description: "State for controlled state.",
+      control: { type: 'boolean' },
+      description: 'State for controlled state.',
     },
     setOpen: {
       control: { disable: true },
-      description: "Function to set the open state.",
+      description: 'Function to set the open state.',
       table: {
         type: {
-          summary: "(open: boolean) => void",
+          summary: '(open: boolean) => void',
         },
       },
     },
     children: {
       control: { disable: true },
-      description: "<strong>*</strong>",
+      description: '<strong>*</strong>',
       table: {
         type: {
-          summary: "preact.ComponentChildren",
+          summary: 'preact.ComponentChildren',
         },
       },
     },
     useMenuContext: {
-      description: "Hook to access the context.",
+      description: 'Hook to access the context.',
       table: {
         type: {
-          summary: "Props",
+          summary: 'Props',
           detail: `
 {
   triggerRef: RefObject | null
@@ -106,17 +99,17 @@ export default meta
 type Story = StoryObj<typeof MenuContext>
 
 export const Demo: Story = {
-  tags: ["!autodocs"],
+  tags: ['!autodocs'],
   args: {
     open: false,
   },
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <MenuContext {...args}>{children}</MenuContext>
 `,
@@ -142,25 +135,13 @@ export const Demo: Story = {
           onClose={() => context.setOpen(false)}
         >
           <MenuContainer>
-            <MenuItemAction
-              id="action-1"
-              onClick={() => context.setOpen(false)}
-              focused={context.focusedItemId === "action-1"}
-            >
+            <MenuItemAction id="action-1" onClick={() => context.setOpen(false)} focused={context.focusedItemId === 'action-1'}>
               Action 1
             </MenuItemAction>
-            <MenuItemAction
-              id="action-2"
-              onClick={() => context.setOpen(false)}
-              focused={context.focusedItemId === "action-2"}
-            >
+            <MenuItemAction id="action-2" onClick={() => context.setOpen(false)} focused={context.focusedItemId === 'action-2'}>
               Action 2
             </MenuItemAction>
-            <MenuItemAction
-              id="action-3"
-              onClick={() => context.setOpen(false)}
-              focused={context.focusedItemId === "action-3"}
-            >
+            <MenuItemAction id="action-3" onClick={() => context.setOpen(false)} focused={context.focusedItemId === 'action-3'}>
               Action 3
             </MenuItemAction>
           </MenuContainer>
@@ -178,12 +159,7 @@ export const Demo: Story = {
         >
           Open Menu
         </Button>
-        <MenuContext
-          triggerRef={triggerRef}
-          anchorRef={triggerRef}
-          open={open}
-          setOpen={setOpen}
-        >
+        <MenuContext triggerRef={triggerRef} anchorRef={triggerRef} open={open} setOpen={setOpen}>
           <MenuContent />
         </MenuContext>
       </div>

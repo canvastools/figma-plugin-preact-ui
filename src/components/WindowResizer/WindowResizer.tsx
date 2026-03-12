@@ -1,28 +1,19 @@
-import { bem, typedForwardRef } from "../../utils"
-import { useEffect } from "preact/hooks"
+import { bem, typedForwardRef } from '../../utils'
+import { useEffect } from 'preact/hooks'
 
-import type { WindowResizerProps } from "./WindowResizer.types"
-import "./WindowResizer.scss"
+import type { WindowResizerProps } from './WindowResizer.types'
+import './WindowResizer.scss'
 
 /* --- */
 
 const WindowResizerComponent = (
-  {
-    id,
-    className,
-    minWidth,
-    minHeight,
-    maxWidth,
-    maxHeight,
-    onResize,
-    ...rest
-  }: WindowResizerProps,
-  ref: preact.Ref<HTMLDivElement>
+  { id, className, minWidth, minHeight, maxWidth, maxHeight, onResize, ...rest }: WindowResizerProps,
+  ref: preact.Ref<HTMLDivElement>,
 ) => {
-  const _className = bem("WindowResizer", undefined, undefined)
+  const _className = bem('WindowResizer', undefined, undefined)
 
   useEffect(() => {
-    const resizer = document.getElementById(id ?? "WindowResizer")
+    const resizer = document.getElementById(id ?? 'WindowResizer')
 
     if (!resizer) return
 
@@ -41,15 +32,9 @@ const WindowResizerComponent = (
     }
 
     const onMouseMove = (e: MouseEvent) => {
-      const newWidth = Math.min(
-        Math.max(startWidth + e.clientX - startX, minWidth),
-        maxWidth
-      )
+      const newWidth = Math.min(Math.max(startWidth + e.clientX - startX, minWidth), maxWidth)
 
-      const newHeight = Math.min(
-        Math.max(startHeight + e.clientY - startY, minHeight),
-        maxHeight
-      )
+      const newHeight = Math.min(Math.max(startHeight + e.clientY - startY, minHeight), maxHeight)
 
       pendingWidth = newWidth
       pendingHeight = newHeight
@@ -60,8 +45,8 @@ const WindowResizerComponent = (
     }
 
     const onMouseUp = () => {
-      document.removeEventListener("mousemove", onMouseMove)
-      document.removeEventListener("mouseup", onMouseUp)
+      document.removeEventListener('mousemove', onMouseMove)
+      document.removeEventListener('mouseup', onMouseUp)
 
       if (animationFrame !== null) {
         cancelAnimationFrame(animationFrame)
@@ -78,23 +63,23 @@ const WindowResizerComponent = (
       startWidth = window.innerWidth
       startHeight = window.innerHeight
 
-      document.addEventListener("mousemove", onMouseMove)
-      document.addEventListener("mouseup", onMouseUp)
+      document.addEventListener('mousemove', onMouseMove)
+      document.addEventListener('mouseup', onMouseUp)
     }
 
-    resizer.addEventListener("mousedown", onMouseDown)
+    resizer.addEventListener('mousedown', onMouseDown)
 
     return () => {
-      resizer.removeEventListener("mousedown", onMouseDown)
-      document.removeEventListener("mousemove", onMouseMove)
-      document.removeEventListener("mouseup", onMouseUp)
+      resizer.removeEventListener('mousedown', onMouseDown)
+      document.removeEventListener('mousemove', onMouseMove)
+      document.removeEventListener('mouseup', onMouseUp)
     }
   }, [minWidth, minHeight, maxWidth, maxHeight, onResize])
 
   return (
     <div
-      id={id ?? "WindowResizer"}
-      className={[_className, className].join(" ").trim()}
+      id={id ?? 'WindowResizer'}
+      className={[_className, className].join(' ').trim()}
       data-pui-interactive="true"
       ref={ref}
       {...rest}
@@ -102,7 +87,4 @@ const WindowResizerComponent = (
   )
 }
 
-export const WindowResizer = typedForwardRef<
-  WindowResizerProps,
-  HTMLDivElement
->(WindowResizerComponent)
+export const WindowResizer = typedForwardRef<WindowResizerProps, HTMLDivElement>(WindowResizerComponent)

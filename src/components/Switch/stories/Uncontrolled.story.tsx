@@ -1,6 +1,6 @@
-import { StoryObj } from "@storybook/preact"
+import { StoryObj } from '@storybook/preact'
 
-import { Switch } from "../Switch"
+import { Switch } from '../Switch'
 
 type Story = StoryObj<typeof Switch>
 
@@ -8,11 +8,11 @@ export const UncontrolledStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <Switch defaultChecked={false} />
 `,

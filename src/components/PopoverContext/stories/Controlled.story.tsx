@@ -1,17 +1,10 @@
-import { StoryObj } from "@storybook/preact"
+import { StoryObj } from '@storybook/preact'
 
-import { useRef, useState } from "preact/hooks"
+import { useRef, useState } from 'preact/hooks'
 
-import {
-  PopoverContainer,
-  PopoverHeader,
-  Section,
-  Text,
-  Button,
-  OverlayPositioner,
-} from "../../../index"
+import { PopoverContainer, PopoverHeader, Section, Text, Button, OverlayPositioner } from '../../../index'
 
-import { PopoverContext, usePopoverContext } from "../PopoverContext"
+import { PopoverContext, usePopoverContext } from '../PopoverContext'
 
 type Story = StoryObj<typeof PopoverContext>
 
@@ -19,11 +12,11 @@ export const ControlledStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 const PopoverContent = () => {
   const context = usePopoverContext()
@@ -106,9 +99,7 @@ const ControlledPopover = () => {
           onClose={() => context.setOpen?.(!open)}
         >
           <PopoverContainer width={300}>
-            <PopoverHeader onClose={() => context.setOpen?.(!open)}>
-              Header
-            </PopoverHeader>
+            <PopoverHeader onClose={() => context.setOpen?.(!open)}>Header</PopoverHeader>
             <Section>
               <Text>Content</Text>
             </Section>
@@ -122,12 +113,7 @@ const ControlledPopover = () => {
         <Button ref={triggerRef} onClick={() => setOpen(true)}>
           Open Popover
         </Button>
-        <PopoverContext
-          triggerRef={triggerRef}
-          anchorRef={triggerRef}
-          open={open}
-          setOpen={setOpen}
-        >
+        <PopoverContext triggerRef={triggerRef} anchorRef={triggerRef} open={open} setOpen={setOpen}>
           <PopoverContent />
         </PopoverContext>
       </div>

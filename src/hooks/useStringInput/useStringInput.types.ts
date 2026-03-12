@@ -1,8 +1,4 @@
-export type StringInputError =
-  | "required"
-  | "too_short"
-  | "too_long"
-  | "invalid_characters"
+export type StringInputError = 'required' | 'too_short' | 'too_long' | 'invalid_characters'
 
 export type StringInputConfig = {
   value: string

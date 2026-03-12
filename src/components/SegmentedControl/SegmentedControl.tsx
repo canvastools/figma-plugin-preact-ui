@@ -1,12 +1,12 @@
-import { bem, typedForwardRef } from "../../utils"
+import { bem, typedForwardRef } from '../../utils'
 
-import { Fragment } from "preact"
-import { useEffect, useMemo, useRef, useState } from "preact/hooks"
+import { Fragment } from 'preact'
+import { useEffect, useMemo, useRef, useState } from 'preact/hooks'
 
-import type { SegmentedControlProps } from "./SegmentedControl.types"
-import "./SegmentedControl.scss"
+import type { SegmentedControlProps } from './SegmentedControl.types'
+import './SegmentedControl.scss'
 
-import { Tooltip, Text, Icon, type Glyph } from "../../index"
+import { Tooltip, Text, Icon, type Glyph } from '../../index'
 
 /* --- */
 
@@ -22,11 +22,9 @@ const SegmentedControlComponent = (
     onValueChange,
     ...rest
   }: SegmentedControlProps,
-  ref: preact.Ref<HTMLDivElement>
+  ref: preact.Ref<HTMLDivElement>,
 ) => {
-  const [internalValue, setInternalValue] = useState<string | undefined>(
-    defaultValue
-  )
+  const [internalValue, setInternalValue] = useState<string | undefined>(defaultValue)
 
   const isControlled = value !== undefined
   const selectedOption = isControlled ? (value as string) : internalValue
@@ -37,28 +35,21 @@ const SegmentedControlComponent = (
     }
   }, [isControlled, value])
 
-  const _className = bem("SegmentedControl", undefined, {
+  const _className = bem('SegmentedControl', undefined, {
     fullWidth,
   })
 
   const itemRefs = useRef<Array<HTMLButtonElement | null>>([])
   itemRefs.current = options.map((_, i) => itemRefs.current[i] || null)
 
-  const tooltipAnchorRefs = useRef<
-    Array<preact.RefObject<HTMLButtonElement | null>>
-  >([])
+  const tooltipAnchorRefs = useRef<Array<preact.RefObject<HTMLButtonElement | null>>>([])
   tooltipAnchorRefs.current = options.map(
-    (_, i) =>
-      tooltipAnchorRefs.current[i] ||
-      ({ current: null } as preact.RefObject<HTMLButtonElement | null>)
+    (_, i) => tooltipAnchorRefs.current[i] || ({ current: null } as preact.RefObject<HTMLButtonElement | null>),
   )
 
-  const lastTabDirectionRef = useRef<"forward" | "backward" | null>(null)
+  const lastTabDirectionRef = useRef<'forward' | 'backward' | null>(null)
 
-  const selectedIndex = useMemo(
-    () => options.findIndex((option) => option.value === selectedOption),
-    [options, selectedOption]
-  )
+  const selectedIndex = useMemo(() => options.findIndex((option) => option.value === selectedOption), [options, selectedOption])
 
   const focusItem = (index: number) => {
     const clamped = Math.max(0, Math.min(options.length - 1, index))
@@ -66,10 +57,7 @@ const SegmentedControlComponent = (
     if (el) el.focus()
   }
 
-  const commitChange = (
-    event: MouseEvent | KeyboardEvent,
-    newOption: string
-  ) => {
+  const commitChange = (event: MouseEvent | KeyboardEvent, newOption: string) => {
     if (!isControlled) setInternalValue(newOption)
     onValueChange?.({ event, value: newOption })
   }
@@ -79,8 +67,8 @@ const SegmentedControlComponent = (
   // to land on the last segment instead of the first/selected one.
   useEffect(() => {
     const handleGlobalKeyDown = (event: KeyboardEvent) => {
-      if (event.key !== "Tab") return
-      lastTabDirectionRef.current = event.shiftKey ? "backward" : "forward"
+      if (event.key !== 'Tab') return
+      lastTabDirectionRef.current = event.shiftKey ? 'backward' : 'forward'
     }
 
     const handleFocusIn = (event: FocusEvent) => {
@@ -93,7 +81,7 @@ const SegmentedControlComponent = (
       const direction = lastTabDirectionRef.current
       if (!direction) return
 
-      const targetIndex = direction === "backward" ? options.length - 1 : 0
+      const targetIndex = direction === 'backward' ? options.length - 1 : 0
       if (targetIndex < 0) return
 
       const nextEl = itemRefs.current[targetIndex]
@@ -105,39 +93,30 @@ const SegmentedControlComponent = (
       lastTabDirectionRef.current = null
     }
 
-    window.addEventListener("keydown", handleGlobalKeyDown)
-    window.addEventListener("focusin", handleFocusIn)
+    window.addEventListener('keydown', handleGlobalKeyDown)
+    window.addEventListener('focusin', handleFocusIn)
 
     return () => {
-      window.removeEventListener("keydown", handleGlobalKeyDown)
-      window.removeEventListener("focusin", handleFocusIn)
+      window.removeEventListener('keydown', handleGlobalKeyDown)
+      window.removeEventListener('focusin', handleFocusIn)
     }
   }, [options.length])
 
-  const handleKeyDown = (
-    e: preact.JSX.TargetedKeyboardEvent<HTMLDivElement>
-  ) => {
+  const handleKeyDown = (e: preact.JSX.TargetedKeyboardEvent<HTMLDivElement>) => {
     if (disabled) return
 
     const event = e as KeyboardEvent
     const key = event.key
-    const isArrowKey =
-      key === "ArrowLeft" ||
-      key === "ArrowRight" ||
-      key === "ArrowUp" ||
-      key === "ArrowDown"
+    const isArrowKey = key === 'ArrowLeft' || key === 'ArrowRight' || key === 'ArrowUp' || key === 'ArrowDown'
 
-    const isTabKey = key === "Tab"
+    const isTabKey = key === 'Tab'
 
     // Arrow keys / Tab: move focus only, do not change selection
     if (isArrowKey || isTabKey) {
       const target = event.target as HTMLElement | null
-      const rawIndex = target
-        ? itemRefs.current.findIndex((el) => el === target)
-        : -1
+      const rawIndex = target ? itemRefs.current.findIndex((el) => el === target) : -1
 
-      const currentIndex =
-        rawIndex >= 0 ? rawIndex : selectedIndex >= 0 ? selectedIndex : 0
+      const currentIndex = rawIndex >= 0 ? rawIndex : selectedIndex >= 0 ? selectedIndex : 0
 
       // Tab: move within the control, but allow focus to leave
       // once we reach the ends (no wrapping). We clear lastTabDirectionRef here
@@ -150,10 +129,7 @@ const SegmentedControlComponent = (
         // If we're on the last item and pressing Tab (forwards),
         // or on the first item and pressing Shift+Tab (backwards),
         // allow the browser to move focus out of the control.
-        if (
-          (!event.shiftKey && currentIndex === lastIndex) ||
-          (event.shiftKey && currentIndex === 0)
-        ) {
+        if ((!event.shiftKey && currentIndex === lastIndex) || (event.shiftKey && currentIndex === 0)) {
           return
         }
 
@@ -170,28 +146,21 @@ const SegmentedControlComponent = (
       event.stopPropagation()
       event.preventDefault()
 
-      const dir = key === "ArrowRight" || key === "ArrowDown" ? 1 : -1
+      const dir = key === 'ArrowRight' || key === 'ArrowDown' ? 1 : -1
       const nextIndex = (currentIndex + dir + options.length) % options.length
       focusItem(nextIndex)
       return
     }
 
     // Enter / Space: select the currently focused item
-    if (key === "Enter" || key === " " || key === "Spacebar") {
+    if (key === 'Enter' || key === ' ' || key === 'Spacebar') {
       event.stopPropagation()
       event.preventDefault()
 
       const target = event.target as HTMLElement | null
-      const currentIndex = target
-        ? itemRefs.current.findIndex((el) => el === target)
-        : -1
+      const currentIndex = target ? itemRefs.current.findIndex((el) => el === target) : -1
 
-      const activeIndex =
-        currentIndex >= 0
-          ? currentIndex
-          : selectedIndex >= 0
-          ? selectedIndex
-          : -1
+      const activeIndex = currentIndex >= 0 ? currentIndex : selectedIndex >= 0 ? selectedIndex : -1
 
       if (activeIndex >= 0) {
         const option = options[activeIndex]
@@ -203,12 +172,12 @@ const SegmentedControlComponent = (
     }
 
     // Esc: remove focus from the currently focused element
-    if (key === "Escape" || key === "Esc") {
+    if (key === 'Escape' || key === 'Esc') {
       event.stopPropagation()
       event.preventDefault()
 
       const target = event.target as HTMLElement | null
-      if (target && typeof target.blur === "function") {
+      if (target && typeof target.blur === 'function') {
         target.blur()
       }
     }
@@ -217,7 +186,7 @@ const SegmentedControlComponent = (
   return (
     <div
       id={id}
-      className={[_className, className].join(" ").trim()}
+      className={[_className, className].join(' ').trim()}
       data-pui-interactive="true"
       ref={ref}
       onKeyDown={handleKeyDown}
@@ -227,7 +196,7 @@ const SegmentedControlComponent = (
         const isActive = option.value === selectedOption
         const anchorRef = tooltipAnchorRefs.current[idx]
 
-        const itemClassName = bem("SegmentedControl", "item", {
+        const itemClassName = bem('SegmentedControl', 'item', {
           selected: isActive,
           disabled,
           icon: Boolean(option.icon),
@@ -248,38 +217,24 @@ const SegmentedControlComponent = (
             >
               {option.icon && (
                 <Icon
-                  glyph={
-                    typeof option.icon.glyph === "function"
-                      ? (option.icon.glyph as Glyph)
-                      : undefined
-                  }
+                  glyph={typeof option.icon.glyph === 'function' ? (option.icon.glyph as Glyph) : undefined}
                   intent="neutral"
-                  intentModifier={isActive ? "default" : "secondary"}
+                  intentModifier={isActive ? 'default' : 'secondary'}
                   variant={option.icon.variant}
                   size={option.icon.size}
                   disabled={disabled}
                 >
-                  {typeof option.icon.glyph !== "function"
-                    ? option.icon.glyph
-                    : undefined}
+                  {typeof option.icon.glyph !== 'function' ? option.icon.glyph : undefined}
                 </Icon>
               )}
 
               {!option.icon && (
-                <Text
-                  intent="neutral"
-                  intentModifier={isActive ? "default" : "secondary"}
-                  disabled={disabled}
-                >
+                <Text intent="neutral" intentModifier={isActive ? 'default' : 'secondary'} disabled={disabled}>
                   {option.label}
                 </Text>
               )}
             </button>
-            {option.icon && (
-              <Tooltip anchorRef={anchorRef as preact.RefObject<HTMLElement>}>
-                {option.label}
-              </Tooltip>
-            )}
+            {option.icon && <Tooltip anchorRef={anchorRef as preact.RefObject<HTMLElement>}>{option.label}</Tooltip>}
           </Fragment>
         )
       })}
@@ -287,7 +242,4 @@ const SegmentedControlComponent = (
   )
 }
 
-export const SegmentedControl = typedForwardRef<
-  SegmentedControlProps,
-  HTMLDivElement
->(SegmentedControlComponent)
+export const SegmentedControl = typedForwardRef<SegmentedControlProps, HTMLDivElement>(SegmentedControlComponent)

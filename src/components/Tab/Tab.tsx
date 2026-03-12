@@ -1,29 +1,20 @@
-import { bem, typedForwardRef } from "../../utils"
+import { bem, typedForwardRef } from '../../utils'
 
-import { toChildArray, cloneElement } from "preact"
-import { useRef } from "preact/hooks"
+import { toChildArray, cloneElement } from 'preact'
+import { useRef } from 'preact/hooks'
 
-import type { VNode } from "preact"
+import type { VNode } from 'preact'
 
-import { useTabContext, Text, Icon } from "../../index"
+import { useTabContext, Text, Icon } from '../../index'
 
-import type { TabProps } from "./Tab.types"
-import "./Tab.scss"
+import type { TabProps } from './Tab.types'
+import './Tab.scss'
 
 /* --- */
 
 const TabComponent = (
-  {
-    id,
-    className,
-    variant = "default",
-    prefix,
-    suffix,
-    children,
-    onClick,
-    ...rest
-  }: TabProps,
-  ref: preact.Ref<HTMLButtonElement>
+  { id, className, variant = 'default', prefix, suffix, children, onClick, ...rest }: TabProps,
+  ref: preact.Ref<HTMLButtonElement>,
 ) => {
   const { activeId, onTabChange, registerTab } = useTabContext()
 
@@ -33,14 +24,14 @@ const TabComponent = (
     buttonRef.current = el
     registerTab(id, el)
 
-    if (typeof ref === "function") {
+    if (typeof ref === 'function') {
       ref(el)
     } else if (ref) {
       ;(ref as preact.RefObject<HTMLButtonElement>).current = el
     }
   }
 
-  const _className = bem("Tab", undefined, {
+  const _className = bem('Tab', undefined, {
     variant,
     selected: id === activeId,
     prefix: Boolean(prefix),
@@ -55,16 +46,13 @@ const TabComponent = (
 
   type ContentProps = { fake?: boolean; selected: boolean }
 
-  const renderAdditionalContent = (
-    content: preact.ComponentChildren,
-    selected: boolean
-  ) => {
+  const renderAdditionalContent = (content: preact.ComponentChildren, selected: boolean) => {
     return toChildArray(content).map((contentChild) => {
-      if (typeof contentChild === "object" && contentChild !== null) {
+      if (typeof contentChild === 'object' && contentChild !== null) {
         const maybeVNode = contentChild as VNode
         if (maybeVNode.type === Icon) {
           return cloneElement(maybeVNode, {
-            intentModifier: selected ? "default" : "secondary",
+            intentModifier: selected ? 'default' : 'secondary',
           })
         }
       }
@@ -74,11 +62,7 @@ const TabComponent = (
 
   const Content = ({ fake = false, selected = false }: ContentProps) => (
     <div className="Tab__content">
-      {prefix && (
-        <div className="Tab__prefix">
-          {prefix && renderAdditionalContent(prefix, selected)}
-        </div>
-      )}
+      {prefix && <div className="Tab__prefix">{prefix && renderAdditionalContent(prefix, selected)}</div>}
       {children && (
         <div className="Tab__children">
           <Text
@@ -86,24 +70,20 @@ const TabComponent = (
             size="medium"
             strong={fake || id === activeId}
             intent="neutral"
-            intentModifier={selected ? "default" : "secondary"}
+            intentModifier={selected ? 'default' : 'secondary'}
           >
             {children}
           </Text>
         </div>
       )}
-      {suffix && (
-        <div className="Tab__suffix">
-          {suffix && renderAdditionalContent(suffix, selected)}
-        </div>
-      )}
+      {suffix && <div className="Tab__suffix">{suffix && renderAdditionalContent(suffix, selected)}</div>}
     </div>
   )
 
   return (
     <button
       id={id}
-      className={[_className, className].join(" ").trim()}
+      className={[_className, className].join(' ').trim()}
       data-pui-interactive="true"
       ref={setRef}
       tabIndex={id === activeId ? 0 : -1}

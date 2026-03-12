@@ -1,10 +1,10 @@
-import { StoryObj } from "@storybook/preact"
+import { StoryObj } from '@storybook/preact'
 
-import { useRef } from "preact/hooks"
+import { useRef } from 'preact/hooks'
 
-import { Button, PopoverContainer, Section, Text } from "../../../index"
+import { Button, PopoverContainer, Section, Text } from '../../../index'
 
-import { OverlayPositioner } from "../OverlayPositioner"
+import { OverlayPositioner } from '../OverlayPositioner'
 
 type Story = StoryObj<typeof OverlayPositioner>
 
@@ -12,11 +12,11 @@ export const TriggerStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <OverlayPositioner
   anchorRef={anchorRef}
@@ -48,11 +48,9 @@ export const TriggerStory: Story = {
           <PopoverContainer width={300}>
             <Section>
               <Text>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui
-                quae autem dolorum quibusdam necessitatibus natus, ipsa aperiam
-                eos animi id nam tenetur adipisci? Amet nisi doloremque
-                asperiores quisquam, repudiandae similique magnam aspernatur
-                esse dignissimos molestiae.
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quae autem dolorum quibusdam necessitatibus natus,
+                ipsa aperiam eos animi id nam tenetur adipisci? Amet nisi doloremque asperiores quisquam, repudiandae similique
+                magnam aspernatur esse dignissimos molestiae.
               </Text>
             </Section>
           </PopoverContainer>
@@ -62,11 +60,9 @@ export const TriggerStory: Story = {
           <PopoverContainer width={300}>
             <Section>
               <Text>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui
-                quae autem dolorum quibusdam necessitatibus natus, ipsa aperiam
-                eos animi id nam tenetur adipisci? Amet nisi doloremque
-                asperiores quisquam, repudiandae similique magnam aspernatur
-                esse dignissimos molestiae.
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quae autem dolorum quibusdam necessitatibus natus,
+                ipsa aperiam eos animi id nam tenetur adipisci? Amet nisi doloremque asperiores quisquam, repudiandae similique
+                magnam aspernatur esse dignissimos molestiae.
               </Text>
             </Section>
           </PopoverContainer>

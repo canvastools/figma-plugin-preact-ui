@@ -1,4 +1,4 @@
-@use "../../shared.scss" as *;
+@use '../../shared.scss' as *;
 
 @mixin Badge_intent-filled($intent, $modifier) {
   &_intent-#{$intent}-#{$modifier} {
@@ -9,7 +9,7 @@
 
 @mixin Badge_intent-outlined($intent, $modifier) {
   &_intent-#{$intent}-#{$modifier} {
-    @if $modifier != "default" or $modifier != "secondary" {
+    @if $modifier != 'default' or $modifier != 'secondary' {
       background-color: transparent;
     } @else {
       background-color: var(--pui-color-#{$intent}-bg-#{$modifier});
@@ -48,15 +48,15 @@
     padding-right: 0;
   }
 
-  @include Badge_intent-outlined("neutral", "default");
-  @include Badge_intent-outlined("neutral", "secondary");
-  @include Badge_intent-outlined("neutral", "brand");
-  @include Badge_intent-outlined("neutral", "danger");
-  @include Badge_intent-outlined("neutral", "warning");
-  @include Badge_intent-outlined("neutral", "success");
-  @include Badge_intent-filled("neutral-inverted", "default");
-  @include Badge_intent-filled("brand", "default");
-  @include Badge_intent-filled("danger", "default");
-  @include Badge_intent-filled("warning", "default");
-  @include Badge_intent-filled("success", "default");
+  @include Badge_intent-outlined('neutral', 'default');
+  @include Badge_intent-outlined('neutral', 'secondary');
+  @include Badge_intent-outlined('neutral', 'brand');
+  @include Badge_intent-outlined('neutral', 'danger');
+  @include Badge_intent-outlined('neutral', 'warning');
+  @include Badge_intent-outlined('neutral', 'success');
+  @include Badge_intent-filled('neutral-inverted', 'default');
+  @include Badge_intent-filled('brand', 'default');
+  @include Badge_intent-filled('danger', 'default');
+  @include Badge_intent-filled('warning', 'default');
+  @include Badge_intent-filled('success', 'default');
 }

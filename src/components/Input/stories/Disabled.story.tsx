@@ -1,6 +1,6 @@
-import { StoryObj } from "@storybook/preact"
+import { StoryObj } from '@storybook/preact'
 
-import { Input } from "../Input"
+import { Input } from '../Input'
 
 type Story = StoryObj<typeof Input>
 
@@ -8,11 +8,11 @@ export const DisabledStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <Input disabled />
 `,

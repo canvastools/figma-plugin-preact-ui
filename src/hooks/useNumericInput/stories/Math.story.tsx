@@ -1,13 +1,11 @@
-import { StoryObj } from "@storybook/preact"
+import { StoryObj } from '@storybook/preact'
 
-import { useState } from "preact/hooks"
+import { useState } from 'preact/hooks'
 
-import { Input, Text } from "../../../index"
+import { Input, Text } from '../../../index'
 
-import { useNumericInput } from "../useNumericInput"
-import type {
-  NumericInputConfig
-} from "../useNumericInput.types"
+import { useNumericInput } from '../useNumericInput'
+import type { NumericInputConfig } from '../useNumericInput.types'
 
 type Story = StoryObj<typeof useNumericInput>
 
@@ -15,15 +13,15 @@ export const MathStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       description: {
         story:
-          "Math expressions can be evaluated before validation and formatting.<br/>Supported operators are `+`, `-`, `*`, `/` and `()`.",
+          'Math expressions can be evaluated before validation and formatting.<br/>Supported operators are `+`, `-`, `*`, `/` and `()`.',
       },
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 const numericInput = useNumericInput({
   value: "",
@@ -67,7 +65,7 @@ const [inputValue, setInputValue] = useState(numericInput.formattedValue ?? "")
   render: () => {
     const numericInput = useNumericInput({
       value: 55,
-      unit: "°",
+      unit: '°',
       min: -180,
       max: 180,
       precision: 0,
@@ -79,14 +77,12 @@ const [inputValue, setInputValue] = useState(numericInput.formattedValue ?? "")
       math: true,
     } as NumericInputConfig)
 
-    const [inputValue, setInputValue] = useState(
-      numericInput.formattedValue ?? ""
-    )
+    const [inputValue, setInputValue] = useState(numericInput.formattedValue ?? '')
 
     const [parsed, setParsed] = useState({
-      rawValue: "45+10",
+      rawValue: '45+10',
       normalizedValue: 55,
-      formattedValue: "55°",
+      formattedValue: '55°',
     })
 
     return (
@@ -101,24 +97,17 @@ const [inputValue, setInputValue] = useState(numericInput.formattedValue ?? "")
             setParsed({
               rawValue: parsed.rawValue,
               normalizedValue: parsed.normalizedValue ?? 0,
-              formattedValue: parsed.formattedValue ?? "",
+              formattedValue: parsed.formattedValue ?? '',
             })
 
-            if (
-              parsed.error === "required" ||
-              parsed.error === "invalid_number"
-            ) {
-              setInputValue(String("Auto"))
+            if (parsed.error === 'required' || parsed.error === 'invalid_number') {
+              setInputValue(String('Auto'))
               return
             }
 
             setInputValue(String(parsed.formattedValue))
           }}
-          onKeyDown={(args) =>
-            numericInput.handleKeyDown(args, (next) =>
-              setInputValue(String(next))
-            )
-          }
+          onKeyDown={(args) => numericInput.handleKeyDown(args, (next) => setInputValue(String(next)))}
         />
         <Text>rawValue: "{parsed.rawValue}"</Text>
         <Text>normalizedValue: {parsed.normalizedValue}</Text>

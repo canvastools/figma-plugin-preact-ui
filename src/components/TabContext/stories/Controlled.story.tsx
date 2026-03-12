@@ -1,10 +1,10 @@
-import { StoryObj } from "@storybook/preact"
+import { StoryObj } from '@storybook/preact'
 
-import { useState } from "preact/hooks"
+import { useState } from 'preact/hooks'
 
-import { Section, TabList, Tab, Text, TabPanel } from "../../../index"
+import { Section, TabList, Tab, Text, TabPanel } from '../../../index'
 
-import { TabContext } from "../TabContext"
+import { TabContext } from '../TabContext'
 
 type Story = StoryObj<typeof Tab>
 
@@ -12,11 +12,11 @@ export const ControlledStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 const [activeTab, setActiveTab] = useState("tab-1")
 
@@ -41,14 +41,11 @@ const [activeTab, setActiveTab] = useState("tab-1")
     },
   },
   render: () => {
-    const [activeTab, setActiveTab] = useState("tab-1")
+    const [activeTab, setActiveTab] = useState('tab-1')
 
     return (
       <div className="sb-column sb-width-full">
-        <TabContext
-          activeId={activeTab}
-          onTabChange={(args) => setActiveTab(args.id)}
-        >
+        <TabContext activeId={activeTab} onTabChange={(args) => setActiveTab(args.id)}>
           <Section>
             <TabList>
               <Tab id="tab-1">First Tab</Tab>

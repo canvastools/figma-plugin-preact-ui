@@ -1,24 +1,17 @@
-import { bem, typedForwardRef } from "../../utils"
+import { bem, typedForwardRef } from '../../utils'
 
-import { useState, useEffect } from "preact/hooks"
+import { useState, useEffect } from 'preact/hooks'
 
-import type { ProgressProps } from "./Progress.types"
-import "./Progress.scss"
+import type { ProgressProps } from './Progress.types'
+import './Progress.scss'
 
-import { Spinner } from "../Spinner/Spinner"
+import { Spinner } from '../Spinner/Spinner'
 
 /* --- */
 
 const ProgressComponent = (
-  {
-    id,
-    className,
-    variant = "indeterminate",
-    delay = 0,
-    value = 0,
-    ...rest
-  }: ProgressProps,
-  ref: preact.Ref<HTMLDivElement>
+  { id, className, variant = 'indeterminate', delay = 0, value = 0, ...rest }: ProgressProps,
+  ref: preact.Ref<HTMLDivElement>,
 ) => {
   const [isVisible, setIsVisible] = useState(false)
 
@@ -28,23 +21,13 @@ const ProgressComponent = (
     }, delay)
   }, [delay])
 
-  const _className = bem("Progress", undefined, { variant, visible: isVisible })
+  const _className = bem('Progress', undefined, { variant, visible: isVisible })
 
   return (
-    <div
-      id={id}
-      className={[_className, className].join(" ").trim()}
-      data-pui-interactive="true"
-      ref={ref}
-      {...rest}
-    >
-      {variant === "determinate" && (
-        <div className="Progress__bar" style={{ width: `${value}%` }} />
-      )}
+    <div id={id} className={[_className, className].join(' ').trim()} data-pui-interactive="true" ref={ref} {...rest}>
+      {variant === 'determinate' && <div className="Progress__bar" style={{ width: `${value}%` }} />}
     </div>
   )
 }
 
-export const Progress = typedForwardRef<ProgressProps, HTMLDivElement>(
-  ProgressComponent
-)
+export const Progress = typedForwardRef<ProgressProps, HTMLDivElement>(ProgressComponent)

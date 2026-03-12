@@ -1,6 +1,6 @@
-import { bem, typedForwardRef } from "../../utils"
+import { bem, typedForwardRef } from '../../utils'
 
-import { useEffect, useRef, useState } from "preact/hooks"
+import { useEffect, useRef, useState } from 'preact/hooks'
 
 import {
   OverlayPositionerPlacement,
@@ -9,15 +9,15 @@ import {
   PopoverHeader,
   PopoverContext,
   usePopoverContext,
-} from "../../index"
+} from '../../index'
 
-import type { PopoverProps } from "./Popover.types"
-import "./Popover.scss"
+import type { PopoverProps } from './Popover.types'
+import './Popover.scss'
 
 /* --- */
 
 type PopoverBodyProps = {
-  popoverHeaderProps: PopoverProps["popoverHeaderProps"]
+  popoverHeaderProps: PopoverProps['popoverHeaderProps']
   draggable: boolean
   width?: number
   height?: number
@@ -76,15 +76,8 @@ const PopoverBody = ({
       onClose={handleClose}
       closeOnClickOutside={true}
     >
-      <PopoverContainer
-        ref={containerRef}
-        width={width}
-        height={height}
-        showArrow={showArrow}
-      >
-        <PopoverHeader onClose={handleClose}>
-          {popoverHeaderProps?.children}
-        </PopoverHeader>
+      <PopoverContainer ref={containerRef} width={width} height={height} showArrow={showArrow}>
+        <PopoverHeader onClose={handleClose}>{popoverHeaderProps?.children}</PopoverHeader>
         {children}
       </PopoverContainer>
     </OverlayPositioner>
@@ -103,8 +96,8 @@ const PopoverComponent = (
     draggable = true,
     width,
     height,
-    placement = "bottom-left",
-    placementFallback = ["bottom-right", "top-left", "top-right"],
+    placement = 'bottom-left',
+    placementFallback = ['bottom-right', 'top-left', 'top-right'],
     offsetX = 0,
     offsetY = 8,
     offsetEdge = 16,
@@ -114,9 +107,9 @@ const PopoverComponent = (
     onClose,
     ...rest
   }: PopoverProps,
-  ref: preact.Ref<HTMLDivElement>
+  ref: preact.Ref<HTMLDivElement>,
 ) => {
-  const _className = bem("Popover", undefined, undefined)
+  const _className = bem('Popover', undefined, undefined)
 
   const [internalOpen, setInternalOpen] = useState<boolean>(open ?? defaultOpen)
 
@@ -138,19 +131,9 @@ const PopoverComponent = (
   }, [internalOpen, onOpen, onClose])
 
   return (
-    <PopoverContext
-      triggerRef={triggerRef}
-      anchorRef={anchorRef}
-      open={internalOpen}
-      setOpen={setInternalOpen}
-    >
+    <PopoverContext triggerRef={triggerRef} anchorRef={anchorRef} open={internalOpen} setOpen={setInternalOpen}>
       {internalOpen && (
-        <div
-          id={id}
-          className={[_className, className].join(" ").trim()}
-          ref={ref}
-          {...rest}
-        >
+        <div id={id} className={[_className, className].join(' ').trim()} ref={ref} {...rest}>
           <PopoverBody
             popoverHeaderProps={popoverHeaderProps}
             draggable={draggable}
@@ -172,6 +155,4 @@ const PopoverComponent = (
   )
 }
 
-export const Popover = typedForwardRef<PopoverProps, HTMLDivElement>(
-  PopoverComponent
-)
+export const Popover = typedForwardRef<PopoverProps, HTMLDivElement>(PopoverComponent)

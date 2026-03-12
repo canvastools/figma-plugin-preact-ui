@@ -4,55 +4,34 @@ export interface CalendarProps {
   id?: string
   className?: string
   locale?: string
-  type?: "iso8601" | "islamic" | "hebrew" | "gregory"
-  defaultView?: "month" | "year" | "decade" | "century"
-  view?: "month" | "year" | "decade" | "century"
+  type?: 'iso8601' | 'islamic' | 'hebrew' | 'gregory'
+  defaultView?: 'month' | 'year' | 'decade' | 'century'
+  view?: 'month' | 'year' | 'decade' | 'century'
   defaultDate?: CalendarDate
   date?: CalendarDate
   minDate?: Date
   maxDate?: Date
-  minDetail?: "century" | "decade" | "year" | "month"
-  maxDetail?: "century" | "decade" | "year" | "month"
+  minDetail?: 'century' | 'decade' | 'year' | 'month'
+  maxDetail?: 'century' | 'decade' | 'year' | 'month'
   showNavigation?: boolean
-  navigation?: "full" | "simple"
+  navigation?: 'full' | 'simple'
   onDateChange?: (args: { date: CalendarDate }) => void
   onDetailUp?: (args: {
-    action:
-      | "onChange"
-      | "prev"
-      | "prev2"
-      | "next"
-      | "next2"
-      | "drillUp"
-      | "drillDown"
+    action: 'onChange' | 'prev' | 'prev2' | 'next' | 'next2' | 'drillUp' | 'drillDown'
     activeStartDate: Date | null
     date: CalendarDate
-    view: "month" | "year" | "decade" | "century"
+    view: 'month' | 'year' | 'decade' | 'century'
   }) => void
   onDetailDown?: (args: {
-    action:
-      | "onChange"
-      | "prev"
-      | "prev2"
-      | "next"
-      | "next2"
-      | "drillUp"
-      | "drillDown"
+    action: 'onChange' | 'prev' | 'prev2' | 'next' | 'next2' | 'drillUp' | 'drillDown'
     activeStartDate: Date | null
     date: CalendarDate
-    view: "month" | "year" | "decade" | "century"
+    view: 'month' | 'year' | 'decade' | 'century'
   }) => void
   onViewChange?: (args: {
-    action:
-      | "onChange"
-      | "prev"
-      | "prev2"
-      | "next"
-      | "next2"
-      | "drillUp"
-      | "drillDown"
+    action: 'onChange' | 'prev' | 'prev2' | 'next' | 'next2' | 'drillUp' | 'drillDown'
     activeStartDate: Date | null
     date: CalendarDate
-    view: "month" | "year" | "decade" | "century"
+    view: 'month' | 'year' | 'decade' | 'century'
   }) => void
 }

@@ -1,13 +1,13 @@
-import { Meta, StoryObj } from "@storybook/preact"
+import { Meta, StoryObj } from '@storybook/preact'
 
-import { Fog } from "./Fog"
+import { Fog } from './Fog'
 
-import { Text, Button } from "../../index"
+import { Text, Button } from '../../index'
 
 const meta: Meta<typeof Fog> = {
-  title: "Layout/Fog",
+  title: 'Layout/Fog',
   component: Fog,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
@@ -17,27 +17,27 @@ const meta: Meta<typeof Fog> = {
   },
   argTypes: {
     id: {
-      control: { type: "text" },
+      control: { type: 'text' },
       table: {
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
     className: {
-      control: { type: "text" },
+      control: { type: 'text' },
     },
     delay: {
-      control: { type: "number" },
+      control: { type: 'number' },
       defaultValue: { summary: 0 },
       description:
-        "Once mounted, it already blocks mouse interactions, but you can set a delay (in milliseconds) before it becomes visible. This helps prevent flicker when content loads quickly.",
+        'Once mounted, it already blocks mouse interactions, but you can set a delay (in milliseconds) before it becomes visible. This helps prevent flicker when content loads quickly.',
     },
     children: {
-      control: { type: "text" },
+      control: { type: 'text' },
       table: {
         type: {
-          summary: "preact.ComponentChildren",
+          summary: 'preact.ComponentChildren',
         },
       },
     },
@@ -51,17 +51,17 @@ type Story = StoryObj<typeof Fog>
 export const Demo: Story = {
   args: {
     id: undefined,
-    className: "",
+    className: '',
     delay: 1000,
-    children: "",
+    children: '',
   },
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <Fog {...args}>{children}</Fog>
 `,
@@ -75,17 +75,13 @@ export const Demo: Story = {
         <Text>{args.children}</Text>
       </Fog>
       <Text>
-        Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry. Qui quae autem dolorum quibusdam necessitatibus natus, ipsa
-        aperiam eos animi id nam tenetur adipisci? Amet nisi doloremque
-        asperiores quisquam, repudiandae similique magnam aspernatur esse
-        dignissimos molestiae.
+        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Qui quae autem dolorum quibusdam
+        necessitatibus natus, ipsa aperiam eos animi id nam tenetur adipisci? Amet nisi doloremque asperiores quisquam,
+        repudiandae similique magnam aspernatur esse dignissimos molestiae.
       </Text>
       <Button
         onClick={() => {
-          alert(
-            "User can still navigate the page using keyboard (you should prevent it with your own code)"
-          )
+          alert('User can still navigate the page using keyboard (you should prevent it with your own code)')
         }}
       >
         You can't click me

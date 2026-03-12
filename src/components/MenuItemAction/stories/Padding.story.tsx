@@ -1,14 +1,8 @@
-import { StoryObj } from "@storybook/preact"
+import { StoryObj } from '@storybook/preact'
 
-import {
-  Icon,
-  link,
-  MenuContainer,
-  MenuDivider,
-  MenuItemOption,
-} from "../../../index"
+import { Icon, link, MenuContainer, MenuDivider, MenuItemOption } from '../../../index'
 
-import { MenuItemAction } from "../MenuItemAction"
+import { MenuItemAction } from '../MenuItemAction'
 
 type Story = StoryObj<typeof MenuItemAction>
 
@@ -16,15 +10,14 @@ export const PaddingStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       description: {
-        story:
-          "When `paddingLikeOption` is `true`, the content of an item gets extra padding to align with options.",
+        story: 'When `paddingLikeOption` is `true`, the content of an item gets extra padding to align with options.',
       },
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <MenuItemAction paddingLikeOption>
   {children}

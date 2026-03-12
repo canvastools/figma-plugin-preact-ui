@@ -1,9 +1,4 @@
-export type NumericInputError =
-  | "required"
-  | "invalid_number"
-  | "less_than_min"
-  | "greater_than_max"
-  | "not_integer"
+export type NumericInputError = 'required' | 'invalid_number' | 'less_than_min' | 'greater_than_max' | 'not_integer'
 
 export interface NumericInputConfig {
   value: number | string
@@ -30,9 +25,6 @@ export interface NumericInputParseResult {
 }
 
 export interface NumericInput extends NumericInputParseResult {
-  handleKeyDown: (
-    args: { event: KeyboardEvent; value: string },
-    onValueChange?: (next: number) => void
-  ) => void
+  handleKeyDown: (args: { event: KeyboardEvent; value: string }, onValueChange?: (next: number) => void) => void
   parse: (raw: string, unit?: string) => NumericInputParseResult
 }

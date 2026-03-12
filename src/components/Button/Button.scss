@@ -1,4 +1,4 @@
-@use "../../shared.scss" as *;
+@use '../../shared.scss' as *;
 
 @mixin Button_intent-filled($intent, $modifier) {
   &_intent-#{$intent}-#{$modifier} {
@@ -111,17 +111,17 @@
     width: 100%;
   }
 
-  @include Button_intent-outlined("neutral", "default");
-  @include Button_intent-filled("neutral", "secondary");
-  @include Button_intent-ghost("neutral", "default");
-  @include Button_intent-outlined("neutral", "brand");
-  @include Button_intent-ghost("neutral", "brand");
-  @include Button_intent-outlined("neutral", "danger");
-  @include Button_intent-ghost("neutral", "danger");
-  @include Button_intent-filled("neutral-inverted", "default");
-  @include Button_intent-filled("brand", "default");
-  @include Button_intent-filled("danger", "default");
-  @include Button_intent-filled("success", "default");
+  @include Button_intent-outlined('neutral', 'default');
+  @include Button_intent-filled('neutral', 'secondary');
+  @include Button_intent-ghost('neutral', 'default');
+  @include Button_intent-outlined('neutral', 'brand');
+  @include Button_intent-ghost('neutral', 'brand');
+  @include Button_intent-outlined('neutral', 'danger');
+  @include Button_intent-ghost('neutral', 'danger');
+  @include Button_intent-filled('neutral-inverted', 'default');
+  @include Button_intent-filled('brand', 'default');
+  @include Button_intent-filled('danger', 'default');
+  @include Button_intent-filled('success', 'default');
 
   &_disabled {
     cursor: auto !important;

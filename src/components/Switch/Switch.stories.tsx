@@ -1,45 +1,45 @@
-import { Meta, StoryObj } from "@storybook/preact"
-import { fn } from "@storybook/test"
+import { Meta, StoryObj } from '@storybook/preact'
+import { fn } from '@storybook/test'
 
-import { UncontrolledStory } from "./stories/Uncontrolled.story"
-import { ControlledStory } from "./stories/Controlled.story"
-import { DisabledStory } from "./stories/Disabled.story"
+import { UncontrolledStory } from './stories/Uncontrolled.story'
+import { ControlledStory } from './stories/Controlled.story'
+import { DisabledStory } from './stories/Disabled.story'
 
-import { Switch } from "./Switch"
+import { Switch } from './Switch'
 
 const meta: Meta<typeof Switch> = {
-  title: "Components/Switch",
+  title: 'Components/Switch',
   component: Switch,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     id: {
-      control: { type: "text" },
+      control: { type: 'text' },
       table: {
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
     className: {
-      control: { type: "text" },
+      control: { type: 'text' },
     },
     checked: {
       control: { disable: true },
-      description: "Value for controlled state.",
+      description: 'Value for controlled state.',
     },
     defaultChecked: {
-      control: { type: "boolean" },
-      description: "Value for uncontrolled state.",
+      control: { type: 'boolean' },
+      description: 'Value for uncontrolled state.',
       defaultValue: { summary: false },
     },
     disabled: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       defaultValue: { summary: false },
     },
     onCheckedChange: {
       table: {
         type: {
-          summary: "(args) => void",
+          summary: '(args) => void',
           detail: `
 args: {
   event: MouseEvent | KeyboardEvent
@@ -57,21 +57,21 @@ export default meta
 type Story = StoryObj<typeof Switch>
 
 export const Demo: Story = {
-  tags: ["!autodocs"],
+  tags: ['!autodocs'],
   args: {
     id: undefined,
-    className: "",
+    className: '',
     defaultChecked: false,
     disabled: false,
     onCheckedChange: fn(),
   },
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <Switch {...args} />
 `,

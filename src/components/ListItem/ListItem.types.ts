@@ -1,4 +1,4 @@
-import { spacing } from "../../themes"
+import { spacing } from '../../themes'
 
 export type ListItemPadding = keyof typeof spacing.variables
 
@@ -6,7 +6,7 @@ export interface ListItemProps {
   id: string
   className?: string
   nestingLevel: number
-  variant?: "default" | "layer"
+  variant?: 'default' | 'layer'
   padding?: {
     top?: ListItemPadding
     right?: ListItemPadding
@@ -18,7 +18,7 @@ export interface ListItemProps {
   onDragEnd?: (args: { event: DragEvent }) => void
   acceptsChildren?: boolean
   selectable?: boolean
-  selectionScope?: "individual" | "withDescendants"
+  selectionScope?: 'individual' | 'withDescendants'
   onSelect?: (args: { event: MouseEvent; selected: boolean }) => void
   hoverable?: boolean
   collapsed?: boolean

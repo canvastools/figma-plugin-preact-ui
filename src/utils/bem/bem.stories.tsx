@@ -1,31 +1,30 @@
-import { Meta, StoryObj } from "@storybook/preact"
+import { Meta, StoryObj } from '@storybook/preact'
 
-import { ElementStory } from "./story/Element.story"
-import { ModifiersStory } from "./story/Modifiers.story"
+import { ElementStory } from './story/Element.story'
+import { ModifiersStory } from './story/Modifiers.story'
 
-import { Code, Stack, Text } from "../../index"
+import { Code, Stack, Text } from '../../index'
 
-import { bem } from "./bem"
+import { bem } from './bem'
 
 const meta: Meta<typeof bem> = {
-  title: "Utils/bem",
+  title: 'Utils/bem',
   component: bem,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
-        component:
-          "Utility function to generate BEM class names.",
+        component: 'Utility function to generate BEM class names.',
       },
     },
   },
   argTypes: {
     args: {
       control: { disable: true },
-      description: "<strong>*</strong>",
+      description: '<strong>*</strong>',
       table: {
         type: {
-          summary: "(...) => string",
+          summary: '(...) => string',
           detail: `
 block: string // required
 element: string
@@ -42,14 +41,14 @@ export default meta
 type Story = StoryObj<typeof bem>
 
 export const Demo: Story = {
-  tags: ["!autodocs"],
+  tags: ['!autodocs'],
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 import { bem } from "figma-plugin-preact-ui"
 

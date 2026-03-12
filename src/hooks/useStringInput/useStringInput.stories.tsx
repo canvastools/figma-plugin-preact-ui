@@ -1,73 +1,71 @@
-import { Meta, StoryObj } from "@storybook/preact"
+import { Meta, StoryObj } from '@storybook/preact'
 
-import { useState } from "preact/hooks"
+import { useState } from 'preact/hooks'
 
-import { NormalizationStory } from "./stories/Normalization.story"
-import { MaskStory } from "./stories/Mask.story"
+import { NormalizationStory } from './stories/Normalization.story'
+import { MaskStory } from './stories/Mask.story'
 
-import { Input, Text } from "../../index"
+import { Input, Text } from '../../index'
 
-import { useStringInput } from "./useStringInput"
-import type { StringInputConfig,  StringInputError } from "./useStringInput.types"
+import { useStringInput } from './useStringInput'
+import type { StringInputConfig, StringInputError } from './useStringInput.types'
 
 const meta: Meta<typeof useStringInput> = {
-  title: "Hooks/useStringInput",
+  title: 'Hooks/useStringInput',
   component: useStringInput,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
-        component:
-          "A hook that validates and formats a string input based on the provided configuration.",
+        component: 'A hook that validates and formats a string input based on the provided configuration.',
       },
     },
   },
   argTypes: {
     value: {
-      control: { type: "text" },
-      description: "<strong>*</strong>Initial string value",
+      control: { type: 'text' },
+      description: '<strong>*</strong>Initial string value',
     },
     minLength: {
-      control: { type: "number" },
-      description: "Minimum allowed string length.",
+      control: { type: 'number' },
+      description: 'Minimum allowed string length.',
     },
     maxLength: {
-      control: { type: "number" },
-      description: "Maximum allowed string length.",
+      control: { type: 'number' },
+      description: 'Maximum allowed string length.',
     },
     allowedCharacters: {
-      control: { type: "text" },
-      description:
-        "Optional set of allowed characters. Any character not included here will be treated as invalid.",
+      control: { type: 'text' },
+      description: 'Optional set of allowed characters. Any character not included here will be treated as invalid.',
     },
     required: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       defaultValue: { summary: false },
     },
     trim: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       defaultValue: { summary: false },
-      description: "Trim the string before validation.",
+      description: 'Trim the string before validation.',
     },
     normalizeOnError: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       defaultValue: { summary: false },
       description:
-        "Whether to normalize and format the raw value on error, otherwise `undefined` will be returned for normalized value and formatted value.",
+        'Whether to normalize and format the raw value on error, otherwise `undefined` will be returned for normalized value and formatted value.',
     },
     format: {
       control: { disable: true },
       description:
-        "Optional formatter function that receives the normalized value and returns a formatted display string (e.g. for masks).",
+        'Optional formatter function that receives the normalized value and returns a formatted display string (e.g. for masks).',
       table: {
-        type: { summary: "(value: string) => string"},
+        type: { summary: '(value: string) => string' },
       },
     },
     useStringInput: {
       control: { disable: true },
       table: {
-        type: { 
-          summary: "Hook",
+        type: {
+          summary: 'Hook',
           detail: `
 {
   handleKeyDown: (
@@ -89,35 +87,35 @@ type StringInputParseResult = {
 }
 
 type StringInputError = "required" | "too_short" | "too_long" | "invalid_characters"
-          `
-         },
+          `,
+        },
       },
     },
   },
 }
 
-export default meta 
+export default meta
 
 type Story = StoryObj<typeof useStringInput>
 
 export const Demo: Story = {
-  tags: ["!autodocs"],
+  tags: ['!autodocs'],
   args: {
-    value: "Hello world!",
+    value: 'Hello world!',
     minLength: 3,
     maxLength: 12,
     required: false,
     trim: false,
-    allowedCharacters: "",
+    allowedCharacters: '',
     normalizeOnError: false,
   },
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 const stringInput = useStringInput({
   value: "Hello world!",
@@ -156,9 +154,7 @@ const [error, setError] = useState(null)
   render: (args) => {
     const stringInput = useStringInput(args as unknown as StringInputConfig)
 
-    const [inputValue, setInputValue] = useState(
-      stringInput.formattedValue ?? ""
-    )
+    const [inputValue, setInputValue] = useState(stringInput.formattedValue ?? '')
     const [error, setError] = useState<StringInputError | null>(null)
 
     return (
@@ -179,13 +175,11 @@ const [error, setError] = useState(null)
               return
             }
 
-            setInputValue(parsed.formattedValue ?? "")
+            setInputValue(parsed.formattedValue ?? '')
             setError(null)
           }}
         />
-        <Text intentModifier={error ? "danger" : "default"}>
-          {error || "No errors"}
-        </Text>
+        <Text intentModifier={error ? 'danger' : 'default'}>{error || 'No errors'}</Text>
       </div>
     )
   },

@@ -1,12 +1,12 @@
-import { StoryObj } from "@storybook/preact"
+import { StoryObj } from '@storybook/preact'
 
-import { Fragment } from "preact"
-import { useRef, useEffect } from "preact/hooks"
+import { Fragment } from 'preact'
+import { useRef, useEffect } from 'preact/hooks'
 
-import { useMenuContext, Text, Icon, check } from "../../../index"
+import { useMenuContext, Text, Icon, check } from '../../../index'
 
-import { Select } from "../Select"
-import { SelectOptionData } from "../Select.types"
+import { Select } from '../Select'
+import { SelectOptionData } from '../Select.types'
 
 type Story = StoryObj<typeof Select>
 
@@ -14,15 +14,15 @@ export const CustomItemStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       description: {
         story:
-          "Custom items can be created using the useMenuContext hook to register the item and access the context for managing its states.<br/>It requires a custom CSS styling to be applied as well.",
+          'Custom items can be created using the useMenuContext hook to register the item and access the context for managing its states.<br/>It requires a custom CSS styling to be applied as well.',
       },
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 const CustomItem = ({
   label,
@@ -120,10 +120,9 @@ const options = [
       selected?: boolean
       onChange?: (args: { event: MouseEvent; value: string }) => void
     }) => {
-      const { registerItem, clearFocus, setHoveredItem, setFocusedItem } =
-        useMenuContext()
+      const { registerItem, clearFocus, setHoveredItem, setFocusedItem } = useMenuContext()
 
-      const id = value ?? "custom-id"
+      const id = value ?? 'custom-id'
       const itemRef = useRef<HTMLElement>(null)
 
       useEffect(() => {
@@ -188,17 +187,12 @@ const options = [
             <div className="CustomMenuItem__content">
               <div style={{ width: 16, height: 16 }}>
                 {selected && (
-                  <Icon
-                    glyph={check}
-                    size={16}
-                    intent={focused ? "brand" : "neutral-inverted-fixed"}
-                    disabled={disabled}
-                  />
+                  <Icon glyph={check} size={16} intent={focused ? 'brand' : 'neutral-inverted-fixed'} disabled={disabled} />
                 )}
               </div>
               <Text intent="neutral-inverted-fixed">
                 {label}
-                {focused ? " [focused]" : null}
+                {focused ? ' [focused]' : null}
               </Text>
             </div>
           </div>
@@ -207,19 +201,15 @@ const options = [
     }
 
     const options: SelectOptionData[] = [
-      { value: "option-1", label: "Option one" },
-      { value: "option-2", label: "Option two" },
-      { value: "option-3", label: "Option three" },
-      { value: "custom-value", label: "Custom option", children: <CustomItem /> },
+      { value: 'option-1', label: 'Option one' },
+      { value: 'option-2', label: 'Option two' },
+      { value: 'option-3', label: 'Option three' },
+      { value: 'custom-value', label: 'Custom option', children: <CustomItem /> },
     ]
 
     return (
       <div className="sb-column sb-width-300">
-        <Select
-          options={options}
-          defaultValue="option-1"
-          onValueChange={(args) => console.log("onValueChange", args)}
-        />
+        <Select options={options} defaultValue="option-1" onValueChange={(args) => console.log('onValueChange', args)} />
       </div>
     )
   },

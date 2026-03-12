@@ -1,10 +1,10 @@
-import { StoryObj } from "@storybook/preact"
+import { StoryObj } from '@storybook/preact'
 
-import { useState } from "preact/hooks"
+import { useState } from 'preact/hooks'
 
-import { Button, Text, ScrollContext, Stack } from "../../../index"
+import { Button, Text, ScrollContext, Stack } from '../../../index'
 
-import { ScrollContainer } from "../ScrollContainer"
+import { ScrollContainer } from '../ScrollContainer'
 
 type Story = StoryObj<typeof ScrollContainer>
 
@@ -58,11 +58,11 @@ export const DynamicContentStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <ScrollContext>
   <ScrollContainer>{children}</ScrollContainer>
@@ -82,9 +82,7 @@ export const DynamicContentStory: Story = {
               <Text variant="body" size="medium">
                 {content}
               </Text>
-              <Button onClick={() => setContent(content + newContent)}>
-                Add content
-              </Button>
+              <Button onClick={() => setContent(content + newContent)}>Add content</Button>
             </Stack>
           </ScrollContainer>
         </ScrollContext>

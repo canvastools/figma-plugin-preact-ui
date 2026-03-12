@@ -1,32 +1,24 @@
-import { bem, typedForwardRef } from "../../utils"
+import { bem, typedForwardRef } from '../../utils'
 
-import type { TooltipContainerProps } from "./TooltipContainer.types"
-import "./TooltipContainer.scss"
+import type { TooltipContainerProps } from './TooltipContainer.types'
+import './TooltipContainer.scss'
 
-import { Text } from "../Text/Text"
+import { Text } from '../Text/Text'
 
 /* --- */
 
 const TooltipContainerComponent = (
-  {
-    id,
-    className,
-    width,
-    height,
-    showArrow,
-    children,
-    ...rest
-  }: TooltipContainerProps,
-  ref: preact.Ref<HTMLDivElement>
+  { id, className, width, height, showArrow, children, ...rest }: TooltipContainerProps,
+  ref: preact.Ref<HTMLDivElement>,
 ) => {
-  const _className = bem("TooltipContainer", undefined, {
+  const _className = bem('TooltipContainer', undefined, {
     arrow: showArrow,
   })
 
   return (
     <div
       id={id}
-      className={[_className, className].join(" ").trim()}
+      className={[_className, className].join(' ').trim()}
       data-pui-interactive="true"
       ref={ref}
       style={{
@@ -41,7 +33,4 @@ const TooltipContainerComponent = (
   )
 }
 
-export const TooltipContainer = typedForwardRef<
-  TooltipContainerProps,
-  HTMLDivElement
->(TooltipContainerComponent)
+export const TooltipContainer = typedForwardRef<TooltipContainerProps, HTMLDivElement>(TooltipContainerComponent)

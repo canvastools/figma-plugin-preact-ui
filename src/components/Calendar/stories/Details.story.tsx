@@ -1,6 +1,6 @@
-import { StoryObj } from "@storybook/preact"
+import { StoryObj } from '@storybook/preact'
 
-import { Calendar } from "../Calendar"
+import { Calendar } from '../Calendar'
 
 type Story = StoryObj<typeof Calendar>
 
@@ -8,11 +8,11 @@ export const DetailsStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <Calendar
   minDetail="decade"

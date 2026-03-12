@@ -1,12 +1,12 @@
-import { bem, typedForwardRef } from "../../utils"
+import { bem, typedForwardRef } from '../../utils'
 
-import { Fragment } from "preact"
-import { useRef } from "preact/hooks"
+import { Fragment } from 'preact'
+import { useRef } from 'preact/hooks'
 
-import { Text, Tooltip } from "../../index"
+import { Text, Tooltip } from '../../index'
 
-import type { ButtonProps } from "./Button.types"
-import "./Button.scss"
+import type { ButtonProps } from './Button.types'
+import './Button.scss'
 
 /* --- */
 
@@ -14,10 +14,10 @@ const ButtonComponent = (
   {
     id,
     className,
-    intent = "neutral",
-    intentModifier = "default",
+    intent = 'neutral',
+    intentModifier = 'default',
     ghost = false,
-    size = "medium",
+    size = 'medium',
     grouped,
     disabled = false,
     fullWidth = false,
@@ -28,9 +28,9 @@ const ButtonComponent = (
     onClick,
     ...rest
   }: ButtonProps,
-  ref: preact.Ref<HTMLButtonElement>
+  ref: preact.Ref<HTMLButtonElement>,
 ) => {
-  const _className = bem("Button", undefined, {
+  const _className = bem('Button', undefined, {
     intent: `${intent}-${intentModifier}`,
     ghost,
     size,
@@ -52,10 +52,8 @@ const ButtonComponent = (
     onClick?.({ event })
   }
 
-  const handleKeyDown = (
-    event: preact.JSX.TargetedKeyboardEvent<HTMLButtonElement>
-  ) => {
-    if (event.key === "Escape" || event.key === "Esc") {
+  const handleKeyDown = (event: preact.JSX.TargetedKeyboardEvent<HTMLButtonElement>) => {
+    if (event.key === 'Escape' || event.key === 'Esc') {
       event.currentTarget.blur()
     }
   }
@@ -66,10 +64,10 @@ const ButtonComponent = (
     <Fragment>
       <button
         id={id}
-        className={[_className, className].join(" ").trim()}
+        className={[_className, className].join(' ').trim()}
         data-pui-interactive="true"
         ref={(el) => {
-          if (typeof ref === "function") {
+          if (typeof ref === 'function') {
             ref(el)
           } else if (ref) {
             // eslint-disable-next-line
@@ -86,13 +84,7 @@ const ButtonComponent = (
           {prefix && <div className="Button__prefix">{prefix}</div>}
           {children && (
             <div className="Button__children">
-              <Text
-                variant="body"
-                size="medium"
-                intent={intent}
-                intentModifier={intentModifier}
-                disabled={disabled}
-              >
+              <Text variant="body" size="medium" intent={intent} intentModifier={intentModifier} disabled={disabled}>
                 {children}
               </Text>
             </div>
@@ -105,6 +97,4 @@ const ButtonComponent = (
   )
 }
 
-export const Button = typedForwardRef<ButtonProps, HTMLButtonElement>(
-  ButtonComponent
-)
+export const Button = typedForwardRef<ButtonProps, HTMLButtonElement>(ButtonComponent)

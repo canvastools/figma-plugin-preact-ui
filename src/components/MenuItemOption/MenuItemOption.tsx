@@ -1,25 +1,25 @@
-import { cloneElement } from "preact"
-import { useState, useEffect, useRef } from "preact/hooks"
+import { cloneElement } from 'preact'
+import { useState, useEffect, useRef } from 'preact/hooks'
 
-import { bem, typedForwardRef, uuid } from "../../utils"
+import { bem, typedForwardRef, uuid } from '../../utils'
 
-import { Text, Icon, check as checkGlyph, useMenuContext } from "../../index"
-import type { MenuContextValue } from "../../index"
+import { Text, Icon, check as checkGlyph, useMenuContext } from '../../index'
+import type { MenuContextValue } from '../../index'
 
-import type { MenuItemOptionProps } from "./MenuItemOption.types"
-import "./MenuItemOption.scss"
+import type { MenuItemOptionProps } from './MenuItemOption.types'
+import './MenuItemOption.scss'
 
 /* --- */
 
 const hoverIntentProps = {
-  intent: "brand",
-  intentModifiers: "default",
+  intent: 'brand',
+  intentModifiers: 'default',
 }
 
-const noopRegisterItem: MenuContextValue["registerItem"] = () => () => {}
-const noopClearFocus: MenuContextValue["clearFocus"] = () => {}
-const noopSetHoveredItem: MenuContextValue["setHoveredItem"] = () => {}
-const noopSetFocusedItem: MenuContextValue["setFocusedItem"] = () => {}
+const noopRegisterItem: MenuContextValue['registerItem'] = () => () => {}
+const noopClearFocus: MenuContextValue['clearFocus'] = () => {}
+const noopSetHoveredItem: MenuContextValue['setHoveredItem'] = () => {}
+const noopSetFocusedItem: MenuContextValue['setFocusedItem'] = () => {}
 
 const MenuItemOptionComponent = (
   {
@@ -35,7 +35,7 @@ const MenuItemOptionComponent = (
     onSelectedChange,
     ...rest
   }: MenuItemOptionProps,
-  ref: preact.Ref<HTMLDivElement>
+  ref: preact.Ref<HTMLDivElement>,
 ) => {
   const [internalSelected, setInternalSelected] = useState(defaultSelected)
 
@@ -46,13 +46,12 @@ const MenuItemOptionComponent = (
     menuContext = null
   }
 
-  const { registerItem, clearFocus, setHoveredItem, setFocusedItem } =
-    menuContext || {
-      registerItem: noopRegisterItem,
-      clearFocus: noopClearFocus,
-      setHoveredItem: noopSetHoveredItem,
-      setFocusedItem: noopSetFocusedItem,
-    }
+  const { registerItem, clearFocus, setHoveredItem, setFocusedItem } = menuContext || {
+    registerItem: noopRegisterItem,
+    clearFocus: noopClearFocus,
+    setHoveredItem: noopSetHoveredItem,
+    setFocusedItem: noopSetFocusedItem,
+  }
 
   const itemRef = useRef<HTMLElement>(null)
 
@@ -68,12 +67,11 @@ const MenuItemOptionComponent = (
     return unregister
   }, [disabled, internalId])
 
-  const isSelected =
-    controlledSelected !== undefined ? controlledSelected : internalSelected
+  const isSelected = controlledSelected !== undefined ? controlledSelected : internalSelected
 
   const [isHovered, setIsHovered] = useState(false)
   const isActive = isHovered || focused
-  const _className = bem("MenuItemOption", undefined, {
+  const _className = bem('MenuItemOption', undefined, {
     disabled,
     focused,
     prefix: Boolean(prefix),
@@ -117,20 +115,12 @@ const MenuItemOptionComponent = (
     setIsHovered(false)
   }
 
-  const override = (
-    node: preact.ComponentChildren,
-    props: Record<string, unknown>
-  ): preact.ComponentChildren => {
+  const override = (node: preact.ComponentChildren, props: Record<string, unknown>): preact.ComponentChildren => {
     if (Array.isArray(node)) {
       return node.map((n) => override(n, props))
     }
 
-    if (
-      node &&
-      typeof node === "object" &&
-      "type" in node &&
-      typeof node.type !== "string"
-    ) {
+    if (node && typeof node === 'object' && 'type' in node && typeof node.type !== 'string') {
       const vnode = node as preact.VNode
       const originalProps = vnode.props || {}
 
@@ -145,11 +135,11 @@ const MenuItemOptionComponent = (
   return (
     <div
       id={id}
-      className={[_className, className].join(" ").trim()}
+      className={[_className, className].join(' ').trim()}
       data-pui-interactive="true"
       tabIndex={-1}
       ref={(el) => {
-        if (typeof ref === "function") {
+        if (typeof ref === 'function') {
           ref(el)
         } else if (ref) {
           // eslint-disable-next-line
@@ -165,12 +155,7 @@ const MenuItemOptionComponent = (
       <div className="MenuItemOption__content">
         <div className="MenuItemOption__selection">
           {isSelected && (
-            <Icon
-              glyph={checkGlyph}
-              size={16}
-              intent={isActive ? "brand" : "neutral-inverted-fixed"}
-              disabled={disabled}
-            />
+            <Icon glyph={checkGlyph} size={16} intent={isActive ? 'brand' : 'neutral-inverted-fixed'} disabled={disabled} />
           )}
         </div>
         <div className="MenuItemOption__content-container">
@@ -185,12 +170,7 @@ const MenuItemOptionComponent = (
           )}
           {children && (
             <div className="MenuItemOption__children">
-              <Text
-                variant="body"
-                size="medium"
-                intent={isActive ? "brand" : "neutral-inverted-fixed"}
-                disabled={disabled}
-              >
+              <Text variant="body" size="medium" intent={isActive ? 'brand' : 'neutral-inverted-fixed'} disabled={disabled}>
                 {isActive
                   ? override(children, {
                       ...hoverIntentProps,
@@ -214,7 +194,4 @@ const MenuItemOptionComponent = (
   )
 }
 
-export const MenuItemOption = typedForwardRef<
-  MenuItemOptionProps,
-  HTMLDivElement
->(MenuItemOptionComponent)
+export const MenuItemOption = typedForwardRef<MenuItemOptionProps, HTMLDivElement>(MenuItemOptionComponent)

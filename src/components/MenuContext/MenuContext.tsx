@@ -1,17 +1,7 @@
-import { createContext } from "preact"
-import {
-  useContext,
-  useEffect,
-  useState,
-  useCallback,
-  useRef,
-} from "preact/hooks"
+import { createContext } from 'preact'
+import { useContext, useEffect, useState, useCallback, useRef } from 'preact/hooks'
 
-import type {
-  MenuContextValue,
-  MenuContextProps,
-  MenuItemMetadata,
-} from "./MenuContext.types"
+import type { MenuContextValue, MenuContextProps, MenuItemMetadata } from './MenuContext.types'
 
 /* --- */
 
@@ -19,33 +9,23 @@ const RawMenuContext = createContext<MenuContextValue | undefined>(undefined)
 
 const useMenuContext = () => {
   const context = useContext(RawMenuContext)
-  if (!context) throw new Error("MenuContext not found")
+  if (!context) throw new Error('MenuContext not found')
   return context
 }
 
-const MenuContext = ({
-  triggerRef,
-  anchorRef,
-  open,
-  setOpen,
-  children,
-}: MenuContextProps) => {
+const MenuContext = ({ triggerRef, anchorRef, open, setOpen, children }: MenuContextProps) => {
   const itemsRef = useRef<MenuItemMetadata[]>([])
   const lastOpenViaKeyboardRef = useRef(false)
   const typeaheadRef = useRef<{ query: string; lastTime: number }>({
-    query: "",
+    query: '',
     lastTime: 0,
   })
 
   const [focusedItemId, setFocusedItemState] = useState<string | null>(null)
-  const [lastHoveredItemId, setLastHoveredItemId] = useState<string | null>(
-    null
-  )
+  const [lastHoveredItemId, setLastHoveredItemId] = useState<string | null>(null)
   const [keyboardInteraction, setKeyboardInteraction] = useState(false)
   const [hoverFrozen, setHoverFrozen] = useState(false)
-  const [lastInteractionItemId, setLastInteractionItemId] = useState<
-    string | null
-  >(null)
+  const [lastInteractionItemId, setLastInteractionItemId] = useState<string | null>(null)
 
   const registerItem = useCallback((meta: MenuItemMetadata) => {
     itemsRef.current.push(meta)
@@ -55,9 +35,7 @@ const MenuContext = ({
   }, [])
 
   const getEnabledItemsInDomOrder = useCallback((): MenuItemMetadata[] => {
-    const enabledWithRef = itemsRef.current.filter(
-      (item) => !item.disabled && item.ref.current
-    )
+    const enabledWithRef = itemsRef.current.filter((item) => !item.disabled && item.ref.current)
     return enabledWithRef.slice().sort((a, b) => {
       const aNode = a.ref.current
       const bNode = b.ref.current
@@ -82,7 +60,7 @@ const MenuContext = ({
         setLastInteractionItemId(targetId ?? null)
       }
     },
-    [getEnabledItemsInDomOrder]
+    [getEnabledItemsInDomOrder],
   )
 
   const clearFocus = useCallback(() => {
@@ -106,26 +84,23 @@ const MenuContext = ({
         setKeyboardInteraction(false)
       }
     },
-    [hoverFrozen]
+    [hoverFrozen],
   )
 
   const moveFocus = useCallback(
-    (direction: "next" | "prev") => {
+    (direction: 'next' | 'prev') => {
       const enabledItems = getEnabledItemsInDomOrder()
       if (!enabledItems.length) return
 
-      const currentIndex = enabledItems.findIndex(
-        (item) => item.id === focusedItemId
-      )
+      const currentIndex = enabledItems.findIndex((item) => item.id === focusedItemId)
 
       let nextIndex: number
       if (currentIndex === -1) {
-        nextIndex = direction === "next" ? 0 : enabledItems.length - 1
-      } else if (direction === "next") {
+        nextIndex = direction === 'next' ? 0 : enabledItems.length - 1
+      } else if (direction === 'next') {
         nextIndex = (currentIndex + 1) % enabledItems.length
       } else {
-        nextIndex =
-          (currentIndex - 1 + enabledItems.length) % enabledItems.length
+        nextIndex = (currentIndex - 1 + enabledItems.length) % enabledItems.length
       }
 
       const target = enabledItems[nextIndex]
@@ -135,7 +110,7 @@ const MenuContext = ({
         setLastInteractionItemId(target.id)
       }
     },
-    [focusedItemId, getEnabledItemsInDomOrder]
+    [focusedItemId, getEnabledItemsInDomOrder],
   )
 
   useEffect(() => {
@@ -145,7 +120,7 @@ const MenuContext = ({
     const handleKeys = (event: KeyboardEvent) => {
       const { key } = event
 
-      if (key === "Escape" || key === "Esc") {
+      if (key === 'Escape' || key === 'Esc') {
         if (!open) return
         event.preventDefault()
         setOpen?.(false)
@@ -153,7 +128,7 @@ const MenuContext = ({
         return
       }
 
-      if (key === "Enter" || key === " ") {
+      if (key === 'Enter' || key === ' ') {
         event.preventDefault()
         if (!open) {
           lastOpenViaKeyboardRef.current = true
@@ -162,36 +137,34 @@ const MenuContext = ({
           const enabledItems = itemsRef.current.filter((item) => !item.disabled)
           if (!enabledItems.length) return
 
-          const current =
-            enabledItems.find((item) => item.id === focusedItemId) ??
-            enabledItems[0]
+          const current = enabledItems.find((item) => item.id === focusedItemId) ?? enabledItems[0]
 
           current.ref.current?.click()
         }
         return
       }
 
-      if (key === "ArrowDown") {
+      if (key === 'ArrowDown') {
         event.preventDefault()
         if (!open) {
           lastOpenViaKeyboardRef.current = true
           setOpen?.(true)
         } else {
-          moveFocus("next")
+          moveFocus('next')
         }
         return
       }
 
-      if (key === "ArrowUp" && open) {
+      if (key === 'ArrowUp' && open) {
         event.preventDefault()
-        moveFocus("prev")
+        moveFocus('prev')
       }
     }
 
-    triggerEl.addEventListener("keydown", handleKeys)
+    triggerEl.addEventListener('keydown', handleKeys)
 
     return () => {
-      triggerEl.removeEventListener("keydown", handleKeys)
+      triggerEl.removeEventListener('keydown', handleKeys)
     }
   }, [triggerRef, open, setOpen, focusedItemId, moveFocus])
 
@@ -206,10 +179,10 @@ const MenuContext = ({
       setOpen?.(!open)
     }
 
-    triggerEl.addEventListener("mousedown", handleMouseDown)
+    triggerEl.addEventListener('mousedown', handleMouseDown)
 
     return () => {
-      triggerEl.removeEventListener("mousedown", handleMouseDown)
+      triggerEl.removeEventListener('mousedown', handleMouseDown)
     }
   }, [triggerRef, open, setOpen])
 
@@ -220,7 +193,7 @@ const MenuContext = ({
       setKeyboardInteraction(false)
       setHoverFrozen(false)
       setLastInteractionItemId(null)
-      typeaheadRef.current = { query: "", lastTime: 0 }
+      typeaheadRef.current = { query: '', lastTime: 0 }
       return
     }
 
@@ -232,8 +205,7 @@ const MenuContext = ({
     })
   }, [open])
 
-  const resolvedAnchorRef = (anchorRef ??
-    triggerRef) as MenuContextValue["anchorRef"]
+  const resolvedAnchorRef = (anchorRef ?? triggerRef) as MenuContextValue['anchorRef']
 
   useEffect(() => {
     if (!open) return
@@ -245,15 +217,10 @@ const MenuContext = ({
       if (metaKey || ctrlKey || altKey) return
 
       // Activate the currently active menu item with Enter / Space.
-      if (key === "Enter" || key === " ") {
+      if (key === 'Enter' || key === ' ') {
         // When the menu is open, ignore activation keys coming from inputs
         // or editable elements to avoid breaking text fields.
-        if (
-          target &&
-          (target.tagName === "INPUT" ||
-            target.tagName === "TEXTAREA" ||
-            target.isContentEditable)
-        ) {
+        if (target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable)) {
           return
         }
 
@@ -268,9 +235,7 @@ const MenuContext = ({
         // When we're still in hover-navigation mode (no keyboardInteraction),
         // prefer the last hovered item as the active target.
         if (!keyboardInteraction && lastHoveredItemId) {
-          activeItem = enabledItems.find(
-            (item) => item.id === lastHoveredItemId
-          )
+          activeItem = enabledItems.find((item) => item.id === lastHoveredItemId)
         }
 
         // Otherwise, or if there's no valid hovered item, fall back to the
@@ -304,10 +269,10 @@ const MenuContext = ({
       }
 
       // Global Tab navigation within an open menu
-      if (key === "Tab") {
+      if (key === 'Tab') {
         event.preventDefault()
         event.stopPropagation()
-        const direction = shiftKey ? "prev" : "next"
+        const direction = shiftKey ? 'prev' : 'next'
         moveFocus(direction)
         setKeyboardInteraction(true)
         setHoverFrozen(true)
@@ -316,14 +281,9 @@ const MenuContext = ({
 
       // Once the menu is open (regardless of how it was opened), handle keyboard
       // navigation with ArrowUp/ArrowDown.
-      if (key === "ArrowDown" || key === "ArrowUp") {
+      if (key === 'ArrowDown' || key === 'ArrowUp') {
         // Don't steal arrow keys from text fields or editable areas
-        if (
-          target &&
-          (target.tagName === "INPUT" ||
-            target.tagName === "TEXTAREA" ||
-            target.isContentEditable)
-        ) {
+        if (target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable)) {
           return
         }
         event.preventDefault()
@@ -342,15 +302,10 @@ const MenuContext = ({
           //    one-time "skip hovered" rule so the first ArrowUp/Down moves off
           //    the hovered item.
           if (!keyboardInteraction && lastHoveredItemId) {
-            const hoveredIndex = enabledItems.findIndex(
-              (item) => item.id === lastHoveredItemId
-            )
+            const hoveredIndex = enabledItems.findIndex((item) => item.id === lastHoveredItemId)
 
             if (hoveredIndex !== -1) {
-              const nextIndex =
-                key === "ArrowDown"
-                  ? (hoveredIndex + 1) % total
-                  : (hoveredIndex - 1 + total) % total
+              const nextIndex = key === 'ArrowDown' ? (hoveredIndex + 1) % total : (hoveredIndex - 1 + total) % total
 
               const nextItem = enabledItems[nextIndex]
               if (nextItem?.ref.current) {
@@ -368,14 +323,9 @@ const MenuContext = ({
           //    click or keyboard activation) but focusedItemId was cleared
           //    by a hover event – continue from the last interacted item.
           if (lastInteractionItemId) {
-            const anchorIndex = enabledItems.findIndex(
-              (item) => item.id === lastInteractionItemId
-            )
+            const anchorIndex = enabledItems.findIndex((item) => item.id === lastInteractionItemId)
             if (anchorIndex !== -1) {
-              const nextIndex =
-                key === "ArrowDown"
-                  ? (anchorIndex + 1) % total
-                  : (anchorIndex - 1 + total) % total
+              const nextIndex = key === 'ArrowDown' ? (anchorIndex + 1) % total : (anchorIndex - 1 + total) % total
 
               const nextItem = enabledItems[nextIndex]
               if (nextItem?.ref.current) {
@@ -398,14 +348,9 @@ const MenuContext = ({
         }
 
         // Normal sequential navigation starting from the currently focused item.
-        const currentIndex = enabledItems.findIndex(
-          (item) => item.id === focusedItemId
-        )
+        const currentIndex = enabledItems.findIndex((item) => item.id === focusedItemId)
         const safeIndex = currentIndex === -1 ? 0 : currentIndex
-        const nextIndex =
-          key === "ArrowDown"
-            ? (safeIndex + 1) % total
-            : (safeIndex - 1 + total) % total
+        const nextIndex = key === 'ArrowDown' ? (safeIndex + 1) % total : (safeIndex - 1 + total) % total
 
         const nextItem = enabledItems[nextIndex]
         if (nextItem?.ref.current) {
@@ -418,19 +363,11 @@ const MenuContext = ({
       }
     }
 
-    window.addEventListener("keydown", handleKeyDown, true)
+    window.addEventListener('keydown', handleKeyDown, true)
     return () => {
-      window.removeEventListener("keydown", handleKeyDown, true)
+      window.removeEventListener('keydown', handleKeyDown, true)
     }
-  }, [
-    open,
-    moveFocus,
-    focusItem,
-    focusedItemId,
-    lastHoveredItemId,
-    keyboardInteraction,
-    lastInteractionItemId,
-  ])
+  }, [open, moveFocus, focusItem, focusedItemId, lastHoveredItemId, keyboardInteraction, lastInteractionItemId])
 
   // Resume hover handling only after the user actually moves the mouse again
   // following a keyboard activation.
@@ -443,9 +380,9 @@ const MenuContext = ({
       }
     }
 
-    window.addEventListener("pointermove", handlePointerMove)
+    window.addEventListener('pointermove', handlePointerMove)
     return () => {
-      window.removeEventListener("pointermove", handlePointerMove)
+      window.removeEventListener('pointermove', handlePointerMove)
     }
   }, [open, hoverFrozen])
 
@@ -460,7 +397,7 @@ const MenuContext = ({
       if (metaKey || ctrlKey || altKey) return
       // Space is reserved as an activation key for the focused item,
       // so we explicitly exclude it from typeahead.
-      if (key === " ") return
+      if (key === ' ') return
       if (key.length !== 1) return
 
       const char = key.toLowerCase()
@@ -472,7 +409,7 @@ const MenuContext = ({
       const now = Date.now()
       let { query, lastTime } = typeaheadRef.current
       if (now - lastTime > TYPEAHEAD_TIMEOUT) {
-        query = ""
+        query = ''
       }
       query += char
       typeaheadRef.current = { query, lastTime: now }
@@ -484,15 +421,13 @@ const MenuContext = ({
 
       const getText = (item: MenuItemMetadata): string => {
         const el = item.ref.current
-        if (!el) return ""
-        return (el.textContent || el.innerText || "").trim().toLowerCase()
+        if (!el) return ''
+        return (el.textContent || el.innerText || '').trim().toLowerCase()
       }
 
       // First try prefix match
       let target =
-        enabledItems.find((item) =>
-          getText(item).startsWith(normalizedQuery)
-        ) ||
+        enabledItems.find((item) => getText(item).startsWith(normalizedQuery)) ||
         // Fallback to "contains" match
         enabledItems.find((item) => getText(item).includes(normalizedQuery))
 
@@ -503,9 +438,9 @@ const MenuContext = ({
       }
     }
 
-    window.addEventListener("keydown", handleTypeahead)
+    window.addEventListener('keydown', handleTypeahead)
     return () => {
-      window.removeEventListener("keydown", handleTypeahead)
+      window.removeEventListener('keydown', handleTypeahead)
     }
   }, [open])
 
@@ -514,7 +449,7 @@ const MenuContext = ({
   }, [])
 
   const contextValue: MenuContextValue = {
-    triggerRef: triggerRef as MenuContextValue["triggerRef"],
+    triggerRef: triggerRef as MenuContextValue['triggerRef'],
     anchorRef: resolvedAnchorRef,
     open: open !== undefined ? open : false,
     setOpen: setOpen !== undefined ? setOpen : () => {},
@@ -526,11 +461,7 @@ const MenuContext = ({
     keyboardInteraction,
   }
 
-  return (
-    <RawMenuContext.Provider value={contextValue}>
-      {children}
-    </RawMenuContext.Provider>
-  )
+  return <RawMenuContext.Provider value={contextValue}>{children}</RawMenuContext.Provider>
 }
 
 export { MenuContext, useMenuContext, RawMenuContext }

@@ -1,17 +1,17 @@
 export type OverlayPositionerPlacement =
-  | "over"
-  | "top"
-  | "top-left"
-  | "top-right"
-  | "bottom"
-  | "bottom-left"
-  | "bottom-right"
-  | "left"
-  | "left-top"
-  | "left-bottom"
-  | "right"
-  | "right-top"
-  | "right-bottom"
+  | 'over'
+  | 'top'
+  | 'top-left'
+  | 'top-right'
+  | 'bottom'
+  | 'bottom-left'
+  | 'bottom-right'
+  | 'left'
+  | 'left-top'
+  | 'left-bottom'
+  | 'right'
+  | 'right-top'
+  | 'right-bottom'
 
 export interface OverlayPositionerProps {
   id?: string
@@ -21,7 +21,7 @@ export interface OverlayPositionerProps {
   defaultOpen?: boolean
   placement?: OverlayPositionerPlacement
   placementFallback?: OverlayPositionerPlacement[] | undefined
-  trigger?: "click" | "hover"
+  trigger?: 'click' | 'hover'
   draggable?: boolean
   offsetX?: number
   offsetY?: number

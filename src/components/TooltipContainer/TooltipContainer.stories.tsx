@@ -1,51 +1,50 @@
-import { Meta, StoryObj } from "@storybook/preact"
+import { Meta, StoryObj } from '@storybook/preact'
 
-import { SizeStory } from "./stories/Size.story"
+import { SizeStory } from './stories/Size.story'
 
-import { Text } from "../../index"
+import { Text } from '../../index'
 
-import { TooltipContainer } from "./TooltipContainer"
+import { TooltipContainer } from './TooltipContainer'
 
 const meta: Meta<typeof TooltipContainer> = {
-  title: "Components/TooltipContainer",
+  title: 'Components/TooltipContainer',
   component: TooltipContainer,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
-        component: "A wrapper component that displays the tooltip content.",
+        component: 'A wrapper component that displays the tooltip content.',
       },
     },
   },
   argTypes: {
     id: {
-      control: { type: "text" },
+      control: { type: 'text' },
       table: {
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
     className: {
-      control: { type: "text" },
+      control: { type: 'text' },
     },
     width: {
-      control: { type: "number" },
+      control: { type: 'number' },
     },
     height: {
-      control: { type: "number" },
+      control: { type: 'number' },
     },
     showArrow: {
-      control: { type: "boolean" },
-      description:
-        "Shows the arrow on the container based on the `<OverlayPositioner/>` placement.",
+      control: { type: 'boolean' },
+      description: 'Shows the arrow on the container based on the `<OverlayPositioner/>` placement.',
     },
     children: {
-      control: { control: "text" },
-      description: "<strong>*</strong>",
+      control: { control: 'text' },
+      description: '<strong>*</strong>',
       table: {
         type: {
-          summary: "preact.ComponentChildren",
+          summary: 'preact.ComponentChildren',
         },
       },
     },
@@ -57,22 +56,22 @@ export default meta
 type Story = StoryObj<typeof TooltipContainer>
 
 export const Demo: Story = {
-  tags: ["!autodocs"],
+  tags: ['!autodocs'],
   args: {
     id: undefined,
-    className: "",
+    className: '',
     width: 300,
     height: 100,
     showArrow: false,
-    children: "Tooltip content",
+    children: 'Tooltip content',
   },
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <TooltipContainer {...args}>{children}</TooltipContainer>
 `,
@@ -81,10 +80,7 @@ export const Demo: Story = {
   },
   render: (args) => {
     return (
-      <div
-        className="sb-column sb-width-full"
-        style={"--overlay-arrow-left: 150px; --overlay-arrow-top: 0px;"}
-      >
+      <div className="sb-column sb-width-full" style={'--overlay-arrow-left: 150px; --overlay-arrow-top: 0px;'}>
         <TooltipContainer {...args}>
           {/* @ts-ignore-next-line */}
           {args.children}

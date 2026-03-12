@@ -1,6 +1,6 @@
-import { StoryObj } from "@storybook/preact"
+import { StoryObj } from '@storybook/preact'
 
-import { Avatar } from "../Avatar"
+import { Avatar } from '../Avatar'
 
 type Story = StoryObj<typeof Avatar>
 
@@ -8,11 +8,11 @@ export const SizeStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <Avatar size="small">{children}</Avatar>
 
@@ -50,11 +50,7 @@ export const SizeStory: Story = {
 
       <div className="sb-column sb-gap-16">
         <div className="sb-row sb-gap-16">
-          <Avatar
-            src="https://thispersondoesnotexist.com/"
-            size="small"
-            variant="square"
-          >
+          <Avatar src="https://thispersondoesnotexist.com/" size="small" variant="square">
             A
           </Avatar>
           <Avatar size="small" variant="square">
@@ -63,11 +59,7 @@ export const SizeStory: Story = {
         </div>
 
         <div className="sb-row sb-gap-16">
-          <Avatar
-            src="https://thispersondoesnotexist.com/"
-            size="medium"
-            variant="square"
-          >
+          <Avatar src="https://thispersondoesnotexist.com/" size="medium" variant="square">
             A
           </Avatar>
           <Avatar size="medium" variant="square">
@@ -76,11 +68,7 @@ export const SizeStory: Story = {
         </div>
 
         <div className="sb-row sb-gap-16">
-          <Avatar
-            src="https://thispersondoesnotexist.com/"
-            size="large"
-            variant="square"
-          >
+          <Avatar src="https://thispersondoesnotexist.com/" size="large" variant="square">
             A
           </Avatar>
           <Avatar size="large" variant="square">

@@ -3,48 +3,32 @@ import {
   type StringInputError,
   type StringInput,
   type StringInputParseResult,
-} from "./useStringInput.types"
+} from './useStringInput.types'
 
 const trimString = (value: unknown, config: StringInputConfig): string => {
-  const str = value == null ? "" : String(value)
+  const str = value == null ? '' : String(value)
   return config.trim ? str.trim() : str
 }
 
-const buildResult = (
-  raw: string,
-  config: StringInputConfig
-): StringInputParseResult => {
-  const {
-    required,
-    minLength,
-    maxLength,
-    allowedCharacters,
-    format,
-    normalizeOnError,
-  } = config
+const buildResult = (raw: string, config: StringInputConfig): StringInputParseResult => {
+  const { required, minLength, maxLength, allowedCharacters, format, normalizeOnError } = config
 
   const rawValue = raw
   const trimmedValue = trimString(rawValue, config)
 
   let error: StringInputError | null = null
 
-  if (trimmedValue === "") {
+  if (trimmedValue === '') {
     if (required) {
-      error = "required"
+      error = 'required'
     }
   } else {
-    if (typeof minLength === "number" && trimmedValue.length < minLength) {
-      error = "too_short"
-    } else if (
-      typeof maxLength === "number" &&
-      trimmedValue.length > maxLength
-    ) {
-      error = "too_long"
-    } else if (
-      allowedCharacters &&
-      [...trimmedValue].some((ch) => !allowedCharacters.includes(ch))
-    ) {
-      error = "invalid_characters"
+    if (typeof minLength === 'number' && trimmedValue.length < minLength) {
+      error = 'too_short'
+    } else if (typeof maxLength === 'number' && trimmedValue.length > maxLength) {
+      error = 'too_long'
+    } else if (allowedCharacters && [...trimmedValue].some((ch) => !allowedCharacters.includes(ch))) {
+      error = 'invalid_characters'
     }
   }
 
@@ -64,18 +48,15 @@ const buildResult = (
     // - strip any characters not in allowedCharacters (if provided)
     // - then apply mask
 
-    let base =
-      typeof maxLength === "number"
-        ? trimmedValue.slice(0, maxLength)
-        : trimmedValue
+    let base = typeof maxLength === 'number' ? trimmedValue.slice(0, maxLength) : trimmedValue
 
     if (allowedCharacters) {
-      base = [...base].filter((ch) => allowedCharacters.includes(ch)).join("")
+      base = [...base].filter((ch) => allowedCharacters.includes(ch)).join('')
 
       // If allowedCharacters includes spaces, collapse consecutive spaces
       // into a single space (e.g. "a   b" -> "a b").
-      if (allowedCharacters.includes(" ")) {
-        base = base.replace(/ {2,}/g, " ")
+      if (allowedCharacters.includes(' ')) {
+        base = base.replace(/ {2,}/g, ' ')
       }
     }
 
@@ -86,8 +67,7 @@ const buildResult = (
     // introduced leading/trailing whitespace.
     if (config.trim) {
       normalizedValue = trimString(normalizedValue, config)
-      formattedValue =
-        formattedValue != null ? trimString(formattedValue, config) : undefined
+      formattedValue = formattedValue != null ? trimString(formattedValue, config) : undefined
     }
   }
 
@@ -100,8 +80,7 @@ const buildResult = (
 }
 
 const useStringInput = (config: StringInputConfig): StringInput => {
-  const parse = (raw: string): StringInputParseResult =>
-    buildResult(raw, config)
+  const parse = (raw: string): StringInputParseResult => buildResult(raw, config)
 
   const current = buildResult(config.value, config)
 
@@ -114,23 +93,19 @@ const useStringInput = (config: StringInputConfig): StringInput => {
 
     // Allow navigation / editing keys
     const isControlKey =
-      key === "Backspace" ||
-      key === "Delete" ||
-      key === "ArrowLeft" ||
-      key === "ArrowRight" ||
-      key === "Tab" ||
-      key === "Home" ||
-      key === "End" ||
+      key === 'Backspace' ||
+      key === 'Delete' ||
+      key === 'ArrowLeft' ||
+      key === 'ArrowRight' ||
+      key === 'Tab' ||
+      key === 'Home' ||
+      key === 'End' ||
       event.ctrlKey ||
       event.metaKey ||
       event.altKey
 
     // Block any printable character that is not allowed
-    if (
-      !isControlKey &&
-      key.length === 1 &&
-      !config.allowedCharacters.includes(key)
-    ) {
+    if (!isControlKey && key.length === 1 && !config.allowedCharacters.includes(key)) {
       event.preventDefault?.()
     }
   }
@@ -142,9 +117,4 @@ const useStringInput = (config: StringInputConfig): StringInput => {
   }
 }
 
-export {
-  useStringInput,
-  type StringInputConfig,
-  type StringInputError,
-  type StringInputParseResult,
-}
+export { useStringInput, type StringInputConfig, type StringInputError, type StringInputParseResult }

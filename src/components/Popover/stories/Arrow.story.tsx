@@ -1,10 +1,10 @@
-import { StoryObj } from "@storybook/preact"
+import { StoryObj } from '@storybook/preact'
 
-import { useRef } from "preact/hooks"
+import { useRef } from 'preact/hooks'
 
-import { Button, Section, Text } from "../../../index"
+import { Button, Section, Text } from '../../../index'
 
-import { Popover } from "../Popover"
+import { Popover } from '../Popover'
 
 type Story = StoryObj<typeof Popover>
 
@@ -12,11 +12,11 @@ export const ArrowStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 const triggerRef = useRef(null)
 
@@ -44,14 +44,12 @@ const triggerRef = useRef(null)
         <Popover
           triggerRef={triggerRef}
           popoverHeaderProps={{
-            children: "Popover with an arrow",
+            children: 'Popover with an arrow',
           }}
           showArrow
         >
           <Section>
-            <Text>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            </Text>
+            <Text>Lorem ipsum dolor sit amet consectetur adipisicing elit.</Text>
           </Section>
         </Popover>
       </div>

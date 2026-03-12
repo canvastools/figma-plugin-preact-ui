@@ -1,35 +1,23 @@
-import { createContext } from "preact"
+import { createContext } from 'preact'
 
-import { useContext, useEffect } from "preact/hooks"
+import { useContext, useEffect } from 'preact/hooks'
 
-import type {
-  PopoverContextProps,
-  PopoverContextValue,
-} from "./PopoverContext.types"
+import type { PopoverContextProps, PopoverContextValue } from './PopoverContext.types'
 
 /* --- */
 
-const RawPopoverContext = createContext<PopoverContextValue | undefined>(
-  undefined
-)
+const RawPopoverContext = createContext<PopoverContextValue | undefined>(undefined)
 
 const usePopoverContext = () => {
   const context = useContext(RawPopoverContext)
-  if (!context) throw new Error("PopoverContext not found")
+  if (!context) throw new Error('PopoverContext not found')
   return context
 }
-const PopoverContext = ({
-  triggerRef,
-  anchorRef,
-  open,
-  setOpen,
-  children,
-}: PopoverContextProps) => {
-  const resolvedAnchorRef = (anchorRef ??
-    triggerRef) as PopoverContextValue["anchorRef"]
+const PopoverContext = ({ triggerRef, anchorRef, open, setOpen, children }: PopoverContextProps) => {
+  const resolvedAnchorRef = (anchorRef ?? triggerRef) as PopoverContextValue['anchorRef']
 
   const contextValue: PopoverContextValue = {
-    triggerRef: triggerRef as PopoverContextValue["triggerRef"],
+    triggerRef: triggerRef as PopoverContextValue['triggerRef'],
     anchorRef: resolvedAnchorRef,
     open: open !== undefined ? open : false,
     setOpen: setOpen,
@@ -47,7 +35,7 @@ const PopoverContext = ({
     const handleEnter = (event: KeyboardEvent) => {
       const { key } = event
 
-      if (key === "Enter" || key === " ") {
+      if (key === 'Enter' || key === ' ') {
         if (open) return
         event.preventDefault()
         setOpen?.(true)
@@ -55,12 +43,12 @@ const PopoverContext = ({
       }
     }
 
-    triggerEl.addEventListener("mousedown", handleMouseDown)
-    triggerEl.addEventListener("keydown", handleEnter)
+    triggerEl.addEventListener('mousedown', handleMouseDown)
+    triggerEl.addEventListener('keydown', handleEnter)
 
     return () => {
-      triggerEl.removeEventListener("mousedown", handleMouseDown)
-      triggerEl.removeEventListener("keydown", handleEnter)
+      triggerEl.removeEventListener('mousedown', handleMouseDown)
+      triggerEl.removeEventListener('keydown', handleEnter)
     }
   }, [triggerRef, open, setOpen])
 
@@ -70,23 +58,19 @@ const PopoverContext = ({
 
     const handleEscape = (event: KeyboardEvent) => {
       const { key } = event
-      if (key !== "Escape" && key !== "Esc") return
+      if (key !== 'Escape' && key !== 'Esc') return
       event.preventDefault()
       setOpen?.(false)
       triggerRef?.current?.focus()
     }
 
-    window.addEventListener("keydown", handleEscape)
+    window.addEventListener('keydown', handleEscape)
     return () => {
-      window.removeEventListener("keydown", handleEscape)
+      window.removeEventListener('keydown', handleEscape)
     }
   }, [open, setOpen, triggerRef])
 
-  return (
-    <RawPopoverContext.Provider value={contextValue}>
-      {children}
-    </RawPopoverContext.Provider>
-  )
+  return <RawPopoverContext.Provider value={contextValue}>{children}</RawPopoverContext.Provider>
 }
 
 export { PopoverContext, usePopoverContext }

@@ -1,55 +1,54 @@
-import { Meta, StoryObj } from "@storybook/preact"
-import { fn } from "@storybook/test"
+import { Meta, StoryObj } from '@storybook/preact'
+import { fn } from '@storybook/test'
 
-import { useRef } from "preact/hooks"
+import { useRef } from 'preact/hooks'
 
-import { Text, TooltipContext } from "../../index"
+import { Text, TooltipContext } from '../../index'
 
-import { Tooltip } from "./Tooltip"
+import { Tooltip } from './Tooltip'
 
 const meta: Meta<typeof Tooltip> = {
-  title: "Components/Tooltip",
+  title: 'Components/Tooltip',
   component: Tooltip,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
-        component:
-          "A facade component that provides a simplified API for tooltips.",
+        component: 'A facade component that provides a simplified API for tooltips.',
       },
     },
   },
   argTypes: {
     id: {
-      control: { type: "text" },
+      control: { type: 'text' },
       table: {
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
     className: {
-      control: { type: "text" },
+      control: { type: 'text' },
     },
     triggerRef: {
       control: { disable: true },
-      description: "Ref to the trigger element.",
+      description: 'Ref to the trigger element.',
       table: {
-        type: { summary: "preact.RefObject" },
+        type: { summary: 'preact.RefObject' },
       },
     },
     children: {
-      control: { control: "text" },
-      description: "<strong>*</strong>",
+      control: { control: 'text' },
+      description: '<strong>*</strong>',
       table: {
-        type: { summary: "JSX.Element" },
+        type: { summary: 'JSX.Element' },
       },
     },
-    "...TooltipContainerProps": {
+    '...TooltipContainerProps': {
       control: { disable: true },
       table: {
         type: {
-          summary: "Pick<TooltipContainerProps>",
+          summary: 'Pick<TooltipContainerProps>',
           detail: `
 {
   width: number
@@ -60,11 +59,11 @@ const meta: Meta<typeof Tooltip> = {
         },
       },
     },
-    "...OverlayPositionerProps": {
+    '...OverlayPositionerProps': {
       control: { disable: true },
       table: {
         type: {
-          summary: "Pick<OverlayPositionerProps>",
+          summary: 'Pick<OverlayPositionerProps>',
           detail: `
 {
   anchorRef: RefObject | null
@@ -90,16 +89,16 @@ type Story = StoryObj<typeof Tooltip>
 export const Demo: Story = {
   args: {
     id: undefined,
-    className: "",
-    children: "Tooltip content",
+    className: '',
+    children: 'Tooltip content',
   },
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 const triggerRef = useRef(null)
 

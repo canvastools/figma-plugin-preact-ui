@@ -1,46 +1,45 @@
-import { Meta, StoryObj } from "@storybook/preact"
+import { Meta, StoryObj } from '@storybook/preact'
 
-import { StackedStory } from "./stories/Stacked.story"
-import { PaddingStory } from "./stories/Padding.story"
+import { StackedStory } from './stories/Stacked.story'
+import { PaddingStory } from './stories/Padding.story'
 
-import { Text } from "../../index"
+import { Text } from '../../index'
 
-import { Section } from "./Section"
+import { Section } from './Section'
 
 const meta: Meta<typeof Section> = {
-  title: "Layout/Section",
+  title: 'Layout/Section',
   component: Section,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
-        component:
-          "A wrapper component that creates a typical section layout with built-in padding.",
+        component: 'A wrapper component that creates a typical section layout with built-in padding.',
       },
     },
   },
   argTypes: {
     id: {
-      control: { type: "text" },
+      control: { type: 'text' },
       table: {
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
     className: {
-      control: { type: "text" },
+      control: { type: 'text' },
     },
     variant: {
-      control: { type: "radio" },
-      options: ["default", "stacked"],
-      defaultValue: { summary: "default" },
+      control: { type: 'radio' },
+      options: ['default', 'stacked'],
+      defaultValue: { summary: 'default' },
     },
     padding: {
-      control: { type: "object" },
+      control: { type: 'object' },
       table: {
         type: {
-          summary: "object",
+          summary: 'object',
           detail: `
 padding?: {
   top?: SectionPadding
@@ -57,11 +56,11 @@ type SectionPadding = keyof typeof spacing.variables // string | number
       },
     },
     children: {
-      control: { control: "text" },
-      description: "<strong>*</strong>",
+      control: { control: 'text' },
+      description: '<strong>*</strong>',
       table: {
         type: {
-          summary: "preact.ComponentChildren",
+          summary: 'preact.ComponentChildren',
         },
       },
     },
@@ -72,21 +71,21 @@ export default meta
 type Story = StoryObj<typeof Section>
 
 export const Demo: Story = {
-  tags: ["!autodocs"],
+  tags: ['!autodocs'],
   args: {
     id: undefined,
-    className: "sb-container",
-    variant: "default",
+    className: 'sb-container',
+    variant: 'default',
     padding: {},
-    children: "Lorem ipsum dolor sit amet.",
+    children: 'Lorem ipsum dolor sit amet.',
   },
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <Section {...args}>{children}</Section>
 `,

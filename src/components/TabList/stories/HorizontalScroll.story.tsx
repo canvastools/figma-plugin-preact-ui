@@ -1,8 +1,8 @@
-import { StoryObj } from "@storybook/preact"
+import { StoryObj } from '@storybook/preact'
 
-import { TabContext, Section, Tab } from "../../../index"
+import { TabContext, Section, Tab } from '../../../index'
 
-import { TabList } from "../TabList"
+import { TabList } from '../TabList'
 
 type Story = StoryObj<typeof TabList>
 
@@ -10,11 +10,11 @@ export const HorizontalScrollStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <TabContext defaultActiveId="tab-1">
   <TabList>

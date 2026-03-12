@@ -1,53 +1,52 @@
-import { Meta, StoryObj } from "@storybook/preact"
+import { Meta, StoryObj } from '@storybook/preact'
 
-import { SizeStory } from "./stories/Size.story"
+import { SizeStory } from './stories/Size.story'
 
-import { Text } from "../../index"
+import { Text } from '../../index'
 
-import { PopoverContainer } from "./PopoverContainer"
+import { PopoverContainer } from './PopoverContainer'
 
 const meta: Meta<typeof PopoverContainer> = {
-  title: "Components/PopoverContainer",
+  title: 'Components/PopoverContainer',
   component: PopoverContainer,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
-        component: "A wrapper component that displays the popover content.",
+        component: 'A wrapper component that displays the popover content.',
       },
     },
   },
   argTypes: {
     id: {
-      control: { type: "text" },
+      control: { type: 'text' },
       table: {
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
     className: {
-      control: { type: "text" },
+      control: { type: 'text' },
     },
     width: {
-      control: { type: "number" },
-      description: "Takes the width of the content if not provided.",
+      control: { type: 'number' },
+      description: 'Takes the width of the content if not provided.',
     },
     height: {
-      control: { type: "number" },
-      description: "Takes the height of the content if not provided.",
+      control: { type: 'number' },
+      description: 'Takes the height of the content if not provided.',
     },
     showArrow: {
-      control: { type: "boolean" },
-      description:
-        "Shows the arrow on the container based on the `<OverlayPositioner/>` placement.",
+      control: { type: 'boolean' },
+      description: 'Shows the arrow on the container based on the `<OverlayPositioner/>` placement.',
     },
     children: {
-      control: { type: "text" },
-      description: "<strong>*</strong>",
+      control: { type: 'text' },
+      description: '<strong>*</strong>',
       table: {
         type: {
-          summary: "preact.ComponentChildren",
+          summary: 'preact.ComponentChildren',
         },
       },
     },
@@ -59,22 +58,22 @@ export default meta
 type Story = StoryObj<typeof PopoverContainer>
 
 export const Demo: Story = {
-  tags: ["!autodocs"],
+  tags: ['!autodocs'],
   args: {
     id: undefined,
-    className: "",
+    className: '',
     width: 300,
     height: 300,
-    children: "Popover content",
+    children: 'Popover content',
     showArrow: false,
   },
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <PopoverContainer {...args}>{children}</PopoverContainer>
 `,
@@ -83,10 +82,7 @@ export const Demo: Story = {
   },
   render: (args) => {
     return (
-      <div
-        className="sb-column sb-width-300"
-        style={"--overlay-arrow-left: 150px; --overlay-arrow-top: 0px;"}
-      >
+      <div className="sb-column sb-width-300" style={'--overlay-arrow-left: 150px; --overlay-arrow-top: 0px;'}>
         <PopoverContainer {...args}>
           {/* @ts-ignore-next-line */}
           <Text>{args.children}</Text>

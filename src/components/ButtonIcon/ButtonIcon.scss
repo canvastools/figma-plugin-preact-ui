@@ -1,4 +1,4 @@
-@use "../../shared.scss" as *;
+@use '../../shared.scss' as *;
 
 @mixin Button_filled($intent, $modifiers) {
   &_intent-#{$intent}-#{$modifiers} {
@@ -112,10 +112,10 @@
     }
   }
 
-  @include ButtonIcon_outlined("neutral", "default");
-  @include Button_filled("neutral", "secondary");
-  @include ButtonIcon_ghost("neutral", "default");
-  @include ButtonIcon_translucent("neutral", "default");
+  @include ButtonIcon_outlined('neutral', 'default');
+  @include Button_filled('neutral', 'secondary');
+  @include ButtonIcon_ghost('neutral', 'default');
+  @include ButtonIcon_translucent('neutral', 'default');
 
   &_selected {
     background-color: var(--pui-color-neutral-bg-default-selected) !important;

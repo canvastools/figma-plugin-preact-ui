@@ -1,16 +1,13 @@
-import { bem, typedForwardRef } from "../../utils"
+import { bem, typedForwardRef } from '../../utils'
 
-import { useState, useEffect } from "preact/hooks"
+import { useState, useEffect } from 'preact/hooks'
 
-import type { FogProps } from "./Fog.types"
-import "./Fog.scss"
+import type { FogProps } from './Fog.types'
+import './Fog.scss'
 
 /* --- */
 
-const FogComponent = (
-  { id, className, delay = 0, children, ...rest }: FogProps,
-  ref: preact.Ref<HTMLDivElement>
-) => {
+const FogComponent = ({ id, className, delay = 0, children, ...rest }: FogProps, ref: preact.Ref<HTMLDivElement>) => {
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
@@ -19,12 +16,12 @@ const FogComponent = (
     }, delay)
   }, [delay])
 
-  const _className = bem("Fog", undefined, { visible: isVisible })
+  const _className = bem('Fog', undefined, { visible: isVisible })
 
   return (
     <div
       id={id}
-      className={[_className, className].join(" ").trim()}
+      className={[_className, className].join(' ').trim()}
       ref={ref}
       {...rest}
       onClick={(e) => {

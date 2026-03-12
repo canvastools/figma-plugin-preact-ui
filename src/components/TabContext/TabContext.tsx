@@ -1,7 +1,7 @@
-import { createContext } from "preact"
-import { useContext, useState, useEffect, useRef } from "preact/hooks"
+import { createContext } from 'preact'
+import { useContext, useState, useEffect, useRef } from 'preact/hooks'
 
-import type { TabContextValue, TabContextProps } from "./TabContext.types"
+import type { TabContextValue, TabContextProps } from './TabContext.types'
 
 /* --- */
 
@@ -9,20 +9,14 @@ const RawTabContext = createContext<TabContextValue | undefined>(undefined)
 
 const useTabContext = () => {
   const context = useContext(RawTabContext)
-  if (!context) throw new Error("TabContext not found")
+  if (!context) throw new Error('TabContext not found')
   return context
 }
 
-const TabContext = ({
-  defaultActiveId = "",
-  activeId: controlledActiveId,
-  onTabChange,
-  children,
-}: TabContextProps) => {
+const TabContext = ({ defaultActiveId = '', activeId: controlledActiveId, onTabChange, children }: TabContextProps) => {
   const [internalActiveId, setInternalActiveId] = useState(defaultActiveId)
 
-  const currentId =
-    controlledActiveId !== undefined ? controlledActiveId : internalActiveId
+  const currentId = controlledActiveId !== undefined ? controlledActiveId : internalActiveId
 
   const handleChange = (newId: string) => {
     if (controlledActiveId === undefined) {
@@ -37,10 +31,8 @@ const TabContext = ({
     }
   }, [controlledActiveId])
 
-  const tabRegistryRef = useRef<
-    { id: string; ref: HTMLButtonElement | null }[]
-  >([])
-  const lastTabDirectionRef = useRef<"forward" | "backward" | null>(null)
+  const tabRegistryRef = useRef<{ id: string; ref: HTMLButtonElement | null }[]>([])
+  const lastTabDirectionRef = useRef<'forward' | 'backward' | null>(null)
 
   const registerTab = (id: string, ref: HTMLButtonElement | null) => {
     const registry = tabRegistryRef.current
@@ -74,18 +66,16 @@ const TabContext = ({
     }
   }
 
-  const moveFocus = (direction: "next" | "prev") => {
+  const moveFocus = (direction: 'next' | 'prev') => {
     const registry = tabRegistryRef.current
     if (!registry.length) return
 
     const activeElement = document.activeElement as HTMLElement | null
 
-    let currentIndex = activeElement
-      ? registry.findIndex((tab) => tab.ref === activeElement)
-      : -1
+    let currentIndex = activeElement ? registry.findIndex((tab) => tab.ref === activeElement) : -1
     if (currentIndex === -1) currentIndex = 0
 
-    const dir = direction === "next" ? 1 : -1
+    const dir = direction === 'next' ? 1 : -1
     const nextIndex = (currentIndex + dir + registry.length) % registry.length
 
     const next = registry[nextIndex]
@@ -96,36 +86,24 @@ const TabContext = ({
 
   const handleKeyDown = (event: KeyboardEvent) => {
     const key = event.key
-    const isArrowKey =
-      key === "ArrowLeft" ||
-      key === "ArrowRight" ||
-      key === "ArrowUp" ||
-      key === "ArrowDown" ||
-      key === "Tab"
+    const isArrowKey = key === 'ArrowLeft' || key === 'ArrowRight' || key === 'ArrowUp' || key === 'ArrowDown' || key === 'Tab'
 
     if (isArrowKey) {
       const activeElement = document.activeElement as HTMLElement | null
       const registry = tabRegistryRef.current
-      const isTabFocused = activeElement
-        ? registry.some((tab) => tab.ref === activeElement)
-        : false
+      const isTabFocused = activeElement ? registry.some((tab) => tab.ref === activeElement) : false
       if (!isTabFocused) return
 
-      const activeIndex = activeElement
-        ? registry.findIndex((tab) => tab.ref === activeElement)
-        : -1
+      const activeIndex = activeElement ? registry.findIndex((tab) => tab.ref === activeElement) : -1
 
       // Special handling for Tab / Shift+Tab so focus can leave the tab list
-      if (key === "Tab") {
+      if (key === 'Tab') {
         const lastIndex = registry.length - 1
 
         // If we're on the last tab and pressing Tab (forwards),
         // or on the first tab and pressing Shift+Tab (backwards),
         // allow the browser to move focus out of the tab list.
-        if (
-          (!event.shiftKey && activeIndex === lastIndex) ||
-          (event.shiftKey && activeIndex === 0)
-        ) {
+        if ((!event.shiftKey && activeIndex === lastIndex) || (event.shiftKey && activeIndex === 0)) {
           return
         }
 
@@ -150,22 +128,19 @@ const TabContext = ({
       event.stopPropagation()
       event.preventDefault()
 
-      const direction =
-        key === "ArrowRight" || key === "ArrowDown" ? "next" : "prev"
+      const direction = key === 'ArrowRight' || key === 'ArrowDown' ? 'next' : 'prev'
 
       moveFocus(direction)
       return
     }
 
-    if (key === "Escape" || key === "Esc") {
+    if (key === 'Escape' || key === 'Esc') {
       const activeElement = document.activeElement as HTMLElement | null
       const registry = tabRegistryRef.current
-      const isTabFocused = activeElement
-        ? registry.some((tab) => tab.ref === activeElement)
-        : false
+      const isTabFocused = activeElement ? registry.some((tab) => tab.ref === activeElement) : false
       if (!isTabFocused) return
 
-      if (activeElement && typeof activeElement.blur === "function") {
+      if (activeElement && typeof activeElement.blur === 'function') {
         activeElement.blur()
       }
     }
@@ -184,9 +159,9 @@ const TabContext = ({
       handleKeyDown(event)
     }
 
-    window.addEventListener("keydown", listener)
+    window.addEventListener('keydown', listener)
     return () => {
-      window.removeEventListener("keydown", listener)
+      window.removeEventListener('keydown', listener)
     }
   }, [])
 
@@ -195,8 +170,8 @@ const TabContext = ({
   // direction – similar to SegmentedControl behavior.
   useEffect(() => {
     const handleGlobalKeyDown = (event: KeyboardEvent) => {
-      if (event.key !== "Tab") return
-      lastTabDirectionRef.current = event.shiftKey ? "backward" : "forward"
+      if (event.key !== 'Tab') return
+      lastTabDirectionRef.current = event.shiftKey ? 'backward' : 'forward'
     }
 
     const handleFocusIn = (event: FocusEvent) => {
@@ -210,7 +185,7 @@ const TabContext = ({
       const direction = lastTabDirectionRef.current
       if (!direction) return
 
-      const targetIndex = direction === "backward" ? registry.length - 1 : 0
+      const targetIndex = direction === 'backward' ? registry.length - 1 : 0
       if (targetIndex < 0) return
 
       const next = registry[targetIndex]
@@ -221,20 +196,16 @@ const TabContext = ({
       lastTabDirectionRef.current = null
     }
 
-    window.addEventListener("keydown", handleGlobalKeyDown)
-    window.addEventListener("focusin", handleFocusIn)
+    window.addEventListener('keydown', handleGlobalKeyDown)
+    window.addEventListener('focusin', handleFocusIn)
 
     return () => {
-      window.removeEventListener("keydown", handleGlobalKeyDown)
-      window.removeEventListener("focusin", handleFocusIn)
+      window.removeEventListener('keydown', handleGlobalKeyDown)
+      window.removeEventListener('focusin', handleFocusIn)
     }
   }, [])
 
-  return (
-    <RawTabContext.Provider value={contextValue}>
-      {children}
-    </RawTabContext.Provider>
-  )
+  return <RawTabContext.Provider value={contextValue}>{children}</RawTabContext.Provider>
 }
 
 export { TabContext, useTabContext }

@@ -1,31 +1,31 @@
-import { Meta, StoryObj } from "@storybook/preact"
+import { Meta, StoryObj } from '@storybook/preact'
 
-import { Code } from "./Code"
+import { Code } from './Code'
 
 const meta: Meta<typeof Code> = {
-  title: "Components/Code",
+  title: 'Components/Code',
   component: Code,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     id: {
-      control: { type: "text" },
+      control: { type: 'text' },
       table: {
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
     className: {
-      control: { type: "text" },
+      control: { type: 'text' },
     },
     variant: {
-      control: { type: "radio" },
-      options: ["inline", "block"],
-      defaultValue: { summary: "inline" },
+      control: { type: 'radio' },
+      options: ['inline', 'block'],
+      defaultValue: { summary: 'inline' },
     },
     children: {
-      control: { type: "text" },
-      description: "<strong>*</strong>",
+      control: { type: 'text' },
+      description: '<strong>*</strong>',
     },
   },
 }
@@ -37,17 +37,17 @@ type Story = StoryObj<typeof Code>
 export const Demo: Story = {
   args: {
     id: undefined,
-    className: "",
-    variant: "inline",
-    children: "Hello, world!",
+    className: '',
+    variant: 'inline',
+    children: 'Hello, world!',
   },
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <Code {...args}>{children}</Code>
 `,

@@ -8,9 +8,5 @@ export interface MenuItemOptionProps {
   prefix?: preact.ComponentChildren
   suffix?: preact.ComponentChildren
   children: preact.ComponentChildren
-  onSelectedChange?: (args: {
-    event: MouseEvent
-    id: string
-    selected: boolean
-  }) => void
+  onSelectedChange?: (args: { event: MouseEvent; id: string; selected: boolean }) => void
 }

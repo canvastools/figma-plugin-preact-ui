@@ -1,20 +1,15 @@
-import { bem, typedForwardRef } from "../../utils"
-import { useListContext } from "../ListContext/ListContext"
-import { useEffect, useRef } from "preact/hooks"
+import { bem, typedForwardRef } from '../../utils'
+import { useListContext } from '../ListContext/ListContext'
+import { useEffect, useRef } from 'preact/hooks'
 
-import type { ListContainerProps } from "./ListContainer.types"
-import "./ListContainer.scss"
+import type { ListContainerProps } from './ListContainer.types'
+import './ListContainer.scss'
 
 /* --- */
 
 const ListContainerComponent = (
-  {
-    id,
-    className,
-    children,
-    ...rest
-  }: ListContainerProps & { nestingLevel?: number },
-  ref: preact.Ref<HTMLDivElement>
+  { id, className, children, ...rest }: ListContainerProps & { nestingLevel?: number },
+  ref: preact.Ref<HTMLDivElement>,
 ) => {
   const { reorderItems, registerRootElement, getPathForId } = useListContext()
   const rootRef = useRef<HTMLDivElement | null>(null)
@@ -22,19 +17,19 @@ const ListContainerComponent = (
   const unregisterRootRef = useRef<(() => void) | null>(null)
   const hoverStateRef = useRef<{
     el: HTMLElement | null
-    pos: "above" | "below" | "inside" | "self" | null
+    pos: 'above' | 'below' | 'inside' | 'self' | null
   }>({ el: null, pos: null })
 
   // Ensure every container exposes its nesting level via CSS var --level (root=0)
   useEffect(() => {
     const el = rootRef.current
     if (!el) return
-    const parentItemEl = el.closest(".ListItem") as HTMLElement | null
-    const parentLevelAttr = parentItemEl?.getAttribute("data-nesting-level")
+    const parentItemEl = el.closest('.ListItem') as HTMLElement | null
+    const parentLevelAttr = parentItemEl?.getAttribute('data-nesting-level')
     const parentLevel = parentLevelAttr ? parseInt(parentLevelAttr, 10) : 0
     const level = parentItemEl ? parentLevel + 1 : 0
     try {
-      el.style.setProperty("--level", String(level))
+      el.style.setProperty('--level', String(level))
     } catch {
       // ignore style errors
     }
@@ -57,15 +52,15 @@ const ListContainerComponent = (
   const clearDragClasses = () => {
     const el = rootRef.current
     if (!el) return
-    const items = el.querySelectorAll<HTMLElement>(".ListItem")
+    const items = el.querySelectorAll<HTMLElement>('.ListItem')
     items.forEach((item) => {
       item.classList.remove(
-        "ListItem_drag-over",
-        "ListItem_drag-above",
-        "ListItem_drag-below",
-        "ListItem_drag-inside",
-        "ListItem_drag-self",
-        "ListItem_drop-parent"
+        'ListItem_drag-over',
+        'ListItem_drag-above',
+        'ListItem_drag-below',
+        'ListItem_drag-inside',
+        'ListItem_drag-self',
+        'ListItem_drop-parent',
       )
     })
     hoverStateRef.current = { el: null, pos: null }
@@ -77,11 +72,11 @@ const ListContainerComponent = (
     const handleReset = () => {
       clearDragClasses()
     }
-    document.addEventListener("resetDragStates", handleReset)
-    document.addEventListener("dragend", handleReset)
+    document.addEventListener('resetDragStates', handleReset)
+    document.addEventListener('dragend', handleReset)
     return () => {
-      document.removeEventListener("resetDragStates", handleReset)
-      document.removeEventListener("dragend", handleReset)
+      document.removeEventListener('resetDragStates', handleReset)
+      document.removeEventListener('dragend', handleReset)
     }
   }, [])
 
@@ -100,10 +95,10 @@ const ListContainerComponent = (
     const container = e.currentTarget as HTMLElement
     // Only handle drag zones if this container can accept drops at all
     e.preventDefault()
-    e.dataTransfer!.dropEffect = "move"
+    e.dataTransfer!.dropEffect = 'move'
 
     const children = Array.from(container.children).filter((el) =>
-      (el as HTMLElement).classList.contains("ListItem")
+      (el as HTMLElement).classList.contains('ListItem'),
     ) as HTMLElement[]
 
     const y = e.clientY
@@ -111,39 +106,32 @@ const ListContainerComponent = (
     // If we are over a nested container, ensure that its parent item and any
     // of its same-level siblings do not keep stale drag-* markers from a
     // higher-level container's computation.
-    const parentItemForContainer = container.closest(
-      ".ListItem"
-    ) as HTMLElement | null
+    const parentItemForContainer = container.closest('.ListItem') as HTMLElement | null
     if (parentItemForContainer) {
       // Clear drag-* on the parent item itself
       parentItemForContainer.classList.remove(
-        "ListItem_drag-over",
-        "ListItem_drag-above",
-        "ListItem_drag-below",
-        "ListItem_drag-inside",
-        "ListItem_drag-self"
+        'ListItem_drag-over',
+        'ListItem_drag-above',
+        'ListItem_drag-below',
+        'ListItem_drag-inside',
+        'ListItem_drag-self',
       )
 
       // Also clear drag-* on all items at the same container level as the
       // parent, so that when we move the pointer into a child container, no
       // sibling still shows a stale drag-above/below.
-      const parentLevelContainer =
-        parentItemForContainer.parentElement?.closest(
-          ".ListContainer"
-        ) as HTMLElement | null
+      const parentLevelContainer = parentItemForContainer.parentElement?.closest('.ListContainer') as HTMLElement | null
       if (parentLevelContainer) {
-        const parentLevelItems = Array.from(
-          parentLevelContainer.children
-        ).filter((el) =>
-          (el as HTMLElement).classList.contains("ListItem")
+        const parentLevelItems = Array.from(parentLevelContainer.children).filter((el) =>
+          (el as HTMLElement).classList.contains('ListItem'),
         ) as HTMLElement[]
         parentLevelItems.forEach((item) => {
           item.classList.remove(
-            "ListItem_drag-over",
-            "ListItem_drag-above",
-            "ListItem_drag-below",
-            "ListItem_drag-inside",
-            "ListItem_drag-self"
+            'ListItem_drag-over',
+            'ListItem_drag-above',
+            'ListItem_drag-below',
+            'ListItem_drag-inside',
+            'ListItem_drag-self',
           )
         })
       }
@@ -151,12 +139,11 @@ const ListContainerComponent = (
 
     // Determine which items are currently being dragged (for self-hover)
     let draggedIds: string[] = []
-    const globalIds = (window as { __puiDraggingIds?: string[] })
-      .__puiDraggingIds
+    const globalIds = (window as { __puiDraggingIds?: string[] }).__puiDraggingIds
     if (Array.isArray(globalIds)) {
       draggedIds = globalIds
     } else {
-      const plain = e.dataTransfer?.getData("text/plain")
+      const plain = e.dataTransfer?.getData('text/plain')
       if (plain) draggedIds = [plain]
     }
 
@@ -167,12 +154,10 @@ const ListContainerComponent = (
     const verticalMargin = 16
 
     for (const child of children) {
-      const id = child.getAttribute("data-item-id") || ""
+      const id = child.getAttribute('data-item-id') || ''
       if (!draggedIds.includes(id)) continue
 
-      const content = child.querySelector(
-        ".ListItem__content"
-      ) as HTMLElement | null
+      const content = child.querySelector('.ListItem__content') as HTMLElement | null
       if (!content) continue
       const rect = content.getBoundingClientRect()
 
@@ -199,39 +184,27 @@ const ListContainerComponent = (
       const prev = hoverStateRef.current
 
       // Compute relative position within the self row to derive above/below/inside
-      const selfContent = selfChild.querySelector(
-        ".ListItem__content"
-      ) as HTMLElement | null
+      const selfContent = selfChild.querySelector('.ListItem__content') as HTMLElement | null
       if (!selfContent) {
         // Fallback: just mark drag-self without zones
-        const hasOver = selfChild.classList.contains("ListItem_drag-over")
-        const hasSelf = selfChild.classList.contains("ListItem_drag-self")
+        const hasOver = selfChild.classList.contains('ListItem_drag-over')
+        const hasSelf = selfChild.classList.contains('ListItem_drag-self')
         // If the DOM is already in the desired state, do nothing
-        if (
-          hasOver &&
-          hasSelf &&
-          prev.el === selfChild &&
-          prev.pos === "self"
-        ) {
+        if (hasOver && hasSelf && prev.el === selfChild && prev.pos === 'self') {
           return
         }
         if (prev.el && prev.el !== selfChild) {
           prev.el.classList.remove(
-            "ListItem_drag-over",
-            "ListItem_drag-above",
-            "ListItem_drag-below",
-            "ListItem_drag-inside",
-            "ListItem_drag-self"
+            'ListItem_drag-over',
+            'ListItem_drag-above',
+            'ListItem_drag-below',
+            'ListItem_drag-inside',
+            'ListItem_drag-self',
           )
         }
-        selfChild.classList.remove(
-          "ListItem_drag-above",
-          "ListItem_drag-below",
-          "ListItem_drag-inside",
-          "ListItem_drag-self"
-        )
-        selfChild.classList.add("ListItem_drag-over", "ListItem_drag-self")
-        hoverStateRef.current = { el: selfChild, pos: "self" }
+        selfChild.classList.remove('ListItem_drag-above', 'ListItem_drag-below', 'ListItem_drag-inside', 'ListItem_drag-self')
+        selfChild.classList.add('ListItem_drag-over', 'ListItem_drag-self')
+        hoverStateRef.current = { el: selfChild, pos: 'self' }
         return
       }
       const rect = selfContent.getBoundingClientRect()
@@ -243,41 +216,39 @@ const ListContainerComponent = (
       const bottomStart = Math.max(0, height - band)
       const bottomEnd = height + 1
 
-      let selfPos: "above" | "below" | "inside" = "inside"
+      let selfPos: 'above' | 'below' | 'inside' = 'inside'
       const inTop = localY >= topStart && localY <= topEnd
       const inBottom = localY >= bottomStart && localY <= bottomEnd
 
-      if (inTop) selfPos = "above"
-      else if (inBottom) selfPos = "below"
+      if (inTop) selfPos = 'above'
+      else if (inBottom) selfPos = 'below'
 
       // Special case: if this item is an expanded collapsible branch with
       // children, treat the bottom band as "inside" instead of "below", so
       // dragging onto the bottom of the item behaves like dropping into its
       // children, not after it. This does NOT change tree mutations (drops on
       // self are still a no-op), only visual zones.
-      const selfHasChildren = selfChild.classList.contains(
-        "ListItem_has-children"
-      )
-      const selfIsCollapsed = selfChild.classList.contains("ListItem_collapsed")
-      if (selfPos === "below" && selfHasChildren && !selfIsCollapsed) {
-        selfPos = "inside"
+      const selfHasChildren = selfChild.classList.contains('ListItem_has-children')
+      const selfIsCollapsed = selfChild.classList.contains('ListItem_collapsed')
+      if (selfPos === 'below' && selfHasChildren && !selfIsCollapsed) {
+        selfPos = 'inside'
       }
 
       const wantOver = true
       const wantSelf = true
-      const wantAbove = selfPos === "above"
-      const wantBelow = selfPos === "below"
+      const wantAbove = selfPos === 'above'
+      const wantBelow = selfPos === 'below'
 
-      const hasOver = selfChild.classList.contains("ListItem_drag-over")
-      const hasSelf = selfChild.classList.contains("ListItem_drag-self")
-      const hasAbove = selfChild.classList.contains("ListItem_drag-above")
-      const hasBelow = selfChild.classList.contains("ListItem_drag-below")
-      const hasInside = selfChild.classList.contains("ListItem_drag-inside")
+      const hasOver = selfChild.classList.contains('ListItem_drag-over')
+      const hasSelf = selfChild.classList.contains('ListItem_drag-self')
+      const hasAbove = selfChild.classList.contains('ListItem_drag-above')
+      const hasBelow = selfChild.classList.contains('ListItem_drag-below')
+      const hasInside = selfChild.classList.contains('ListItem_drag-inside')
 
       // If the DOM already reflects the desired state and the cache matches, do not touch the classes
       if (
         prev.el === selfChild &&
-        prev.pos === "self" &&
+        prev.pos === 'self' &&
         hasOver === wantOver &&
         hasSelf === wantSelf &&
         hasAbove === wantAbove &&
@@ -290,43 +261,36 @@ const ListContainerComponent = (
       // Clear previous hover state
       if (prev.el && prev.el !== selfChild) {
         prev.el.classList.remove(
-          "ListItem_drag-over",
-          "ListItem_drag-above",
-          "ListItem_drag-below",
-          "ListItem_drag-inside",
-          "ListItem_drag-self"
+          'ListItem_drag-over',
+          'ListItem_drag-above',
+          'ListItem_drag-below',
+          'ListItem_drag-inside',
+          'ListItem_drag-self',
         )
       } else if (prev.el === selfChild) {
-        prev.el.classList.remove(
-          "ListItem_drag-above",
-          "ListItem_drag-below",
-          "ListItem_drag-inside",
-          "ListItem_drag-self"
-        )
+        prev.el.classList.remove('ListItem_drag-above', 'ListItem_drag-below', 'ListItem_drag-inside', 'ListItem_drag-self')
       }
 
-      selfChild.classList.add("ListItem_drag-over", "ListItem_drag-self")
-      if (selfPos === "above") {
-        selfChild.classList.add("ListItem_drag-above")
-      } else if (selfPos === "below") {
-        selfChild.classList.add("ListItem_drag-below")
+      selfChild.classList.add('ListItem_drag-over', 'ListItem_drag-self')
+      if (selfPos === 'above') {
+        selfChild.classList.add('ListItem_drag-above')
+      } else if (selfPos === 'below') {
+        selfChild.classList.add('ListItem_drag-below')
       } else {
         // inside: no extra zone marker; visual "self" is enough
       }
-      hoverStateRef.current = { el: selfChild, pos: "self" }
+      hoverStateRef.current = { el: selfChild, pos: 'self' }
 
       // Update drop-parent highlight in self-hover:
       // - For "inside" highlight the item itself (if it accepts children).
       // - For "above"/"below":
       //   - if this container has a parent ListItem, highlight that parent;
       //   - otherwise (root-level container) highlight the self item.
-      const acceptsAttrSelf = selfChild.getAttribute("data-accepts-children")
-      const acceptsChildrenSelf = acceptsAttrSelf !== "false"
-      const containerParentItemSelf = container.closest(
-        ".ListItem"
-      ) as HTMLElement | null
+      const acceptsAttrSelf = selfChild.getAttribute('data-accepts-children')
+      const acceptsChildrenSelf = acceptsAttrSelf !== 'false'
+      const containerParentItemSelf = container.closest('.ListItem') as HTMLElement | null
       let desiredDropParentSelf: HTMLElement | null
-      if (selfPos === "inside" && acceptsChildrenSelf) {
+      if (selfPos === 'inside' && acceptsChildrenSelf) {
         desiredDropParentSelf = selfChild
       } else if (containerParentItemSelf) {
         desiredDropParentSelf = containerParentItemSelf
@@ -336,17 +300,14 @@ const ListContainerComponent = (
 
       if (
         endZoneDropParentRef.current !== desiredDropParentSelf ||
-        (desiredDropParentSelf &&
-          !desiredDropParentSelf.classList.contains("ListItem_drop-parent"))
+        (desiredDropParentSelf && !desiredDropParentSelf.classList.contains('ListItem_drop-parent'))
       ) {
-        const allDropParents = document.querySelectorAll<HTMLElement>(
-          ".ListItem_drop-parent"
-        )
+        const allDropParents = document.querySelectorAll<HTMLElement>('.ListItem_drop-parent')
         allDropParents.forEach((el) => {
-          el.classList.remove("ListItem_drop-parent")
+          el.classList.remove('ListItem_drop-parent')
         })
         if (desiredDropParentSelf) {
-          desiredDropParentSelf.classList.add("ListItem_drop-parent")
+          desiredDropParentSelf.classList.add('ListItem_drop-parent')
         }
         endZoneDropParentRef.current = desiredDropParentSelf
       }
@@ -355,20 +316,18 @@ const ListContainerComponent = (
 
     // Second pass: determine which child (if any) is the best drop target
     let bestChild: HTMLElement | null = null
-    let bestPos: "above" | "below" | "inside" | "self" | null = null
+    let bestPos: 'above' | 'below' | 'inside' | 'self' | null = null
     let bestDist = Infinity
 
     for (const child of children) {
-      const id = child.getAttribute("data-item-id") || ""
+      const id = child.getAttribute('data-item-id') || ''
       if (draggedIds.includes(id)) {
         // Skip dragged items themselves for zone computation; they are handled
         // in the self-hover branch above.
         continue
       }
 
-      const content = child.querySelector(
-        ".ListItem__content"
-      ) as HTMLElement | null
+      const content = child.querySelector('.ListItem__content') as HTMLElement | null
       if (!content) continue
       const rect = content.getBoundingClientRect()
 
@@ -387,35 +346,30 @@ const ListContainerComponent = (
       const bottomStart = Math.max(0, height - band)
       const bottomEnd = height + 1 // small tolerance below to avoid gaps
 
-      let pos: "above" | "below" | "inside"
+      let pos: 'above' | 'below' | 'inside'
       const inTop = localY >= topStart && localY <= topEnd
       const inBottom = localY >= bottomStart && localY <= bottomEnd
 
-      const acceptsAttr = child.getAttribute("data-accepts-children")
-      const acceptsChildren = acceptsAttr !== "false"
-      const hasChildren = child.classList.contains("ListItem_has-children")
-      const isCollapsed = child.classList.contains("ListItem_collapsed")
+      const acceptsAttr = child.getAttribute('data-accepts-children')
+      const acceptsChildren = acceptsAttr !== 'false'
+      const hasChildren = child.classList.contains('ListItem_has-children')
+      const isCollapsed = child.classList.contains('ListItem_collapsed')
 
-      if (inTop) pos = "above"
-      else if (inBottom) pos = "below"
+      if (inTop) pos = 'above'
+      else if (inBottom) pos = 'below'
       else {
-        if (acceptsChildren) pos = "inside"
-        else pos = localY < height / 2 ? "above" : "below"
+        if (acceptsChildren) pos = 'inside'
+        else pos = localY < height / 2 ? 'above' : 'below'
       }
 
       // Match previous semantics: bottom band becomes "inside" only when this
       // item has children, is expanded, and can accept children.
-      if (pos === "below" && hasChildren && !isCollapsed && acceptsChildren) {
-        pos = "inside"
+      if (pos === 'below' && hasChildren && !isCollapsed && acceptsChildren) {
+        pos = 'inside'
       }
 
       // Score by distance to the center of the chosen band to avoid jitter
-      const centerY =
-        pos === "above"
-          ? rect.top
-          : pos === "below"
-          ? rect.bottom
-          : rect.top + height / 2
+      const centerY = pos === 'above' ? rect.top : pos === 'below' ? rect.bottom : rect.top + height / 2
       const dist = Math.abs(y - centerY)
 
       if (dist < bestDist) {
@@ -429,11 +383,11 @@ const ListContainerComponent = (
       const prev = hoverStateRef.current
       if (prev.el) {
         prev.el.classList.remove(
-          "ListItem_drag-over",
-          "ListItem_drag-above",
-          "ListItem_drag-below",
-          "ListItem_drag-inside",
-          "ListItem_drag-self"
+          'ListItem_drag-over',
+          'ListItem_drag-above',
+          'ListItem_drag-below',
+          'ListItem_drag-inside',
+          'ListItem_drag-self',
         )
         hoverStateRef.current = { el: null, pos: null }
       }
@@ -445,22 +399,20 @@ const ListContainerComponent = (
     const prev = hoverStateRef.current
 
     // Determine desired visual zone for this child
-    const acceptsAttr = bestChild.getAttribute("data-accepts-children")
-    const acceptsChildren = acceptsAttr !== "false"
-    const visualZone: "above" | "below" | "inside" =
-      bestPos === "inside" && !acceptsChildren
-        ? "below"
-        : (bestPos as "above" | "below" | "inside")
+    const acceptsAttr = bestChild.getAttribute('data-accepts-children')
+    const acceptsChildren = acceptsAttr !== 'false'
+    const visualZone: 'above' | 'below' | 'inside' =
+      bestPos === 'inside' && !acceptsChildren ? 'below' : (bestPos as 'above' | 'below' | 'inside')
 
     const wantOver = true
-    const wantAbove = visualZone === "above"
-    const wantBelow = visualZone === "below"
-    const wantInside = visualZone === "inside"
+    const wantAbove = visualZone === 'above'
+    const wantBelow = visualZone === 'below'
+    const wantInside = visualZone === 'inside'
 
-    const hasOver = bestChild.classList.contains("ListItem_drag-over")
-    const hasAbove = bestChild.classList.contains("ListItem_drag-above")
-    const hasBelow = bestChild.classList.contains("ListItem_drag-below")
-    const hasInside = bestChild.classList.contains("ListItem_drag-inside")
+    const hasOver = bestChild.classList.contains('ListItem_drag-over')
+    const hasAbove = bestChild.classList.contains('ListItem_drag-above')
+    const hasBelow = bestChild.classList.contains('ListItem_drag-below')
+    const hasInside = bestChild.classList.contains('ListItem_drag-inside')
 
     // If the DOM already matches the desired state and the cache matches, we keep classes.
     if (
@@ -472,21 +424,16 @@ const ListContainerComponent = (
       hasInside === wantInside
     ) {
       // We'll update drop-parent if necessary, but we won't touch zone classes.
-      const containerParentItem = container.closest(
-        ".ListItem"
-      ) as HTMLElement | null
-      const desiredDropParent =
-        bestPos === "inside" ? bestChild : containerParentItem || null
+      const containerParentItem = container.closest('.ListItem') as HTMLElement | null
+      const desiredDropParent = bestPos === 'inside' ? bestChild : containerParentItem || null
 
       if (endZoneDropParentRef.current !== desiredDropParent) {
-        const allDropParents = document.querySelectorAll<HTMLElement>(
-          ".ListItem_drop-parent"
-        )
+        const allDropParents = document.querySelectorAll<HTMLElement>('.ListItem_drop-parent')
         allDropParents.forEach((el) => {
-          el.classList.remove("ListItem_drop-parent")
+          el.classList.remove('ListItem_drop-parent')
         })
         if (desiredDropParent) {
-          desiredDropParent.classList.add("ListItem_drop-parent")
+          desiredDropParent.classList.add('ListItem_drop-parent')
         }
         endZoneDropParentRef.current = desiredDropParent
       }
@@ -499,29 +446,24 @@ const ListContainerComponent = (
     // Clear previous hover state
     if (prev.el && prev.el !== bestChild) {
       prev.el.classList.remove(
-        "ListItem_drag-over",
-        "ListItem_drag-above",
-        "ListItem_drag-below",
-        "ListItem_drag-inside",
-        "ListItem_drag-self"
+        'ListItem_drag-over',
+        'ListItem_drag-above',
+        'ListItem_drag-below',
+        'ListItem_drag-inside',
+        'ListItem_drag-self',
       )
     } else if (prev.el === bestChild) {
-      prev.el.classList.remove(
-        "ListItem_drag-above",
-        "ListItem_drag-below",
-        "ListItem_drag-inside",
-        "ListItem_drag-self"
-      )
+      prev.el.classList.remove('ListItem_drag-above', 'ListItem_drag-below', 'ListItem_drag-inside', 'ListItem_drag-self')
     }
 
     // Apply new hover state
-    bestChild.classList.add("ListItem_drag-over")
-    if (visualZone === "above") {
-      bestChild.classList.add("ListItem_drag-above")
-    } else if (visualZone === "below") {
-      bestChild.classList.add("ListItem_drag-below")
-    } else if (visualZone === "inside") {
-      bestChild.classList.add("ListItem_drag-inside")
+    bestChild.classList.add('ListItem_drag-over')
+    if (visualZone === 'above') {
+      bestChild.classList.add('ListItem_drag-above')
+    } else if (visualZone === 'below') {
+      bestChild.classList.add('ListItem_drag-below')
+    } else if (visualZone === 'inside') {
+      bestChild.classList.add('ListItem_drag-inside')
     }
 
     // Update drop-parent highlight.
@@ -530,11 +472,9 @@ const ListContainerComponent = (
     //   - if this container has a parent ListItem, highlight that parent
     //     (we're reordering within its children);
     //   - otherwise (root-level container) highlight the target item itself.
-    const containerParentItem = container.closest(
-      ".ListItem"
-    ) as HTMLElement | null
+    const containerParentItem = container.closest('.ListItem') as HTMLElement | null
     let desiredDropParent: HTMLElement | null
-    if (bestPos === "inside") {
+    if (bestPos === 'inside') {
       desiredDropParent = bestChild
     } else if (containerParentItem) {
       desiredDropParent = containerParentItem
@@ -544,19 +484,16 @@ const ListContainerComponent = (
 
     if (
       endZoneDropParentRef.current !== desiredDropParent ||
-      (desiredDropParent &&
-        !desiredDropParent.classList.contains("ListItem_drop-parent"))
+      (desiredDropParent && !desiredDropParent.classList.contains('ListItem_drop-parent'))
     ) {
       // At any time there should be at most one drop-parent in the entire
       // tree. Clear all existing ones globally, then set the new one.
-      const allDropParents = document.querySelectorAll<HTMLElement>(
-        ".ListItem_drop-parent"
-      )
+      const allDropParents = document.querySelectorAll<HTMLElement>('.ListItem_drop-parent')
       allDropParents.forEach((el) => {
-        el.classList.remove("ListItem_drop-parent")
+        el.classList.remove('ListItem_drop-parent')
       })
       if (desiredDropParent) {
-        desiredDropParent.classList.add("ListItem_drop-parent")
+        desiredDropParent.classList.add('ListItem_drop-parent')
       }
       endZoneDropParentRef.current = desiredDropParent
     }
@@ -572,10 +509,9 @@ const ListContainerComponent = (
     e.preventDefault()
     e.stopPropagation()
     let itemIds: string[] | null = null
-    const globalIds = (window as { __puiDraggingIds?: string[] })
-      .__puiDraggingIds
+    const globalIds = (window as { __puiDraggingIds?: string[] }).__puiDraggingIds
     if (Array.isArray(globalIds)) itemIds = globalIds
-    const json = e.dataTransfer?.getData("application/json")
+    const json = e.dataTransfer?.getData('application/json')
     if (json) {
       try {
         const parsed = JSON.parse(json)
@@ -587,7 +523,7 @@ const ListContainerComponent = (
       }
     }
     if (!itemIds) {
-      const itemId = e.dataTransfer?.getData("text/plain")
+      const itemId = e.dataTransfer?.getData('text/plain')
       if (itemId) itemIds = [itemId]
     }
 
@@ -596,37 +532,36 @@ const ListContainerComponent = (
       const childElements = Array.from(targetElement.children) as HTMLElement[]
 
       let targetIndex = childElements.length
-      let dragPosition: "above" | "below" | "inside" = "below"
+      let dragPosition: 'above' | 'below' | 'inside' = 'below'
 
       for (let i = 0; i < childElements.length; i++) {
         const child = childElements[i]
-        if (child.classList.contains("ListItem_drag-over")) {
-          const acceptsAttr = child.getAttribute("data-accepts-children")
-          const acceptsChildren = acceptsAttr !== "false"
-          if (child.classList.contains("ListItem_drag-above")) {
-            dragPosition = "above"
+        if (child.classList.contains('ListItem_drag-over')) {
+          const acceptsAttr = child.getAttribute('data-accepts-children')
+          const acceptsChildren = acceptsAttr !== 'false'
+          if (child.classList.contains('ListItem_drag-above')) {
+            dragPosition = 'above'
             targetIndex = i
-          } else if (child.classList.contains("ListItem_drag-below")) {
+          } else if (child.classList.contains('ListItem_drag-below')) {
             // If target item has children and is NOT collapsed, interpret bottom zone as INSIDE at index 0
-            const hasSubItems =
-              child.querySelector(".ListItem__sub-items") !== null
-            const isCollapsed = child.classList.contains("ListItem_collapsed")
+            const hasSubItems = child.querySelector('.ListItem__sub-items') !== null
+            const isCollapsed = child.classList.contains('ListItem_collapsed')
             if (hasSubItems && !isCollapsed && acceptsChildren) {
-              dragPosition = "inside"
+              dragPosition = 'inside'
               targetIndex = 0
             } else {
-              dragPosition = "below"
+              dragPosition = 'below'
               targetIndex = i + 1
             }
-          } else if (child.classList.contains("ListItem_drag-inside")) {
-            const acceptsAttr2 = child.getAttribute("data-accepts-children")
-            const acceptsChildren2 = acceptsAttr2 !== "false"
+          } else if (child.classList.contains('ListItem_drag-inside')) {
+            const acceptsAttr2 = child.getAttribute('data-accepts-children')
+            const acceptsChildren2 = acceptsAttr2 !== 'false'
             if (acceptsChildren2) {
-              dragPosition = "inside"
+              dragPosition = 'inside'
               targetIndex = 0
             } else {
               // Fallback: treat inside as below when item cannot accept children
-              dragPosition = "below"
+              dragPosition = 'below'
               targetIndex = i + 1
             }
           }
@@ -638,25 +573,25 @@ const ListContainerComponent = (
       let targetPath: number[] = []
       for (let i = 0; i < childElements.length; i++) {
         const child = childElements[i]
-        if (child.classList.contains("ListItem_drag-over")) {
-          const childId = child.getAttribute("data-item-id") || ""
+        if (child.classList.contains('ListItem_drag-over')) {
+          const childId = child.getAttribute('data-item-id') || ''
           // Dropping onto self (or any of the dragged items) should not change
           // the tree, but we still want visual zones while hovering. Treat this
           // as a no-op drop.
           if (childId && itemIds.includes(childId)) {
-            const resetDragStatesEvent = new CustomEvent("resetDragStates")
+            const resetDragStatesEvent = new CustomEvent('resetDragStates')
             document.dispatchEvent(resetDragStatesEvent)
             return
           }
           const childPath = childId ? getPathForId?.(childId) || [] : []
-          if (dragPosition === "inside") {
+          if (dragPosition === 'inside') {
             targetPath = childPath
             targetIndex = 0
           } else if (childPath.length) {
             const parentPath = childPath.slice(0, -1)
             const selfIndex = childPath[childPath.length - 1]
             targetPath = parentPath
-            targetIndex = dragPosition === "above" ? selfIndex : selfIndex + 1
+            targetIndex = dragPosition === 'above' ? selfIndex : selfIndex + 1
           }
           break
         }
@@ -665,18 +600,15 @@ const ListContainerComponent = (
       // Now that we've derived dragPosition, targetIndex and targetPath from
       // the current DOM classes, broadcast a reset so individual ListItems and
       // containers can clear their visual drag state.
-      const resetDragStatesEvent = new CustomEvent("resetDragStates")
+      const resetDragStatesEvent = new CustomEvent('resetDragStates')
       document.dispatchEvent(resetDragStatesEvent)
 
       // Ignore drop if attempting to drop onto self or into own descendants would create cycles (basic guard by same target container and computed no-op)
-      if (dragPosition !== "inside") {
+      if (dragPosition !== 'inside') {
         for (let i = 0; i < childElements.length; i++) {
           const child = childElements[i]
-          if (
-            child.classList.contains("ListItem_drag-above") ||
-            child.classList.contains("ListItem_drag-below")
-          ) {
-            const targetId = child.getAttribute("data-item-id")
+          if (child.classList.contains('ListItem_drag-above') || child.classList.contains('ListItem_drag-below')) {
+            const targetId = child.getAttribute('data-item-id')
             if (targetId && itemIds.includes(targetId)) return
             break
           }
@@ -687,20 +619,16 @@ const ListContainerComponent = (
       if (targetIndex < 0) targetIndex = 0
       if (targetIndex > childElements.length) targetIndex = childElements.length
 
-      reorderItems(
-        itemIds,
-        targetIndex,
-        targetPath.length ? targetPath : undefined
-      )
+      reorderItems(itemIds, targetIndex, targetPath.length ? targetPath : undefined)
     }
   }
 
-  const _className = bem("ListContainer", undefined, undefined)
+  const _className = bem('ListContainer', undefined, undefined)
 
   return (
     <div
       id={id}
-      className={[_className, className].join(" ").trim()}
+      className={[_className, className].join(' ').trim()}
       data-pui-interactive="true"
       ref={(node) => {
         rootRef.current = node
@@ -712,7 +640,7 @@ const ListContainerComponent = (
         if (node && registerRootElement) {
           unregisterRootRef.current = registerRootElement(node)
         }
-        if (typeof ref === "function") ref(node as HTMLDivElement)
+        if (typeof ref === 'function') ref(node as HTMLDivElement)
         else if (ref) (ref as preact.RefObject<HTMLDivElement>).current = node
       }}
       {...rest}
@@ -725,7 +653,4 @@ const ListContainerComponent = (
   )
 }
 
-export const ListContainer = typedForwardRef<
-  ListContainerProps,
-  HTMLDivElement
->(ListContainerComponent)
+export const ListContainer = typedForwardRef<ListContainerProps, HTMLDivElement>(ListContainerComponent)

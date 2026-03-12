@@ -1,9 +1,9 @@
-@use "../../shared.scss" as *;
+@use '../../shared.scss' as *;
 
 @mixin Checkbox_intent($intent, $modifier) {
   &_intent-#{$intent}-#{$modifier}:is(.Checkbox_checked) {
     & .Checkbox__input {
-      @if $intent == "neutral" {
+      @if $intent == 'neutral' {
         background-color: var(--pui-color-#{$intent}-bg-secondary);
       } @else {
         background-color: var(--pui-color-#{$intent}-bg-#{$modifier});
@@ -21,8 +21,8 @@
   gap: var(--pui-spacing-200);
   cursor: default;
 
-  @include Checkbox_intent("brand", "default");
-  @include Checkbox_intent("neutral", "default");
+  @include Checkbox_intent('brand', 'default');
+  @include Checkbox_intent('neutral', 'default');
 
   &__input-native {
     position: relative;

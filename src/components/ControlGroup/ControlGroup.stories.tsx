@@ -1,16 +1,16 @@
-import { Meta, StoryObj } from "@storybook/preact"
+import { Meta, StoryObj } from '@storybook/preact'
 
-import { GroupFocusStory } from "./stories/GroupFocus.story"
-import { CombinationsStory } from "./stories/Combinations.story"
+import { GroupFocusStory } from './stories/GroupFocus.story'
+import { CombinationsStory } from './stories/Combinations.story'
 
-import { Input } from "../../index"
+import { Input } from '../../index'
 
-import { ControlGroup } from "./ControlGroup"
+import { ControlGroup } from './ControlGroup'
 
 const meta: Meta<typeof ControlGroup> = {
-  title: "Components/ControlGroup",
+  title: 'Components/ControlGroup',
   component: ControlGroup,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
@@ -21,30 +21,30 @@ const meta: Meta<typeof ControlGroup> = {
   },
   argTypes: {
     id: {
-      control: { type: "text" },
+      control: { type: 'text' },
       table: {
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
     className: {
-      control: { type: "text" },
+      control: { type: 'text' },
     },
     groupFocus: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       defaultValue: { summary: false },
     },
     fullWidth: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       defaultValue: { summary: false },
     },
     children: {
       control: { disable: true },
-      description: "<strong>*</strong>",
+      description: '<strong>*</strong>',
       table: {
         type: {
-          summary: "preact.ComponentChildren",
+          summary: 'preact.ComponentChildren',
         },
       },
     },
@@ -56,20 +56,20 @@ export default meta
 type Story = StoryObj<typeof ControlGroup>
 
 export const Demo: Story = {
-  tags: ["!autodocs"],
+  tags: ['!autodocs'],
   args: {
     id: undefined,
-    className: "",
+    className: '',
     groupFocus: false,
     fullWidth: false,
   },
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <ControlGroup {...args}>
   {children}

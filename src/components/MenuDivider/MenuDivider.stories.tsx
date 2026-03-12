@@ -1,15 +1,15 @@
-import { Meta, StoryObj } from "@storybook/preact"
+import { Meta, StoryObj } from '@storybook/preact'
 
-import { VariantStory } from "./stories/Variant.story"
+import { VariantStory } from './stories/Variant.story'
 
-import { MenuContainer, MenuItemAction } from "../../index"
+import { MenuContainer, MenuItemAction } from '../../index'
 
-import { MenuDivider } from "./MenuDivider"
+import { MenuDivider } from './MenuDivider'
 
 const meta: Meta<typeof MenuDivider> = {
-  title: "Components/MenuDivider",
+  title: 'Components/MenuDivider',
   component: MenuDivider,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
@@ -20,20 +20,20 @@ const meta: Meta<typeof MenuDivider> = {
   },
   argTypes: {
     id: {
-      control: { type: "text" },
+      control: { type: 'text' },
       table: {
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
     className: {
-      control: { type: "text" },
+      control: { type: 'text' },
     },
     variant: {
-      control: { type: "radio" },
-      options: ["full", "inset"],
-      defaultValue: { summary: "full" },
+      control: { type: 'radio' },
+      options: ['full', 'inset'],
+      defaultValue: { summary: 'full' },
     },
   },
 }
@@ -43,19 +43,19 @@ export default meta
 type Story = StoryObj<typeof MenuDivider>
 
 export const Demo: Story = {
-  tags: ["!autodocs"],
+  tags: ['!autodocs'],
   args: {
     id: undefined,
-    className: "",
-    variant: "full",
+    className: '',
+    variant: 'full',
   },
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <MenuContainer>
   <MenuItemAction>Menu Item</MenuItemAction>

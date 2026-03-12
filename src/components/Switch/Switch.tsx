@@ -1,28 +1,18 @@
-import { bem, typedForwardRef } from "../../utils"
+import { bem, typedForwardRef } from '../../utils'
 
-import { useState, useEffect } from "preact/hooks"
+import { useState, useEffect } from 'preact/hooks'
 
-import type { SwitchProps } from "./Switch.types"
-import "./Switch.scss"
+import type { SwitchProps } from './Switch.types'
+import './Switch.scss'
 
 /* --- */
 
 const SwitchComponent = (
-  {
-    id,
-    className,
-    checked,
-    defaultChecked = false,
-    disabled = false,
-    onCheckedChange,
-    ...rest
-  }: SwitchProps,
-  ref: preact.Ref<HTMLDivElement>
+  { id, className, checked, defaultChecked = false, disabled = false, onCheckedChange, ...rest }: SwitchProps,
+  ref: preact.Ref<HTMLDivElement>,
 ) => {
   const isControlled = checked !== undefined
-  const [isChecked, setIsChecked] = useState<boolean>(
-    isControlled ? Boolean(checked) : Boolean(defaultChecked)
-  )
+  const [isChecked, setIsChecked] = useState<boolean>(isControlled ? Boolean(checked) : Boolean(defaultChecked))
 
   useEffect(() => {
     if (isControlled) {
@@ -30,14 +20,12 @@ const SwitchComponent = (
     }
   }, [isControlled, checked])
 
-  const _className = bem("Switch", undefined, {
+  const _className = bem('Switch', undefined, {
     checked: isChecked,
     disabled,
   })
 
-  const handleChange = (
-    event: preact.JSX.TargetedEvent<HTMLInputElement, Event>
-  ) => {
+  const handleChange = (event: preact.JSX.TargetedEvent<HTMLInputElement, Event>) => {
     if (disabled) {
       event.preventDefault?.()
       return
@@ -52,28 +40,18 @@ const SwitchComponent = (
     })
   }
 
-  const handleInputClick = (
-    event: preact.JSX.TargetedMouseEvent<HTMLInputElement>
-  ) => {
+  const handleInputClick = (event: preact.JSX.TargetedMouseEvent<HTMLInputElement>) => {
     event.stopPropagation()
   }
 
-  const handleKeyDown = (
-    event: preact.JSX.TargetedKeyboardEvent<HTMLInputElement>
-  ) => {
-    if (event.key === "Escape" || event.key === "Esc") {
+  const handleKeyDown = (event: preact.JSX.TargetedKeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Escape' || event.key === 'Esc') {
       event.currentTarget.blur()
     }
   }
 
   return (
-    <div
-      id={id}
-      className={[_className, className].join(" ").trim()}
-      data-pui-interactive="true"
-      ref={ref}
-      {...rest}
-    >
+    <div id={id} className={[_className, className].join(' ').trim()} data-pui-interactive="true" ref={ref} {...rest}>
       <div className="Switch__input">
         <input
           className="Switch__input-native"
@@ -90,6 +68,4 @@ const SwitchComponent = (
   )
 }
 
-export const Switch = typedForwardRef<SwitchProps, HTMLDivElement>(
-  SwitchComponent
-)
+export const Switch = typedForwardRef<SwitchProps, HTMLDivElement>(SwitchComponent)

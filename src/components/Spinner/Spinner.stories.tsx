@@ -1,22 +1,22 @@
-import { Meta, StoryObj } from "@storybook/preact"
+import { Meta, StoryObj } from '@storybook/preact'
 
-import { Spinner } from "./Spinner"
+import { Spinner } from './Spinner'
 
 const meta: Meta<typeof Spinner> = {
-  title: "Components/Spinner",
+  title: 'Components/Spinner',
   component: Spinner,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     id: {
-      control: { type: "text" },
+      control: { type: 'text' },
       table: {
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
     className: {
-      control: { type: "text" },
+      control: { type: 'text' },
     },
   },
 }
@@ -28,15 +28,15 @@ type Story = StoryObj<typeof Spinner>
 export const Demo: Story = {
   args: {
     id: undefined,
-    className: "",
+    className: '',
   },
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <Spinner {...args} />
 `,

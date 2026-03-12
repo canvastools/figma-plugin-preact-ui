@@ -1,49 +1,48 @@
-import { Meta, StoryObj } from "@storybook/preact"
+import { Meta, StoryObj } from '@storybook/preact'
 
-import { StickyStory } from "./stories/Sticky.story"
+import { StickyStory } from './stories/Sticky.story'
 
-import { Text, Section } from "../../index"
+import { Text, Section } from '../../index'
 
-import { Bar } from "./Bar"
+import { Bar } from './Bar'
 
 const meta: Meta<typeof Bar> = {
-  title: "Layout/Bar",
+  title: 'Layout/Bar',
   component: Bar,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
-        component:
-          "A wrapper component for fixed panels with top/bottom dividers.",
+        component: 'A wrapper component for fixed panels with top/bottom dividers.',
       },
     },
   },
   argTypes: {
     id: {
-      control: { type: "text" },
+      control: { type: 'text' },
       table: {
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
     className: {
-      control: { type: "text" },
+      control: { type: 'text' },
     },
     showDividerTop: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       defaultValue: { summary: false },
     },
     showDividerBottom: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       defaultValue: { summary: false },
     },
     children: {
-      control: { type: "text" },
-      description: "<strong>*</strong>",
+      control: { type: 'text' },
+      description: '<strong>*</strong>',
       table: {
         type: {
-          summary: "preact.ComponentChildren",
+          summary: 'preact.ComponentChildren',
         },
       },
     },
@@ -55,21 +54,21 @@ export default meta
 type Story = StoryObj<typeof Bar>
 
 export const Demo = {
-  tags: ["!autodocs"],
+  tags: ['!autodocs'],
   args: {
     id: undefined,
-    className: "",
+    className: '',
     showDividerTop: false,
     showDividerBottom: false,
-    children: "Bar content",
+    children: 'Bar content',
   },
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <Bar {...args}>
   <Section>

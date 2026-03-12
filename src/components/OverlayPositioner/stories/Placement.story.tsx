@@ -1,10 +1,10 @@
-import { StoryObj } from "@storybook/preact"
+import { StoryObj } from '@storybook/preact'
 
-import { useRef } from "preact/hooks"
+import { useRef } from 'preact/hooks'
 
-import { Button, PopoverContainer, Section, Text } from "../../../index"
+import { Button, PopoverContainer, Section, Text } from '../../../index'
 
-import { OverlayPositioner } from "../OverlayPositioner"
+import { OverlayPositioner } from '../OverlayPositioner'
 
 type Story = StoryObj<typeof OverlayPositioner>
 
@@ -12,11 +12,11 @@ export const PlacementStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <OverlayPositioner
   anchorRef={anchorRef}
@@ -50,9 +50,8 @@ export const PlacementStory: Story = {
       <PopoverContainer width={200}>
         <Section>
           <Text>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quae
-            autem dolorum quibusdam necessitatibus natus, ipsa aperiam eos
-            animi.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quae autem dolorum quibusdam necessitatibus natus, ipsa
+            aperiam eos animi.
           </Text>
         </Section>
       </PopoverContainer>
@@ -75,10 +74,7 @@ export const PlacementStory: Story = {
 
           <Button ref={anchorRefTopRight}>Top Right</Button>
 
-          <OverlayPositioner
-            anchorRef={anchorRefTopRight}
-            placement="top-right"
-          >
+          <OverlayPositioner anchorRef={anchorRefTopRight} placement="top-right">
             <Content />
           </OverlayPositioner>
         </div>
@@ -86,10 +82,7 @@ export const PlacementStory: Story = {
         <div className="sb-row sb-width-full sb-gap-16">
           <Button ref={anchorRefBottomLeft}>Bottom Left</Button>
 
-          <OverlayPositioner
-            anchorRef={anchorRefBottomLeft}
-            placement="bottom-left"
-          >
+          <OverlayPositioner anchorRef={anchorRefBottomLeft} placement="bottom-left">
             <Content />
           </OverlayPositioner>
 
@@ -101,10 +94,7 @@ export const PlacementStory: Story = {
 
           <Button ref={anchorRefBottomRight}>Bottom Right</Button>
 
-          <OverlayPositioner
-            anchorRef={anchorRefBottomRight}
-            placement="bottom-right"
-          >
+          <OverlayPositioner anchorRef={anchorRefBottomRight} placement="bottom-right">
             <Content />
           </OverlayPositioner>
         </div>
@@ -124,10 +114,7 @@ export const PlacementStory: Story = {
 
           <Button ref={anchorRefLeftBottom}>Left Bottom</Button>
 
-          <OverlayPositioner
-            anchorRef={anchorRefLeftBottom}
-            placement="left-bottom"
-          >
+          <OverlayPositioner anchorRef={anchorRefLeftBottom} placement="left-bottom">
             <Content />
           </OverlayPositioner>
         </div>
@@ -135,10 +122,7 @@ export const PlacementStory: Story = {
         <div className="sb-row sb-width-full sb-gap-16">
           <Button ref={anchorRefRightTop}>Right Top</Button>
 
-          <OverlayPositioner
-            anchorRef={anchorRefRightTop}
-            placement="right-top"
-          >
+          <OverlayPositioner anchorRef={anchorRefRightTop} placement="right-top">
             <Content />
           </OverlayPositioner>
 
@@ -150,10 +134,7 @@ export const PlacementStory: Story = {
 
           <Button ref={anchorRefRightBottom}>Right Bottom</Button>
 
-          <OverlayPositioner
-            anchorRef={anchorRefRightBottom}
-            placement="right-bottom"
-          >
+          <OverlayPositioner anchorRef={anchorRefRightBottom} placement="right-bottom">
             <Content />
           </OverlayPositioner>
         </div>

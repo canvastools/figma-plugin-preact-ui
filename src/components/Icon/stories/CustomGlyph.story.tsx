@@ -1,6 +1,6 @@
-import { StoryObj } from "@storybook/preact"
+import { StoryObj } from '@storybook/preact'
 
-import { Icon } from "../Icon"
+import { Icon } from '../Icon'
 
 type Story = StoryObj<typeof Icon>
 
@@ -8,7 +8,7 @@ export const CustomGlyphStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       description: {
@@ -16,7 +16,7 @@ export const CustomGlyphStory: Story = {
           "A custom SVG as a child of the <Icon> component must use the 'currentColor' value for all color properties in order to inherit the component’s intent.",
       },
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <Icon 
   intent="neutral"
@@ -45,13 +45,7 @@ export const CustomGlyphStory: Story = {
   render: () => (
     <div className="sb-row sb-width-full sb-gap-16">
       <Icon size={24} intent="neutral" intentModifier="brand">
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             fill="currentColor"
             fill-rule="evenodd"

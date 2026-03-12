@@ -1,7 +1,7 @@
-import { bem, typedForwardRef } from "../../utils"
+import { bem, typedForwardRef } from '../../utils'
 
-import type { TextProps } from "./Text.types"
-import "./Text.scss"
+import type { TextProps } from './Text.types'
+import './Text.scss'
 
 /* --- */
 
@@ -22,7 +22,7 @@ const parseMarkdownLinks = (text: string) => {
     parts.push(
       <a key={`Text-link-${linkIndex}`} className="Text__link" href={url}>
         {label}
-      </a>
+      </a>,
     )
 
     linkIndex += 1
@@ -38,8 +38,7 @@ const parseMarkdownLinks = (text: string) => {
 }
 
 const renderChildrenWithLinks = (children: preact.ComponentChildren) => {
-  const renderChild = (child: preact.ComponentChildren) =>
-    typeof child === "string" ? parseMarkdownLinks(child) : child
+  const renderChild = (child: preact.ComponentChildren) => (typeof child === 'string' ? parseMarkdownLinks(child) : child)
 
   if (Array.isArray(children)) {
     const rendered: preact.ComponentChildren[] = []
@@ -63,12 +62,12 @@ const TextComponent = (
   {
     id,
     className,
-    intent = "neutral",
-    intentModifier = "default",
-    variant = "body",
-    size = "medium",
+    intent = 'neutral',
+    intentModifier = 'default',
+    variant = 'body',
+    size = 'medium',
     strong = false,
-    align = "left",
+    align = 'left',
     disabled = false,
     selected = false,
     wrap = true,
@@ -78,9 +77,9 @@ const TextComponent = (
     children,
     ...rest
   }: TextProps,
-  ref: preact.Ref<HTMLDivElement>
+  ref: preact.Ref<HTMLDivElement>,
 ) => {
-  const _className = bem("Text", undefined, {
+  const _className = bem('Text', undefined, {
     ...(!textColor && {
       intent: `${intent}-${intentModifier}`,
       disabled,
@@ -98,7 +97,7 @@ const TextComponent = (
   return (
     <div
       id={id}
-      className={[_className, className].join(" ").trim()}
+      className={[_className, className].join(' ').trim()}
       ref={ref}
       {...rest}
       style={{

@@ -1,75 +1,61 @@
-import { Meta, StoryObj } from "@storybook/preact"
+import { Meta, StoryObj } from '@storybook/preact'
 
-import { IntentStory } from "./stories/Intent.story"
-import { PrefixStory } from "./stories/Prefix.story"
-import { SuffixStory } from "./stories/Suffix.story"
+import { IntentStory } from './stories/Intent.story'
+import { PrefixStory } from './stories/Prefix.story'
+import { SuffixStory } from './stories/Suffix.story'
 
-import { Badge } from "./Badge"
+import { Badge } from './Badge'
 
 const meta: Meta<typeof Badge> = {
-  title: "Components/Badge",
+  title: 'Components/Badge',
   component: Badge,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     id: {
-      control: { type: "text" },
+      control: { type: 'text' },
       table: {
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
     className: {
-      control: { type: "text" },
+      control: { type: 'text' },
     },
     intent: {
-      control: { type: "radio" },
-      options: [
-        "neutral",
-        "neutral-inverted",
-        "brand",
-        "danger",
-        "warning",
-        "success",
-      ],
-      defaultValue: { summary: "neutral" },
+      control: { type: 'radio' },
+      options: ['neutral', 'neutral-inverted', 'brand', 'danger', 'warning', 'success'],
+      defaultValue: { summary: 'neutral' },
     },
     intentModifier: {
-      control: { type: "radio" },
-      options: [
-        "default",
-        "secondary",
-        "brand",
-        "danger",
-        "warning",
-        "success",
-      ],
-      defaultValue: { summary: "default" },
+      control: { type: 'radio' },
+      options: ['default', 'secondary', 'brand', 'danger', 'warning', 'success'],
+      defaultValue: { summary: 'default' },
     },
     prefix: {
       control: { disable: true },
-      description: "Element displayed before children.",
+      description: 'Element displayed before children.',
       table: {
         type: {
-          summary: "preact.ComponentChildren",
+          summary: 'preact.ComponentChildren',
         },
       },
     },
     suffix: {
       control: { disable: true },
-      description: "Element displayed after children.",
+      description: 'Element displayed after children.',
       table: {
         type: {
-          summary: "preact.ComponentChildren",
+          summary: 'preact.ComponentChildren',
         },
       },
     },
     children: {
-      control: { type: "text" },
-      description: "<strong>*</strong>",
+      control: { type: 'text' },
+      description: '<strong>*</strong>',
       table: {
         type: {
-          summary: "preact.ComponentChildren",
+          summary: 'preact.ComponentChildren',
         },
       },
     },
@@ -81,21 +67,21 @@ export default meta
 type Story = StoryObj<typeof Badge>
 
 export const Demo: Story = {
-  tags: ["!autodocs"],
+  tags: ['!autodocs'],
   args: {
     id: undefined,
-    className: "",
-    intent: "neutral",
-    intentModifier: "default",
-    children: "Badge",
+    className: '',
+    intent: 'neutral',
+    intentModifier: 'default',
+    children: 'Badge',
   },
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `<Badge {...args}>{children}</Badge>`,
       },
     },

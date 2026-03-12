@@ -1,8 +1,8 @@
-import { StoryObj } from "@storybook/preact"
+import { StoryObj } from '@storybook/preact'
 
-import { TabContext, Section, TabList } from "../../../index"
+import { TabContext, Section, TabList } from '../../../index'
 
-import { Tab } from "../Tab"
+import { Tab } from '../Tab'
 
 type Story = StoryObj<typeof Tab>
 
@@ -10,11 +10,11 @@ export const VariantStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <Tab variant="default">{children}</Tab>
 

@@ -1,70 +1,69 @@
-import { Meta, StoryObj } from "@storybook/preact"
-import { fn } from "@storybook/test"
+import { Meta, StoryObj } from '@storybook/preact'
+import { fn } from '@storybook/test'
 
-import { UncontrolledStory } from "./stories/Uncontrolled.story"
-import { ControlledStory } from "./stories/Controlled.story"
-import { ViewStory } from "./stories/View.story"
-import { DatesStory } from "./stories/Dates.story"
-import { DetailsStory } from "./stories/Details.story"
+import { UncontrolledStory } from './stories/Uncontrolled.story'
+import { ControlledStory } from './stories/Controlled.story'
+import { ViewStory } from './stories/View.story'
+import { DatesStory } from './stories/Dates.story'
+import { DetailsStory } from './stories/Details.story'
 
-import { Calendar } from "./Calendar"
+import { Calendar } from './Calendar'
 
 const meta: Meta<typeof Calendar> = {
-  title: "Components/Calendar",
+  title: 'Components/Calendar',
   component: Calendar,
   parameters: {
     docs: {
       description: {
-        component:
-          "A styled wrapper around the [react-calendar](https://github.com/wojtekmaj/react-calendar) component.",
+        component: 'A styled wrapper around the [react-calendar](https://github.com/wojtekmaj/react-calendar) component.',
       },
     },
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     id: {
-      control: { type: "text" },
+      control: { type: 'text' },
       table: {
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
     className: {
-      control: { type: "text" },
+      control: { type: 'text' },
     },
     locale: {
-      control: { type: "text" },
-      defaultValue: { summary: "en-US" },
+      control: { type: 'text' },
+      defaultValue: { summary: 'en-US' },
     },
     type: {
-      control: { type: "radio" },
-      options: ["iso8601", "islamic", "hebrew", "gregory"],
-      defaultValue: { summary: "iso8601" },
+      control: { type: 'radio' },
+      options: ['iso8601', 'islamic', 'hebrew', 'gregory'],
+      defaultValue: { summary: 'iso8601' },
     },
     defaultView: {
-      control: { type: "radio" },
-      options: ["month", "year", "decade", "century"],
-      defaultValue: { summary: "month" },
-      description: "View for uncontrolled state.",
+      control: { type: 'radio' },
+      options: ['month', 'year', 'decade', 'century'],
+      defaultValue: { summary: 'month' },
+      description: 'View for uncontrolled state.',
     },
     view: {
       control: { disable: true },
-      options: ["month", "year", "decade", "century"],
-      description: "View for controlled state.",
+      options: ['month', 'year', 'decade', 'century'],
+      description: 'View for controlled state.',
       table: {
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
     defaultDate: {
-      control: { type: "date" },
-      defaultValue: { summary: "null" },
-      description: "Date for uncontrolled state.",
+      control: { type: 'date' },
+      defaultValue: { summary: 'null' },
+      description: 'Date for uncontrolled state.',
       table: {
         type: {
-          summary: "CalendarDate",
+          summary: 'CalendarDate',
           detail: `Date | [Date | null, Date | null] | null`,
         },
       },
@@ -74,56 +73,56 @@ const meta: Meta<typeof Calendar> = {
       description: `Date for controlled state.`,
       table: {
         type: {
-          summary: "CalendarDate",
+          summary: 'CalendarDate',
           detail: `Date | [Date | null, Date | null] | null`,
         },
       },
     },
     minDate: {
-      control: { type: "date" },
-      defaultValue: { summary: "-5 years" },
-      description: "Minimum selectable date of the calendar.",
+      control: { type: 'date' },
+      defaultValue: { summary: '-5 years' },
+      description: 'Minimum selectable date of the calendar.',
       table: {
         type: {
-          summary: "Date",
+          summary: 'Date',
         },
       },
     },
     maxDate: {
-      control: { type: "date" },
-      defaultValue: { summary: "+5 years" },
-      description: "Maximum selectable date of the calendar.",
+      control: { type: 'date' },
+      defaultValue: { summary: '+5 years' },
+      description: 'Maximum selectable date of the calendar.',
       table: {
         type: {
-          summary: "Date",
+          summary: 'Date',
         },
       },
     },
     minDetail: {
-      control: { type: "radio" },
-      options: ["century", "decade", "year", "month"],
-      defaultValue: { summary: "century" },
-      description: "Minimum detail level of the calendar.",
+      control: { type: 'radio' },
+      options: ['century', 'decade', 'year', 'month'],
+      defaultValue: { summary: 'century' },
+      description: 'Minimum detail level of the calendar.',
     },
     maxDetail: {
-      control: { type: "radio" },
-      options: ["century", "decade", "year", "month"],
-      defaultValue: { summary: "month" },
-      description: "Maximum detail level of the calendar.",
+      control: { type: 'radio' },
+      options: ['century', 'decade', 'year', 'month'],
+      defaultValue: { summary: 'month' },
+      description: 'Maximum detail level of the calendar.',
     },
     showNavigation: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       defaultValue: { summary: true },
     },
     navigation: {
-      control: { type: "radio" },
-      options: ["full", "simple"],
-      defaultValue: { summary: "full" },
+      control: { type: 'radio' },
+      options: ['full', 'simple'],
+      defaultValue: { summary: 'full' },
     },
     onDateChange: {
       table: {
         type: {
-          summary: "(args) => void",
+          summary: '(args) => void',
           detail: `
 args:{
   date: CalendarDate
@@ -135,7 +134,7 @@ args:{
     onDetailUp: {
       table: {
         type: {
-          summary: "(args) => void",
+          summary: '(args) => void',
           detail: `
 args:{
   action: string
@@ -150,7 +149,7 @@ args:{
     onDetailDown: {
       table: {
         type: {
-          summary: "(args) => void",
+          summary: '(args) => void',
           detail: `
 args:{
   action: string
@@ -165,7 +164,7 @@ args:{
     onViewChange: {
       table: {
         type: {
-          summary: "(args) => void",
+          summary: '(args) => void',
           detail: `
 args:{
   action: string
@@ -185,22 +184,22 @@ export default meta
 type Story = StoryObj<typeof Calendar>
 
 export const Demo: Story = {
-  tags: ["!autodocs"],
+  tags: ['!autodocs'],
   args: {
     id: undefined,
-    className: "",
-    locale: "en-US",
-    type: "iso8601",
-    defaultView: "month",
+    className: '',
+    locale: 'en-US',
+    type: 'iso8601',
+    defaultView: 'month',
     view: null,
     defaultDate: new Date(),
     date: null,
     minDate: new Date(new Date().setFullYear(new Date().getFullYear() - 5)),
     maxDate: new Date(new Date().setFullYear(new Date().getFullYear() + 5)),
-    minDetail: "century",
-    maxDetail: "month",
+    minDetail: 'century',
+    maxDetail: 'month',
     showNavigation: true,
-    navigation: "full",
+    navigation: 'full',
     onDateChange: fn(),
     onDetailUp: fn(),
     onDetailDown: fn(),
@@ -208,11 +207,11 @@ export const Demo: Story = {
   },
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <Calendar {...args} />
 `,

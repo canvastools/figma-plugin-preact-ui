@@ -1,20 +1,20 @@
-import { Meta, StoryObj } from "@storybook/preact"
-import { fn } from "@storybook/test"
+import { Meta, StoryObj } from '@storybook/preact'
+import { fn } from '@storybook/test'
 
-import { IntentStory } from "./stories/Intent.story"
-import { DisabledStory } from "./stories/Disabled.story"
-import { PrefixStory } from "./stories/Prefix.story"
-import { SuffixStory } from "./stories/Suffix.story"
-import { PaddingStory } from "./stories/Padding.story"
+import { IntentStory } from './stories/Intent.story'
+import { DisabledStory } from './stories/Disabled.story'
+import { PrefixStory } from './stories/Prefix.story'
+import { SuffixStory } from './stories/Suffix.story'
+import { PaddingStory } from './stories/Padding.story'
 
-import { MenuContainer } from "../../index"
+import { MenuContainer } from '../../index'
 
-import { MenuItemAction } from "./MenuItemAction"
+import { MenuItemAction } from './MenuItemAction'
 
 const meta: Meta<typeof MenuItemAction> = {
-  title: "Components/MenuItemAction",
+  title: 'Components/MenuItemAction',
   component: MenuItemAction,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
@@ -25,69 +25,68 @@ const meta: Meta<typeof MenuItemAction> = {
   },
   argTypes: {
     id: {
-      control: { type: "text" },
+      control: { type: 'text' },
       description:
-        "Unique identifier for the menu item used to track focus the item in the menu context. If not provided, a random UUID will be generated.",
+        'Unique identifier for the menu item used to track focus the item in the menu context. If not provided, a random UUID will be generated.',
       table: {
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
     className: {
-      control: { type: "text" },
+      control: { type: 'text' },
     },
     intentModifier: {
-      control: { type: "radio" },
-      defaultValue: { summary: "default" },
-      options: ["default", "danger"],
+      control: { type: 'radio' },
+      defaultValue: { summary: 'default' },
+      options: ['default', 'danger'],
     },
     disabled: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       defaultValue: { summary: false },
     },
     focused: {
-      control: { type: "boolean" },
-      description: "Works only when the componet is inside `<MenuContext/>`.",
+      control: { type: 'boolean' },
+      description: 'Works only when the componet is inside `<MenuContext/>`.',
       defaultValue: { summary: false },
     },
     prefix: {
       control: { disable: true },
-      description: "Element displayed before children.",
+      description: 'Element displayed before children.',
       table: {
         type: {
-          summary: "preact.ComponentChildren",
+          summary: 'preact.ComponentChildren',
         },
       },
     },
     suffix: {
       control: { disable: true },
-      description: "Element displayed after children.",
+      description: 'Element displayed after children.',
       table: {
         type: {
-          summary: "preact.ComponentChildren",
+          summary: 'preact.ComponentChildren',
         },
       },
     },
     children: {
-      control: { type: "text" },
-      description: "<strong>*</strong>",
+      control: { type: 'text' },
+      description: '<strong>*</strong>',
       table: {
         type: {
-          summary: "preact.ComponentChildren",
+          summary: 'preact.ComponentChildren',
         },
       },
     },
     paddingLikeOption: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       defaultValue: { summary: false },
-      description:
-        "Add padding to the left of the content to make it aligned with options.",
+      description: 'Add padding to the left of the content to make it aligned with options.',
     },
     onClick: {
       table: {
         type: {
-          summary: "(args) => void",
+          summary: '(args) => void',
           detail: `
 args: {
   event: MouseEvent
@@ -105,24 +104,24 @@ export default meta
 type Story = StoryObj<typeof MenuItemAction>
 
 export const Demo: Story = {
-  tags: ["!autodocs"],
+  tags: ['!autodocs'],
   args: {
-    id: "menu-item-action",
-    className: "",
-    intentModifier: "default",
+    id: 'menu-item-action',
+    className: '',
+    intentModifier: 'default',
     disabled: false,
     focused: false,
     paddingLikeOption: false,
-    children: "Action",
+    children: 'Action',
     onClick: fn(),
   },
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <MenuContainer>
   <MenuItemAction {...args}>{children}</MenuItemAction>

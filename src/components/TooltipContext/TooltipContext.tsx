@@ -1,16 +1,11 @@
-import { createContext } from "preact"
-import { useCallback, useContext, useMemo, useRef } from "preact/hooks"
+import { createContext } from 'preact'
+import { useCallback, useContext, useMemo, useRef } from 'preact/hooks'
 
-import type {
-  TooltipContextProps,
-  TooltipContextValue,
-} from "./TooltipContext.types"
+import type { TooltipContextProps, TooltipContextValue } from './TooltipContext.types'
 
 /* --- */
 
-const RawTooltipContext = createContext<TooltipContextValue | undefined>(
-  undefined
-)
+const RawTooltipContext = createContext<TooltipContextValue | undefined>(undefined)
 
 const SHOW_DELAY = 1200
 const HIDE_DELAY = 480
@@ -43,10 +38,7 @@ const TooltipContext = ({ children }: TooltipContextProps) => {
 
   const hideTimeoutRef = useRef<number | null>(null)
 
-  const registerHoverStart: TooltipContextValue["registerHoverStart"] = (
-    ref,
-    setOpen
-  ) => {
+  const registerHoverStart: TooltipContextValue['registerHoverStart'] = (ref, setOpen) => {
     const now = Date.now()
     const lastLeave = lastTriggerLeaveTimeRef.current
 
@@ -106,19 +98,13 @@ const TooltipContext = ({ children }: TooltipContextProps) => {
     }, SHOW_DELAY)
   }
 
-  const registerHoverEnd: TooltipContextValue["registerHoverEnd"] = (
-    ref,
-    setOpen
-  ) => {
+  const registerHoverEnd: TooltipContextValue['registerHoverEnd'] = (ref, setOpen) => {
     if (showTimeoutRef.current != null) {
       clearTimeout(showTimeoutRef.current)
       showTimeoutRef.current = null
     }
 
-    if (
-      !visibleTooltipRef.current.ref ||
-      visibleTooltipRef.current.ref !== ref
-    ) {
+    if (!visibleTooltipRef.current.ref || visibleTooltipRef.current.ref !== ref) {
       return
     }
 
@@ -141,10 +127,7 @@ const TooltipContext = ({ children }: TooltipContextProps) => {
 
       leaving.setOpen(false)
 
-      if (
-        visibleTooltipRef.current.ref &&
-        visibleTooltipRef.current.ref === leaving.ref
-      ) {
+      if (visibleTooltipRef.current.ref && visibleTooltipRef.current.ref === leaving.ref) {
         visibleTooltipRef.current = {
           ref: null,
           setOpen: null,
@@ -163,14 +146,10 @@ const TooltipContext = ({ children }: TooltipContextProps) => {
       registerHoverStart,
       registerHoverEnd,
     }),
-    [registerHoverStart, registerHoverEnd]
+    [registerHoverStart, registerHoverEnd],
   )
 
-  return (
-    <RawTooltipContext.Provider value={contextValue}>
-      {children}
-    </RawTooltipContext.Provider>
-  )
+  return <RawTooltipContext.Provider value={contextValue}>{children}</RawTooltipContext.Provider>
 }
 
 export { TooltipContext, useTooltipContext }

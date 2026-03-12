@@ -1,52 +1,51 @@
-import type { Meta, StoryObj } from "@storybook/preact"
+import type { Meta, StoryObj } from '@storybook/preact'
 
-import { TabPanel } from "./TabPanel"
+import { TabPanel } from './TabPanel'
 
-import { TabContext, TabList, Tab, Section, Text } from "../../index"
+import { TabContext, TabList, Tab, Section, Text } from '../../index'
 
 const meta: Meta<typeof TabPanel> = {
-  title: "Components/TabPanel",
+  title: 'Components/TabPanel',
   component: TabPanel,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
-        component:
-          "The component is always used within <a href='/docs/components-tabcontext--docs'>`<TabContext/>`</a>.",
+        component: "The component is always used within <a href='/docs/components-tabcontext--docs'>`<TabContext/>`</a>.",
       },
     },
   },
   argTypes: {
     id: {
-      control: { type: "text" },
+      control: { type: 'text' },
       table: {
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
     className: {
-      control: { type: "text" },
+      control: { type: 'text' },
     },
     tabId: {
       control: { disable: true },
-      description: "<strong>*</strong>",
+      description: '<strong>*</strong>',
       table: {
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
     fullHeight: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       defaultValue: { summary: false },
     },
     children: {
       control: { disable: true },
-      description: "<strong>*</strong>",
+      description: '<strong>*</strong>',
       table: {
         type: {
-          summary: "preact.ComponentChildren",
+          summary: 'preact.ComponentChildren',
         },
       },
     },
@@ -60,11 +59,11 @@ type Story = StoryObj<typeof TabPanel>
 export const Demo: Story = {
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <TabContext defaultActiveId="tab-1">
 
@@ -85,7 +84,7 @@ export const Demo: Story = {
   },
   args: {
     id: undefined,
-    className: "sb-container",
+    className: 'sb-container',
     fullHeight: false,
   },
   render: (args) => (

@@ -1,41 +1,41 @@
-import { Meta, StoryObj } from "@storybook/preact"
+import { Meta, StoryObj } from '@storybook/preact'
 
-import { ControlledStory } from "./stories/Controlled.story"
-import { VariantStory } from "./stories/Variant.story"
+import { ControlledStory } from './stories/Controlled.story'
+import { VariantStory } from './stories/Variant.story'
 
-import { Progress } from "./Progress"
+import { Progress } from './Progress'
 
 const meta: Meta<typeof Progress> = {
-  title: "Components/Progress",
+  title: 'Components/Progress',
   component: Progress,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     id: {
-      control: { type: "text" },
+      control: { type: 'text' },
       table: {
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
     className: {
-      control: { type: "text" },
+      control: { type: 'text' },
     },
     variant: {
-      control: { type: "radio" },
-      options: ["indeterminate", "determinate"],
-      defaultValue: { summary: "indeterminate" },
+      control: { type: 'radio' },
+      options: ['indeterminate', 'determinate'],
+      defaultValue: { summary: 'indeterminate' },
     },
     delay: {
-      control: { type: "number" },
+      control: { type: 'number' },
       defaultValue: { summary: 0 },
       description:
-        "Delay in milliseconds before the progress bar becomes visible. This helps prevent flicker when content loads quickly.",
+        'Delay in milliseconds before the progress bar becomes visible. This helps prevent flicker when content loads quickly.',
     },
     value: {
-      control: { type: "number" },
+      control: { type: 'number' },
       defaultValue: { summary: 0 },
-      description: "Value of the progress bar for `determinate` variant.",
+      description: 'Value of the progress bar for `determinate` variant.',
     },
   },
 }
@@ -45,21 +45,21 @@ export default meta
 type Story = StoryObj<typeof Progress>
 
 export const Demo: Story = {
-  tags: ["!autodocs"],
+  tags: ['!autodocs'],
   args: {
     id: undefined,
-    className: "",
-    variant: "indeterminate",
+    className: '',
+    variant: 'indeterminate',
     delay: 0,
     value: 30,
   },
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <Progress {...args} />
 `,

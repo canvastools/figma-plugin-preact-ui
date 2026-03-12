@@ -1,8 +1,8 @@
-import { StoryObj } from "@storybook/preact"
+import { StoryObj } from '@storybook/preact'
 
-import { MenuItemAction } from "../../../index"
+import { MenuItemAction } from '../../../index'
 
-import { MenuContainer } from "../MenuContainer"
+import { MenuContainer } from '../MenuContainer'
 
 type Story = StoryObj<typeof MenuContainer>
 
@@ -10,11 +10,11 @@ export const SizeStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <MenuContainer
   width={200}

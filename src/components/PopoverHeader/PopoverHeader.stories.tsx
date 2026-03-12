@@ -1,14 +1,14 @@
-import { Meta, StoryObj } from "@storybook/preact"
-import { fn } from "@storybook/test"
+import { Meta, StoryObj } from '@storybook/preact'
+import { fn } from '@storybook/test'
 
-import { PopoverHeader } from "./PopoverHeader"
+import { PopoverHeader } from './PopoverHeader'
 
-import { PopoverContainer, Text, Section } from "../../index"
+import { PopoverContainer, Text, Section } from '../../index'
 
 const meta: Meta<typeof PopoverHeader> = {
-  title: "Components/PopoverHeader",
+  title: 'Components/PopoverHeader',
   component: PopoverHeader,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
@@ -19,29 +19,29 @@ const meta: Meta<typeof PopoverHeader> = {
   },
   argTypes: {
     id: {
-      control: { type: "text" },
+      control: { type: 'text' },
       table: {
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
     className: {
-      control: { type: "text" },
+      control: { type: 'text' },
     },
     children: {
-      control: { type: "text" },
-      description: "<strong>*</strong>",
+      control: { type: 'text' },
+      description: '<strong>*</strong>',
       table: {
         type: {
-          summary: "preact.ComponentChildren",
+          summary: 'preact.ComponentChildren',
         },
       },
     },
     onClose: {
       table: {
         type: {
-          summary: "() => void",
+          summary: '() => void',
         },
       },
     },
@@ -55,17 +55,17 @@ type Story = StoryObj<typeof PopoverHeader>
 export const Demo: Story = {
   args: {
     id: undefined,
-    className: "",
-    children: "Header",
+    className: '',
+    children: 'Header',
     onClose: fn(),
   },
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <PopoverContainer>
   <PopoverHeader {...args}>{children}</PopoverHeader>
@@ -82,11 +82,9 @@ export const Demo: Story = {
           <PopoverHeader {...args}>{args.children}</PopoverHeader>
           <Section>
             <Text>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quae
-              autem dolorum quibusdam necessitatibus natus, ipsa aperiam eos
-              animi id nam tenetur adipisci? Amet nisi doloremque asperiores
-              quisquam, repudiandae similique magnam aspernatur esse dignissimos
-              molestiae.
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quae autem dolorum quibusdam necessitatibus natus,
+              ipsa aperiam eos animi id nam tenetur adipisci? Amet nisi doloremque asperiores quisquam, repudiandae similique
+              magnam aspernatur esse dignissimos molestiae.
             </Text>
           </Section>
         </PopoverContainer>

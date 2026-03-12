@@ -1,69 +1,69 @@
-import { Meta, StoryObj } from "@storybook/preact"
-import { fn } from "@storybook/test"
+import { Meta, StoryObj } from '@storybook/preact'
+import { fn } from '@storybook/test'
 
-import { UncontrolledStory } from "./stories/Uncontrolled.story"
-import { ControlledStory } from "./stories/Controlled.story"
-import { IntentStory } from "./stories/Intent.story"
-import { MixedStory } from "./stories/Mixed.story"
-import { DisabledStory } from "./stories/Disabled.story"
+import { UncontrolledStory } from './stories/Uncontrolled.story'
+import { ControlledStory } from './stories/Controlled.story'
+import { IntentStory } from './stories/Intent.story'
+import { MixedStory } from './stories/Mixed.story'
+import { DisabledStory } from './stories/Disabled.story'
 
-import { Checkbox } from "./Checkbox"
+import { Checkbox } from './Checkbox'
 
 const meta: Meta<typeof Checkbox> = {
-  title: "Components/Checkbox",
+  title: 'Components/Checkbox',
   component: Checkbox,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     id: {
-      control: { type: "text" },
+      control: { type: 'text' },
       table: {
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
     className: {
-      control: { type: "text" },
+      control: { type: 'text' },
     },
     intent: {
-      control: { type: "radio" },
-      options: ["neutral", "brand"],
-      defaultValue: { summary: "neutral" },
+      control: { type: 'radio' },
+      options: ['neutral', 'brand'],
+      defaultValue: { summary: 'neutral' },
     },
     intentModifier: {
-      control: { type: "radio" },
-      options: ["default"],
-      defaultValue: { summary: "default" },
+      control: { type: 'radio' },
+      options: ['default'],
+      defaultValue: { summary: 'default' },
     },
     checked: {
       control: { disable: true },
-      description: "Value for controlled state.",
+      description: 'Value for controlled state.',
       table: {
         type: {
-          summary: "boolean",
+          summary: 'boolean',
         },
       },
     },
     defaultChecked: {
-      control: { type: "boolean" },
-      description: "Value for uncontrolled state.",
+      control: { type: 'boolean' },
+      description: 'Value for uncontrolled state.',
       defaultValue: { summary: false },
     },
     mixed: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       defaultValue: { summary: false },
     },
     disabled: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       defaultValue: { summary: false },
     },
     label: {
-      control: { type: "text" },
+      control: { type: 'text' },
     },
     onCheckedChange: {
       table: {
         type: {
-          summary: "(args) => void",
+          summary: '(args) => void',
           detail: `
 args:{
   event: MouseEvent
@@ -81,25 +81,25 @@ export default meta
 type Story = StoryObj<typeof Checkbox>
 
 export const Demo: Story = {
-  tags: ["!autodocs"],
+  tags: ['!autodocs'],
   args: {
     id: undefined,
-    className: "",
-    intent: "neutral",
-    intentModifier: "default",
+    className: '',
+    intent: 'neutral',
+    intentModifier: 'default',
     defaultChecked: false,
     mixed: false,
     disabled: false,
-    label: "Checkbox",
+    label: 'Checkbox',
     onCheckedChange: fn(),
   },
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <Checkbox {...args} />
 `,

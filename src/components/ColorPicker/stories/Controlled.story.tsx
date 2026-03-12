@@ -1,10 +1,10 @@
-import { StoryObj } from "@storybook/preact"
+import { StoryObj } from '@storybook/preact'
 
-import { useState } from "preact/hooks"
+import { useState } from 'preact/hooks'
 
-import { Text } from "../../../index"
+import { Text } from '../../../index'
 
-import { ColorPicker } from "../ColorPicker"
+import { ColorPicker } from '../ColorPicker'
 
 type Story = StoryObj<typeof ColorPicker>
 
@@ -12,11 +12,11 @@ export const ControlledStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 const [type, setType] = useState("hex")
 const [color, setColor] = useState({ r: 1, g: 0, b: 0, a: 1 })
@@ -32,7 +32,7 @@ const [color, setColor] = useState({ r: 1, g: 0, b: 0, a: 1 })
     },
   },
   render: () => {
-    const [type, setType] = useState<"rgba" | "hex" | "hexAlpha">("hex")
+    const [type, setType] = useState<'rgba' | 'hex' | 'hexAlpha'>('hex')
     const [color, setColor] = useState({ r: 1, g: 0, b: 0, a: 1 })
 
     return (

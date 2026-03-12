@@ -1,8 +1,8 @@
-import { StoryObj } from "@storybook/preact"
+import { StoryObj } from '@storybook/preact'
 
-import { Section, TabList, Tab, Text, TabPanel } from "../../../index"
+import { Section, TabList, Tab, Text, TabPanel } from '../../../index'
 
-import { TabContext } from "../TabContext"
+import { TabContext } from '../TabContext'
 
 type Story = StoryObj<typeof Tab>
 
@@ -10,11 +10,11 @@ export const UncontrolledStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <TabContext defaultActiveId="tab-1">
 

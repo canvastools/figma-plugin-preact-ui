@@ -1,6 +1,6 @@
-import { Glyph } from "../../index"
+import { Glyph } from '../../index'
 
-import type { IconPropsPick } from "../Icon/Icon.types"
+import type { IconPropsPick } from '../Icon/Icon.types'
 
 export interface SegmentedControlOptionData {
   value: string
@@ -16,8 +16,5 @@ export interface SegmentedControlProps {
   defaultValue?: string
   disabled?: boolean
   fullWidth?: boolean
-  onValueChange?: (args: {
-    event: MouseEvent | KeyboardEvent
-    value: string
-  }) => void
+  onValueChange?: (args: { event: MouseEvent | KeyboardEvent; value: string }) => void
 }

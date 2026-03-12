@@ -1,26 +1,20 @@
-import { useState, useEffect } from "preact/hooks"
+import { useState, useEffect } from 'preact/hooks'
 
-import { typedForwardRef } from "../../utils"
+import { typedForwardRef } from '../../utils'
 
-import type { ButtonIconToggleProps } from "./ButtonIconToggle.types"
+import type { ButtonIconToggleProps } from './ButtonIconToggle.types'
 
-import { ButtonIcon } from "../../index"
+import { ButtonIcon } from '../../index'
 
 /* --- */
 
 const ButtonIconToggleComponent = (
-  {
-    selected: controlledSelected,
-    defaultSelected = false,
-    onSelectedChange,
-    ...rest
-  }: ButtonIconToggleProps,
-  ref: preact.Ref<HTMLButtonElement>
+  { selected: controlledSelected, defaultSelected = false, onSelectedChange, ...rest }: ButtonIconToggleProps,
+  ref: preact.Ref<HTMLButtonElement>,
 ) => {
   const [internalSelected, setInternalSelected] = useState(defaultSelected)
 
-  const isSelected =
-    controlledSelected !== undefined ? controlledSelected : internalSelected
+  const isSelected = controlledSelected !== undefined ? controlledSelected : internalSelected
 
   const handleClick = (e: { event: MouseEvent }) => {
     const newSelected = !isSelected
@@ -38,17 +32,7 @@ const ButtonIconToggleComponent = (
     }
   }, [controlledSelected])
 
-  return (
-    <ButtonIcon
-      ref={ref}
-      selected={isSelected}
-      onClick={handleClick}
-      {...rest}
-    />
-  )
+  return <ButtonIcon ref={ref} selected={isSelected} onClick={handleClick} {...rest} />
 }
 
-export const ButtonIconToggle = typedForwardRef<
-  ButtonIconToggleProps,
-  HTMLButtonElement
->(ButtonIconToggleComponent)
+export const ButtonIconToggle = typedForwardRef<ButtonIconToggleProps, HTMLButtonElement>(ButtonIconToggleComponent)

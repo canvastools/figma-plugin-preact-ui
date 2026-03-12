@@ -1,8 +1,8 @@
-import { StoryObj } from "@storybook/preact"
+import { StoryObj } from '@storybook/preact'
 
-import { Input } from "../../../index"
+import { Input } from '../../../index'
 
-import { ControlGroup } from "../ControlGroup"
+import { ControlGroup } from '../ControlGroup'
 
 type Story = StoryObj<typeof ControlGroup>
 
@@ -10,11 +10,11 @@ export const GroupFocusStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <ControlGroup groupFocus>
   <Input />

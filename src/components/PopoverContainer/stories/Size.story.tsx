@@ -1,8 +1,8 @@
-import { StoryObj } from "@storybook/preact"
+import { StoryObj } from '@storybook/preact'
 
-import { Text } from "../../../index"
+import { Text } from '../../../index'
 
-import { PopoverContainer } from "../PopoverContainer"
+import { PopoverContainer } from '../PopoverContainer'
 
 type Story = StoryObj<typeof PopoverContainer>
 
@@ -10,11 +10,11 @@ export const SizeStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <PopoverContainer
   width={200}

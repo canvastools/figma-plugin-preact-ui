@@ -1,98 +1,92 @@
-import { Meta, StoryObj } from "@storybook/preact"
+import { Meta, StoryObj } from '@storybook/preact'
 
-import { useState } from "preact/hooks"
+import { useState } from 'preact/hooks'
 
-import { NormalizationStory } from "./stories/Normalization.story"
-import { DoubleValueStory } from "./stories/DoubleValue.story"
-import { MathStory } from "./stories/Math.story"
+import { NormalizationStory } from './stories/Normalization.story'
+import { DoubleValueStory } from './stories/DoubleValue.story'
+import { MathStory } from './stories/Math.story'
 
-import { Input, Text } from "../../index"
+import { Input, Text } from '../../index'
 
-import { useNumericInput } from "./useNumericInput"
-import {
-  type NumericInputError,
-  type NumericInputConfig,
-} from "./useNumericInput.types"
+import { useNumericInput } from './useNumericInput'
+import { type NumericInputError, type NumericInputConfig } from './useNumericInput.types'
 
 const meta: Meta<typeof useNumericInput> = {
-  title: "Hooks/useNumericInput",
+  title: 'Hooks/useNumericInput',
   component: useNumericInput,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
-        component:
-          "A hook that validates and formats a numeric input based on the provided configuration.",
+        component: 'A hook that validates and formats a numeric input based on the provided configuration.',
       },
     },
   },
   argTypes: {
     value: {
-      control: { type: "text" },
-      description: "<strong>*</strong>Initial numeric value",
+      control: { type: 'text' },
+      description: '<strong>*</strong>Initial numeric value',
       table: {
         type: {
-          summary: "number | string",
+          summary: 'number | string',
         },
       },
     },
     unit: {
-      control: { type: "text" },
-      description: "Unit of the value.",
+      control: { type: 'text' },
+      description: 'Unit of the value.',
     },
     min: {
-      control: { type: "number" },
-      description: "Minimum value of the input.",
+      control: { type: 'number' },
+      description: 'Minimum value of the input.',
     },
     max: {
-      control: { type: "number" },
-      description: "Maximum value of the input.",
+      control: { type: 'number' },
+      description: 'Maximum value of the input.',
     },
     precision: {
-      control: { type: "number" },
+      control: { type: 'number' },
       defaultValue: { summary: 0 },
       description:
-        "Precision of the value. If 0, the value will be rounded to the nearest integer, otherwise it will be rounded to the nearest precision like 1 = 0.1, 2 = 0.01, etc.",
+        'Precision of the value. If 0, the value will be rounded to the nearest integer, otherwise it will be rounded to the nearest precision like 1 = 0.1, 2 = 0.01, etc.',
     },
     step: {
-      control: { type: "number" },
+      control: { type: 'number' },
       defaultValue: { summary: 1 },
-      description: "Step size for changing the value.",
+      description: 'Step size for changing the value.',
     },
     stepLarge: {
-      control: { type: "number" },
+      control: { type: 'number' },
       defaultValue: { summary: 10 },
-      description:
-        "Step size for changing the value when `Shift` key is pressed.",
+      description: 'Step size for changing the value when `Shift` key is pressed.',
     },
     required: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       defaultValue: { summary: false },
-      description: "Whether the value is required.",
+      description: 'Whether the value is required.',
     },
     normalizeOnError: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       defaultValue: { summary: false },
       description:
-        "Whether to normalize and format the raw value on error, otherwise `undefined` will be returned for normalized value and formatted value.",
+        'Whether to normalize and format the raw value on error, otherwise `undefined` will be returned for normalized value and formatted value.',
     },
     doubleValue: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       defaultValue: { summary: false },
       description:
         'When true, parses a comma-separated pair of numbers (e.g. "12,24") and exposes both values in `normalizedValues` / `formattedValues`.',
     },
     math: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       defaultValue: { summary: false },
-      description:
-        "Evaluates simple arithmetic expressions before validation and formatting.",
+      description: 'Evaluates simple arithmetic expressions before validation and formatting.',
     },
     useNumericInput: {
       control: { disable: true },
       table: {
         type: {
-          summary: "Hook",
+          summary: 'Hook',
           detail: `
 {
   handleKeyDown: (
@@ -132,10 +126,10 @@ export default meta
 type Story = StoryObj<typeof useNumericInput>
 
 export const Demo: Story = {
-  tags: ["!autodocs"],
+  tags: ['!autodocs'],
   args: {
-    value: "45",
-    unit: "°",
+    value: '45',
+    unit: '°',
     min: -180,
     max: 180,
     precision: 0,
@@ -148,7 +142,7 @@ export const Demo: Story = {
   },
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
@@ -195,9 +189,7 @@ const [error, setError] = useState(null)
   render: (args) => {
     const numericInput = useNumericInput(args as unknown as NumericInputConfig)
 
-    const [inputValue, setInputValue] = useState(
-      numericInput.formattedValue ?? ""
-    )
+    const [inputValue, setInputValue] = useState(numericInput.formattedValue ?? '')
     const [error, setError] = useState<NumericInputError | null>(null)
 
     return (
@@ -218,22 +210,16 @@ const [error, setError] = useState(null)
 
             setError(null)
             if (parsed.formattedValues) {
-              setInputValue(parsed.formattedValues.join(", ") ?? "")
+              setInputValue(parsed.formattedValues.join(', ') ?? '')
             } else {
-              setInputValue(parsed.formattedValue ?? "")
+              setInputValue(parsed.formattedValue ?? '')
             }
           }}
           onKeyDown={(e) =>
-            numericInput.handleKeyDown(e, (next) =>
-              setInputValue(
-                numericInput.parse(String(next)).formattedValue ?? ""
-              )
-            )
+            numericInput.handleKeyDown(e, (next) => setInputValue(numericInput.parse(String(next)).formattedValue ?? ''))
           }
         />
-        <Text intentModifier={error ? "danger" : "default"}>
-          {error || "No errors"}
-        </Text>
+        <Text intentModifier={error ? 'danger' : 'default'}>{error || 'No errors'}</Text>
       </div>
     )
   },

@@ -1,7 +1,7 @@
 export interface MenuItemActionProps {
   id?: string
   className?: string
-  intentModifier?: "default" | "danger"
+  intentModifier?: 'default' | 'danger'
   disabled?: boolean
   focused?: boolean
   prefix?: preact.ComponentChildren

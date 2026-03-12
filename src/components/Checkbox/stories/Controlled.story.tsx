@@ -1,10 +1,10 @@
-import { StoryObj } from "@storybook/preact"
+import { StoryObj } from '@storybook/preact'
 
-import { useState } from "preact/hooks"
+import { useState } from 'preact/hooks'
 
-import { Text } from "../../../index"
+import { Text } from '../../../index'
 
-import { Checkbox } from "../Checkbox"
+import { Checkbox } from '../Checkbox'
 
 type Story = StoryObj<typeof Checkbox>
 
@@ -12,11 +12,11 @@ export const ControlledStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 const [checked, setChecked] = useState(false)
 
@@ -33,12 +33,8 @@ const [checked, setChecked] = useState(false)
 
     return (
       <div className="sb-column sb-width-full sb-gap-16">
-        <Text>checked: {checked ? "true" : "false"}</Text>
-        <Checkbox
-          checked={checked}
-          onCheckedChange={(args) => setChecked(args.checked)}
-          label="Checkbox"
-        />
+        <Text>checked: {checked ? 'true' : 'false'}</Text>
+        <Checkbox checked={checked} onCheckedChange={(args) => setChecked(args.checked)} label="Checkbox" />
       </div>
     )
   },

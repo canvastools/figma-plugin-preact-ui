@@ -1,30 +1,30 @@
-import { Fragment, cloneElement } from "preact"
-import { bem, typedForwardRef, uuid } from "../../utils"
-import { useState, useEffect, useRef } from "preact/hooks"
+import { Fragment, cloneElement } from 'preact'
+import { bem, typedForwardRef, uuid } from '../../utils'
+import { useState, useEffect, useRef } from 'preact/hooks'
 
-import { Text, useMenuContext } from "../../index"
-import type { MenuContextValue } from "../../index"
+import { Text, useMenuContext } from '../../index'
+import type { MenuContextValue } from '../../index'
 
-import type { MenuItemActionProps } from "./MenuItemAction.types"
-import "./MenuItemAction.scss"
+import type { MenuItemActionProps } from './MenuItemAction.types'
+import './MenuItemAction.scss'
 
 /* --- */
 
 const hoverIntentProps = {
-  intent: "brand",
-  intentModifiers: "default",
+  intent: 'brand',
+  intentModifiers: 'default',
 }
 
-const noopRegisterItem: MenuContextValue["registerItem"] = () => () => {}
-const noopClearFocus: MenuContextValue["clearFocus"] = () => {}
-const noopSetHoveredItem: MenuContextValue["setHoveredItem"] = () => {}
-const noopSetFocusedItem: MenuContextValue["setFocusedItem"] = () => {}
+const noopRegisterItem: MenuContextValue['registerItem'] = () => () => {}
+const noopClearFocus: MenuContextValue['clearFocus'] = () => {}
+const noopSetHoveredItem: MenuContextValue['setHoveredItem'] = () => {}
+const noopSetFocusedItem: MenuContextValue['setFocusedItem'] = () => {}
 
 const MenuItemActionComponent = (
   {
     className,
     id,
-    intentModifier = "default",
+    intentModifier = 'default',
     disabled = false,
     focused = false,
     prefix,
@@ -34,7 +34,7 @@ const MenuItemActionComponent = (
     onClick,
     ...rest
   }: MenuItemActionProps,
-  ref: preact.Ref<HTMLDivElement>
+  ref: preact.Ref<HTMLDivElement>,
 ) => {
   let menuContext: MenuContextValue | null = null
   try {
@@ -43,13 +43,12 @@ const MenuItemActionComponent = (
     menuContext = null
   }
 
-  const { registerItem, clearFocus, setHoveredItem, setFocusedItem } =
-    menuContext || {
-      registerItem: noopRegisterItem,
-      clearFocus: noopClearFocus,
-      setHoveredItem: noopSetHoveredItem,
-      setFocusedItem: noopSetFocusedItem,
-    }
+  const { registerItem, clearFocus, setHoveredItem, setFocusedItem } = menuContext || {
+    registerItem: noopRegisterItem,
+    clearFocus: noopClearFocus,
+    setHoveredItem: noopSetHoveredItem,
+    setFocusedItem: noopSetFocusedItem,
+  }
 
   const itemRef = useRef<HTMLElement>(null)
 
@@ -67,7 +66,7 @@ const MenuItemActionComponent = (
 
   const [isHovered, setIsHovered] = useState(false)
   const isActive = isHovered || focused
-  const _className = bem("MenuItemAction", undefined, {
+  const _className = bem('MenuItemAction', undefined, {
     intentModifier,
     disabled,
     focused,
@@ -102,20 +101,12 @@ const MenuItemActionComponent = (
     setIsHovered(false)
   }
 
-  const override = (
-    node: preact.ComponentChildren,
-    props: Record<string, unknown>
-  ): preact.ComponentChildren => {
+  const override = (node: preact.ComponentChildren, props: Record<string, unknown>): preact.ComponentChildren => {
     if (Array.isArray(node)) {
       return node.map((n) => override(n, props))
     }
 
-    if (
-      node &&
-      typeof node === "object" &&
-      "type" in node &&
-      typeof node.type !== "string"
-    ) {
+    if (node && typeof node === 'object' && 'type' in node && typeof node.type !== 'string') {
       const vnode = node as preact.VNode
       const originalProps = vnode.props || {}
 
@@ -131,11 +122,11 @@ const MenuItemActionComponent = (
     <Fragment>
       <div
         id={id}
-        className={[_className, className].join(" ").trim()}
+        className={[_className, className].join(' ').trim()}
         data-pui-interactive="true"
         tabIndex={-1}
         ref={(el) => {
-          if (typeof ref === "function") {
+          if (typeof ref === 'function') {
             ref(el)
           } else if (ref) {
             // eslint-disable-next-line
@@ -163,14 +154,8 @@ const MenuItemActionComponent = (
               <Text
                 variant="body"
                 size="medium"
-                intent={
-                  isActive
-                    ? intentModifier === "danger"
-                      ? "danger"
-                      : "brand"
-                    : "neutral-inverted-fixed"
-                }
-                intentModifier={!isActive ? intentModifier : "default"}
+                intent={isActive ? (intentModifier === 'danger' ? 'danger' : 'brand') : 'neutral-inverted-fixed'}
+                intentModifier={!isActive ? intentModifier : 'default'}
                 disabled={disabled}
               >
                 {isActive
@@ -196,7 +181,4 @@ const MenuItemActionComponent = (
   )
 }
 
-export const MenuItemAction = typedForwardRef<
-  MenuItemActionProps,
-  HTMLDivElement
->(MenuItemActionComponent)
+export const MenuItemAction = typedForwardRef<MenuItemActionProps, HTMLDivElement>(MenuItemActionComponent)

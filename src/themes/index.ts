@@ -8,8 +8,8 @@ export type ColorTokenTree = {
   variables: ColorTokenBranch
 }
 
-export { figmaLight } from "./figmaLight"
-export { figmaDark } from "./figmaDark"
-export { figjamLight } from "./figjamLight"
-export { spacing } from "./spacing"
-export { radius } from "./radius"
+export { figmaLight } from './figmaLight'
+export { figmaDark } from './figmaDark'
+export { figjamLight } from './figjamLight'
+export { spacing } from './spacing'
+export { radius } from './radius'
