@@ -1,16 +1,16 @@
-import { useRef } from "preact/hooks"
+import { useRef } from 'preact/hooks'
 
-import { bem, typedForwardRef } from "../../utils"
+import { bem, typedForwardRef } from '../../utils'
 
-import { Tooltip } from "../../index"
-import { colorToHex, colorToHexAlpha } from "../../index"
+import { Tooltip } from '../../index'
+import { colorToHex, colorToHexAlpha } from '../../index'
 
-import type { ColorSwatchProps } from "./ColorSwatch.types"
-import "./ColorSwatch.scss"
+import type { ColorSwatchProps } from './ColorSwatch.types'
+import './ColorSwatch.scss'
 
 /* --- */
 
-const hasOpacity = (color: ColorSwatchProps["color"]) => {
+const hasOpacity = (color: ColorSwatchProps['color']) => {
   if (!color) return false
   return color.a < 1
 }
@@ -19,21 +19,21 @@ const ColorSwatchComponent = (
   {
     id,
     className,
-    size = "medium",
+    size = 'medium',
     color,
     disabled = false,
     selected = false,
-    selection = "default",
+    selection = 'default',
     tooltip,
     children,
     onClick,
     ...rest
   }: ColorSwatchProps,
-  ref: preact.Ref<HTMLDivElement | HTMLButtonElement>
+  ref: preact.Ref<HTMLDivElement | HTMLButtonElement>,
 ) => {
   const anchorRef = useRef<HTMLElement | null>(null)
 
-  const _className = bem("ColorSwatch", undefined, {
+  const _className = bem('ColorSwatch', undefined, {
     selection: selection,
     value: !!color,
     size,
@@ -41,11 +41,9 @@ const ColorSwatchComponent = (
     selected,
   })
 
-  const handleKeyDown = (
-    event: preact.JSX.TargetedKeyboardEvent<HTMLDivElement | HTMLButtonElement>
-  ) => {
+  const handleKeyDown = (event: preact.JSX.TargetedKeyboardEvent<HTMLDivElement | HTMLButtonElement>) => {
     if (disabled) return
-    if (event.key === "Escape" || event.key === "Esc") {
+    if (event.key === 'Escape' || event.key === 'Esc') {
       event.currentTarget.blur()
     }
   }
@@ -53,10 +51,10 @@ const ColorSwatchComponent = (
   return (
     <button
       id={id}
-      className={[_className, className].join(" ").trim()}
+      className={[_className, className].join(' ').trim()}
       data-pui-interactive="true"
       ref={(el) => {
-        if (typeof ref === "function") {
+        if (typeof ref === 'function') {
           ref(el)
         } else if (ref) {
           // eslint-disable-next-line
@@ -75,33 +73,19 @@ const ColorSwatchComponent = (
       <div className="ColorSwatch__container">
         {color && hasOpacity(color) && (
           <>
-            <div
-              className="ColorSwatch__fill"
-              style={{ backgroundColor: colorToHex(color) }}
-            />
-            <div
-              className="ColorSwatch__fill"
-              style={{ backgroundColor: colorToHexAlpha(color) }}
-            />
+            <div className="ColorSwatch__fill" style={{ backgroundColor: colorToHex(color) }} />
+            <div className="ColorSwatch__fill" style={{ backgroundColor: colorToHexAlpha(color) }} />
           </>
         )}
 
-        {color && !hasOpacity(color) && (
-          <div
-            className="ColorSwatch__fill"
-            style={{ backgroundColor: colorToHex(color) }}
-          />
-        )}
-      </div>
+        {color && !hasOpacity(color) && <div className="ColorSwatch__fill" style={{ backgroundColor: colorToHex(color) }} />}
 
-      {children && <div className="ColorSwatch__children">{children}</div>}
+        {children && <div className="ColorSwatch__children">{children}</div>}
+      </div>
 
       {tooltip && <Tooltip anchorRef={anchorRef}>{tooltip}</Tooltip>}
     </button>
   )
 }
 
-export const ColorSwatch = typedForwardRef<
-  ColorSwatchProps,
-  HTMLDivElement | HTMLButtonElement
->(ColorSwatchComponent)
+export const ColorSwatch = typedForwardRef<ColorSwatchProps, HTMLDivElement | HTMLButtonElement>(ColorSwatchComponent)

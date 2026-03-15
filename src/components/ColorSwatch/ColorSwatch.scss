@@ -63,6 +63,7 @@
     height: 100%;
     overflow: hidden;
     z-index: 1;
+    pointer-events: none;
 
     background-clip: content-box;
     background-color: var(--pui-color-neutral-fixed-bg-swatch);
