@@ -147,7 +147,7 @@ const SelectComponent = (
           menuContainerProps={menuContainerProps}
           groups={groups}
           selectedValue={internalValue}
-          onChange={({ event, value }) => {
+          onSelectedChange={({ event, value }) => {
             if (value !== undefined) {
               setInternalValue(value)
             }
@@ -166,10 +166,10 @@ type SelectMenuProps = {
   menuContainerProps: SelectProps['menuContainerProps']
   groups: SelectOptionData[][]
   selectedValue?: string
-  onChange?: (args: { event: MouseEvent; value: string }) => void
+  onSelectedChange?: (args: { event: MouseEvent; value: string }) => void
 }
 
-const SelectMenu = ({ menuContainerProps, groups, selectedValue, onChange }: SelectMenuProps) => {
+const SelectMenu = ({ menuContainerProps, groups, selectedValue, onSelectedChange }: SelectMenuProps) => {
   const context = useMenuContext()
   if (!context) return null
 
@@ -200,7 +200,7 @@ const SelectMenu = ({ menuContainerProps, groups, selectedValue, onChange }: Sel
                   disabled: opt.disabled,
                   focused: context.focusedItemId === opt.value,
                   selected: opt.value === selectedValue,
-                  onChange: ({ event }) => onChange?.({ event, value: opt.value }),
+                  onSelectedChange: ({ event }) => onSelectedChange?.({ event, value: opt.value }),
                 })
               }
 
@@ -211,7 +211,7 @@ const SelectMenu = ({ menuContainerProps, groups, selectedValue, onChange }: Sel
                   id={opt.value}
                   focused={context.focusedItemId === opt.value}
                   selected={opt.value === selectedValue}
-                  onSelectedChange={({ event }) => onChange?.({ event, value: opt.value })}
+                  onSelectedChange={({ event }) => onSelectedChange?.({ event, value: opt.value })}
                 >
                   {opt.label}
                 </MenuItemOption>
