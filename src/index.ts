@@ -223,6 +223,8 @@ export {
   paddingSides,
   paddingTop,
   paddingVertical,
+  people,
+  person,
   rotation,
   returns,
   search,

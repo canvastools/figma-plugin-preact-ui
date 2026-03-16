@@ -47,6 +47,12 @@ export const CombinationsStory: Story = {
       </ControlGroup>
 
       <ControlGroup>
+        <Button>Button</Button>
+        <Button>Button</Button>
+        <ButtonIcon icon={{ glyph: link }} />
+      </ControlGroup>
+
+      <ControlGroup>
         <ButtonIcon icon={{ glyph: link }} />
         <ButtonIcon icon={{ glyph: link }} />
         <ButtonIcon icon={{ glyph: link }} />

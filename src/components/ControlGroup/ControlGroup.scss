@@ -27,19 +27,25 @@
     width: 100%;
   }
 
-  & .Button_grouped + .Button_grouped,
-  & .ButtonIcon_grouped + .ButtonIcon_grouped,
-  & .ButtonIconToggle_grouped + .ButtonIconToggle_grouped {
-    margin-left: -1px;
+  // Combinations
+
+  & .Input_grouped + *,
+  & .Button_grouped + *,
+  & .TimePicker_grouped + *,
+  & .Select_grouped + * {
+    margin-left: 1px;
   }
 
-  & * + .Input_grouped,
-  & * + .Button_grouped,
-  & * + .ButtonIcon_grouped,
-  & * + .ButtonIconToggle_grouped,
-  & * + .TimePicker_grouped,
-  & * + .Select_grouped {
-    margin-left: 1px;
+  & .Button_grouped + .Button_grouped,
+  & .Button_grouped + .ButtonIcon_grouped,
+  & .Button_grouped + .ButtonIconToggle_grouped,
+  & .ButtonIcon_grouped + .Button_grouped,
+  & .ButtonIcon_grouped + .ButtonIcon_grouped,
+  & .ButtonIcon_grouped + .ButtonIconToggle_grouped,
+  & .ButtonIconToggle_grouped + .Button_grouped,
+  & .ButtonIconToggle_grouped + .ButtonIcon_grouped,
+  & .ButtonIconToggle_grouped + .ButtonIconToggle_grouped {
+    margin-left: -1px;
   }
 
   &_groupFocus:hover::before {
