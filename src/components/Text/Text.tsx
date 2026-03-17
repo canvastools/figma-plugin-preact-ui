@@ -73,6 +73,7 @@ const TextComponent = (
     wrap = true,
     textColor,
     truncate = false,
+    inline = false,
     fullWidth = false,
     children,
     ...rest
@@ -89,6 +90,7 @@ const TextComponent = (
     size,
     strong,
     align,
+    inline,
     fullWidth,
     wrap,
     truncated: truncate,

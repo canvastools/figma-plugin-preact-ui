@@ -12,6 +12,7 @@ export interface TextProps {
   textColor?: string
   wrap?: boolean
   truncate?: boolean
+  inline?: boolean
   fullWidth?: boolean
   children: preact.ComponentChildren
 }

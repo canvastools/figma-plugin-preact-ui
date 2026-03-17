@@ -81,6 +81,10 @@ const meta: Meta<typeof Text> = {
       control: { type: 'boolean' },
       defaultValue: { summary: false },
     },
+    inline: {
+      control: { type: 'boolean' },
+      defaultValue: { summary: false },
+    },
     fullWidth: {
       control: { type: 'boolean' },
       defaultValue: { summary: false },
@@ -116,6 +120,7 @@ export const Demo: Story = {
     wrap: true,
     truncate: false,
     fullWidth: false,
+    inline: false,
     children: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
   },
   parameters: {
