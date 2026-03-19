@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/preact'
 
 import { HorizontalScrollStory } from './stories/HorizontalScroll.story'
+import { VariantStory } from './stories/Variant.story'
 
-import { TabContext, TabPanel, Tab, Section, Text } from '../../index'
+import { TabContext, Tab, Section } from '../../index'
 
 import { TabList } from './TabList'
 
@@ -28,6 +29,11 @@ const meta: Meta<typeof TabList> = {
     },
     className: {
       control: { type: 'text' },
+    },
+    variant: {
+      control: { type: 'radio' },
+      options: ['default', 'list'],
+      defaultValue: { summary: 'default' },
     },
     children: {
       control: { disable: true },
@@ -75,6 +81,7 @@ export const Demo: Story = {
   args: {
     id: undefined,
     className: 'sb-container-inset',
+    variant: 'default',
   },
   render: (args) => (
     <div className="sb-column sb-width-full">
@@ -92,3 +99,4 @@ export const Demo: Story = {
 }
 
 export const HorizontalScroll = HorizontalScrollStory
+export const Variant = VariantStory

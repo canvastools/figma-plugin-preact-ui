@@ -5,8 +5,13 @@ import './TabList.scss'
 
 /* --- */
 
-const TabListComponent = ({ id, className, children, ...rest }: TabListProps, ref: preact.Ref<HTMLDivElement>) => {
-  const _className = bem('TabList', undefined, undefined)
+const TabListComponent = (
+  { id, className, variant = 'default', children, ...rest }: TabListProps,
+  ref: preact.Ref<HTMLDivElement>,
+) => {
+  const _className = bem('TabList', undefined, {
+    variant,
+  })
 
   return (
     <div id={id} className={[_className, className].join(' ').trim()} ref={ref} {...rest}>
