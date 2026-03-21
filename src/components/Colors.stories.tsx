@@ -227,7 +227,7 @@ export const Colors: Story = {
     docs: {
       description: {
         story:
-          'Color themes are controlled by the `.figma-light` or `.figma-dark` classes provided by Figma in the plugin window.<br/> In addition, you can add classes to style the UI for specific Figma themes like `.figjam-light`.',
+          'Color themes are controlled by the `.figma-light` or `.figma-dark` classes provided by Figma in the plugin window.<br/> For FigJam, use the `.figjam` class on the plugin root (see `dist/themes.css`).',
       },
     },
   },
