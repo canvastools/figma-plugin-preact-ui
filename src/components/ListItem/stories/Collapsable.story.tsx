@@ -89,7 +89,7 @@ export const CollapsableStory: Story = {
                   </Text>
                 </Stack>
                 <Text intentModifier="secondary" wrap={false}>
-                   (Level {level})
+                  &nbsp;(Level {level})
                 </Text>
               </Stack>
             </ListItem>

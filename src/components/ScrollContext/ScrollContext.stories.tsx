@@ -140,7 +140,7 @@ export const Demo: Story = {
         registerSpyTarget('section-2', sectionRef2.current)
         registerSpyTarget('section-3', sectionRef3.current)
         registerSpyTarget('section-4', sectionRef4.current)
-      }, [])
+      }, [registerSpyTarget])
 
       return (
         <Stack spacing={400}>

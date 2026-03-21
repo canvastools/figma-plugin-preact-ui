@@ -60,7 +60,7 @@ const MenuItemOptionComponent = (
     })
 
     return unregister
-  }, [disabled, internalId])
+  }, [disabled, internalId, registerItem])
 
   const isSelected = controlledSelected !== undefined ? controlledSelected : internalSelected
 

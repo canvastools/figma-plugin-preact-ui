@@ -132,7 +132,7 @@ const options = [
           disabled,
         })
         return unregister
-      }, [disabled, id])
+      }, [disabled, id, registerItem])
 
       const handleClick = (event: MouseEvent) => {
         if (disabled) {

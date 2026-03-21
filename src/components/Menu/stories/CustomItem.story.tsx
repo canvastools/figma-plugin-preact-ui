@@ -148,7 +148,7 @@ const items = [
           disabled,
         })
         return unregister
-      }, [])
+      }, [disabled, registerItem, resolvedId])
 
       const handleMouseEnter = () => {
         if (disabled) return

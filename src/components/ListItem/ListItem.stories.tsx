@@ -327,7 +327,7 @@ const renderItems = (
                   <Text wrap={false}>{item.id}</Text>
                 </Stack>
                 <Text intentModifier="secondary" wrap={false} truncate fullWidth>
-                   (Level {level})
+                  &nbsp;(Level {level})
                 </Text>
               </Stack>
             </ListItem>

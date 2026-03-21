@@ -187,7 +187,7 @@ const CustomMenu = () => {
           disabled,
         })
         return unregister
-      }, [])
+      }, [disabled, id, registerItem])
 
       const handleMouseEnter = () => {
         if (disabled) return

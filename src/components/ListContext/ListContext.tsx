@@ -606,7 +606,7 @@ const ListContext = (props: ListContextProps) => {
     })
 
     setSelectionOriginIds(origins)
-  }, [currentItems, currentSelectedItems])
+  }, [collectDescendantsForId, currentItems, currentSelectedItems])
 
   const contextValue: ListContextValue = {
     items: currentItems,

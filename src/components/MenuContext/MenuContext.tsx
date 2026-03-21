@@ -205,7 +205,7 @@ const MenuContext = ({ triggerRef, anchorRef, open, setOpen, children }: MenuCon
     requestAnimationFrame(() => {
       focusItem(undefined)
     })
-  }, [open])
+  }, [focusItem, open])
 
   const resolvedAnchorRef = (anchorRef ?? triggerRef) as MenuContextValue['anchorRef']
 
@@ -369,7 +369,16 @@ const MenuContext = ({ triggerRef, anchorRef, open, setOpen, children }: MenuCon
     return () => {
       window.removeEventListener('keydown', handleKeyDown, true)
     }
-  }, [open, moveFocus, focusItem, focusedItemId, lastHoveredItemId, keyboardInteraction, lastInteractionItemId])
+  }, [
+    focusItem,
+    focusedItemId,
+    getEnabledItemsInDomOrder,
+    keyboardInteraction,
+    lastHoveredItemId,
+    lastInteractionItemId,
+    moveFocus,
+    open,
+  ])
 
   // Resume hover handling only after the user actually moves the mouse again
   // following a keyboard activation.
@@ -445,7 +454,7 @@ const MenuContext = ({ triggerRef, anchorRef, open, setOpen, children }: MenuCon
     return () => {
       window.removeEventListener('keydown', handleTypeahead)
     }
-  }, [open])
+  }, [getEnabledItemsInDomOrder, open])
 
   const setFocusedItem = useCallback((id: string | null) => {
     setFocusedItemState(id)

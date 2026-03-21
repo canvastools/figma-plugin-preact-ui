@@ -315,7 +315,7 @@ const OverlayPositionerComponent = (
       if (isControlled) return
       onClose?.()
     }
-  }, [isOpen, onOpen, onClose])
+  }, [isControlled, isOpen, onClose, onOpen])
 
   useEffect(() => {
     if (!isOpen || !closeOnClickOutside) return
