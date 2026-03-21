@@ -5,9 +5,8 @@
   background-color: rgb(247, 250, 252);
   padding: 2px 5px;
   border-radius: 3px;
-  font-family: ui-monospace, Menlo, Monaco, "Roboto Mono", "Oxygen Mono",
-    "Ubuntu Monospace", "Source Code Pro", "Droid Sans Mono", "Courier New",
-    monospace;
+  font-family: ui-monospace, Menlo, Monaco, 'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
+    'Droid Sans Mono', 'Courier New', monospace;
   font-size: 12px;
   line-height: 13px;
   max-width: 100%;
@@ -39,4 +38,9 @@ a.sbdocs > code:hover {
 
 .token.function {
   color: rgb(253, 144, 2) !important;
+}
+
+.docblock-argstable-body strong {
+  display: block;
+  color: red;
 }
