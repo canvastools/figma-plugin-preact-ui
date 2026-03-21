@@ -71,7 +71,7 @@ import { Button } from 'figma-plugin-preact-ui'
 import 'figma-plugin-preact-ui/dist/style.css'
 ```
 
-### Use tokens (CSS/JS variables)
+The CSS provides design tokens and component styles. Theming is controlled by the `.figma-light` or `.figma-dark` classes provided by Figma in the plugin window.
 
 You can consume the CSS variables from the library directly.
 
