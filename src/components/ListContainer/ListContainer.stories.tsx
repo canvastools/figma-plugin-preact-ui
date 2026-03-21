@@ -1,70 +1,73 @@
-import type { Meta, StoryObj } from "@storybook/preact"
+import type { Meta, StoryObj } from '@storybook/preact'
 
-import { useState } from "preact/hooks"
+import { useState } from 'preact/hooks'
 
-import { ListContainer } from "./ListContainer"
+import { ListContext, ListItem, Stack, Text } from '../../index'
+import type { ListItemData } from '../../index'
 
-import { ListContext } from "../../index"
-import { ListItem } from "../../index"
-import type { ListItemData } from "../../index"
-import { Text } from "../../index"
+import { ListContainer } from './ListContainer'
 
 const meta: Meta<typeof ListContainer> = {
-  title: "Experimental/ListContainer ⚠️",
+  title: 'Components/ListContainer',
   component: ListContainer,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
         component:
-          "<div class='experimental'>Experimental! API may change in future versions.</div> A container component for &lt;ListItem&gt; components. Every level of nesting must be wrapped in a &lt;ListContainer&gt; component.",
+          "A wrapper component that manages list items. Used inside <a href='/docs/components-listcontext--docs'>`<ListContext/>`</a>.",
       },
     },
   },
   argTypes: {
-    className: {
-      control: { type: "text" },
-    },
-    children: {
+    id: {
+      control: { type: 'text' },
       table: {
         type: {
-          summary: "JSX.Element",
+          summary: 'string',
         },
       },
+    },
+    className: {
+      control: { type: 'text' },
+    },
+    children: {
       control: { disable: true },
-      description: "Usually &lt;ListItem/&gt; components.",
+      description: '<strong>*</strong>',
+      table: {
+        type: {
+          summary: 'preact.ComponentChildren',
+        },
+      },
     },
   },
 }
 
 export default meta
+
 type Story = StoryObj<typeof ListContainer>
 
-const sampleItems = [
+const itemsSample = [
   {
-    id: "One",
-    children: [
+    id: 'Frame 0',
+    items: [
       {
-        id: "One-1",
-        children: [{ id: "One-1-a" }, { id: "One-1-b" }],
+        id: 'Frame 0-0',
+        items: [{ id: 'Frame 0-0-0' }, { id: 'Frame 0-0-1' }],
       },
       {
-        id: "One-2",
-        children: [{ id: "One-2-a" }],
+        id: 'Frame 0-1',
+        items: [{ id: 'Frame 0-1-0' }],
       },
     ],
   },
-  { id: "Two" },
+  { id: 'Frame 1' },
   {
-    id: "Three",
-    children: [
+    id: 'Frame 2',
+    items: [
       {
-        id: "Three-1",
-        children: [
-          { id: "Three-1-a" },
-          { id: "Three-1-b" },
-          { id: "Three-1-c" },
-        ],
+        id: 'Frame 2-0',
+        items: [{ id: 'Frame 2-0-0' }, { id: 'Frame 2-0-1' }, { id: 'Frame 2-0-2' }],
       },
     ],
   },
@@ -72,39 +75,125 @@ const sampleItems = [
 
 export const Demo: Story = {
   args: {
-    className: "",
+    id: undefined,
+    className: 'sb-container',
   },
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
+    },
+    docs: {
+      source: {
+        code: `
+const [selectedItemIds, setSelectedItemIds] = useState([])
+const [items, setItems] = useState([
+  {
+    id: "Frame 0",
+    items: [
+      {
+        id: "Frame 0-0",
+        items: [
+          { id: "Frame 0-0-0" },
+          { id: "Frame 0-0-1" },
+        ],
+      },
+      {
+        id: "Frame 0-1",
+        items: [
+          { id: "Frame 0-1-0" },
+        ],
+      },
+    ],
+  },
+  { id: "Frame 1" },
+  {
+    id: "Frame 2",
+      items: [
+      {
+        id: "Frame 2-0",
+        items: [
+          { id: "Frame 2-0-0" },
+          { id: "Frame 2-0-1" },
+          { id: "Frame 2-0-2" },
+        ],
+      },
+    ],
+  },
+])
+
+const renderItems = (
+  items,
+  level
+) => {
+  return (
+    <ListContainer {...args}>
+      {items.map((item) => (
+        <ListItem 
+          key={item.id}
+          id={item.id}
+          nestingLevel={level}
+          items={item.items ? renderItems(item.items, level + 1) : undefined}
+        >
+          <Text>{item.id}</Text>
+        </ListItem>
+      ))}
+    </ListContainer>
+  )
+}
+
+<ListContext
+  items={items}
+  selectedItemIds={selectedItemIds}
+  onItemsChange={(args) => setItems(args.items)}
+  onSelectionChange={(args) => setSelectedItemIds(args.selectedItemIds)}
+>
+  {renderItems(items, 0)}
+</ListContext>
+        `,
+      },
     },
   },
   render: (args) => {
-    const [items, setItems] = useState(sampleItems)
-    const [selectedItems, setSelectedItems] = useState<string[]>([])
+    const [items, setItems] = useState(itemsSample)
+    const [, setSelectedItemIds] = useState<string[]>([])
+
+    const renderItems = (items: ListItemData[], level: number) => {
+      return (
+        <ListContainer {...args}>
+          {items.map((item) => (
+            <ListItem
+              key={item.id}
+              id={item.id}
+              nestingLevel={level}
+              items={item.items ? renderItems(item.items, level + 1) : undefined}
+            >
+              <Stack direction="row" y="center">
+                <Stack direction="row" y="center">
+                  <Text wrap={false}>{item.id}</Text>
+                </Stack>
+                <Text intentModifier="secondary" wrap={false}>
+                  &nbsp;(Level {level})
+                </Text>
+              </Stack>
+            </ListItem>
+          ))}
+        </ListContainer>
+      )
+    }
 
     return (
       <div className="sb-column sb-width-full">
         <ListContext
           items={items}
-          selectedItems={selectedItems}
           selectionMode="multi"
-          onItemsChange={(change) => {
-            setItems(change.items)
+          onItemsChange={(args) => {
+            setItems(args.items)
           }}
-          onSelectionChange={(change) => {
-            setSelectedItems(change.selectedItems)
+          onSelectionChange={(args) => {
+            setSelectedItemIds(args.selectedItemIds)
           }}
         >
-          <ListContainer {...args}>
-            {items.map((item) => {
-              return (
-                <ListItem id={item.id} draggable={true} selectable={true}>
-                  <Text>{item.id}</Text>
-                </ListItem>
-              )
-            })}
-          </ListContainer>
+          {renderItems(items, 0)}
         </ListContext>
       </div>
     )

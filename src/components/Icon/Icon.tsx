@@ -1,36 +1,35 @@
-import { bem, typedForwardRef } from "../../utils"
+import { bem, typedForwardRef } from '../../utils'
 
-import type { IconProps } from "./Icon.types"
-import "./Icon.scss"
+import type { IconProps } from './Icon.types'
+import './Icon.scss'
 
 /* --- */
 
 const IconComponent = (
   {
+    id,
     className,
     glyph,
-    intent = "neutral",
-    intentModifiers = "default",
-    disabled = false,
-    interactive = false,
-    selected = false,
-    fill,
-    variant = "default",
+    intent = 'neutral',
+    intentModifier = 'default',
+    variant = 'default',
     size = 24,
+    disabled = false,
+    selected = false,
+    iconColor,
     children,
     ...rest
   }: IconProps,
-  ref: preact.Ref<HTMLDivElement>
+  ref: preact.Ref<HTMLDivElement>,
 ) => {
-  const _className = bem("Icon", undefined, {
+  const _className = bem('Icon', undefined, {
     // derived styles are driven by intent/variant/size; glyph is a render fn
-    ...(!fill && {
-      intent: `${intent}-${intentModifiers}`,
+    ...(!iconColor && {
+      intent: `${intent}-${intentModifier}`,
       disabled,
-      interactive,
       selected,
     }),
-    fill,
+    iconColor,
     variant,
     size: size.toString(),
   })
@@ -47,11 +46,12 @@ const IconComponent = (
 
   return (
     <div
-      className={[_className, className].join(" ").trim()}
+      id={id}
+      className={[_className, className].join(' ').trim()}
       ref={ref}
       {...rest}
       style={{
-        ...(fill && { color: fill }),
+        ...(iconColor ? { color: iconColor } : {}),
       }}
     >
       {content}

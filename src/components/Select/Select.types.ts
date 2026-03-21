@@ -1,20 +1,26 @@
-export interface SelectOption {
+import type { MenuContainerPropsPick } from '../../index'
+
+export interface SelectOptionData {
   label: string
   value: string
+  disabled?: boolean
+  children?: preact.ComponentChildren
 }
 
 export interface SelectProps {
+  id?: string
   className?: string
-  options?: SelectOption[] | SelectOption[][]
+  options?: SelectOptionData[] | SelectOptionData[][]
   placeholder?: string
   defaultValue?: string
   value?: string
-  grouped?: "none" | "left" | "right" | "both"
+  grouped?: 'first' | 'last' | 'middle'
   error?: boolean
   disabled?: boolean
   prefix?: preact.ComponentChildren
-  menuWidth?: number | "auto"
+  tooltip?: preact.ComponentChildren
   onBlur?: () => void
   onFocus?: () => void
-  onChange?: (args: { event: MouseEvent; value: string }) => void
+  onValueChange?: (args: { event: MouseEvent; value: string }) => void
+  menuContainerProps?: MenuContainerPropsPick
 }

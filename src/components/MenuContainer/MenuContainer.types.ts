@@ -1,6 +1,9 @@
 export interface MenuContainerProps {
+  id?: string
   className?: string
-  width?: number | "auto"
-  height?: number | "auto"
+  width?: number
+  height?: number
   children: preact.ComponentChildren
 }
+
+export type MenuContainerPropsPick = Pick<MenuContainerProps, 'width'>

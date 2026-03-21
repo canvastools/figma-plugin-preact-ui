@@ -1,31 +1,18 @@
-/* Focus */
-
-@mixin focus-visible($offset: 1px) {
-  &:focus-visible {
-    outline: 1px solid var(--pui-color-system-border-focus);
-    outline-offset: $offset;
-    box-shadow: none;
-  }
-}
-
-@mixin focus-within {
-  &:focus-within {
-    outline: 1px solid var(--pui-color-system-border-focus);
-    outline-offset: 1px;
-    box-shadow: none;
-  }
-}
-
-/* Cursor */
-
-@mixin curson-feedback {
-  cursor: default;
-}
-
 /* Typography */
 
-@mixin typography-styles {
-  font-family: "Inter", sans-serif;
+@mixin typography-styles-default {
+  font-family: 'Inter', sans-serif;
+}
+
+@mixin typography-styles-code {
+  font-family: 'Roboto Mono', monospace;
+}
+
+@mixin typography-code {
+  font-size: 11px;
+  line-height: 18px;
+  letter-spacing: 0.005em;
+  font-weight: 400;
 }
 
 @mixin typography-header-small {
@@ -52,19 +39,19 @@
   font-size: 9px;
   line-height: 14px;
   letter-spacing: 0.01em;
-  font-weight: 450;
+  font-weight: 490;
 }
 
 @mixin typography-body-medium {
   font-size: 11px;
   line-height: 16px;
   letter-spacing: 0.01em;
-  font-weight: 450;
+  font-weight: 400;
 }
 
 @mixin typography-body-large {
   font-size: 13px;
   line-height: 22px;
   letter-spacing: 0.005em;
-  font-weight: 450;
+  font-weight: 400;
 }

@@ -1,37 +1,95 @@
-import { bem, typedForwardRef } from "../../utils"
+import { bem, typedForwardRef } from '../../utils'
 
-import type { TooltipProps } from "./Tooltip.types"
-import "./Tooltip.scss"
+import { useEffect, useRef, useState } from 'preact/hooks'
+
+import { OverlayPositioner, TooltipContainer, useTooltipContext } from '../../index'
+
+import type { TooltipProps } from './Tooltip.types'
+import './Tooltip.scss'
 
 /* --- */
 
 const TooltipComponent = (
   {
+    id,
     className,
-    width = "auto",
-    height = "auto",
+    triggerRef,
+    anchorRef,
+    width,
+    height,
+    showArrow = true,
+    placement = 'bottom',
+    placementFallback = ['top', 'left', 'right'],
+    offsetX = 0,
+    offsetY = 8,
+    offsetEdge = 8,
+    onOpen,
+    onClose,
     children,
     ...rest
   }: TooltipProps,
-  ref: preact.Ref<HTMLDivElement>
+  ref: preact.Ref<HTMLDivElement>,
 ) => {
-  const _className = bem("Tooltip", undefined, undefined)
+  const context = useTooltipContext()
+  const [open, setOpen] = useState(false)
+  const wasOpenRef = useRef(false)
+
+  useEffect(() => {
+    if (open && !wasOpenRef.current) {
+      wasOpenRef.current = true
+      onOpen?.()
+    } else if (!open && wasOpenRef.current) {
+      wasOpenRef.current = false
+      onClose?.()
+    }
+  }, [open, onOpen, onClose])
+
+  useEffect(() => {
+    const targetRef = triggerRef ?? anchorRef
+    if (!targetRef?.current || !context) return
+
+    const el = targetRef.current
+
+    const handleEnter = () => {
+      context.registerHoverStart(targetRef as preact.RefObject<HTMLElement>, setOpen)
+    }
+
+    const handleLeave = () => {
+      context.registerHoverEnd(targetRef as preact.RefObject<HTMLElement>, setOpen)
+    }
+
+    el.addEventListener('mouseenter', handleEnter)
+    el.addEventListener('mouseleave', handleLeave)
+
+    return () => {
+      el.removeEventListener('mouseenter', handleEnter)
+      el.removeEventListener('mouseleave', handleLeave)
+    }
+  }, [triggerRef, anchorRef, context])
+
+  const _className = bem('Tooltip', undefined, undefined)
+
+  const resolvedAnchorRef = (anchorRef ?? triggerRef) as preact.RefObject<HTMLElement> | null
 
   return (
-    <div
-      className={[_className, className, "no-drag"].join(" ").trim()}
-      ref={ref}
-      style={{
-        width: width === "auto" ? undefined : (width as number),
-        height: height === "auto" ? undefined : (height as number),
-      }}
-      {...rest}
+    <OverlayPositioner
+      anchorRef={resolvedAnchorRef as preact.RefObject<HTMLElement>}
+      open={open}
+      placement={placement}
+      placementFallback={placementFallback}
+      offsetX={offsetX}
+      offsetY={offsetY}
+      offsetEdge={offsetEdge}
+      trigger="hover"
+      onClose={() => setOpen(false)}
     >
-      {children}
-    </div>
+      <div id={id} className={[_className, className].join(' ').trim()} data-pui-interactive="true" {...rest} ref={ref}>
+        <TooltipContainer width={width} height={height} showArrow={showArrow}>
+          {children}
+        </TooltipContainer>
+      </div>
+    </OverlayPositioner>
   )
 }
 
-export const Tooltip = typedForwardRef<TooltipProps, HTMLDivElement>(
-  TooltipComponent
-)
+export const Tooltip = typedForwardRef<TooltipProps, HTMLDivElement>(TooltipComponent)

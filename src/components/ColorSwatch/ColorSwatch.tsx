@@ -1,112 +1,98 @@
-import { bem, typedForwardRef } from "../../utils"
-import { useRef } from "preact/hooks"
+import { useRef } from 'preact/hooks'
 
-import type { ColorSwatchProps } from "./ColorSwatch.types"
-import "./ColorSwatch.scss"
+import { bem, typedForwardRef } from '../../utils'
 
-import { OverlayPositioner } from "../../index"
-import { Tooltip } from "../../index"
-import { Text } from "../../index"
+import { Tooltip } from '../../index'
+import { colorToHex, colorToHexAlpha } from '../../index'
+
+import type { ColorSwatchProps } from './ColorSwatch.types'
+import './ColorSwatch.scss'
 
 /* --- */
 
-const hasOpacity = (hex: string | undefined) => {
-  if (!hex) return false
-  const opacity = hex.slice(-2)
-  const isOpacity = opacity === "FF" || opacity === "ff"
-  return hex.length === 9 && !isOpacity
+const hasOpacity = (color: ColorSwatchProps['color']) => {
+  if (!color) return false
+  return color.a < 1
 }
 
 const ColorSwatchComponent = (
   {
+    id,
     className,
-    size = "medium",
-    hex,
-    imageSrc,
-    title,
-    selection = "default",
-    hoverable = false,
+    size = 'medium',
+    color,
+    disabled = false,
     selected = false,
+    selection = 'default',
+    tooltip,
     children,
     onClick,
     ...rest
   }: ColorSwatchProps,
-  ref: preact.Ref<HTMLDivElement>
+  ref: preact.Ref<HTMLDivElement | HTMLButtonElement>,
 ) => {
-  const anchorRef = useRef<HTMLDivElement | null>(null)
+  const anchorRef = useRef<HTMLElement | null>(null)
 
-  const _className = bem("ColorSwatch", undefined, {
+  const _className = bem('ColorSwatch', undefined, {
     selection: selection,
-    hasImage: !!imageSrc,
-    hasHex: !!hex,
+    value: !!color,
     size,
-    hoverable,
+    disabled,
     selected,
   })
 
+  const handleKeyDown = (event: preact.JSX.TargetedKeyboardEvent<HTMLDivElement | HTMLButtonElement>) => {
+    if (disabled) return
+    if (event.key === 'Escape' || event.key === 'Esc') {
+      event.currentTarget.blur()
+    }
+  }
+
+  const { onClick: nativeOnClick, onKeyDown: nativeOnKeyDown, ...buttonRest } =
+    rest as preact.JSX.HTMLAttributes<HTMLButtonElement>
+
   return (
-    <div
-      className={[_className, className, "no-drag"].join(" ").trim()}
+    <button
+      id={id}
+      className={[_className, className].join(' ').trim()}
+      data-pui-interactive="true"
       ref={(el) => {
-        if (typeof ref === "function") {
+        if (typeof ref === 'function') {
           ref(el)
         } else if (ref) {
           // eslint-disable-next-line
-          ;(ref as preact.RefObject<HTMLDivElement>).current = el
+          ;(ref as preact.RefObject<HTMLElement>).current = el as HTMLElement
         }
         anchorRef.current = el
       }}
-      {...rest}
-      onClick={(event) => onClick?.({ event, hex, imageSrc })}
+      {...buttonRest}
+      disabled={disabled}
+      onClick={(event) => {
+        nativeOnClick?.(event)
+        if (disabled) return
+        onClick?.({ event, color })
+      }}
+      onKeyDown={(event) => {
+        handleKeyDown(event)
+        nativeOnKeyDown?.(event)
+      }}
     >
       <div className="ColorSwatch__container">
-        {hex && hasOpacity(hex) && (
+        {color && hasOpacity(color) && (
           <>
-            <div
-              className="ColorSwatch__fill"
-              style={{ backgroundColor: hex?.substring(0, hex.length - 2) }}
-            />
-            <div
-              className="ColorSwatch__fill"
-              style={{ backgroundColor: hex }}
-            />
+            <div className="ColorSwatch__fill" style={{ backgroundColor: colorToHex(color) }} />
+            <div className="ColorSwatch__fill" style={{ backgroundColor: colorToHexAlpha(color) }} />
           </>
         )}
 
-        {hex && !hasOpacity(hex) && (
-          <div className="ColorSwatch__fill" style={{ backgroundColor: hex }} />
-        )}
+        {color && !hasOpacity(color) && <div className="ColorSwatch__fill" style={{ backgroundColor: colorToHex(color) }} />}
 
-        {imageSrc && (
-          <div
-            className="ColorSwatch__image"
-            style={{
-              backgroundImage: `url(${imageSrc})`,
-            }}
-          />
-        )}
+        {children && <div className="ColorSwatch__children">{children}</div>}
       </div>
 
-      {children && <div className="ColorSwatch__children">{children}</div>}
-
-      {title && (
-        <OverlayPositioner
-          anchorRef={anchorRef as preact.RefObject<HTMLDivElement>}
-          placement="bottom"
-          trigger="hover"
-          paddingY={8}
-          visibilityDelay={1000}
-          arrow={true}
-        >
-          <Tooltip>
-            <Text intent="neutral-inverted-fixed">{title}</Text>
-          </Tooltip>
-        </OverlayPositioner>
-      )}
-    </div>
+      {tooltip && <Tooltip anchorRef={anchorRef}>{tooltip}</Tooltip>}
+    </button>
   )
 }
 
-export const ColorSwatch = typedForwardRef<ColorSwatchProps, HTMLDivElement>(
-  ColorSwatchComponent
-)
+export const ColorSwatch = typedForwardRef<ColorSwatchProps, HTMLDivElement | HTMLButtonElement>(ColorSwatchComponent)

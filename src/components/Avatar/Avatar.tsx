@@ -1,59 +1,55 @@
-import { bem, typedForwardRef } from "../../utils"
+import { bem, typedForwardRef } from '../../utils'
 
-import type { AvatarProps } from "./Avatar.types"
-import "./Avatar.scss"
+import { Text } from '../../index'
 
-import { Text } from "../../index"
+import type { AvatarProps } from './Avatar.types'
+import './Avatar.scss'
 
 /* --- */
 
 const AvatarComponent = (
-  {
-    className,
-    size = "medium",
-    shape = "circle",
-    imageSrc,
-    fillBg,
-    fillText,
-    children,
-    ...rest
-  }: AvatarProps,
-  ref: preact.Ref<HTMLDivElement>
+  { id, className, variant = 'circle', size = 'medium', src, backgroundColor, textColor, children, ...rest }: AvatarProps,
+  ref: preact.Ref<HTMLDivElement>,
 ) => {
-  const _className = bem("Avatar", undefined, {
+  const _className = bem('Avatar', undefined, {
+    variant,
     size,
-    shape,
-    image: Boolean(imageSrc),
+    src: Boolean(src),
   })
 
   return (
     <div
-      className={[_className, className].join(" ").trim()}
+      id={id}
+      className={[_className, className].join(' ').trim()}
       ref={ref}
       {...rest}
       style={{
-        backgroundColor: fillBg,
+        ...(backgroundColor !== undefined ? { backgroundColor } : {}),
       }}
     >
-      {imageSrc && (
-        <img className="Avatar__image" src={imageSrc} alt="Avatar" />
-      )}
-      {children && (
-        <Text
-          variant="body"
-          size={size === "small" ? "small" : "large"}
-          strong
-          intent="neutral-inverted"
-          intentModifiers="default"
-          fill={fillText}
-        >
-          <div className="Avatar__children">{children}</div>
-        </Text>
-      )}
+      {src && <img className="Avatar__image" src={src} alt="Avatar" />}
+
+      <div className="Avatar__children">
+        {typeof children === 'string' ? (
+          <Text
+            variant="body"
+            size={size === 'small' ? 'small' : 'large'}
+            strong
+            intent="neutral-inverted"
+            intentModifier="default"
+            textColor={textColor}
+            fullWidth
+            wrap={false}
+            align="center"
+          >
+            {children}
+          </Text>
+        ) : (
+          children
+        )}
+      </div>
     </div>
   )
 }
 
-export const Avatar = typedForwardRef<AvatarProps, HTMLDivElement>(
-  AvatarComponent
-)
+export const Avatar = typedForwardRef<AvatarProps, HTMLDivElement>(AvatarComponent)

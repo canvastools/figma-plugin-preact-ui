@@ -4,6 +4,7 @@ const spacing: ColorTokenTree = {
   class: ":root",
   prefix: "--pui-spacing",
   variables: {
+    0: "0px",
     100: "4px",
     200: "8px",
     400: "16px",

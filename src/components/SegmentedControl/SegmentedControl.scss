@@ -1,23 +1,25 @@
-@use "../../shared.scss" as *;
-@use "../../mixins.scss" as *;
+@use '../../shared.scss' as *;
+@use '../../mixins.scss' as *;
 
 .SegmentedControl {
-  $parent: &;
-
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
   width: fit-content;
 
-  background-color: var(--pui-color-neutral-bg-secondary-interactive);
+  background-color: var(--pui-color-neutral-bg-secondary);
   border-radius: var(--pui-radius-medium);
+
+  &:has(:focus-visible) {
+    outline-color: transparent !important;
+  }
 
   &_fullWidth {
     width: 100%;
+  }
 
-    & #{$parent}__item {
-      width: 100%;
-    }
+  &_fullWidth &__item {
+    width: 100%;
   }
 
   &__item {
@@ -29,23 +31,25 @@
     height: 24px;
     border-radius: var(--pui-radius-medium);
     padding: 0 var(--pui-spacing-200);
+    cursor: default;
 
-    @include curson-feedback;
-    @include focus-visible;
+    &:focus-visible {
+      outline: 1px solid var(--pui-color-system-border-focused);
+      outline-offset: -1px;
+      box-shadow: none;
+    }
 
     background-color: transparent;
     outline: none;
     border: none;
 
     &_selected {
-      background-color: var(--pui-color-neutral-bg-default-interactive);
-      box-shadow: inset 0 0 0 1px
-        var(--pui-color-neutral-border-default-interactive);
+      background-color: var(--pui-color-neutral-bg-default);
+      box-shadow: inset 0 0 0 1px var(--pui-color-neutral-border-default);
     }
 
     &_disabled {
       background-color: transparent;
-      box-shadow: none;
     }
 
     &_icon {

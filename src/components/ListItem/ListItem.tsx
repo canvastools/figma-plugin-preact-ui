@@ -1,344 +1,261 @@
-import { bem, typedForwardRef } from "../../utils"
-import { useState, useEffect, useRef } from "preact/hooks"
+import { bem, typedForwardRef } from '../../utils'
+import { useState, useEffect, useRef } from 'preact/hooks'
 
-import type { ListItemProps } from "./ListItem.types"
-import "./ListItem.scss"
+import type { ListItemProps } from './ListItem.types'
+import './ListItem.scss'
 
-import { useListContext } from "../../index"
-import type { ListItemData } from "../../index"
-import { Icon } from "../../index"
-import {
-  chevronRight as chevronRightGlyph,
-  chevronDown as chevronDownGlyph,
-  dragHandle as dragHandleGlyph,
-} from "../../index"
+import { useListContext } from '../../index'
+import { Icon } from '../../index'
+import { chevronRight as chevronRightGlyph, chevronDown as chevronDownGlyph, dragHandle as dragHandleGlyph } from '../../index'
 
 /* --- */
 
 const ListItemComponent = (
   {
-    className,
     id,
-    isNested = false,
+    className,
+    variant = 'default',
     nestingLevel = 0,
+    padding,
     draggable = false,
-    dragHandle = "default",
     acceptsChildren = false,
-    selectionScope = "item",
+    selectionScope = 'individual',
     collapsed,
-    showCollapseControl = false,
+    collapsable = false,
     onCollapsedChange,
     onDragStart,
     onDragEnd,
     selectable = false,
     hoverable = false,
     onSelect,
-    subItems,
+    items,
     children,
-    reducedPaddingRight = false,
     ...rest
   }: ListItemProps,
-  ref: preact.Ref<HTMLDivElement>
+  ref: preact.Ref<HTMLDivElement>,
 ) => {
   const {
-    selectedItems,
+    selectedItemIds,
+    selectionOriginIds,
     toggleSelect,
     selectionMode,
-    setExactSelection,
-    items,
-    registerItemMeta,
+    setSelection,
+    registerItem,
     dragImage,
+    reorderItems,
+    getPathForId,
   } = useListContext()
-  const [isDragOver, setIsDragOver] = useState(false)
-  const [dragPosition, setDragPosition] = useState<
-    "above" | "below" | "inside" | "self" | null
-  >(null)
   const [isDragging, setIsDragging] = useState(false)
+  const [isFocused, setIsFocused] = useState(false)
+  const [isLastInBranch, setIsLastInBranch] = useState(false)
   const selfRef = useRef<HTMLDivElement | null>(null)
-  const dropParentRef = useRef<HTMLElement | null>(null)
-  const rafIdRef = useRef<number | null>(null)
-  const pendingClientYRef = useRef<number>(0)
-  const lastRectRef = useRef<DOMRect | null>(null)
-  const lastTargetElRef = useRef<HTMLElement | null>(null)
+  const mouseDownTargetRef = useRef<HTMLElement | null>(null)
+  const endZoneRef = useRef<HTMLDivElement | null>(null)
+  const endZoneDropParentRef = useRef<HTMLElement | null>(null)
 
   // Collapsed (controlled/uncontrolled)
   const isCollapsedControlled = collapsed !== undefined
-  const [internalCollapsed, setInternalCollapsed] = useState<boolean>(
-    Boolean(collapsed)
-  )
+  const [internalCollapsed, setInternalCollapsed] = useState<boolean>(Boolean(collapsed))
   useEffect(() => {
     if (isCollapsedControlled) setInternalCollapsed(Boolean(collapsed))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [collapsed])
-  const effectiveCollapsed = isCollapsedControlled
-    ? Boolean(collapsed)
-    : internalCollapsed
+  const effectiveCollapsed = isCollapsedControlled ? Boolean(collapsed) : internalCollapsed
 
-  const isSelected = selectedItems.has(id)
-  const hasChildren = Boolean(subItems)
+  useEffect(() => {
+    const el = selfRef.current
+    if (!el) return
+    const container = el.parentElement
+    if (!container) return
+
+    const check = () => {
+      const siblings = container.children
+      let last: Element | null = null
+      for (let i = siblings.length - 1; i >= 0; i--) {
+        if ((siblings[i] as HTMLElement).classList?.contains('ListItem')) {
+          last = siblings[i]
+          break
+        }
+      }
+      setIsLastInBranch(last === el)
+    }
+
+    check()
+    const observer = new MutationObserver(check)
+    observer.observe(container, { childList: true })
+    return () => observer.disconnect()
+  }, [])
+
+  const isSelected = selectedItemIds.has(id)
+  const isSelectionOrigin = selectionScope === 'individual' ? isSelected : Boolean(selectionOriginIds?.has(id))
+  const hasChildren = Boolean(items)
 
   useEffect(() => {
     // register meta for range selection filtering
-    const unregister = registerItemMeta?.(id, {
+    const unregister = registerItem?.(id, {
       selectable,
       selectionScope,
     })
     const handleGlobalDragEnd = () => {
-      setIsDragOver(false)
-      setDragPosition(null)
       setIsDragging(false)
-      // Clear drop-parent highlight
-      if (dropParentRef.current) {
-        dropParentRef.current.classList.remove("ListItem_drop-parent")
-        dropParentRef.current = null
-      }
-      // cancel any scheduled frame
-      if (rafIdRef.current != null) {
-        cancelAnimationFrame(rafIdRef.current)
-        rafIdRef.current = null
-      }
-      lastRectRef.current = null
-      lastTargetElRef.current = null
+      endZoneRef.current?.classList.remove('ListItem__end-dropzone-active')
+      endZoneDropParentRef.current = null
     }
 
     const handleResetDragStates = () => {
-      setIsDragOver(false)
-      setDragPosition(null)
       setIsDragging(false)
-      // Clear drop-parent highlight
-      if (dropParentRef.current) {
-        dropParentRef.current.classList.remove("ListItem_drop-parent")
-        dropParentRef.current = null
-      }
-      if (rafIdRef.current != null) {
-        cancelAnimationFrame(rafIdRef.current)
-        rafIdRef.current = null
-      }
-      lastRectRef.current = null
-      lastTargetElRef.current = null
+      endZoneRef.current?.classList.remove('ListItem__end-dropzone-active')
+      endZoneDropParentRef.current = null
     }
 
-    document.addEventListener("dragend", handleGlobalDragEnd)
-    document.addEventListener("resetDragStates", handleResetDragStates)
+    document.addEventListener('dragend', handleGlobalDragEnd)
+    document.addEventListener('resetDragStates', handleResetDragStates)
 
     return () => {
-      document.removeEventListener("dragend", handleGlobalDragEnd)
-      document.removeEventListener("resetDragStates", handleResetDragStates)
+      document.removeEventListener('dragend', handleGlobalDragEnd)
+      document.removeEventListener('resetDragStates', handleResetDragStates)
       unregister?.()
     }
-  }, [id, registerItemMeta, selectable, selectionScope])
+  }, [id, registerItem, selectable, selectionScope])
 
-  const _className = bem("ListItem", undefined, {
-    dragHandle,
-    "selection-scope-descendants": selectionScope === "withDescendants",
-    nested: isNested,
-    draggable: Boolean(draggable),
-    selectable: Boolean(selectable),
+  const _className = bem('ListItem', undefined, {
+    'selection-scope-descendants': selectionScope === 'withDescendants',
+    variant,
+    nested: nestingLevel > 0,
+    draggable: draggable,
+    selectable: selectable,
     selected: isSelected,
-    hoverable: Boolean(hoverable),
-    "has-children": hasChildren,
-    collapsed: Boolean(effectiveCollapsed),
-    collapsable: showCollapseControl,
-    "drag-over": isDragOver,
-    "drag-above": dragPosition === "above",
-    "drag-below": dragPosition === "below",
-    "drag-inside": dragPosition === "inside",
-    "drag-self": dragPosition === "self",
+    'selection-origin': isSelectionOrigin,
+    focused: isFocused,
+    hoverable: hoverable,
+    'has-children': hasChildren,
+    collapsed: effectiveCollapsed,
+    collapsable,
     dragging: isDragging,
-    "reduced-padding-right": reducedPaddingRight,
   })
 
+  const isInteractiveTarget = (target: HTMLElement | null): boolean => {
+    if (!target) return false
+
+    let el: HTMLElement | null = target
+    while (el && el !== selfRef.current) {
+      const interactiveAttr = el.getAttribute('data-pui-interactive')
+      if (interactiveAttr === 'true') {
+        return true
+      }
+      if (interactiveAttr === 'false') {
+        return false
+      }
+
+      el = el.parentElement
+    }
+
+    return false
+  }
+
   const handleClick = (e: MouseEvent) => {
-    if (!selectable || selectionMode === "none") return
+    // Ignore multi-clicks (second click of a double-click, etc.) so that
+    // double-click can be used by nested controls (e.g. Input focusOnDoubleClick)
+    // without toggling selection twice.
+    if (e.detail > 1) return
+
+    if (isInteractiveTarget(e.target as HTMLElement | null)) return
+    if (!selectable || selectionMode === undefined) return
     const range = e.shiftKey
     const additive = e.metaKey || e.ctrlKey
-    if (selectionScope === "withDescendants") {
-      // Expand to include descendants on selection toggle by delegating to ListContext helper
-      // We encode desired scope in the id toggle: first toggle the root
-      toggleSelect(id, { range, additive })
-      // On multi-mode without range/additive, ListContext resets selection to [id];
-      // descendants marking is handled for single mode only in context,
-      // so here we force exact selection when needed in multi default click
-      if (selectionMode !== "single" && !range && !additive) {
-        // Build [id + descendants]
-        const rootAndDesc = new Set<string>([id])
-        collectDescendantsForLocal(id).forEach((d) => rootAndDesc.add(d))
-        setExactSelection(Array.from(rootAndDesc))
-      }
-    } else {
-      toggleSelect(id, { range, additive })
-    }
+    toggleSelect(id, { range, additive })
     onSelect?.({ event: e, selected: !isSelected })
   }
 
-  const collectDescendantsForLocal = (rootId: string): string[] => {
-    const ids: string[] = []
-    const walk = (nodes: ListItemData[]): boolean => {
-      for (let i = 0; i < nodes.length; i++) {
-        const n = nodes[i]
-        if (n.id === rootId) {
-          const addAll = (children?: ListItemData[]) => {
-            if (!children) return
-            for (let j = 0; j < children.length; j++) {
-              const c = children[j]
-              ids.push(c.id)
-              addAll(c.children)
-            }
-          }
-          addAll(n.children)
-          return true
-        }
-        if (n.children && walk(n.children)) return true
-      }
-      return false
-    }
-    walk(items as ListItemData[])
-    return ids
-  }
-
-  const handleDragOver = (e: DragEvent) => {
-    // Any item can be a drop target; show zones depending on acceptsChildren
-    if (draggable || acceptsChildren) {
-      e.preventDefault()
-      e.stopPropagation()
-      e.dataTransfer!.dropEffect = "move"
-
-      // Ignore self-hover: if dragging this item (or multi-drag including this id), do not show styles
-      let draggedIds: string[] = []
-      // Prefer global cache set on dragstart to work around browsers that hide dataTransfer on dragover
-      const globalIds = (window as { __puiDraggingIds?: string[] })
-        .__puiDraggingIds
-      if (Array.isArray(globalIds)) draggedIds = globalIds
-      const json = e.dataTransfer?.getData("application/json")
-      if (json) {
-        try {
-          const parsed = JSON.parse(json)
-          if (parsed && Array.isArray(parsed.ids)) draggedIds = parsed.ids
-        } catch {
-          // Ignore JSON parse errors
-        }
-      }
-      if (draggedIds.length === 0) {
-        const plain = e.dataTransfer?.getData("text/plain")
-        if (plain) draggedIds = [plain]
-      }
-      if (draggedIds.includes(id)) {
-        // Mark self-hover to allow style override but do not compute zones
-        setIsDragOver(true)
-        setDragPosition("self")
-        return
-      }
-
-      const target = e.currentTarget as HTMLElement
-      // If this item is a child of a parent that disallows children, suppress any inter-child zones
-      const parentItemEl = target
-        .closest(".ListItem")
-        ?.parentElement?.closest(".ListItem") as HTMLElement | null
-      const parentAccepts = parentItemEl
-        ? parentItemEl.getAttribute("data-accepts-children") !== "false"
-        : true
-      if (parentItemEl && !parentAccepts) {
-        setIsDragOver(false)
-        setDragPosition(null)
-        return
-      }
-      const content = target.querySelector(
-        ".ListItem__content"
-      ) as HTMLElement | null
-      const rect: DOMRect | undefined = content?.getBoundingClientRect()
-      if (!rect) return
-      // Only apply zones when hovering over the content block, not full item height
-      if (e.clientY < rect.top || e.clientY > rect.bottom) {
-        setIsDragOver(false)
-        setDragPosition(null)
-        return
-      }
-
-      setIsDragOver(true)
-      // store latest geometry and pointer; batch compute in rAF
-      lastRectRef.current = rect
-      lastTargetElRef.current = target
-      pendingClientYRef.current = e.clientY
-
-      if (rafIdRef.current == null) {
-        rafIdRef.current = requestAnimationFrame(() => {
-          rafIdRef.current = null
-          const r = lastRectRef.current
-          const t = lastTargetElRef.current
-          if (!r || !t) return
-          const dropY2 = pendingClientYRef.current - r.top
-          const TOP_START = 0
-          const TOP_END = 8
-          const BOTTOM_START = Math.max(0, r.height - 8)
-          const BOTTOM_END = Math.max(0, r.height - 0)
-
-          let nextPos: "inside" | "above" | "below" = "below"
-          const inTopBand = dropY2 >= TOP_START && dropY2 <= TOP_END
-          const inBottomBand = dropY2 >= BOTTOM_START && dropY2 <= BOTTOM_END
-          if (inTopBand) nextPos = "above"
-          else if (inBottomBand) nextPos = "below"
-          else if (acceptsChildren) nextPos = "inside"
-          else nextPos = dropY2 < r.height / 2 ? "above" : "below"
-          if (
-            nextPos === "below" &&
-            hasChildren &&
-            !effectiveCollapsed &&
-            acceptsChildren
-          )
-            nextPos = "inside"
-          if (nextPos !== dragPosition) setDragPosition(nextPos)
-
-          const containerEl = t.closest(".ListContainer")
-          const parentItem = containerEl?.closest(
-            ".ListItem"
-          ) as HTMLElement | null
-          const desiredEl =
-            nextPos === "inside" && acceptsChildren ? t : parentItem || null
-          if (dropParentRef.current !== desiredEl) {
-            if (dropParentRef.current) {
-              dropParentRef.current.classList.remove("ListItem_drop-parent")
-            }
-            if (desiredEl) desiredEl.classList.add("ListItem_drop-parent")
-            dropParentRef.current = desiredEl
-          }
-        })
-      }
+  const moveFocus = (direction: 'prev' | 'next') => {
+    const allItems = Array.from(document.querySelectorAll<HTMLElement>('.ListItem'))
+    if (!allItems.length) return
+    const current = selfRef.current
+    const visibleItems = allItems.filter((el) => {
+      // Skip items that are not visible (collapsed or display:none)
+      return el.offsetParent !== null
+    })
+    const index = visibleItems.indexOf(current as HTMLElement)
+    if (index === -1) return
+    const nextIndex = direction === 'prev' ? Math.max(0, index - 1) : Math.min(visibleItems.length - 1, index + 1)
+    const target = visibleItems[nextIndex]
+    if (target && target !== current) {
+      target.focus()
     }
   }
 
-  const handleDragLeave = () => {
-    setIsDragOver(false)
-    setDragPosition(null)
-    // Clear stable drop-parent highlight
-    if (dropParentRef.current) {
-      dropParentRef.current.classList.remove("ListItem_drop-parent")
-      dropParentRef.current = null
+  const handleKeyDown = (e: KeyboardEvent) => {
+    if (isInteractiveTarget(e.target as HTMLElement | null)) return
+    switch (e.key) {
+      case 'ArrowUp':
+        e.preventDefault()
+        e.stopPropagation()
+        moveFocus('prev')
+        break
+      case 'ArrowDown':
+        e.preventDefault()
+        e.stopPropagation()
+        moveFocus('next')
+        break
+      case 'Enter':
+        // Keyboard "click" – toggle selection like a mouse click
+        if (selectable && selectionMode !== undefined) {
+          e.preventDefault()
+          e.stopPropagation()
+          const range = e.shiftKey
+          const additive = e.metaKey || e.ctrlKey
+          toggleSelect(id, { range, additive })
+          onSelect?.({
+            event: e as unknown as MouseEvent,
+            selected: !isSelected,
+          })
+        }
+        break
+      case ' ':
+      case 'Spacebar': {
+        // Toggle collapse for collapsable items on Space
+        if (collapsable) {
+          e.preventDefault()
+          e.stopPropagation()
+          const nextCollapsed = !effectiveCollapsed
+          if (isCollapsedControlled) {
+            onCollapsedChange?.({
+              // Cast to MouseEvent for compatibility with callback type
+              event: e as unknown as MouseEvent,
+              collapsed: nextCollapsed,
+            })
+          } else {
+            setInternalCollapsed(nextCollapsed)
+            onCollapsedChange?.({
+              event: e as unknown as MouseEvent,
+              collapsed: nextCollapsed,
+            })
+          }
+        }
+        break
+      }
+      default:
+        break
     }
-    if (rafIdRef.current != null) {
-      cancelAnimationFrame(rafIdRef.current)
-      rafIdRef.current = null
-    }
-    lastRectRef.current = null
-    lastTargetElRef.current = null
   }
 
   const handleDragHandleDragStart = (e: DragEvent) => {
     if (draggable) {
       setIsDragging(true)
       // Determine if this drag should be multi based on current selection BEFORE mutating it
-      const isMultiDrag = selectedItems.has(id) && selectedItems.size > 1
-      const ids = isMultiDrag ? Array.from(selectedItems) : [id]
+      const isMultiDrag = selectedItemIds.has(id) && selectedItemIds.size > 1
+      const ids = isMultiDrag ? Array.from(selectedItemIds) : [id]
       // If not multi, set exact selection to this id only
-      if (selectionMode !== "none" && !isMultiDrag) {
-        setExactSelection([id])
+      if (selectionMode !== undefined && !isMultiDrag) {
+        setSelection([id])
       }
       const payload = { ids }
       try {
-        e.dataTransfer?.setData("application/json", JSON.stringify(payload))
+        e.dataTransfer?.setData('application/json', JSON.stringify(payload))
       } catch {
         // Ignore setData errors
       }
-      e.dataTransfer?.setData("text/plain", ids[0])
+      e.dataTransfer?.setData('text/plain', ids[0])
       ;(window as { __puiDraggingIds?: string[] }).__puiDraggingIds = ids
       // Hide default drag preview
       try {
@@ -352,104 +269,237 @@ const ListItemComponent = (
 
   const handleDragHandleDragEnd = (e: DragEvent) => {
     if (draggable) {
-      setIsDragOver(false)
-      setDragPosition(null)
       setIsDragging(false)
       try {
         delete (window as { __puiDraggingIds?: string[] }).__puiDraggingIds
       } catch {
         // Ignore delete errors
       }
-      // Remove drop-parent class from self and parent
-      if (dropParentRef.current) {
-        dropParentRef.current.classList.remove("ListItem_drop-parent")
-        dropParentRef.current = null
-      }
       onDragEnd?.({ event: e })
+    }
+  }
+
+  const handleEndZoneDragOver = (e: DragEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    if (e.dataTransfer) {
+      e.dataTransfer.dropEffect = 'move'
+    }
+    const endZoneTarget = e.currentTarget as HTMLElement
+    endZoneTarget.classList.add('ListItem__end-dropzone-active')
+
+    const containerEl = selfRef.current?.closest('.ListContainer') as HTMLElement | null
+    let parentItemEl: HTMLElement | null = null
+    if (containerEl) {
+      let levelContainer: HTMLElement | null = containerEl
+      while (levelContainer) {
+        const levelItems = Array.from(levelContainer.children).filter((el) =>
+          (el as HTMLElement).classList.contains('ListItem'),
+        ) as HTMLElement[]
+        levelItems.forEach((item) => {
+          item.classList.remove(
+            'ListItem_drag-over',
+            'ListItem_drag-above',
+            'ListItem_drag-below',
+            'ListItem_drag-inside',
+            'ListItem_drag-self',
+          )
+        })
+        const levelParentItem = levelContainer.closest('.ListItem') as HTMLElement | null
+        if (!parentItemEl && levelParentItem) {
+          parentItemEl = levelParentItem
+        }
+        levelContainer = levelParentItem?.parentElement?.closest('.ListContainer') ?? null
+      }
+    }
+
+    const desiredEl = parentItemEl || containerEl?.closest('.ListItem') || null
+    if (endZoneDropParentRef.current !== desiredEl) {
+      const allDropParents = document.querySelectorAll<HTMLElement>('.ListItem_drop-parent')
+      allDropParents.forEach((el) => {
+        el.classList.remove('ListItem_drop-parent')
+      })
+      if (desiredEl) desiredEl.classList.add('ListItem_drop-parent')
+      endZoneDropParentRef.current = desiredEl
+    }
+  }
+
+  const handleEndZoneDrop = (e: DragEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    const endZoneTarget = e.currentTarget as HTMLElement
+    endZoneTarget.classList.remove('ListItem__end-dropzone-active')
+    if (endZoneDropParentRef.current) {
+      endZoneDropParentRef.current.classList.remove('ListItem_drop-parent')
+      endZoneDropParentRef.current = null
+    }
+    let itemIds: string[] | null = null
+    const globalIds = (window as { __puiDraggingIds?: string[] }).__puiDraggingIds
+    if (Array.isArray(globalIds)) itemIds = globalIds
+    const json = e.dataTransfer?.getData('application/json')
+    if (json) {
+      try {
+        const parsed = JSON.parse(json)
+        if (parsed && Array.isArray(parsed.ids)) itemIds = parsed.ids
+      } catch {
+        // Ignore JSON parse errors
+      }
+    }
+    if (!itemIds) {
+      const itemId = e.dataTransfer?.getData('text/plain')
+      if (itemId) itemIds = [itemId]
+    }
+
+    if (itemIds && itemIds.length) {
+      const resetDragStatesEvent = new CustomEvent('resetDragStates')
+      document.dispatchEvent(resetDragStatesEvent)
+
+      const containerEl = selfRef.current?.closest('.ListContainer') as HTMLElement | null
+      const childCount = containerEl
+        ? Array.from(containerEl.children).filter((el) => (el as HTMLElement).classList?.contains('ListItem')).length
+        : 0
+      const parentItemEl = containerEl?.closest('.ListItem') as HTMLElement | null
+      const parentId = parentItemEl?.getAttribute('data-item-id') || null
+      const parentPath = parentId ? getPathForId?.(parentId) || [] : []
+
+      const targetPath = parentId ? parentPath : undefined
+      const targetIndex = childCount
+
+      reorderItems(itemIds, targetIndex, targetPath)
+    }
+  }
+
+  const handleEndZoneDragLeave = (e: DragEvent) => {
+    const endZoneTarget = e.currentTarget as HTMLElement
+    endZoneTarget.classList.remove('ListItem__end-dropzone-active')
+    if (endZoneDropParentRef.current) {
+      endZoneDropParentRef.current.classList.remove('ListItem_drop-parent')
+      endZoneDropParentRef.current = null
     }
   }
 
   return (
     <div
-      className={[_className, className, "no-drag"].join(" ").trim()}
+      id={id}
+      className={[_className, className].join(' ').trim()}
       ref={(node) => {
         selfRef.current = node
-        if (typeof ref === "function") ref(node as HTMLDivElement)
+        if (typeof ref === 'function') ref(node as HTMLDivElement)
         else if (ref) (ref as preact.RefObject<HTMLDivElement>).current = node
       }}
       key={id}
       {...rest}
-      onDragOver={handleDragOver}
-      onDragLeave={handleDragLeave}
+      tabIndex={selectable ? 0 : -1}
+      onFocus={(e) => {
+        if (e.currentTarget === e.target) {
+          setIsFocused(true)
+        }
+      }}
+      onBlur={(e) => {
+        if (e.currentTarget === e.target) {
+          setIsFocused(false)
+        }
+      }}
+      onKeyDown={handleKeyDown}
       data-nesting-level={nestingLevel}
       data-item-id={id}
-      data-accepts-children={acceptsChildren ? "true" : "false"}
-      style={`--level: ${nestingLevel}`}
+      data-accepts-children={acceptsChildren ? 'true' : 'false'}
+      style={[
+        `--level: ${nestingLevel}`,
+        padding?.top !== undefined ? `--li-pt: var(--pui-spacing-${padding.top})` : '',
+        padding?.right !== undefined ? `--li-pr: var(--pui-spacing-${padding.right})` : '',
+        padding?.bottom !== undefined ? `--li-pb: var(--pui-spacing-${padding.bottom})` : '',
+        padding?.left !== undefined ? `--li-pl: var(--pui-spacing-${padding.left})` : '',
+      ]
+        .filter(Boolean)
+        .join('; ')}
     >
       <div
         className="ListItem__content"
         onClick={handleClick}
-        draggable={Boolean(draggable && dragHandle === "container")}
-        onDragStart={
-          dragHandle === "container" && draggable
-            ? handleDragHandleDragStart
-            : undefined
-        }
-        onDragEnd={
-          dragHandle === "container" && draggable
-            ? handleDragHandleDragEnd
-            : undefined
-        }
-      >
-        {showCollapseControl && (
-          <div
-            className="ListItem__collapse-toggle"
-            onClick={(e) => {
-              e.stopPropagation()
-              if (isCollapsedControlled) {
-                onCollapsedChange?.({
-                  event: e,
-                  collapsed: !effectiveCollapsed,
-                })
-              } else {
-                setInternalCollapsed((v) => !v)
-                onCollapsedChange?.({
-                  event: e,
-                  collapsed: !effectiveCollapsed,
-                })
+        draggable={draggable}
+        onMouseDown={
+          draggable
+            ? (e: MouseEvent) => {
+                mouseDownTargetRef.current = e.target as HTMLElement
               }
-            }}
-          >
-            <Icon
-              intent="neutral"
-              intentModifiers="secondary"
-              glyph={effectiveCollapsed ? chevronRightGlyph : chevronDownGlyph}
-              size={16}
-            />
-          </div>
-        )}
-        {draggable && dragHandle !== "container" && (
-          <div
-            className="ListItem__drag-handle"
-            draggable={true}
-            onDragStart={handleDragHandleDragStart}
-            onDragEnd={handleDragHandleDragEnd}
-          >
-            <Icon
-              glyph={dragHandleGlyph}
-              fill="var(--pui-color-neutral-icon-tertiary)"
-              size={16}
-            />
-          </div>
-        )}
-        {children && <div className="ListItem__children">{children}</div>}
+            : undefined
+        }
+        onDragStart={
+          draggable
+            ? (e: DragEvent) => {
+                if (isInteractiveTarget(mouseDownTargetRef.current)) {
+                  e.preventDefault()
+                  return
+                }
+                handleDragHandleDragStart(e)
+              }
+            : undefined
+        }
+        onDragEnd={draggable ? handleDragHandleDragEnd : undefined}
+      >
+        <div className="ListItem__content-inner">
+          {collapsable && (
+            <div
+              className="ListItem__collapse-toggle"
+              data-pui-interactive="true"
+              onClick={(e) => {
+                e.stopPropagation()
+                if (isCollapsedControlled) {
+                  onCollapsedChange?.({
+                    event: e,
+                    collapsed: !effectiveCollapsed,
+                  })
+                } else {
+                  setInternalCollapsed((v) => !v)
+                  onCollapsedChange?.({
+                    event: e,
+                    collapsed: !effectiveCollapsed,
+                  })
+                }
+              }}
+            >
+              <Icon
+                intent="neutral"
+                intentModifier="secondary"
+                glyph={effectiveCollapsed ? chevronRightGlyph : chevronDownGlyph}
+                size={16}
+              />
+            </div>
+          )}
+
+          {draggable && (
+            <div
+              className="ListItem__drag-handle"
+              data-pui-interactive="true"
+              draggable={true}
+              onDragStart={(e: DragEvent) => {
+                e.stopPropagation()
+                handleDragHandleDragStart(e)
+              }}
+              onDragEnd={handleDragHandleDragEnd}
+            >
+              <Icon glyph={dragHandleGlyph} iconColor="var(--pui-color-neutral-icon-tertiary)" size={16} />
+            </div>
+          )}
+
+          {children && <div className="ListItem__children">{children}</div>}
+        </div>
       </div>
 
-      {subItems && <div className="ListItem__sub-items">{subItems}</div>}
+      {items && <div className="ListItem__items">{items}</div>}
+
+      {isLastInBranch && (
+        <div
+          ref={endZoneRef}
+          className="ListItem__end-dropzone"
+          onDragOver={handleEndZoneDragOver}
+          onDrop={handleEndZoneDrop}
+          onDragLeave={handleEndZoneDragLeave}
+        />
+      )}
     </div>
   )
 }
 
-export const ListItem = typedForwardRef<ListItemProps, HTMLDivElement>(
-  ListItemComponent
-)
+export const ListItem = typedForwardRef<ListItemProps, HTMLDivElement>(ListItemComponent)

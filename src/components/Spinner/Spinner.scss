@@ -1,17 +1,12 @@
-@use "../../shared.scss" as *;
+@use '../../shared.scss' as *;
 
 .Spinner {
-  $parent: &;
-
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 24px;
-  width: 24px;
 
   &__spinner {
-    --_m: conic-gradient(#0000 0, var(--pui-color-neutral-icon-secondary)),
-      linear-gradient(#000 0 0) content-box;
+    --_m: conic-gradient(#0000 0, var(--pui-color-neutral-icon-secondary)), linear-gradient(#000 0 0) content-box;
     -webkit-mask: var(--_m);
     mask: var(--_m);
 
@@ -24,6 +19,16 @@
     -webkit-mask-composite: source-out;
     mask-composite: subtract;
     animation: l3 0.4s 0s infinite linear;
+  }
+
+  &_size-small {
+    height: 14px;
+    width: 14px;
+  }
+
+  &_size-medium {
+    height: 24px;
+    width: 24px;
   }
 }
 

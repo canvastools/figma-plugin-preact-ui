@@ -1,0 +1,145 @@
+@use '../../shared.scss' as *;
+@use '../../mixins.scss' as *;
+
+.TextArea {
+  position: relative;
+  display: flex;
+  width: 100%;
+
+  &__label {
+    flex-shrink: 0;
+    flex-grow: 1;
+  }
+
+  &_variant-default {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--pui-spacing-100);
+  }
+
+  &_variant-default &__label {
+    @include typography-body-small;
+  }
+
+  &_variant-list {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: var(--pui-spacing-400);
+  }
+
+  &__container {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+    min-height: 24px;
+    border-radius: var(--pui-radius-medium);
+    overflow: hidden;
+    outline-width: 1px;
+    outline-style: solid;
+    outline-color: transparent;
+    outline-offset: -1px;
+    background-color: var(--pui-color-neutral-bg-secondary);
+  }
+
+  &:hover &__container {
+    outline-color: var(--pui-color-neutral-border-default-hover);
+  }
+
+  &_focused &__container,
+  &_focused:hover:is(:focus-within) &__container {
+    outline-color: var(--pui-color-neutral-border-default-selected) !important;
+  }
+
+  &_error &__container {
+    outline-color: var(--pui-color-neutral-border-danger-error);
+  }
+
+  &__textarea-native {
+    box-sizing: border-box;
+    display: block;
+    flex: 1;
+    min-height: 100%;
+    width: 100%;
+    margin: 0;
+    border: none;
+    outline: none;
+    resize: none;
+    background-color: transparent;
+    padding: var(--pui-spacing-100) var(--pui-spacing-200);
+    color: var(--pui-color-neutral-text-default);
+    cursor: default;
+
+    @include typography-styles-default;
+    @include typography-body-medium;
+
+    &::placeholder {
+      color: var(--pui-color-neutral-text-placeholder);
+    }
+  }
+
+  &_resizeY &__textarea-native {
+    min-height: 0;
+    overflow-y: auto;
+  }
+
+  &_autoGrow &__textarea-native {
+    flex: 0 0 auto;
+    min-height: 0;
+    overflow-y: auto;
+  }
+
+  &__resizeHandle {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 11px;
+    height: 11px;
+    z-index: 1;
+    border-radius: 0;
+    cursor: ns-resize;
+    opacity: 0;
+    touch-action: none;
+
+    &:before {
+      content: '';
+      position: absolute;
+      right: 2px;
+      bottom: 2px;
+      width: 6px;
+      height: 6px;
+      border-radius: 0 0 4px;
+      border-bottom: 2px solid var(--pui-color-system-bg-resizer);
+      border-right: 2px solid var(--pui-color-system-bg-resizer);
+    }
+  }
+
+  &__container:hover &__resizeHandle {
+    opacity: 0.5;
+  }
+
+  &__container:hover &__resizeHandle:hover,
+  &__container:hover &__resizeHandle:active {
+    opacity: 1;
+  }
+
+  &_disabled {
+    cursor: auto;
+  }
+
+  &_disabled &__container {
+    background-color: transparent !important;
+    outline-width: 1px;
+    outline-style: solid;
+    outline-color: var(--pui-color-neutral-border-disabled);
+  }
+
+  &_disabled &__textarea-native,
+  &_disabled &__textarea-native::placeholder {
+    color: var(--pui-color-neutral-text-disabled);
+  }
+
+  &_disabled &__label {
+    color: var(--pui-color-neutral-text-disabled);
+  }
+}

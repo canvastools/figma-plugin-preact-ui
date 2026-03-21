@@ -1,0 +1,50 @@
+@use '../../shared.scss' as *;
+
+.TooltipContainer {
+  display: flex;
+  flex-flow: column nowrap;
+  overflow: hidden;
+  width: fit-content;
+
+  padding: var(--pui-spacing-100) var(--pui-spacing-200);
+
+  background-color: var(--pui-color-neutral-inverted-fixed-bg-default);
+  border-radius: var(--pui-radius-medium);
+
+  box-shadow: 0 4px 16px 1px var(--pui-color-shadow-tooltip-soft), 0 2px 4px 0 var(--pui-color-shadow-tooltip-hard), inset 0 1px 0 0.5px var(--pui-color-shadow-tooltip-glare), inset 0 0 0 1px var(--pui-color-shadow-tooltip-glare);
+
+  &__arrow {
+    position: absolute;
+    pointer-events: none;
+    // Position comes from OverlayPositioner via CSS variables so that the
+    // arrow can follow the resolved placement / fallback and anchor rect.
+    left: var(--overlay-arrow-left, 0);
+    top: var(--overlay-arrow-top, 0);
+    transform: rotate(180deg) translateX(-8px);
+
+    &::after {
+      content: '';
+      position: absolute;
+      border-width: 8px;
+      border-style: solid;
+      border-color: var(--pui-color-neutral-inverted-fixed-bg-default) transparent transparent transparent;
+      box-shadow: 0 -2px 0 0 var(--pui-color-neutral-inverted-fixed-bg-default);
+    }
+  }
+
+  .OverlayPositioner[data-arrow-side='top'] &__arrow {
+    transform: rotate(0deg) translateX(-8px);
+  }
+
+  .OverlayPositioner[data-arrow-side='bottom'] &__arrow {
+    transform: rotate(180deg) translateX(-8px);
+  }
+
+  .OverlayPositioner[data-arrow-side='left'] &__arrow {
+    transform: rotate(-90deg) translateX(-8px);
+  }
+
+  .OverlayPositioner[data-arrow-side='right'] &__arrow {
+    transform: rotate(90deg) translateX(-8px);
+  }
+}

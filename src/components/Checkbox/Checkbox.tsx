@@ -1,34 +1,34 @@
-import { useEffect, useState } from "preact/hooks"
-import { bem, typedForwardRef } from "../../utils"
+import { useEffect, useRef, useState } from 'preact/hooks'
 
-import type { CheckboxProps } from "./Checkbox.types"
-import "./Checkbox.scss"
+import { bem, typedForwardRef } from '../../utils'
 
-import { Text } from "../../index"
-import { Icon } from "../../index"
-import { check as checkGlyph, mixed as mixedGlyph } from "../../index"
+import { Text, Icon, check as checkGlyph, mixed as mixedGlyph } from '../../index'
+
+import type { CheckboxProps } from './Checkbox.types'
+import './Checkbox.scss'
 
 /* --- */
 
 const CheckboxComponent = (
   {
+    id,
     className,
-    intent = "neutral",
-    intentModifiers = "default",
+    intent = 'neutral',
+    intentModifier = 'default',
     checked,
     defaultChecked = false,
     mixed = false,
     disabled = false,
     label,
-    onChange,
+    onCheckedChange,
     ...rest
   }: CheckboxProps,
-  ref: preact.Ref<HTMLInputElement>
+  ref: preact.Ref<HTMLInputElement>,
 ) => {
+  const inputElementRef = useRef<HTMLInputElement | null>(null)
+
   const isControlled = checked !== undefined
-  const [isChecked, setIsChecked] = useState<boolean>(
-    isControlled ? Boolean(checked) : Boolean(defaultChecked)
-  )
+  const [isChecked, setIsChecked] = useState<boolean>(isControlled ? Boolean(checked) : Boolean(defaultChecked))
 
   useEffect(() => {
     if (isControlled) {
@@ -36,8 +36,15 @@ const CheckboxComponent = (
     }
   }, [isControlled, checked])
 
-  const _className = bem("Checkbox", undefined, {
-    intent: `${intent}-${intentModifiers}`,
+  useEffect(() => {
+    const el = inputElementRef.current
+    if (el) {
+      el.indeterminate = Boolean(mixed)
+    }
+  }, [mixed])
+
+  const _className = bem('Checkbox', undefined, {
+    intent: `${intent}-${intentModifier}`,
     checked: isChecked,
     mixed,
     disabled,
@@ -54,12 +61,10 @@ const CheckboxComponent = (
     if (!isControlled) {
       setIsChecked(nextChecked)
     }
-    onChange?.({ event, checked: nextChecked })
+    onCheckedChange?.({ event, checked: nextChecked })
   }
 
-  const handleChange = (
-    event: preact.JSX.TargetedEvent<HTMLInputElement, Event>
-  ) => {
+  const handleChange = (event: preact.JSX.TargetedEvent<HTMLInputElement, Event>) => {
     if (disabled) {
       event.preventDefault?.()
       return
@@ -68,53 +73,51 @@ const CheckboxComponent = (
     if (!isControlled) {
       setIsChecked(nextChecked)
     }
-    onChange?.({
-      event: event as unknown as MouseEvent,
-      checked: nextChecked,
-    })
+    onCheckedChange?.({ event: event as Event, checked: nextChecked })
   }
 
-  const handleInputClick = (
-    event: preact.JSX.TargetedMouseEvent<HTMLInputElement>
-  ) => {
+  const handleInputClick = (event: preact.JSX.TargetedMouseEvent<HTMLInputElement>) => {
     event.stopPropagation()
   }
 
+  const handleKeyDown = (event: preact.JSX.TargetedKeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Escape' || event.key === 'Esc') {
+      event.currentTarget.blur()
+    }
+  }
+
   return (
-    <div
-      className={[_className, className, "no-drag"].join(" ").trim()}
-      {...rest}
-    >
+    <div id={id} className={[_className, className].join(' ').trim()} data-pui-interactive="true" {...rest}>
       <div className="Checkbox__input">
         <input
           className="Checkbox__input-native"
           type="checkbox"
-          ref={ref}
+          ref={(el) => {
+            inputElementRef.current = el
+            if (typeof ref === 'function') {
+              ref(el)
+            } else if (ref) {
+              // eslint-disable-next-line
+              ;(ref as preact.RefObject<HTMLInputElement | null>).current = el
+            }
+            if (el) {
+              el.indeterminate = Boolean(mixed)
+            }
+          }}
           checked={isChecked}
           disabled={disabled}
           onClick={handleInputClick}
           onChange={handleChange}
+          onKeyDown={handleKeyDown}
         />
         {isChecked && !mixed && (
           <div className="Checkbox__icon">
-            <Icon
-              glyph={checkGlyph}
-              intent={intent}
-              intentModifiers={intentModifiers}
-              interactive
-              size={16}
-            />
+            <Icon glyph={checkGlyph} intent={intent} intentModifier={intentModifier} size={16} />
           </div>
         )}
         {isChecked && mixed && (
           <div className="Checkbox__icon">
-            <Icon
-              glyph={mixedGlyph}
-              intent={intent}
-              intentModifiers={intentModifiers}
-              interactive
-              size={16}
-            />
+            <Icon glyph={mixedGlyph} intent={intent} intentModifier={intentModifier} size={16} />
           </div>
         )}
       </div>
@@ -127,6 +130,4 @@ const CheckboxComponent = (
   )
 }
 
-export const Checkbox = typedForwardRef<CheckboxProps, HTMLInputElement>(
-  CheckboxComponent
-)
+export const Checkbox = typedForwardRef<CheckboxProps, HTMLInputElement>(CheckboxComponent)

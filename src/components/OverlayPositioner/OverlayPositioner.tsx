@@ -1,18 +1,14 @@
-import { bem, typedForwardRef } from "../../utils"
-import { createPortal } from "preact/compat"
-import {
-  useEffect,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "preact/hooks"
-import "./OverlayPositioner.scss"
+import { createPortal } from 'preact/compat'
 
-import type { OverlayPositionerProps } from "./OverlayPositioner.types"
+import { bem, typedForwardRef } from '../../utils'
+
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'preact/hooks'
+
+import type { OverlayPositionerProps, OverlayPositionerPlacement } from './OverlayPositioner.types'
+import './OverlayPositioner.scss'
 
 type Coords = { top: number; left: number }
-type ArrowSide = "top" | "bottom" | "left" | "right"
+type ArrowSide = 'top' | 'bottom' | 'left' | 'right'
 type ArrowData = { left: number; top: number; side: ArrowSide }
 
 const computePlacement = (
@@ -21,267 +17,161 @@ const computePlacement = (
   rect: DOMRect,
   w: number,
   h: number,
-  placement: string,
-  placementFallback: false | string[] | undefined,
-  paddingX: number,
-  paddingY: number,
-  edgePadding: number,
-  arrowSize: number
-): { coords: Coords; arrow: ArrowData } => {
+  placement: OverlayPositionerPlacement,
+  placementFallback: OverlayPositionerPlacement[] | undefined,
+  offsetX: number,
+  offsetY: number,
+  offsetEdge: number,
+  arrowSize: number,
+): { coords: Coords; arrow: ArrowData; placement: string } => {
   const candidates: string[] = [placement]
   if (placementFallback && Array.isArray(placementFallback)) {
     for (const p of placementFallback) candidates.push(p)
   }
 
   const fits = (left: number, top: number) => {
-    return (
-      left >= edgePadding &&
-      top >= edgePadding &&
-      left + w <= vw - edgePadding &&
-      top + h <= vh - edgePadding
-    )
+    return left >= offsetEdge && top >= offsetEdge && left + w <= vw - offsetEdge && top + h <= vh - offsetEdge
   }
 
-  const clamp = (val: number, min: number, max: number) =>
-    Math.max(min, Math.min(max, Math.round(val)))
+  const clamp = (val: number, min: number, max: number) => Math.max(min, Math.min(max, Math.round(val)))
 
   const computeFor = (p: string): { coords: Coords; arrow: ArrowData } => {
     switch (p) {
-      case "over": {
+      case 'over': {
+        const left = Math.max(offsetEdge, Math.min(vw - w - offsetEdge, Math.round(rect.left + offsetX)))
+        const top = Math.max(offsetEdge, Math.min(vh - h - offsetEdge, Math.round(rect.top + offsetY)))
+        return {
+          coords: { left, top },
+          arrow: { left: 0, top: 0, side: 'top' },
+        }
+      }
+      case 'top': {
         const left = Math.max(
-          edgePadding,
-          Math.min(vw - w - edgePadding, Math.round(rect.left + paddingX))
+          offsetEdge,
+          Math.min(vw - w - offsetEdge, Math.round(rect.left + rect.width / 2 - w / 2 + offsetX)),
         )
-        const top = Math.max(
-          edgePadding,
-          Math.min(vh - h - edgePadding, Math.round(rect.top + paddingY))
-        )
+        const top = rect.top - h - offsetY
+        const arrowLeft = clamp(rect.left + rect.width / 2 - left, arrowSize, w - arrowSize)
         return {
           coords: { left, top },
-          arrow: { left: 0, top: 0, side: "top" },
+          arrow: { left: arrowLeft, top: h, side: 'top' },
         }
       }
-      case "top": {
+      case 'top-left': {
+        const left = Math.max(offsetEdge, Math.min(vw - w - offsetEdge, Math.round(rect.left + offsetX)))
+        const top = rect.top - h - offsetY
+        const arrowLeft = clamp(rect.left - left + rect.width / 2, arrowSize, w - arrowSize)
+        return {
+          coords: { left, top },
+          arrow: { left: arrowLeft, top: h, side: 'top' },
+        }
+      }
+      case 'top-right': {
+        const left = Math.max(offsetEdge, Math.min(vw - w - offsetEdge, Math.round(rect.right - w - offsetX)))
+        const top = rect.top - h - offsetY
+        const arrowLeft = clamp(rect.left - left + rect.width / 2, arrowSize, w - arrowSize)
+        return {
+          coords: { left, top },
+          arrow: { left: arrowLeft, top: h, side: 'top' },
+        }
+      }
+      case 'bottom': {
         const left = Math.max(
-          edgePadding,
-          Math.min(
-            vw - w - edgePadding,
-            Math.round(rect.left + rect.width / 2 - w / 2 + paddingX)
-          )
+          offsetEdge,
+          Math.min(vw - w - offsetEdge, Math.round(rect.left + rect.width / 2 - w / 2 + offsetX)),
         )
-        const top = rect.top - h - paddingY
-        const arrowLeft = clamp(
-          rect.left + rect.width / 2 - left,
-          arrowSize,
-          w - arrowSize
-        )
+        const top = rect.bottom + offsetY
+        const arrowLeft = clamp(rect.left - left + rect.width / 2, arrowSize, w - arrowSize)
         return {
           coords: { left, top },
-          arrow: { left: arrowLeft, top: h, side: "top" },
+          arrow: { left: arrowLeft, top: 0, side: 'bottom' },
         }
       }
-      case "top-left": {
-        const left = Math.max(
-          edgePadding,
-          Math.min(vw - w - edgePadding, Math.round(rect.left + paddingX))
-        )
-        const top = rect.top - h - paddingY
-        const arrowLeft = clamp(
-          rect.left - left + rect.width / 2,
-          arrowSize,
-          w - arrowSize
-        )
+      case 'bottom-left': {
+        const left = Math.max(offsetEdge, Math.min(vw - w - offsetEdge, Math.round(rect.left + offsetX)))
+        const top = rect.bottom + offsetY
+        const arrowLeft = clamp(rect.left - left + rect.width / 2, arrowSize, w - arrowSize)
         return {
           coords: { left, top },
-          arrow: { left: arrowLeft, top: h, side: "top" },
+          arrow: { left: arrowLeft, top: 0, side: 'bottom' },
         }
       }
-      case "top-right": {
-        const left = Math.max(
-          edgePadding,
-          Math.min(vw - w - edgePadding, Math.round(rect.right - w - paddingX))
-        )
-        const top = rect.top - h - paddingY
-        const arrowLeft = clamp(
-          rect.left - left + rect.width / 2,
-          arrowSize,
-          w - arrowSize
-        )
+      case 'bottom-right': {
+        const left = Math.max(offsetEdge, Math.min(vw - w - offsetEdge, Math.round(rect.right - w - offsetX)))
+        const top = rect.bottom + offsetY
+        const arrowLeft = clamp(rect.left - left + rect.width / 2, arrowSize, w - arrowSize)
         return {
           coords: { left, top },
-          arrow: { left: arrowLeft, top: h, side: "top" },
+          arrow: { left: arrowLeft, top: 0, side: 'bottom' },
         }
       }
-      case "bottom": {
-        const left = Math.max(
-          edgePadding,
-          Math.min(
-            vw - w - edgePadding,
-            Math.round(rect.left + rect.width / 2 - w / 2 + paddingX)
-          )
-        )
-        const top = rect.bottom + paddingY
-        const arrowLeft = clamp(
-          rect.left - left + rect.width / 2,
-          arrowSize,
-          w - arrowSize
-        )
-        return {
-          coords: { left, top },
-          arrow: { left: arrowLeft, top: 0, side: "bottom" },
-        }
-      }
-      case "bottom-left": {
-        const left = Math.max(
-          edgePadding,
-          Math.min(vw - w - edgePadding, Math.round(rect.left + paddingX))
-        )
-        const top = rect.bottom + paddingY
-        const arrowLeft = clamp(
-          rect.left - left + rect.width / 2,
-          arrowSize,
-          w - arrowSize
-        )
-        return {
-          coords: { left, top },
-          arrow: { left: arrowLeft, top: 0, side: "bottom" },
-        }
-      }
-      case "bottom-right": {
-        const left = Math.max(
-          edgePadding,
-          Math.min(vw - w - edgePadding, Math.round(rect.right - w - paddingX))
-        )
-        const top = rect.bottom + paddingY
-        const arrowLeft = clamp(
-          rect.left - left + rect.width / 2,
-          arrowSize,
-          w - arrowSize
-        )
-        return {
-          coords: { left, top },
-          arrow: { left: arrowLeft, top: 0, side: "bottom" },
-        }
-      }
-      case "left": {
-        const left = rect.left - w - paddingX
+      case 'left': {
+        const left = rect.left - w - offsetX
         const top = Math.max(
-          edgePadding,
-          Math.min(
-            vh - h - edgePadding,
-            Math.round(rect.top + rect.height / 2 - h / 2 + paddingY)
-          )
+          offsetEdge,
+          Math.min(vh - h - offsetEdge, Math.round(rect.top + rect.height / 2 - h / 2 + offsetY)),
         )
-        const arrowTop = clamp(
-          rect.top - top + rect.height / 2,
-          arrowSize,
-          h - arrowSize
-        )
+        const arrowTop = clamp(rect.top - top + rect.height / 2, arrowSize, h - arrowSize)
         return {
           coords: { left, top },
-          arrow: { left: w, top: arrowTop, side: "left" },
+          arrow: { left: w, top: arrowTop, side: 'left' },
         }
       }
-      case "left-top": {
-        const left = rect.left - w - paddingX
-        const top = Math.max(
-          edgePadding,
-          Math.min(vh - h - edgePadding, Math.round(rect.top + paddingY))
-        )
-        const arrowTop = clamp(
-          rect.top - top + rect.height / 2,
-          arrowSize,
-          h - arrowSize
-        )
+      case 'left-top': {
+        const left = rect.left - w - offsetX
+        const top = Math.max(offsetEdge, Math.min(vh - h - offsetEdge, Math.round(rect.top + offsetY)))
+        const arrowTop = clamp(rect.top - top + rect.height / 2, arrowSize, h - arrowSize)
         return {
           coords: { left, top },
-          arrow: { left: w, top: arrowTop, side: "left" },
+          arrow: { left: w, top: arrowTop, side: 'left' },
         }
       }
-      case "left-bottom": {
-        const left = rect.left - w - paddingX
-        const top = Math.max(
-          edgePadding,
-          Math.min(vh - h - edgePadding, Math.round(rect.bottom - h - paddingY))
-        )
-        const arrowTop = clamp(
-          rect.top - top + rect.height / 2,
-          arrowSize,
-          h - arrowSize
-        )
+      case 'left-bottom': {
+        const left = rect.left - w - offsetX
+        const top = Math.max(offsetEdge, Math.min(vh - h - offsetEdge, Math.round(rect.bottom - h - offsetY)))
+        const arrowTop = clamp(rect.top - top + rect.height / 2, arrowSize, h - arrowSize)
         return {
           coords: { left, top },
-          arrow: { left: w, top: arrowTop, side: "left" },
+          arrow: { left: w, top: arrowTop, side: 'left' },
         }
       }
-      case "right": {
-        const left = rect.right + paddingX
+      case 'right': {
+        const left = rect.right + offsetX
         const top = Math.max(
-          edgePadding,
-          Math.min(
-            vh - h - edgePadding,
-            Math.round(rect.top + rect.height / 2 - h / 2 + paddingY)
-          )
+          offsetEdge,
+          Math.min(vh - h - offsetEdge, Math.round(rect.top + rect.height / 2 - h / 2 + offsetY)),
         )
-        const arrowTop = clamp(
-          rect.top - top + rect.height / 2,
-          arrowSize,
-          h - arrowSize
-        )
+        const arrowTop = clamp(rect.top - top + rect.height / 2, arrowSize, h - arrowSize)
         return {
           coords: { left, top },
-          arrow: { left: 0, top: arrowTop, side: "right" },
+          arrow: { left: 0, top: arrowTop, side: 'right' },
         }
       }
-      case "right-top": {
-        const left = rect.right + paddingX
-        const top = Math.max(
-          edgePadding,
-          Math.min(vh - h - edgePadding, Math.round(rect.top + paddingY))
-        )
-        const arrowTop = clamp(
-          rect.top - top + rect.height / 2,
-          arrowSize / 2,
-          h - arrowSize
-        )
+      case 'right-top': {
+        const left = rect.right + offsetX
+        const top = Math.max(offsetEdge, Math.min(vh - h - offsetEdge, Math.round(rect.top + offsetY)))
+        const arrowTop = clamp(rect.top - top + rect.height / 2, arrowSize / 2, h - arrowSize)
         return {
           coords: { left, top },
-          arrow: { left: 0, top: arrowTop, side: "right" },
+          arrow: { left: 0, top: arrowTop, side: 'right' },
         }
       }
-      case "right-bottom": {
-        const left = rect.right + paddingX
-        const top = Math.max(
-          edgePadding,
-          Math.min(vh - h - edgePadding, Math.round(rect.bottom - h - paddingY))
-        )
-        const arrowTop = clamp(
-          rect.top - top + rect.height / 2,
-          arrowSize,
-          h - arrowSize
-        )
+      case 'right-bottom': {
+        const left = rect.right + offsetX
+        const top = Math.max(offsetEdge, Math.min(vh - h - offsetEdge, Math.round(rect.bottom - h - offsetY)))
+        const arrowTop = clamp(rect.top - top + rect.height / 2, arrowSize, h - arrowSize)
         return {
           coords: { left, top },
-          arrow: { left: 0, top: arrowTop, side: "right" },
+          arrow: { left: 0, top: arrowTop, side: 'right' },
         }
       }
       default: {
-        const left = Math.max(
-          edgePadding,
-          Math.min(
-            vw - w - edgePadding,
-            Math.round(rect.left + rect.width / 2 - w / 2)
-          )
-        )
-        const top = rect.bottom + paddingY
-        const arrowLeft = clamp(
-          rect.left - left + rect.width / 2,
-          arrowSize,
-          w - arrowSize
-        )
+        const left = Math.max(offsetEdge, Math.min(vw - w - offsetEdge, Math.round(rect.left + rect.width / 2 - w / 2)))
+        const top = rect.bottom + offsetY
+        const arrowLeft = clamp(rect.left - left + rect.width / 2, arrowSize, w - arrowSize)
         return {
           coords: { left, top },
-          arrow: { left: arrowLeft, top: h, side: "bottom" },
+          arrow: { left: arrowLeft, top: h, side: 'bottom' },
         }
       }
     }
@@ -290,71 +180,58 @@ const computePlacement = (
   for (const p of candidates) {
     const c = computeFor(p)
     if (!placementFallback || fits(c.coords.left, c.coords.top)) {
-      const left = Math.max(
-        edgePadding,
-        Math.min(vw - w - edgePadding, Math.round(c.coords.left))
-      )
-      const top = Math.max(
-        edgePadding,
-        Math.min(vh - h - edgePadding, Math.round(c.coords.top))
-      )
-      return { coords: { left, top }, arrow: c.arrow }
+      const left = Math.max(offsetEdge, Math.min(vw - w - offsetEdge, Math.round(c.coords.left)))
+      const top = Math.max(offsetEdge, Math.min(vh - h - offsetEdge, Math.round(c.coords.top)))
+      return { coords: { left, top }, arrow: c.arrow, placement: p }
     }
   }
 
   const first = computeFor(candidates[0])
   return {
     coords: {
-      left: Math.max(
-        edgePadding,
-        Math.min(vw - w - edgePadding, Math.round(first.coords.left))
-      ),
-      top: Math.max(
-        edgePadding,
-        Math.min(vh - h - edgePadding, Math.round(first.coords.top))
-      ),
+      left: Math.max(offsetEdge, Math.min(vw - w - offsetEdge, Math.round(first.coords.left))),
+      top: Math.max(offsetEdge, Math.min(vh - h - offsetEdge, Math.round(first.coords.top))),
     },
     arrow: first.arrow,
+    placement: candidates[0],
   }
 }
 
-const OverlayPositionerComponent = ({
-  className,
-  anchorRef,
-  placement = "bottom",
-  placementFallback,
-  paddingX = 0,
-  paddingY = 0,
-  edgePadding = 0,
-  trigger = "click",
-  visibilityDelay = 0,
-  draggable = false,
-  open,
-  defaultOpen = false,
-  closeOnOutsideClick = true,
-  arrow = false,
-  onOpen,
-  onClose,
-
-  children,
-}: OverlayPositionerProps) => {
+const OverlayPositionerComponent = (
+  {
+    id,
+    className,
+    anchorRef,
+    placement = 'bottom',
+    placementFallback,
+    offsetX = 0,
+    offsetY = 0,
+    offsetEdge = 0,
+    trigger = 'click',
+    draggable = false,
+    open,
+    defaultOpen = false,
+    closeOnClickOutside = true,
+    onOpen,
+    onClose,
+    children,
+  }: OverlayPositionerProps,
+  ref: preact.Ref<HTMLDivElement>,
+) => {
   const containerRef = useRef<HTMLDivElement | null>(null)
   const [coords, setCoords] = useState<Coords>({ top: 0, left: 0 })
   const [isReady, setIsReady] = useState<boolean>(false)
   const [arrowData, setArrowData] = useState<ArrowData | null>(null)
   const [manualPos, setManualPos] = useState<Coords | null>(null)
   const [internalOpen, setInternalOpen] = useState<boolean>(defaultOpen)
-  const isControlled = typeof open === "boolean"
+  const isControlled = typeof open === 'boolean'
   const isOpen = isControlled ? (open as boolean) : internalOpen
+  const [appliedPlacement, setAppliedPlacement] = useState<string>(placement)
   const rafRef = useRef<number | null>(null)
-  const hoverTimerRef = useRef<number | null>(null)
 
-  const resolvedPlacementFallback = useMemo<false | string[] | undefined>(
-    () =>
-      placementFallback && Array.isArray(placementFallback)
-        ? placementFallback
-        : false,
-    [placementFallback]
+  const resolvedPlacementFallback = useMemo<OverlayPositionerPlacement[] | undefined>(
+    () => (placementFallback && Array.isArray(placementFallback) ? placementFallback : undefined),
+    [placementFallback],
   )
 
   const recompute = useMemo(
@@ -377,31 +254,13 @@ const OverlayPositionerComponent = ({
       }
 
       // Compute coords and arrow using placement + fallback rules
-      const result = computePlacement(
-        vw,
-        vh,
-        rect,
-        w,
-        h,
-        placement,
-        resolvedPlacementFallback,
-        paddingX,
-        paddingY,
-        edgePadding,
-        8
-      )
+      const result = computePlacement(vw, vh, rect, w, h, placement, resolvedPlacementFallback, offsetX, offsetY, offsetEdge, 8)
       setCoords(result.coords)
       setArrowData(result.arrow)
+      setAppliedPlacement(result.placement)
       setIsReady(true)
     },
-    [
-      anchorRef,
-      placement,
-      paddingX,
-      paddingY,
-      edgePadding,
-      resolvedPlacementFallback,
-    ]
+    [anchorRef, placement, offsetX, offsetY, offsetEdge, resolvedPlacementFallback],
   )
 
   useLayoutEffect(() => {
@@ -420,8 +279,8 @@ const OverlayPositionerComponent = ({
     if (!isOpen) return
 
     const onWin = () => recompute()
-    window.addEventListener("resize", onWin)
-    window.addEventListener("scroll", onWin, true)
+    window.addEventListener('resize', onWin)
+    window.addEventListener('scroll', onWin, true)
 
     // Recompute when overlay content resizes (fonts, images, dynamic content)
     const el = containerRef.current
@@ -436,8 +295,8 @@ const OverlayPositionerComponent = ({
     }
 
     return () => {
-      window.removeEventListener("resize", onWin)
-      window.removeEventListener("scroll", onWin, true)
+      window.removeEventListener('resize', onWin)
+      window.removeEventListener('scroll', onWin, true)
       if (ro) ro.disconnect()
       if (rafRef.current != null) {
         cancelAnimationFrame(rafRef.current)
@@ -453,33 +312,53 @@ const OverlayPositionerComponent = ({
       onOpen?.()
     } else if (!isOpen && wasOpenRef.current) {
       wasOpenRef.current = false
+      if (isControlled) return
       onClose?.()
     }
-  }, [isOpen, onOpen, onClose])
+  }, [isControlled, isOpen, onClose, onOpen])
 
   useEffect(() => {
-    if (!isOpen || !closeOnOutsideClick) return
+    if (!isOpen || !closeOnClickOutside) return
 
     const handler = (e: MouseEvent) => {
       const target = e.target as Node | null
       const overlay = containerRef.current
       const anchorEl = anchorRef.current as HTMLElement | null
       if (!overlay || !target || !anchorEl) return
+
+      // Manually blur focused text inputs when clicking anywhere outside of them,
+      // even if the click is inside the overlay or on the anchor. This avoids
+      // preventDefault() on draggable/popover triggers from keeping inputs focused.
+      const activeEl = document.activeElement as HTMLElement | null
+      if (activeEl && activeEl !== target) {
+        const clickedInsideActive = activeEl.contains(target) || activeEl === (target as HTMLElement)
+        const isTextLikeInput = activeEl.tagName === 'INPUT' || activeEl.tagName === 'TEXTAREA' || activeEl.isContentEditable
+
+        if (!clickedInsideActive && isTextLikeInput) {
+          activeEl.blur()
+        }
+      }
+
       const insideOverlay = overlay.contains(target)
       const insideAnchor = anchorEl.contains(target as Node)
-      const insideAnyOverlay = (target as HTMLElement | null)?.closest
-        ? Boolean((target as HTMLElement).closest(".OverlayPositioner"))
-        : false
-      if (!insideOverlay && !insideAnchor && !insideAnyOverlay) {
-        if (isControlled) onClose?.()
-        else setInternalOpen(false)
-      }
+
+      if (insideOverlay || insideAnchor) return
+
+      // If the click landed inside another OverlayPositioner, only stay open
+      // when that overlay is a descendant (its anchor lives inside our
+      // container).  Clicks inside an ancestor overlay that contains our
+      // anchor should still close us.
+      const clickedOverlay = (target as HTMLElement)?.closest ? (target as HTMLElement).closest('.OverlayPositioner') : null
+      if (clickedOverlay && !clickedOverlay.contains(anchorEl)) return
+
+      if (isControlled) onClose?.()
+      else setInternalOpen(false)
     }
 
-    window.addEventListener("mousedown", handler, true)
+    window.addEventListener('mousedown', handler, true)
 
-    return () => window.removeEventListener("mousedown", handler, true)
-  }, [isOpen, closeOnOutsideClick, anchorRef, isControlled, onClose])
+    return () => window.removeEventListener('mousedown', handler, true)
+  }, [isOpen, closeOnClickOutside, anchorRef, isControlled, onClose])
 
   useEffect(() => {
     if (isControlled) return
@@ -487,111 +366,94 @@ const OverlayPositionerComponent = ({
     const anchorEl = anchorRef.current as HTMLElement | null
     if (!anchorEl) return
 
-    if (trigger === "click") {
+    if (trigger === 'click') {
       const onClick = (e: MouseEvent) => {
         e.preventDefault()
         setInternalOpen((v) => !v)
       }
 
-      anchorEl.addEventListener("click", onClick)
+      anchorEl.addEventListener('click', onClick)
 
-      return () => anchorEl.removeEventListener("click", onClick)
+      return () => anchorEl.removeEventListener('click', onClick)
     }
 
-    if (trigger === "hover") {
-      const clearHoverTimer = () => {
-        if (hoverTimerRef.current != null) {
-          clearTimeout(hoverTimerRef.current)
-          hoverTimerRef.current = null
-        }
-      }
+    if (trigger === 'hover') {
       const onEnterAnchor = () => {
-        clearHoverTimer()
-        const delay = Math.max(0, visibilityDelay)
-        if (delay === 0) {
-          setInternalOpen(true)
-        } else {
-          hoverTimerRef.current = window.setTimeout(() => {
-            hoverTimerRef.current = null
-            setInternalOpen(true)
-          }, delay)
-        }
+        setInternalOpen(true)
       }
       const onLeaveAnchor = () => {
-        // Hide immediately and cancel any pending show
-        clearHoverTimer()
         setInternalOpen(false)
       }
 
-      anchorEl.addEventListener("mouseenter", onEnterAnchor)
-      anchorEl.addEventListener("mouseleave", onLeaveAnchor)
+      anchorEl.addEventListener('mouseenter', onEnterAnchor)
+      anchorEl.addEventListener('mouseleave', onLeaveAnchor)
 
       return () => {
-        anchorEl.removeEventListener("mouseenter", onEnterAnchor)
-        anchorEl.removeEventListener("mouseleave", onLeaveAnchor)
-        clearHoverTimer()
+        anchorEl.removeEventListener('mouseenter', onEnterAnchor)
+        anchorEl.removeEventListener('mouseleave', onLeaveAnchor)
       }
     }
-  }, [isControlled, trigger, anchorRef, visibilityDelay])
+  }, [isControlled, trigger, anchorRef])
 
   const effectiveTop = (manualPos ? manualPos.top : coords.top) || 0
   const effectiveLeft = (manualPos ? manualPos.left : coords.left) || 0
 
-  const style: preact.JSX.CSSProperties = {
-    top: `${effectiveTop}px`,
-    left: `${effectiveLeft}px`,
-    visibility: isReady ? "visible" : "hidden",
-    pointerEvents: isReady ? undefined : "none",
+  type OverlayPositionerStyle = preact.JSX.CSSProperties & {
+    '--overlay-arrow-left'?: string
+    '--overlay-arrow-top'?: string
+    '--overlay-available-height'?: string
   }
 
-  const _className = bem("OverlayPositioner", undefined, {
-    placement,
+  const style: OverlayPositionerStyle = {
+    top: `${effectiveTop}px`,
+    left: `${effectiveLeft}px`,
+    visibility: isReady ? 'visible' : 'hidden',
+    pointerEvents: isReady ? undefined : 'none',
+  }
+
+  // Expose computed arrow coordinates via CSS variables so that
+  // popover / tooltip containers can position their arrow elements
+  // relative to the overlay content without needing direct access
+  // to layout calculations.
+  if (arrowData) {
+    style['--overlay-arrow-left'] = `${arrowData.left}px`
+    style['--overlay-arrow-top'] = `${arrowData.top}px`
+  }
+
+  const availableHeight =
+    typeof window !== 'undefined' ? Math.max(window.innerHeight - effectiveTop - offsetEdge, 100) : undefined
+  if (availableHeight != null) {
+    style['--overlay-available-height'] = `${availableHeight}px`
+  }
+
+  const _className = bem('OverlayPositioner', undefined, {
+    placement: appliedPlacement,
   })
 
   if (!isOpen) return null
-
-  const arrowComponent = (() => {
-    if (placement === "over") return null
-
-    if (!arrow || !isReady || !arrowData) return null
-    const styleArrow: preact.JSX.CSSProperties = {
-      position: "absolute",
-      left: `${arrowData.left}px`,
-      top: `${arrowData.top}px`,
-    }
-    return <div className="OverlayPositioner__arrow" style={styleArrow}></div>
-  })()
 
   const isInteractiveElement = (node: HTMLElement | null): boolean => {
     if (!node) return false
     const container = containerRef.current
     let el: HTMLElement | null = node
     const interactiveSelector = [
-      "button",
-      "input",
-      "select",
-      "textarea",
-      "a[href]",
-      "canvas",
-      "video",
-      "audio",
-      ".no-drag",
-    ].join(",")
-    if (
-      (node as HTMLElement).closest &&
-      (node as HTMLElement).closest(interactiveSelector)
-    ) {
+      'button',
+      'input',
+      'select',
+      'textarea',
+      'a[href]',
+      'canvas',
+      'video',
+      'audio',
+      "[data-pui-interactive='true']",
+    ].join(',')
+    if ((node as HTMLElement).closest && (node as HTMLElement).closest(interactiveSelector)) {
       return true
     }
     // Walk up until container to detect tabbable ancestors
     while (el && container && el !== container) {
-      const ti = el.getAttribute && el.getAttribute("tabindex")
-      if (
-        ti != null &&
-        ti !== "" &&
-        !Number.isNaN(Number(ti)) &&
-        Number(ti) >= 0
-      ) {
+      const ti = el.getAttribute && el.getAttribute('tabindex')
+      if (ti != null && ti !== '' && !Number.isNaN(Number(ti)) && Number(ti) >= 0) {
         return true
       }
       el = el.parentElement
@@ -615,21 +477,30 @@ const OverlayPositionerComponent = ({
       setManualPos({ left: startLeft + dx, top: startTop + dy })
     }
     const onUp = () => {
-      window.removeEventListener("mousemove", onMove)
-      window.removeEventListener("mouseup", onUp)
+      window.removeEventListener('mousemove', onMove)
+      window.removeEventListener('mouseup', onUp)
     }
-    window.addEventListener("mousemove", onMove)
-    window.addEventListener("mouseup", onUp)
+    window.addEventListener('mousemove', onMove)
+    window.addEventListener('mouseup', onUp)
   }
 
   const content = (
     <div
-      className={[_className, className].join(" ").trim()}
-      ref={containerRef}
+      id={id}
+      className={[_className, className].join(' ').trim()}
+      ref={(node) => {
+        containerRef.current = node
+        if (typeof ref === 'function') {
+          ref(node)
+        } else if (ref) {
+          // eslint-disable-next-line
+          ;(ref as preact.RefObject<HTMLDivElement | null>).current = node
+        }
+      }}
       style={style}
+      data-arrow-side={arrowData?.side}
       onMouseDown={(e) => handleMouseDown(e as unknown as MouseEvent)}
     >
-      {arrowComponent}
       {children}
     </div>
   )
@@ -637,7 +508,4 @@ const OverlayPositionerComponent = ({
   return createPortal(content, document.body)
 }
 
-export const OverlayPositioner = typedForwardRef<
-  OverlayPositionerProps,
-  HTMLDivElement
->(OverlayPositionerComponent)
+export const OverlayPositioner = typedForwardRef<OverlayPositionerProps, HTMLDivElement>(OverlayPositionerComponent)

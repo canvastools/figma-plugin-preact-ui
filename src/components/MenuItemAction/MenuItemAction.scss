@@ -1,0 +1,51 @@
+@use '../../shared.scss' as *;
+
+.MenuItemAction {
+  padding: 0 var(--pui-spacing-200);
+
+  &__content {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: var(--pui-spacing-200);
+    padding: var(--pui-spacing-100) var(--pui-spacing-200);
+    border-radius: var(--pui-radius-medium);
+  }
+
+  &_intentModifier-default:not(&_focused) &__content:hover {
+    background-color: var(--pui-color-brand-bg-default);
+  }
+
+  &_intentModifier-danger:not(&_focused) &__content:hover {
+    background-color: var(--pui-color-danger-bg-default);
+  }
+
+  .MenuContainer_keyboard-interaction &_intentModifier-default:not(&_focused) &__content:hover,
+  .MenuContainer_keyboard-interaction &_intentModifier-danger:not(&_focused) &__content:hover {
+    background-color: transparent;
+  }
+
+  &_intentModifier-default:is(&_focused) &__content {
+    background-color: var(--pui-color-brand-bg-default);
+  }
+
+  &_intentModifier-danger:is(&_focused) &__content {
+    background-color: var(--pui-color-danger-bg-default);
+  }
+
+  &:focus {
+    outline: none;
+    border: none;
+  }
+
+  &_disabled &__content:hover {
+    background-color: transparent !important;
+  }
+
+  &__children {
+    width: 100%;
+  }
+
+  &_paddingLikeOption &__content {
+    padding-left: calc(var(--pui-spacing-100) + var(--pui-spacing-400) + 6px);
+  }
+}

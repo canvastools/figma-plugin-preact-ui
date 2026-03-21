@@ -1,10 +1,10 @@
-import dts from "rollup-plugin-dts"
+import dts from 'rollup-plugin-dts'
 
 export default {
-  input: "dist/tmp-types/index.d.ts",
+  input: 'dist/tmp-types/index.d.ts',
   output: {
-    file: "dist/index.d.ts",
-    format: "es",
+    file: 'dist/index.d.ts',
+    format: 'es',
   },
   plugins: [dts()],
   external: [/\.scss$/, /\.stories\.tsx$/],

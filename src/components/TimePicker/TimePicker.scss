@@ -1,0 +1,145 @@
+@use '../../shared.scss' as *;
+@use '../../mixins.scss' as *;
+
+.TimePicker {
+  position: relative;
+  display: flex;
+  width: 100%;
+
+  &__label {
+    flex-shrink: 0;
+    flex-grow: 1;
+  }
+
+  &_variant-default {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--pui-spacing-100);
+  }
+
+  &_variant-default &__label {
+    @include typography-body-small;
+  }
+
+  &_variant-list {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--pui-spacing-400);
+  }
+
+  &__container {
+    display: flex;
+    width: 100%;
+  }
+
+  & .react-time-picker {
+    width: 100%;
+  }
+
+  & .react-time-picker__wrapper {
+    width: 100%;
+  }
+
+  & .react-time-picker__inputGroup {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    height: 24px;
+    width: 100%;
+    border-radius: var(--pui-radius-medium);
+    outline-width: 1px;
+    outline-style: solid;
+    outline-color: transparent;
+    outline-offset: -1px;
+    background-color: var(--pui-color-neutral-bg-secondary);
+    padding: 0 var(--pui-spacing-200);
+
+    &:hover {
+      outline-color: var(--pui-color-neutral-border-default-hover);
+    }
+
+    &:focus-within {
+      outline-color: var(--pui-color-neutral-border-default-selected) !important;
+    }
+  }
+
+  & .react-time-picker__inputGroup__input {
+    align-self: stretch;
+    cursor: default;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    padding: 0;
+
+    color: var(--pui-color-neutral-text-default);
+    @include typography-styles-default;
+    @include typography-body-medium;
+
+    &::placeholder {
+      color: var(--pui-color-neutral-text-placeholder);
+    }
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
+
+  &:has(&_filled) .react-time-picker__inputGroup__hour {
+    width: 16px !important;
+  }
+
+  &:has(&_filled) .react-time-picker__inputGroup__minute {
+    width: 20px !important;
+  }
+
+  & .react-time-picker__inputGroup__leadingZero,
+  & .react-time-picker__inputGroup__divider {
+    @include typography-styles-default;
+    @include typography-body-medium;
+  }
+
+  & .react-time-picker__inputGroup__leadingZero {
+    color: var(--pui-color-neutral-text-default);
+  }
+
+  & .react-time-picker__inputGroup__divider {
+    margin: 0 var(--pui-spacing-100);
+    color: var(--pui-color-neutral-text-secondary);
+  }
+
+  &_disabled {
+    & .react-time-picker__inputGroup {
+      background-color: transparent !important;
+      outline-width: 1px;
+      outline-style: solid;
+      outline-color: var(--pui-color-neutral-border-disabled);
+    }
+
+    & .react-time-picker__inputGroup__input,
+    & .react-time-picker__inputGroup__divider,
+    & .react-time-picker__inputGroup__leadingZero,
+    & .react-time-picker__inputGroup__input::placeholder {
+      color: var(--pui-color-neutral-text-disabled);
+    }
+
+    & .TimePicker__label {
+      color: var(--pui-color-neutral-text-disabled);
+    }
+  }
+
+  &_groupedPosition-first .react-time-picker__inputGroup {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  &_groupedPosition-last .react-time-picker__inputGroup {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  &_groupedPosition-middle .react-time-picker__inputGroup {
+    border-radius: 0;
+  }
+}

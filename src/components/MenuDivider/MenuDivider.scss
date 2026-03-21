@@ -1,8 +1,6 @@
-@use "../../shared.scss" as *;
+@use '../../shared.scss' as *;
 
 .MenuDivider {
-  $parent: &;
-
   flex-shrink: 0;
   height: 1px;
   width: 100%;

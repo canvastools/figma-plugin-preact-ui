@@ -1,46 +1,29 @@
-import { typedForwardRef } from "../../utils"
-import { useState, useEffect } from "preact/hooks"
-import { cloneElement, toChildArray } from "preact"
-import type { VNode } from "preact"
+import { useState, useEffect } from 'preact/hooks'
 
-import type { ButtonIconToggleProps } from "./ButtonIconToggle.types"
-import "./ButtonIconToggle.scss"
+import { typedForwardRef } from '../../utils'
 
-import { ButtonIcon } from "../../index"
-import { Icon } from "../../index"
+import type { ButtonIconToggleProps } from './ButtonIconToggle.types'
+
+import { ButtonIcon } from '../../index'
 
 /* --- */
 
 const ButtonIconToggleComponent = (
-  {
-    className,
-    intent = "neutral",
-    intentModifiers = "default",
-    ghost = false,
-    disabled = false,
-    children,
-    defaultSelected = false,
-    selected: controlledSelected,
-    onChange,
-    ...rest
-  }: ButtonIconToggleProps,
-  ref: preact.Ref<HTMLButtonElement>
+  { selected: controlledSelected, defaultSelected = false, onSelectedChange, ...rest }: ButtonIconToggleProps,
+  ref: preact.Ref<HTMLButtonElement>,
 ) => {
   const [internalSelected, setInternalSelected] = useState(defaultSelected)
 
-  const isSelected =
-    controlledSelected !== undefined ? controlledSelected : internalSelected
+  const isSelected = controlledSelected !== undefined ? controlledSelected : internalSelected
 
   const handleClick = (e: { event: MouseEvent }) => {
-    if (!disabled) {
-      const newSelected = !isSelected
+    const newSelected = !isSelected
 
-      if (controlledSelected === undefined) {
-        setInternalSelected(newSelected)
-      }
-      e.event.stopPropagation()
-      onChange?.({ event: e.event, selected: newSelected })
+    if (controlledSelected === undefined) {
+      setInternalSelected(newSelected)
     }
+    e.event.stopPropagation()
+    onSelectedChange?.({ event: e.event, selected: newSelected })
   }
 
   useEffect(() => {
@@ -49,37 +32,7 @@ const ButtonIconToggleComponent = (
     }
   }, [controlledSelected])
 
-  return (
-    <ButtonIcon
-      className={[isSelected ? "ButtonIcon_selected" : "", className, "no-drag"]
-        .join(" ")
-        .trim()}
-      ref={ref}
-      intent={intent}
-      intentModifiers={intentModifiers}
-      ghost={ghost}
-      disabled={disabled}
-      {...rest}
-      onClick={handleClick}
-    >
-      {toChildArray(children).map((child) => {
-        if (typeof child === "object" && child !== null) {
-          const maybeVNode = child as VNode
-          if (maybeVNode.type === Icon) {
-            return cloneElement(maybeVNode, {
-              ...maybeVNode.props,
-              selected: isSelected,
-              interactive: true,
-            })
-          }
-        }
-        return child
-      })}
-    </ButtonIcon>
-  )
+  return <ButtonIcon ref={ref} {...rest} selected={isSelected} onClick={handleClick} />
 }
 
-export const ButtonIconToggle = typedForwardRef<
-  ButtonIconToggleProps,
-  HTMLButtonElement
->(ButtonIconToggleComponent)
+export const ButtonIconToggle = typedForwardRef<ButtonIconToggleProps, HTMLButtonElement>(ButtonIconToggleComponent)

@@ -1,60 +1,87 @@
-import { Meta, StoryObj } from "@storybook/preact"
-import { fn } from "@storybook/test"
-import { useState } from "preact/hooks"
+import { Meta, StoryObj } from '@storybook/preact'
+import { fn } from '@storybook/test'
 
-import { SegmentedControl } from "./SegmentedControl"
+import { UncontrolledStory } from './stories/Uncontrolled.story'
+import { ControlledStory } from './stories/Controlled.story'
+import { DisabledStory } from './stories/Disabled.story'
+import { IconsStory } from './stories/Icons.story'
 
-import { Stack } from "../../index"
-import { Text } from "../../index"
-import { viewList as viewListGlyph } from "../../index"
-import { viewGrid as viewGridGlyph } from "../../index"
+import { SegmentedControl } from './SegmentedControl'
+import type { SegmentedControlOptionData } from './SegmentedControl.types'
 
 const meta: Meta<typeof SegmentedControl> = {
-  title: "Components/SegmentedControl",
+  title: 'Components/SegmentedControl',
   component: SegmentedControl,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
-    className: { control: { type: "text" } },
-    options: {
-      control: { disable: true },
+    id: {
+      control: { type: 'text' },
       table: {
         type: {
-          summary: "SegmentedControlOption[]",
+          summary: 'string',
         },
       },
-      description: `Array of items to manage. 
-      <pre>interface SegmentedControlOption {
-  value: string
-  title: string
-  icon?: Glyph | preact.ComponentChildren
-}</pre>
-      `,
+    },
+    className: {
+      control: { type: 'text' },
+    },
+    options: {
+      control: { disable: true },
+      description: '<strong>*</strong>Array of options to render in the control.',
+      table: {
+        type: {
+          summary: 'SegmentedControlOptionData[]',
+          detail: `
+{
+  value: string // required
+  label: string // required
+  icon: IconPropsPick 
+}
+
+// Types
+
+type IconPropsPick = {
+  glyph: Glyph
+  variant: "default" | "upscaled"
+  size: 16 | 24
+}
+
+          `,
+        },
+      },
     },
     value: {
       control: { disable: true },
-      description: "Value for the controlled mode.",
-      table: { type: { summary: "string" } },
+      description: 'Value for controlled state.',
+      table: {
+        type: {
+          summary: 'string',
+        },
+      },
     },
     defaultValue: {
-      control: { disable: true },
-      description: "Default value for the uncontrolled mode.",
-      table: { type: { summary: "string" } },
+      control: { type: 'text' },
+      description: 'Value for uncontrolled state.',
+      table: { type: { summary: 'string' } },
     },
     disabled: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       defaultValue: { summary: false },
     },
     fullWidth: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       defaultValue: { summary: false },
     },
-    onChange: {
-      action: "onChange",
-      description: "Callback when the value is changed.",
+    onValueChange: {
       table: {
         type: {
-          summary:
-            "(args: { event: MouseEvent | KeyboardEvent, value: string }) => void",
+          summary: '(args) => void',
+          detail: `
+args: {
+  event: MouseEvent | KeyboardEvent
+  value: string
+}
+          `,
         },
       },
     },
@@ -62,161 +89,62 @@ const meta: Meta<typeof SegmentedControl> = {
 }
 
 export default meta
+
 type Story = StoryObj<typeof SegmentedControl>
 
-const sampleOptions = [
+export const Demo: Story = {
+  tags: ['!autodocs'],
+  args: {
+    id: undefined,
+    className: '',
+    defaultValue: 'list',
+    disabled: false,
+    fullWidth: false,
+    onValueChange: fn(),
+  },
+  parameters: {
+    viewport: {
+      defaultViewport: 'large',
+    },
+    docs: {
+      source: {
+        code: `
+const options = [
   {
     value: "list",
-    title: "List view",
-    icon: viewListGlyph,
+    label: "List view",
   },
   {
     value: "grid",
-    title: "Grid view",
-    icon: viewGridGlyph,
+    label: "Grid view",
   },
 ]
 
-export const Demo: Story = {
-  tags: ["!autodocs"],
-  args: {
-    className: "",
-    defaultValue: "list",
-    disabled: false,
-    fullWidth: false,
-    onChange: fn(),
-  },
-  parameters: {
-    viewport: {
-      defaultViewport: "large",
+<SegmentedControl options={options} {...args} />`,
+      },
     },
   },
-  render: (args) => (
-    <div className="sb-column">
-      <SegmentedControl
-        options={sampleOptions.map((option) => ({
-          ...option,
-          icon: undefined,
-        }))}
-        {...args}
-      />
-    </div>
-  ),
-}
+  render: (args) => {
+    const sampleOptionsWithoutIcons: SegmentedControlOptionData[] = [
+      {
+        value: 'list',
+        label: 'List view',
+      },
+      {
+        value: 'grid',
+        label: 'Grid view',
+      },
+    ]
 
-export const WithIcons: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => (
-    <div className="sb-column sb-width-300">
-      <SegmentedControl options={sampleOptions} defaultValue="list" />
-    </div>
-  ),
-}
-
-export const Uncontrolled: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => (
-    <div className="sb-column sb-width-300">
-      <SegmentedControl
-        options={sampleOptions.map((option) => ({
-          ...option,
-          icon: undefined,
-        }))}
-        defaultValue="list"
-      />
-    </div>
-  ),
-}
-
-export const Controlled: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => {
-    const [value, setValue] = useState("list")
     return (
-      <div className="sb-column sb-width-300">
-        <Stack spacing={400} fullWidth>
-          <Text>Value: {value}</Text>
-          <SegmentedControl
-            value={value}
-            options={sampleOptions.map((option) => ({
-              ...option,
-              icon: undefined,
-            }))}
-            onChange={(e) => setValue(e.value)}
-          />
-        </Stack>
+      <div className="sb-column">
+        <SegmentedControl options={sampleOptionsWithoutIcons} {...args} />
       </div>
     )
   },
 }
 
-export const FullWidth: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => (
-    <div className="sb-column sb-width-full">
-      <Stack spacing={400} fullWidth>
-        <SegmentedControl
-          options={sampleOptions}
-          defaultValue="list"
-          fullWidth
-        />
-        <SegmentedControl
-          options={sampleOptions.map((option) => ({
-            ...option,
-            icon: undefined,
-          }))}
-          defaultValue="list"
-          fullWidth
-        />
-      </Stack>
-    </div>
-  ),
-}
-
-export const Disabled: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => (
-    <div className="sb-column sb-width-300">
-      <Stack spacing={400}>
-        <SegmentedControl
-          options={sampleOptions}
-          defaultValue="list"
-          disabled
-        />
-        <SegmentedControl
-          options={sampleOptions.map((option) => ({
-            ...option,
-            icon: undefined,
-          }))}
-          defaultValue="list"
-          disabled
-        />
-      </Stack>
-    </div>
-  ),
-}
+export const Uncontrolled = UncontrolledStory
+export const Controlled = ControlledStory
+export const Disabled = DisabledStory
+export const Icons = IconsStory

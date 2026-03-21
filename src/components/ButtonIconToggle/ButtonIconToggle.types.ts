@@ -1,7 +1,7 @@
-import type { ButtonIconProps } from "../ButtonIcon/ButtonIcon.types"
+import type { ButtonIconProps } from '../../index'
 
 export interface ButtonIconToggleProps extends ButtonIconProps {
-  defaultSelected?: boolean
   selected?: boolean
-  onChange?: (args: { event: MouseEvent; selected: boolean }) => void
+  defaultSelected?: boolean
+  onSelectedChange?: (args: { event: MouseEvent; selected: boolean }) => void
 }

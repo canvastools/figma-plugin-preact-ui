@@ -1,28 +1,52 @@
-import { Meta, StoryObj } from "@storybook/preact"
+import { Meta, StoryObj } from '@storybook/preact'
 
-import { Spinner } from "./Spinner"
+import { Spinner } from './Spinner'
 
 const meta: Meta<typeof Spinner> = {
-  title: "Components/Spinner",
+  title: 'Components/Spinner',
   component: Spinner,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
+    id: {
+      control: { type: 'text' },
+      table: {
+        type: {
+          summary: 'string',
+        },
+      },
+    },
     className: {
-      control: { type: "text" },
+      control: { type: 'text' },
+    },
+    size: {
+      control: { type: 'radio' },
+      options: ['small', 'medium'],
+      defaultValue: 'medium',
     },
   },
 }
 
 export default meta
+
 type Story = StoryObj<typeof Spinner>
 
 export const Demo: Story = {
   args: {
-    className: "",
+    id: undefined,
+    className: '',
+    size: 'medium',
   },
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
+    },
+    docs: {
+      source: {
+        language: 'tsx',
+        code: `
+<Spinner {...args} />
+`,
+      },
     },
   },
   render: (args) => (

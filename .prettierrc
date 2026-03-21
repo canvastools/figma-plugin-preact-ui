@@ -1,11 +1,18 @@
 {
-  "prettier.bracketSameLine": true,
-  "prettier.bracketSpacing": true,
-  "prettier.printWidth": 128,
-  "prettier.singleQuote": true,
-  "prettier.tabWidth": 2,
-  "prettier.trailingComma": "none",
-  "prettier.useTabs": true,
-  "semi": false
+  "bracketSameLine": false,
+  "bracketSpacing": true,
+  "printWidth": 128,
+  "singleQuote": true,
+  "tabWidth": 2,
+  "trailingComma": "all",
+  "useTabs": false,
+  "semi": false,
+  "overrides": [
+    {
+      "files": "*.scss",
+      "options": {
+        "printWidth": 256
+      }
+    }
+  ]
 }
-

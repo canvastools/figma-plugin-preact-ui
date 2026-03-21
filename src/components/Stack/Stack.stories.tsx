@@ -1,78 +1,77 @@
-import { Meta, StoryObj } from "@storybook/preact"
+import { Meta, StoryObj } from '@storybook/preact'
 
-import { spacing } from "../../themes"
+import { spacing } from '../../themes'
 
-import { Stack } from "./Stack"
+import { Stack } from './Stack'
 
-import { Section } from "../../index"
-import { Avatar } from "../../index"
+import { Avatar } from '../../index'
 
 const meta: Meta<typeof Stack> = {
-  title: "Layout/Stack",
+  title: 'Layout/Stack',
   component: Stack,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
-        component: "A wrapper component that aligns components inside.",
+        component: 'A wrapper component that aligns components inside.',
       },
     },
   },
   argTypes: {
-    className: {
-      control: { type: "text" },
-    },
-    direction: {
-      control: {
-        type: "radio",
-      },
-      options: ["row", "row-reverse", "column", "column-reverse"],
-      defaultValue: { summary: "column" },
-    },
-    spacing: {
-      control: {
-        type: "radio",
-      },
-      options: [...Object.keys(spacing.variables).map(Number)],
-    },
-    x: {
-      control: {
-        type: "radio",
-      },
-      options: ["start", "center", "end"],
-      defaultValue: { summary: "start" },
-      description: "Horizontal alignment of the children.",
-    },
-    y: {
-      control: {
-        type: "radio",
-      },
-      options: ["start", "center", "end"],
-      defaultValue: { summary: "start" },
-      description: "Horizontal alignment of the children.",
-    },
-    fullHeight: {
-      control: { type: "boolean" },
-      defaultValue: { summary: false },
-      description:
-        "Set the height to 100% to occupy the entire height in flex containers. May requires &lt;ScrollContainer/&gt; to be used as it uses `overflow: hidden`.",
-    },
-    fullWidth: {
-      control: { type: "boolean" },
-      defaultValue: { summary: false },
-      description:
-        "Set the width to 100% to occupy the entire width in container.",
+    id: {
+      control: { type: 'text' },
       table: {
         type: {
-          summary: "boolean",
+          summary: 'string',
         },
       },
     },
+    className: {
+      control: { type: 'text' },
+    },
+    direction: {
+      control: {
+        type: 'radio',
+      },
+      options: ['row', 'row-reverse', 'column', 'column-reverse'],
+      defaultValue: { summary: 'column' },
+    },
+    spacing: {
+      control: {
+        type: 'radio',
+      },
+      options: [undefined, ...Object.keys(spacing.variables).map(Number)],
+    },
+    x: {
+      control: {
+        type: 'radio',
+      },
+      options: ['start', 'center', 'end'],
+      defaultValue: { summary: 'start' },
+      description: 'Horizontal alignment of the children.',
+    },
+    y: {
+      control: {
+        type: 'radio',
+      },
+      options: ['start', 'center', 'end'],
+      defaultValue: { summary: 'start' },
+      description: 'Vertical alignment of the children.',
+    },
+    fullHeight: {
+      control: { type: 'boolean' },
+      defaultValue: { summary: false },
+    },
+    fullWidth: {
+      control: { type: 'boolean' },
+      defaultValue: { summary: false },
+    },
     children: {
       control: { disable: true },
+      description: '<strong>*</strong>',
       table: {
         type: {
-          summary: "JSX.Element",
+          summary: 'preact.ComponentChildren',
         },
       },
     },
@@ -84,27 +83,33 @@ type Story = StoryObj<typeof Stack>
 
 export const Demo: Story = {
   args: {
-    className: "sb-container",
+    id: undefined,
+    className: 'sb-container',
+    direction: 'column',
     spacing: 400,
-    direction: "column",
-    x: "start",
-    y: "start",
+    x: 'start',
+    y: 'start',
     fullHeight: false,
   },
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
+    },
+    docs: {
+      source: {
+        language: 'tsx',
+        code: `
+<Stack {...args}>{children}</Stack>`,
+      },
     },
   },
   render: (args) => (
-    <div className="sb-column sb-height-300">
-      <Section>
-        <Stack {...args}>
-          <Avatar>A</Avatar>
-          <Avatar>B</Avatar>
-          <Avatar>C</Avatar>
-        </Stack>
-      </Section>
+    <div className="sb-column sb-width-full sb-height-300">
+      <Stack {...args}>
+        <Avatar>A</Avatar>
+        <Avatar>B</Avatar>
+        <Avatar>C</Avatar>
+      </Stack>
     </div>
   ),
 }

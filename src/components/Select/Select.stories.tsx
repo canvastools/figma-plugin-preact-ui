@@ -1,328 +1,191 @@
-import { Meta, StoryObj } from "@storybook/preact"
-import { fn } from "@storybook/test"
-import { useState } from "preact/hooks"
+import { Meta, StoryObj } from '@storybook/preact'
+import { fn } from '@storybook/test'
 
-import { Select } from "./Select"
+import { UncontrolledStory } from './stories/Uncontrolled.story'
+import { ControlledStory } from './stories/Controlled.story'
+import { PlaceholderStory } from './stories/Placeholder.story'
+import { DisabledStory } from './stories/Disabled.story'
+import { PrefixStory } from './stories/Prefix.story'
+import { ItemGroupsStory } from './stories/ItemGroups.story'
+import { CustomItemStory } from './stories/CustomItem.story'
 
-import { Stack } from "../../index"
-import { Text } from "../../index"
-import { Icon } from "../../index"
-import { search as searchGlyph } from "../../index"
+import { TooltipContext } from '../../index'
+
+import { Select } from './Select'
 
 const meta: Meta<typeof Select> = {
-  title: "Components/Select",
+  title: 'Components/Select',
   component: Select,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
-    className: { control: { type: "text" } },
-    options: {
+    id: {
+      control: { type: 'text' },
       table: {
         type: {
-          summary: "SelectOption[] | SelectOption[][]",
+          summary: 'string',
         },
       },
+    },
+    className: {
+      control: { type: 'text' },
+    },
+    options: {
       control: { disable: true },
-      description: `Array of items to manage.
-      <pre>interface SelectOption {
-  label: string
-  value: string
-}</pre>
-      `,
+      description: `Array of options to render in the select.`,
+      table: {
+        type: {
+          summary: 'SelectOptionData[] | SelectOptionData[][]',
+          detail: `
+{
+  label: string // required
+  value: string // required
+  disabled: boolean
+  children: preact.ComponentChildren
+}
+            `,
+        },
+      },
     },
     placeholder: {
-      control: { type: "text" },
-      description: "Placeholder text to display when no option is selected.",
+      control: { type: 'text' },
     },
     value: {
       control: { disable: true },
-      description: "Value for the controlled mode.",
-      table: { type: { summary: "string" } },
+      description: 'Value for controlled state.',
+      table: {
+        type: { summary: 'string' },
+      },
     },
     defaultValue: {
-      control: { type: "text" },
-      description: "Default value for the uncontrolled mode.",
-      table: { type: { summary: "string" } },
+      control: { type: 'text' },
+      description: 'Value for uncontrolled state.',
+      table: {
+        type: { summary: 'string' },
+      },
     },
     grouped: {
-      control: { type: "select" },
-      options: ["none", "left", "right", "both"],
-      defaultValue: { summary: "none" },
+      control: { type: 'radio' },
+      options: [undefined, 'first', 'last', 'middle'],
     },
-    error: { control: { type: "boolean" }, defaultValue: { summary: "false" } },
+    error: {
+      control: { type: 'boolean' },
+      defaultValue: { summary: 'false' },
+    },
     disabled: {
-      control: { type: "boolean" },
-      defaultValue: { summary: "false" },
+      control: { type: 'boolean' },
+      defaultValue: { summary: 'false' },
     },
-    menuWidth: {
-      control: { type: "number" },
-      defaultValue: { summary: "auto" },
-      description: "Width of the menu.",
+    prefix: {
+      control: { disable: true },
+      description: 'Element displayed before value.',
+      table: {
+        type: {
+          summary: 'preact.ComponentChildren',
+        },
+      },
+    },
+    tooltip: {
+      control: { control: 'text' },
+      table: {
+        type: {
+          summary: 'preact.ComponentChildren',
+        },
+      },
     },
     onBlur: {
-      control: { disable: true },
-      description: "Callback when the input is blurred.",
-      table: { type: { summary: "() => void" } },
+      table: { type: { summary: '() => void' } },
     },
     onFocus: {
-      control: { disable: true },
-      description: "Callback when the input is focused.",
-      table: { type: { summary: "() => void" } },
+      table: { type: { summary: '() => void' } },
     },
-    onChange: {
-      control: { disable: true },
-      description: "Callback when the value is changed.",
+    onValueChange: {
       table: {
-        type: { summary: "(args: { event: MouseEvent, id: string }) => void" },
+        type: {
+          summary: '(args) => void',
+          detail: `
+args: {
+  event: MouseEvent
+  value: string
+}
+          `,
+        },
+      },
+    },
+    menuContainerProps: {
+      control: { disable: true },
+      table: {
+        type: {
+          summary: 'Pick<MenuContainerProps>',
+          detail: `
+{
+  width: number
+}
+          `,
+        },
       },
     },
   },
 }
 
 export default meta
+
 type Story = StoryObj<typeof Select>
 
-const sampleOptions = [
-  { value: "opt-1", label: "Option one" },
-  { value: "opt-2", label: "Option two" },
-  { value: "opt-3", label: "Option three" },
-]
-
-const sampleOptionsWithGroups = [
-  [
-    { value: "opt-1", label: "Option one" },
-    { value: "opt-2", label: "Option two" },
-    { value: "opt-3", label: "Option three" },
-  ],
-  [
-    { value: "opt-4", label: "Option four" },
-    { value: "opt-5", label: "Option five" },
-    { value: "opt-6", label: "Option six" },
-  ],
-]
-
 export const Demo: Story = {
-  tags: ["!autodocs"],
+  tags: ['!autodocs'],
   args: {
-    className: "",
-    options: sampleOptions,
-    placeholder: "Choose an option",
-    defaultValue: "",
-    grouped: "none",
+    id: undefined,
+    className: '',
+    placeholder: 'Placeholder',
+    defaultValue: '',
+    grouped: undefined,
     error: false,
     disabled: false,
-    menuWidth: 208,
+    tooltip: 'Select tooltip',
     onBlur: fn(),
     onFocus: fn(),
-    onChange: fn(),
+    onValueChange: fn(),
   },
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
-  },
-  render: (args) => (
-    <div className="sb-column sb-width-300">
-      <Select {...args} />
-    </div>
-  ),
-}
+    docs: {
+      source: {
+        language: 'tsx',
+        code: `
+<Select {...args} />
 
-export const Uncontrolled: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => (
-    <div className="sb-column sb-width-300">
-      <Select
-        options={sampleOptions}
-        placeholder="Choose an option"
-        defaultValue="opt-1"
-      />
-    </div>
-  ),
-}
+// Use TooltipContext to make tooltips work
 
-export const Controlled: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
+<TooltipContext>
+  <Select {...args} />
+</TooltipContext>
+`,
+      },
     },
   },
-  render: () => {
-    const [value, setValue] = useState("opt-1")
+  render: (args) => {
+    const options = [
+      { value: 'option-1', label: 'Option one' },
+      { value: 'option-2', label: 'Option two' },
+      { value: 'option-3', label: 'Option three' },
+    ]
 
     return (
       <div className="sb-column sb-width-300">
-        <Stack spacing={400}>
-          <Text>Value: {value}</Text>
-          <Select
-            placeholder="Choose an option"
-            options={sampleOptions}
-            value={value}
-            onChange={(e) => setValue(e.value)}
-          />
-        </Stack>
+        <TooltipContext>
+          <Select options={options} {...args} />
+        </TooltipContext>
       </div>
     )
   },
 }
 
-export const Placeholder: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => (
-    <div className="sb-column sb-width-300">
-      <Select options={sampleOptions} placeholder="Choose an option" />
-    </div>
-  ),
-}
-
-export const Grouped: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => (
-    <div className="sb-column sb-width-300">
-      <Stack direction="row">
-        <Select
-          options={sampleOptions}
-          placeholder="Choose an option"
-          defaultValue="opt-1"
-          grouped="right"
-        />
-        <Select
-          options={sampleOptions}
-          placeholder="Choose an option"
-          defaultValue="opt-2"
-          grouped="both"
-        />
-        <Select
-          options={sampleOptions}
-          placeholder="Choose an option"
-          defaultValue="opt-3"
-          grouped="left"
-        />
-      </Stack>
-    </div>
-  ),
-}
-
-export const GroupedOptions: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => (
-    <div className="sb-column sb-width-300">
-      <Select
-        options={sampleOptionsWithGroups}
-        placeholder="Choose an option"
-        defaultValue="opt-1"
-        grouped="right"
-      />
-    </div>
-  ),
-}
-
-export const Error: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => (
-    <div className="sb-column sb-width-300">
-      <Select
-        options={sampleOptions}
-        placeholder="Choose an option"
-        defaultValue="opt-1"
-        error={true}
-      />
-    </div>
-  ),
-}
-
-export const Disabled: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => (
-    <div className="sb-column sb-width-300">
-      <Stack spacing={400}>
-        <Select
-          options={sampleOptions}
-          placeholder="Choose an option"
-          disabled={true}
-        />
-        <Select
-          options={sampleOptions}
-          placeholder="Choose an option"
-          defaultValue="opt-1"
-          disabled={true}
-        />
-      </Stack>
-    </div>
-  ),
-}
-
-export const Prefix: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => (
-    <div className="sb-column sb-width-300">
-      <Select
-        options={sampleOptions}
-        placeholder="Choose an option"
-        defaultValue="opt-1"
-        prefix={
-          <Icon
-            glyph={searchGlyph}
-            intent="neutral"
-            intentModifiers="secondary"
-            variant="scaled"
-          />
-        }
-      />
-    </div>
-  ),
-}
-
-export const MenuWidth: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => (
-    <div className="sb-column sb-width-300">
-      <Select
-        options={sampleOptions}
-        placeholder="Choose an option"
-        defaultValue="opt-1"
-        menuWidth={300}
-      />
-    </div>
-  ),
-}
+export const Uncontrolled = UncontrolledStory
+export const Controlled = ControlledStory
+export const Placeholder = PlaceholderStory
+export const Disabled = DisabledStory
+export const Prefix = PrefixStory
+export const ItemGroups = ItemGroupsStory
+export const CustomItem = CustomItemStory

@@ -1,6 +1,7 @@
 export interface BarProps {
+  id?: string
   className?: string
-  borderTop?: boolean
-  borderBottom?: boolean
-  children?: preact.ComponentChildren
+  showDividerTop?: boolean
+  showDividerBottom?: boolean
+  children: preact.ComponentChildren
 }

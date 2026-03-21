@@ -1,0 +1,48 @@
+/*
+ * Layout for Variables stories (Spacing, Radius, Colors).
+ * Class names are used inline in storiesUtils.tsx and Colors.stories.tsx.
+ */
+
+.sb-variables-table-wrap {
+  overflow-x: scroll;
+}
+
+.sb-variables-table {
+  border-collapse: collapse;
+  margin-bottom: 24px;
+}
+
+.sb-variables-table__row-border {
+  border-bottom: 1px solid var(--pui-color-neutral-border-default);
+}
+
+.sb-variables-table__row-intent {
+  background: var(--pui-color-neutral-bg-secondary);
+  border-bottom: 1px solid var(--pui-color-neutral-border-default);
+}
+
+.sb-variables-table__cell {
+  padding: 16px;
+}
+
+.sb-variables-table__cell--compact {
+  padding: 12px;
+}
+
+.sb-variables-table__flex {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.sb-variables-table__flex--gap {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 16px;
+}
+
+.sb-variables-table__name {
+  width: 100%;
+  padding-left: 16px;
+}

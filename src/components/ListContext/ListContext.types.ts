@@ -1,39 +1,37 @@
 export interface ListItemData {
   id: string
   selected?: boolean
-  children?: ListItemData[]
+  items?: ListItemData[]
 }
 
 export interface ListContextValue {
   items: ListItemData[]
-  selectedItems: Set<string>
-  setSelection: (itemIds: string[], selected: boolean) => void
-  setExactSelection: (itemIds: string[]) => void
-  toggleSelect: (
-    itemId: string,
-    options?: { range?: boolean; additive?: boolean }
-  ) => void
-  registerItemMeta?: (
+  selectedItemIds: Set<string>
+  selectionOriginIds?: Set<string>
+  deselectOnClickOutside?: boolean
+  setSelection: (itemIds: string[]) => void
+  toggleSelect: (itemId: string, options?: { range?: boolean; additive?: boolean }) => void
+  registerItem?: (
     id: string,
-    meta: { selectable?: boolean; selectionScope?: "item" | "withDescendants" }
+    meta: {
+      selectable?: boolean
+      selectionScope?: 'individual' | 'withDescendants'
+    },
   ) => () => void
   getPathForId?: (id: string) => number[] | null
   registerItemPath?: (id: string, path: number[]) => () => void
-  reorderItems: (
-    itemIds: string[],
-    targetIndex: number,
-    targetParentPath?: number[]
-  ) => void
-  selectionMode: "none" | "single" | "multi"
+  reorderItems: (itemIds: string[], targetIndex: number, targetParentPath?: number[]) => void
+  selectionMode?: 'single' | 'multi'
   registerRootElement?: (el: HTMLElement | null) => () => void
   dragImage?: HTMLDivElement | null
 }
 
 export interface ListContextProps {
   items?: ListItemData[]
-  selectedItems?: string[]
-  selectionMode?: "none" | "single" | "multi"
+  selectedItemIds?: string[]
+  selectionMode?: 'single' | 'multi'
+  deselectOnClickOutside?: boolean
   onItemsChange?: (args: { items: ListItemData[] }) => void
-  onSelectionChange?: (args: { selectedItems: string[] }) => void
+  onSelectionChange?: (args: { selectedItemIds: string[] }) => void
   children: preact.ComponentChildren
 }

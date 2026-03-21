@@ -1,21 +1,29 @@
+import { spacing } from '../../themes'
+
+export type ListItemPadding = keyof typeof spacing.variables
+
 export interface ListItemProps {
-  className?: string
   id: string
-  isNested?: boolean
-  nestingLevel?: number
+  className?: string
+  nestingLevel: number
+  variant?: 'default' | 'layer'
+  padding?: {
+    top?: ListItemPadding
+    right?: ListItemPadding
+    bottom?: ListItemPadding
+    left?: ListItemPadding
+  }
   draggable?: boolean
-  dragHandle?: "default" | "container"
   onDragStart?: (args: { event: DragEvent }) => void
   onDragEnd?: (args: { event: DragEvent }) => void
   acceptsChildren?: boolean
   selectable?: boolean
-  selectionScope?: "item" | "withDescendants"
+  selectionScope?: 'individual' | 'withDescendants'
   onSelect?: (args: { event: MouseEvent; selected: boolean }) => void
   hoverable?: boolean
   collapsed?: boolean
-  showCollapseControl?: boolean
+  collapsable?: boolean
   onCollapsedChange?: (args: { event: MouseEvent; collapsed: boolean }) => void
-  subItems?: preact.ComponentChildren
+  items?: preact.ComponentChildren
   children?: preact.ComponentChildren
-  reducedPaddingRight?: boolean
 }

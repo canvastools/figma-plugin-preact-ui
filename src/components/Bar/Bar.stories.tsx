@@ -1,41 +1,48 @@
-import { Meta, StoryObj } from "@storybook/preact"
+import { Meta } from '@storybook/preact'
 
-import { Bar } from "./Bar"
+import { StickyStory } from './stories/Sticky.story'
 
-import { Text } from "../../index"
-import { Section } from "../../index"
-import { ScrollContext, useScrollContext } from "../../index"
-import { ScrollContainer } from "../../index"
+import { Text, Section } from '../../index'
+
+import { Bar } from './Bar'
 
 const meta: Meta<typeof Bar> = {
-  title: "Components/Bar",
+  title: 'Layout/Bar',
   component: Bar,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
-        component:
-          "A wrapper component that allows to control top/bottom dividers.",
+        component: 'A wrapper component for fixed panels with top/bottom dividers.',
       },
     },
   },
   argTypes: {
-    className: {
-      control: { type: "text" },
+    id: {
+      control: { type: 'text' },
+      table: {
+        type: {
+          summary: 'string',
+        },
+      },
     },
-    borderTop: {
-      control: { type: "boolean" },
+    className: {
+      control: { type: 'text' },
+    },
+    showDividerTop: {
+      control: { type: 'boolean' },
       defaultValue: { summary: false },
     },
-    borderBottom: {
-      control: { type: "boolean" },
+    showDividerBottom: {
+      control: { type: 'boolean' },
       defaultValue: { summary: false },
     },
     children: {
-      control: { disable: true },
+      control: { type: 'text' },
+      description: '<strong>*</strong>',
       table: {
         type: {
-          summary: "string | number | JSX.Element",
+          summary: 'preact.ComponentChildren',
         },
       },
     },
@@ -43,26 +50,37 @@ const meta: Meta<typeof Bar> = {
 }
 
 export default meta
-type Story = StoryObj<typeof Bar>
 
-export const Demo: Story = {
-  tags: ["!autodocs"],
+export const Demo = {
+  tags: ['!autodocs'],
   args: {
-    className: "",
-    borderTop: false,
-    borderBottom: false,
-    children: "Bar content",
+    id: undefined,
+    className: '',
+    showDividerTop: false,
+    showDividerBottom: false,
+    children: 'Bar content',
   },
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
+    },
+    docs: {
+      source: {
+        language: 'tsx',
+        code: `
+<Bar {...args}>
+  <Section>
+    <Text>{children}</Text>
+  </Section>
+</Bar>
+`,
+      },
     },
   },
   render: (args) => (
     <div className="sb-column sb-width-full">
       <Bar {...args}>
         <Section>
-          {/* @ts-expect-error - Storybook types hack */}
           <Text>{args.children}</Text>
         </Section>
       </Bar>
@@ -70,124 +88,4 @@ export const Demo: Story = {
   ),
 }
 
-export const StickySimulation: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => {
-    const TopBar = () => {
-      const { isAtTop } = useScrollContext()
-
-      return (
-        <Bar borderBottom={!isAtTop}>
-          <Section>
-            <Text variant="heading" size="small">
-              Section Header
-            </Text>
-          </Section>
-        </Bar>
-      )
-    }
-
-    const BottomBar = () => {
-      const { isAtBottom } = useScrollContext()
-
-      return (
-        <Bar borderTop={!isAtBottom}>
-          <Section>
-            <Text variant="heading" size="small">
-              Section Footer
-            </Text>
-          </Section>
-        </Bar>
-      )
-    }
-
-    return (
-      <div className="sb-column sb-width-full sb-height-300">
-        <ScrollContext>
-          <TopBar />
-          <ScrollContainer>
-            <Section>
-              <Text
-                intent="neutral"
-                intentModifiers="default"
-                variant="body"
-                size="medium"
-              >
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                sunt in culpa qui officia deserunt mollit anim id est laborum.
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                sunt in culpa qui officia deserunt mollit anim id est laborum.
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                sunt in culpa qui officia deserunt mollit anim id est laborum.
-                Duis aute irure dolor in reprehenderit in voluptate velit esse
-                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                cupidatat non proident, sunt in culpa qui officia deserunt
-                mollit anim id est laborum. Lorem ipsum dolor sit amet,
-                consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut
-                labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                commodo consequat. Duis aute irure dolor in reprehenderit in
-                voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                Excepteur sint occaecat cupidatat non proident, sunt in culpa
-                qui officia deserunt mollit anim id est laborum. Lorem ipsum
-                dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                aliquip ex ea commodo consequat. Duis aute irure dolor in
-                reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                sunt in culpa qui officia deserunt mollit anim id est laborum.
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                sunt in culpa qui officia deserunt mollit anim id est laborum.
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                sunt in culpa qui officia deserunt mollit anim id est laborum.
-                Duis aute irure dolor in reprehenderit in voluptate velit esse
-                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                cupidatat non proident, sunt in culpa qui officia deserunt
-                mollit anim id est laborum. Lorem ipsum dolor sit amet,
-                consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut
-                labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                commodo consequat. Duis aute irure dolor in reprehenderit in
-                voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                Excepteur sint occaecat cupidatat non proident, sunt in culpa
-                qui officia deserunt mollit anim id est laborum.
-              </Text>
-            </Section>
-          </ScrollContainer>
-          <BottomBar />
-        </ScrollContext>
-      </div>
-    )
-  },
-}
+export const Sticky = StickyStory

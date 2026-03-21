@@ -1,14 +1,13 @@
-@use "../../shared.scss" as *;
-@use "../../mixins.scss" as *;
+@use '../../shared.scss' as *;
+@use '../../mixins.scss' as *;
 
 .Select {
-  $parent: &;
-
   position: relative;
   display: flex;
   align-items: center;
   height: 24px;
   width: 100%;
+  user-select: none;
 
   border-radius: var(--pui-radius-medium);
   overflow: hidden;
@@ -16,44 +15,38 @@
   outline-width: 1px;
   outline-style: solid;
   outline-offset: -1px;
-  outline-color: var(--pui-color-neutral-border-default-interactive);
-  background-color: var(--pui-color-neutral-bg-default-interactive);
+  outline-color: var(--pui-color-neutral-border-default);
+  background-color: var(--pui-color-neutral-bg-default);
 
   &_open {
     outline-width: 0px;
-    background-color: var(--pui-color-neutral-bg-secondary-interactive);
+    background-color: var(--pui-color-neutral-bg-secondary);
   }
 
   &_focused,
   &:hover:is(:focus-within) {
-    outline-color: var(--pui-color-neutral-border-default-interactive-selected);
+    outline-color: var(--pui-color-neutral-border-default-selected) !important;
     z-index: 1;
   }
 
   &_error {
-    outline-color: var(
-      --pui-color-neutral-border-default-interactive-selected-error
-    ) !important;
+    outline-color: var(--pui-color-neutral-border-danger-error) !important;
   }
 
   &_groupedPosition {
-    &-left {
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
-    }
-
-    &-right {
+    &-first {
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
     }
 
-    &-both {
+    &-last {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    &-middle {
       border-radius: 0;
     }
-  }
-
-  &_grouped + &_grouped {
-    margin-left: -1px;
   }
 
   &__prefix {
@@ -71,12 +64,12 @@
     padding: 0 var(--pui-spacing-200);
     white-space: nowrap;
     overflow: hidden;
+    cursor: default;
 
-    @include typography-styles;
+    @include typography-styles-default;
     @include typography-body-medium;
-    @include curson-feedback;
 
-    color: var(--pui-color-neutral-text-default-interactive);
+    color: var(--pui-color-neutral-text-default);
 
     .Select:not(.Select_filled) & {
       color: var(--pui-color-neutral-text-placeholder);
@@ -97,7 +90,7 @@
 
   &_disabled {
     cursor: auto;
-    background-color: var(--pui-color-neutral-bg-disabled);
+    background-color: transparent !important;
     outline-width: 1px;
     outline-style: solid;
     outline-color: var(--pui-color-neutral-border-disabled) !important;

@@ -1,25 +1,36 @@
-@use "../../shared.scss" as *;
+@use '../../shared.scss' as *;
 
 .MenuItemOption {
-  $parent: &;
-
   padding: 0 var(--pui-spacing-200);
 
   &__content {
     display: flex;
     flex-flow: row nowrap;
-    padding: var(--pui-spacing-100) var(--pui-spacing-200)
-      var(--pui-spacing-100) var(--pui-spacing-100);
+    padding: var(--pui-spacing-100) var(--pui-spacing-200) var(--pui-spacing-100) var(--pui-spacing-100);
     border-radius: var(--pui-radius-medium);
-    gap: var(--pui-spacing-100);
+    gap: 6px;
+  }
 
-    &:hover {
-      background-color: var(--pui-color-brand-bg-default-interactive);
-    }
+  &:not(&_focused) &__content:hover {
+    background-color: var(--pui-color-brand-bg-default);
+  }
+
+  .MenuContainer_keyboard-interaction &:not(&_focused) &__content:hover {
+    background-color: transparent;
+  }
+
+  &_focused &__content {
+    background-color: var(--pui-color-brand-bg-default);
+  }
+
+  &:focus {
+    outline: none;
+    border: none;
   }
 
   &__content-container {
     flex: 1;
+    min-width: 0;
     display: flex;
     flex-flow: row nowrap;
     gap: var(--pui-spacing-200);
@@ -34,7 +45,8 @@
   }
 
   &__children {
-    flex: 1;
+    width: 100%;
+    min-width: 0;
   }
 
   &__selection {

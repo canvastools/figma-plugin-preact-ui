@@ -1,6 +1,7 @@
 export interface TabPanelProps {
+  id?: string
   className?: string
-  value: string
+  tabId: string
   fullHeight?: boolean
   children: preact.ComponentChildren
 }

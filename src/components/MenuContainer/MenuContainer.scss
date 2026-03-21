@@ -1,16 +1,59 @@
-@use "../../shared.scss" as *;
+@use '../../shared.scss' as *;
 
 .MenuContainer {
-  $parent: &;
+  position: relative;
+  display: flex;
+  flex-direction: column;
 
-  padding: var(--pui-spacing-200) 0;
   background-color: var(--pui-color-neutral-inverted-fixed-bg-default);
   border-radius: var(--pui-radius-large);
 
+  width: fit-content;
+  height: auto;
+  max-height: var(--overlay-available-height, none);
+
+  max-width: calc(100vw - 32px);
   overflow: hidden;
 
-  box-shadow: 0 8px 20px 4px var(--pui-color-shadow-menu-soft),
-    0 2px 8px 0 var(--pui-color-shadow-menu-hard),
-    inset 0 1px 0 0.5px var(--pui-color-shadow-menu-glare),
-    inset 0 0 0 1px var(--pui-color-shadow-menu-glare);
+  box-shadow: 0 8px 20px 4px var(--pui-color-shadow-menu-soft), 0 2px 8px 0 var(--pui-color-shadow-menu-hard), inset 0 1px 0 0.5px var(--pui-color-shadow-menu-glare), inset 0 0 0 1px var(--pui-color-shadow-menu-glare);
+
+  &__scroll-area {
+    padding: var(--pui-spacing-200) 0;
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  &__scroll-zone {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 24px;
+    z-index: 1;
+    pointer-events: auto;
+    background: var(--pui-color-neutral-inverted-fixed-bg-secondary);
+
+    &-inner {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+
+    &:hover &-inner {
+      background: var(--pui-color-neutral-inverted-fixed-bg-secondary-hover);
+    }
+
+    &_top {
+      top: 0;
+    }
+
+    &_bottom {
+      bottom: 0;
+    }
+  }
 }

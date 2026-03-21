@@ -1,11 +1,13 @@
-@use "../../shared.scss" as *;
+@use '../../shared.scss' as *;
 
 .ListItem {
-  $parent: &;
+  --li-pt: var(--pui-spacing-100);
+  --li-pb: var(--pui-spacing-100);
 
   width: 100%;
   display: flex;
   flex-direction: column;
+  position: relative;
 
   &__content {
     position: relative;
@@ -14,37 +16,59 @@
     flex-direction: row;
     justify-content: flex-start;
     align-items: stretch;
-    padding: var(--pui-spacing-100) var(--pui-spacing-400);
+    z-index: 1;
+
     outline-width: 1px;
     outline-color: transparent;
     outline-style: solid;
     outline-offset: -1px;
   }
 
-  &_reduced-padding-right &__content {
-    padding-right: var(--pui-spacing-200);
+  &__content-inner {
+    flex: 1 1 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: stretch;
+    overflow: hidden;
   }
 
-  &__sub-items {
+  &__items {
     flex: 1 1 100%;
     display: flex;
     flex-direction: column;
+    position: relative;
   }
 
   &__children {
-    position: relative;
     display: flex;
     flex-direction: row;
-    width: 100%;
     justify-content: flex-start;
     align-items: center;
     min-height: 24px;
-    padding-left: calc(var(--pui-spacing-400) * var(--level));
+    width: 100%;
+    z-index: 1;
+    padding-left: calc((var(--li-pl) + var(--pui-spacing-200)) * var(--level));
+  }
+
+  &__end-dropzone {
+    position: absolute;
+    bottom: -1px;
+    height: 8px;
+    pointer-events: auto;
+    z-index: calc(var(--level) + 1);
+    left: var(--li-pr);
+    right: 0;
+    width: auto;
+
+    &-active {
+      box-shadow: inset 0 -2px 0 0 var(--pui-color-neutral-border-drop-position);
+      pointer-events: auto;
+    }
   }
 
   &__drag-handle {
     position: absolute;
-    left: calc(var(--pui-spacing-400) * var(--level));
     top: 0;
     height: 100%;
     width: 16px;
@@ -61,82 +85,115 @@
     }
   }
 
-  &__content:hover > &__drag-handle {
-    opacity: 1;
-  }
-
   &__collapse-toggle {
     position: absolute;
-    left: calc(var(--pui-spacing-400) * var(--level));
+    left: 0;
     top: 0;
     height: 100%;
     width: 16px;
     display: none;
     align-items: center;
     justify-content: center;
-    z-index: 1;
+    z-index: 5;
+  }
+
+  &_focused {
+    outline: none;
+  }
+
+  &_focused:focus-visible > &__content {
+    outline-color: var(--pui-color-system-border-focused);
   }
 
   /* Variant */
 
-  &_variant {
-    &-default #{$parent}__content {
-      border-radius: 0;
-    }
+  // Default
 
-    &-layer #{$parent}__content {
-      border-radius: var(--pui-radius-medium);
-    }
+  &_variant-default {
+    --li-pr: var(--pui-spacing-400);
+    --li-pl: var(--pui-spacing-400);
+    --indent: calc((var(--li-pl) + var(--pui-spacing-200)) * var(--level));
+    --indent-same-level: calc(var(--indent) + var(--li-pl));
+    --indent-next-level: calc(var(--indent) + var(--li-pl) * 2 + var(--pui-spacing-200));
+    --indent-extra-collapsible: calc(var(--pui-spacing-200) + var(--pui-spacing-100));
+  }
+
+  &_variant-default &__drag-handle {
+    left: var(--indent);
+  }
+
+  &_variant-default &__content:hover > &__content-inner > &__drag-handle {
+    opacity: 1;
+  }
+
+  &_variant-default &__content-inner {
+    padding: var(--li-pt) var(--li-pr) var(--li-pb) var(--li-pl);
+  }
+
+  // Layer
+
+  &_variant-layer {
+    --li-pr: var(--pui-spacing-200);
+    --li-pl: calc(var(--pui-spacing-200) + var(--pui-spacing-100));
+    --indent: calc((var(--li-pl) + var(--pui-spacing-200)) * var(--level));
+    --indent-same-level: calc(var(--indent) + var(--li-pl) + var(--pui-spacing-200));
+    --indent-next-level: calc(var(--indent) + var(--li-pl) * 2 + var(--pui-spacing-200) + var(--pui-spacing-200));
+    --indent-extra-collapsible: 0px;
+  }
+
+  &_variant-layer &__drag-handle {
+    display: none;
+  }
+
+  &_variant-layer &__content {
+    padding: var(--li-pt) var(--li-pr) var(--li-pb) var(--li-pl);
+  }
+
+  // Radius
+
+  &_variant-layer > &__content > &__content-inner,
+  &_variant-layer:is(&_has-children):is(&_collapsed) > &__content > &__content-inner {
+    border-radius: var(--pui-radius-medium);
+  }
+
+  &_variant-layer:is(&_has-children):is(&_selection-scope-descendants):not(&_collapsed) > &__content > &__content-inner {
+    border-radius: var(--pui-radius-medium) var(--pui-radius-medium) 0 0;
+  }
+
+  &_variant-layer:is(&_hoverable):not(&_selection-origin) > &__content:hover > &__content-inner {
+    border-radius: var(--pui-radius-medium) !important;
   }
 
   /* Selected */
 
-  &_selected:is(&_selectable) > &__content {
-    background-color: var(--pui-color-neutral-bg-default-interactive-selected);
+  &_selected:is(&_selection-origin) > &__content > &__content-inner {
+    background-color: var(--pui-color-neutral-bg-default-selected);
   }
 
-  /* Selection of descendants */
-
-  &_selected:is(&_selectable):is(&_selection-scope-descendants)
-    > &__sub-items
-    &__content {
-    background-color: unset;
+  &_selected:is(&_variant-default):is(&_selection-origin):is(&_selection-scope-descendants):is(&_has-children):not(&_collapsed) > &__items {
+    background-color: var(--pui-color-neutral-bg-secondary-selected);
   }
 
-  &_selected:is(&_selectable):is(&_selection-scope-descendants) > &__sub-items {
-    background-color: var(
-      --pui-color-neutral-bg-secondary-interactive-selected
-    );
+  &_selected:is(&_variant-layer):is(&_selection-origin):is(&_selection-scope-descendants):is(&_has-children):not(&_collapsed) > &__items:after {
+    content: '';
+    position: absolute;
+    top: calc(var(--li-pt) * -1);
+    left: var(--li-pl);
+    right: var(--li-pr);
+    height: 100%;
+    background-color: var(--pui-color-neutral-bg-secondary-selected);
+    border-radius: 0 0 var(--pui-radius-medium) var(--pui-radius-medium);
+    z-index: 0;
   }
 
-  /* Selection overrides */
+  /* Hover */
 
-  &_selected:is(&_selectable) > &__content .Input:not(.Input_ghost) {
-    outline-color: var(--pui-color-neutral-border-default-interactive-selected);
+  &_hoverable:not(&_selected) > &__content:hover > &__content-inner {
+    background-color: var(--pui-color-neutral-bg-default-hover);
   }
 
-  &_selected:is(&_selectable)
-    > &__content
-    .Checkbox:not(.Checkbox_checked)
-    .Checkbox__input {
-    box-shadow: inset 0 0 0 1px
-      var(--pui-color-neutral-border-default-interactive-selected);
-  }
-
-  /* Hoverable */
-
-  &_hoverable:not(&_selected) > &__content:hover {
-    background-color: var(--pui-color-neutral-bg-default-interactive-hover);
-  }
-
-  /* Hover of descendants */
-
-  &_hoverable:is(&_selected):is(&_selection-scope-descendants)
-    > &__sub-items
-    &__content:hover {
-    background-color: var(
-      --pui-color-neutral-bg-default-interactive-selected-hover
-    );
+  &_hoverable:is(&_selected):is(&_selection-scope-descendants) > &__items &__content:hover > &__content-inner {
+    background-color: var(--pui-color-neutral-bg-default-selected-hover);
   }
 
   /* Draggable */
@@ -145,103 +202,175 @@
     position: relative;
   }
 
-  &_drag-over > &__content > &__children::before {
-    content: "";
-    display: none;
+  &__content::before,
+  &__content::after {
+    content: '';
     position: absolute;
-    left: calc(
-      (var(--level) + 1) * var(--pui-spacing-400) - var(--pui-spacing-400)
-    );
     right: 0;
+    width: auto;
     height: 2px;
     background-color: var(--pui-color-neutral-border-drop-position);
-    width: calc(
-      100% + var(--pui-spacing-400) - var(--level) * var(--pui-spacing-400)
-    );
-    z-index: 1;
+    z-index: 5;
     pointer-events: none;
+    display: block; //
   }
 
-  &_drag-over:is(&_reduced-padding-right) > &__content > &__children::before {
-    width: calc(
-      100% + var(--pui-spacing-200) - var(--level) * var(--pui-spacing-400)
-    );
-  }
-
-  &_drag-above > &__content > &__children::before {
+  &_drag-above > &__content::before,
+  &_drag-inside > &__content::after,
+  &_drag-below > &__content::after {
     display: block;
-    top: calc(var(--pui-spacing-100) * -1 - 1px);
   }
 
-  &_drag-below > &__content > &__children::before,
-  &_drag-inside > &__content > &__children::before {
-    display: block;
-    bottom: calc(var(--pui-spacing-100) * -1 - 1px);
+  // Drop above
+
+  & > &__content::before,
+  &_drag-above > &__content::before {
+    top: -1px;
   }
 
-  &_drag-inside > &__content > &__children::before {
-    left: calc(
-      (var(--level) + 2) * var(--pui-spacing-400) - var(--pui-spacing-400)
-    );
-    width: calc(
-      100% + var(--pui-spacing-400) - (var(--level) + 1) *
-        var(--pui-spacing-400)
-    );
-    pointer-events: none;
+  &_drag-above > &__content::before {
+    left: var(--indent-same-level);
   }
 
-  &_drag-inside:is(&_reduced-padding-right) > &__content > &__children::before {
-    width: calc(
-      100% + var(--pui-spacing-200) - (var(--level) + 1) *
-        var(--pui-spacing-400)
-    );
+  // Drop inside
+
+  &_drag-inside > &__content::after {
+    bottom: -1px;
   }
+
+  &_drag-inside > &__content::after {
+    left: var(--indent-next-level);
+  }
+
+  // Drop below
+
+  &_drag-below > &__content::after {
+    bottom: -1px;
+  }
+
+  &_drag-below > &__content::after {
+    left: var(--indent-same-level);
+  }
+
+  // Drop parent, inside
 
   &_drop-parent > &__content,
   &_drag-inside > &__content {
-    outline-color: var(--pui-color-neutral-border-default-interactive-selected);
+    outline-color: var(--pui-color-neutral-border-default-selected);
   }
 
   /* Drop parent inside its own tree */
 
-  &_dragging &__content > &__children::before {
-    background-color: var(--pui-color-neutral-border-drop-position-restricted);
+  &_draggable:is(&_selection-origin):is(&_drop-parent) > &__content,
+  &_draggable:is(&_selection-origin) &:is(&_drop-parent) > &__content,
+  &_draggable:is(&_selection-origin) &:is(&_drag-inside) > &__content {
+    outline-color: var(--pui-color-neutral-border-danger-error);
   }
 
-  &_dragging &_drag-inside > &__content,
-  &_dragging &_drop-parent > &__content,
-  &_dragging:is(&_drag-inside) > &__content,
-  &_dragging:is(&_drop-parent) > &__content {
-    outline-color: var(
-      --pui-color-neutral-border-default-interactive-selected-error
-    );
+  &_draggable:is(&_selection-origin) & > &__content::before,
+  &_draggable:is(&_selection-origin) & > &__content::after {
+    background-color: var(--pui-color-neutral-border-danger-error);
   }
 
-  /* Collapsed */
+  &_draggable:is(&_selection-origin) &__items &__end-dropzone-active {
+    box-shadow: inset 0 -2px 0 0 var(--pui-color-neutral-border-danger-error) !important;
+  }
 
-  &_collapsed > &__sub-items {
+  // With descendants
+
+  &_draggable:is(&_selection-scope-descendants):is(&_selection-origin):is(&_drop-parent) > &__content,
+  &_draggable:is(&_selection-scope-descendants):is(&_selection-origin) &:is(&_drop-parent) > &__content,
+  &_draggable:is(&_selection-scope-descendants):is(&_selection-origin) &:is(&_drag-inside) > &__content {
+    outline-color: transparent;
+  }
+
+  &_draggable:is(&_selection-scope-descendants):is(&_drag-self):is(&_drag-below) > &__content::after,
+  &_draggable:is(&_selection-scope-descendants):is(&_selection-origin) & > &__content::before,
+  &_draggable:is(&_selection-scope-descendants):is(&_selection-origin) & > &__content::after {
     display: none;
   }
 
-  &_collapsable:is(&_has-children) > &__content > &__collapse-toggle {
+  &_draggable:is(&_selection-scope-descendants):is(&_selection-origin) &__items &__end-dropzone-active {
+    box-shadow: inset 0 -2px 0 0 transparent !important;
+  }
+
+  /* Drop zone */
+
+  &_draggable > &__end-dropzone {
+    left: var(--indent-same-level) !important;
+  }
+
+  /* Collapsable */
+
+  &_collapsed > &__items {
+    display: none;
+  }
+
+  &_collapsable:is(&_has-children) > &__content > &__content-inner > &__collapse-toggle {
     display: flex;
   }
 
-  &_collapsable:is(&_has-children):is(&_collapsed)
-    > &__content
-    > &__collapse-toggle {
+  &_collapsable:is(&_has-children):is(&_collapsed) > &__content > &__content-inner > &__collapse-toggle {
     display: flex;
   }
 
-  /* Collapsable + draggable */
-
-  &_collapsable:is(&_draggable):is(&_dragHandle-default) &__content {
-    padding-left: calc(var(--pui-spacing-400) * 2);
+  &_collapsable:is(&_draggable) > &__content > &__content-inner > &__collapse-toggle {
+    left: calc(var(--indent) + var(--indent-extra-collapsible));
   }
 
-  &_collapsable:is(&_draggable):is(&_dragHandle-default)
-    &__content
-    > &__collapse-toggle {
-    left: calc(var(--pui-spacing-400) * var(--level) + var(--pui-spacing-400));
+  &_variant-default:is(&_collapsable):is(&_draggable) > &__content > &__content-inner {
+    padding-left: calc(var(--li-pl) + var(--indent-extra-collapsible));
+  }
+
+  &_drag-above:is(&_variant-default):is(&_collapsable):is(&_draggable) > &__content::before {
+    left: calc(var(--indent-same-level) + var(--indent-extra-collapsible));
+  }
+
+  &_drag-inside:is(&_variant-default):is(&_collapsable):is(&_draggable) > &__content::after {
+    left: calc(var(--indent-next-level) + var(--indent-extra-collapsible));
+  }
+
+  &_drag-below:is(&_variant-default):is(&_collapsable):is(&_draggable) > &__content::after {
+    left: calc(var(--indent-same-level) + var(--indent-extra-collapsible));
+  }
+
+  &_variant-default:is(&_collapsable):is(&_draggable) > &__items &__end-dropzone {
+    left: calc(var(--indent-same-level) + var(--indent-extra-collapsible)) !important;
+  }
+
+  /* Selection overrides */
+
+  &_selected > &__content > &__content-inner > &__children .Input:not(.Input_ghost) > .Input__container {
+    outline: 1px solid var(--pui-color-neutral-border-default-selected-contrast);
+    outline-offset: 0px;
+  }
+
+  &_selected > &__content > &__content-inner > &__children .react-time-picker__inputGroup {
+    outline: 1px solid var(--pui-color-neutral-border-default-selected-contrast);
+    outline-offset: 0px;
+  }
+
+  &_selected > &__content > &__content-inner > &__children .Select {
+    outline: 1px solid var(--pui-color-neutral-border-default-selected-contrast);
+    outline-offset: 0px;
+  }
+
+  &_selected > &__content > &__content-inner > &__children .SegmentedControl {
+    outline: 1px solid var(--pui-color-neutral-border-default-selected-contrast);
+    outline-offset: 1px;
+  }
+
+  &_selected > &__content > &__content-inner > &__children .Switch:not(.Switch_checked) > .Switch__input {
+    outline: 1px solid var(--pui-color-neutral-border-default-selected-contrast);
+  }
+
+  &_selected > &__content > &__content-inner > &__children .Checkbox:not(.Checkbox_intent-brand-default) > .Checkbox__input {
+    box-shadow: inset 0 0 0 1px var(--pui-color-neutral-border-default-selected-contrast);
+  }
+
+  &_selected > &__content > &__content-inner > &__children .Button:is(.Button_intent-neutral-default):not(.Button_ghost),
+  &_selected > &__content > &__content-inner > &__children .ButtonIcon:is(.ButtonIcon_intent-neutral-default):not(.ButtonIcon_ghost),
+  &_selected > &__content > &__content-inner > &__children .ButtonIconToggle:is(.ButtonIconToggle_intent-neutral-default):not(.ButtonIconToggle_ghost) {
+    box-shadow: inset 0 0 0 1px var(--pui-color-neutral-border-default-selected-contrast) !important;
   }
 }

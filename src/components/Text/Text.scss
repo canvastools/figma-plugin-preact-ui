@@ -1,19 +1,17 @@
-@use "../../shared.scss" as *;
-@use "../../mixins.scss" as *;
+@use '../../shared.scss' as *;
+@use '../../mixins.scss' as *;
 
-@mixin Text_intent($intent, $modifiers) {
-  &_intent-#{$intent}-#{$modifiers} {
+@mixin Text_intent($intent, $modifier) {
+  &_intent-#{$intent}-#{$modifier} {
     &.Text_interactive {
-      color: var(--pui-color-#{$intent}-text-#{$modifiers}-interactive);
+      color: var(--pui-color-#{$intent}-text-#{$modifier});
     }
 
     &.Text_selected {
-      color: var(
-        --pui-color-#{$intent}-text-#{$modifiers}-interactive-selected
-      );
+      color: var(--pui-color-#{$intent}-text-#{$modifier}-selected);
     }
 
-    color: var(--pui-color-#{$intent}-text-#{$modifiers});
+    color: var(--pui-color-#{$intent}-text-#{$modifier});
 
     &.Text_disabled {
       color: var(--pui-color-#{$intent}-text-disabled) !important;
@@ -22,64 +20,69 @@
 }
 
 .Text {
-  $parent: &;
-
-  @include typography-styles;
+  @include typography-styles-default;
   user-select: none;
+  white-space: nowrap;
 
-  @include Text_intent("neutral", "default");
-  @include Text_intent("neutral", "secondary");
-  @include Text_intent("neutral", "brand");
-  @include Text_intent("neutral", "danger");
-  @include Text_intent("neutral", "warning");
-  @include Text_intent("neutral", "success");
-  @include Text_intent("neutral-inverted", "default");
-  @include Text_intent("neutral-inverted-fixed", "default");
-  @include Text_intent("neutral-inverted-fixed", "secondary");
-  @include Text_intent("brand", "default");
-  @include Text_intent("danger", "default");
-  @include Text_intent("warning", "default");
-  @include Text_intent("success", "default");
+  &__link {
+    color: inherit;
+    text-decoration: underline;
+    cursor: default;
 
-  &_variant {
-    &-heading {
-      &#{$parent}_size {
-        &-small {
-          @include typography-header-small;
-        }
-
-        &-medium {
-          @include typography-header-medium;
-        }
-
-        &-large {
-          @include typography-header-large;
-        }
-      }
+    &:hover {
+      text-decoration: none;
+      color: var(--pui-color-neutral-text-brand);
     }
+  }
 
-    &-body {
-      &#{$parent}_size {
-        &-small {
-          @include typography-body-small;
-        }
+  @include Text_intent('neutral', 'default');
+  @include Text_intent('neutral', 'secondary');
+  @include Text_intent('neutral', 'brand');
+  @include Text_intent('neutral', 'danger');
+  @include Text_intent('neutral', 'warning');
+  @include Text_intent('neutral', 'success');
+  @include Text_intent('neutral', 'component');
+  @include Text_intent('neutral-inverted', 'default');
+  @include Text_intent('neutral-inverted-fixed', 'default');
+  @include Text_intent('neutral-inverted-fixed', 'secondary');
+  @include Text_intent('neutral-inverted-fixed', 'danger');
+  @include Text_intent('brand', 'default');
+  @include Text_intent('brand', 'secondary');
+  @include Text_intent('danger', 'default');
+  @include Text_intent('warning', 'default');
+  @include Text_intent('success', 'default');
 
-        &-medium {
-          @include typography-body-medium;
-        }
+  &_variant-heading:is(&_size-small) {
+    @include typography-header-small;
+  }
+  &_variant-heading:is(&_size-medium) {
+    @include typography-header-medium;
+  }
+  &_variant-heading:is(&_size-large) {
+    @include typography-header-large;
+  }
 
-        &-large {
-          @include typography-body-large;
-        }
-      }
-    }
+  &_variant-body:is(&_size-small) {
+    @include typography-body-small;
+  }
+  &_variant-body:is(&_size-medium) {
+    @include typography-body-medium;
+  }
+  &_variant-body:is(&_size-large) {
+    @include typography-body-large;
   }
 
   &_fullWidth {
     width: 100%;
   }
 
-  &_noWrap {
+  &_wrap {
+    white-space: normal;
+  }
+
+  &_truncated {
+    overflow: hidden;
+    text-overflow: ellipsis;
     white-space: nowrap;
   }
 
@@ -97,5 +100,9 @@
     &-right {
       text-align: right;
     }
+  }
+
+  &_inline {
+    display: inline;
   }
 }

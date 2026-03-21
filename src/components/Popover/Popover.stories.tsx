@@ -1,53 +1,107 @@
-import { Meta, StoryObj } from "@storybook/preact"
-import { useRef } from "preact/hooks"
+import { Meta, StoryObj } from '@storybook/preact'
 
-import { Popover } from "./Popover"
+import { useRef } from 'preact/hooks'
 
-import { Stack } from "../../index"
-import { Text } from "../../index"
-import { Section } from "../../index"
-import { Button } from "../../index"
-import { OverlayPositioner } from "../../index"
+import { ControlledStory } from './stories/Controlled.story'
+import { UncontrolledStory } from './stories/Uncontrolled.story'
+import { ArrowStory } from './stories/Arrow.story'
+
+import { Text, Section, Button } from '../../index'
+
+import { Popover } from './Popover'
 
 const meta: Meta<typeof Popover> = {
-  title: "Components/Popover",
+  title: 'Components/Popover',
   component: Popover,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
-        component:
-          "A wrapper component that creates a popover-like container. Used inside &lt;OverlayPositioner/&gt; component.",
+        component: 'A facade component that provides a simplified API for popovers.',
       },
     },
   },
   argTypes: {
+    id: {
+      control: { type: 'text' },
+      table: {
+        type: {
+          summary: 'string',
+        },
+      },
+    },
     className: {
-      control: { type: "text" },
-    },
-    width: {
-      control: { type: "number" },
-      defaultValue: { summary: "auto" },
-      table: {
-        type: {
-          summary: "number | 'auto'",
-        },
-      },
-    },
-    height: {
-      control: { type: "number" },
-      defaultValue: { summary: "auto" },
-      table: {
-        type: {
-          summary: "number | 'auto'",
-        },
-      },
+      control: { type: 'text' },
     },
     children: {
+      control: { type: 'text' },
+      description: '<strong>*</strong>',
+      table: {
+        type: {
+          summary: 'preact.ComponentChildren',
+        },
+      },
+    },
+    popoverHeaderProps: {
       control: { disable: true },
       table: {
         type: {
-          summary: "JSX.Element",
+          summary: 'Pick<PopoverHeaderProps>',
+          detail: `
+{
+  children: preact.ComponentChildren
+}
+`,
+        },
+      },
+    },
+    '...PopoverContextProps': {
+      control: { disable: true },
+      table: {
+        type: {
+          summary: 'Pick<PopoverContextProps>',
+          detail: `
+{
+  triggerRef: RefObject | null
+  anchorRef: RefObject | null
+}
+`,
+        },
+      },
+    },
+    '...PopoverContainerProps': {
+      control: { disable: true },
+      table: {
+        type: {
+          summary: 'Pick<PopoverContainerProps>',
+          detail: `
+{
+  width: number
+  height: number
+  showArrow: boolean
+}
+`,
+        },
+      },
+    },
+    '...OverlayPositionerProps': {
+      control: { disable: true },
+      table: {
+        type: {
+          summary: 'Pick<OverlayPositionerProps>',
+          detail: `
+{
+  open: boolean
+  defaultOpen: boolean
+  placement: OverlayPositionerPlacement
+  placementFallback: OverlayPositionerPlacement[]
+  draggable: boolean
+  offsetX: number
+  offsetY: number
+  offsetEdge: number
+  onOpen: () => void
+  onClose: () => void
+}`,
         },
       },
     },
@@ -55,31 +109,44 @@ const meta: Meta<typeof Popover> = {
 }
 
 export default meta
+
 type Story = StoryObj<typeof Popover>
 
 export const Demo: Story = {
-  tags: ["!autodocs"],
+  tags: ['!autodocs'],
   args: {
-    className: "",
-    width: 300,
-    height: 300,
+    id: undefined,
+    className: '',
+    children: 'Content',
+    popoverHeaderProps: {
+      children: 'Header',
+    },
   },
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
+    },
+    docs: {
+      source: {
+        language: 'tsx',
+        code: `
+<Popover {...args}>{children}</Popover>
+`,
+      },
     },
   },
   render: (args) => {
+    const triggerRef = useRef<HTMLButtonElement | null>(null)
+
     return (
       <div className="sb-column sb-width-full">
-        <Popover {...args}>
+        <Button ref={triggerRef}>Open Popover</Button>
+
+        <Popover triggerRef={triggerRef} {...args}>
           <Section>
             <Text>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quae
-              autem dolorum quibusdam necessitatibus natus, ipsa aperiam eos
-              animi id nam tenetur adipisci? Amet nisi doloremque asperiores
-              quisquam, repudiandae similique magnam aspernatur esse dignissimos
-              molestiae.
+              {/* @ts-expect-error Storybook spread */}
+              {args.children}
             </Text>
           </Section>
         </Popover>
@@ -88,301 +155,6 @@ export const Demo: Story = {
   },
 }
 
-export const Size: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => {
-    return (
-      <div className="sb-column sb-width-full">
-        <Stack spacing={400}>
-          <Popover width={300} height={200}>
-            <Section>
-              <Text>Fixed Size Popover 300x200</Text>
-            </Section>
-          </Popover>
-          <Popover width="auto" height="auto">
-            <Section>
-              <Text>Auto Size Popover</Text>
-            </Section>
-          </Popover>
-        </Stack>
-      </div>
-    )
-  },
-}
-
-export const Placement: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-    docs: {
-      description: {
-        story:
-          "Interactive displaying of the tooltip (including the arrow pointing to the anchor) managed by the &lt;OverlayPositioner/&gt; component.",
-      },
-    },
-  },
-  render: () => {
-    const anchorRefTop = useRef<HTMLButtonElement | null>(null)
-    const anchorRefTopLeft = useRef<HTMLButtonElement | null>(null)
-    const anchorRefTopEnd = useRef<HTMLButtonElement | null>(null)
-
-    const anchorRefBottom = useRef<HTMLButtonElement | null>(null)
-    const anchorRefBottomLeft = useRef<HTMLButtonElement | null>(null)
-    const anchorRefBottomEnd = useRef<HTMLButtonElement | null>(null)
-
-    const anchorRefLeft = useRef<HTMLButtonElement | null>(null)
-    const anchorRefLeftTop = useRef<HTMLButtonElement | null>(null)
-    const anchorRefLeftBottom = useRef<HTMLButtonElement | null>(null)
-
-    const anchorRefRight = useRef<HTMLButtonElement | null>(null)
-    const anchorRefRightTop = useRef<HTMLButtonElement | null>(null)
-    const anchorRefRightBottom = useRef<HTMLButtonElement | null>(null)
-
-    return (
-      <div className="sb-column sb-width-full">
-        <Stack direction="row" spacing={400}>
-          <Stack spacing={200}>
-            <Button ref={anchorRefTopLeft}>Top Left</Button>
-            <OverlayPositioner
-              anchorRef={anchorRefTopLeft}
-              placement="top-left"
-              paddingY={8}
-            >
-              <Popover width={300}>
-                <Section>
-                  <Text>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui
-                    quae autem dolorum quibusdam necessitatibus natus, ipsa
-                    aperiam eos animi id nam tenetur adipisci? Amet nisi
-                    doloremque asperiores quisquam, repudiandae similique magnam
-                    aspernatur esse dignissimos molestiae.
-                  </Text>
-                </Section>
-              </Popover>
-            </OverlayPositioner>
-
-            <Button ref={anchorRefTop}>Top</Button>
-            <OverlayPositioner
-              anchorRef={anchorRefTop}
-              placement="top"
-              paddingY={8}
-            >
-              <Popover width={300}>
-                <Section>
-                  <Text>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui
-                    quae autem dolorum quibusdam necessitatibus natus, ipsa
-                    aperiam eos animi id nam tenetur adipisci? Amet nisi
-                    doloremque asperiores quisquam, repudiandae similique magnam
-                    aspernatur esse dignissimos molestiae.
-                  </Text>
-                </Section>
-              </Popover>
-            </OverlayPositioner>
-
-            <Button ref={anchorRefTopEnd}>Top Right</Button>
-            <OverlayPositioner
-              anchorRef={anchorRefTopEnd}
-              placement="top-right"
-              paddingY={8}
-            >
-              <Popover width={300}>
-                <Section>
-                  <Text>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui
-                    quae autem dolorum quibusdam necessitatibus natus, ipsa
-                    aperiam eos animi id nam tenetur adipisci? Amet nisi
-                    doloremque asperiores quisquam, repudiandae similique magnam
-                    aspernatur esse dignissimos molestiae.
-                  </Text>
-                </Section>
-              </Popover>
-            </OverlayPositioner>
-          </Stack>
-
-          <Stack spacing={200}>
-            <Button ref={anchorRefBottomLeft}>Bottom Left</Button>
-            <OverlayPositioner
-              anchorRef={anchorRefBottomLeft}
-              placement="bottom-left"
-              paddingY={8}
-            >
-              <Popover width={300}>
-                <Section>
-                  <Text>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui
-                    quae autem dolorum quibusdam necessitatibus natus, ipsa
-                    aperiam eos animi id nam tenetur adipisci? Amet nisi
-                    doloremque asperiores quisquam, repudiandae similique magnam
-                    aspernatur esse dignissimos molestiae.
-                  </Text>
-                </Section>
-              </Popover>
-            </OverlayPositioner>
-
-            <Button ref={anchorRefBottom}>Bottom</Button>
-            <OverlayPositioner
-              anchorRef={anchorRefBottom}
-              placement="bottom"
-              paddingY={8}
-            >
-              <Popover width={300}>
-                <Section>
-                  <Text>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui
-                    quae autem dolorum quibusdam necessitatibus natus, ipsa
-                    aperiam eos animi id nam tenetur adipisci? Amet nisi
-                    doloremque asperiores quisquam, repudiandae similique magnam
-                    aspernatur esse dignissimos molestiae.
-                  </Text>
-                </Section>
-              </Popover>
-            </OverlayPositioner>
-
-            <Button ref={anchorRefBottomEnd}>Bottom Right</Button>
-            <OverlayPositioner
-              anchorRef={anchorRefBottomEnd}
-              placement="bottom-right"
-              paddingY={8}
-            >
-              <Popover width={300}>
-                <Section>
-                  <Text>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui
-                    quae autem dolorum quibusdam necessitatibus natus, ipsa
-                    aperiam eos animi id nam tenetur adipisci? Amet nisi
-                    doloremque asperiores quisquam, repudiandae similique magnam
-                    aspernatur esse dignissimos molestiae.
-                  </Text>
-                </Section>
-              </Popover>
-            </OverlayPositioner>
-          </Stack>
-
-          <Stack spacing={200}>
-            <Button ref={anchorRefLeftTop}>Left Top</Button>
-            <OverlayPositioner
-              anchorRef={anchorRefLeftTop}
-              placement="left-top"
-              paddingX={8}
-            >
-              <Popover width={300}>
-                <Section>
-                  <Text>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui
-                    quae autem dolorum quibusdam necessitatibus natus, ipsa
-                    aperiam eos animi id nam tenetur adipisci? Amet nisi
-                    doloremque asperiores quisquam, repudiandae similique magnam
-                    aspernatur esse dignissimos molestiae.
-                  </Text>
-                </Section>
-              </Popover>
-            </OverlayPositioner>
-            <Button ref={anchorRefLeft}>Left</Button>
-            <OverlayPositioner
-              anchorRef={anchorRefLeft}
-              placement="left"
-              paddingX={8}
-            >
-              <Popover width={300}>
-                <Section>
-                  <Text>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui
-                    quae autem dolorum quibusdam necessitatibus natus, ipsa
-                    aperiam eos animi id nam tenetur adipisci? Amet nisi
-                    doloremque asperiores quisquam, repudiandae similique magnam
-                    aspernatur esse dignissimos molestiae.
-                  </Text>
-                </Section>
-              </Popover>
-            </OverlayPositioner>
-            <Button ref={anchorRefLeftBottom}>Left Bottom</Button>
-            <OverlayPositioner
-              anchorRef={anchorRefLeftBottom}
-              placement="left-bottom"
-              paddingX={8}
-            >
-              <Popover width={300}>
-                <Section>
-                  <Text>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui
-                    quae autem dolorum quibusdam necessitatibus natus, ipsa
-                    aperiam eos animi id nam tenetur adipisci? Amet nisi
-                    doloremque asperiores quisquam, repudiandae similique magnam
-                    aspernatur esse dignissimos molestiae.
-                  </Text>
-                </Section>
-              </Popover>
-            </OverlayPositioner>
-          </Stack>
-
-          <Stack spacing={200}>
-            <Button ref={anchorRefRightTop}>Right Top</Button>
-            <OverlayPositioner
-              anchorRef={anchorRefRightTop}
-              placement="right-top"
-              paddingX={8}
-            >
-              <Popover width={300}>
-                <Section>
-                  <Text>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui
-                    quae autem dolorum quibusdam necessitatibus natus, ipsa
-                    aperiam eos animi id nam tenetur adipisci? Amet nisi
-                    doloremque asperiores quisquam, repudiandae similique magnam
-                    aspernatur esse dignissimos molestiae.
-                  </Text>
-                </Section>
-              </Popover>
-            </OverlayPositioner>
-
-            <Button ref={anchorRefRight}>Right</Button>
-            <OverlayPositioner
-              anchorRef={anchorRefRight}
-              placement="right"
-              paddingX={8}
-            >
-              <Popover width={300}>
-                <Section>
-                  <Text>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui
-                    quae autem dolorum quibusdam necessitatibus natus, ipsa
-                    aperiam eos animi id nam tenetur adipisci? Amet nisi
-                    doloremque asperiores quisquam, repudiandae similique magnam
-                    aspernatur esse dignissimos molestiae.
-                  </Text>
-                </Section>
-              </Popover>
-            </OverlayPositioner>
-
-            <Button ref={anchorRefRightBottom}>Right Bottom</Button>
-            <OverlayPositioner
-              anchorRef={anchorRefRightBottom}
-              placement="right-bottom"
-              paddingX={8}
-            >
-              <Popover width={300}>
-                <Section>
-                  <Text>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui
-                    quae autem dolorum quibusdam necessitatibus natus, ipsa
-                    aperiam eos animi id nam tenetur adipisci? Amet nisi
-                    doloremque asperiores quisquam, repudiandae similique magnam
-                    aspernatur esse dignissimos molestiae.
-                  </Text>
-                </Section>
-              </Popover>
-            </OverlayPositioner>
-          </Stack>
-        </Stack>
-      </div>
-    )
-  },
-}
+export const Uncontrolled = UncontrolledStory
+export const Controlled = ControlledStory
+export const Arrow = ArrowStory

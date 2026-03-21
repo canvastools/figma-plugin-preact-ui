@@ -1,70 +1,58 @@
-@use "../../shared.scss" as *;
-@use "../../mixins.scss" as *;
+@use '../../shared.scss' as *;
 
-@mixin Button_intent-filled($intent, $modifiers) {
+@mixin Button_filled($intent, $modifiers) {
   &_intent-#{$intent}-#{$modifiers} {
-    background-color: var(--pui-color-#{$intent}-bg-#{$modifiers}-interactive);
+    background-color: var(--pui-color-#{$intent}-bg-#{$modifiers});
 
     &:hover {
-      background-color: var(
-        --pui-color-#{$intent}-bg-#{$modifiers}-interactive-hover
-      );
+      background-color: var(--pui-color-#{$intent}-bg-#{$modifiers}-hover);
     }
 
     &:active {
-      background-color: var(
-        --pui-color-#{$intent}-bg-#{$modifiers}-interactive-pressed
-      );
+      background-color: var(--pui-color-#{$intent}-bg-#{$modifiers}-pressed);
     }
   }
 }
 
-@mixin ButtonIcon_intent-outlined($intent, $modifiers) {
+@mixin ButtonIcon_outlined($intent, $modifiers) {
   &_intent-#{$intent}-#{$modifiers} {
-    background-color: var(--pui-color-#{$intent}-bg-#{$modifiers}-interactive);
-    box-shadow: inset 0 0 0 1px
-      var(--pui-color-#{$intent}-border-#{$modifiers}-interactive);
+    background-color: transparent;
+    box-shadow: inset 0 0 0 1px var(--pui-color-#{$intent}-border-#{$modifiers});
 
     &:hover {
-      background-color: var(
-        --pui-color-#{$intent}-bg-#{$modifiers}-interactive-hover
-      );
+      background-color: var(--pui-color-#{$intent}-bg-#{$modifiers}-hover);
     }
 
     &:active {
-      background-color: var(
-        --pui-color-#{$intent}-bg-#{$modifiers}-interactive-pressed
-      );
+      background-color: var(--pui-color-#{$intent}-bg-#{$modifiers}-pressed);
+      box-shadow: unset;
     }
   }
 }
 
-@mixin ButtonIcon_intent-ghost($intent, $modifiers) {
+@mixin ButtonIcon_ghost($intent, $modifiers) {
   &_intent-#{$intent}-#{$modifiers}.ButtonIcon_ghost {
     background-color: transparent;
     box-shadow: none;
 
     &:hover {
-      background-color: var(
-        --pui-color-#{$intent}-bg-#{$modifiers}-interactive-hover
-      );
+      background-color: var(--pui-color-#{$intent}-bg-#{$modifiers}-hover);
     }
 
     &:active {
-      background-color: var(
-        --pui-color-#{$intent}-bg-#{$modifiers}-interactive-pressed
-      );
+      background-color: var(--pui-color-#{$intent}-bg-#{$modifiers}-pressed);
     }
   }
 }
 
-@mixin ButtonIcon_intent-translucent($intent, $modifiers) {
-  &_intent-#{$intent}-#{$modifiers}.ButtonIcon_translucent {
+@mixin ButtonIcon_translucent($intent, $modifiers) {
+  &_intent-#{$intent}-#{$modifiers}:is(&_translucent) {
     background-color: transparent;
     box-shadow: none;
     opacity: 0.64;
 
-    &:hover {
+    &:hover,
+    &:focus-visible {
       opacity: 1;
     }
 
@@ -75,16 +63,18 @@
 }
 
 .ButtonIcon {
-  $parent: &;
-
   padding: 0 var(--pui-spacing-100);
   border-radius: var(--pui-radius-medium);
   border: none;
   flex: 0 0 auto;
   overflow: hidden;
+  cursor: default;
 
-  @include curson-feedback;
-  @include focus-visible;
+  &:focus-visible {
+    outline: 1px solid var(--pui-color-system-border-focused);
+    outline-offset: 1px;
+    box-shadow: none;
+  }
 
   &__children {
     display: flex;
@@ -107,44 +97,66 @@
   }
 
   &_groupedPosition {
-    &-left {
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
-    }
-
-    &-right {
+    &-first {
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
     }
 
-    &-both {
+    &-last {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    &-middle {
       border-radius: 0;
     }
   }
 
-  &_grouped + &_grouped {
-    margin-left: -1px;
-  }
+  @include ButtonIcon_outlined('neutral', 'default');
+  @include Button_filled('neutral', 'secondary');
+  @include ButtonIcon_ghost('neutral', 'default');
+  @include ButtonIcon_translucent('neutral', 'default');
 
-  @include ButtonIcon_intent-outlined("neutral", "default");
-  @include Button_intent-filled("neutral", "secondary");
-  @include ButtonIcon_intent-ghost("neutral", "default");
-  @include ButtonIcon_intent-translucent("neutral", "default");
+  &_selected {
+    background-color: var(--pui-color-neutral-bg-default-selected) !important;
+    color: var(--pui-color-neutral-text-default-selected) !important;
+    box-shadow: none !important;
+
+    &:hover {
+      background-color: var(--pui-color-neutral-bg-default-selected-hover) !important;
+    }
+
+    &:active {
+      background-color: var(--pui-color-neutral-bg-default-selected-pressed) !important;
+    }
+  }
 
   &_disabled {
     cursor: auto !important;
   }
 
-  &_disabled:is(&_intent-neutral-default) {
-    background-color: var(--pui-color-neutral-bg-disabled) !important;
+  &_disabled {
+    background-color: transparent !important;
     box-shadow: none !important;
 
     &:hover {
-      background-color: var(--pui-color-neutral-bg-disabled) !important;
+      background-color: transparent !important;
     }
 
     &:active {
-      background-color: var(--pui-color-neutral-bg-disabled) !important;
+      background-color: transparent !important;
     }
+  }
+
+  &_disabled:is(&_selected) {
+    background-color: var(--pui-color-neutral-bg-disabled) !important;
+  }
+
+  &_disabled:is(&_translucent) {
+    opacity: 1 !important;
+  }
+
+  &_translucent:focus-visible {
+    outline-offset: -1px !important;
   }
 }

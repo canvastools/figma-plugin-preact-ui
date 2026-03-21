@@ -1,77 +1,101 @@
-import { bem, typedForwardRef } from "../../utils"
+import { bem, typedForwardRef } from '../../utils'
 
-import type { TabProps } from "./Tab.types"
-import "./Tab.scss"
+import { toChildArray, cloneElement } from 'preact'
+import { useRef } from 'preact/hooks'
 
-import { useTabContext } from "../../index"
+import type { VNode } from 'preact'
 
-import { Text } from "../../index"
+import { useTabContext, Text, Icon } from '../../index'
+
+import type { TabProps } from './Tab.types'
+import './Tab.scss'
 
 /* --- */
 
 const TabComponent = (
-  {
-    className,
-    value,
-    variant = "default",
-    prefix,
-    suffix,
-    children,
-    onClick,
-    ...rest
-  }: TabProps,
-  ref: preact.Ref<HTMLButtonElement>
+  { id, className, variant = 'default', prefix, suffix, children, onClick, ...rest }: TabProps,
+  ref: preact.Ref<HTMLButtonElement>,
 ) => {
-  const { value: activeValue, onChange } = useTabContext()
+  const { activeId, onTabChange, registerTab } = useTabContext()
 
-  const _className = bem("Tab", undefined, {
+  const buttonRef = useRef<HTMLButtonElement | null>(null)
+
+  const setRef = (el: HTMLButtonElement | null) => {
+    buttonRef.current = el
+    registerTab(id, el)
+
+    if (typeof ref === 'function') {
+      ref(el)
+    } else if (ref) {
+      const r = ref as preact.RefObject<HTMLButtonElement>
+      r.current = el
+    }
+  }
+
+  const _className = bem('Tab', undefined, {
     variant,
-    selected: value === activeValue,
+    selected: id === activeId,
     prefix: Boolean(prefix),
     suffix: Boolean(suffix),
   })
 
   const handleClick = (event: MouseEvent) => {
     event.stopPropagation()
-    onChange(value)
-    onClick?.({ event, value })
+    onTabChange(id)
+    onClick?.({ event, id })
   }
 
   type ContentProps = { fake?: boolean; selected: boolean }
 
+  const renderAdditionalContent = (content: preact.ComponentChildren, selected: boolean) => {
+    return toChildArray(content).map((contentChild) => {
+      if (typeof contentChild === 'object' && contentChild !== null) {
+        const maybeVNode = contentChild as VNode
+        if (maybeVNode.type === Icon) {
+          return cloneElement(maybeVNode, {
+            intentModifier: selected ? 'default' : 'secondary',
+          })
+        }
+      }
+      return contentChild
+    })
+  }
+
   const Content = ({ fake = false, selected = false }: ContentProps) => (
     <div className="Tab__content">
-      {prefix && <div className="Tab__prefix">{prefix}</div>}
-      {children && (
+      {prefix && <div className="Tab__prefix">{prefix && renderAdditionalContent(prefix, selected)}</div>}
+      {children != null && children !== false && children !== true && (
         <div className="Tab__children">
           <Text
             variant="body"
             size="medium"
-            strong={fake || value === activeValue}
+            strong={fake || id === activeId}
             intent="neutral"
-            intentModifiers={selected ? "default" : "secondary"}
-            interactive
+            intentModifier={selected ? 'default' : 'secondary'}
           >
             {children}
           </Text>
         </div>
       )}
-      {suffix && <div className="Tab__suffix">{suffix}</div>}
+      {suffix && <div className="Tab__suffix">{suffix && renderAdditionalContent(suffix, selected)}</div>}
     </div>
   )
 
   return (
     <button
-      className={[_className, className, "no-drag"].join(" ").trim()}
-      ref={ref}
+      id={id}
+      className={[_className, className].join(' ').trim()}
+      data-pui-interactive="true"
+      ref={setRef}
+      tabIndex={id === activeId ? 0 : -1}
       {...rest}
       onClick={handleClick}
     >
       <div className="Tab__container Tab__container_fake">
-        <Content fake selected={value === activeValue} />
+        <Content fake selected={id === activeId} />
       </div>
       <div className="Tab__container Tab__container_real">
-        <Content selected={value === activeValue} />
+        <Content selected={id === activeId} />
       </div>
     </button>
   )

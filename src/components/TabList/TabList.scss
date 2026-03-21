@@ -1,44 +1,48 @@
-@use "../../shared.scss" as *;
+@use '../../shared.scss' as *;
 
 .TabList {
-  $parent: &;
-
   width: 100%;
   position: relative;
   display: flex;
-  margin: 0 calc(var(--pui-spacing-200) * -2);
-
-  -webkit-mask-image: linear-gradient(
-    to right,
-    transparent 0,
-    black var(--pui-spacing-200),
-    black calc(100% - var(--pui-spacing-200)),
-    transparent 100%
-  );
-
-  -webkit-mask-repeat: no-repeat;
-  -webkit-mask-size: 100% 100%;
-
-  mask-image: linear-gradient(
-    to right,
-    transparent 0,
-    black var(--pui-spacing-200),
-    black calc(100% - var(--pui-spacing-200)),
-    transparent 100%
-  );
-
-  mask-repeat: no-repeat;
-  mask-size: 100% 100%;
-
-  mask-clip: content-box;
 
   &__children {
     display: flex;
+  }
+
+  &_variant-default {
+    flex-flow: row nowrap;
+
+    margin: 0 calc(var(--pui-spacing-200) * -2);
+
+    -webkit-mask-image: linear-gradient(to right, transparent 0, black var(--pui-spacing-200), black calc(100% - var(--pui-spacing-200)), transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0, black var(--pui-spacing-200), black calc(100% - var(--pui-spacing-200)), transparent 100%);
+
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+
+    mask-clip: content-box;
+  }
+
+  &_variant-default &__children {
     flex-flow: row nowrap;
     flex: 1 1 auto;
     gap: var(--pui-spacing-100);
     padding: 0 var(--pui-spacing-200);
     overflow-x: auto;
     scrollbar-width: none;
+  }
+
+  &_variant-list &__children {
+    flex-flow: column nowrap;
+    flex: 1 1 auto;
+    gap: var(--pui-spacing-100);
+    padding: 0;
+
+    & .Tab__container {
+      justify-content: flex-start !important;
+    }
   }
 }

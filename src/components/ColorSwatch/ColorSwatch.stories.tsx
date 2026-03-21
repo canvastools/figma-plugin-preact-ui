@@ -1,82 +1,95 @@
-import { Meta, StoryObj } from "@storybook/preact"
-import { fn } from "@storybook/test"
+import { Meta, StoryObj } from '@storybook/preact'
+import { fn } from '@storybook/test'
 
-import { ColorSwatch } from "./ColorSwatch"
+import { SizeStory } from './stories/Size.story'
+import { ColorStory } from './stories/Color.story'
+import { DisabledStory } from './stories/Disabled.story'
+import { SelectionStory } from './stories/Selection.story'
+import { ChildrenStory } from './stories/Children.story'
 
-import { Icon } from "../Icon/Icon"
-import { ai as aiGlyph } from "../Icon/glyphs"
+import { TooltipContext } from '../../index'
 
-import { Stack } from "../../index"
+import { ColorSwatch } from './ColorSwatch'
+import type { Color } from '../ColorPicker/ColorPicker.types'
 
 const meta: Meta<typeof ColorSwatch> = {
-  title: "Components/ColorSwatch",
+  title: 'Components/ColorSwatch',
   component: ColorSwatch,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
+    id: {
+      control: { type: 'text' },
+      table: {
+        type: {
+          summary: 'string',
+        },
+      },
+    },
     className: {
-      control: { type: "text" },
+      control: { type: 'text' },
     },
     size: {
-      control: { type: "radio" },
-      options: ["small", "medium", "large"],
-      defaultValue: { summary: "medium" },
+      control: { type: 'radio' },
+      options: ['small', 'medium', 'large'],
+      defaultValue: { summary: 'medium' },
     },
-    hex: {
-      control: { type: "color" },
+    color: {
+      control: { type: 'object' },
       table: {
         type: {
-          summary: "HEX | RGB | RGBA | var()",
+          summary: 'Color',
+          detail: `
+{
+  r: number
+  g: number
+  b: number
+  a: number
+}
+`,
         },
       },
     },
-    imageSrc: {
-      control: { disable: true },
-      table: {
-        type: {
-          summary: "string",
-        },
-      },
-      description: "Image source URL. Applies only to the image variant.",
-    },
-    title: {
-      control: { type: "text" },
-      defaultValue: { summary: undefined },
-      description: "Title to display when the color swatch is hovered.",
-      table: {
-        type: {
-          summary: "string",
-        },
-      },
-    },
-    hoverable: {
-      control: { type: "boolean" },
+    disabled: {
+      control: { type: 'boolean' },
       defaultValue: { summary: false },
     },
     selected: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       defaultValue: { summary: false },
     },
     selection: {
-      control: { type: "radio" },
-      options: ["default", "rainbow"],
-      defaultValue: { summary: "default" },
+      control: { type: 'radio' },
+      options: ['default', 'rainbow'],
+      description: 'Selection border style.',
+      defaultValue: { summary: 'default' },
+    },
+    tooltip: {
+      control: { type: 'text' },
+      description: 'Tooltip content.',
+      table: {
+        type: {
+          summary: 'preact.ComponentChildren',
+        },
+      },
     },
     children: {
       control: { disable: true },
-      description: "Children to display inside the color swatch.",
       table: {
         type: {
-          summary: "JSX.Element",
+          summary: 'preact.ComponentChildren',
         },
       },
     },
     onClick: {
-      action: "clicked",
-      description: "Callback when the color swatch is clicked.",
       table: {
         type: {
-          summary:
-            "(args: { event: MouseEvent; hex: string | undefined; imageSrc: string | undefined }) => void",
+          summary: '(args) => void',
+          detail: `
+args: { 
+  event: MouseEvent
+  color: Color | undefined
+}
+          `,
         },
       },
     },
@@ -84,302 +97,52 @@ const meta: Meta<typeof ColorSwatch> = {
 }
 
 export default meta
+
 type Story = StoryObj<typeof ColorSwatch>
 
 export const Demo: Story = {
-  tags: ["!autodocs"],
+  tags: ['!autodocs'],
   args: {
-    className: "",
-    selection: "default",
-    size: "medium",
-    hex: "#FF0000",
-    title: "Title",
-    hoverable: false,
+    id: undefined,
+    className: '',
+    size: 'medium',
+    color: { r: 1, g: 0, b: 0, a: 1 } as Color,
+    disabled: false,
     selected: false,
+    selection: 'default',
+    tooltip: 'ColorSwatch tooltip',
     onClick: fn(),
   },
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
+    },
+    docs: {
+      source: {
+        language: 'tsx',
+        code: `
+<ColorSwatch {...args} />
+
+// Use TooltipContext to make tooltips work
+
+<TooltipContext>
+  <ColorSwatch {...args}/>
+</TooltipContext>
+`,
+      },
     },
   },
   render: (args) => (
     <div className="sb-column sb-width-full">
-      <ColorSwatch {...args} />
+      <TooltipContext>
+        <ColorSwatch {...args} />
+      </TooltipContext>
     </div>
   ),
 }
 
-export const Hex: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => (
-    <div className="sb-column">
-      <Stack spacing={400} direction="row">
-        <ColorSwatch />
-        <ColorSwatch hex="#FF0000" />
-        <ColorSwatch hex="#FF00004D" />
-      </Stack>
-    </div>
-  ),
-}
-
-export const ImageSrc: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => (
-    <div className="sb-column">
-      <Stack spacing={400} direction="row">
-        <ColorSwatch />
-        <ColorSwatch imageSrc="https://placehold.co/48x48" />
-      </Stack>
-    </div>
-  ),
-}
-
-export const Title: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => (
-    <div className="sb-column">
-      <Stack spacing={400} direction="row">
-        <ColorSwatch hex="#FF0000" title="Red" />
-      </Stack>
-    </div>
-  ),
-}
-
-export const Size: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => (
-    <div className="sb-column">
-      <Stack spacing={400}>
-        <Stack spacing={400} direction="row">
-          <ColorSwatch size="small" />
-          <ColorSwatch hex="#FF0000" size="small" />
-          <ColorSwatch hex="#FF00004D" size="small" />
-          <ColorSwatch imageSrc="https://placehold.co/48x48" size="small" />
-        </Stack>
-        <Stack spacing={400} direction="row">
-          <ColorSwatch />
-          <ColorSwatch hex="#FF0000" />
-          <ColorSwatch hex="#FF00004D" />
-          <ColorSwatch imageSrc="https://placehold.co/48x48" />
-        </Stack>
-        <Stack spacing={400} direction="row">
-          <ColorSwatch size="large" />
-          <ColorSwatch hex="#FF0000" size="large" />
-          <ColorSwatch hex="#FF00004D" size="large" />
-          <ColorSwatch imageSrc="https://placehold.co/48x48" size="large" />
-        </Stack>
-      </Stack>
-    </div>
-  ),
-}
-
-export const Hoverable: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => (
-    <div className="sb-column">
-      <Stack spacing={400}>
-        <Stack spacing={400} direction="row">
-          <ColorSwatch size="small" hoverable />
-          <ColorSwatch hex="#FF0000" size="small" hoverable />
-          <ColorSwatch hex="#FF00004D" size="small" hoverable />
-          <ColorSwatch
-            imageSrc="https://placehold.co/48x48"
-            size="small"
-            hoverable
-          />
-        </Stack>
-        <Stack spacing={400} direction="row">
-          <ColorSwatch hoverable />
-          <ColorSwatch hex="#FF0000" hoverable />
-          <ColorSwatch hex="#FF00004D" hoverable />
-          <ColorSwatch imageSrc="https://placehold.co/48x48" hoverable />
-        </Stack>
-        <Stack spacing={400} direction="row">
-          <ColorSwatch size="large" hoverable />
-          <ColorSwatch hex="#FF0000" size="large" hoverable />
-          <ColorSwatch hex="#FF00004D" size="large" hoverable />
-          <ColorSwatch
-            imageSrc="https://placehold.co/48x48"
-            size="large"
-            hoverable
-          />
-        </Stack>
-      </Stack>
-    </div>
-  ),
-}
-
-export const Selection: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => (
-    <div className="sb-column">
-      <Stack spacing={400} direction="column">
-        <Stack spacing={1000} direction="row">
-          <Stack spacing={400} direction="row">
-            <ColorSwatch size="small" selected />
-            <ColorSwatch hex="#FF0000" size="small" selected />
-            <ColorSwatch hex="#FF00004D" size="small" selected />
-            <ColorSwatch
-              imageSrc="https://placehold.co/48x48"
-              size="small"
-              selected
-            />
-          </Stack>
-
-          <Stack spacing={400} direction="row">
-            <ColorSwatch size="small" selection="rainbow" selected />
-            <ColorSwatch
-              hex="#FF0000"
-              size="small"
-              selection="rainbow"
-              selected
-            />
-            <ColorSwatch
-              hex="#FF00004D"
-              size="small"
-              selection="rainbow"
-              selected
-            />
-            <ColorSwatch
-              imageSrc="https://placehold.co/48x48"
-              size="small"
-              selection="rainbow"
-              selected
-            />
-          </Stack>
-        </Stack>
-
-        <Stack spacing={1000} direction="row">
-          <Stack spacing={400} direction="row">
-            <ColorSwatch size="medium" selected />
-            <ColorSwatch hex="#FF0000" size="medium" selected />
-            <ColorSwatch hex="#FF00004D" size="medium" selected />
-            <ColorSwatch
-              imageSrc="https://placehold.co/48x48"
-              size="medium"
-              selected
-            />
-          </Stack>
-
-          <Stack spacing={400} direction="row">
-            <ColorSwatch size="medium" selection="rainbow" selected />
-            <ColorSwatch
-              hex="#FF0000"
-              size="medium"
-              selection="rainbow"
-              selected
-            />
-            <ColorSwatch
-              hex="#FF00004D"
-              size="medium"
-              selection="rainbow"
-              selected
-            />
-            <ColorSwatch
-              imageSrc="https://placehold.co/48x48"
-              size="medium"
-              selection="rainbow"
-              selected
-            />
-          </Stack>
-        </Stack>
-
-        <Stack spacing={1000} direction="row">
-          <Stack spacing={400} direction="row">
-            <ColorSwatch size="large" selected />
-            <ColorSwatch hex="#FF0000" size="large" selected />
-            <ColorSwatch hex="#FF00004D" size="large" selected />
-            <ColorSwatch
-              imageSrc="https://placehold.co/48x48"
-              size="large"
-              selected
-            />
-          </Stack>
-
-          <Stack spacing={400} direction="row">
-            <ColorSwatch size="large" selection="rainbow" selected />
-            <ColorSwatch
-              hex="#FF0000"
-              size="large"
-              selection="rainbow"
-              selected
-            />
-            <ColorSwatch
-              hex="#FF00004D"
-              size="large"
-              selection="rainbow"
-              selected
-            />
-            <ColorSwatch
-              imageSrc="https://placehold.co/48x48"
-              size="large"
-              selection="rainbow"
-              selected
-            />
-          </Stack>
-        </Stack>
-      </Stack>
-    </div>
-  ),
-}
-
-export const Children: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => (
-    <div className="sb-column">
-      <Stack spacing={400} direction="row">
-        <ColorSwatch>
-          <Icon glyph={aiGlyph} size={16} />
-        </ColorSwatch>
-        <ColorSwatch hex="#FF0000">
-          <Icon glyph={aiGlyph} size={16} />
-        </ColorSwatch>
-        <ColorSwatch hex="#FF00004D">
-          <Icon glyph={aiGlyph} size={16} />
-        </ColorSwatch>
-        <ColorSwatch imageSrc="https://placehold.co/48x48">
-          <Icon glyph={aiGlyph} size={16} />
-        </ColorSwatch>
-        {/* <ColorSwatch wheel>
-          <Icon glyph={aiGlyph} size={16} />
-        </ColorSwatch> */}
-      </Stack>
-    </div>
-  ),
-}
+export const Size = SizeStory
+export const _Color = ColorStory
+export const Disabled = DisabledStory
+export const Selection = SelectionStory
+export const Children = ChildrenStory

@@ -1,60 +1,40 @@
-import { GlyphProps } from "../Icon.types"
+import { GlyphProps } from '../Icon.types'
 
 export const plus = ({ variant, size }: GlyphProps) => {
-  const combination = size + "_" + variant
+  const combination = size + '_' + variant
 
   switch (combination) {
-    case "16_default":
+    case '16_default':
       return (
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 16 16"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
-            d="M8.5 3C8.77614 3 9 3.22386 9 3.5V7H12.5C12.7761 7 13 7.22386 13 7.5C13 7.77614 12.7761 8 12.5 8H9V11.5C9 11.7761 8.77614 12 8.5 12C8.22399 11.9998 8 11.776 8 11.5V8H4.5C4.22399 7.99984 4 7.77604 4 7.5C4 7.22396 4.22399 7.00016 4.5 7H8V3.5C8 3.22396 8.22399 3.00016 8.5 3Z"
+            d="M7.5 4C7.77614 4 8 4.22386 8 4.5V8H11.5C11.7761 8 12 8.22386 12 8.5C12 8.77614 11.7761 9 11.5 9H8V12.5C8 12.7761 7.77614 13 7.5 13C7.22386 13 7 12.7761 7 12.5V9H3.5C3.22386 9 3 8.77614 3 8.5C3 8.22386 3.22386 8 3.5 8H7V4.5C7 4.22386 7.22386 4 7.5 4Z"
             fill="currentColor"
           />
         </svg>
       )
 
-    case "24_scaled":
+    case '24_default':
       return (
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
-            d="M12.5 6C12.7761 6 13 6.22386 13 6.5V11H17.5C17.7761 11 18 11.2239 18 11.5C18 11.7761 17.7761 12 17.5 12H13V16.5C13 16.7761 12.7761 17 12.5 17C12.2239 17 12 16.7761 12 16.5V12H7.5C7.22386 12 7 11.7761 7 11.5C7 11.2239 7.22386 11 7.5 11H12V6.5C12 6.22386 12.2239 6 12.5 6Z"
+            d="M11.5 7.00024C11.7761 7.00024 12 7.2241 12 7.50024V12.0002H16.5C16.7761 12.0002 17 12.2241 17 12.5002C16.9999 12.7763 16.7761 13.0002 16.5 13.0002H12V17.5002C11.9999 17.7763 11.7761 18.0002 11.5 18.0002C11.2239 18.0002 11.0001 17.7763 11 17.5002V13.0002H6.5C6.22394 13.0002 6.00013 12.7763 6 12.5002C6 12.2241 6.22386 12.0002 6.5 12.0002H11V7.50024C11 7.2241 11.2239 7.00024 11.5 7.00024Z"
             fill="currentColor"
           />
         </svg>
       )
 
-    case "24_default":
+    case '24_upscaled':
       return (
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
-            d="M12.5 6C12.7761 6 13 6.22386 13 6.5V11H17.5C17.7761 11 18 11.2239 18 11.5C18 11.7761 17.7761 12 17.5 12H13V16.5C13 16.7761 12.7761 17 12.5 17C12.2239 17 12 16.7761 12 16.5V12H7.5C7.22386 12 7 11.7761 7 11.5C7 11.2239 7.22386 11 7.5 11H12V6.5C12 6.22386 12.2239 6 12.5 6Z"
+            d="M11.5 4.99976C11.776 4.99976 11.9998 5.22375 12 5.49976V11.9998H18.5C18.776 11.9998 18.9998 12.2238 19 12.4998C19 12.7759 18.7761 12.9998 18.5 12.9998H12V19.4998C12 19.7759 11.7761 19.9998 11.5 19.9998C11.2239 19.9998 11 19.7759 11 19.4998V12.9998H4.5C4.22386 12.9998 4 12.7759 4 12.4998C4.00016 12.2238 4.22396 11.9998 4.5 11.9998H11V5.49976C11.0002 5.22375 11.224 4.99976 11.5 4.99976Z"
             fill="currentColor"
           />
         </svg>
       )
 
     default:
-      throw new Error(
-        `Plus icon error: Unsupported combination size=${size}, variant=${variant}`
-      )
+      throw new Error(`Plus icon error: Unsupported combination size=${size}, variant=${variant}`)
   }
 }

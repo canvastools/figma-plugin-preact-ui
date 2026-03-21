@@ -1,49 +1,6 @@
-@use "../../shared.scss" as *;
+@use '../../shared.scss' as *;
 
 .OverlayPositioner {
-  $parent: &;
-
   position: fixed;
   z-index: 50;
-
-  &__arrow {
-    position: absolute;
-    pointer-events: none;
-
-    &::after {
-      content: "";
-      position: absolute;
-      border-width: 8px;
-      border-style: solid;
-      border-color: var(--pui-color-neutral-inverted-fixed-bg-default)
-        transparent transparent transparent;
-      box-shadow: 0 -2px 0 0 var(--pui-color-neutral-inverted-fixed-bg-default);
-    }
-  }
-
-  &_placement {
-    &-top #{$parent}__arrow,
-    &-top-left #{$parent}__arrow,
-    &-top-right #{$parent}__arrow {
-      transform: rotate(0deg) translateX(-8px);
-    }
-
-    &-bottom #{$parent}__arrow,
-    &-bottom-left #{$parent}__arrow,
-    &-bottom-right #{$parent}__arrow {
-      transform: rotate(180deg) translateX(-8px);
-    }
-
-    &-left #{$parent}__arrow,
-    &-left-top #{$parent}__arrow,
-    &-left-bottom #{$parent}__arrow {
-      transform: rotate(-90deg) translateX(-8px);
-    }
-
-    &-right #{$parent}__arrow,
-    &-right-top #{$parent}__arrow,
-    &-right-bottom #{$parent}__arrow {
-      transform: rotate(90deg) translateX(-8px);
-    }
-  }
 }

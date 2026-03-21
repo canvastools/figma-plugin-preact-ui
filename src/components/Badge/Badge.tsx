@@ -1,17 +1,18 @@
 import { bem, typedForwardRef } from "../../utils"
 
+import { Text } from "../../index"
+
 import type { BadgeProps } from "./Badge.types"
 import "./Badge.scss"
-
-import { Text } from "../../index"
 
 /* --- */
 
 const BadgeComponent = (
   {
+    id,
     className,
     intent = "neutral",
-    intentModifiers = "default",
+    intentModifier = "default",
     prefix,
     suffix,
     children,
@@ -20,26 +21,27 @@ const BadgeComponent = (
   ref: preact.Ref<HTMLDivElement>
 ) => {
   const _className = bem("Badge", undefined, {
-    intent: `${intent}-${intentModifiers}`,
+    intent: `${intent}-${intentModifier}`,
     prefix: Boolean(prefix),
     suffix: Boolean(suffix),
   })
 
   return (
     <div
+      id={id}
       className={[_className, className].join(" ").trim()}
       ref={ref}
       {...rest}
     >
       <div className="Badge__content">
         {prefix && <div className="Badge__prefix">{prefix}</div>}
-        {children && (
+        {children != null && children !== false && children !== true && (
           <div className="Badge__children">
             <Text
               variant="body"
               size="medium"
               intent={intent}
-              intentModifiers={intentModifiers}
+              intentModifier={intentModifier}
             >
               {children}
             </Text>

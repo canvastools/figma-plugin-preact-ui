@@ -1,57 +1,50 @@
-import { Meta, StoryObj } from "@storybook/preact"
-import { useRef, useState } from "preact/hooks"
+import { Meta, StoryObj } from '@storybook/preact'
 
-import { MenuContainer } from "./MenuContainer"
+import { SizeStory } from './stories/Size.story'
+import { ManyItemsStory } from './stories/ManyItems.story'
 
-import { Icon } from "../../index"
-import { MenuDivider } from "../../index"
-import { OverlayPositioner } from "../../index"
-import { Button } from "../../index"
-import { MenuItem } from "../../index"
-import { MenuItemOption } from "../../index"
-import { chevronRight as chevronRightGlyph } from "../../index"
+import { MenuContainer } from './MenuContainer'
+
+import { MenuDivider, MenuItemAction, MenuItemOption } from '../../index'
 
 const meta: Meta<typeof MenuContainer> = {
-  title: "Components/MenuContainer",
+  title: 'Components/MenuContainer',
   component: MenuContainer,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
         component:
-          "A wrapper component that displays menu items. Used within &lt;OverlayPositioner/&gt;.",
+          "A wrapper component that displays menu items. Used inside <a href='/docs/components-menucontext--docs'>`<MenuContext/>`</a>.",
       },
     },
   },
   argTypes: {
+    id: {
+      control: { type: 'text' },
+      table: {
+        type: {
+          summary: 'string',
+        },
+      },
+    },
     className: {
-      control: { type: "text" },
+      control: { type: 'text' },
     },
     width: {
-      control: { type: "number" },
-      defaultValue: { summary: "auto" },
-      table: {
-        type: {
-          summary: "number | 'auto'",
-        },
-      },
+      control: { type: 'number' },
+      description: 'Takes the width of the menu items if not provided.',
     },
     height: {
-      control: { type: "number" },
-      defaultValue: { summary: "auto" },
-      table: {
-        type: {
-          summary: "number | 'auto'",
-        },
-      },
+      control: { type: 'number' },
+      description: 'Takes the height of the menu items if not provided.',
     },
     children: {
       control: { disable: true },
-      description:
-        "Usually &lt;MenuItem/&gt;, &lt;MenuItemOption/&gt;, &lt;MenuDivider/&gt; components.",
+      description: `<strong>*</strong>`,
       table: {
         type: {
-          summary: "JSX.Element",
+          summary: 'preact.ComponentChildren',
         },
       },
     },
@@ -59,129 +52,48 @@ const meta: Meta<typeof MenuContainer> = {
 }
 
 export default meta
+
 type Story = StoryObj<typeof MenuContainer>
 
 export const Demo: Story = {
-  tags: ["!autodocs"],
+  tags: ['!autodocs'],
   args: {
-    className: "",
+    id: undefined,
+    className: '',
     width: 208,
-    height: 200,
+    height: 300,
   },
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
+    },
+    docs: {
+      source: {
+        language: 'tsx',
+        code: `
+<MenuContainer {...args}>{children}</MenuContainer>
+`,
+      },
     },
   },
   render: (args) => (
     <div className="sb-column sb-width-full">
       <MenuContainer {...args}>
-        <MenuItem>Menu Item</MenuItem>
-        <MenuItem>Menu Item</MenuItem>
-        <MenuDivider />
-        <MenuItemOption selected>Option</MenuItemOption>
-        <MenuItemOption selected={false}>Option</MenuItemOption>
-        <MenuItemOption selected={false}>Option</MenuItemOption>
-        <MenuItemOption selected={false}>Option</MenuItemOption>
+        <MenuItemAction paddingLikeOption>Action 1</MenuItemAction>
+        <MenuItemAction paddingLikeOption>Action 2</MenuItemAction>
+        <MenuItemAction paddingLikeOption>Action 3</MenuItemAction>
+        <MenuDivider variant="inset" />
+        <MenuItemOption defaultSelected>Option 1</MenuItemOption>
+        <MenuItemOption>Option 2</MenuItemOption>
+        <MenuItemOption>Option 3</MenuItemOption>
+        <MenuDivider variant="full" />
+        <MenuItemAction paddingLikeOption intentModifier="danger">
+          Destructive action
+        </MenuItemAction>
       </MenuContainer>
     </div>
   ),
 }
 
-export const OverlayMenu: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => {
-    const [open, setOpen] = useState(false)
-
-    const anchorRef = useRef<HTMLButtonElement | null>(null)
-
-    return (
-      <div className="sb-column sb-width-full">
-        <Button ref={anchorRef} onClick={() => setOpen((v) => !v)}>
-          Show Menu
-        </Button>
-        <OverlayPositioner
-          anchorRef={anchorRef}
-          paddingY={4}
-          open={open}
-          onClose={() => setOpen(false)}
-        >
-          <MenuContainer>
-            <MenuItem onClick={() => setOpen(false)}>Menu Item</MenuItem>
-            <MenuItem onClick={() => setOpen(false)}>Menu Item</MenuItem>
-          </MenuContainer>
-        </OverlayPositioner>
-      </div>
-    )
-  },
-}
-
-export const NestedMenu: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => {
-    const [open, setOpen] = useState(false)
-    const [openNested, setOpenNested] = useState(false)
-
-    const anchorRefTrigger = useRef<HTMLButtonElement | null>(null)
-    const anchorRefMenuNested = useRef<HTMLDivElement | null>(null)
-
-    return (
-      <div className="sb-column sb-width-full">
-        <Button ref={anchorRefTrigger} onClick={() => setOpen((v) => !v)}>
-          Show Menu
-        </Button>
-        <OverlayPositioner
-          anchorRef={anchorRefTrigger}
-          open={open}
-          onClose={() => setOpen(false)}
-        >
-          <MenuContainer>
-            <MenuItem onClick={() => setOpen(false)}>Menu Item</MenuItem>
-            <MenuItem
-              ref={anchorRefMenuNested}
-              reducedPaddingRight
-              onClick={() => setOpenNested((v) => !v)}
-              suffix={
-                <Icon
-                  glyph={chevronRightGlyph}
-                  size={16}
-                  intent="neutral-inverted-fixed"
-                  interactive
-                />
-              }
-            >
-              Menu Item
-            </MenuItem>
-            <OverlayPositioner
-              anchorRef={anchorRefMenuNested}
-              open={openNested}
-              placement="right-top"
-              onClose={() => setOpenNested(false)}
-              paddingX={4}
-            >
-              <MenuContainer>
-                <MenuItem onClick={() => setOpenNested(false)}>
-                  Nested Menu Item
-                </MenuItem>
-                <MenuItem onClick={() => setOpenNested(false)}>
-                  Nested Menu Item
-                </MenuItem>
-              </MenuContainer>
-            </OverlayPositioner>
-            <MenuItem onClick={() => setOpen(false)}>Menu Item</MenuItem>
-          </MenuContainer>
-        </OverlayPositioner>
-      </div>
-    )
-  },
-}
+export const Size = SizeStory
+export const ManyItems = ManyItemsStory

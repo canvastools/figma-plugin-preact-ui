@@ -1,12 +1,14 @@
 export interface TabContextValue {
-  value: string
-  onChange: (value: string) => void
-  setValue: (value: string) => void
+  activeId: string
+  onTabChange: (id: string) => void
+  setActiveTab: (id: string) => void
+  registerTab: (id: string, ref: HTMLButtonElement | null) => void
+  setFocusedTab: (id?: string) => void
 }
 
 export interface TabContextProps {
-  defaultValue?: string
-  value?: string
+  defaultActiveId?: string
+  activeId?: string
   children: preact.ComponentChildren
-  onChange?: (args: { value: string }) => void
+  onTabChange?: (args: { id: string }) => void
 }

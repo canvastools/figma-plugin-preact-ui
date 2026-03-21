@@ -1,9 +1,9 @@
 export interface TabProps {
+  id: string
   className?: string
-  value: string
-  variant?: "default" | "single"
+  variant?: 'default' | 'single'
   prefix?: preact.ComponentChildren
   suffix?: preact.ComponentChildren
   children: preact.ComponentChildren
-  onClick?: (args: { event: MouseEvent; value: string }) => void
+  onClick?: (args: { event: MouseEvent; id: string }) => void
 }

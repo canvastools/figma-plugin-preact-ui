@@ -1,42 +1,79 @@
-@use "../../shared.scss" as *;
-@use "../../mixins.scss" as *;
+@use '../../shared.scss' as *;
+@use '../../mixins.scss' as *;
 
 .Input {
-  $parent: &;
-
   position: relative;
   display: flex;
-  align-items: center;
-  height: 24px;
   width: 100%;
 
-  border-radius: var(--pui-radius-medium);
-  overflow: hidden;
-
-  outline-width: 1px;
-  outline-style: solid;
-  outline-color: transparent;
-  outline-offset: -1px;
-  background-color: var(--pui-color-neutral-bg-secondary-interactive);
-
-  &:hover {
-    outline-color: var(--pui-color-neutral-border-default-interactive);
+  &__label {
+    flex-shrink: 0;
+    flex-grow: 1;
   }
 
-  &:hover > &__suffix,
-  &:focus-within > &__suffix {
+  &_variant-default {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--pui-spacing-100);
+  }
+
+  &_variant-default &__label {
+    @include typography-body-small;
+  }
+
+  &_variant-list {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--pui-spacing-400);
+  }
+
+  &__container {
+    display: flex;
+    align-items: center;
+    height: 24px;
+    width: 100%;
+    border-radius: var(--pui-radius-medium);
+    overflow: hidden;
+    outline-width: 1px;
+    outline-style: solid;
+    outline-color: transparent;
+    outline-offset: -1px;
+    background-color: var(--pui-color-neutral-bg-secondary);
+  }
+
+  &:hover &__container {
+    outline-color: var(--pui-color-neutral-border-default-hover);
+  }
+
+  &:hover &__suffix,
+  &:focus-within &__suffix {
     display: flex;
   }
 
-  &_focused,
-  &:hover:is(:focus-within) {
-    outline-color: var(--pui-color-neutral-border-default-interactive-selected);
+  &_focused &__container,
+  &_focused:hover:is(:focus-within) &__container {
+    outline-color: var(--pui-color-neutral-border-default-selected) !important;
   }
 
-  &_error {
-    outline-color: var(
-      --pui-color-neutral-border-default-interactive-selected-error
-    ) !important;
+  &_keyboardFocus &__container {
+    outline-color: var(--pui-color-neutral-border-default-selected) !important;
+  }
+
+  &_error &__container {
+    outline-color: var(--pui-color-neutral-border-danger-error);
+  }
+
+  &__display {
+    padding: 0 var(--pui-spacing-200);
+    width: 100%;
+    cursor: default;
+
+    @include typography-styles-default;
+    @include typography-body-medium;
+  }
+
+  &__display_placeholder {
+    color: var(--pui-color-neutral-text-placeholder);
   }
 
   &__input-native {
@@ -47,11 +84,11 @@
     outline: none;
     background-color: transparent;
     padding: 0 var(--pui-spacing-200);
-    color: var(--pui-color-neutral-text-default-interactive);
+    color: var(--pui-color-neutral-text-default);
+    cursor: default;
 
-    @include typography-styles;
+    @include typography-styles-default;
     @include typography-body-medium;
-    @include curson-feedback;
 
     &::placeholder {
       color: var(--pui-color-neutral-text-placeholder);
@@ -90,46 +127,48 @@
     display: none;
   }
 
-  &_suffixOnHover:hover &__suffix {
+  &_suffixOnHover:hover &__suffix,
+  &_suffixOnHover:focus-within &__suffix {
     display: flex;
   }
 
   &_disabled {
     cursor: auto;
-    background-color: var(--pui-color-neutral-bg-disabled);
+  }
+
+  &_disabled &__container {
+    background-color: transparent !important;
     outline-width: 1px;
     outline-style: solid;
     outline-color: var(--pui-color-neutral-border-disabled);
   }
 
   &_disabled &__input-native,
-  &_disabled #{ $parent }__input-native::placeholder {
+  &_disabled &__input-native::placeholder {
     color: var(--pui-color-neutral-text-disabled);
   }
 
-  &_groupedPosition {
-    &-left {
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
-    }
-
-    &-right {
-      border-top-right-radius: 0;
-      border-bottom-right-radius: 0;
-    }
-
-    &-both {
-      border-radius: 0;
-    }
+  &_disabled &__label {
+    color: var(--pui-color-neutral-text-disabled);
   }
 
-  &_grouped + &_grouped {
-    margin-left: 1px;
+  &_groupedPosition-first &__container {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  &_groupedPosition-last &__container {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  &_groupedPosition-middle &__container {
+    border-radius: 0;
   }
 
   // Ghost
 
-  &_ghost {
+  &_ghost &__container {
     background-color: transparent;
 
     &:hover {
@@ -137,12 +176,16 @@
     }
   }
 
-  &_ghost:is(&_focused),
-  &_ghost:hover:is(:focus-within) {
+  &_ghost:hover &__container {
+    outline-color: transparent;
+  }
+
+  &_ghost:is(&_focused) &__container,
+  &_ghost:hover:is(:focus-within):not(&_doubleClick) &__container {
     background-color: var(--pui-color-neutral-bg-default);
   }
 
-  &_ghost:is(&_disabled) {
+  &_ghost:is(&_disabled) &__container {
     background-color: transparent;
     color: var(--pui-color-neutral-text-disabled);
     outline-color: transparent;

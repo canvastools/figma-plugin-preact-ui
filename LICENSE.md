@@ -19,3 +19,19 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+---
+
+## Plain-language summary
+
+You may use this software **free of charge** and for **any purpose** (commercial or not), as long as you keep the copyright and permission notice above in copies of the Software. This is what the MIT License is designed for.
+
+## Trademarks
+
+This project is **not affiliated with or endorsed** by Figma, Inc. **Figma** and related names and logos are trademarks of their respective owners. All other trademarks, service marks, and trade names appearing in the Software or documentation are the property of their respective owners and are used for identification only.
+
+## Attribution (optional, appreciated)
+
+The MIT License does **not** require you to credit Canvas Tools in your product. We would nonetheless be **grateful** if you mention this library or link to the project when you ship something that builds on it — for example in your docs, credits, or “About” section.
+
+**Canvas Tools** — [https://canvastools.io](https://canvastools.io)

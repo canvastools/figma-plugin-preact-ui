@@ -1,33 +1,32 @@
-export type OverlayPlacement =
-  | "over"
-  | "top"
-  | "top-left"
-  | "top-right"
-  | "bottom"
-  | "bottom-left"
-  | "bottom-right"
-  | "left"
-  | "left-top"
-  | "left-bottom"
-  | "right"
-  | "right-top"
-  | "right-bottom"
+export type OverlayPositionerPlacement =
+  | 'over'
+  | 'top'
+  | 'top-left'
+  | 'top-right'
+  | 'bottom'
+  | 'bottom-left'
+  | 'bottom-right'
+  | 'left'
+  | 'left-top'
+  | 'left-bottom'
+  | 'right'
+  | 'right-top'
+  | 'right-bottom'
 
 export interface OverlayPositionerProps {
+  id?: string
   className?: string
   anchorRef: preact.RefObject<HTMLElement>
   open?: boolean
   defaultOpen?: boolean
-  placement?: OverlayPlacement
-  placementFallback?: false | OverlayPlacement[]
-  trigger?: "click" | "hover"
-  visibilityDelay?: number
+  placement?: OverlayPositionerPlacement
+  placementFallback?: OverlayPositionerPlacement[] | undefined
+  trigger?: 'click' | 'hover'
   draggable?: boolean
-  paddingX?: number
-  paddingY?: number
-  edgePadding?: number
-  closeOnOutsideClick?: boolean
-  arrow?: boolean
+  offsetX?: number
+  offsetY?: number
+  offsetEdge?: number
+  closeOnClickOutside?: boolean
   onOpen?: () => void
   onClose?: () => void
   children: preact.ComponentChildren

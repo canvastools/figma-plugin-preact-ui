@@ -1,0 +1,181 @@
+@use '../../shared.scss' as *;
+@use '../../mixins.scss' as *;
+
+@mixin CalendarButton {
+  @include typography-styles-default;
+  @include typography-body-medium;
+  color: var(--pui-color-neutral-text-default);
+  text-decoration: none;
+  user-select: none;
+  outline: none;
+  border: none;
+
+  height: 24px;
+  padding: 0 var(--pui-spacing-100);
+  border-radius: var(--pui-radius-medium);
+  cursor: default;
+
+  background-color: transparent;
+  box-shadow: none;
+
+  &:focus-visible {
+    outline: 1px solid var(--pui-color-system-border-focused);
+    outline-offset: 1px;
+    box-shadow: none;
+  }
+
+  &:hover {
+    background-color: var(--pui-color-neutral-bg-default-hover);
+  }
+
+  &:active {
+    background-color: var(--pui-color-neutral-bg-default-pressed);
+  }
+}
+
+@mixin CalendarButtonSelected {
+  background-color: var(--pui-color-neutral-bg-default-selected);
+  color: var(--pui-color-neutral-text-default-selected) !important;
+  box-shadow: none;
+
+  &:hover {
+    background-color: var(--pui-color-neutral-bg-default-selected-hover);
+  }
+
+  &:active {
+    background-color: var(--pui-color-neutral-bg-default-selected-pressed);
+  }
+}
+
+@mixin CalendarButtonDisabled {
+  color: var(--pui-color-neutral-text-disabled) !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+
+  &:hover {
+    background-color: transparent !important;
+  }
+
+  &:active {
+    background-color: transparent !important;
+  }
+}
+
+.Calendar {
+  .react-calendar__navigation__prev-button,
+  .react-calendar__navigation__prev2-button,
+  .react-calendar__navigation__next-button,
+  .react-calendar__navigation__next2-button {
+    display: none;
+  }
+
+  &_navigation-simple .react-calendar__navigation__next-button,
+  &_navigation-simple .react-calendar__navigation__prev-button {
+    display: block;
+  }
+
+  &_navigation-full .react-calendar__navigation__prev-button,
+  &_navigation-full .react-calendar__navigation__prev2-button,
+  &_navigation-full .react-calendar__navigation__next-button,
+  &_navigation-full .react-calendar__navigation__next2-button {
+    display: block;
+  }
+
+  & .react-calendar {
+    &__navigation {
+      display: flex;
+      flex-flow: row nowrap;
+      margin-bottom: var(--pui-spacing-200);
+
+      & > button {
+        @include CalendarButton;
+      }
+
+      & > button:disabled {
+        color: var(--pui-color-neutral-text-secondary) !important;
+        background-color: transparent !important;
+      }
+
+      &__arrow {
+        width: 24px;
+        padding: 0 !important;
+      }
+
+      &__label {
+        flex-grow: 1;
+      }
+    }
+
+    &__month-view {
+      & + .react-calendar__month-view {
+        margin-top: var(--pui-spacing-400);
+      }
+
+      &__weekdays {
+        margin-bottom: var(--pui-spacing-200);
+
+        &__weekday {
+          text-align: center;
+
+          & > abbr {
+            @include typography-styles-default;
+            @include typography-body-medium;
+            color: var(--pui-color-neutral-text-secondary);
+            text-decoration: none;
+            user-select: none;
+            pointer-events: none;
+          }
+        }
+      }
+
+      &__days {
+        &__day--weekend {
+          color: var(--pui-color-neutral-text-danger) !important;
+        }
+      }
+    }
+
+    &__tile {
+      @include CalendarButton;
+      height: 32px;
+
+      &:disabled {
+        @include CalendarButtonDisabled;
+      }
+
+      &--active,
+      &--hasActive {
+        @include CalendarButtonSelected;
+      }
+    }
+
+    &__tile--now {
+      position: relative;
+
+      &::before {
+        content: '';
+        position: absolute;
+        bottom: 5px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 3px;
+        height: 3px;
+        background-color: var(--pui-color-neutral-text-default);
+        border-radius: 50%;
+      }
+    }
+
+    &__month-view__days__day--weekend::before {
+      background-color: var(--pui-color-neutral-text-danger);
+    }
+
+    &__tile--active::before,
+    &__tile--hasActive::before {
+      background-color: var(--pui-color-neutral-text-brand);
+    }
+
+    &:disabled::before {
+      color: var(--pui-color-neutral-text-secondary) !important;
+    }
+  }
+}

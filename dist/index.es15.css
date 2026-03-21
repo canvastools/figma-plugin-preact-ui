@@ -1,0 +1,1 @@
+.Fog{position:absolute;display:flex;justify-content:center;align-items:center;width:100%;height:100%;opacity:0;z-index:9999}.Fog_visible{opacity:1}.Fog__overlay{position:absolute;top:0;left:0;width:100%;height:100%;background-color:var(--pui-color-neutral-bg-default);opacity:.74}.Fog__children{position:relative;z-index:1}

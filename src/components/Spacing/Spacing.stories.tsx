@@ -1,71 +1,86 @@
-import { Meta, StoryObj } from "@storybook/preact"
+import { Meta, StoryObj } from '@storybook/preact'
 
-import { spacing } from "../../themes"
+import { spacing } from '../../themes'
 
-import { Spacing } from "./Spacing"
+import { Spacing } from './Spacing'
 
-import { Avatar } from "../../index"
-import { Stack } from "../../index"
+import { Avatar, Stack } from '../../index'
 
 const meta: Meta<typeof Spacing> = {
-  title: "Layout/Spacing",
+  title: 'Layout/Spacing',
   component: Spacing,
-  tags: ["autodocs"],
-  parameters: {
-    docs: {
-      description: {
-        component: "A component that creates a space between components.",
+  tags: ['autodocs'],
+  argTypes: {
+    id: {
+      control: { type: 'text' },
+      table: {
+        type: {
+          summary: 'string',
+        },
       },
     },
-  },
-  argTypes: {
     className: {
-      control: { type: "text" },
+      control: { type: 'text' },
     },
     direction: {
       control: {
-        type: "radio",
+        type: 'radio',
       },
-      options: ["row", "column"],
-      defaultValue: { summary: "column" },
+      options: ['row', 'column'],
+      defaultValue: { summary: 'column' },
     },
     size: {
       control: {
-        type: "radio",
+        type: 'radio',
       },
-      options: [...Object.keys(spacing.variables).map(Number)],
+      description: '<strong>*</strong>',
+      options: [undefined, ...Object.keys(spacing.variables).map(Number)],
     },
   },
 }
 
 export default meta
+
 type Story = StoryObj<typeof Spacing>
 
 export const Demo: Story = {
   args: {
-    className: "sb-container",
-    direction: "column",
+    id: undefined,
+    className: 'sb-container',
+    direction: 'column',
     size: 400,
   },
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
+    },
+    docs: {
+      source: {
+        language: 'tsx',
+        code: `
+<Spacing
+  size={400}
+  {...args}
+/>
+`,
+      },
     },
   },
   render: (args) => (
     <div className="sb-column sb-width-full">
-      <Stack
-        direction={
-          // @ts-expect-error - Storybook types hack
-          args.direction
-        }
-      >
+      {/* @ts-expect-error Storybook spread */}
+      <Stack direction={args.direction}>
         <Avatar>A</Avatar>
-        <Spacing {...args} />
+        {/* @ts-expect-error Storybook spread */}
+        <Spacing size={args.size} {...args} />
+
         <Avatar>B</Avatar>
-        <Spacing {...args} />
+        {/* @ts-expect-error Storybook spread */}
+        <Spacing size={args.size} {...args} />
+
         <Avatar>C</Avatar>
-        <Spacing {...args} />
+        {/* @ts-expect-error Storybook spread */}
+        <Spacing size={args.size} {...args} />
       </Stack>
     </div>
   ),

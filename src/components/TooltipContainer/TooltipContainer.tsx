@@ -1,0 +1,36 @@
+import { bem, typedForwardRef } from '../../utils'
+
+import type { TooltipContainerProps } from './TooltipContainer.types'
+import './TooltipContainer.scss'
+
+import { Text } from '../Text/Text'
+
+/* --- */
+
+const TooltipContainerComponent = (
+  { id, className, width, height, showArrow, children, ...rest }: TooltipContainerProps,
+  ref: preact.Ref<HTMLDivElement>,
+) => {
+  const _className = bem('TooltipContainer', undefined, {
+    arrow: showArrow,
+  })
+
+  return (
+    <div
+      id={id}
+      className={[_className, className].join(' ').trim()}
+      data-pui-interactive="true"
+      ref={ref}
+      {...rest}
+      style={{
+        width,
+        height,
+      }}
+    >
+      {showArrow && <div className="TooltipContainer__arrow" />}
+      <Text intent="neutral-inverted-fixed">{children}</Text>
+    </div>
+  )
+}
+
+export const TooltipContainer = typedForwardRef<TooltipContainerProps, HTMLDivElement>(TooltipContainerComponent)

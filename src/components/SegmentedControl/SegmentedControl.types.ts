@@ -1,20 +1,18 @@
-import { Glyph } from "../Icon/Icon.types"
+import type { IconPropsPick } from '../Icon/Icon.types'
 
-export interface SegmentedControlOption {
+export interface SegmentedControlOptionData {
   value: string
-  title: string
-  icon?: Glyph | preact.ComponentChildren
+  label: string
+  icon?: IconPropsPick
 }
 
 export interface SegmentedControlProps {
+  id?: string
   className?: string
-  options: SegmentedControlOption[]
+  options: SegmentedControlOptionData[]
   value?: string
   defaultValue?: string
   disabled?: boolean
   fullWidth?: boolean
-  onChange?: (args: {
-    event: MouseEvent | KeyboardEvent
-    value: string
-  }) => void
+  onValueChange?: (args: { event: MouseEvent | KeyboardEvent; value: string }) => void
 }

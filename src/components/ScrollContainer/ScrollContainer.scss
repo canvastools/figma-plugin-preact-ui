@@ -1,8 +1,6 @@
-@use "../../shared.scss" as *;
+@use '../../shared.scss' as *;
 
 .ScrollContainer {
-  $parent: &;
-
   position: relative;
   display: flex;
   flex-flow: column nowrap;
@@ -43,8 +41,8 @@
     }
   }
 
-  &:hover .ScrollContainer__track:not(.ScrollContainer__track_noScroll),
-  & .ScrollContainer__track_dragging {
+  &:hover &__track:not(&__track_noScroll),
+  & &__track_dragging {
     display: block;
   }
 
@@ -61,5 +59,3 @@
     transform: translateY(0);
   }
 }
-// :not(&_noScroll)
-//

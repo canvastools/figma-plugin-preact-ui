@@ -1,56 +1,66 @@
-import { Meta, StoryObj } from "@storybook/preact"
+import { Meta, StoryObj } from '@storybook/preact'
 
-import { Section } from "./Section"
+import { StackedStory } from './stories/Stacked.story'
+import { PaddingStory } from './stories/Padding.story'
 
-import { Text, Stack } from "../../index"
+import { Text } from '../../index'
+
+import { Section } from './Section'
 
 const meta: Meta<typeof Section> = {
-  title: "Components/Section",
+  title: 'Layout/Section',
   component: Section,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
-        component: "A component that creates a section with built-in padding.",
+        component: 'A wrapper component that creates a typical section layout with built-in padding.',
       },
     },
   },
   argTypes: {
-    className: {
-      control: { type: "text" },
-    },
-    variant: {
-      control: { type: "select" },
-      options: ["default", "stacked"],
-      defaultValue: { summary: "default" },
+    id: {
+      control: { type: 'text' },
       table: {
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
+    className: {
+      control: { type: 'text' },
+    },
+    variant: {
+      control: { type: 'radio' },
+      options: ['default', 'stacked'],
+      defaultValue: { summary: 'default' },
+    },
     padding: {
-      control: { disable: true },
-      defaultValue: { summary: "default" },
-      description: `Custom padding for the section. Using the spacing variables names.
-      <pre>
-  padding?: {
-    top?: SectionPadding
-    right?: SectionPadding
-    bottom?: SectionPadding
-    left?: SectionPadding
-  }</pre>`,
+      control: { type: 'object' },
       table: {
         type: {
-          summary: "SectionPadding = keyof typeof spacing.variables",
+          summary: 'object',
+          detail: `
+padding?: {
+  top?: SectionPadding
+  right?: SectionPadding
+  bottom?: SectionPadding
+  left?: SectionPadding
+}
+
+// Types
+
+type SectionPadding = keyof typeof spacing.variables // string | number
+`,
         },
       },
     },
     children: {
-      control: { disable: true },
+      control: { control: 'text' },
+      description: '<strong>*</strong>',
       table: {
         type: {
-          summary: "string | number | JSX.Element",
+          summary: 'preact.ComponentChildren',
         },
       },
     },
@@ -61,51 +71,36 @@ export default meta
 type Story = StoryObj<typeof Section>
 
 export const Demo: Story = {
+  tags: ['!autodocs'],
   args: {
-    className: "sb-container",
+    id: undefined,
+    className: 'sb-container',
+    variant: 'default',
+    padding: {},
+    children: 'Lorem ipsum dolor sit amet.',
   },
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
+    },
+    docs: {
+      source: {
+        language: 'tsx',
+        code: `
+<Section {...args}>{children}</Section>
+`,
+      },
     },
   },
   render: (args) => (
-    <div className="sb-column sb-height-300">
+    <div className="sb-column sb-width-fullk">
       <Section {...args}>
-        <Text>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
-        </Text>
+        {/* @ts-expect-error Storybook spread */}
+        <Text>{args.children}</Text>
       </Section>
     </div>
   ),
 }
 
-export const Stacked: Story = {
-  render: () => (
-    <div className="sb-column sb-height-300">
-      <Stack direction="column" spacing={400} fullWidth>
-        <Section variant="default" className="sb-container">
-          <Text>Default Section</Text>
-        </Section>
-
-        <Stack direction="column" fullWidth>
-          <Section variant="stacked" className="sb-container">
-            <Text>Stacked Section</Text>
-          </Section>
-          <Section variant="stacked" className="sb-container">
-            <Text>Stacked Section</Text>
-          </Section>
-          <Section variant="stacked" className="sb-container">
-            <Text>Stacked Section</Text>
-          </Section>
-        </Stack>
-      </Stack>
-    </div>
-  ),
-}
+export const Stacked = StackedStory
+export const Padding = PaddingStory

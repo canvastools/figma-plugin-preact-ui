@@ -5,20 +5,19 @@
   background-color: rgb(247, 250, 252);
   padding: 2px 5px;
   border-radius: 3px;
-  font-family: ui-monospace, Menlo, Monaco, "Roboto Mono", "Oxygen Mono",
-    "Ubuntu Monospace", "Source Code Pro", "Droid Sans Mono", "Courier New",
-    monospace;
+  font-family: ui-monospace, Menlo, Monaco, 'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
+    'Droid Sans Mono', 'Courier New', monospace;
   font-size: 12px;
   line-height: 13px;
   max-width: 100%;
 }
 
-#storybook-docs .experimental {
-  background-color: #fffbde;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #e1d894;
-  width: 100%;
+a.sbdocs > code {
+  color: rgb(2, 156, 253);
+}
+
+a.sbdocs > code:hover {
+  background: rgba(2, 156, 253, 0.14);
 }
 
 .docs-story > div:first-child {
@@ -31,4 +30,17 @@
 
 .innerZoomElementWrapper #storybook-viewport {
   padding: 40px 30px;
+}
+
+.token.maybe-class-name {
+  color: rgb(207, 2, 253) !important;
+}
+
+.token.function {
+  color: rgb(253, 144, 2) !important;
+}
+
+.docblock-argstable-body strong {
+  display: block;
+  color: red;
 }

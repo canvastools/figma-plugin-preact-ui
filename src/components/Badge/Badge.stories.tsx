@@ -1,373 +1,99 @@
-import { Meta, StoryObj } from "@storybook/preact"
+import { Meta, StoryObj } from '@storybook/preact'
 
-import { Badge } from "./Badge"
+import { IntentStory } from './stories/Intent.story'
+import { PrefixStory } from './stories/Prefix.story'
+import { SuffixStory } from './stories/Suffix.story'
 
-import { Icon } from "../../index"
-import { Stack } from "../../index"
-import { help as helpGlyph } from "../../index"
+import { Badge } from './Badge'
 
 const meta: Meta<typeof Badge> = {
-  title: "Components/Badge",
+  title: 'Components/Badge',
   component: Badge,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
+    id: {
+      control: { type: 'text' },
+      table: {
+        type: {
+          summary: 'string',
+        },
+      },
+    },
     className: {
-      control: { type: "text" },
+      control: { type: 'text' },
     },
     intent: {
-      control: { type: "radio" },
-      options: [
-        "neutral",
-        "neutral-inverted",
-        "brand",
-        "danger",
-        "warning",
-        "success",
-      ],
-      defaultValue: { summary: "neutral" },
+      control: { type: 'radio' },
+      options: ['neutral', 'neutral-inverted', 'brand', 'danger', 'warning', 'success'],
+      defaultValue: { summary: 'neutral' },
     },
-    intentModifiers: {
-      control: { type: "radio" },
-      options: [
-        "default",
-        "secondary",
-        "brand",
-        "danger",
-        "warning",
-        "success",
-      ],
-      defaultValue: { summary: "default" },
+    intentModifier: {
+      control: { type: 'radio' },
+      options: ['default', 'secondary', 'brand', 'danger', 'warning', 'success'],
+      defaultValue: { summary: 'default' },
     },
     prefix: {
+      control: { disable: true },
+      description: 'Element displayed before children.',
       table: {
         type: {
-          summary: "JSX.Element",
+          summary: 'preact.ComponentChildren',
         },
       },
-      control: { disable: true },
-      description: "Element inserted before children.",
     },
     suffix: {
+      control: { disable: true },
+      description: 'Element displayed after children.',
       table: {
         type: {
-          summary: "JSX.Element",
+          summary: 'preact.ComponentChildren',
         },
       },
-      control: { disable: true },
-      description: "Element inserted after children.",
     },
     children: {
+      control: { type: 'text' },
+      description: '<strong>*</strong>',
       table: {
         type: {
-          summary: "string | number | JSX.Element",
+          summary: 'preact.ComponentChildren',
         },
       },
-      control: { type: "text" },
     },
   },
 }
 
 export default meta
+
 type Story = StoryObj<typeof Badge>
 
 export const Demo: Story = {
-  tags: ["!autodocs"],
+  tags: ['!autodocs'],
   args: {
-    className: "",
-    intent: "neutral",
-    intentModifiers: "default",
-    children: "Badge",
+    id: undefined,
+    className: '',
+    intent: 'neutral',
+    intentModifier: 'default',
+    children: 'Badge',
   },
   parameters: {
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
+    },
+    docs: {
+      source: {
+        language: 'tsx',
+        code: `<Badge {...args}>{children}</Badge>`,
+      },
     },
   },
   render: (args) => (
     <div className="sb-column sb-width-full">
+      {/* @ts-expect-error Storybook spread */}
       <Badge {...args} />
     </div>
   ),
 }
 
-export const Intent: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => (
-    <div className="sb-column sb-width-full">
-      <Stack spacing={400}>
-        <Badge intent="neutral">Neutral</Badge>
-        <Badge intent="neutral" intentModifiers="secondary">
-          Neutral Secondary
-        </Badge>
-        <Badge intent="neutral" intentModifiers="brand">
-          Neutral Brand
-        </Badge>
-        <Badge intent="neutral" intentModifiers="danger">
-          Neutral Danger
-        </Badge>
-        <Badge intent="neutral" intentModifiers="warning">
-          Neutral Warning
-        </Badge>
-        <Badge intent="neutral" intentModifiers="success">
-          Neutral Success
-        </Badge>
-        <Badge intent="neutral-inverted">Neutral Inverted</Badge>
-        <Badge intent="brand">Brand</Badge>
-        <Badge intent="danger">Danger</Badge>
-        <Badge intent="warning">Warning</Badge>
-        <Badge intent="success">Success</Badge>
-      </Stack>
-    </div>
-  ),
-}
-
-export const Prefix: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => (
-    <div className="sb-column sb-width-full">
-      <Stack spacing={400}>
-        <Badge
-          intent="neutral"
-          prefix={<Icon glyph={helpGlyph} size={16} intent="neutral" />}
-        >
-          Neutral
-        </Badge>
-        <Badge
-          intent="neutral"
-          intentModifiers="secondary"
-          prefix={
-            <Icon
-              glyph={helpGlyph}
-              size={16}
-              intent="neutral"
-              intentModifiers="secondary"
-            />
-          }
-        >
-          Neutral Secondary
-        </Badge>
-        <Badge
-          intent="neutral"
-          intentModifiers="brand"
-          prefix={
-            <Icon
-              glyph={helpGlyph}
-              size={16}
-              intent="neutral"
-              intentModifiers="brand"
-            />
-          }
-        >
-          Neutral Brand
-        </Badge>
-        <Badge
-          intent="neutral"
-          intentModifiers="danger"
-          prefix={
-            <Icon
-              glyph={helpGlyph}
-              size={16}
-              intent="neutral"
-              intentModifiers="danger"
-            />
-          }
-        >
-          Neutral Danger
-        </Badge>
-        <Badge
-          intent="neutral"
-          intentModifiers="warning"
-          prefix={
-            <Icon
-              glyph={helpGlyph}
-              size={16}
-              intent="neutral"
-              intentModifiers="warning"
-            />
-          }
-        >
-          Neutral Warning
-        </Badge>
-        <Badge
-          intent="neutral"
-          intentModifiers="success"
-          prefix={
-            <Icon
-              glyph={helpGlyph}
-              size={16}
-              intent="neutral"
-              intentModifiers="success"
-            />
-          }
-        >
-          Neutral Success
-        </Badge>
-        <Badge
-          intent="neutral-inverted"
-          prefix={
-            <Icon glyph={helpGlyph} size={16} intent="neutral-inverted" />
-          }
-        >
-          Neutral Inverted
-        </Badge>
-        <Badge
-          intent="brand"
-          prefix={<Icon glyph={helpGlyph} size={16} intent="brand" />}
-        >
-          Brand
-        </Badge>
-        <Badge
-          intent="danger"
-          prefix={<Icon glyph={helpGlyph} size={16} intent="danger" />}
-        >
-          Danger
-        </Badge>
-        <Badge
-          intent="warning"
-          prefix={<Icon glyph={helpGlyph} size={16} intent="warning" />}
-        >
-          Warning
-        </Badge>
-        <Badge
-          intent="success"
-          prefix={<Icon glyph={helpGlyph} size={16} intent="success" />}
-        >
-          Success
-        </Badge>
-      </Stack>
-    </div>
-  ),
-}
-
-export const Suffix: Story = {
-  parameters: {
-    controls: { disable: true },
-    viewport: {
-      defaultViewport: "large",
-    },
-  },
-  render: () => (
-    <div className="sb-column sb-width-full">
-      <Stack spacing={400}>
-        <Badge
-          intent="neutral"
-          suffix={<Icon glyph={helpGlyph} size={16} intent="neutral" />}
-        >
-          Neutral
-        </Badge>
-        <Badge
-          intent="neutral"
-          intentModifiers="secondary"
-          suffix={
-            <Icon
-              glyph={helpGlyph}
-              size={16}
-              intent="neutral"
-              intentModifiers="secondary"
-            />
-          }
-        >
-          Neutral Secondary
-        </Badge>
-        <Badge
-          intent="neutral"
-          intentModifiers="brand"
-          suffix={
-            <Icon
-              glyph={helpGlyph}
-              size={16}
-              intent="neutral"
-              intentModifiers="brand"
-            />
-          }
-        >
-          Neutral Brand
-        </Badge>
-        <Badge
-          intent="neutral"
-          intentModifiers="danger"
-          suffix={
-            <Icon
-              glyph={helpGlyph}
-              size={16}
-              intent="neutral"
-              intentModifiers="danger"
-            />
-          }
-        >
-          Neutral Danger
-        </Badge>
-        <Badge
-          intent="neutral"
-          intentModifiers="warning"
-          suffix={
-            <Icon
-              glyph={helpGlyph}
-              size={16}
-              intent="neutral"
-              intentModifiers="warning"
-            />
-          }
-        >
-          Neutral Warning
-        </Badge>
-        <Badge
-          intent="neutral"
-          intentModifiers="success"
-          suffix={
-            <Icon
-              glyph={helpGlyph}
-              size={16}
-              intent="neutral"
-              intentModifiers="success"
-            />
-          }
-        >
-          Neutral Success
-        </Badge>
-        <Badge
-          intent="neutral-inverted"
-          suffix={
-            <Icon glyph={helpGlyph} size={16} intent="neutral-inverted" />
-          }
-        >
-          Neutral Inverted
-        </Badge>
-        <Badge
-          intent="brand"
-          suffix={<Icon glyph={helpGlyph} size={16} intent="brand" />}
-        >
-          Brand
-        </Badge>
-        <Badge
-          intent="danger"
-          suffix={<Icon glyph={helpGlyph} size={16} intent="danger" />}
-        >
-          Danger
-        </Badge>
-        <Badge
-          intent="warning"
-          suffix={<Icon glyph={helpGlyph} size={16} intent="warning" />}
-        >
-          Warning
-        </Badge>
-        <Badge
-          intent="success"
-          suffix={<Icon glyph={helpGlyph} size={16} intent="success" />}
-        >
-          Success
-        </Badge>
-      </Stack>
-    </div>
-  ),
-}
+export const Intent = IntentStory
+export const Prefix = PrefixStory
+export const Suffix = SuffixStory

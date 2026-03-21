@@ -1,17 +1,14 @@
+import type { Color } from "../ColorPicker/ColorPicker.types"
+
 export interface ColorSwatchProps {
+  id?: string
   className?: string
   size?: "small" | "medium" | "large"
-  hex?: string
-  imageSrc?: string
-  borderColor?: string
-  hoverable?: boolean
+  color?: Color
+  disabled?: boolean
   selected?: boolean
   selection?: "default" | "rainbow"
-  title?: string
+  tooltip?: preact.ComponentChildren
   children?: preact.ComponentChildren
-  onClick?: (args: {
-    event: MouseEvent
-    hex: string | undefined
-    imageSrc: string | undefined
-  }) => void
+  onClick?: (args: { event: MouseEvent; color: Color | undefined }) => void
 }
