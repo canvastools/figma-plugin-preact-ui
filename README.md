@@ -1,24 +1,14 @@
 # Figma Plugin UI Library (Preact)
 
-**An unofficial implementation** of Figma's UI3 design language, adapted for plugin interfaces.
+**An unofficial loose interpretation** of [Figma's UI3 design language](https://www.figma.com/community/file/1486123838948777078/ui3-figmas-ui-kit), adapted for plugin interfaces (Preact/React-compatible):
 
-The [original design library](https://www.figma.com/community/file/1486123838948777078/ui3-figmas-ui-kit) was published in Figma Community by Figma.
+- Providing components and states relevant to plugin development.
+- Optimizing the system for practical, real-world plugin workflows.
+- Maintaining visual alignment with the current look & feel of Figma’s interface.
 
-This project is not affiliated with or endorsed by Figma.
+This project is an independent initiative and is not affiliated with or endorsed by [Figma](https://figma.com).
 
-## About the library
-
-This is **not a pixel-perfect port** of the official UI3 file.
-
-The goal was not to reproduce every detail, but rather to:
-
-- Provide components and states relevant to plugin development.
-- Stay close in look & feel to Figma’s current interface.
-- Optimise for practical use: easier, cleaner, and more consistent to work with.
-
-Some patterns or unused states were intentionally left out.
-
-[Storybook demo and documentation](https://canvastools.github.io/figma-plugin-preact-ui/)
+[Demo and documentation](https://canvastools.github.io/figma-plugin-preact-ui/) · [Canvas Tools](https://canvastools.io)
 
 ![Preview](./preview.png)
 
@@ -38,12 +28,12 @@ yarn add figma-plugin-preact-ui preact @preact/compat
 
 ### Basic usage (consumer project)
 
-Import the component(s) you need and the bundled CSS. Then render with Preact.
+Import the component(s) you need and the bundled CSS, then render with Preact. For **React**, use [`@preact/compat`](https://preactjs.com/guide/v10/switching-to-preact) so the same components run in React-based setups.
 
 ```tsx
-import { render } from "preact"
-import { Button } from "figma-plugin-preact-ui"
-import "figma-plugin-preact-ui/dist/style.css"
+import { render } from 'preact'
+import { Button } from 'figma-plugin-preact-ui'
+import 'figma-plugin-preact-ui/dist/themes.css'
 
 function App() {
   return (
@@ -53,20 +43,45 @@ function App() {
   )
 }
 
-render(<App />, document.getElementById("root")!)
+render(<App />, document.getElementById('root')!)
 ```
 
-The CSS provides design tokens and component styles. It is controlled by the `.figma-light` or `.figma-dark` classes provided by Figma in the plugin window.
+### Types and tree‑shaking
+
+The package ships ESM and TypeScript types. You can import prop types if needed:
+
+```ts
+import { Button } from 'figma-plugin-preact-ui'
+import type { ButtonProps } from 'figma-plugin-preact-ui'
+```
+
+Components are individually exported from the entry, enabling tree‑shaking by modern bundlers.
+
+CSS is emitted per component chunk: importing a component pulls in its styles automatically, as long as your bundler follows ESM imports. You still need **`themes.css`** so spacing, radius, and color variables (and the shared `body` / `#root` base rules) are defined.
+
+```ts
+import { Button } from 'figma-plugin-preact-ui'
+import 'figma-plugin-preact-ui/dist/themes.css'
+```
+
+For a **single full stylesheet** (tokens + every component’s CSS), import **`style.css`** (not `styles.css`):
+
+```ts
+import { Button } from 'figma-plugin-preact-ui'
+import 'figma-plugin-preact-ui/dist/style.css'
+```
 
 ### Use tokens (CSS/JS variables)
 
-You can consume the CSS variables from the library directly. See [the variables list here](https://canvastools.github.io/figma-plugin-preact-ui//?path=/docs/overview-variables--docs&globals=viewport:medium).
+You can consume the CSS variables from the library directly.
+
+In Storybook: [Overview](https://canvastools.github.io/figma-plugin-preact-ui/?path=/docs/overview-figma-plugin-ui--docs) and design tokens under **Variables**: [Spacing](https://canvastools.github.io/figma-plugin-preact-ui/?path=/docs/variables-spacing--docs), [Radius](https://canvastools.github.io/figma-plugin-preact-ui/?path=/docs/variables-radius--docs), [Colors](https://canvastools.github.io/figma-plugin-preact-ui/?path=/docs/variables-colors--docs).
 
 #### CSS
 
 ```css
 .card {
-  padding: var(--pui-space-400);
+  padding: var(--pui-spacing-400);
   border-radius: var(--pui-radius-medium);
 }
 
@@ -78,13 +93,13 @@ You can consume the CSS variables from the library directly. See [the variables 
 #### Inline styling
 
 ```ts
-import { render } from "preact"
-import { Button } from "figma-plugin-preact-ui"
-import "figma-plugin-preact-ui/dist/style.css"
+import { render } from 'preact'
+import { Button } from 'figma-plugin-preact-ui'
+import 'figma-plugin-preact-ui/dist/themes.css'
 
 const style = {
-  padding: "var(--pui-space-400)",
-  borderRadius: "var(--pui-radius-medium)",
+  padding: 'var(--pui-spacing-400)',
+  borderRadius: 'var(--pui-radius-medium)',
 }
 
 function App() {
@@ -95,27 +110,34 @@ function App() {
   )
 }
 
-render(<App />, document.getElementById("root")!)
+render(<App />, document.getElementById('root')!)
 ```
 
 #### JS variables
 
-```ts
-import { render } from "preact"
-import { figmaLight, figmaDark, figjamLight } from "figma-plugin-preact-ui"
-
-const background = figmaLight.variables.brand.bg.default // #FFFFFF
-```
-
-### Types and tree‑shaking
-
-The package ships ESM and TypeScript types. You can import prop types if needed:
+Theme objects expose the same values as CSS variables (nested keys mirror the token path). Numeric spacing scale keys must use bracket notation.
 
 ```ts
-import type { ButtonProps } from "figma-plugin-preact-ui"
+import { figmaLight, spacing, radius } from 'figma-plugin-preact-ui'
+// Same nested `variables` shape: figmaDark, figjamLight
+
+const surface = figmaLight.variables.neutral.bg.default // e.g. #FFFFFF (figma-light)
+const titleColor = figmaLight.variables.neutral.text.default // matches var(--pui-color-neutral-text-default)
+const pad = spacing.variables['400'] // "16px"
+const round = radius.variables.medium // "5px"
 ```
 
-Components are individually exported from the entry, enabling tree‑shaking by modern bundlers.
+#### Theming
+
+Theming is tied to the `.figma-light` or `.figma-dark` classes provided by Figma in the plugin window.
+
+You can add a class such as `.figjam` on the plugin root for the FigJam color theme (see `themes.css`).
+
+Color variables are scoped under those classes in `themes.css`; spacing and radius live on `:root`.
+
+#### Third-party UI building blocks
+
+Some components wrap bundled dependencies (for example Calendar, ColorPicker, and TimePicker). You do not need to install those packages separately when using this library’s components.
 
 ## Changelog
 
