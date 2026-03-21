@@ -7,6 +7,7 @@ import { addons } from '@storybook/preview-api'
 import './fonts.css'
 import './viewport.css'
 import './docs.css'
+import './stories.css'
 
 // Load dist/style.css via a dynamic <link> and live-reload it when the file changes
 if (typeof window !== 'undefined') {

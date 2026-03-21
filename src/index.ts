@@ -140,6 +140,9 @@ export type { TabPanelProps } from './components/TabPanel/TabPanel.types'
 export { Text } from './components/Text/Text'
 export type { TextProps } from './components/Text/Text.types'
 
+export { TextArea } from './components/TextArea/TextArea'
+export type { TextAreaProps } from './components/TextArea/TextArea.types'
+
 export { TimePicker } from './components/TimePicker/TimePicker'
 export type { TimePickerProps, TimePickerDate } from './components/TimePicker/TimePicker.types'
 

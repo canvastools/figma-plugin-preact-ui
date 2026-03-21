@@ -1,11 +1,11 @@
 export type FlattenedVarMap = Record<string, string>
-export type ColorTokenBranch = {
-  [key: string]: string | ColorTokenBranch
+export type TokenBranch = {
+  [key: string]: string | TokenBranch
 }
 export type ColorTokenTree = {
   class: string
   prefix?: string
-  variables: ColorTokenBranch
+  variables: TokenBranch
 }
 
 export { figmaLight } from './figmaLight'

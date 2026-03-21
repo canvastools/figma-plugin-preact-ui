@@ -13,12 +13,12 @@
   max-width: 100%;
 }
 
-#storybook-docs .experimental {
-  background-color: #fffbde;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #e1d894;
-  width: 100%;
+a.sbdocs > code {
+  color: rgb(2, 156, 253);
+}
+
+a.sbdocs > code:hover {
+  background: rgba(2, 156, 253, 0.14);
 }
 
 .docs-story > div:first-child {
@@ -33,6 +33,10 @@
   padding: 40px 30px;
 }
 
-.docblock-argstable-body strong {
-  color: red;
+.token.maybe-class-name {
+  color: rgb(207, 2, 253) !important;
+}
+
+.token.function {
+  color: rgb(253, 144, 2) !important;
 }

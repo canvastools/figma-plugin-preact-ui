@@ -1,12 +1,7 @@
-import { Meta, StoryObj } from "@storybook/preact"
-import { useRef, useState } from "preact/hooks"
+import { Meta, StoryObj } from '@storybook/preact'
+import { useRef, useState } from 'preact/hooks'
 
-import {
-  settings as settingsGlyph,
-  close as closeGlyph,
-  viewList as viewListGlyph,
-  viewGrid as viewGridGlyph,
-} from "../index"
+import { settings as settingsGlyph, viewList as viewListGlyph, viewGrid as viewGridGlyph } from '../index'
 
 import {
   Avatar,
@@ -31,6 +26,7 @@ import {
   Select,
   ScrollContainer,
   ScrollContext,
+  useScrollContext,
   OverlayPositioner,
   Popover,
   Section,
@@ -43,40 +39,33 @@ import {
   TabList,
   TabPanel,
   Text,
+  TooltipContext,
   WindowResizer,
   colorToHexAlpha,
-} from "../"
+} from '../index'
 
-import type { ListItemData, Color } from "../"
-
-import { useScrollContext } from "../"
+import type { ListItemData, Color } from '../index'
 
 const meta: Meta = {
-  title: "Overview/Components",
-  tags: ["!dev"],
+  title: 'Overview/Figma Plugin UI',
+  tags: ['!dev'],
   parameters: {
     docs: {
       description: {
         component: `
-**An unofficial implementation** of Figma's UI3 design language, adapted for plugin interfaces.
+**An unofficial loose interpretation** of [Figma's UI3 design language](https://www.figma.com/community/file/1486123838948777078/ui3-figmas-ui-kit), adapted for plugin interfaces (Preact/React-compatible):
 
-The [original design library](https://www.figma.com/community/file/1486123838948777078/ui3-figmas-ui-kit) was published in Figma Community by Figma.
+- Providing components and states relevant to plugin development.
+- Optimizing the system for practical, real-world plugin workflows.
+- Maintaining visual alignment with the current look & feel of Figma’s interface.
 
-This project is not affiliated with or endorsed by Figma.
+This project is an independent initiative and is not affiliated with or endorsed by [Figma](https://figma.com).
 
-## About the library
+---
 
-This is **not a pixel-perfect port** of the official UI3 file.
-
-The goal was not to reproduce every detail, but rather to:
-
-- Provide components and states relevant to plugin development.
-- Stay close in look & feel to Figma’s current interface.
-- Optimise for practical use: easier, cleaner, and more consistent to work with.
-
-Some patterns or unused states were intentionally left out.
-          
-[👉 Getting started](https://github.com/canvastools/figma-plugin-preact-ui/blob/main/README.md)`,
+- [Getting started](https://github.com/canvastools/figma-plugin-preact-ui/blob/main/README.md)
+- [Changelog](https://github.com/canvastools/figma-plugin-preact-ui/blob/main/CHANGELOG.md)
+- [License](https://github.com/canvastools/figma-plugin-preact-ui/blob/main/LICENSE.md)`,
       },
     },
   },
@@ -89,32 +78,32 @@ type sampleItemsPlainType = { content: string } & ListItemData
 
 const sampleItemsPlain: sampleItemsPlainType[] = [
   {
-    id: "1",
-    content: "Explode UI3 Figma library",
+    id: '1',
+    content: 'Explode UI3 Figma library',
   },
   {
-    id: "2",
-    content: "Design components",
+    id: '2',
+    content: 'Design components',
   },
   {
-    id: "3",
-    content: "Setup environment",
+    id: '3',
+    content: 'Setup environment',
   },
-  { id: "4", content: "Develop a library" },
-  { id: "5", content: "Test components" },
-  { id: "6", content: "Publish to NPM" },
-  { id: "7", content: "Share to the community" },
-  { id: "8", content: "And enjoy!" },
+  { id: '4', content: 'Develop a library' },
+  { id: '5', content: 'Test components' },
+  { id: '6', content: 'Publish to NPM' },
+  { id: '7', content: 'Share to the community' },
+  { id: '8', content: 'And enjoy!' },
 ]
 
 export const _1: Story = {
   globals: {
-    background: "secondary",
+    background: 'secondary',
   },
   parameters: {
     controls: { disable: true },
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
   },
   render: () => {
@@ -127,8 +116,9 @@ export const _1: Story = {
       const { isAtTop } = useScrollContext()
 
       return (
-        <Bar borderBottom={!isAtTop}>
-          <Section>
+        <Bar showDividerBottom={!isAtTop}>
+          123
+          {/* <Section>
             <Stack direction="row" spacing="400">
               <TabList>
                 <Tab value="tab-1">Home</Tab>
@@ -136,19 +126,11 @@ export const _1: Story = {
               </TabList>
 
               <Stack direction="row" spacing="200">
-                <ButtonIcon
-                  ghost
-                  ref={anchorRefMenu}
-                  onClick={() => setOpenMenu(true)}
-                >
-                  <Icon glyph={settingsGlyph} variant="scaled" />
+                <ButtonIcon ghost ref={anchorRefMenu} onClick={() => setOpenMenu(true)}>
+                  <Icon glyph={settingsGlyph} />
                 </ButtonIcon>
 
-                <MenuContext
-                  triggerRef={anchorRefMenu}
-                  open={openMenu}
-                  setOpen={setOpenMenu}
-                >
+                <MenuContext triggerRef={anchorRefMenu} open={openMenu} setOpen={setOpenMenu}>
                   <OverlayPositioner
                     anchorRef={anchorRefMenu}
                     placement="bottom-left"
@@ -158,32 +140,21 @@ export const _1: Story = {
                     onClose={() => setOpenMenu(false)}
                   >
                     <MenuContainer>
-                      <MenuItemAction onClick={() => setOpenMenu(false)}>
-                        Settings
-                      </MenuItemAction>
-                      <MenuItemAction onClick={() => setOpenMenu(false)}>
-                        Help
-                      </MenuItemAction>
-                      <MenuItemAction onClick={() => setOpenMenu(false)}>
-                        Logout
-                      </MenuItemAction>
+                      <MenuItemAction onClick={() => setOpenMenu(false)}>Settings</MenuItemAction>
+                      <MenuItemAction onClick={() => setOpenMenu(false)}>Help</MenuItemAction>
+                      <MenuItemAction onClick={() => setOpenMenu(false)}>Logout</MenuItemAction>
                       <MenuDivider />
-                      <MenuItemOption
-                        defaultSelected
-                        onChange={() => setOpenMenu(false)}
-                      >
+                      <MenuItemOption defaultSelected onChange={() => setOpenMenu(false)}>
                         Light mode
                       </MenuItemOption>
-                      <MenuItemOption onChange={() => setOpenMenu(false)}>
-                        Dark mode
-                      </MenuItemOption>
+                      <MenuItemOption onChange={() => setOpenMenu(false)}>Dark mode</MenuItemOption>
                     </MenuContainer>
                   </OverlayPositioner>
                 </MenuContext>
                 <Avatar>M</Avatar>
               </Stack>
             </Stack>
-          </Section>
+          </Section> */}
         </Bar>
       )
     }
@@ -200,8 +171,9 @@ export const _1: Story = {
       })
 
       return (
-        <Bar borderTop={!isAtBottom}>
-          <Section>
+        <Bar showDividerTop={!isAtBottom}>
+          123
+          {/* <Section>
             <Stack direction="row" spacing="200">
               <Input
                 placeholder="Type a new to-do"
@@ -211,7 +183,11 @@ export const _1: Story = {
                     ref={anchorRef}
                     onClick={() => setOpenColorPicker(true)}
                   >
-                    <ColorSwatch size="small" hex={colorToHexAlpha(color)} />
+                    <ColorSwatch
+                      size="small"
+                      hex={colorToHexAlpha(color)}
+                      interactive
+                    />
                   </div>
                 }
               />
@@ -233,116 +209,114 @@ export const _1: Story = {
                 </Section>
               </Popover>
             </Stack>
-          </Section>
+          </Section> */}
         </Bar>
       )
     }
 
     return (
       <div className="sb-plugin-window sb-plugin-window-height-480 sb-plugin-window-width-380 sb-plugin-window-center">
-        <ScrollContext>
-          <TabContext defaultValue="tab-1">
-            <TopBar />
+        {/* <TooltipContext>
+          <ScrollContext>
+            <TabContext defaultValue="tab-1">
+              <TopBar />
 
-            <TabPanel value="tab-1" fullHeight>
-              <ScrollContainer>
-                <Section variant="stacked">
-                  <Stack direction="row" spacing="200" y="center">
-                    <Text variant="heading">This is demo</Text>
-                    <Badge intentModifiers="success">New!</Badge>
-                  </Stack>
-                  <Spacing size="100" />
-                  <Text>
-                    A preview of what the plugin interface might look like when
-                    it is put together using the components from this library.
-                    The goal is to give you a sense of how the different pieces
-                    fit, behave, and feel when combined into a working layout,
-                    rather than showing each component in isolation. It
-                    demonstrates the intended look and consistency of the
-                    interface once assembled into a real plugin environment.
-                  </Text>
-                </Section>
-                <Divider />
-                <Section padding={{ right: "200" }}>
-                  <Stack direction="row" spacing="200">
-                    <Text variant="heading" size="small" fullWidth>
-                      To-do list
-                    </Text>
-                    <Stack direction="row" spacing="200">
-                      <Select
-                        options={[
-                          { label: "Incomplete", value: "incomplete" },
-                          { label: "Completed", value: "completed" },
-                        ]}
-                        value={"incomplete"}
-                      />
-                      <SegmentedControl
-                        options={[
-                          {
-                            title: "List",
-                            value: "list",
-                            icon: viewListGlyph,
-                          },
-                          {
-                            title: "Grid",
-                            value: "grid",
-                            icon: viewGridGlyph,
-                          },
-                        ]}
-                        defaultValue={"list"}
-                      />
+              <TabPanel value="tab-1" fullHeight>
+                <ScrollContainer>
+                  <Section variant="stacked">
+                    <Stack direction="row" spacing="200" y="center">
+                      <Text variant="heading">This is demo</Text>
+                      <Badge intentModifiers="success">New!</Badge>
                     </Stack>
-                  </Stack>
-                </Section>
-                <ListContext
-                  items={items}
-                  selectedItems={selectedItems}
-                  selectionMode="multi"
-                  onItemsChange={(change) => {
-                    setItems(change.items as sampleItemsPlainType[])
-                  }}
-                  onSelectionChange={(change) => {
-                    setSelectedItems(change.selectedItems)
-                  }}
-                >
-                  <ListContainer>
-                    {items.map((item) => {
-                      return (
-                        <ListItem
-                          id={item.id}
-                          draggable={true}
-                          selectable={true}
-                        >
-                          <Stack direction="row" spacing="200">
-                            <Checkbox />
-                            <Text>{item.content}</Text>
-                          </Stack>
-                        </ListItem>
-                      )
-                    })}
-                  </ListContainer>
-                </ListContext>
-              </ScrollContainer>
-              <BottomBar />
-            </TabPanel>
+                    <Spacing size="100" />
+                    <Text>
+                      A preview of what the plugin interface might look like
+                      when it is put together using the components from this
+                      library. The goal is to give you a sense of how the
+                      different pieces fit, behave, and feel when combined into
+                      a working layout, rather than showing each component in
+                      isolation. It demonstrates the intended look and
+                      consistency of the interface once assembled into a real
+                      plugin environment.
+                    </Text>
+                  </Section>
+                  <Divider />
+                  <Section padding={{ right: "200" }}>
+                    <Stack direction="row" spacing="200">
+                      <Text variant="heading" size="small" fullWidth>
+                        To-do list
+                      </Text>
+                      <Stack direction="row" spacing="200">
+                        <Select
+                          options={[
+                            { label: "Incomplete", value: "incomplete" },
+                            { label: "Completed", value: "completed" },
+                          ]}
+                          value={"incomplete"}
+                        />
+                        <SegmentedControl
+                          options={[
+                            {
+                              label: "List",
+                              value: "list",
+                              icon: viewListGlyph,
+                            },
+                            {
+                              label: "Grid",
+                              value: "grid",
+                              icon: viewGridGlyph,
+                            },
+                          ]}
+                          defaultValue={"list"}
+                        />
+                      </Stack>
+                    </Stack>
+                  </Section>
+                  <ListContext
+                    items={items}
+                    selectedItems={selectedItems}
+                    selectionMode="multi"
+                    onItemsChange={(change) => {
+                      setItems(change.items as sampleItemsPlainType[])
+                    }}
+                    onSelectionChange={(change) => {
+                      setSelectedItems(change.selectedItems)
+                    }}
+                  >
+                    <ListContainer>
+                      {items.map((item) => {
+                        return (
+                          <ListItem
+                            nestingLevel={0}
+                            id={item.id}
+                            draggable={true}
+                            selectable={true}
+                          >
+                            <Stack direction="row" spacing="200">
+                              <Checkbox />
+                              <Text>{item.content}</Text>
+                            </Stack>
+                          </ListItem>
+                        )
+                      })}
+                    </ListContainer>
+                  </ListContext>
+                </ScrollContainer>
+                <BottomBar />
+              </TabPanel>
 
-            <TabPanel value="tab-2" fullHeight>
-              <Stack fullHeight y="center" x="center" spacing="200">
-                <Spinner />
-                <Text intentModifiers="secondary">
-                  This tab will never load. It's a demo.
-                </Text>
-              </Stack>
-            </TabPanel>
-          </TabContext>
-        </ScrollContext>
-        <WindowResizer
-          minWidth={380}
-          minHeight={480}
-          maxWidth={800}
-          maxHeight={600}
-          onResize={() => {}}
-        />
+              <TabPanel tabId="tab-2" fullHeight>
+                <Stack fullHeight y="center" x="center" spacing="200">
+                  <Spinner />
+                  <Text intentModifier="secondary">
+                    This tab will never load. It's a demo.
+                  </Text>
+                </Stack>
+              </TabPanel>
+            </TabContext>
+          </ScrollContext>
+        </TooltipContext> */}
+        <WindowResizer minWidth={380} minHeight={480} maxWidth={800} maxHeight={600} onResize={() => {}} />
       </div>
     )
   },

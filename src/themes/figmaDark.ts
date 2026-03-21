@@ -243,7 +243,6 @@ const figmaDark: ColorTokenTree = {
       bg: {
         scrollbar: '#686868',
         resizer: '#A3A3A3',
-        helper: '#FFFFFF0D',
       },
       border: {
         focused: '#0C8CE9',
