@@ -69,11 +69,38 @@
     <link href="./sb-addons/chromatic-com-storybook-10/manager-bundle.js" rel="modulepreload" />
     
     <link href="./sb-addons/interactions-11/manager-bundle.js" rel="modulepreload" />
-    
-    <link href="./sb-addons/google-analytics-12/register-bundle.js" rel="modulepreload" />
-    
-    <link href="./sb-addons/storybook-13/manager-bundle.js" rel="modulepreload" />
-       
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-23S5FRYDTE"></script>
+<script>
+  window.dataLayer = window.dataLayer || []
+  function gtag() {
+    window.dataLayer.push(arguments)
+  }
+  window.gtag = gtag
+  gtag('js', new Date())
+  gtag('config', 'G-23S5FRYDTE')
+  ;(function () {
+    var id = 'G-23S5FRYDTE'
+    function pagePath() {
+      return window.location.pathname + window.location.search + window.location.hash
+    }
+    function onRouteChange() {
+      if (typeof window.gtag !== 'function') return
+      gtag('config', id, { page_path: pagePath() })
+    }
+    var _push = history.pushState
+    var _replace = history.replaceState
+    history.pushState = function () {
+      _push.apply(history, arguments)
+      onRouteChange()
+    }
+    history.replaceState = function () {
+      _replace.apply(history, arguments)
+      onRouteChange()
+    }
+    window.addEventListener('popstate', onRouteChange)
+  })()
+</script>
+ 
 
     <style>
       #storybook-root[hidden] {
@@ -177,10 +204,6 @@
         import './sb-addons/chromatic-com-storybook-10/manager-bundle.js';
       
         import './sb-addons/interactions-11/manager-bundle.js';
-      
-        import './sb-addons/google-analytics-12/register-bundle.js';
-      
-        import './sb-addons/storybook-13/manager-bundle.js';
       
       
       import './sb-manager/runtime.js';
