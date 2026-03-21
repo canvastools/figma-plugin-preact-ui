@@ -82,7 +82,7 @@ const ButtonComponent = (
       >
         <div className="Button__content">
           {prefix && <div className="Button__prefix">{prefix}</div>}
-          {children && (
+          {children != null && children !== false && children !== true && (
             <div className="Button__children">
               <Text variant="body" size="medium" intent={intent} intentModifier={intentModifier} disabled={disabled}>
                 {children}

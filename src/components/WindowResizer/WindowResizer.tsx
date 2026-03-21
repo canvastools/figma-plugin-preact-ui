@@ -1,5 +1,5 @@
 import { bem, typedForwardRef } from '../../utils'
-import { useEffect } from 'preact/hooks'
+import { useEffect, useRef } from 'preact/hooks'
 
 import type { WindowResizerProps } from './WindowResizer.types'
 import './WindowResizer.scss'
@@ -11,10 +11,20 @@ const WindowResizerComponent = (
   ref: preact.Ref<HTMLDivElement>,
 ) => {
   const _className = bem('WindowResizer', undefined, undefined)
+  const rootRef = useRef<HTMLDivElement | null>(null)
+
+  const setRef = (node: HTMLDivElement | null) => {
+    rootRef.current = node
+    if (typeof ref === 'function') {
+      ref(node)
+    } else if (ref) {
+      const r = ref as preact.RefObject<HTMLDivElement | null>
+      r.current = node
+    }
+  }
 
   useEffect(() => {
-    const resizer = document.getElementById(id ?? 'WindowResizer')
-
+    const resizer = rootRef.current
     if (!resizer) return
 
     let startX: number
@@ -81,8 +91,8 @@ const WindowResizerComponent = (
       id={id ?? 'WindowResizer'}
       className={[_className, className].join(' ').trim()}
       data-pui-interactive="true"
-      ref={ref}
       {...rest}
+      ref={setRef}
     />
   )
 }

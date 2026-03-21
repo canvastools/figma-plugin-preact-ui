@@ -20,7 +20,7 @@ export interface InputProps {
   maxLength?: number
   maxWidth?: number | string
   autoFocus?: boolean
-  onValueChange?: (args: { event: MouseEvent; value: string }) => void
+  onValueChange?: (args: { event: Event; value: string }) => void
   onBlur?: (args: { event: FocusEvent; value: string }) => void
   onFocus?: (args: { event: FocusEvent; value: string }) => void
   onKeyDown?: (args: { event: KeyboardEvent; value: string }) => void

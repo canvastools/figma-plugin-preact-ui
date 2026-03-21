@@ -133,7 +133,7 @@ export const Demo: Story = {
   render: (args) => (
     <div className="sb-column sb-width-full">
       <MenuContainer width={208}>
-        {/* @ts-ignore-next-line */}
+        {/* @ts-expect-error Storybook spread */}
         <MenuItemAction {...args}>{args.children}</MenuItemAction>
       </MenuContainer>
     </div>

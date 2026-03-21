@@ -68,18 +68,18 @@ export const Demo: Story = {
   },
   render: (args) => (
     <div className="sb-column sb-width-full">
-      {/* @ts-ignore-next-line */}
+      {/* @ts-expect-error Storybook spread */}
       <Stack direction={args.direction}>
         <Avatar>A</Avatar>
-        {/* @ts-ignore-next-line */}
+        {/* @ts-expect-error Storybook spread */}
         <Spacing size={args.size} {...args} />
 
         <Avatar>B</Avatar>
-        {/* @ts-ignore-next-line */}
+        {/* @ts-expect-error Storybook spread */}
         <Spacing size={args.size} {...args} />
 
         <Avatar>C</Avatar>
-        {/* @ts-ignore-next-line */}
+        {/* @ts-expect-error Storybook spread */}
         <Spacing size={args.size} {...args} />
       </Stack>
     </div>

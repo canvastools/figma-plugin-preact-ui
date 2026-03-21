@@ -2,8 +2,6 @@ import { Meta, StoryObj } from '@storybook/preact'
 
 import { SizeStory } from './stories/Size.story'
 
-import { Text } from '../../index'
-
 import { TooltipContainer } from './TooltipContainer'
 
 const meta: Meta<typeof TooltipContainer> = {
@@ -82,7 +80,7 @@ export const Demo: Story = {
     return (
       <div className="sb-column sb-width-full" style={'--overlay-arrow-left: 150px; --overlay-arrow-top: 0px;'}>
         <TooltipContainer {...args}>
-          {/* @ts-ignore-next-line */}
+          {/* @ts-expect-error Storybook spread */}
           {args.children}
         </TooltipContainer>
       </div>

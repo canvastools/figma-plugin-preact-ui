@@ -246,7 +246,7 @@ const anchorRef = useRef(null)
     const anchorRef = useRef<HTMLButtonElement | null>(null)
 
     const placementFallback: OverlayPositionerPlacement[] | undefined =
-      /* @ts-ignore-next-line */
+      // @ts-expect-error Storybook: single placement → array
       args.placementFallback ? [args.placementFallback] : undefined
 
     return (

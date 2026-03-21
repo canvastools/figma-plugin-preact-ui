@@ -1,5 +1,3 @@
-import { Glyph } from '../../index'
-
 import type { IconPropsPick } from '../Icon/Icon.types'
 
 export interface SegmentedControlOptionData {

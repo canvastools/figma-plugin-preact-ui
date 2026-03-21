@@ -1,7 +1,5 @@
 import { StoryObj } from '@storybook/preact'
 
-import { useRef } from 'preact/hooks'
-
 import { Stack, Text } from '../../../index'
 
 import { Section } from '../Section'
@@ -30,8 +28,6 @@ export const StackedStory: Story = {
     },
   },
   render: () => {
-    const triggerRef = useRef<HTMLButtonElement | null>(null)
-
     return (
       <div className="sb-column sb-width-full sb-gap-40">
         <Section variant="default" className="sb-container">

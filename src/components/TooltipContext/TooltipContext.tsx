@@ -38,7 +38,7 @@ const TooltipContext = ({ children }: TooltipContextProps) => {
 
   const hideTimeoutRef = useRef<number | null>(null)
 
-  const registerHoverStart: TooltipContextValue['registerHoverStart'] = (ref, setOpen) => {
+  const registerHoverStart: TooltipContextValue['registerHoverStart'] = useCallback((ref, setOpen) => {
     const now = Date.now()
     const lastLeave = lastTriggerLeaveTimeRef.current
 
@@ -96,9 +96,9 @@ const TooltipContext = ({ children }: TooltipContextProps) => {
         setOpen,
       }
     }, SHOW_DELAY)
-  }
+  }, [])
 
-  const registerHoverEnd: TooltipContextValue['registerHoverEnd'] = (ref, setOpen) => {
+  const registerHoverEnd: TooltipContextValue['registerHoverEnd'] = useCallback((ref, setOpen) => {
     if (showTimeoutRef.current != null) {
       clearTimeout(showTimeoutRef.current)
       showTimeoutRef.current = null
@@ -139,7 +139,7 @@ const TooltipContext = ({ children }: TooltipContextProps) => {
         setOpen: null,
       }
     }, HIDE_DELAY)
-  }
+  }, [])
 
   const contextValue: TooltipContextValue = useMemo(
     () => ({

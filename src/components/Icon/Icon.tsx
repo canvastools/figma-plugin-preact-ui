@@ -51,7 +51,7 @@ const IconComponent = (
       ref={ref}
       {...rest}
       style={{
-        ...(iconColor && { color: iconColor }),
+        ...(iconColor ? { color: iconColor } : {}),
       }}
     >
       {content}

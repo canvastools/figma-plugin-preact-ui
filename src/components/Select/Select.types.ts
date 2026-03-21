@@ -1,4 +1,4 @@
-import type { MenuContainerProps, MenuContainerPropsPick } from '../../index'
+import type { MenuContainerPropsPick } from '../../index'
 
 export interface SelectOptionData {
   label: string

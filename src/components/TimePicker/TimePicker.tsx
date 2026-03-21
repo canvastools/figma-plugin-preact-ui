@@ -24,10 +24,10 @@ const TimePickerComponent = (
     defaultDate = undefined,
     date,
     format = 'HH:mm',
-    hourPlaceholder = 'Hour',
-    minutePlaceholder = 'Minute',
-    maxTime = '23:59',
-    minTime = '00:00',
+    hourPlaceholder = 'HH',
+    minutePlaceholder = 'mm',
+    maxTime = '23:59:59',
+    minTime = '00:00:00',
     disabled = false,
     autoFocus = false,
     tooltip,
@@ -234,18 +234,18 @@ const TimePickerComponent = (
           }}
         >
           <ReactTimePicker
+            {...rest}
             locale={locale}
             value={normalizeTimeValue(isControlled ? date : internalDate)}
-            format="HH:mm"
-            hourPlaceholder="HH"
-            minutePlaceholder="mm"
-            maxTime="23:59:59"
-            minTime="00:00:00"
+            format={format}
+            hourPlaceholder={hourPlaceholder}
+            minutePlaceholder={minutePlaceholder}
+            maxTime={maxTime}
+            minTime={minTime}
             disabled={disabled}
             onChange={(e) => {
               commitTime(e as TimePickerDate)
             }}
-            {...rest}
             disableClock={true}
             clearIcon={null}
           />

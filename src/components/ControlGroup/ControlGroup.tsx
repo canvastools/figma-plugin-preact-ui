@@ -1,4 +1,5 @@
-import { cloneElement } from 'preact'
+import { cloneElement, isValidElement, toChildArray } from 'preact'
+import type { VNode } from 'preact'
 
 import { bem, typedForwardRef } from '../../utils'
 
@@ -11,7 +12,7 @@ const ControlGroupComponent = (
   { id, className, groupFocus = false, fullWidth = false, children, ...rest }: ControlGroupProps,
   ref: preact.Ref<HTMLDivElement>,
 ) => {
-  const childrenArray = Array.isArray(children) ? children : []
+  const childrenArray = toChildArray(children).filter(isValidElement) as VNode[]
 
   const _className = bem('ControlGroup', undefined, {
     groupFocus: Boolean(groupFocus),

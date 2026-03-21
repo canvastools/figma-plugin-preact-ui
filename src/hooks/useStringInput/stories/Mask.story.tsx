@@ -30,7 +30,7 @@ const stringInput = useStringInput({
   trim: true,
   allowedCharacters: "0123456789:",
   format: (value) => {
-    const digits = value.replace(/\D/g, "")
+    const digits = value.replace(/[^0-9]/g, "")
 
     if (digits.length <= 2) {
       return \`\${digits.padStart(2, "0")}:00\`
@@ -39,7 +39,7 @@ const stringInput = useStringInput({
     return digits
       .padStart(4, "0")
       .slice(0, 4)
-      .replace(/(\d{2})(\d{2})/, "$1:$2")
+      .replace(/([0-9]{2})([0-9]{2})/, "$1:$2")
   },
   normalizeOnError: true,
 })
@@ -78,7 +78,7 @@ const [inputValue, setInputValue] = useState(stringInput.formattedValue ?? "")
       trim: true,
       allowedCharacters: '0123456789:',
       format: (value) => {
-        const digits = value.replace(/\D/g, '')
+        const digits = value.replace(/[^0-9]/g, '')
 
         if (digits.length <= 2) {
           return `${digits.padStart(2, '0')}:00`
@@ -87,7 +87,7 @@ const [inputValue, setInputValue] = useState(stringInput.formattedValue ?? "")
         return digits
           .padStart(4, '0')
           .slice(0, 4)
-          .replace(/(\d{2})(\d{2})/, '$1:$2')
+          .replace(/([0-9]{2})([0-9]{2})/, '$1:$2')
       },
       normalizeOnError: true,
     } as StringInputConfig)

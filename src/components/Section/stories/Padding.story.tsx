@@ -1,8 +1,6 @@
 import { StoryObj } from '@storybook/preact'
 
-import { useRef } from 'preact/hooks'
-
-import { Stack, Text } from '../../../index'
+import { Text } from '../../../index'
 
 import { Section } from '../Section'
 
@@ -26,10 +24,8 @@ export const PaddingStory: Story = {
     },
   },
   render: () => {
-    const triggerRef = useRef<HTMLButtonElement | null>(null)
-
     return (
-      <div className="sb-column sb-width-full s">
+      <div className="sb-column sb-width-full">
         <Section className="sb-container" padding={{ top: 400 }}>
           <Text>Padding Top: 400</Text>
         </Section>

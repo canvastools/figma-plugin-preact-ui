@@ -16,7 +16,14 @@ const roundToPrecision = (value: number, precision: number): number => {
 }
 
 const inferPrecisionFromValue = (value: number | string): number => {
-  const str = String(value)
+  let str: string
+  if (typeof value === 'number') {
+    if (!Number.isFinite(value)) return 0
+    if (Number.isInteger(value)) return 0
+    str = value.toFixed(20).replace(/0+$/, '').replace(/\.$/, '')
+  } else {
+    str = String(value)
+  }
   const match = NUMBER_REGEX.exec(str)
   if (!match) return 0
   const [, decimals] = match[0].split('.')
@@ -166,20 +173,18 @@ const evaluateMathExpression = (raw: string): number | null => {
       return null
     }
 
-    while (true) {
-      const token = peek()
-      if (!token || token.type !== 'op' || (token.value !== '*' && token.value !== '/')) {
-        break
-      }
-
+    let token = peek()
+    while (token?.type === 'op' && (token.value === '*' || token.value === '/')) {
       consume()
+      const op = token.value
       const next = parseFactor()
 
       if (next === null) {
-        break
+        return null
       }
 
-      value = token.value === '*' ? value * next : value / next
+      value = op === '*' ? value * next : value / next
+      token = peek()
     }
 
     return value
@@ -192,20 +197,18 @@ const evaluateMathExpression = (raw: string): number | null => {
       return null
     }
 
-    while (true) {
-      const token = peek()
-      if (!token || token.type !== 'op' || (token.value !== '+' && token.value !== '-')) {
-        break
-      }
-
+    let token = peek()
+    while (token?.type === 'op' && (token.value === '+' || token.value === '-')) {
       consume()
+      const op = token.value
       const next = parseTerm()
 
       if (next === null) {
-        break
+        return null
       }
 
-      value = token.value === '+' ? value + next : value - next
+      value = op === '+' ? value + next : value - next
+      token = peek()
     }
 
     return value
@@ -218,6 +221,10 @@ const evaluateMathExpression = (raw: string): number | null => {
   const result = parseExpression()
 
   if (result === null || !Number.isFinite(result)) {
+    return null
+  }
+
+  if (index !== tokens.length) {
     return null
   }
 
@@ -379,6 +386,18 @@ const buildResult = (raw: string, config: NumericInputConfig): NumericInputParse
     return buildSingleResult(raw, config)
   }
 
+  if (parts.length > 2) {
+    return {
+      rawValue: raw,
+      normalizedValue: undefined,
+      formattedValue: undefined,
+      normalizedValues: undefined,
+      formattedValues: undefined,
+      error: 'invalid_number',
+      unit,
+    }
+  }
+
   const leftRaw = parts[0].trim()
   const rightRaw = parts.slice(1).join(',').trim()
 
@@ -460,7 +479,7 @@ const useNumericInput = (config: NumericInputConfig): NumericInput => {
    * Convenience handler for the custom `Input` component in this library.
    * Uses ArrowUp / ArrowDown (with optional Shift) to step the numeric value.
    */
-  const handleKeyDown = (args: { event: KeyboardEvent; value: string }, onValueChange?: (next: number) => void) => {
+  const handleKeyDown = (args: { event: KeyboardEvent; value: string }, onValueChange?: (next: number | string) => void) => {
     const { event, value: raw } = args
 
     if (event.key !== 'ArrowUp' && event.key !== 'ArrowDown') {
@@ -522,6 +541,8 @@ const useNumericInput = (config: NumericInputConfig): NumericInput => {
               const pos = nextDisplay.length
               target.setSelectionRange(pos, pos)
             }
+
+            onValueChange?.(nextDisplay)
 
             return
           }

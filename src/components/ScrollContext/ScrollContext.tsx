@@ -13,6 +13,8 @@ const useScrollContext = () => {
   return context
 }
 
+const useScrollContextOptional = () => useContext(RawScrollContext)
+
 const ScrollContext = ({
   defaultPositionY = 0,
   positionY: controlledPositionY,
@@ -188,4 +190,4 @@ const ScrollContext = ({
   return <RawScrollContext.Provider value={contextValue}>{children}</RawScrollContext.Provider>
 }
 
-export { ScrollContext, useScrollContext }
+export { ScrollContext, useScrollContext, useScrollContextOptional }

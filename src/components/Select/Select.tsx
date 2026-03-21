@@ -107,7 +107,8 @@ const SelectComponent = (
     if (typeof ref === 'function') {
       ref(el)
     } else {
-      ;(ref as preact.RefObject<HTMLDivElement | null>).current = el
+      const r = ref as preact.RefObject<HTMLDivElement | null>
+      r.current = el
     }
   }
 
@@ -119,10 +120,10 @@ const SelectComponent = (
         data-pui-interactive="true"
         ref={attachTriggerRef}
         tabIndex={disabled ? -1 : 0}
+        {...rest}
         onFocus={handleFocus as preact.JSX.FocusEventHandler<HTMLDivElement>}
         onBlur={handleBlur as preact.JSX.FocusEventHandler<HTMLDivElement>}
         onKeyDown={handleKeyDown}
-        {...rest}
       >
         {prefix && <div className="Select__prefix">{prefix}</div>}
 
@@ -171,9 +172,6 @@ type SelectMenuProps = {
 
 const SelectMenu = ({ menuContainerProps, groups, selectedValue, onSelectedChange }: SelectMenuProps) => {
   const context = useMenuContext()
-  if (!context) return null
-
-  let flatCursor = -1
 
   return (
     <OverlayPositioner
@@ -189,8 +187,6 @@ const SelectMenu = ({ menuContainerProps, groups, selectedValue, onSelectedChang
           <Fragment key={`group-${groupIndex}`}>
             {groupIndex > 0 ? <MenuDivider variant="inset" /> : null}
             {group.map((opt) => {
-              flatCursor += 1
-
               if (opt.children && typeof opt.children !== 'string') {
                 return cloneElement(opt.children as preact.VNode, {
                   key: `${groupIndex}-${opt.value}`,

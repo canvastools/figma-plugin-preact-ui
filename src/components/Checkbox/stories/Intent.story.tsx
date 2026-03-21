@@ -18,12 +18,11 @@ const validIntentCombinations = [
   {
     intent: 'brand',
     intentModifier: 'default',
-    ghost: false,
   },
 ]
 
 const intentCombinations = () => {
-  return validIntentCombinations.map(({ intent, intentModifier, ghost }) => (
+  return validIntentCombinations.map(({ intent, intentModifier }) => (
     <div className="sb-row sb-width-full sb-gap-16" style={{ alignItems: 'center' }}>
       <Text fullWidth>
         {intent}, {intentModifier}

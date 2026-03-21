@@ -3,7 +3,7 @@ import { StoryObj } from '@storybook/preact'
 import { Fragment } from 'preact'
 import { useRef, useState, useEffect } from 'preact/hooks'
 
-import { MenuItemAction, MenuContainer, Button, OverlayPositioner, Text, spacing } from '../../../index'
+import { MenuItemAction, MenuContainer, Button, OverlayPositioner, Text } from '../../../index'
 
 import { MenuContext, useMenuContext } from '../MenuContext'
 

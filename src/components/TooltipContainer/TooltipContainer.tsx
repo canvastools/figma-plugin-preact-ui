@@ -21,11 +21,11 @@ const TooltipContainerComponent = (
       className={[_className, className].join(' ').trim()}
       data-pui-interactive="true"
       ref={ref}
+      {...rest}
       style={{
         width,
         height,
       }}
-      {...rest}
     >
       {showArrow && <div className="TooltipContainer__arrow" />}
       <Text intent="neutral-inverted-fixed">{children}</Text>

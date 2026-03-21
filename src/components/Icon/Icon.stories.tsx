@@ -119,7 +119,7 @@ export const Demo: Story = {
     },
   },
   render: (args) => {
-    // @ts-expect-error
+    // @ts-expect-error Storybook maps string control to glyph key.
     const { glyph, ...rest } = args as {
       glyph: keyof typeof glyphs
     } & import('./Icon.types').IconProps

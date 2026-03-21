@@ -68,7 +68,7 @@ export type { MenuProps, MenuItemData } from './components/Menu/Menu.types'
 export { MenuContainer } from './components/MenuContainer/MenuContainer'
 export type { MenuContainerProps, MenuContainerPropsPick } from './components/MenuContainer/MenuContainer.types'
 
-export { MenuContext, useMenuContext } from './components/MenuContext/MenuContext'
+export { MenuContext, useMenuContext, useMenuContextOptional } from './components/MenuContext/MenuContext'
 export type { MenuContextValue, MenuContextProps } from './components/MenuContext/MenuContext.types'
 
 export { MenuDivider } from './components/MenuDivider/MenuDivider'
@@ -98,7 +98,7 @@ export type { PopoverHeaderProps } from './components/PopoverHeader/PopoverHeade
 export { Progress } from './components/Progress/Progress'
 export type { ProgressProps } from './components/Progress/Progress.types'
 
-export { ScrollContext, useScrollContext } from './components/ScrollContext/ScrollContext'
+export { ScrollContext, useScrollContext, useScrollContextOptional } from './components/ScrollContext/ScrollContext'
 export type { ScrollContextValue, ScrollContextProps } from './components/ScrollContext/ScrollContext.types'
 
 export { ScrollContainer } from './components/ScrollContainer/ScrollContainer'

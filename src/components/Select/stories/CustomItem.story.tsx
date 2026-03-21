@@ -120,7 +120,7 @@ const options = [
       selected?: boolean
       onChange?: (args: { event: MouseEvent; value: string }) => void
     }) => {
-      const { registerItem, clearFocus, setHoveredItem, setFocusedItem } = useMenuContext()
+      const { registerItem, clearFocus, setHoveredItem } = useMenuContext()
 
       const id = value ?? 'custom-id'
       const itemRef = useRef<HTMLElement>(null)

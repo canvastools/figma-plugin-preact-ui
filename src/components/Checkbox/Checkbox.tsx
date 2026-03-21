@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'preact/hooks'
+import { useEffect, useRef, useState } from 'preact/hooks'
 
 import { bem, typedForwardRef } from '../../utils'
 
@@ -25,6 +25,8 @@ const CheckboxComponent = (
   }: CheckboxProps,
   ref: preact.Ref<HTMLInputElement>,
 ) => {
+  const inputElementRef = useRef<HTMLInputElement | null>(null)
+
   const isControlled = checked !== undefined
   const [isChecked, setIsChecked] = useState<boolean>(isControlled ? Boolean(checked) : Boolean(defaultChecked))
 
@@ -33,6 +35,13 @@ const CheckboxComponent = (
       setIsChecked(Boolean(checked))
     }
   }, [isControlled, checked])
+
+  useEffect(() => {
+    const el = inputElementRef.current
+    if (el) {
+      el.indeterminate = Boolean(mixed)
+    }
+  }, [mixed])
 
   const _className = bem('Checkbox', undefined, {
     intent: `${intent}-${intentModifier}`,
@@ -64,10 +73,7 @@ const CheckboxComponent = (
     if (!isControlled) {
       setIsChecked(nextChecked)
     }
-    onCheckedChange?.({
-      event: event as unknown as MouseEvent,
-      checked: nextChecked,
-    })
+    onCheckedChange?.({ event: event as Event, checked: nextChecked })
   }
 
   const handleInputClick = (event: preact.JSX.TargetedMouseEvent<HTMLInputElement>) => {
@@ -86,7 +92,18 @@ const CheckboxComponent = (
         <input
           className="Checkbox__input-native"
           type="checkbox"
-          ref={ref}
+          ref={(el) => {
+            inputElementRef.current = el
+            if (typeof ref === 'function') {
+              ref(el)
+            } else if (ref) {
+              // eslint-disable-next-line
+              ;(ref as preact.RefObject<HTMLInputElement | null>).current = el
+            }
+            if (el) {
+              el.indeterminate = Boolean(mixed)
+            }
+          }}
           checked={isChecked}
           disabled={disabled}
           onClick={handleInputClick}

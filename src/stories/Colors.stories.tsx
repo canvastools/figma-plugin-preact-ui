@@ -16,7 +16,7 @@ import { copy as copyGlyph } from '../index'
 import { hexAlphaToColor } from '../index'
 import { Color } from '../index'
 
-import { COLOR_DOC_THEMES, copyToClipboard } from './storiesUtils'
+import { COLOR_DOC_THEMES, copyToClipboard } from './utils'
 
 const meta: Meta = {
   title: 'Variables/Colors',

@@ -282,7 +282,9 @@ const ListItemComponent = (
   const handleEndZoneDragOver = (e: DragEvent) => {
     e.preventDefault()
     e.stopPropagation()
-    e.dataTransfer!.dropEffect = 'move'
+    if (e.dataTransfer) {
+      e.dataTransfer.dropEffect = 'move'
+    }
     const endZoneTarget = e.currentTarget as HTMLElement
     endZoneTarget.classList.add('ListItem__end-dropzone-active')
 

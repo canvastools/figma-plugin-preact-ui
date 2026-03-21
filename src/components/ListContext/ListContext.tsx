@@ -462,6 +462,7 @@ const ListContext = (props: ListContextProps) => {
   }, [selectionMode, deselectOnClickOutside, currentSelectedItems, isSelectionControlled, onSelectionChange])
 
   const dragImageRef = useRef<HTMLDivElement | null>(null)
+  const [, setDragImageVersion] = useState(0)
 
   useEffect(() => {
     // Fake drag image
@@ -475,10 +476,12 @@ const ListContext = (props: ListContextProps) => {
 
     document.body.appendChild(ghost)
     dragImageRef.current = ghost
+    setDragImageVersion((v) => v + 1)
 
     return () => {
       document.body.removeChild(ghost)
       dragImageRef.current = null
+      setDragImageVersion((v) => v + 1)
     }
   }, [])
 

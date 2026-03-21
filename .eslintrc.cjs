@@ -25,5 +25,12 @@ module.exports = {
     {
       files: ['**/*.ts', '**/*.tsx'],
     },
+    {
+      // Extracted CSF stories imported by *.stories.tsx; meta lives on the parent file.
+      files: ['**/*.story.tsx'],
+      rules: {
+        'storybook/default-exports': 'off',
+      },
+    },
   ],
 }

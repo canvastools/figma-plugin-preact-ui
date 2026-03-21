@@ -25,6 +25,7 @@ export interface NumericInputParseResult {
 }
 
 export interface NumericInput extends NumericInputParseResult {
-  handleKeyDown: (args: { event: KeyboardEvent; value: string }, onValueChange?: (next: number) => void) => void
+  /** `string` is used when `doubleValue` and the field contains a comma (pair display). */
+  handleKeyDown: (args: { event: KeyboardEvent; value: string }, onValueChange?: (next: number | string) => void) => void
   parse: (raw: string, unit?: string) => NumericInputParseResult
 }

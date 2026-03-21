@@ -5,8 +5,6 @@ import { useState, useEffect } from 'preact/hooks'
 import type { ProgressProps } from './Progress.types'
 import './Progress.scss'
 
-import { Spinner } from '../Spinner/Spinner'
-
 /* --- */
 
 const ProgressComponent = (
@@ -16,9 +14,10 @@ const ProgressComponent = (
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
-    setTimeout(() => {
+    const timeoutId = window.setTimeout(() => {
       setIsVisible(true)
     }, delay)
+    return () => clearTimeout(timeoutId)
   }, [delay])
 
   const _className = bem('Progress', undefined, { variant, visible: isVisible })

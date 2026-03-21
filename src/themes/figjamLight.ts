@@ -71,7 +71,7 @@ const figjamLight: ColorTokenTree = {
       },
       border: {
         default: '#0000001C',
-        'default-hover': '#0000001C',
+        'default-hover': '#00000014',
         'default-selected': '#7C2BDA',
         'default-selected-contrast': '#7C2BDA6B',
 

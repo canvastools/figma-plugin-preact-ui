@@ -2,8 +2,6 @@ import { Meta, StoryObj } from '@storybook/preact'
 
 import { Spinner } from './Spinner'
 
-import { ButtonIcon } from '../../index'
-
 const meta: Meta<typeof Spinner> = {
   title: 'Components/Spinner',
   component: Spinner,

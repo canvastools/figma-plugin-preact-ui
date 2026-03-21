@@ -71,7 +71,7 @@ export const Demo: Story = {
   render: (args) => (
     <div className="sb-column sb-width-full sb-gap-16">
       <Fog {...args}>
-        {/* @ts-ignore-next-line */}
+        {/* @ts-expect-error Storybook spread */}
         <Text>{args.children}</Text>
       </Fog>
       <Text>

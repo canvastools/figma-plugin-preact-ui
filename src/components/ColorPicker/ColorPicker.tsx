@@ -310,6 +310,7 @@ const ControlsRgba = ({
             onKeyDown={(e) =>
               opacityValidation.handleKeyDown(e, (next) => {
                 setInputOpacityValue(String(next))
+                if (typeof next !== 'number') return
                 const fraction = roundAlpha(clamp(next / 100, RGBA_VALUES.a.min, RGBA_VALUES.a.max))
                 setColor(rgbaToColor({ r: rgba.r, g: rgba.g, b: rgba.b, a: fraction }))
               })
@@ -501,6 +502,7 @@ const ControlsHexAlpha = ({
             onKeyDown={(e) =>
               hexOpacityValidation.handleKeyDown(e, (next) => {
                 setHexOpacityValue(String(next))
+                if (typeof next !== 'number') return
                 const fraction = roundAlpha(clamp(next / 100, HEX_VALUES.a.min, HEX_VALUES.a.max))
                 setColor({ ...color, a: fraction })
               })
@@ -536,10 +538,17 @@ const ColorPickerComponent = (
     return { r: 1, g: 0, b: 0, a: 1 }
   })
 
+  const lastEmittedColorRef = useRef<Color | null>(null)
+
   // Keep internal color in sync when used in controlled state
   useEffect(() => {
     if (color) {
-      setInternalColor(color)
+      const normalized: Color = {
+        ...color,
+        a: roundAlpha(clamp(color.a, 0, 1)),
+      }
+      setInternalColor(normalized)
+      lastEmittedColorRef.current = normalized
     }
   }, [color])
 
@@ -610,9 +619,13 @@ const ColorPickerComponent = (
       a: roundAlpha(clamp(next.a, 0, 1)),
     }
 
-    if (!areColorsEqual(normalized, internalColor)) {
-      setInternalColor(normalized)
+    const prevEmitted = lastEmittedColorRef.current
+    if (prevEmitted !== null && areColorsEqual(normalized, prevEmitted)) {
+      return
     }
+
+    lastEmittedColorRef.current = normalized
+    setInternalColor(normalized)
 
     onColorChange?.({
       color: normalized,
@@ -652,7 +665,7 @@ const ColorPickerComponent = (
     }
   }
 
-  const handleInteractionMouseDownCapture = (_event: preact.JSX.TargetedMouseEvent<HTMLDivElement>) => {
+  const handleInteractionMouseDownCapture = () => {
     lastInteractionWasKeyboardRef.current = false
   }
 

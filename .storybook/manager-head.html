@@ -1,0 +1,31 @@
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-23S5FRYDTE"></script>
+<script>
+  window.dataLayer = window.dataLayer || []
+  function gtag() {
+    window.dataLayer.push(arguments)
+  }
+  window.gtag = gtag
+  gtag('js', new Date())
+  gtag('config', 'G-23S5FRYDTE')
+  ;(function () {
+    var id = 'G-23S5FRYDTE'
+    function pagePath() {
+      return window.location.pathname + window.location.search + window.location.hash
+    }
+    function onRouteChange() {
+      if (typeof window.gtag !== 'function') return
+      gtag('config', id, { page_path: pagePath() })
+    }
+    var _push = history.pushState
+    var _replace = history.replaceState
+    history.pushState = function () {
+      _push.apply(history, arguments)
+      onRouteChange()
+    }
+    history.replaceState = function () {
+      _replace.apply(history, arguments)
+      onRouteChange()
+    }
+    window.addEventListener('popstate', onRouteChange)
+  })()
+</script>

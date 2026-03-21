@@ -44,10 +44,7 @@ const MenuBody = ({
   onOpen,
   onClose,
 }: MenuBodyProps) => {
-  const context = useMenuContext()
-  if (!context) return null
-
-  const { triggerRef, anchorRef, open, focusedItemId, setOpen } = context
+  const { triggerRef, anchorRef, open, focusedItemId, setOpen } = useMenuContext()
 
   const hasFiredOpenRef = useRef(false)
 
@@ -88,7 +85,8 @@ const MenuBody = ({
 
   const renderItem = (item: MenuItemData, index: number) => {
     if (item.type === 'action') {
-      const { type, ...rest } = item
+      const { type: _actionKind, ...rest } = item
+      void _actionKind
 
       const handleItemClick: MenuItemActionProps['onClick'] = (args) => {
         item.onClick?.(args)
@@ -109,7 +107,8 @@ const MenuBody = ({
     }
 
     if (item.type === 'option') {
-      const { type, ...rest } = item
+      const { type: _optionKind, ...rest } = item
+      void _optionKind
 
       const handleItemChange: MenuItemOptionProps['onSelectedChange'] = (args) => {
         item.onSelectedChange?.(args)
@@ -130,8 +129,6 @@ const MenuBody = ({
     }
 
     if (item.type === 'custom') {
-      const { type, ...rest } = item
-
       const handleItemClick: MenuItemActionProps['onClick'] = (args) => {
         item.onClick?.(args)
         if (item.closeOnClick) {
@@ -153,7 +150,8 @@ const MenuBody = ({
     }
 
     if (item.type === 'divider') {
-      const { type, ...rest } = item
+      const { type: _dividerKind, ...rest } = item
+      void _dividerKind
       return <MenuDivider key={index} {...rest} />
     }
 
@@ -207,7 +205,7 @@ const MenuComponent = (
 
   useEffect(() => {
     setInternalOpen(open ?? defaultOpen)
-  }, [open])
+  }, [open, defaultOpen])
 
   return (
     <MenuContext triggerRef={triggerRef} anchorRef={anchorRef} open={internalOpen} setOpen={setInternalOpen}>

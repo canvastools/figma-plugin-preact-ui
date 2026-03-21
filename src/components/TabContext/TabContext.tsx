@@ -154,9 +154,12 @@ const TabContext = ({ defaultActiveId = '', activeId: controlledActiveId, onTabC
     setFocusedTab,
   }
 
+  const handleKeyDownRef = useRef(handleKeyDown)
+  handleKeyDownRef.current = handleKeyDown
+
   useEffect(() => {
     const listener = (event: KeyboardEvent) => {
-      handleKeyDown(event)
+      handleKeyDownRef.current(event)
     }
 
     window.addEventListener('keydown', listener)

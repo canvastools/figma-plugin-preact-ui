@@ -15,7 +15,9 @@ const TabListComponent = (
 
   return (
     <div id={id} className={[_className, className].join(' ').trim()} ref={ref} {...rest}>
-      {children && <div className="TabList__children">{children}</div>}
+      {children != null && children !== false && children !== true && (
+        <div className="TabList__children">{children}</div>
+      )}
     </div>
   )
 }

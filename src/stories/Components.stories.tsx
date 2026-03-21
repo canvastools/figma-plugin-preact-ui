@@ -1,8 +1,6 @@
 import { Meta, StoryObj } from '@storybook/preact'
 import { useRef, useState } from 'preact/hooks'
 
-import { settings as settingsGlyph, viewList as viewListGlyph, viewGrid as viewGridGlyph } from '../index'
-
 import {
   Avatar,
   Badge,
@@ -10,27 +8,21 @@ import {
   Button,
   ButtonIcon,
   Checkbox,
+  ColorPicker,
+  ColorSwatch,
   Divider,
   Icon,
   Input,
-  ColorPicker,
-  ColorSwatch,
   ListContainer,
   ListContext,
   ListItem,
-  MenuContainer,
-  MenuContext,
-  MenuDivider,
-  MenuItemAction,
-  MenuItemOption,
-  Select,
+  Menu,
+  Popover,
   ScrollContainer,
   ScrollContext,
-  useScrollContext,
-  OverlayPositioner,
-  Popover,
   Section,
   SegmentedControl,
+  Select,
   Spacing,
   Spinner,
   Stack,
@@ -40,8 +32,11 @@ import {
   TabPanel,
   Text,
   TooltipContext,
+  useScrollContext,
   WindowResizer,
-  colorToHexAlpha,
+  settings,
+  viewGrid,
+  viewList,
 } from '../index'
 
 import type { ListItemData, Color } from '../index'
@@ -67,6 +62,9 @@ This project is an independent initiative and is not affiliated with or endorsed
 - [Changelog](https://github.com/canvastools/figma-plugin-preact-ui/blob/main/CHANGELOG.md)
 - [License](https://github.com/canvastools/figma-plugin-preact-ui/blob/main/LICENSE.md)`,
       },
+      canvas: {
+        sourceState: 'none',
+      },
     },
   },
 }
@@ -74,9 +72,9 @@ This project is an independent initiative and is not affiliated with or endorsed
 export default meta
 type Story = StoryObj<typeof meta>
 
-type sampleItemsPlainType = { content: string } & ListItemData
+type SampleTodoItem = { content: string } & ListItemData
 
-const sampleItemsPlain: sampleItemsPlainType[] = [
+const sampleItemsPlain: SampleTodoItem[] = [
   {
     id: '1',
     content: 'Explode UI3 Figma library',
@@ -108,53 +106,58 @@ export const _1: Story = {
   },
   render: () => {
     const [items, setItems] = useState(sampleItemsPlain)
-    const [selectedItems, setSelectedItems] = useState<string[]>([])
+    const [selectedItemIds, setSelectedItemIds] = useState<string[]>([])
     const anchorRefMenu = useRef<HTMLButtonElement | null>(null)
-    const [openMenu, setOpenMenu] = useState(false)
 
     const TopBar = () => {
       const { isAtTop } = useScrollContext()
 
       return (
         <Bar showDividerBottom={!isAtTop}>
-          123
-          {/* <Section>
+          <Section>
             <Stack direction="row" spacing="400">
               <TabList>
-                <Tab value="tab-1">Home</Tab>
-                <Tab value="tab-2">Templates</Tab>
+                <Tab id="tab-1">Home</Tab>
+                <Tab id="tab-2">Templates</Tab>
               </TabList>
 
               <Stack direction="row" spacing="200">
-                <ButtonIcon ghost ref={anchorRefMenu} onClick={() => setOpenMenu(true)}>
-                  <Icon glyph={settingsGlyph} />
+                <ButtonIcon ghost ref={anchorRefMenu}>
+                  <Icon glyph={settings} />
                 </ButtonIcon>
 
-                <MenuContext triggerRef={anchorRefMenu} open={openMenu} setOpen={setOpenMenu}>
-                  <OverlayPositioner
-                    anchorRef={anchorRefMenu}
-                    placement="bottom-left"
-                    paddingY={4}
-                    edgePadding={16}
-                    open={openMenu}
-                    onClose={() => setOpenMenu(false)}
-                  >
-                    <MenuContainer>
-                      <MenuItemAction onClick={() => setOpenMenu(false)}>Settings</MenuItemAction>
-                      <MenuItemAction onClick={() => setOpenMenu(false)}>Help</MenuItemAction>
-                      <MenuItemAction onClick={() => setOpenMenu(false)}>Logout</MenuItemAction>
-                      <MenuDivider />
-                      <MenuItemOption defaultSelected onChange={() => setOpenMenu(false)}>
-                        Light mode
-                      </MenuItemOption>
-                      <MenuItemOption onChange={() => setOpenMenu(false)}>Dark mode</MenuItemOption>
-                    </MenuContainer>
-                  </OverlayPositioner>
-                </MenuContext>
+                <Menu
+                  triggerRef={anchorRefMenu}
+                  items={[
+                    {
+                      type: 'action',
+                      id: 'action-1',
+                      children: 'Settings',
+                      closeOnClick: true,
+                    },
+                    {
+                      type: 'action',
+                      id: 'action-2',
+                      children: 'Help',
+                      closeOnClick: true,
+                    },
+                    {
+                      type: 'divider',
+                    },
+                    {
+                      type: 'action',
+                      id: 'action-3',
+                      children: 'Logout',
+                      intentModifier: 'danger',
+                      closeOnClick: true,
+                    },
+                  ]}
+                />
+
                 <Avatar>M</Avatar>
               </Stack>
             </Stack>
-          </Section> */}
+          </Section>
         </Bar>
       )
     }
@@ -172,126 +175,111 @@ export const _1: Story = {
 
       return (
         <Bar showDividerTop={!isAtBottom}>
-          123
-          {/* <Section>
+          <Section>
             <Stack direction="row" spacing="200">
               <Input
                 placeholder="Type a new to-do"
                 prefix={
-                  <div
-                    style={{ padding: "0 8px 0 4px" }}
-                    ref={anchorRef}
-                    onClick={() => setOpenColorPicker(true)}
-                  >
-                    <ColorSwatch
-                      size="small"
-                      hex={colorToHexAlpha(color)}
-                      interactive
-                    />
+                  <div style={{ padding: '0 8px 0 4px' }} ref={anchorRef} onClick={() => setOpenColorPicker(true)}>
+                    <ColorSwatch size="small" color={color} />
                   </div>
                 }
               />
               <Button intent="brand">Add</Button>
               <Popover
                 anchorRef={anchorRef}
-                header="Color Picker"
+                popoverHeaderProps={{
+                  children: 'Color Picker',
+                }}
                 placement="over"
                 open={openColorPicker}
                 onClose={() => setOpenColorPicker(false)}
               >
                 <Section>
                   <Spacing size="100" />
-                  <ColorPicker
-                    value={color}
-                    onChange={(color) => setColor(color.rgba)}
-                  />
+                  <ColorPicker color={color} onColorChange={(args) => setColor(args.color)} />
                   <Spacing size="100" />
                 </Section>
               </Popover>
             </Stack>
-          </Section> */}
+          </Section>
         </Bar>
       )
     }
 
     return (
       <div className="sb-plugin-window sb-plugin-window-height-480 sb-plugin-window-width-380 sb-plugin-window-center">
-        {/* <TooltipContext>
+        <TooltipContext>
           <ScrollContext>
-            <TabContext defaultValue="tab-1">
+            <TabContext defaultActiveId="tab-1">
               <TopBar />
 
-              <TabPanel value="tab-1" fullHeight>
+              <TabPanel tabId="tab-1" fullHeight>
                 <ScrollContainer>
                   <Section variant="stacked">
                     <Stack direction="row" spacing="200" y="center">
                       <Text variant="heading">This is demo</Text>
-                      <Badge intentModifiers="success">New!</Badge>
+                      <Badge intentModifier="success">New!</Badge>
                     </Stack>
                     <Spacing size="100" />
                     <Text>
-                      A preview of what the plugin interface might look like
-                      when it is put together using the components from this
-                      library. The goal is to give you a sense of how the
-                      different pieces fit, behave, and feel when combined into
-                      a working layout, rather than showing each component in
-                      isolation. It demonstrates the intended look and
-                      consistency of the interface once assembled into a real
-                      plugin environment.
+                      A preview of what the plugin interface might look like when it is put together using the components from
+                      this library. The goal is to give you a sense of how the different pieces fit, behave, and feel when
+                      combined into a working layout, rather than showing each component in isolation. It demonstrates the
+                      intended look and consistency of the interface once assembled into a real plugin environment.
                     </Text>
                   </Section>
+
                   <Divider />
-                  <Section padding={{ right: "200" }}>
+
+                  <Section padding={{ right: '200' }}>
                     <Stack direction="row" spacing="200">
                       <Text variant="heading" size="small" fullWidth>
                         To-do list
                       </Text>
+
                       <Stack direction="row" spacing="200">
                         <Select
                           options={[
-                            { label: "Incomplete", value: "incomplete" },
-                            { label: "Completed", value: "completed" },
+                            { label: 'Incomplete', value: 'incomplete' },
+                            { label: 'Completed', value: 'completed' },
                           ]}
-                          value={"incomplete"}
+                          value={'incomplete'}
                         />
                         <SegmentedControl
                           options={[
                             {
-                              label: "List",
-                              value: "list",
-                              icon: viewListGlyph,
+                              label: 'List',
+                              value: 'list',
+                              icon: { glyph: viewList },
                             },
                             {
-                              label: "Grid",
-                              value: "grid",
-                              icon: viewGridGlyph,
+                              label: 'Grid',
+                              value: 'grid',
+                              icon: { glyph: viewGrid },
                             },
                           ]}
-                          defaultValue={"list"}
+                          defaultValue={'list'}
                         />
                       </Stack>
                     </Stack>
                   </Section>
+
                   <ListContext
                     items={items}
-                    selectedItems={selectedItems}
+                    selectedItemIds={selectedItemIds}
                     selectionMode="multi"
                     onItemsChange={(change) => {
-                      setItems(change.items as sampleItemsPlainType[])
+                      setItems(change.items as SampleTodoItem[])
                     }}
                     onSelectionChange={(change) => {
-                      setSelectedItems(change.selectedItems)
+                      setSelectedItemIds(change.selectedItemIds)
                     }}
                   >
                     <ListContainer>
                       {items.map((item) => {
                         return (
-                          <ListItem
-                            nestingLevel={0}
-                            id={item.id}
-                            draggable={true}
-                            selectable={true}
-                          >
+                          <ListItem key={item.id} nestingLevel={0} id={item.id} draggable={true} selectable={true}>
                             <Stack direction="row" spacing="200">
                               <Checkbox />
                               <Text>{item.content}</Text>
@@ -302,20 +290,19 @@ export const _1: Story = {
                     </ListContainer>
                   </ListContext>
                 </ScrollContainer>
+
                 <BottomBar />
               </TabPanel>
 
               <TabPanel tabId="tab-2" fullHeight>
                 <Stack fullHeight y="center" x="center" spacing="200">
                   <Spinner />
-                  <Text intentModifier="secondary">
-                    This tab will never load. It's a demo.
-                  </Text>
+                  <Text intentModifier="secondary">Don’t wait, it’s a demo.</Text>
                 </Stack>
               </TabPanel>
             </TabContext>
           </ScrollContext>
-        </TooltipContext> */}
+        </TooltipContext>
         <WindowResizer minWidth={380} minHeight={480} maxWidth={800} maxHeight={600} onResize={() => {}} />
       </div>
     )

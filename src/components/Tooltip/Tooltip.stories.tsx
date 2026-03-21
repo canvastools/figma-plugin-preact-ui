@@ -1,5 +1,4 @@
 import { Meta, StoryObj } from '@storybook/preact'
-import { fn } from '@storybook/test'
 
 import { useRef } from 'preact/hooks'
 
@@ -123,7 +122,7 @@ const triggerRef = useRef(null)
       <div className="sb-column sb-width-300 sb-container">
         <TooltipContext>
           <Text ref={triggerRef}>Hover to see Tooltip.</Text>
-          {/* @ts-ignore-next-line */}
+          {/* @ts-expect-error Storybook spread */}
           <Tooltip triggerRef={triggerRef} {...args} />
         </TooltipContext>
       </div>

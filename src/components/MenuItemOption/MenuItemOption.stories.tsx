@@ -138,7 +138,7 @@ export const Demo: Story = {
     <div className="sb-column sb-width-full">
       <MenuContext>
         <MenuContainer width={208}>
-          {/* @ts-ignore-next-line */}
+          {/* @ts-expect-error Storybook spread */}
           <MenuItemOption {...args}>{args.children}</MenuItemOption>
         </MenuContainer>
       </MenuContext>

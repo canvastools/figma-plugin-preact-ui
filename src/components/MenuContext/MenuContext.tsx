@@ -13,6 +13,8 @@ const useMenuContext = () => {
   return context
 }
 
+const useMenuContextOptional = (): MenuContextValue | undefined => useContext(RawMenuContext)
+
 const MenuContext = ({ triggerRef, anchorRef, open, setOpen, children }: MenuContextProps) => {
   const itemsRef = useRef<MenuItemMetadata[]>([])
   const lastOpenViaKeyboardRef = useRef(false)
@@ -407,7 +409,8 @@ const MenuContext = ({ triggerRef, anchorRef, open, setOpen, children }: MenuCon
       event.preventDefault()
 
       const now = Date.now()
-      let { query, lastTime } = typeaheadRef.current
+      const { lastTime } = typeaheadRef.current
+      let { query } = typeaheadRef.current
       if (now - lastTime > TYPEAHEAD_TIMEOUT) {
         query = ''
       }
@@ -426,7 +429,7 @@ const MenuContext = ({ triggerRef, anchorRef, open, setOpen, children }: MenuCon
       }
 
       // First try prefix match
-      let target =
+      const target =
         enabledItems.find((item) => getText(item).startsWith(normalizedQuery)) ||
         // Fallback to "contains" match
         enabledItems.find((item) => getText(item).includes(normalizedQuery))
@@ -464,4 +467,4 @@ const MenuContext = ({ triggerRef, anchorRef, open, setOpen, children }: MenuCon
   return <RawMenuContext.Provider value={contextValue}>{children}</RawMenuContext.Provider>
 }
 
-export { MenuContext, useMenuContext, RawMenuContext }
+export { MenuContext, useMenuContext, useMenuContextOptional, RawMenuContext }

@@ -36,6 +36,7 @@ const buildResult = (raw: string, config: StringInputConfig): StringInputParseRe
 
   let normalizedValue: string | undefined
   let formattedValue: string | undefined
+  let outError = error
 
   if (hasError && !normalizeOnError) {
     // Do not normalize on error: only rawValue and error are meaningful.
@@ -61,7 +62,11 @@ const buildResult = (raw: string, config: StringInputConfig): StringInputParseRe
     }
 
     normalizedValue = base
-    formattedValue = format ? format(base) : base
+    try {
+      formattedValue = format ? format(base) : base
+    } catch {
+      formattedValue = base
+    }
 
     // Apply trimming again after normalization/masking in case they
     // introduced leading/trailing whitespace.
@@ -69,13 +74,28 @@ const buildResult = (raw: string, config: StringInputConfig): StringInputParseRe
       normalizedValue = trimString(normalizedValue, config)
       formattedValue = formattedValue != null ? trimString(formattedValue, config) : undefined
     }
+
+    // Re-validate the normalized string so fixed inputs (e.g. clamped length) clear errors.
+    outError = null
+    const check = normalizedValue ?? ''
+    if (check === '') {
+      if (required) outError = 'required'
+    } else {
+      if (typeof minLength === 'number' && check.length < minLength) {
+        outError = 'too_short'
+      } else if (typeof maxLength === 'number' && check.length > maxLength) {
+        outError = 'too_long'
+      } else if (allowedCharacters && [...check].some((ch) => !allowedCharacters.includes(ch))) {
+        outError = 'invalid_characters'
+      }
+    }
   }
 
   return {
     rawValue,
     normalizedValue,
     formattedValue,
-    error,
+    error: outError,
   }
 }
 
@@ -103,6 +123,8 @@ const useStringInput = (config: StringInputConfig): StringInput => {
       event.ctrlKey ||
       event.metaKey ||
       event.altKey
+
+    if (event.isComposing === true) return
 
     // Block any printable character that is not allowed
     if (!isControlKey && key.length === 1 && !config.allowedCharacters.includes(key)) {

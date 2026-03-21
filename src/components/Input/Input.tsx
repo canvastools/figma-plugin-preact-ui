@@ -58,11 +58,11 @@ const InputComponent = (
   useImperativeHandle(ref, () => rootRef.current as HTMLDivElement, [])
 
   useEffect(() => {
-    if (autoFocus) {
-      setTimeout(() => {
-        inputRef.current?.focus()
-      }, 25)
-    }
+    if (!autoFocus) return
+    const timeoutId = window.setTimeout(() => {
+      inputRef.current?.focus()
+    }, 25)
+    return () => clearTimeout(timeoutId)
   }, [autoFocus])
 
   useEffect(() => {
@@ -103,7 +103,7 @@ const InputComponent = (
     }
     setHasContent(nextValue.length > 0)
     onValueChange?.({
-      event: event as unknown as MouseEvent,
+      event: event as Event,
       value: nextValue,
     })
   }

@@ -1,6 +1,6 @@
 import { bem, typedForwardRef } from '../../utils'
 
-import { useEffect, useState } from 'preact/hooks'
+import { useEffect, useRef, useState } from 'preact/hooks'
 
 import { OverlayPositioner, TooltipContainer, useTooltipContext } from '../../index'
 
@@ -32,11 +32,14 @@ const TooltipComponent = (
 ) => {
   const context = useTooltipContext()
   const [open, setOpen] = useState(false)
+  const wasOpenRef = useRef(false)
 
   useEffect(() => {
-    if (open) {
+    if (open && !wasOpenRef.current) {
+      wasOpenRef.current = true
       onOpen?.()
-    } else {
+    } else if (!open && wasOpenRef.current) {
+      wasOpenRef.current = false
       onClose?.()
     }
   }, [open, onOpen, onClose])
@@ -80,7 +83,7 @@ const TooltipComponent = (
       trigger="hover"
       onClose={() => setOpen(false)}
     >
-      <div id={id} className={[_className, className].join(' ').trim()} data-pui-interactive="true" ref={ref} {...rest}>
+      <div id={id} className={[_className, className].join(' ').trim()} data-pui-interactive="true" {...rest} ref={ref}>
         <TooltipContainer width={width} height={height} showArrow={showArrow}>
           {children}
         </TooltipContainer>

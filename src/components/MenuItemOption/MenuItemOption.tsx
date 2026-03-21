@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from 'preact/hooks'
 
 import { bem, typedForwardRef, uuid } from '../../utils'
 
-import { Text, Icon, check as checkGlyph, useMenuContext } from '../../index'
+import { Text, Icon, check as checkGlyph, useMenuContextOptional } from '../../index'
 import type { MenuContextValue } from '../../index'
 
 import type { MenuItemOptionProps } from './MenuItemOption.types'
@@ -39,14 +39,9 @@ const MenuItemOptionComponent = (
 ) => {
   const [internalSelected, setInternalSelected] = useState(defaultSelected)
 
-  let menuContext: MenuContextValue | null = null
-  try {
-    menuContext = useMenuContext()
-  } catch {
-    menuContext = null
-  }
+  const menuContext = useMenuContextOptional()
 
-  const { registerItem, clearFocus, setHoveredItem, setFocusedItem } = menuContext || {
+  const { registerItem, clearFocus, setHoveredItem, setFocusedItem } = menuContext ?? {
     registerItem: noopRegisterItem,
     clearFocus: noopClearFocus,
     setHoveredItem: noopSetHoveredItem,
@@ -104,8 +99,8 @@ const MenuItemOptionComponent = (
   const handleMouseEnter = () => {
     if (disabled) return
     clearFocus()
-    if (id) {
-      setHoveredItem(id)
+    if (internalId) {
+      setHoveredItem(internalId)
     }
     setIsHovered(true)
   }
@@ -168,7 +163,7 @@ const MenuItemOptionComponent = (
                 : prefix}
             </div>
           )}
-          {children && (
+          {children != null && children !== false && children !== true && (
             <div className="MenuItemOption__children">
               <Text variant="body" size="medium" intent={isActive ? 'brand' : 'neutral-inverted-fixed'} disabled={disabled}>
                 {isActive

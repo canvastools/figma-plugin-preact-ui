@@ -71,7 +71,7 @@ const figmaDark: ColorTokenTree = {
       },
       border: {
         default: '#FFFFFF1F',
-        'default-hover': '#FFFFFF1F',
+        'default-hover': '#FFFFFF14',
         'default-selected': '#0C8CE9',
         'default-selected-contrast': '#7CC4F86B',
 

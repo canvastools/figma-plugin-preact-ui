@@ -52,10 +52,9 @@ const CalendarComponent = (
   }
 
   return (
-    <div id={id} onKeyDown={handleKeyDown} data-pui-interactive="true">
+    <div id={id} ref={ref} onKeyDown={handleKeyDown} data-pui-interactive="true">
       <ReactCalendar
         className={[_className, className].join(' ').trim()}
-        inputRef={ref as preact.Ref<HTMLDivElement> | undefined}
         locale={locale}
         calendarType={type}
         defaultView={defaultView}
@@ -74,19 +73,16 @@ const CalendarComponent = (
           onDateChange?.({ date: e })
         }}
         onDrillUp={(e) => {
-          const args = { ...e, date: e.value }
-          delete (args as any).value
-          onDetailUp?.(args)
+          const { value: date, ...payload } = e
+          onDetailUp?.({ ...payload, date })
         }}
         onDrillDown={(e) => {
-          const args = { ...e, date: e.value }
-          delete (args as any).value
-          onDetailDown?.(args)
+          const { value: date, ...payload } = e
+          onDetailDown?.({ ...payload, date })
         }}
         onViewChange={(e) => {
-          const args = { ...e, date: e.value }
-          delete (args as any).value
-          onViewChange?.(args)
+          const { value: date, ...payload } = e
+          onViewChange?.({ ...payload, date })
         }}
         {...rest}
       />

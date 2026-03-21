@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/preact'
+import { Meta } from '@storybook/preact'
 
 import { StickyStory } from './stories/Sticky.story'
 
@@ -51,8 +51,6 @@ const meta: Meta<typeof Bar> = {
 
 export default meta
 
-type Story = StoryObj<typeof Bar>
-
 export const Demo = {
   tags: ['!autodocs'],
   args: {
@@ -83,7 +81,6 @@ export const Demo = {
     <div className="sb-column sb-width-full">
       <Bar {...args}>
         <Section>
-          {/* @ts-ignore-next-line */}
           <Text>{args.children}</Text>
         </Section>
       </Bar>

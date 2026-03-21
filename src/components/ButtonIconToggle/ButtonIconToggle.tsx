@@ -32,7 +32,7 @@ const ButtonIconToggleComponent = (
     }
   }, [controlledSelected])
 
-  return <ButtonIcon ref={ref} selected={isSelected} onClick={handleClick} {...rest} />
+  return <ButtonIcon ref={ref} {...rest} selected={isSelected} onClick={handleClick} />
 }
 
 export const ButtonIconToggle = typedForwardRef<ButtonIconToggleProps, HTMLButtonElement>(ButtonIconToggleComponent)

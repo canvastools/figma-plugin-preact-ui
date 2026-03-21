@@ -35,7 +35,7 @@ const SwitchComponent = (
       setIsChecked(nextChecked)
     }
     onCheckedChange?.({
-      event: event as unknown as MouseEvent | KeyboardEvent,
+      event: event as Event,
       checked: nextChecked,
     })
   }
@@ -51,7 +51,7 @@ const SwitchComponent = (
   }
 
   return (
-    <div id={id} className={[_className, className].join(' ').trim()} data-pui-interactive="true" ref={ref} {...rest}>
+    <div id={id} className={[_className, className].join(' ').trim()} data-pui-interactive="true" {...rest} ref={ref}>
       <div className="Switch__input">
         <input
           className="Switch__input-native"

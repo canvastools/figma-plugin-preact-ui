@@ -1,6 +1,6 @@
 import { StoryObj } from '@storybook/preact'
 
-import { Icon, link, MenuContainer, MenuDivider, MenuItemOption } from '../../../index'
+import { MenuContainer, MenuDivider, MenuItemOption } from '../../../index'
 
 import { MenuItemAction } from '../MenuItemAction'
 

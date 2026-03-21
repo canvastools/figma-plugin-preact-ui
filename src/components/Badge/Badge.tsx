@@ -35,7 +35,7 @@ const BadgeComponent = (
     >
       <div className="Badge__content">
         {prefix && <div className="Badge__prefix">{prefix}</div>}
-        {children && (
+        {children != null && children !== false && children !== true && (
           <div className="Badge__children">
             <Text
               variant="body"

@@ -94,7 +94,7 @@ const meta: Meta<typeof useNumericInput> = {
       event: KeyboardEvent
       value: string
     }
-    onValueChange: (next: number) => void
+    onValueChange: (next: number | string) => void
   ) => void
   parse: (
     raw: string // required

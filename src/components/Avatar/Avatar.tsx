@@ -24,7 +24,7 @@ const AvatarComponent = (
       ref={ref}
       {...rest}
       style={{
-        backgroundColor,
+        ...(backgroundColor !== undefined ? { backgroundColor } : {}),
       }}
     >
       {src && <img className="Avatar__image" src={src} alt="Avatar" />}

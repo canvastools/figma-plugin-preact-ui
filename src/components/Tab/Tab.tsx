@@ -27,7 +27,8 @@ const TabComponent = (
     if (typeof ref === 'function') {
       ref(el)
     } else if (ref) {
-      ;(ref as preact.RefObject<HTMLButtonElement>).current = el
+      const r = ref as preact.RefObject<HTMLButtonElement>
+      r.current = el
     }
   }
 
@@ -63,7 +64,7 @@ const TabComponent = (
   const Content = ({ fake = false, selected = false }: ContentProps) => (
     <div className="Tab__content">
       {prefix && <div className="Tab__prefix">{prefix && renderAdditionalContent(prefix, selected)}</div>}
-      {children && (
+      {children != null && children !== false && children !== true && (
         <div className="Tab__children">
           <Text
             variant="body"
@@ -87,8 +88,8 @@ const TabComponent = (
       data-pui-interactive="true"
       ref={setRef}
       tabIndex={id === activeId ? 0 : -1}
-      onClick={handleClick}
       {...rest}
+      onClick={handleClick}
     >
       <div className="Tab__container Tab__container_fake">
         <Content fake selected={id === activeId} />

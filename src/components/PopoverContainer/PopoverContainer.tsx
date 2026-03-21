@@ -18,12 +18,12 @@ const PopoverContainerComponent = (
       id={id}
       className={[_className, className].join(' ').trim()}
       ref={ref}
+      tabIndex={-1}
+      {...rest}
       style={{
         width,
         height,
       }}
-      tabIndex={-1}
-      {...rest}
     >
       {showArrow && <div className="PopoverContainer__arrow" />}
       {children}

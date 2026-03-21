@@ -33,7 +33,7 @@ const ListContainerComponent = (
     } catch {
       // ignore style errors
     }
-  }, [rootRef])
+  }, [])
   // const idToPathLocal = useRef<Map<string, number[]>>(new Map())
 
   // Register/unregister this container as a root element for outside-click detection
@@ -95,7 +95,9 @@ const ListContainerComponent = (
     const container = e.currentTarget as HTMLElement
     // Only handle drag zones if this container can accept drops at all
     e.preventDefault()
-    e.dataTransfer!.dropEffect = 'move'
+    if (e.dataTransfer) {
+      e.dataTransfer.dropEffect = 'move'
+    }
 
     const children = Array.from(container.children).filter((el) =>
       (el as HTMLElement).classList.contains('ListItem'),

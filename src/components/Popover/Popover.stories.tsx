@@ -145,7 +145,7 @@ export const Demo: Story = {
         <Popover triggerRef={triggerRef} {...args}>
           <Section>
             <Text>
-              {/* @ts-ignore-next-line */}
+              {/* @ts-expect-error Storybook spread */}
               {args.children}
             </Text>
           </Section>

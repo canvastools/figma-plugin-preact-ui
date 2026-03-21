@@ -16,7 +16,7 @@ export interface TextAreaProps {
   maxHeight?: number | string
   resize?: 'y'
   autoFocus?: boolean
-  onValueChange?: (args: { event: MouseEvent; value: string }) => void
+  onValueChange?: (args: { event: Event; value: string }) => void
   onBlur?: (args: { event: FocusEvent; value: string }) => void
   onFocus?: (args: { event: FocusEvent; value: string }) => void
   onKeyDown?: (args: { event: KeyboardEvent; value: string }) => void

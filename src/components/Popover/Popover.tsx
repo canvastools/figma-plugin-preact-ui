@@ -28,8 +28,6 @@ type PopoverBodyProps = {
   offsetEdge: number
   showArrow: boolean
   children: preact.ComponentChildren
-  onOpen?: () => void
-  onClose?: () => void
 }
 
 const PopoverBody = ({
@@ -44,18 +42,13 @@ const PopoverBody = ({
   offsetEdge,
   showArrow,
   children,
-  onClose,
 }: PopoverBodyProps) => {
-  const context = usePopoverContext()
-  if (!context) return null
-
-  const { triggerRef, anchorRef, open, setOpen } = context
+  const { triggerRef, anchorRef, open, setOpen } = usePopoverContext()
   const containerRef = useRef<HTMLDivElement | null>(null)
 
   const handleClose = () => {
     setOpen?.(false)
     triggerRef?.current?.focus()
-    onClose?.()
   }
 
   useEffect(() => {
@@ -145,7 +138,6 @@ const PopoverComponent = (
             offsetY={offsetY}
             offsetEdge={offsetEdge}
             showArrow={showArrow}
-            onClose={onClose}
           >
             {children}
           </PopoverBody>

@@ -149,7 +149,6 @@ export const Demo: Story = {
   render: (args) => (
     <div className="sb-column sb-width-full">
       <TooltipContext>
-        {/* @ts-ignore-next-line */}
         <ButtonIcon {...args} />
       </TooltipContext>
     </div>

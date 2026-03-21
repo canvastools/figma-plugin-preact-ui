@@ -79,7 +79,7 @@ const ControlledPopover = () => {
     },
   },
   render: (args) => {
-    // @ts-ignore-next-line
+    // @ts-expect-error Storybook control value
     const [open, setOpen] = useState(args.open)
     const triggerRef = useRef<HTMLButtonElement | null>(null)
 

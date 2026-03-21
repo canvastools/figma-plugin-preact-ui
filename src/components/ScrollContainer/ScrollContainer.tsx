@@ -5,7 +5,7 @@ import { bem, typedForwardRef } from '../../utils'
 import type { ScrollContainerProps } from './ScrollContainer.types'
 import './ScrollContainer.scss'
 
-import { useScrollContext } from '../../index'
+import { useScrollContextOptional } from '../../index'
 
 /* --- */
 
@@ -13,12 +13,7 @@ const ScrollContainerComponent = (
   { id, className, children, ...rest }: ScrollContainerProps,
   ref: preact.Ref<HTMLDivElement>,
 ) => {
-  let scrollContext: ReturnType<typeof useScrollContext> | undefined
-  try {
-    scrollContext = useScrollContext()
-  } catch {
-    scrollContext = undefined
-  }
+  const scrollContext = useScrollContextOptional()
 
   const [localPositionY, setLocalPositionY] = useState<number | undefined>(undefined)
   const [localIsAtTop, setLocalIsAtTop] = useState<boolean>(true)
@@ -29,7 +24,7 @@ const ScrollContainerComponent = (
   const isAtBottom = scrollContext ? scrollContext.isAtBottom : localIsAtBottom
   const registerScrollRoot =
     scrollContext?.registerScrollRoot ??
-    ((_: HTMLElement | null) => {
+    (() => {
       // no-op when no scroll context is present
     })
 
@@ -46,6 +41,7 @@ const ScrollContainerComponent = (
   const prevUserSelectRef = useRef<string>('')
   const rafIdRef = useRef<number | null>(null)
   const stickToBottomRef = useRef<boolean>(false)
+  const dragWindowListenersRef = useRef<{ move: (e: MouseEvent) => void; up: () => void } | null>(null)
 
   // positionY controlled scroll sync (declared after scheduleRecomputeThumb to satisfy lints)
 
@@ -181,6 +177,9 @@ const ScrollContainerComponent = (
   const handleThumbMouseDown = (e: MouseEvent) => {
     if (e.button !== 0) return
 
+    const track = trackRef.current
+    if (!track) return
+
     e.preventDefault()
     setIsDragging(true)
     isDraggingRef.current = true
@@ -188,13 +187,16 @@ const ScrollContainerComponent = (
     recomputeThumb()
 
     const startY = (e as MouseEvent).clientY
-    dragOffsetRef.current = startY - (trackRef.current!.getBoundingClientRect().top + thumbState.top + 2)
+    dragOffsetRef.current = startY - (track.getBoundingClientRect().top + thumbState.top + 2)
 
     prevUserSelectRef.current = document.body.style.userSelect
     document.body.style.userSelect = 'none'
 
-    window.addEventListener('mousemove', handleThumbMouseMove)
-    window.addEventListener('mouseup', handleThumbMouseUp)
+    const onMove = (ev: MouseEvent) => handleThumbMouseMove(ev)
+    const onUp = () => handleThumbMouseUp()
+    dragWindowListenersRef.current = { move: onMove, up: onUp }
+    window.addEventListener('mousemove', onMove)
+    window.addEventListener('mouseup', onUp)
   }
 
   const handleThumbMouseMove = (e: MouseEvent) => {
@@ -226,12 +228,29 @@ const ScrollContainerComponent = (
   }
 
   const handleThumbMouseUp = () => {
+    const d = dragWindowListenersRef.current
+    if (d) {
+      window.removeEventListener('mousemove', d.move)
+      window.removeEventListener('mouseup', d.up)
+      dragWindowListenersRef.current = null
+    }
     setIsDragging(false)
     isDraggingRef.current = false
     document.body.style.userSelect = prevUserSelectRef.current
-    window.removeEventListener('mousemove', handleThumbMouseMove)
-    window.removeEventListener('mouseup', handleThumbMouseUp)
   }
+
+  useEffect(() => {
+    return () => {
+      const d = dragWindowListenersRef.current
+      if (d) {
+        window.removeEventListener('mousemove', d.move)
+        window.removeEventListener('mouseup', d.up)
+        dragWindowListenersRef.current = null
+      }
+      isDraggingRef.current = false
+      document.body.style.userSelect = prevUserSelectRef.current
+    }
+  }, [])
 
   const _classNameTrack = bem('ScrollContainer', 'track', {
     noScroll: !hasScrollable,

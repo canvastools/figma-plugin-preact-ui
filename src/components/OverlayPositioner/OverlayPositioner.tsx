@@ -197,25 +197,27 @@ const computePlacement = (
   }
 }
 
-const OverlayPositionerComponent = ({
-  id,
-  className,
-  anchorRef,
-  placement = 'bottom',
-  placementFallback,
-  offsetX = 0,
-  offsetY = 0,
-  offsetEdge = 0,
-  trigger = 'click',
-  draggable = false,
-  open,
-  defaultOpen = false,
-  closeOnClickOutside = true,
-  onOpen,
-  onClose,
-
-  children,
-}: OverlayPositionerProps) => {
+const OverlayPositionerComponent = (
+  {
+    id,
+    className,
+    anchorRef,
+    placement = 'bottom',
+    placementFallback,
+    offsetX = 0,
+    offsetY = 0,
+    offsetEdge = 0,
+    trigger = 'click',
+    draggable = false,
+    open,
+    defaultOpen = false,
+    closeOnClickOutside = true,
+    onOpen,
+    onClose,
+    children,
+  }: OverlayPositionerProps,
+  ref: preact.Ref<HTMLDivElement>,
+) => {
   const containerRef = useRef<HTMLDivElement | null>(null)
   const [coords, setCoords] = useState<Coords>({ top: 0, left: 0 })
   const [isReady, setIsReady] = useState<boolean>(false)
@@ -226,7 +228,6 @@ const OverlayPositionerComponent = ({
   const isOpen = isControlled ? (open as boolean) : internalOpen
   const [appliedPlacement, setAppliedPlacement] = useState<string>(placement)
   const rafRef = useRef<number | null>(null)
-  const hoverTimerRef = useRef<number | null>(null)
 
   const resolvedPlacementFallback = useMemo<OverlayPositionerPlacement[] | undefined>(
     () => (placementFallback && Array.isArray(placementFallback) ? placementFallback : undefined),
@@ -397,7 +398,13 @@ const OverlayPositionerComponent = ({
   const effectiveTop = (manualPos ? manualPos.top : coords.top) || 0
   const effectiveLeft = (manualPos ? manualPos.left : coords.left) || 0
 
-  const style: preact.JSX.CSSProperties = {
+  type OverlayPositionerStyle = preact.JSX.CSSProperties & {
+    '--overlay-arrow-left'?: string
+    '--overlay-arrow-top'?: string
+    '--overlay-available-height'?: string
+  }
+
+  const style: OverlayPositionerStyle = {
     top: `${effectiveTop}px`,
     left: `${effectiveLeft}px`,
     visibility: isReady ? 'visible' : 'hidden',
@@ -409,14 +416,14 @@ const OverlayPositionerComponent = ({
   // relative to the overlay content without needing direct access
   // to layout calculations.
   if (arrowData) {
-    ;(style as any)['--overlay-arrow-left'] = `${arrowData.left}px`
-    ;(style as any)['--overlay-arrow-top'] = `${arrowData.top}px`
+    style['--overlay-arrow-left'] = `${arrowData.left}px`
+    style['--overlay-arrow-top'] = `${arrowData.top}px`
   }
 
   const availableHeight =
     typeof window !== 'undefined' ? Math.max(window.innerHeight - effectiveTop - offsetEdge, 100) : undefined
   if (availableHeight != null) {
-    ;(style as any)['--overlay-available-height'] = `${availableHeight}px`
+    style['--overlay-available-height'] = `${availableHeight}px`
   }
 
   const _className = bem('OverlayPositioner', undefined, {
@@ -481,7 +488,15 @@ const OverlayPositionerComponent = ({
     <div
       id={id}
       className={[_className, className].join(' ').trim()}
-      ref={containerRef}
+      ref={(node) => {
+        containerRef.current = node
+        if (typeof ref === 'function') {
+          ref(node)
+        } else if (ref) {
+          // eslint-disable-next-line
+          ;(ref as preact.RefObject<HTMLDivElement | null>).current = node
+        }
+      }}
       style={style}
       data-arrow-side={arrowData?.side}
       onMouseDown={(e) => handleMouseDown(e as unknown as MouseEvent)}

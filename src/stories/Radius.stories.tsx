@@ -1,11 +1,11 @@
 import { Meta, StoryObj } from '@storybook/preact'
 
-import { spacing } from '../themes'
+import { radius } from '../themes'
 
-import { SimpleVariableTable } from './storiesUtils'
+import { SimpleVariableTable } from './utils'
 
 const meta: Meta = {
-  title: 'Variables/Spacing',
+  title: 'Variables/Radius',
   parameters: {
     docs: {
       source: {
@@ -14,15 +14,15 @@ const meta: Meta = {
 // CSS
 
 .element {
-  padding: var(--pui-spacing-400);
+  border-radius: var(--pui-radius-medium);
 }
 
 // JS
 
-import { spacing } from 'figma-plugin-preact-ui'
+import { radius } from 'figma-plugin-preact-ui'
 
 const style = {
-  padding: spacing.variables['400'],
+  borderRadius: radius.variables.medium,
 }
 
 function App() {
@@ -31,7 +31,8 @@ function App() {
       Hello world!
     </div>
   )
-}`,
+}
+`,
       },
     },
   },
@@ -40,12 +41,12 @@ function App() {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const Spacing: Story = {
+export const Radius: Story = {
   tags: ['!dev'],
   render: () => (
     <SimpleVariableTable
-      variables={spacing.variables as Record<string, string>}
-      cssVarPrefix={spacing.prefix ?? '--pui-spacing'}
+      variables={radius.variables as Record<string, string>}
+      cssVarPrefix={radius.prefix ?? '--pui-radius'}
     />
   ),
 }

@@ -2,7 +2,7 @@ import { Fragment, cloneElement } from 'preact'
 import { bem, typedForwardRef, uuid } from '../../utils'
 import { useState, useEffect, useRef } from 'preact/hooks'
 
-import { Text, useMenuContext } from '../../index'
+import { Text, useMenuContextOptional } from '../../index'
 import type { MenuContextValue } from '../../index'
 
 import type { MenuItemActionProps } from './MenuItemAction.types'
@@ -36,14 +36,9 @@ const MenuItemActionComponent = (
   }: MenuItemActionProps,
   ref: preact.Ref<HTMLDivElement>,
 ) => {
-  let menuContext: MenuContextValue | null = null
-  try {
-    menuContext = useMenuContext()
-  } catch {
-    menuContext = null
-  }
+  const menuContext = useMenuContextOptional()
 
-  const { registerItem, clearFocus, setHoveredItem, setFocusedItem } = menuContext || {
+  const { registerItem, clearFocus, setHoveredItem, setFocusedItem } = menuContext ?? {
     registerItem: noopRegisterItem,
     clearFocus: noopClearFocus,
     setHoveredItem: noopSetHoveredItem,
@@ -149,7 +144,7 @@ const MenuItemActionComponent = (
                 : prefix}
             </div>
           )}
-          {children && (
+          {children != null && children !== false && children !== true && (
             <div className="MenuItemAction__children">
               <Text
                 variant="body"

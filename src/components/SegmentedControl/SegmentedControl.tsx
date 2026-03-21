@@ -189,8 +189,8 @@ const SegmentedControlComponent = (
       className={[_className, className].join(' ').trim()}
       data-pui-interactive="true"
       ref={ref}
-      onKeyDown={handleKeyDown}
       {...rest}
+      onKeyDown={handleKeyDown}
     >
       {options.map((option, idx) => {
         const isActive = option.value === selectedOption

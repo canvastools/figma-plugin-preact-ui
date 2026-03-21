@@ -93,11 +93,11 @@ const TextAreaComponent = (
   }, [resize, maxHeight, minHeight, displayedValue])
 
   useEffect(() => {
-    if (autoFocus) {
-      setTimeout(() => {
-        textareaRef.current?.focus()
-      }, 25)
-    }
+    if (!autoFocus) return
+    const timeoutId = window.setTimeout(() => {
+      textareaRef.current?.focus()
+    }, 25)
+    return () => clearTimeout(timeoutId)
   }, [autoFocus])
 
   useEffect(() => {
@@ -159,7 +159,7 @@ const TextAreaComponent = (
     }
     setHasContent(nextValue.length > 0)
     onValueChange?.({
-      event: event as unknown as MouseEvent,
+      event: event as Event,
       value: nextValue,
     })
   }

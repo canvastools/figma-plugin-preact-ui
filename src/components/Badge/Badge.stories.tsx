@@ -88,7 +88,7 @@ export const Demo: Story = {
   },
   render: (args) => (
     <div className="sb-column sb-width-full">
-      {/* @ts-ignore-next-line */}
+      {/* @ts-expect-error Storybook spread */}
       <Badge {...args} />
     </div>
   ),

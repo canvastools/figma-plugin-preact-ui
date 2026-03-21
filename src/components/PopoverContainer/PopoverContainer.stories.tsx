@@ -84,7 +84,7 @@ export const Demo: Story = {
     return (
       <div className="sb-column sb-width-300" style={'--overlay-arrow-left: 150px; --overlay-arrow-top: 0px;'}>
         <PopoverContainer {...args}>
-          {/* @ts-ignore-next-line */}
+          {/* @ts-expect-error Storybook spread */}
           <Text>{args.children}</Text>
         </PopoverContainer>
       </div>

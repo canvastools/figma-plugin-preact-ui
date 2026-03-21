@@ -95,7 +95,7 @@ export const Demo: Story = {
   render: (args) => (
     <div className="sb-column sb-width-fullk">
       <Section {...args}>
-        {/* @ts-ignore-next-line */}
+        {/* @ts-expect-error Storybook spread */}
         <Text>{args.children}</Text>
       </Section>
     </div>

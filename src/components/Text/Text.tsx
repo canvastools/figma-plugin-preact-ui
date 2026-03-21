@@ -103,7 +103,7 @@ const TextComponent = (
       ref={ref}
       {...rest}
       style={{
-        ...(textColor && { color: textColor }),
+        ...(textColor ? { color: textColor } : {}),
       }}
     >
       {renderChildrenWithLinks(children)}

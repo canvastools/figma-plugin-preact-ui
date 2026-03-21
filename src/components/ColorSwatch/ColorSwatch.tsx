@@ -48,6 +48,9 @@ const ColorSwatchComponent = (
     }
   }
 
+  const { onClick: nativeOnClick, onKeyDown: nativeOnKeyDown, ...buttonRest } =
+    rest as preact.JSX.HTMLAttributes<HTMLButtonElement>
+
   return (
     <button
       id={id}
@@ -62,13 +65,17 @@ const ColorSwatchComponent = (
         }
         anchorRef.current = el
       }}
+      {...buttonRest}
       disabled={disabled}
       onClick={(event) => {
+        nativeOnClick?.(event)
         if (disabled) return
         onClick?.({ event, color })
       }}
-      onKeyDown={handleKeyDown}
-      {...rest}
+      onKeyDown={(event) => {
+        handleKeyDown(event)
+        nativeOnKeyDown?.(event)
+      }}
     >
       <div className="ColorSwatch__container">
         {color && hasOpacity(color) && (

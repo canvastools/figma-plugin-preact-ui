@@ -1,6 +1,6 @@
 import { StoryObj } from '@storybook/preact'
 
-import { Text, Icon, link } from '../../../index'
+import { link } from '../../../index'
 
 import { ButtonIconToggle } from '../ButtonIconToggle'
 

@@ -78,7 +78,7 @@ export const Demo: Story = {
     return (
       <div className="sb-column sb-width-300">
         <PopoverContainer>
-          {/* @ts-ignore-next-line */}
+          {/* @ts-expect-error Storybook spread */}
           <PopoverHeader {...args}>{args.children}</PopoverHeader>
           <Section>
             <Text>

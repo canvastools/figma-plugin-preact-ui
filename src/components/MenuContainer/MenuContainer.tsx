@@ -122,11 +122,11 @@ const MenuContainerComponent = (
       className={[_className, className].join(' ').trim()}
       data-pui-interactive="true"
       ref={ref}
+      {...rest}
       style={{
         width,
         height,
       }}
-      {...rest}
     >
       <div className="MenuContainer__scroll-area" ref={scrollRef} onScroll={updateScrollState}>
         {children}

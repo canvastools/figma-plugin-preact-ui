@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/preact'
 
 import { useState } from 'preact/hooks'
 
-import { ListContext, ListItem, Stack, Text, Spacing } from '../../index'
+import { ListContext, ListItem, Stack, Text } from '../../index'
 import type { ListItemData } from '../../index'
 
 import { ListContainer } from './ListContainer'
@@ -155,7 +155,7 @@ const renderItems = (
   },
   render: (args) => {
     const [items, setItems] = useState(itemsSample)
-    const [selectedItemIds, setSelectedItemIds] = useState<string[]>([])
+    const [, setSelectedItemIds] = useState<string[]>([])
 
     const renderItems = (items: ListItemData[], level: number) => {
       return (

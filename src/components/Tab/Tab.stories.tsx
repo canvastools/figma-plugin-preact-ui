@@ -119,7 +119,7 @@ export const Demo: Story = {
     },
   },
   render: (args) => {
-    // @ts-ignore-next-line
+    // @ts-expect-error Storybook control value
     if (args.variant === 'default') {
       return (
         <div className="sb-column sb-width-full">

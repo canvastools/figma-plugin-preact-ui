@@ -23,7 +23,7 @@ export const DoubleValueStory: Story = {
       source: {
         language: 'tsx',
         code: `
-ericIconst numericInput = useNumericInput({
+const numericInput = useNumericInput({
   value: "",
   min: 0,
   max: 100,
