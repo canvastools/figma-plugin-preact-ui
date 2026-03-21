@@ -64,7 +64,8 @@
     "lint": "tsc && eslint . || true",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "deploy-storybook": "gh-pages -d storybook-static"
+    "build-storybook:ghpages": "STORYBOOK_BASE_PATH=/figma-plugin-preact-ui/ storybook build",
+    "deploy-storybook": "npm run build-storybook:ghpages && gh-pages -d storybook-static"
   },
   "dependencies": {
     "react-calendar": "^6.0.0",
