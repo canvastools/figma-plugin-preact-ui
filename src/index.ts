@@ -208,6 +208,7 @@ export {
   letterSpacing,
   lineHeight,
   link,
+  lockLocked,
   lowerCase,
   plus,
   radiusBottomLeft,
