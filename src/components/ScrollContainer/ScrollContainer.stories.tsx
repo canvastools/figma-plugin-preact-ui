@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/preact'
 
 import { DynamicContentStory } from './stories/DynamicContent.story'
+import { PopoverStory } from './stories/Popover.story'
 
 import { Text } from '../../index'
 
@@ -118,3 +119,4 @@ export const Demo: Story = {
 }
 
 export const DynamicContent = DynamicContentStory
+export const Popover = PopoverStory

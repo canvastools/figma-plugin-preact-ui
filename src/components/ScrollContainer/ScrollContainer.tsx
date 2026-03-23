@@ -278,13 +278,14 @@ const ScrollContainerComponent = (
       >
         {children}
       </div>
-      <div className={_classNameTrack} ref={trackRef}>
+      <div className={_classNameTrack} ref={trackRef} data-pui-interactive="true">
         <div
           className="ScrollContainer__thumb"
           style={{
             height: `${thumbState.height}px`,
             transform: `translateY(${thumbState.top}px)`,
           }}
+          data-pui-interactive="true"
           onMouseDown={(e) => handleThumbMouseDown(e as MouseEvent)}
         />
       </div>
