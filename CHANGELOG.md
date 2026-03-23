@@ -4,6 +4,8 @@
 
 - Fixed the Scroll thumb inside the popover when trying to drag it with the mouse.
 
+- Added 1 icon
+
 ### 1.0.0 - 21 Mar 2026
 
 - Property naming reviewed and standardised
