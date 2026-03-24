@@ -169,7 +169,7 @@ const figmaDark: ColorTokenTree = {
         default: '#FFFFFF',
         secondary: '#A8D6F7',
 
-        disabled: '#FFFFFF',
+        disabled: '#2C2C2C',
       },
       border: {
         default: '#7CC4F8',
