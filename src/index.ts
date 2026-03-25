@@ -200,6 +200,7 @@ export {
   filter,
   filterFilled,
   frame,
+  help,
   home,
   imports,
   info,
