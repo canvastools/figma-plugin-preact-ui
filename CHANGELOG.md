@@ -5,7 +5,7 @@
 - Fixed the Scroll thumb inside the popover when trying to drag it with the mouse.
 - Minor style fixes
 
-- Added 1 icon
+- Added 2 icons
 
 ### 1.0.0 - 21 Mar 2026
 
