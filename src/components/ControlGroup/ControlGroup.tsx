@@ -9,7 +9,7 @@ import './ControlGroup.scss'
 /* --- */
 
 const ControlGroupComponent = (
-  { id, className, groupFocus = false, fullWidth = false, children, ...rest }: ControlGroupProps,
+  { id, className, groupFocus = false, fullWidth = false, disabled = false, children, ...rest }: ControlGroupProps,
   ref: preact.Ref<HTMLDivElement>,
 ) => {
   const childrenArray = toChildArray(children).filter(isValidElement) as VNode[]
@@ -17,6 +17,7 @@ const ControlGroupComponent = (
   const _className = bem('ControlGroup', undefined, {
     groupFocus: Boolean(groupFocus),
     fullWidth: Boolean(fullWidth),
+    disabled: Boolean(disabled),
   })
 
   return (

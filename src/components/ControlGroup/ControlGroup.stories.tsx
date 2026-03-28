@@ -2,6 +2,7 @@ import { Meta, StoryObj } from '@storybook/preact'
 
 import { GroupFocusStory } from './stories/GroupFocus.story'
 import { CombinationsStory } from './stories/Combinations.story'
+import { DisabledStory } from './stories/Disabled.story'
 
 import { Input } from '../../index'
 
@@ -35,6 +36,10 @@ const meta: Meta<typeof ControlGroup> = {
       control: { type: 'boolean' },
       defaultValue: { summary: false },
     },
+    disabled: {
+      control: { type: 'boolean' },
+      defaultValue: { summary: false },
+    },
     fullWidth: {
       control: { type: 'boolean' },
       defaultValue: { summary: false },
@@ -61,6 +66,7 @@ export const Demo: Story = {
     id: undefined,
     className: '',
     groupFocus: false,
+    disabled: false,
     fullWidth: false,
   },
   parameters: {
@@ -81,8 +87,10 @@ export const Demo: Story = {
   render: (args) => (
     <div className="sb-column sb-width-full">
       <ControlGroup {...args}>
-        <Input placeholder="Input" />
-        <Input placeholder="Input" />
+        {/* @ts-ignore-next-line */}
+        <Input placeholder="Input" disabled={args.disabled} />
+        {/* @ts-ignore-next-line */}
+        <Input placeholder="Input" disabled={args.disabled} />
       </ControlGroup>
     </div>
   ),
@@ -90,3 +98,4 @@ export const Demo: Story = {
 
 export const GroupFocus = GroupFocusStory
 export const Combinations = CombinationsStory
+export const Disabled = DisabledStory
