@@ -7,6 +7,8 @@
 
 - Added 2 icons
 
+- ControlGroup - new prop: disabled
+
 ### 1.0.0 - 21 Mar 2026
 
 - Property naming reviewed and standardised
