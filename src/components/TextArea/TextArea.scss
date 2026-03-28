@@ -131,7 +131,7 @@
     background-color: transparent !important;
     outline-width: 1px;
     outline-style: solid;
-    outline-color: var(--pui-color-neutral-border-disabled);
+    outline-color: var(--pui-color-neutral-border-disabled) !important;
   }
 
   &_disabled &__textarea-native,
