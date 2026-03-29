@@ -87,9 +87,9 @@ export const Demo: Story = {
   render: (args) => (
     <div className="sb-column sb-width-full">
       <ControlGroup {...args}>
-        {/* @ts-ignore-next-line */}
+        {/* @ts-expect-error */}
         <Input placeholder="Input" disabled={args.disabled} />
-        {/* @ts-ignore-next-line */}
+        {/* @ts-expect-error */}
         <Input placeholder="Input" disabled={args.disabled} />
       </ControlGroup>
     </div>
