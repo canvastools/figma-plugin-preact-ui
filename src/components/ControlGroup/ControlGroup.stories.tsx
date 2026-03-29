@@ -87,9 +87,9 @@ export const Demo: Story = {
   render: (args) => (
     <div className="sb-column sb-width-full">
       <ControlGroup {...args}>
-        {/* @ts-expect-error */}
+        {/* @ts-expect-error Storybook typing issue */}
         <Input placeholder="Input" disabled={args.disabled} />
-        {/* @ts-expect-error */}
+        {/* @ts-expect-error Storybook typing issue */}
         <Input placeholder="Input" disabled={args.disabled} />
       </ControlGroup>
     </div>
