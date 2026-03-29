@@ -91,6 +91,7 @@ const WindowResizerComponent = (
       id={id ?? 'WindowResizer'}
       className={[_className, className].join(' ').trim()}
       data-pui-interactive="true"
+      data-overlay-keep-open="true"
       {...rest}
       ref={setRef}
     />

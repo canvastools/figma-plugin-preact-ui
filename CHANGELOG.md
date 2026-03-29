@@ -1,13 +1,13 @@
 # Changelog
 
-### 1.0.1 - XX XXX 2026
+### 1.1.0 - XX XXX 2026
 
-- Fixed the Scroll thumb inside the popover when trying to drag it with the mouse.
 - Minor style fixes
-
 - Added 2 icons
 
-- ControlGroup - new prop: disabled
+- Fixed the Scroll thumb inside the popover when trying to drag it with the mouse.
+- Fixed Popover closing when interacting with WindowResizer
+- ControlGroup: added `disabled` prop
 
 ### 1.0.0 - 21 Mar 2026
 
