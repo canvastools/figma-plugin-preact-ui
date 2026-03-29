@@ -161,7 +161,7 @@ const ControlsRgba = ({
         />
       </div>
       <div className="ColorPicker__controlsValues">
-        <ControlGroup groupFocus>
+        <ControlGroup groupFocus fullWidth>
           <Input
             className="ColorPicker__inputCompact"
             tooltip="Red"
@@ -447,7 +447,7 @@ const ControlsHexAlpha = ({
         />
       </div>
       <div className="ColorPicker__controlsValues">
-        <ControlGroup groupFocus>
+        <ControlGroup groupFocus fullWidth>
           <Input
             tooltip="Hex value"
             value={hexValue.toUpperCase()}
