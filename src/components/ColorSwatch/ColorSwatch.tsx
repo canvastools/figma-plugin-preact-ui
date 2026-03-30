@@ -5,14 +5,57 @@ import { bem, typedForwardRef } from '../../utils'
 import { Tooltip } from '../../index'
 import { colorToHex, colorToHexAlpha } from '../../index'
 
-import type { ColorSwatchProps } from './ColorSwatch.types'
+import type { Color } from '../ColorPicker/ColorPicker.types'
+import type { ColorSwatchProps, GradientPaint, ColorStop } from './ColorSwatch.types'
 import './ColorSwatch.scss'
 
 /* --- */
 
-const hasOpacity = (color: ColorSwatchProps['color']) => {
-  if (!color) return false
-  return color.a < 1
+const isGradient = (fill: Color | GradientPaint): fill is GradientPaint => {
+  return 'gradientStops' in fill
+}
+
+const hasOpacity = (fill: Color) => {
+  return fill.a < 1
+}
+
+const stopToCSS = (stop: ColorStop, opaque = false) => {
+  const { r, g, b, a } = stop.color
+  return `rgba(${Math.round(r * 255)}, ${Math.round(g * 255)}, ${Math.round(b * 255)}, ${opaque ? 1 : a}) ${
+    stop.position * 100
+  }%`
+}
+
+const gradientToCSS = (gradient: GradientPaint, opaque = false): string => {
+  const stops = gradient.gradientStops.map((s) => stopToCSS(s, opaque)).join(', ')
+  const [start, end] = gradient.gradientHandlePositions
+
+  switch (gradient.type) {
+    case 'gradient-linear': {
+      const angle = Math.atan2(end.y - start.y, end.x - start.x) * (180 / Math.PI) + 90
+      return `linear-gradient(${angle}deg, ${stops})`
+    }
+
+    case 'gradient-radial':
+      return `radial-gradient(circle at ${start.x * 100}% ${start.y * 100}%, ${stops})`
+
+    case 'gradient-angular': {
+      const fromAngle = Math.atan2(end.y - start.y, end.x - start.x) * (180 / Math.PI) + 90
+      return `conic-gradient(from ${fromAngle}deg at ${start.x * 100}% ${start.y * 100}%, ${stops})`
+    }
+  }
+}
+
+const getFillStyles = (fill: Color | GradientPaint): preact.JSX.CSSProperties[] => {
+  if (isGradient(fill)) {
+    return [{ background: gradientToCSS(fill) }]
+  }
+
+  if (hasOpacity(fill)) {
+    return [{ backgroundColor: colorToHex(fill) }, { backgroundColor: colorToHexAlpha(fill) }]
+  }
+
+  return [{ backgroundColor: colorToHex(fill) }]
 }
 
 const ColorSwatchComponent = (
@@ -20,7 +63,7 @@ const ColorSwatchComponent = (
     id,
     className,
     size = 'medium',
-    color,
+    fill,
     disabled = false,
     selected = false,
     selection = 'default',
@@ -35,7 +78,7 @@ const ColorSwatchComponent = (
 
   const _className = bem('ColorSwatch', undefined, {
     selection: selection,
-    value: !!color,
+    value: !!fill,
     size,
     disabled,
     selected,
@@ -48,8 +91,11 @@ const ColorSwatchComponent = (
     }
   }
 
-  const { onClick: nativeOnClick, onKeyDown: nativeOnKeyDown, ...buttonRest } =
-    rest as preact.JSX.HTMLAttributes<HTMLButtonElement>
+  const {
+    onClick: nativeOnClick,
+    onKeyDown: nativeOnKeyDown,
+    ...buttonRest
+  } = rest as preact.JSX.HTMLAttributes<HTMLButtonElement>
 
   return (
     <button
@@ -70,7 +116,7 @@ const ColorSwatchComponent = (
       onClick={(event) => {
         nativeOnClick?.(event)
         if (disabled) return
-        onClick?.({ event, color })
+        onClick?.({ event, fill })
       }}
       onKeyDown={(event) => {
         handleKeyDown(event)
@@ -78,14 +124,7 @@ const ColorSwatchComponent = (
       }}
     >
       <div className="ColorSwatch__container">
-        {color && hasOpacity(color) && (
-          <>
-            <div className="ColorSwatch__fill" style={{ backgroundColor: colorToHex(color) }} />
-            <div className="ColorSwatch__fill" style={{ backgroundColor: colorToHexAlpha(color) }} />
-          </>
-        )}
-
-        {color && !hasOpacity(color) && <div className="ColorSwatch__fill" style={{ backgroundColor: colorToHex(color) }} />}
+        {fill && getFillStyles(fill).map((style, i) => <div key={i} className="ColorSwatch__fill" style={style} />)}
 
         {children && <div className="ColorSwatch__children">{children}</div>}
       </div>

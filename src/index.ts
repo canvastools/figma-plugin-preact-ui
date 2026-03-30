@@ -30,7 +30,7 @@ export { ColorPicker } from './components/ColorPicker/ColorPicker'
 export type { ColorPickerProps, Color, ColorPickerType } from './components/ColorPicker/ColorPicker.types'
 
 export { ColorSwatch } from './components/ColorSwatch/ColorSwatch'
-export type { ColorSwatchProps } from './components/ColorSwatch/ColorSwatch.types'
+export type { ColorSwatchProps, GradientPaint, ColorStop, Vector } from './components/ColorSwatch/ColorSwatch.types'
 
 export { ControlGroup } from './components/ControlGroup/ControlGroup'
 export type { ControlGroupProps } from './components/ControlGroup/ControlGroup.types'

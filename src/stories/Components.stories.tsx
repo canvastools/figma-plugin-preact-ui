@@ -181,7 +181,7 @@ export const _1: Story = {
                 placeholder="Type a new to-do"
                 prefix={
                   <div style={{ padding: '0 8px 0 4px' }} ref={anchorRef} onClick={() => setOpenColorPicker(true)}>
-                    <ColorSwatch size="small" color={color} />
+                    <ColorSwatch size="small" fill={color} />
                   </div>
                 }
               />

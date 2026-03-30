@@ -1,8 +1,8 @@
-import { StoryObj } from "@storybook/preact"
+import { StoryObj } from '@storybook/preact'
 
-import { Icon, ai } from "../../../index"
+import { Icon, ai } from '../../../index'
 
-import { ColorSwatch } from "../ColorSwatch"
+import { ColorSwatch } from '../ColorSwatch'
 
 type Story = StoryObj<typeof ColorSwatch>
 
@@ -10,11 +10,11 @@ export const ChildrenStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 import { ai } from "figma-plugin-preact-ui"
 
@@ -31,7 +31,7 @@ import { ai } from "figma-plugin-preact-ui"
   },
   render: () => (
     <div className="sb-row sb-width-full sb-gap-16">
-      <ColorSwatch color={{ r: 255, g: 0, b: 0, a: 0.5 }}>
+      <ColorSwatch fill={{ r: 255, g: 0, b: 0, a: 0.5 }}>
         <Icon glyph={ai} size={16} />
       </ColorSwatch>
       <ColorSwatch>

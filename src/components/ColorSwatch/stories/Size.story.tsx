@@ -1,6 +1,6 @@
-import { StoryObj } from "@storybook/preact"
+import { StoryObj } from '@storybook/preact'
 
-import { ColorSwatch } from "../ColorSwatch"
+import { ColorSwatch } from '../ColorSwatch'
 
 type Story = StoryObj<typeof ColorSwatch>
 
@@ -8,11 +8,11 @@ export const SizeStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <ColorSwatch size="small"/>
 

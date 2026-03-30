@@ -8,6 +8,7 @@
 - Fixed the Scroll thumb inside the popover when trying to drag it with the mouse.
 - Fixed Popover closing when interacting with WindowResizer
 - ControlGroup: added `disabled` prop
+- ColorSwatch: added gradient fill support
 
 ### 1.0.0 - 21 Mar 2026
 
