@@ -35,6 +35,6 @@ export const close = ({ variant, size }: GlyphProps) => {
       )
 
     default:
-      throw new Error(`Close icon error: Unsupported combination size=${size}, variant=${variant}`)
+      throw new Error(`close icon error: Unsupported combination size=${size}, variant=${variant}`)
   }
 }

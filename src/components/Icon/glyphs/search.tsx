@@ -35,6 +35,6 @@ export const search = ({ variant, size }: GlyphProps) => {
       )
 
     default:
-      throw new Error(`Search icon error: Unsupported combination size=${size}, variant=${variant}`)
+      throw new Error(`search icon error: Unsupported combination size=${size}, variant=${variant}`)
   }
 }

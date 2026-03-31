@@ -8,7 +8,7 @@ export const x = ({ variant, size }: GlyphProps) => {
       return (
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
-            d="M8.59817 8L11.2652 12H10.063L7.99758 8.90137L5.93215 12H4.73L7.39602 8L4.73 4H5.93215L7.99758 7.09863L10.063 4H11.2652L8.59817 8Z"
+            d="M8.74856 8L11.4156 12H9.91262L7.99758 9.12695L6.08254 12H4.57961L7.24563 8L4.57961 4H6.08254L7.99758 6.87207L9.91262 4H11.4156L8.74856 8Z"
             fill="currentColor"
           />
         </svg>
@@ -18,7 +18,7 @@ export const x = ({ variant, size }: GlyphProps) => {
       return (
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
-            d="M12.6006 12L15.2676 16H14.0654L12 12.9014L9.93457 16H8.73242L11.3984 12L8.73242 8H9.93457L12 11.0986L14.0654 8H15.2676L12.6006 12Z"
+            d="M12.751 12L15.418 16H13.915L12 13.127L10.085 16H8.58203L11.248 12L8.58203 8H10.085L12 10.8721L13.915 8H15.418L12.751 12Z"
             fill="currentColor"
           />
         </svg>
@@ -28,9 +28,7 @@ export const x = ({ variant, size }: GlyphProps) => {
       return (
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
-            fill-rule="evenodd"
-            clip-rule="evenodd"
-            d="M12.604 11.9995L17.272 19.0005H16.0698L12.0034 12.9009L7.93799 19.0005H6.73584L11.4028 11.9995L6.73682 5.00049H7.93896L12.0034 11.0981L16.0688 5.00049H17.271L12.604 11.9995Z"
+            d="M12.7554 11.9995L17.4224 19.0005H15.9204L12.0034 13.1265L8.08838 19.0005H6.58545L11.2524 11.9995L6.58643 5.00049H8.08936L12.0034 10.8726L15.9194 5.00049H17.4214L12.7554 11.9995Z"
             fill="currentColor"
           />
         </svg>
