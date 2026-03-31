@@ -182,6 +182,13 @@ export { bem } from './utils'
 export {
   adjust,
   ai,
+  arrowDown,
+  arrowLeft,
+  arrowRight,
+  arrowUp,
+  blendMode,
+  blendModeFilled,
+  blur,
   check,
   chevronDoubleDown,
   chevronDoubleLeft,
@@ -237,6 +244,7 @@ export {
   settings,
   spacingHorizontal,
   spacingVertical,
+  spread,
   strikethrough,
   strokeDash,
   strokeSolid,
@@ -248,4 +256,6 @@ export {
   viewList,
   warning,
   widget,
+  x,
+  y,
 } from './components/Icon/glyphs'

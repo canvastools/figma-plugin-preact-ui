@@ -37,6 +37,6 @@ export const check = ({ variant, size }: GlyphProps) => {
       )
 
     default:
-      throw new Error(`Check icon error: Unsupported combination size=${size}, variant=${variant}`)
+      throw new Error(`check icon error: Unsupported combination size=${size}, variant=${variant}`)
   }
 }

@@ -3,7 +3,7 @@
 ### 1.1.0 - XX XXX 2026
 
 - Minor style fixes
-- Added 2 icons
+- Added 12 icons
 
 - Fixed the Scroll thumb inside the popover when trying to drag it with the mouse.
 - Fixed Popover closing when interacting with WindowResizer
