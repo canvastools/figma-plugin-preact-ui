@@ -53,6 +53,10 @@ const meta: Meta<typeof TooltipContext> = {
     ref: preact.RefObject,
     setOpen: (open: boolean) => void
   ) => void
+  registerPointerDown: (
+    ref: preact.RefObject,
+    setOpen: (open: boolean) => void
+  ) => void
 }
 `,
         },

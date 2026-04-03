@@ -58,12 +58,18 @@ const TooltipComponent = (
       context.registerHoverEnd(targetRef as preact.RefObject<HTMLElement>, setOpen)
     }
 
+    const handlePointerDown = () => {
+      context.registerPointerDown(targetRef as preact.RefObject<HTMLElement>, setOpen)
+    }
+
     el.addEventListener('mouseenter', handleEnter)
     el.addEventListener('mouseleave', handleLeave)
+    el.addEventListener('pointerdown', handlePointerDown)
 
     return () => {
       el.removeEventListener('mouseenter', handleEnter)
       el.removeEventListener('mouseleave', handleLeave)
+      el.removeEventListener('pointerdown', handlePointerDown)
     }
   }, [triggerRef, anchorRef, context])
 

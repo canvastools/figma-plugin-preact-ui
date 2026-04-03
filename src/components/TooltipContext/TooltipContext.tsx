@@ -38,6 +38,41 @@ const TooltipContext = ({ children }: TooltipContextProps) => {
 
   const hideTimeoutRef = useRef<number | null>(null)
 
+  const scheduleHideDelayPhase: (ref: preact.RefObject<HTMLElement>, setOpen: (open: boolean) => void) => void =
+    useCallback((ref, setOpen) => {
+      lastTriggerLeaveTimeRef.current = Date.now()
+
+      leavingTooltipRef.current = {
+        ref,
+        setOpen,
+      }
+
+      if (hideTimeoutRef.current != null) {
+        clearTimeout(hideTimeoutRef.current)
+      }
+
+      hideTimeoutRef.current = window.setTimeout(() => {
+        hideTimeoutRef.current = null
+
+        const leaving = leavingTooltipRef.current
+        if (!leaving.ref || !leaving.setOpen) return
+
+        leaving.setOpen(false)
+
+        if (visibleTooltipRef.current.ref && visibleTooltipRef.current.ref === leaving.ref) {
+          visibleTooltipRef.current = {
+            ref: null,
+            setOpen: null,
+          }
+        }
+
+        leavingTooltipRef.current = {
+          ref: null,
+          setOpen: null,
+        }
+      }, HIDE_DELAY)
+    }, [])
+
   const registerHoverStart: TooltipContextValue['registerHoverStart'] = useCallback((ref, setOpen) => {
     const now = Date.now()
     const lastLeave = lastTriggerLeaveTimeRef.current
@@ -98,55 +133,50 @@ const TooltipContext = ({ children }: TooltipContextProps) => {
     }, SHOW_DELAY)
   }, [])
 
-  const registerHoverEnd: TooltipContextValue['registerHoverEnd'] = useCallback((ref, setOpen) => {
-    if (showTimeoutRef.current != null) {
-      clearTimeout(showTimeoutRef.current)
-      showTimeoutRef.current = null
-    }
+  const registerPointerDown: TooltipContextValue['registerPointerDown'] = useCallback(
+    (ref, setOpen) => {
+      if (showTimeoutRef.current != null) {
+        clearTimeout(showTimeoutRef.current)
+        showTimeoutRef.current = null
+      }
 
-    if (!visibleTooltipRef.current.ref || visibleTooltipRef.current.ref !== ref) {
-      return
-    }
-
-    lastTriggerLeaveTimeRef.current = Date.now()
-
-    leavingTooltipRef.current = {
-      ref,
-      setOpen,
-    }
-
-    if (hideTimeoutRef.current != null) {
-      clearTimeout(hideTimeoutRef.current)
-    }
-
-    hideTimeoutRef.current = window.setTimeout(() => {
-      hideTimeoutRef.current = null
-
-      const leaving = leavingTooltipRef.current
-      if (!leaving.ref || !leaving.setOpen) return
-
-      leaving.setOpen(false)
-
-      if (visibleTooltipRef.current.ref && visibleTooltipRef.current.ref === leaving.ref) {
+      const visible = visibleTooltipRef.current
+      if (visible.ref && visible.setOpen) {
+        visible.setOpen(false)
         visibleTooltipRef.current = {
           ref: null,
           setOpen: null,
         }
       }
 
-      leavingTooltipRef.current = {
-        ref: null,
-        setOpen: null,
+      scheduleHideDelayPhase(ref, setOpen)
+    },
+    [scheduleHideDelayPhase],
+  )
+
+  const registerHoverEnd: TooltipContextValue['registerHoverEnd'] = useCallback(
+    (ref, setOpen) => {
+      if (showTimeoutRef.current != null) {
+        clearTimeout(showTimeoutRef.current)
+        showTimeoutRef.current = null
       }
-    }, HIDE_DELAY)
-  }, [])
+
+      if (!visibleTooltipRef.current.ref || visibleTooltipRef.current.ref !== ref) {
+        return
+      }
+
+      scheduleHideDelayPhase(ref, setOpen)
+    },
+    [scheduleHideDelayPhase],
+  )
 
   const contextValue: TooltipContextValue = useMemo(
     () => ({
       registerHoverStart,
       registerHoverEnd,
+      registerPointerDown,
     }),
-    [registerHoverStart, registerHoverEnd],
+    [registerHoverStart, registerHoverEnd, registerPointerDown],
   )
 
   return <RawTooltipContext.Provider value={contextValue}>{children}</RawTooltipContext.Provider>
