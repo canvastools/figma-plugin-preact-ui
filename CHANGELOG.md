@@ -10,6 +10,7 @@
 
 - ControlGroup: added `disabled` prop
 - ColorSwatch: added gradient fill support
+- TabList: add `scrollable` prop
 
 ### 1.0.0 - 21 Mar 2026
 

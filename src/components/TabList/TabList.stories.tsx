@@ -35,6 +35,10 @@ const meta: Meta<typeof TabList> = {
       options: ['default', 'list'],
       defaultValue: { summary: 'default' },
     },
+    scrollable: {
+      control: { type: 'boolean' },
+      defaultValue: { summary: 'true' },
+    },
     children: {
       control: { disable: true },
       description: '<strong>*</strong>',
@@ -82,6 +86,7 @@ export const Demo: Story = {
     id: undefined,
     className: 'sb-container-inset',
     variant: 'default',
+    scrollable: true,
   },
   render: (args) => (
     <div className="sb-column sb-width-full">
