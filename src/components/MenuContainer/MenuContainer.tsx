@@ -21,6 +21,7 @@ const MenuContainerComponent = (
 
   const scrollRef = useRef<HTMLDivElement>(null)
   const rafRef = useRef<number | null>(null)
+  const pointerDownRef = useRef(false)
 
   const [canScrollUp, setCanScrollUp] = useState(false)
   const [canScrollDown, setCanScrollDown] = useState(false)
@@ -89,7 +90,17 @@ const MenuContainerComponent = (
     const el = scrollRef.current
     if (!el) return
 
+    const handlePointerDown = () => {
+      pointerDownRef.current = true
+    }
+
+    const handlePointerUp = () => {
+      pointerDownRef.current = false
+    }
+
     const handleFocusIn = (e: FocusEvent) => {
+      if (pointerDownRef.current) return
+
       const target = e.target as HTMLElement | null
       if (!target || !el.contains(target)) return
 
@@ -104,8 +115,14 @@ const MenuContainerComponent = (
       updateScrollState()
     }
 
+    el.addEventListener('pointerdown', handlePointerDown, true)
+    window.addEventListener('pointerup', handlePointerUp, true)
     el.addEventListener('focusin', handleFocusIn)
-    return () => el.removeEventListener('focusin', handleFocusIn)
+    return () => {
+      el.removeEventListener('pointerdown', handlePointerDown, true)
+      window.removeEventListener('pointerup', handlePointerUp, true)
+      el.removeEventListener('focusin', handleFocusIn)
+    }
   }, [updateScrollState])
 
   useEffect(() => {
