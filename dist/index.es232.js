@@ -1,6 +1,15 @@
-function e(t) {
-  return t && t.__esModule && Object.prototype.hasOwnProperty.call(t, "default") ? t.default : t;
+import "preact/compat";
+import { jsx as m } from "./index.es143.js";
+import { getMinutes as r, getHours as p } from "./index.es211.js";
+import M from "./index.es245.js";
+import { safeMin as c, safeMax as g } from "./index.es237.js";
+function h({ hour: u, maxTime: t, minTime: n, showLeadingZeros: e = !0, ...i }) {
+  function o(f) {
+    return u === p(f).toString();
+  }
+  const s = c(59, t && o(t) && r(t)), a = g(0, n && o(n) && r(n));
+  return m(M, { max: s, min: a, name: "minute", showLeadingZeros: e, ...i });
 }
 export {
-  e as getDefaultExportFromCjs
+  h as default
 };

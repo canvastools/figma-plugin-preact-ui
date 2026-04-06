@@ -1,15 +1,22 @@
-import "preact/compat";
-import { jsx as p } from "./index.es129.js";
-import { getSeconds as e, getHours as m, getMinutes as S } from "./index.es197.js";
-import d from "./index.es231.js";
-import { safeMin as g, safeMax as M } from "./index.es223.js";
-function w({ hour: s, maxTime: o, minTime: t, minute: u, showLeadingZeros: i = !0, ...c }) {
-  function n(r) {
-    return s === m(r).toString() && u === S(r).toString();
-  }
-  const f = g(59, o && n(o) && e(o)), a = M(0, t && n(t) && e(t));
-  return p(d, { max: f, min: a, name: "second", showLeadingZeros: i, ...c });
+import { useMemo as v } from "preact/compat";
+import { jsx as D } from "./index.es143.js";
+import { clsx as h } from "./index.es194.js";
+function O(e) {
+  var a = e.activeStartDate, u = e.children, b = e.classes, t = e.date, m = e.formatAbbr, C = e.locale, f = e.maxDate, x = e.maxDateTransform, d = e.minDate, y = e.minDateTransform, s = e.onClick, l = e.onMouseOver, w = e.style, r = e.tileClassName, o = e.tileContent, c = e.tileDisabled, n = e.view, S = v(function() {
+    var i = { activeStartDate: a, date: t, view: n };
+    return typeof r == "function" ? r(i) : r;
+  }, [a, t, r, n]), T = v(function() {
+    var i = { activeStartDate: a, date: t, view: n };
+    return typeof o == "function" ? o(i) : o;
+  }, [a, t, o, n]);
+  return D("button", { className: h(b, S), disabled: d && y(d) > t || f && x(f) < t || (c == null ? void 0 : c({ activeStartDate: a, date: t, view: n })), onClick: s ? function(i) {
+    return s(t, i);
+  } : void 0, onFocus: l ? function() {
+    return l(t);
+  } : void 0, onMouseOver: l ? function() {
+    return l(t);
+  } : void 0, style: w, type: "button", children: [m ? D("abbr", { "aria-label": m(C, t), children: u }) : u, T] });
 }
 export {
-  w as default
+  O as default
 };

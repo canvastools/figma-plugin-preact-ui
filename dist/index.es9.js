@@ -1,7 +1,7 @@
 import "./index.es9.css";
-import { jsx as s } from "./index.es129.js";
+import { jsx as s } from "./index.es143.js";
 /* empty css            */
-import { typedForwardRef as d } from "./index.es131.js";
+import { typedForwardRef as d } from "./index.es145.js";
 import { bem as p } from "./index.es62.js";
 const a = ({ id: o, className: r, variant: e = "inline", children: m, ...t }, i) => {
   const n = p("Code", void 0, { variant: e });

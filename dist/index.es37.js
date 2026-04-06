@@ -1,12 +1,12 @@
 import "./index.es37.css";
-import { jsx as f } from "./index.es129.js";
+import { jsx as f } from "./index.es143.js";
 import { Fragment as z } from "preact";
 import { useState as B, useEffect as E, useRef as p, useMemo as G } from "preact/hooks";
 /* empty css            */
 import { Icon as U } from "./index.es16.js";
 import { Text as q } from "./index.es47.js";
 import { Tooltip as H } from "./index.es50.js";
-import { typedForwardRef as J } from "./index.es131.js";
+import { typedForwardRef as J } from "./index.es145.js";
 import { bem as K } from "./index.es62.js";
 const O = ({
   id: k,

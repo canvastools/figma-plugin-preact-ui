@@ -1,8 +1,8 @@
 import "./index.es2.css";
-import { jsx as t } from "./index.es129.js";
+import { jsx as t } from "./index.es143.js";
 import { Text as f } from "./index.es47.js";
 /* empty css            */
-import { typedForwardRef as p } from "./index.es131.js";
+import { typedForwardRef as p } from "./index.es145.js";
 import { bem as c } from "./index.es62.js";
 const u = ({ id: m, className: o, variant: l = "circle", size: r = "medium", src: a, backgroundColor: i, textColor: n, children: e, ...s }, d) => {
   const v = c("Avatar", void 0, {

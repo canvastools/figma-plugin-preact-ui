@@ -1,14 +1,14 @@
 import "./index.es35.css";
-import { jsx as w } from "./index.es129.js";
-import { useState as d, useRef as i, useCallback as k, useEffect as f } from "preact/hooks";
+import { jsx as w } from "./index.es143.js";
+import { useState as d, useRef as i, useCallback as k, useEffect as p } from "preact/hooks";
 /* empty css            */
 import { useScrollContextOptional as ot } from "./index.es34.js";
-import { typedForwardRef as nt } from "./index.es131.js";
+import { typedForwardRef as nt } from "./index.es145.js";
 import { bem as C } from "./index.es62.js";
 const rt = ({ id: Y, className: E, children: B, ...D }, b) => {
   const r = ot(), [I, N] = d(void 0), [_, z] = d(!0), [F, O] = d(!1), M = r && typeof r.positionY == "number" ? r.positionY : I, q = r ? r.isAtTop : _, P = r ? r.isAtBottom : F, U = (r == null ? void 0 : r.registerScrollRoot) ?? (() => {
-  }), j = i(null), m = i(null), p = i(null), [T, W] = d({ top: 0, height: 24 }), [$, y] = d(!1), [G, J] = d(!1), L = i(0), S = i(!1), H = i(""), x = i(null), R = i(!1), g = i(null), K = C("ScrollContainer", void 0, void 0), c = k(() => {
-    const t = m.current, o = p.current;
+  }), j = i(null), m = i(null), f = i(null), [T, W] = d({ top: 0, height: 24 }), [$, y] = d(!1), [G, J] = d(!1), L = i(0), S = i(!1), H = i(""), x = i(null), R = i(!1), g = i(null), K = C("ScrollContainer", void 0, void 0), c = k(() => {
+    const t = m.current, o = f.current;
     if (!t || !o) return;
     const e = Math.max(0, t.scrollHeight - t.clientHeight), n = e > 0, s = n ? t.clientHeight / t.scrollHeight : 1, l = o.clientHeight - 8, u = Math.max(24, Math.round(l * s)), h = l - u, v = n ? Math.round(h * t.scrollTop / e) : 0;
     W({ top: v, height: u }), J(n);
@@ -17,7 +17,7 @@ const rt = ({ id: Y, className: E, children: B, ...D }, b) => {
       x.current = null, c();
     }));
   }, [c]);
-  f(() => {
+  p(() => {
     const t = m.current;
     if (!(!t || typeof M != "number"))
       try {
@@ -25,9 +25,9 @@ const rt = ({ id: Y, className: E, children: B, ...D }, b) => {
         t.scrollTop !== e && (t.scrollTop = e), a();
       } catch {
       }
-  }, [M, a]), f(() => {
+  }, [M, a]), p(() => {
     a();
-  }, [q, P, a]), f(() => {
+  }, [q, P, a]), p(() => {
     const t = m.current;
     if (!t) return;
     const o = () => {
@@ -37,12 +37,12 @@ const rt = ({ id: Y, className: E, children: B, ...D }, b) => {
       }
       c();
     }, e = new ResizeObserver(o);
-    return e.observe(t), p.current && e.observe(p.current), () => e.disconnect();
-  }, [c]), f(() => {
+    return e.observe(t), f.current && e.observe(f.current), () => e.disconnect();
+  }, [c]), p(() => {
     c();
     const t = requestAnimationFrame(() => c());
     return () => cancelAnimationFrame(t);
-  }, [c]), f(() => {
+  }, [c]), p(() => {
     const t = m.current;
     if (!t) return;
     const o = new MutationObserver(() => {
@@ -53,7 +53,7 @@ const rt = ({ id: Y, className: E, children: B, ...D }, b) => {
       a();
     });
     return o.observe(t, { childList: !0, subtree: !0, characterData: !0 }), () => o.disconnect();
-  }, [a]), f(() => {
+  }, [a]), p(() => {
     const t = () => {
       requestAnimationFrame(() => c());
     };
@@ -78,7 +78,7 @@ const rt = ({ id: Y, className: E, children: B, ...D }, b) => {
     a();
   }, V = (t) => {
     if (t.button !== 0) return;
-    const o = p.current;
+    const o = f.current;
     if (!o) return;
     t.preventDefault(), y(!0), S.current = !0, c();
     const e = t.clientY;
@@ -87,7 +87,7 @@ const rt = ({ id: Y, className: E, children: B, ...D }, b) => {
     g.current = { move: n, up: s }, window.addEventListener("mousemove", n), window.addEventListener("mouseup", s);
   }, X = (t) => {
     if (!S.current) return;
-    const o = m.current, e = p.current;
+    const o = m.current, e = f.current;
     if (!o || !e) return;
     const n = Math.max(0, o.scrollHeight - o.clientHeight);
     if (n <= 0) return;
@@ -100,7 +100,7 @@ const rt = ({ id: Y, className: E, children: B, ...D }, b) => {
     const t = g.current;
     t && (window.removeEventListener("mousemove", t.move), window.removeEventListener("mouseup", t.up), g.current = null), y(!1), S.current = !1, document.body.style.userSelect = H.current;
   };
-  f(() => () => {
+  p(() => () => {
     const t = g.current;
     t && (window.removeEventListener("mousemove", t.move), window.removeEventListener("mouseup", t.up), g.current = null), S.current = !1, document.body.style.userSelect = H.current;
   }, []);
@@ -129,7 +129,7 @@ const rt = ({ id: Y, className: E, children: B, ...D }, b) => {
             children: B
           }
         ),
-        /* @__PURE__ */ w("div", { className: tt, ref: p, children: /* @__PURE__ */ w(
+        /* @__PURE__ */ w("div", { className: tt, ref: f, "data-pui-interactive": "true", children: /* @__PURE__ */ w(
           "div",
           {
             className: "ScrollContainer__thumb",
@@ -137,6 +137,7 @@ const rt = ({ id: Y, className: E, children: B, ...D }, b) => {
               height: `${T.height}px`,
               transform: `translateY(${T.top}px)`
             },
+            "data-pui-interactive": "true",
             onMouseDown: (t) => V(t)
           }
         ) })

@@ -1,28 +1,55 @@
 import "preact/compat";
-import { jsx as u } from "./index.es129.js";
-import { getDecadeStart as m, getYearStart as p, getYearEnd as g } from "./index.es197.js";
-import v from "./index.es206.js";
-import { formatYear as y } from "./index.es195.js";
-var s = function() {
-  return s = Object.assign || function(e) {
-    for (var t, n = 1, r = arguments.length; n < r; n++) {
-      t = arguments[n];
-      for (var a in t) Object.prototype.hasOwnProperty.call(t, a) && (e[a] = t[a]);
+import { jsx as o } from "./index.es143.js";
+import { clsx as b } from "./index.es194.js";
+import W from "./index.es204.js";
+import O from "./index.es205.js";
+import N from "./index.es206.js";
+import { CALENDAR_TYPES as w, CALENDAR_TYPE_LOCALES as g } from "./index.es207.js";
+var f = function() {
+  return f = Object.assign || function(e) {
+    for (var a, n = 1, r = arguments.length; n < r; n++) {
+      a = arguments[n];
+      for (var t in a) Object.prototype.hasOwnProperty.call(a, t) && (e[t] = a[t]);
     }
     return e;
-  }, s.apply(this, arguments);
-}, _ = function(e, t) {
+  }, f.apply(this, arguments);
+}, S = function(e, a) {
   var n = {};
-  for (var r in e) Object.prototype.hasOwnProperty.call(e, r) && t.indexOf(r) < 0 && (n[r] = e[r]);
+  for (var r in e) Object.prototype.hasOwnProperty.call(e, r) && a.indexOf(r) < 0 && (n[r] = e[r]);
   if (e != null && typeof Object.getOwnPropertySymbols == "function")
-    for (var a = 0, r = Object.getOwnPropertySymbols(e); a < r.length; a++)
-      t.indexOf(r[a]) < 0 && Object.prototype.propertyIsEnumerable.call(e, r[a]) && (n[r[a]] = e[r[a]]);
+    for (var t = 0, r = Object.getOwnPropertySymbols(e); t < r.length; t++)
+      a.indexOf(r[t]) < 0 && Object.prototype.propertyIsEnumerable.call(e, r[t]) && (n[r[t]] = e[r[t]]);
   return n;
-}, l = "react-calendar__decade-view__years__year";
-function D(e) {
-  var t = e.classes, n = t === void 0 ? [] : t, r = e.currentDecade, a = e.formatYear, i = a === void 0 ? y : a, c = _(e, ["classes", "currentDecade", "formatYear"]), f = c.date, d = c.locale, o = [];
-  return n && o.push.apply(o, n), o.push(l), m(f).getFullYear() !== r && o.push("".concat(l, "--neighboringDecade")), u(v, s({}, c, { classes: o, maxDateTransform: g, minDateTransform: p, view: "decade", children: i(d, f) }));
+};
+function x(e) {
+  if (e)
+    for (var a = 0, n = Object.entries(g); a < n.length; a++) {
+      var r = n[a], t = r[0], i = r[1];
+      if (i.includes(e))
+        return t;
+    }
+  return w.ISO_8601;
+}
+function P(e) {
+  var a = e.activeStartDate, n = e.locale, r = e.onMouseLeave, t = e.showFixedNumberOfWeeks, i = e.calendarType, l = i === void 0 ? x(n) : i, d = e.formatShortWeekday, m = e.formatWeekday, s = e.onClickWeekNumber, u = e.showWeekNumbers, y = S(e, ["calendarType", "formatShortWeekday", "formatWeekday", "onClickWeekNumber", "showWeekNumbers"]);
+  function k() {
+    return o(O, { calendarType: l, formatShortWeekday: d, formatWeekday: m, locale: n, onMouseLeave: r });
+  }
+  function v() {
+    return u ? o(N, { activeStartDate: a, calendarType: l, onClickWeekNumber: s, onMouseLeave: r, showFixedNumberOfWeeks: t }) : null;
+  }
+  function h() {
+    return o(W, f({ calendarType: l }, y));
+  }
+  var c = "react-calendar__month-view";
+  return o("div", { className: b(c, u ? "".concat(c, "--weekNumbers") : ""), children: o("div", { style: {
+    display: "flex",
+    alignItems: "flex-end"
+  }, children: [v(), o("div", { style: {
+    flexGrow: 1,
+    width: "100%"
+  }, children: [k(), h()] })] }) });
 }
 export {
-  D as default
+  P as default
 };

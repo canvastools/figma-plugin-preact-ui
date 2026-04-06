@@ -1,35 +1,23 @@
-import { getDefaultExportFromCjs as f } from "./index.es232.js";
-var g = process.env.NODE_ENV !== "production", i = function() {
-};
-if (g) {
-  var c = function(e, r) {
-    var a = arguments.length;
-    r = new Array(a > 1 ? a - 1 : 0);
-    for (var n = 1; n < a; n++)
-      r[n - 1] = arguments[n];
-    var u = 0, t = "Warning: " + e.replace(/%s/g, function() {
-      return r[u++];
-    });
-    typeof console < "u" && console.error(t);
-    try {
-      throw new Error(t);
-    } catch {
-    }
-  };
-  i = function(o, e, r) {
-    var a = arguments.length;
-    r = new Array(a > 2 ? a - 2 : 0);
-    for (var n = 2; n < a; n++)
-      r[n - 2] = arguments[n];
-    if (e === void 0)
-      throw new Error(
-        "`warning(condition, format, ...args)` requires a warning message argument"
-      );
-    o || c.apply(null, [e].concat(r));
-  };
+import "preact/compat";
+import { jsx as p } from "./index.es143.js";
+import { getHours as e } from "./index.es211.js";
+import c from "./index.es245.js";
+import { convert24to12 as t } from "./index.es236.js";
+import { safeMin as x, safeMax as H } from "./index.es237.js";
+function R({ amPm: n, maxTime: u, minTime: m, value: s, ...a }) {
+  const i = x(12, u && (() => {
+    const [r, o] = t(e(u));
+    return o !== n ? null : r;
+  })()), f = H(1, m && (() => {
+    const [r, o] = t(e(m));
+    return (
+      // pm is always after am, so we should ignore validation
+      o !== n || // If minHour is 12 am/pm, user should be able to enter 12, 1, ..., 11.
+      r === 12 ? null : r
+    );
+  })()), l = s ? t(s)[0].toString() : "";
+  return p(c, { max: i, min: f, name: "hour12", nameForClass: "hour", value: l, ...a });
 }
-var s = i;
-const w = /* @__PURE__ */ f(s);
 export {
-  w as default
+  R as default
 };

@@ -1,39 +1,46 @@
-import { Children as m, cloneElement as y } from "preact/compat";
-import { jsx as g } from "./index.es129.js";
+import "preact/compat";
+import { jsx as c } from "./index.es143.js";
+import { getYear as _, getMonth as x, getDaysInMonth as D, getDayStart as N } from "./index.es211.js";
+import j from "./index.es212.js";
+import M from "./index.es217.js";
+import { getDayOfWeek as m } from "./index.es200.js";
 var l = function() {
   return l = Object.assign || function(e) {
-    for (var t, o = 1, n = arguments.length; o < n; o++) {
-      t = arguments[o];
-      for (var r in t) Object.prototype.hasOwnProperty.call(t, r) && (e[r] = t[r]);
+    for (var t, n = 1, r = arguments.length; n < r; n++) {
+      t = arguments[n];
+      for (var a in t) Object.prototype.hasOwnProperty.call(t, a) && (e[a] = t[a]);
     }
     return e;
   }, l.apply(this, arguments);
-}, h = function(e, t) {
-  var o = {};
-  for (var n in e) Object.prototype.hasOwnProperty.call(e, n) && t.indexOf(n) < 0 && (o[n] = e[n]);
+}, g = function(e, t) {
+  var n = {};
+  for (var r in e) Object.prototype.hasOwnProperty.call(e, r) && t.indexOf(r) < 0 && (n[r] = e[r]);
   if (e != null && typeof Object.getOwnPropertySymbols == "function")
-    for (var r = 0, n = Object.getOwnPropertySymbols(e); r < n.length; r++)
-      t.indexOf(n[r]) < 0 && Object.prototype.propertyIsEnumerable.call(e, n[r]) && (o[n[r]] = e[n[r]]);
-  return o;
+    for (var a = 0, r = Object.getOwnPropertySymbols(e); a < r.length; a++)
+      t.indexOf(r[a]) < 0 && Object.prototype.propertyIsEnumerable.call(e, r[a]) && (n[r[a]] = e[r[a]]);
+  return n;
 };
-function c(e) {
-  return "".concat(e, "%");
-}
-function w(e) {
-  var t = e.children, o = e.className, n = e.count, r = e.direction, a = e.offset, s = e.style, u = e.wrap, p = h(e, ["children", "className", "count", "direction", "offset", "style", "wrap"]);
-  return g("div", l({ className: o, style: l({ display: "flex", flexDirection: r, flexWrap: u ? "wrap" : "nowrap" }, s) }, p, { children: m.map(t, function(i, d) {
-    var f = a && d === 0 ? c(100 * a / n) : null;
-    return y(i, l(l({}, i.props), { style: {
-      flexBasis: c(100 / n),
-      flexShrink: 0,
-      flexGrow: 0,
-      overflow: "hidden",
-      marginLeft: f,
-      marginInlineStart: f,
-      marginInlineEnd: 0
-    } }));
-  }) }));
+function Y(e) {
+  var t = e.activeStartDate, n = e.calendarType, r = e.hover, a = e.showFixedNumberOfWeeks, v = e.showNeighboringMonth, O = e.value, b = e.valueType, p = g(e, ["activeStartDate", "calendarType", "hover", "showFixedNumberOfWeeks", "showNeighboringMonth", "value", "valueType"]), d = _(t), f = x(t), s = a || v, y = m(t, n), T = s ? 0 : y, h = (s ? -y : 0) + 1, w = function() {
+    if (a)
+      return h + 6 * 7 - 1;
+    var u = D(t);
+    if (v) {
+      var o = /* @__PURE__ */ new Date();
+      o.setFullYear(d, f, u), o.setHours(0, 0, 0, 0);
+      var i = 7 - m(o, n) - 1;
+      return u + i;
+    }
+    return u;
+  }();
+  return c(j, { className: "react-calendar__month-view__days", count: 7, dateTransform: function(u) {
+    var o = /* @__PURE__ */ new Date();
+    return o.setFullYear(d, f, u), N(o);
+  }, dateType: "day", hover: r, end: w, renderTile: function(u) {
+    var o = u.date, i = g(u, ["date"]);
+    return c(M, l({}, p, i, { activeStartDate: t, calendarType: n, currentMonthIndex: f, date: o }), o.getTime());
+  }, offset: T, start: h, value: O, valueType: b });
 }
 export {
-  w as default
+  Y as default
 };

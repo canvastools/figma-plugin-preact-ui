@@ -1,6 +1,6 @@
 # Changelog
 
-### 1.1.0 - XX XXX 2026
+### 1.1.0 - 6 Apr 2026
 
 - Minor style fixes
 - Added 14 icons

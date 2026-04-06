@@ -1,4 +1,4 @@
-import { jsx as z } from "./index.es129.js";
+import { jsx as z } from "./index.es143.js";
 import { createContext as C } from "preact";
 import { useContext as j, useState as p, useRef as a, useEffect as Y } from "preact/hooks";
 const w = C(void 0), Q = () => {

@@ -1,32 +1,66 @@
-import "preact/compat";
-import { jsx as d } from "./index.es129.js";
-import { getMonthStart as u, getMonthEnd as p } from "./index.es197.js";
-import h from "./index.es206.js";
-import { formatMonth as y, formatMonthYear as _ } from "./index.es195.js";
-var l = function() {
-  return l = Object.assign || function(t) {
-    for (var e, o = 1, r = arguments.length; o < r; o++) {
-      e = arguments[o];
-      for (var n in e) Object.prototype.hasOwnProperty.call(e, n) && (t[n] = e[n]);
-    }
-    return t;
-  }, l.apply(this, arguments);
-}, v = function(t, e) {
-  var o = {};
-  for (var r in t) Object.prototype.hasOwnProperty.call(t, r) && e.indexOf(r) < 0 && (o[r] = t[r]);
-  if (t != null && typeof Object.getOwnPropertySymbols == "function")
-    for (var n = 0, r = Object.getOwnPropertySymbols(t); n < r.length; n++)
-      e.indexOf(r[n]) < 0 && Object.prototype.propertyIsEnumerable.call(t, r[n]) && (o[r[n]] = t[r[n]]);
-  return o;
-}, s = function(t, e, o) {
-  if (o || arguments.length === 2) for (var r = 0, n = e.length, a; r < n; r++)
-    (a || !(r in e)) && (a || (a = Array.prototype.slice.call(e, 0, r)), a[r] = e[r]);
-  return t.concat(a || Array.prototype.slice.call(e));
-}, g = "react-calendar__year-view__months__month";
-function x(t) {
-  var e = t.classes, o = e === void 0 ? [] : e, r = t.formatMonth, n = r === void 0 ? y : r, a = t.formatMonthYear, c = a === void 0 ? _ : a, f = v(t, ["classes", "formatMonth", "formatMonthYear"]), i = f.date, m = f.locale;
-  return d(h, l({}, f, { classes: s(s([], o, !0), [g], !1), formatAbbr: c, maxDateTransform: p, minDateTransform: u, view: "year", children: n(m, i) }));
+import { getRange as p } from "./index.es200.js";
+function q(r, e, t) {
+  return e && e > r ? e : t && t < r ? t : r;
+}
+function f(r, e) {
+  return e[0] <= r && e[1] >= r;
+}
+function A(r, e) {
+  return r[0] <= e[0] && r[1] >= e[1];
+}
+function h(r, e) {
+  return f(r[0], e) || f(r[1], e);
+}
+function v(r, e, t) {
+  var i = h(e, r), a = [];
+  if (i) {
+    a.push(t);
+    var n = f(r[0], e), s = f(r[1], e);
+    n && a.push("".concat(t, "Start")), s && a.push("".concat(t, "End")), n && s && a.push("".concat(t, "BothEnds"));
+  }
+  return a;
+}
+function T(r) {
+  return Array.isArray(r) ? r[0] !== null && r[1] !== null : r !== null;
+}
+function R(r) {
+  if (!r)
+    throw new Error("args is required");
+  var e = r.value, t = r.date, i = r.hover, a = "react-calendar__tile", n = [a];
+  if (!t)
+    return n;
+  var s = /* @__PURE__ */ new Date(), o = function() {
+    if (Array.isArray(t))
+      return t;
+    var c = r.dateType;
+    if (!c)
+      throw new Error("dateType is required when date is not an array of two dates");
+    return p(c, t);
+  }();
+  if (f(s, o) && n.push("".concat(a, "--now")), !e || !T(e))
+    return n;
+  var u = function() {
+    if (Array.isArray(e))
+      return e;
+    var c = r.valueType;
+    if (!c)
+      throw new Error("valueType is required when value is not an array of two dates");
+    return p(c, e);
+  }();
+  A(u, o) ? n.push("".concat(a, "--active")) : h(u, o) && n.push("".concat(a, "--hasActive"));
+  var l = v(u, o, "".concat(a, "--range"));
+  n.push.apply(n, l);
+  var y = Array.isArray(e) ? e : [e];
+  if (i && y.length === 1) {
+    var w = i > u[0] ? [u[0], i] : [i, u[0]], d = v(w, o, "".concat(a, "--hover"));
+    n.push.apply(n, d);
+  }
+  return n;
 }
 export {
-  x as default
+  q as between,
+  h as doRangesOverlap,
+  R as getTileClasses,
+  A as isRangeWithinRange,
+  f as isValueWithinRange
 };

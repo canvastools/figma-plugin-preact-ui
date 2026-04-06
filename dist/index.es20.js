@@ -1,4 +1,4 @@
-import { jsx as ue } from "./index.es129.js";
+import { jsx as ue } from "./index.es143.js";
 import { createContext as he } from "preact";
 import { useState as N, useRef as T, useMemo as me, useCallback as A, useEffect as j, useContext as ge } from "preact/hooks";
 const _ = he(void 0), pe = () => {

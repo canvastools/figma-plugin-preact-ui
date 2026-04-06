@@ -1,113 +1,53 @@
-const s = ["onCopy", "onCut", "onPaste"], a = [
-  "onCompositionEnd",
-  "onCompositionStart",
-  "onCompositionUpdate"
-], r = ["onFocus", "onBlur"], i = ["onInput", "onInvalid", "onReset", "onSubmit"], c = ["onLoad", "onError"], u = ["onKeyDown", "onKeyPress", "onKeyUp"], E = [
-  "onAbort",
-  "onCanPlay",
-  "onCanPlayThrough",
-  "onDurationChange",
-  "onEmptied",
-  "onEncrypted",
-  "onEnded",
-  "onError",
-  "onLoadedData",
-  "onLoadedMetadata",
-  "onLoadStart",
-  "onPause",
-  "onPlay",
-  "onPlaying",
-  "onProgress",
-  "onRateChange",
-  "onSeeked",
-  "onSeeking",
-  "onStalled",
-  "onSuspend",
-  "onTimeUpdate",
-  "onVolumeChange",
-  "onWaiting"
-], v = [
-  "onClick",
-  "onContextMenu",
-  "onDoubleClick",
-  "onMouseDown",
-  "onMouseEnter",
-  "onMouseLeave",
-  "onMouseMove",
-  "onMouseOut",
-  "onMouseOver",
-  "onMouseUp"
-], d = [
-  "onDrag",
-  "onDragEnd",
-  "onDragEnter",
-  "onDragExit",
-  "onDragLeave",
-  "onDragOver",
-  "onDragStart",
-  "onDrop"
-], l = ["onSelect"], g = ["onTouchCancel", "onTouchEnd", "onTouchMove", "onTouchStart"], p = [
-  "onPointerDown",
-  "onPointerMove",
-  "onPointerUp",
-  "onPointerCancel",
-  "onGotPointerCapture",
-  "onLostPointerCapture",
-  "onPointerEnter",
-  "onPointerLeave",
-  "onPointerOver",
-  "onPointerOut"
-], P = ["onScroll"], m = ["onWheel"], C = [
-  "onAnimationStart",
-  "onAnimationEnd",
-  "onAnimationIteration"
-], h = ["onTransitionEnd"], D = ["onToggle"], M = ["onChange"], S = [
-  ...s,
-  ...a,
-  ...r,
-  ...i,
-  ...c,
-  ...u,
-  ...E,
-  ...v,
-  ...d,
-  ...l,
-  ...g,
-  ...p,
-  ...P,
-  ...m,
-  ...C,
-  ...h,
-  ...M,
-  ...D
-];
-function L(t, y) {
-  const n = {};
-  for (const o of S) {
-    const e = t[o];
-    e && (n[o] = e);
-  }
-  return n;
+import l from "./index.es214.js";
+function m(r) {
+  return typeof r == "string";
 }
+function x(r, n, t) {
+  return t.indexOf(r) === n;
+}
+function O(r) {
+  return r.toLowerCase() === r;
+}
+function p(r) {
+  return r.indexOf(",") === -1 ? r : r.split(",");
+}
+function v(r) {
+  if (!r)
+    return r;
+  if (r === "C" || r === "posix" || r === "POSIX")
+    return "en-US";
+  if (r.indexOf(".") !== -1) {
+    var n = r.split(".")[0], t = n === void 0 ? "" : n;
+    return v(t);
+  }
+  if (r.indexOf("@") !== -1) {
+    var a = r.split("@")[0], t = a === void 0 ? "" : a;
+    return v(t);
+  }
+  if (r.indexOf("-") === -1 || !O(r))
+    return r;
+  var e = r.split("-"), f = e[0], i = e[1], o = i === void 0 ? "" : i;
+  return "".concat(f, "-").concat(o.toUpperCase());
+}
+function U(r) {
+  var n = r === void 0 ? {} : r, t = n.useFallbackLocale, a = t === void 0 ? !0 : t, e = n.fallbackLocale, f = e === void 0 ? "en-US" : e, i = [];
+  if (typeof navigator < "u") {
+    for (var o = navigator.languages || [], s = [], u = 0, d = o; u < d.length; u++) {
+      var L = d[u];
+      s = s.concat(p(L));
+    }
+    var c = navigator.language, g = c && p(c);
+    i = i.concat(s, g);
+  }
+  return a && i.push(f), i.filter(m).map(v).filter(x);
+}
+var y = l(U, { cacheKey: JSON.stringify });
+function S(r) {
+  return y(r)[0] || null;
+}
+var b = l(S, { cacheKey: JSON.stringify });
 export {
-  S as allEvents,
-  C as animationEvents,
-  M as changeEvents,
-  s as clipboardEvents,
-  a as compositionEvents,
-  L as default,
-  d as dragEvents,
-  r as focusEvents,
-  i as formEvents,
-  c as imageEvents,
-  u as keyboardEvents,
-  E as mediaEvents,
-  v as mouseEvents,
-  D as otherEvents,
-  p as pointerEvents,
-  l as selectionEvents,
-  g as touchEvents,
-  h as transitionEvents,
-  P as uiEvents,
-  m as wheelEvents
+  b as default,
+  b as getUserLocale,
+  y as getUserLocales
 };

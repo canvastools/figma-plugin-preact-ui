@@ -1,12 +1,29 @@
 import "preact/compat";
-import { jsx as a } from "./index.es129.js";
-import { getHours as t } from "./index.es197.js";
-import s from "./index.es231.js";
-import { safeMin as f, safeMax as p } from "./index.es223.js";
-function h({ maxTime: o, minTime: r, ...u }) {
-  const m = f(23, o && t(o)), n = p(0, r && t(r));
-  return a(s, { max: m, min: n, name: "hour24", nameForClass: "hour", ...u });
+import { jsx as y } from "./index.es143.js";
+import { getDayStart as g, getDayEnd as h } from "./index.es211.js";
+import v from "./index.es220.js";
+import { isWeekend as b } from "./index.es200.js";
+import { formatDay as D, formatLongDate as O } from "./index.es209.js";
+var i = function() {
+  return i = Object.assign || function(e) {
+    for (var n, a = 1, r = arguments.length; a < r; a++) {
+      n = arguments[a];
+      for (var t in n) Object.prototype.hasOwnProperty.call(n, t) && (e[t] = n[t]);
+    }
+    return e;
+  }, i.apply(this, arguments);
+}, _ = function(e, n) {
+  var a = {};
+  for (var r in e) Object.prototype.hasOwnProperty.call(e, r) && n.indexOf(r) < 0 && (a[r] = e[r]);
+  if (e != null && typeof Object.getOwnPropertySymbols == "function")
+    for (var t = 0, r = Object.getOwnPropertySymbols(e); t < r.length; t++)
+      n.indexOf(r[t]) < 0 && Object.prototype.propertyIsEnumerable.call(e, r[t]) && (a[r[t]] = e[r[t]]);
+  return a;
+}, c = "react-calendar__month-view__days__day";
+function I(e) {
+  var n = e.calendarType, a = e.classes, r = a === void 0 ? [] : a, t = e.currentMonthIndex, m = e.formatDay, d = m === void 0 ? D : m, l = e.formatLongDate, p = l === void 0 ? O : l, f = _(e, ["calendarType", "classes", "currentMonthIndex", "formatDay", "formatLongDate"]), s = f.date, u = f.locale, o = [];
+  return r && o.push.apply(o, r), o.push(c), b(s, n) && o.push("".concat(c, "--weekend")), s.getMonth() !== t && o.push("".concat(c, "--neighboringMonth")), y(v, i({}, f, { classes: o, formatAbbr: p, maxDateTransform: h, minDateTransform: g, view: "month", children: d(u, s) }));
 }
 export {
-  h as default
+  I as default
 };

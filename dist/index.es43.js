@@ -1,12 +1,12 @@
 import "./index.es43.css";
-import { jsx as t } from "./index.es129.js";
+import { jsx as t } from "./index.es143.js";
 import { toChildArray as R, cloneElement as j } from "preact";
 import { useRef as x } from "preact/hooks";
 import { Icon as I } from "./index.es16.js";
 import { useTabContext as A } from "./index.es44.js";
 import { Text as B } from "./index.es47.js";
 /* empty css            */
-import { typedForwardRef as M } from "./index.es131.js";
+import { typedForwardRef as M } from "./index.es145.js";
 import { bem as w } from "./index.es62.js";
 const z = ({ id: a, className: b, variant: _ = "default", prefix: r, suffix: s, children: i, onClick: l, ...p }, c) => {
   const { activeId: o, onTabChange: T, registerTab: v } = A(), y = x(null), N = (e) => {
