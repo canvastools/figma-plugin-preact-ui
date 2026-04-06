@@ -8,7 +8,7 @@ const F = {
         "default-hover": "#FFFFFF0F",
         "default-pressed": "#FFFFFF1F",
         "default-selected": "#85A5FF5C",
-        "default-selected-hover": "#91B4FF66",
+        "default-selected-hover": "#91B4FF5C",
         "default-selected-pressed": "#85A5FF5C",
         secondary: "#383838",
         "secondary-hover": "#FFFFFF1F",
@@ -124,7 +124,7 @@ const F = {
       icon: {
         default: "#FFFFFF",
         secondary: "#A8D6F7",
-        disabled: "#FFFFFF"
+        disabled: "#2C2C2C"
       },
       border: {
         default: "#7CC4F8"

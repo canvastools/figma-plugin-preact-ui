@@ -1,7 +1,5 @@
-import { getUserLocale as e } from "./index.es194.js";
-function n(o, r) {
-  return r.toLocaleString(o || e() || void 0);
-}
+import o from "./index.es224.js";
 export {
-  n as formatHour
+  o as Fit,
+  o as default
 };

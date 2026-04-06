@@ -1,39 +1,34 @@
 import "preact/compat";
-import { jsx as f } from "./index.es129.js";
-import { getHoursMinutesSeconds as h, getHoursMinutes as m, getHours as g } from "./index.es197.js";
-function y({ ariaLabel: u, disabled: i, maxTime: n, minTime: r, name: a, onChange: d, required: c, value: o, valueType: s }) {
-  const e = (() => {
-    switch (s) {
-      case "hour":
-        return (t) => `${g(t)}:00`;
-      case "minute":
-        return m;
-      case "second":
-        return h;
-      default:
-        throw new Error("Invalid valueType");
+import { jsx as c } from "./index.es143.js";
+var u = function() {
+  return u = Object.assign || function(e) {
+    for (var t, a = 1, r = arguments.length; a < r; a++) {
+      t = arguments[a];
+      for (var n in t) Object.prototype.hasOwnProperty.call(t, n) && (e[n] = t[n]);
     }
-  })(), p = (() => {
-    switch (s) {
-      case "hour":
-        return 3600;
-      case "minute":
-        return 60;
-      case "second":
-        return 1;
-      default:
-        throw new Error("Invalid valueType");
-    }
-  })();
-  function l(t) {
-    t.stopPropagation();
+    return e;
+  }, u.apply(this, arguments);
+}, i = function(e, t) {
+  var a = {};
+  for (var r in e) Object.prototype.hasOwnProperty.call(e, r) && t.indexOf(r) < 0 && (a[r] = e[r]);
+  if (e != null && typeof Object.getOwnPropertySymbols == "function")
+    for (var n = 0, r = Object.getOwnPropertySymbols(e); n < r.length; n++)
+      t.indexOf(r[n]) < 0 && Object.prototype.propertyIsEnumerable.call(e, r[n]) && (a[r[n]] = e[r[n]]);
+  return a;
+}, o = "react-calendar__tile";
+function N(e) {
+  var t = e.onClickWeekNumber, a = e.weekNumber, r = c("span", { children: a });
+  if (t) {
+    var n = e.date, m = e.onClickWeekNumber, b = e.weekNumber, l = i(e, ["date", "onClickWeekNumber", "weekNumber"]);
+    return c("button", u({}, l, { className: o, onClick: function(f) {
+      return m(b, n, f);
+    }, type: "button", children: r }));
+  } else {
+    e.date, e.onClickWeekNumber, e.weekNumber;
+    var l = i(e, ["date", "onClickWeekNumber", "weekNumber"]);
+    return c("div", u({}, l, { className: o, children: r }));
   }
-  return f("input", { "aria-label": u, disabled: i, hidden: !0, max: n ? e(n) : void 0, min: r ? e(r) : void 0, name: a, onChange: d, onFocus: l, required: c, step: p, style: {
-    visibility: "hidden",
-    position: "absolute",
-    zIndex: "-999"
-  }, type: "time", value: o ? e(o) : "" });
 }
 export {
-  y as default
+  N as default
 };

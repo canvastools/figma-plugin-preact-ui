@@ -1,29 +1,32 @@
 import "preact/compat";
-import { jsx as y } from "./index.es129.js";
-import { getDayStart as g, getDayEnd as h } from "./index.es197.js";
-import v from "./index.es206.js";
-import { isWeekend as b } from "./index.es186.js";
-import { formatDay as D, formatLongDate as O } from "./index.es195.js";
+import { jsx as f } from "./index.es143.js";
+import { getYearStart as y } from "./index.es211.js";
+import s from "./index.es212.js";
+import h from "./index.es213.js";
+import { getBeginOfDecadeYear as p } from "./index.es200.js";
 var i = function() {
   return i = Object.assign || function(e) {
-    for (var n, a = 1, r = arguments.length; a < r; a++) {
-      n = arguments[a];
-      for (var t in n) Object.prototype.hasOwnProperty.call(n, t) && (e[t] = n[t]);
+    for (var a, n = 1, r = arguments.length; n < r; n++) {
+      a = arguments[n];
+      for (var t in a) Object.prototype.hasOwnProperty.call(a, t) && (e[t] = a[t]);
     }
     return e;
   }, i.apply(this, arguments);
-}, _ = function(e, n) {
-  var a = {};
-  for (var r in e) Object.prototype.hasOwnProperty.call(e, r) && n.indexOf(r) < 0 && (a[r] = e[r]);
+}, d = function(e, a) {
+  var n = {};
+  for (var r in e) Object.prototype.hasOwnProperty.call(e, r) && a.indexOf(r) < 0 && (n[r] = e[r]);
   if (e != null && typeof Object.getOwnPropertySymbols == "function")
     for (var t = 0, r = Object.getOwnPropertySymbols(e); t < r.length; t++)
-      n.indexOf(r[t]) < 0 && Object.prototype.propertyIsEnumerable.call(e, r[t]) && (a[r[t]] = e[r[t]]);
-  return a;
-}, c = "react-calendar__month-view__days__day";
-function I(e) {
-  var n = e.calendarType, a = e.classes, r = a === void 0 ? [] : a, t = e.currentMonthIndex, m = e.formatDay, d = m === void 0 ? D : m, l = e.formatLongDate, p = l === void 0 ? O : l, f = _(e, ["calendarType", "classes", "currentMonthIndex", "formatDay", "formatLongDate"]), s = f.date, u = f.locale, o = [];
-  return r && o.push.apply(o, r), o.push(c), b(s, n) && o.push("".concat(c, "--weekend")), s.getMonth() !== t && o.push("".concat(c, "--neighboringMonth")), y(v, i({}, f, { classes: o, formatAbbr: p, maxDateTransform: h, minDateTransform: g, view: "month", children: d(u, s) }));
+      a.indexOf(r[t]) < 0 && Object.prototype.propertyIsEnumerable.call(e, r[t]) && (n[r[t]] = e[r[t]]);
+  return n;
+};
+function j(e) {
+  var a = e.activeStartDate, n = e.hover, r = e.showNeighboringDecade, t = e.value, l = e.valueType, v = d(e, ["activeStartDate", "hover", "showNeighboringDecade", "value", "valueType"]), o = p(a), g = o + (r ? 11 : 9);
+  return f(s, { className: "react-calendar__decade-view__years", dateTransform: y, dateType: "year", end: g, hover: n, renderTile: function(u) {
+    var c = u.date, m = d(u, ["date"]);
+    return f(h, i({}, v, m, { activeStartDate: a, currentDecade: o, date: c }), c.getTime());
+  }, start: o, value: t, valueType: l });
 }
 export {
-  I as default
+  j as default
 };

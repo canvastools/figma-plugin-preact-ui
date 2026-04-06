@@ -1,34 +1,21 @@
 import "preact/compat";
-import { jsx as l } from "./index.es129.js";
-import { getYear as p, getMonthStart as s } from "./index.es197.js";
-import h from "./index.es198.js";
-import g from "./index.es201.js";
-var i = function() {
-  return i = Object.assign || function(e) {
-    for (var a, n = 1, t = arguments.length; n < t; n++) {
-      a = arguments[n];
-      for (var r in a) Object.prototype.hasOwnProperty.call(a, r) && (e[r] = a[r]);
+import { jsx as i } from "./index.es143.js";
+import o from "./index.es202.js";
+var a = function() {
+  return a = Object.assign || function(r) {
+    for (var e, n = 1, u = arguments.length; n < u; n++) {
+      e = arguments[n];
+      for (var t in e) Object.prototype.hasOwnProperty.call(e, t) && (r[t] = e[t]);
     }
-    return e;
-  }, i.apply(this, arguments);
-}, v = function(e, a) {
-  var n = {};
-  for (var t in e) Object.prototype.hasOwnProperty.call(e, t) && a.indexOf(t) < 0 && (n[t] = e[t]);
-  if (e != null && typeof Object.getOwnPropertySymbols == "function")
-    for (var r = 0, t = Object.getOwnPropertySymbols(e); r < t.length; r++)
-      a.indexOf(t[r]) < 0 && Object.prototype.propertyIsEnumerable.call(e, t[r]) && (n[t[r]] = e[t[r]]);
-  return n;
+    return r;
+  }, a.apply(this, arguments);
 };
-function S(e) {
-  var a = e.activeStartDate, n = e.hover, t = e.value, r = e.valueType, f = v(e, ["activeStartDate", "hover", "value", "valueType"]), c = 0, d = 11, m = p(a);
-  return l(h, { className: "react-calendar__year-view__months", dateTransform: function(u) {
-    var o = /* @__PURE__ */ new Date();
-    return o.setFullYear(m, u, 1), s(o);
-  }, dateType: "month", end: d, hover: n, renderTile: function(u) {
-    var o = u.date, y = v(u, ["date"]);
-    return l(g, i({}, f, y, { activeStartDate: a, date: o }), o.getTime());
-  }, start: c, value: t, valueType: r });
+function d(r) {
+  function e() {
+    return i(o, a({}, r));
+  }
+  return i("div", { className: "react-calendar__century-view", children: e() });
 }
 export {
-  S as default
+  d as default
 };

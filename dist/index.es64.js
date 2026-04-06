@@ -1,4 +1,4 @@
-import { jsx as C } from "./index.es129.js";
+import { jsx as C } from "./index.es143.js";
 const e = ({ variant: L, size: t }) => {
   switch (t + "_" + L) {
     case "16_default":

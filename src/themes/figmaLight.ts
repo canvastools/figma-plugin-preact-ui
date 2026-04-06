@@ -11,7 +11,7 @@ const figmaLight: ColorTokenTree = {
         'default-hover': '#0000000D',
         'default-pressed': '#0000001C',
         'default-selected': '#0D99FF1F',
-        'default-selected-hover': '#0D99FF45',
+        'default-selected-hover': '#0D99FF40',
         'default-selected-pressed': '#0D99FF1F',
 
         secondary: '#F5F5F5',
@@ -22,7 +22,7 @@ const figmaLight: ColorTokenTree = {
         tertiary: '#E6E6E6',
 
         'brand-hover': '#0D99FF1F',
-        'brand-pressed': '#0D99FF45',
+        'brand-pressed': '#0D99FF40',
 
         'danger-hover': '#F2482214',
         'danger-pressed': '#F2482229',
@@ -77,7 +77,7 @@ const figmaLight: ColorTokenTree = {
 
         secondary: '#00000033',
 
-        brand: '#0D99FF45',
+        brand: '#0D99FF40',
         'brand-hover': '#0D99FF85',
         'brand-selected': '#0D99FF',
 

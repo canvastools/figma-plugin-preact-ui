@@ -1,16 +1,16 @@
 import "./index.es10.css";
-import { jsx as a } from "./index.es129.js";
+import { jsx as a } from "./index.es143.js";
 import { useState as w, useRef as I, useEffect as C, useMemo as Y } from "preact/hooks";
 import { ControlGroup as Z } from "./index.es12.js";
 import { Input as A } from "./index.es17.js";
-import { Select as U } from "./index.es38.js";
+import { Select as W } from "./index.es38.js";
 import { Text as J } from "./index.es47.js";
 import { useNumericInput as M } from "./index.es54.js";
 import { useStringInput as Q } from "./index.es55.js";
-import { HexColorPicker as ie, HexAlphaColorPicker as le, RgbaColorPicker as ue } from "./index.es138.js";
+import { HexColorPicker as ie, HexAlphaColorPicker as le, RgbaColorPicker as ue } from "./index.es152.js";
 /* empty css            */
-import { typedForwardRef as se } from "./index.es131.js";
-import { roundAlpha as B, clamp as H, colorToHex as k, hexToColor as W, colorToHexAlpha as ce, hexAlphaToColor as me, colorToRgba as G, rgbaToColor as d } from "./index.es61.js";
+import { typedForwardRef as se } from "./index.es145.js";
+import { roundAlpha as B, clamp as H, colorToHex as k, hexToColor as U, colorToHexAlpha as ce, hexAlphaToColor as me, colorToRgba as G, rgbaToColor as d } from "./index.es61.js";
 import { bem as de } from "./index.es62.js";
 import { Fragment as j } from "preact";
 const u = {
@@ -85,30 +85,30 @@ const u = {
     normalizeOnError: !0
   }), [p, s] = w(e.r.toString()), [c, l] = w(e.g.toString()), [D, _] = w(e.b.toString()), [x, y] = w(Math.round(e.a * 100).toString());
   return C(() => {
-    const t = G(o);
-    s(t.r.toString()), l(t.g.toString()), _(t.b.toString()), y(Math.round(t.a * 100).toString());
+    const n = G(o);
+    s(n.r.toString()), l(n.g.toString()), _(n.b.toString()), y(Math.round(n.a * 100).toString());
   }, [o]), /* @__PURE__ */ a(j, { children: [
     /* @__PURE__ */ a("div", { style: { minWidth: "52px" }, children: /* @__PURE__ */ a(
-      U,
+      W,
       {
         ref: S,
         options: P,
         value: V,
-        onValueChange: (t) => b(t.value),
+        onValueChange: (n) => b(n.value),
         tooltip: "Color mode",
         menuContainerProps: { width: 120 }
       }
     ) }),
-    /* @__PURE__ */ a("div", { className: "ColorPicker__controlsValues", children: /* @__PURE__ */ a(Z, { groupFocus: !0, children: [
+    /* @__PURE__ */ a("div", { className: "ColorPicker__controlsValues", children: /* @__PURE__ */ a(Z, { groupFocus: !0, fullWidth: !0, children: [
       /* @__PURE__ */ a(
         A,
         {
           className: "ColorPicker__inputCompact",
           tooltip: "Red",
           value: p,
-          onValueChange: (t) => s(t.value),
-          onBlur: (t) => {
-            const r = g.parse(t.value);
+          onValueChange: (n) => s(n.value),
+          onBlur: (n) => {
+            const r = g.parse(n.value);
             if (r.error === "required" || r.error === "invalid_number" || r.error === "not_integer") {
               i(d({ r: u.r.min, g: e.g, b: e.b, a: e.a })), s(String(r.formattedValue ?? "0"));
               return;
@@ -123,7 +123,7 @@ const u = {
             }
             i(d({ r: r.normalizedValue ?? 0, g: e.g, b: e.b, a: e.a })), s(String(r.formattedValue ?? "0"));
           },
-          onKeyDown: (t) => g.handleKeyDown(t, (r) => {
+          onKeyDown: (n) => g.handleKeyDown(n, (r) => {
             s(String(r));
           })
         }
@@ -134,9 +134,9 @@ const u = {
           className: "ColorPicker__inputCompact",
           tooltip: "Green",
           value: c,
-          onValueChange: (t) => l(t.value),
-          onBlur: (t) => {
-            const r = O.parse(t.value);
+          onValueChange: (n) => l(n.value),
+          onBlur: (n) => {
+            const r = O.parse(n.value);
             if (r.error === "required" || r.error === "invalid_number" || r.error === "not_integer") {
               i(d({ r: e.r, g: u.g.min, b: e.b, a: e.a })), l(String(r.formattedValue ?? "0"));
               return;
@@ -151,7 +151,7 @@ const u = {
             }
             i(d({ r: e.r, g: r.normalizedValue ?? 0, b: e.b, a: e.a })), l(String(r.formattedValue ?? "0"));
           },
-          onKeyDown: (t) => O.handleKeyDown(t, (r) => {
+          onKeyDown: (n) => O.handleKeyDown(n, (r) => {
             l(String(r));
           })
         }
@@ -162,9 +162,9 @@ const u = {
           className: "ColorPicker__inputCompact",
           tooltip: "Blue",
           value: D,
-          onValueChange: (t) => _(t.value),
-          onBlur: (t) => {
-            const r = h.parse(t.value);
+          onValueChange: (n) => _(n.value),
+          onBlur: (n) => {
+            const r = h.parse(n.value);
             if (r.error === "required" || r.error === "invalid_number" || r.error === "not_integer") {
               i(d({ r: e.r, g: e.g, b: u.b.min, a: e.a })), _(String(r.formattedValue ?? "0"));
               return;
@@ -179,7 +179,7 @@ const u = {
             }
             i(d({ r: e.r, g: e.g, b: r.normalizedValue ?? 0, a: e.a })), _(String(r.formattedValue ?? "0"));
           },
-          onKeyDown: (t) => h.handleKeyDown(t, (r) => {
+          onKeyDown: (n) => h.handleKeyDown(n, (r) => {
             _(String(r));
           })
         }
@@ -191,9 +191,9 @@ const u = {
           tooltip: "Opacity",
           value: x,
           suffix: /* @__PURE__ */ a(J, { intentModifier: "secondary", children: /* @__PURE__ */ a("div", { className: "ColorPicker__controlOpacityContainer", children: "%" }) }),
-          onValueChange: (t) => y(t.value),
-          onBlur: (t) => {
-            const r = v.parse(t.value);
+          onValueChange: (n) => y(n.value),
+          onBlur: (n) => {
+            const r = v.parse(n.value);
             if (r.error === "required" || r.error === "invalid_number" || r.error === "not_integer") {
               i(d({ r: e.r, g: e.g, b: e.b, a: u.a.min })), y(String(r.formattedValue ?? "0"));
               return;
@@ -209,7 +209,7 @@ const u = {
             const f = r.normalizedValue ?? 0, q = B(H(f / 100, u.a.min, u.a.max));
             i(d({ r: e.r, g: e.g, b: e.b, a: q })), y(String(r.formattedValue ?? "0"));
           },
-          onKeyDown: (t) => v.handleKeyDown(t, (r) => {
+          onKeyDown: (n) => v.handleKeyDown(n, (r) => {
             if (y(String(r)), typeof r != "number") return;
             const f = B(H(r / 100, u.a.min, u.a.max));
             i(d({ r: e.r, g: e.g, b: e.b, a: f }));
@@ -242,7 +242,7 @@ const u = {
   });
   return /* @__PURE__ */ a(j, { children: [
     /* @__PURE__ */ a("div", { style: { minWidth: "52px" }, children: /* @__PURE__ */ a(
-      U,
+      W,
       {
         ref: S,
         options: P,
@@ -259,7 +259,7 @@ const u = {
         value: e.toUpperCase(),
         onValueChange: (h) => g(h.value),
         onBlur: (h) => {
-          const v = O.parse(h.value), p = W(v.formattedValue, o.a);
+          const v = O.parse(h.value), p = U(v.formattedValue, o.a);
           p && i({ ...o, ...p }), g(v.formattedValue);
         }
       }
@@ -301,7 +301,7 @@ const u = {
     p(Math.round(o.a * 100).toString());
   }, [o.a]), /* @__PURE__ */ a(j, { children: [
     /* @__PURE__ */ a("div", { style: { minWidth: "52px" }, children: /* @__PURE__ */ a(
-      U,
+      W,
       {
         ref: S,
         options: P,
@@ -311,7 +311,7 @@ const u = {
         menuContainerProps: { width: 120 }
       }
     ) }),
-    /* @__PURE__ */ a("div", { className: "ColorPicker__controlsValues", children: /* @__PURE__ */ a(Z, { groupFocus: !0, children: [
+    /* @__PURE__ */ a("div", { className: "ColorPicker__controlsValues", children: /* @__PURE__ */ a(Z, { groupFocus: !0, fullWidth: !0, children: [
       /* @__PURE__ */ a(
         A,
         {
@@ -319,7 +319,7 @@ const u = {
           value: e.toUpperCase(),
           onValueChange: (s) => g(s.value),
           onBlur: (s) => {
-            const c = O.parse(s.value), l = W(c.formattedValue, o.a);
+            const c = O.parse(s.value), l = U(c.formattedValue, o.a);
             l && i({ ...o, ...l }), g(c.formattedValue);
           }
         }
@@ -378,66 +378,66 @@ const u = {
   const [l, D] = w(() => e || P || { r: 1, g: 0, b: 0, a: 1 }), _ = I(null);
   C(() => {
     if (e) {
-      const n = {
+      const t = {
         ...e,
         a: B(H(e.a, 0, 1))
       };
-      D(n), _.current = n;
+      D(t), _.current = t;
     }
   }, [e]);
   const x = Y(
     () => S && S.length ? S : ["hex", "hexAlpha", "rgba"],
     [S]
-  ), [y, t] = w(
+  ), [y, n] = w(
     () => x.includes(V) ? V : x[0]
   );
   C(() => {
-    b && t(b);
+    b && n(b);
   }, [b]);
   const r = Y(() => x && x.length ? x.join("|") : "", [x]);
   C(() => {
     if (b)
       return;
-    const n = x.includes(V) ? V : x[0];
-    t(n);
+    const t = x.includes(V) ? V : x[0];
+    n(t);
   }, [V, r, x, b]);
-  const f = y, q = (n) => {
-    n !== y && (t(n), v == null || v({ type: n }));
-  }, z = I(null), L = I(!1), F = I(null), R = I(null), ee = (n, m) => n.r === m.r && n.g === m.g && n.b === m.b && n.a === m.a, re = () => {
-    const n = F.current;
-    if (F.current = null, R.current = null, !n) return;
+  const f = y, q = (t) => {
+    t !== y && (n(t), v == null || v({ type: t }));
+  }, z = I(null), L = I(!1), F = I(null), R = I(null), ee = (t, m) => t.r === m.r && t.g === m.g && t.b === m.b && t.a === m.a, re = () => {
+    const t = F.current;
+    if (F.current = null, R.current = null, !t) return;
     const m = {
-      ...n,
-      a: B(H(n.a, 0, 1))
+      ...t,
+      a: B(H(t.a, 0, 1))
     }, N = _.current;
     N !== null && ee(m, N) || (_.current = m, D(m), p == null || p({
       color: m,
       hex: k(m),
       opacity: m.a
     }));
-  }, K = (n) => {
-    F.current = n, R.current == null && (R.current = window.requestAnimationFrame(re));
+  }, K = (t) => {
+    F.current = t, R.current == null && (R.current = window.requestAnimationFrame(re));
   };
   C(() => () => {
     R.current != null && (cancelAnimationFrame(R.current), R.current = null), F.current = null;
   }, []);
-  const ne = de("ColorPicker", void 0, {
+  const te = de("ColorPicker", void 0, {
     type: f,
     controls: g,
     fullWidth: !!h
-  }), te = (n) => {
-    n.key && (L.current = !0);
+  }), ne = (t) => {
+    t.key && (L.current = !0);
   }, ae = () => {
     L.current = !1;
   };
   C(() => {
     !g || !z.current || L.current && (z.current.focus(), L.current = !1);
   }, [f, g]);
-  const X = pe.filter((n) => x.includes(n.value)), T = !x.includes("hex") && x.includes("hexAlpha") ? X.map((n) => n.value === "hexAlpha" ? { ...n, label: "Hex" } : n) : X, oe = (n) => {
-    const m = n.key;
+  const X = pe.filter((t) => x.includes(t.value)), T = !x.includes("hex") && x.includes("hexAlpha") ? X.map((t) => t.value === "hexAlpha" ? { ...t, label: "Hex" } : t) : X, oe = (t) => {
+    const m = t.key;
     if (m === "Escape" || m === "Esc") {
-      n.stopPropagation(), n.preventDefault();
-      const N = n.target;
+      t.stopPropagation(), t.preventDefault();
+      const N = t.target;
       N && typeof N.blur == "function" && N.blur();
     }
   };
@@ -445,10 +445,10 @@ const u = {
     "div",
     {
       id: o,
-      className: [ne, i].join(" ").trim(),
+      className: [te, i].join(" ").trim(),
       "data-pui-interactive": "true",
       ref: c,
-      onKeyDownCapture: te,
+      onKeyDownCapture: ne,
       onMouseDownCapture: ae,
       onKeyDown: oe,
       ...s,
@@ -460,8 +460,8 @@ const u = {
           ie,
           {
             color: k(l),
-            onChange: (n) => {
-              const m = W(n, l.a);
+            onChange: (t) => {
+              const m = U(t, l.a);
               m && K(m);
             }
           }
@@ -470,8 +470,8 @@ const u = {
           le,
           {
             color: ce(l),
-            onChange: (n) => {
-              const m = me(n);
+            onChange: (t) => {
+              const m = me(t);
               m && K(m);
             }
           }
@@ -480,8 +480,8 @@ const u = {
           ue,
           {
             color: G(l),
-            onChange: (n) => {
-              K(d(n));
+            onChange: (t) => {
+              K(d(t));
             }
           }
         ),
@@ -490,7 +490,7 @@ const u = {
             fe,
             {
               color: l,
-              setColor: (n) => K(n),
+              setColor: (t) => K(t),
               type: f,
               setType: q,
               options: T,

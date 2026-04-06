@@ -1,8 +1,8 @@
 import "./index.es42.css";
-import { jsx as i } from "./index.es129.js";
+import { jsx as i } from "./index.es143.js";
 import { useState as y, useEffect as k } from "preact/hooks";
 /* empty css            */
-import { typedForwardRef as N } from "./index.es131.js";
+import { typedForwardRef as N } from "./index.es145.js";
 import { bem as x } from "./index.es62.js";
 const B = ({ id: p, className: m, checked: o, defaultChecked: u = !1, disabled: r = !1, onCheckedChange: s, ...f }, d) => {
   const c = o !== void 0, [a, e] = y(c ? !!o : !!u);

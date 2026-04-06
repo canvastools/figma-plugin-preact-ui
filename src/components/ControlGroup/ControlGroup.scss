@@ -29,11 +29,18 @@
 
   // Combinations
 
-  & .Input_grouped + *,
-  & .Button_grouped + *,
-  & .TimePicker_grouped + *,
-  & .Select_grouped + * {
+  &:not(&_disabled) .Input_grouped + *,
+  &:not(&_disabled) .Button_grouped + *,
+  &:not(&_disabled) .TimePicker_grouped + *,
+  &:not(&_disabled) .Select_grouped + * {
     margin-left: 1px;
+  }
+
+  &:is(&_disabled) .Input_grouped + *,
+  &:is(&_disabled) .Button_grouped + *,
+  &:is(&_disabled) .TimePicker_grouped + *,
+  &:is(&_disabled) .Select_grouped + * {
+    margin-left: -1px;
   }
 
   & .Button_grouped + .Button_grouped,
@@ -48,19 +55,19 @@
     margin-left: -1px;
   }
 
-  &_groupFocus:hover::before {
+  &_groupFocus:not(&_disabled):hover::before {
     outline-color: var(--pui-color-neutral-border-default-hover);
   }
 
-  &_groupFocus:focus-within::before {
+  &_groupFocus:not(&_disabled):focus-within::before {
     outline-color: var(--pui-color-neutral-border-default-selected);
   }
 
-  &_groupFocus:hover .Input__container:hover,
-  &_groupFocus:focus-within .Input__container:focus-within,
-  &_groupFocus:focus-within .Input__container:hover:is(:focus-within),
-  &_groupFocus:hover .react-time-picker__inputGroup:hover,
-  &_groupFocus:focus-within .react-time-picker__inputGroup:focus-within {
+  &_groupFocus:not(&_disabled):hover .Input__container:hover,
+  &_groupFocus:not(&_disabled):focus-within .Input__container:focus-within,
+  &_groupFocus:not(&_disabled):focus-within .Input__container:hover:is(:focus-within),
+  &_groupFocus:not(&_disabled):hover .react-time-picker__inputGroup:hover,
+  &_groupFocus:not(&_disabled):focus-within .react-time-picker__inputGroup:focus-within {
     outline-color: transparent !important;
   }
 

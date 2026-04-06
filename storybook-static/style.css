@@ -20,7 +20,7 @@
   --pui-color-neutral-bg-default-hover: #0000000D;
   --pui-color-neutral-bg-default-pressed: #0000001C;
   --pui-color-neutral-bg-default-selected: #0D99FF1F;
-  --pui-color-neutral-bg-default-selected-hover: #0D99FF45;
+  --pui-color-neutral-bg-default-selected-hover: #0D99FF40;
   --pui-color-neutral-bg-default-selected-pressed: #0D99FF1F;
   --pui-color-neutral-bg-secondary: #F5F5F5;
   --pui-color-neutral-bg-secondary-hover: #0000001C;
@@ -28,7 +28,7 @@
   --pui-color-neutral-bg-secondary-selected: #0D99FF0F;
   --pui-color-neutral-bg-tertiary: #E6E6E6;
   --pui-color-neutral-bg-brand-hover: #0D99FF1F;
-  --pui-color-neutral-bg-brand-pressed: #0D99FF45;
+  --pui-color-neutral-bg-brand-pressed: #0D99FF40;
   --pui-color-neutral-bg-danger-hover: #F2482214;
   --pui-color-neutral-bg-danger-pressed: #F2482229;
   --pui-color-neutral-bg-disabled: #F5F5F5;
@@ -57,7 +57,7 @@
   --pui-color-neutral-border-default-selected: #0D99FF;
   --pui-color-neutral-border-default-selected-contrast: #0D99FF6B;
   --pui-color-neutral-border-secondary: #00000033;
-  --pui-color-neutral-border-brand: #0D99FF45;
+  --pui-color-neutral-border-brand: #0D99FF40;
   --pui-color-neutral-border-brand-hover: #0D99FF85;
   --pui-color-neutral-border-brand-selected: #0D99FF;
   --pui-color-neutral-border-danger: #F248224D;
@@ -146,7 +146,7 @@
   --pui-color-neutral-bg-default-hover: #FFFFFF0F;
   --pui-color-neutral-bg-default-pressed: #FFFFFF1F;
   --pui-color-neutral-bg-default-selected: #85A5FF5C;
-  --pui-color-neutral-bg-default-selected-hover: #91B4FF66;
+  --pui-color-neutral-bg-default-selected-hover: #91B4FF5C;
   --pui-color-neutral-bg-default-selected-pressed: #85A5FF5C;
   --pui-color-neutral-bg-secondary: #383838;
   --pui-color-neutral-bg-secondary-hover: #FFFFFF1F;
@@ -226,7 +226,7 @@
   --pui-color-brand-text-disabled: #2C2C2C;
   --pui-color-brand-icon-default: #FFFFFF;
   --pui-color-brand-icon-secondary: #A8D6F7;
-  --pui-color-brand-icon-disabled: #FFFFFF;
+  --pui-color-brand-icon-disabled: #2C2C2C;
   --pui-color-brand-border-default: #7CC4F8;
   --pui-color-danger-bg-default: #E03E1A;
   --pui-color-danger-bg-default-hover: #C4381C;
@@ -272,7 +272,7 @@
   --pui-color-neutral-bg-default-hover: #0000000D;
   --pui-color-neutral-bg-default-pressed: #0000001C;
   --pui-color-neutral-bg-default-selected: #7C2BDA1F;
-  --pui-color-neutral-bg-default-selected-hover: #7C2BDA45;
+  --pui-color-neutral-bg-default-selected-hover: #7C2BDA40;
   --pui-color-neutral-bg-default-selected-pressed: #7C2BDA1F;
   --pui-color-neutral-bg-secondary: #F5F5F5;
   --pui-color-neutral-bg-secondary-hover: #0000001C;
@@ -280,7 +280,7 @@
   --pui-color-neutral-bg-secondary-selected: #7C2BDA0F;
   --pui-color-neutral-bg-tertiary: #E6E6E6;
   --pui-color-neutral-bg-brand-hover: #7C2BDA1F;
-  --pui-color-neutral-bg-brand-pressed: #7C2BDA45;
+  --pui-color-neutral-bg-brand-pressed: #7C2BDA40;
   --pui-color-neutral-bg-danger-hover: #F2482214;
   --pui-color-neutral-bg-danger-pressed: #F2482229;
   --pui-color-neutral-bg-disabled: #F5F5F5;
@@ -309,7 +309,7 @@
   --pui-color-neutral-border-default-selected: #7C2BDA;
   --pui-color-neutral-border-default-selected-contrast: #7C2BDA6B;
   --pui-color-neutral-border-secondary: #00000033;
-  --pui-color-neutral-border-brand: #7C2BDA45;
+  --pui-color-neutral-border-brand: #7C2BDA40;
   --pui-color-neutral-border-brand-hover: #7C2BDA85;
   --pui-color-neutral-border-brand-selected: #7C2BDA;
   --pui-color-neutral-border-danger: #F248224D;

@@ -1,62 +1,78 @@
-import { jsx as d } from "./index.es129.js";
-import { createContext as C } from "preact";
-import { useRef as s, useCallback as O, useMemo as D, useContext as E } from "preact/hooks";
-const v = C(void 0), H = 1200, w = 480, h = () => E(v), A = ({ children: i }) => {
-  const f = s(null), r = s({
+import { jsx as C } from "./index.es143.js";
+import { createContext as H } from "preact";
+import { useRef as s, useCallback as f, useMemo as g, useContext as h } from "preact/hooks";
+const D = H(void 0), E = 1200, v = 480, A = () => h(D), S = ({ children: a }) => {
+  const p = s(null), t = s({
     ref: null,
     setOpen: null
-  }), n = s({
+  }), c = s({
     ref: null,
     setOpen: null
-  }), e = s(null), u = s(null), a = O((l, o) => {
-    var T, x;
-    const c = Date.now(), m = f.current;
-    if (m != null && c - m < w && n.current.ref && n.current.setOpen) {
-      u.current != null && (clearTimeout(u.current), u.current = null);
-      const t = n.current;
-      t.ref === l ? ((T = t.setOpen) == null || T.call(t, !0), r.current = {
-        ref: l,
-        setOpen: t.setOpen ?? null
-      }) : ((x = t.setOpen) == null || x.call(t, !1), o(!0), r.current = {
-        ref: l,
-        setOpen: o
-      }), n.current = {
+  }), e = s(null), o = s(null), i = f((r, n) => {
+    p.current = Date.now(), c.current = {
+      ref: r,
+      setOpen: n
+    }, o.current != null && clearTimeout(o.current), o.current = window.setTimeout(() => {
+      o.current = null;
+      const u = c.current;
+      !u.ref || !u.setOpen || (u.setOpen(!1), t.current.ref && t.current.ref === u.ref && (t.current = {
+        ref: null,
+        setOpen: null
+      }), c.current = {
+        ref: null,
+        setOpen: null
+      });
+    }, v);
+  }, []), m = f((r, n) => {
+    var x, d;
+    const u = Date.now(), w = p.current;
+    if (w != null && u - w < v && c.current.ref && c.current.setOpen) {
+      o.current != null && (clearTimeout(o.current), o.current = null);
+      const l = c.current;
+      l.ref === r ? ((x = l.setOpen) == null || x.call(l, !0), t.current = {
+        ref: r,
+        setOpen: l.setOpen ?? null
+      }) : ((d = l.setOpen) == null || d.call(l, !1), n(!0), t.current = {
+        ref: r,
+        setOpen: n
+      }), c.current = {
         ref: null,
         setOpen: null
       }, e.current != null && (clearTimeout(e.current), e.current = null);
       return;
     }
     e.current != null && clearTimeout(e.current), e.current = window.setTimeout(() => {
-      e.current = null, o(!0), r.current = {
-        ref: l,
-        setOpen: o
+      e.current = null, n(!0), t.current = {
+        ref: r,
+        setOpen: n
       };
-    }, H);
-  }, []), p = O((l, o) => {
-    e.current != null && (clearTimeout(e.current), e.current = null), !(!r.current.ref || r.current.ref !== l) && (f.current = Date.now(), n.current = {
-      ref: l,
-      setOpen: o
-    }, u.current != null && clearTimeout(u.current), u.current = window.setTimeout(() => {
-      u.current = null;
-      const c = n.current;
-      !c.ref || !c.setOpen || (c.setOpen(!1), r.current.ref && r.current.ref === c.ref && (r.current = {
+    }, E);
+  }, []), T = f(
+    (r, n) => {
+      e.current != null && (clearTimeout(e.current), e.current = null);
+      const u = t.current;
+      u.ref && u.setOpen && (u.setOpen(!1), t.current = {
         ref: null,
         setOpen: null
-      }), n.current = {
-        ref: null,
-        setOpen: null
-      });
-    }, w));
-  }, []), R = D(
+      }), i(r, n);
+    },
+    [i]
+  ), O = f(
+    (r, n) => {
+      e.current != null && (clearTimeout(e.current), e.current = null), !(!t.current.ref || t.current.ref !== r) && i(r, n);
+    },
+    [i]
+  ), R = g(
     () => ({
-      registerHoverStart: a,
-      registerHoverEnd: p
+      registerHoverStart: m,
+      registerHoverEnd: O,
+      registerPointerDown: T
     }),
-    [a, p]
+    [m, O, T]
   );
-  return /* @__PURE__ */ d(v.Provider, { value: R, children: i });
+  return /* @__PURE__ */ C(D.Provider, { value: R, children: a });
 };
 export {
-  A as TooltipContext,
-  h as useTooltipContext
+  S as TooltipContext,
+  A as useTooltipContext
 };

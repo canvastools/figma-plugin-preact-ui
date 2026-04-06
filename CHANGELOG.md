@@ -1,5 +1,17 @@
 # Changelog
 
+### 1.1.0 - 6 Apr 2026
+
+- Minor style fixes
+- Added 14 icons
+
+- Fixed the Scroll thumb inside the popover when trying to drag it with the mouse.
+- Fixed Popover closing when interacting with WindowResizer
+
+- ControlGroup: added `disabled` prop
+- ColorSwatch: added gradient fill support
+- TabList: add `scrollable` prop
+
 ### 1.0.0 - 21 Mar 2026
 
 - Property naming reviewed and standardised

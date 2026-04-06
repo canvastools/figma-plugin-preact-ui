@@ -30,7 +30,7 @@ export { ColorPicker } from './components/ColorPicker/ColorPicker'
 export type { ColorPickerProps, Color, ColorPickerType } from './components/ColorPicker/ColorPicker.types'
 
 export { ColorSwatch } from './components/ColorSwatch/ColorSwatch'
-export type { ColorSwatchProps } from './components/ColorSwatch/ColorSwatch.types'
+export type { ColorSwatchProps, GradientPaint, ColorStop, Vector } from './components/ColorSwatch/ColorSwatch.types'
 
 export { ControlGroup } from './components/ControlGroup/ControlGroup'
 export type { ControlGroupProps } from './components/ControlGroup/ControlGroup.types'
@@ -182,6 +182,13 @@ export { bem } from './utils'
 export {
   adjust,
   ai,
+  arrowDown,
+  arrowLeft,
+  arrowRight,
+  arrowUp,
+  blendMode,
+  blendModeFilled,
+  blur,
   check,
   chevronDoubleDown,
   chevronDoubleLeft,
@@ -200,6 +207,7 @@ export {
   filter,
   filterFilled,
   frame,
+  help,
   home,
   imports,
   info,
@@ -208,6 +216,7 @@ export {
   letterSpacing,
   lineHeight,
   link,
+  lockLocked,
   lowerCase,
   plus,
   radiusBottomLeft,
@@ -230,15 +239,18 @@ export {
   person,
   rotation,
   returns,
+  rotate,
   search,
   select,
   settings,
   spacingHorizontal,
   spacingVertical,
+  spread,
   strikethrough,
   strokeDash,
   strokeSolid,
   strokeWidth,
+  swap,
   titleCase,
   underline,
   upperCase,
@@ -246,4 +258,6 @@ export {
   viewList,
   warning,
   widget,
+  x,
+  y,
 } from './components/Icon/glyphs'

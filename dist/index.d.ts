@@ -203,19 +203,32 @@ declare const ColorPicker: (props: ColorPickerProps & {
     ref?: preact$1.Ref<HTMLDivElement> | undefined;
 }) => preact$1.VNode | null;
 
+type GradientPaint = {
+    type: 'gradient-linear' | 'gradient-radial' | 'gradient-angular';
+    gradientHandlePositions: [Vector, Vector, Vector];
+    gradientStops: ColorStop[];
+};
+type ColorStop = {
+    color: Color;
+    position: number;
+};
+type Vector = {
+    x: number;
+    y: number;
+};
 interface ColorSwatchProps {
     id?: string;
     className?: string;
-    size?: "small" | "medium" | "large";
-    color?: Color;
+    size?: 'small' | 'medium' | 'large';
+    fill?: Color | GradientPaint;
     disabled?: boolean;
     selected?: boolean;
-    selection?: "default" | "rainbow";
+    selection?: 'default' | 'rainbow';
     tooltip?: preact.ComponentChildren;
     children?: preact.ComponentChildren;
     onClick?: (args: {
         event: MouseEvent;
-        color: Color | undefined;
+        fill: Color | GradientPaint | undefined;
     }) => void;
 }
 
@@ -228,6 +241,7 @@ interface ControlGroupProps {
     className?: string;
     groupFocus?: boolean;
     fullWidth?: boolean;
+    disabled?: boolean;
     children: preact.ComponentChildren;
 }
 
@@ -876,6 +890,7 @@ interface TabListProps {
     id?: string;
     className?: string;
     variant?: 'default' | 'list';
+    scrollable?: boolean;
     children: preact.ComponentChildren;
 }
 
@@ -1031,6 +1046,7 @@ declare const TooltipContainer: (props: TooltipContainerProps & {
 interface TooltipContextValue {
     registerHoverStart: (ref: preact.RefObject<HTMLElement>, setOpen: (open: boolean) => void) => void;
     registerHoverEnd: (ref: preact.RefObject<HTMLElement>, setOpen: (open: boolean) => void) => void;
+    registerPointerDown: (ref: preact.RefObject<HTMLElement>, setOpen: (open: boolean) => void) => void;
 }
 interface TooltipContextProps {
     children: preact.ComponentChildren;
@@ -1153,6 +1169,20 @@ declare const adjust: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
 
 declare const ai: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
 
+declare const arrowDown: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
+
+declare const arrowLeft: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
+
+declare const arrowRight: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
+
+declare const arrowUp: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
+
+declare const blendMode: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
+
+declare const blendModeFilled: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
+
+declare const blur: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
+
 declare const check: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
 
 declare const chevronDoubleDown: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
@@ -1199,11 +1229,15 @@ declare const filterFilled: ({ variant, size }: GlyphProps) => preact$1.JSX.Elem
 
 declare const frame: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
 
+declare const help: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
+
 declare const letterSpacing: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
 
 declare const lineHeight: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
 
 declare const link: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
+
+declare const lockLocked: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
 
 declare const lowerCase: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
 
@@ -1220,6 +1254,8 @@ declare const radiusTopRight: ({ variant, size }: GlyphProps) => preact$1.JSX.El
 declare const refresh: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
 
 declare const returns: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
+
+declare const rotate: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
 
 declare const minus: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
 
@@ -1259,6 +1295,8 @@ declare const spacingHorizontal: ({ variant, size }: GlyphProps) => preact$1.JSX
 
 declare const spacingVertical: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
 
+declare const spread: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
+
 declare const strikethrough: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
 
 declare const strokeDash: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
@@ -1266,6 +1304,8 @@ declare const strokeDash: ({ variant, size }: GlyphProps) => preact$1.JSX.Elemen
 declare const strokeSolid: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
 
 declare const strokeWidth: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
+
+declare const swap: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
 
 declare const titleCase: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
 
@@ -1281,5 +1321,9 @@ declare const warning: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
 
 declare const widget: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
 
-export { Avatar, Badge, Bar, Button, ButtonIcon, ButtonIconToggle, Calendar, Checkbox, Code, ColorPicker, ColorSwatch, ControlGroup, Divider, Fog, Icon, Input, List, ListContainer, ListContext, ListItem, Menu, MenuContainer, MenuContext, MenuDivider, MenuItemAction, MenuItemOption, OverlayPositioner, Popover, PopoverContainer, PopoverContext, PopoverHeader, Progress, ScrollContainer, ScrollContext, Section, SegmentedControl, Select, Spacing, Spinner, Stack, Switch, Tab, TabContext, TabList, TabPanel, Text, TextArea, TimePicker, Tooltip, TooltipContainer, TooltipContext, WindowResizer, adjust, ai, bem, check, chevronDoubleDown, chevronDoubleLeft, chevronDoubleRight, chevronDoubleUp, chevronDown, chevronLeft, chevronRight, chevronUp, close, colorToHex, colorToHexAlpha, colorToRgba, copy, corners, dragHandle, duplicate, eyeDropper, figjamLight, figmaDark, figmaLight, filter, filterFilled, frame, hexAlphaToColor, hexToColor, home, imports, info, insert, instance, letterSpacing, lineHeight, link, lowerCase, minus, mixed, more, opacity, paddingBottom, paddingHorizontal, paddingLeft, paddingRight, paddingSides, paddingTop, paddingVertical, people, person, plus, radius, radiusBottomLeft, radiusBottomRight, radiusTopLeft, radiusTopRight, refresh, returns, rgbaToColor, rotation, search, select, settings, spacing, spacingHorizontal, spacingVertical, strikethrough, strokeDash, strokeSolid, strokeWidth, titleCase, underline, upperCase, useListContext, useMenuContext, useMenuContextOptional, useNumericInput, usePopoverContext, useScrollContext, useScrollContextOptional, useStringInput, useTabContext, useTooltipContext, viewGrid, viewList, warning, widget };
-export type { AvatarProps, BadgeProps, BarProps, ButtonIconProps, ButtonIconToggleProps, ButtonProps, CalendarDate, CalendarProps, CheckboxProps, CheckboxValue, CodeProps, Color, ColorPickerProps, ColorPickerType, ColorSwatchProps, ControlGroupProps, DividerProps, FogProps, Glyph, GlyphProps, IconProps, IconPropsPick, InputProps, ListContainerProps, ListContextProps, ListContextValue, ListItemData, ListItemProps, ListItemPropsPick, ListProps, MenuContainerProps, MenuContainerPropsPick, MenuContextProps, MenuContextValue, MenuDividerProps, MenuItemActionProps, MenuItemData, MenuItemOptionProps, MenuProps, NumericInputConfig, NumericInputError, NumericInputParseResult, OverlayPositionerPlacement, OverlayPositionerProps, PopoverContainerProps, PopoverContextProps, PopoverContextValue, PopoverHeaderProps, PopoverProps, ProgressProps, Rgba, ScrollContainerProps, ScrollContextProps, ScrollContextValue, SectionPadding, SectionProps, SegmentedControlOptionData, SegmentedControlProps, SelectOptionData, SelectProps, SpacingProps, SpinnerProps, StackProps, StringInputConfig, StringInputError, StringInputParseResult, SwitchProps, TabContextProps, TabContextValue, TabListProps, TabPanelProps, TabProps, TextAreaProps, TextProps, TimePickerDate, TimePickerProps, TooltipContainerProps, TooltipContextProps, TooltipContextValue, TooltipProps, WindowResizerProps };
+declare const x: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
+
+declare const y: ({ variant, size }: GlyphProps) => preact$1.JSX.Element;
+
+export { Avatar, Badge, Bar, Button, ButtonIcon, ButtonIconToggle, Calendar, Checkbox, Code, ColorPicker, ColorSwatch, ControlGroup, Divider, Fog, Icon, Input, List, ListContainer, ListContext, ListItem, Menu, MenuContainer, MenuContext, MenuDivider, MenuItemAction, MenuItemOption, OverlayPositioner, Popover, PopoverContainer, PopoverContext, PopoverHeader, Progress, ScrollContainer, ScrollContext, Section, SegmentedControl, Select, Spacing, Spinner, Stack, Switch, Tab, TabContext, TabList, TabPanel, Text, TextArea, TimePicker, Tooltip, TooltipContainer, TooltipContext, WindowResizer, adjust, ai, arrowDown, arrowLeft, arrowRight, arrowUp, bem, blendMode, blendModeFilled, blur, check, chevronDoubleDown, chevronDoubleLeft, chevronDoubleRight, chevronDoubleUp, chevronDown, chevronLeft, chevronRight, chevronUp, close, colorToHex, colorToHexAlpha, colorToRgba, copy, corners, dragHandle, duplicate, eyeDropper, figjamLight, figmaDark, figmaLight, filter, filterFilled, frame, help, hexAlphaToColor, hexToColor, home, imports, info, insert, instance, letterSpacing, lineHeight, link, lockLocked, lowerCase, minus, mixed, more, opacity, paddingBottom, paddingHorizontal, paddingLeft, paddingRight, paddingSides, paddingTop, paddingVertical, people, person, plus, radius, radiusBottomLeft, radiusBottomRight, radiusTopLeft, radiusTopRight, refresh, returns, rgbaToColor, rotate, rotation, search, select, settings, spacing, spacingHorizontal, spacingVertical, spread, strikethrough, strokeDash, strokeSolid, strokeWidth, swap, titleCase, underline, upperCase, useListContext, useMenuContext, useMenuContextOptional, useNumericInput, usePopoverContext, useScrollContext, useScrollContextOptional, useStringInput, useTabContext, useTooltipContext, viewGrid, viewList, warning, widget, x, y };
+export type { AvatarProps, BadgeProps, BarProps, ButtonIconProps, ButtonIconToggleProps, ButtonProps, CalendarDate, CalendarProps, CheckboxProps, CheckboxValue, CodeProps, Color, ColorPickerProps, ColorPickerType, ColorStop, ColorSwatchProps, ControlGroupProps, DividerProps, FogProps, Glyph, GlyphProps, GradientPaint, IconProps, IconPropsPick, InputProps, ListContainerProps, ListContextProps, ListContextValue, ListItemData, ListItemProps, ListItemPropsPick, ListProps, MenuContainerProps, MenuContainerPropsPick, MenuContextProps, MenuContextValue, MenuDividerProps, MenuItemActionProps, MenuItemData, MenuItemOptionProps, MenuProps, NumericInputConfig, NumericInputError, NumericInputParseResult, OverlayPositionerPlacement, OverlayPositionerProps, PopoverContainerProps, PopoverContextProps, PopoverContextValue, PopoverHeaderProps, PopoverProps, ProgressProps, Rgba, ScrollContainerProps, ScrollContextProps, ScrollContextValue, SectionPadding, SectionProps, SegmentedControlOptionData, SegmentedControlProps, SelectOptionData, SelectProps, SpacingProps, SpinnerProps, StackProps, StringInputConfig, StringInputError, StringInputParseResult, SwitchProps, TabContextProps, TabContextValue, TabListProps, TabPanelProps, TabProps, TextAreaProps, TextProps, TimePickerDate, TimePickerProps, TooltipContainerProps, TooltipContextProps, TooltipContextValue, TooltipProps, Vector, WindowResizerProps };

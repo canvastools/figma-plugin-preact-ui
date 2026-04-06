@@ -1,11 +1,11 @@
 import "./index.es5.css";
-import { jsx as t } from "./index.es129.js";
+import { jsx as t } from "./index.es143.js";
 import { Fragment as R } from "preact";
 import { useRef as w } from "preact/hooks";
 import { Text as x } from "./index.es47.js";
 import { Tooltip as D } from "./index.es50.js";
 /* empty css            */
-import { typedForwardRef as T } from "./index.es131.js";
+import { typedForwardRef as T } from "./index.es145.js";
 import { bem as j } from "./index.es62.js";
 const E = ({
   id: p,

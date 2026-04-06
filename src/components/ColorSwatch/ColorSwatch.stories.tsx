@@ -6,6 +6,7 @@ import { ColorStory } from './stories/Color.story'
 import { DisabledStory } from './stories/Disabled.story'
 import { SelectionStory } from './stories/Selection.story'
 import { ChildrenStory } from './stories/Children.story'
+import { GradientStory } from './stories/Gradient.story'
 
 import { TooltipContext } from '../../index'
 
@@ -33,17 +34,33 @@ const meta: Meta<typeof ColorSwatch> = {
       options: ['small', 'medium', 'large'],
       defaultValue: { summary: 'medium' },
     },
-    color: {
+    fill: {
       control: { type: 'object' },
       table: {
         type: {
-          summary: 'Color',
+          summary: 'Color | GradientPaint',
           detail: `
-{
+Color:{
   r: number
   g: number
   b: number
   a: number
+}
+
+GradientPaint:{
+  type: 'gradient-linear' | 'gradient-radial' | 'gradient-angular'
+  gradientHandlePositions: [Vector, Vector, Vector]
+  gradientStops: ColorStop[]
+}
+
+ColorStop: {
+  color: Color
+  position: number
+}
+
+Vector: {
+  x: number
+  y: number
 }
 `,
         },
@@ -87,7 +104,7 @@ const meta: Meta<typeof ColorSwatch> = {
           detail: `
 args: { 
   event: MouseEvent
-  color: Color | undefined
+  fill: Color | undefined
 }
           `,
         },
@@ -106,7 +123,7 @@ export const Demo: Story = {
     id: undefined,
     className: '',
     size: 'medium',
-    color: { r: 1, g: 0, b: 0, a: 1 } as Color,
+    fill: { r: 1, g: 0, b: 0, a: 1 } as Color,
     disabled: false,
     selected: false,
     selection: 'default',
@@ -146,3 +163,4 @@ export const _Color = ColorStory
 export const Disabled = DisabledStory
 export const Selection = SelectionStory
 export const Children = ChildrenStory
+export const Gradient = GradientStory

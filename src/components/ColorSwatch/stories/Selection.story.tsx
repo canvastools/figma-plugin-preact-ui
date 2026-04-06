@@ -38,7 +38,7 @@ export const SelectionStory: Story = {
           <Text fullWidth>default, {selectedDefault ? 'true' : 'false'}</Text>
           <ColorSwatch selected={selectedDefault} onClick={() => setSelectedDefault(!selectedDefault)} />
           <ColorSwatch
-            color={{ r: 255, g: 0, b: 0, a: 1 }}
+            fill={{ r: 255, g: 0, b: 0, a: 1 }}
             selected={selectedDefault}
             onClick={() => setSelectedDefault(!selectedDefault)}
           />
@@ -47,7 +47,7 @@ export const SelectionStory: Story = {
           <Text fullWidth>rainbow, {selectedRainbow ? 'true' : 'false'}</Text>
           <ColorSwatch selection="rainbow" selected={selectedRainbow} onClick={() => setSelectedRainbow(!selectedRainbow)} />
           <ColorSwatch
-            color={{ r: 255, g: 0, b: 0, a: 1 }}
+            fill={{ r: 255, g: 0, b: 0, a: 1 }}
             selection="rainbow"
             selected={selectedRainbow}
             onClick={() => setSelectedRainbow(!selectedRainbow)}

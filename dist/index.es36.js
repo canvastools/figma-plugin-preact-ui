@@ -1,7 +1,7 @@
 import "./index.es36.css";
-import { jsx as o } from "./index.es129.js";
+import { jsx as o } from "./index.es143.js";
 /* empty css            */
-import { typedForwardRef as f } from "./index.es131.js";
+import { typedForwardRef as f } from "./index.es145.js";
 import { bem as S } from "./index.es62.js";
 const l = ({ id: r, className: e, children: i, padding: t, variant: m = "default", ...c }, n) => {
   const s = S("Section", void 0, {

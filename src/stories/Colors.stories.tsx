@@ -166,7 +166,7 @@ const colorTokensList = (groups: {
               <ButtonIcon onClick={() => copyToClipboard(tokenMatrix[token][theme] as string)}>
                 <Icon glyph={copyGlyph} />
               </ButtonIcon>
-              <ColorSwatch color={hexAlphaToColor(tokenMatrix[token][theme]) as Color} />
+              <ColorSwatch disabled fill={hexAlphaToColor(tokenMatrix[token][theme]) as Color} />
               <div className="sb-variables-table__name">
                 <Text strong wrap={false}>
                   {tokenMatrix[token][theme]}

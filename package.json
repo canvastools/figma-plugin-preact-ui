@@ -1,6 +1,6 @@
 {
   "name": "figma-plugin-preact-ui",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Preact UI library inspired by Figma's UI3, designed for plugin development.",
   "keywords": [
     "figma",

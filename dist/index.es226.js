@@ -1,14 +1,5 @@
-import { memo as l } from "preact/compat";
-import { jsx as c } from "./index.es129.js";
-var u = l(function(r) {
-  var e = r.angle, a = e === void 0 ? 0 : e, t = r.length, o = t === void 0 ? 10 : t, m = r.name, n = r.number;
-  return c("div", { className: "react-clock__mark react-clock__".concat(m, "-mark"), style: {
-    transform: "rotate(".concat(a, "deg)")
-  }, children: c("div", { className: "react-clock__mark__number", style: {
-    transform: "rotate(-".concat(a, "deg)"),
-    top: "".concat(o / 2, "%")
-  }, children: n }) });
-});
+import r from "./index.es223.js";
 export {
-  u as default
+  r as Clock,
+  r as default
 };

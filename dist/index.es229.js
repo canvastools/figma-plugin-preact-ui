@@ -1,34 +1,29 @@
-function t(o) {
-  return o.getBoundingClientRect();
-}
-function g(o, r) {
-  return {
-    get collidedTop() {
-      return t(o).top < t(r).top;
-    },
-    get collidedBottom() {
-      return t(o).bottom > t(r).bottom;
-    },
-    get collidedLeft() {
-      return t(o).left < t(r).left;
-    },
-    get collidedRight() {
-      return t(o).right > t(r).right;
-    },
-    get overflowTop() {
-      return t(r).top - t(o).top;
-    },
-    get overflowBottom() {
-      return t(o).bottom - t(r).bottom;
-    },
-    get overflowLeft() {
-      return t(r).left - t(o).left;
-    },
-    get overflowRight() {
-      return t(o).right - t(r).right;
-    }
-  };
+import "preact/compat";
+import { jsx as e } from "./index.es143.js";
+import { getHours as m } from "./index.es211.js";
+import { clsx as D } from "./index.es194.js";
+import { convert24to12 as n } from "./index.es236.js";
+import { getAmPmLabels as L } from "./index.es237.js";
+function w({ ariaLabel: i, autoFocus: s, className: a, disabled: d, inputRef: p, locale: u, maxTime: t, minTime: r, onChange: c, onKeyDown: f, required: b, value: o }) {
+  const h = r ? n(m(r))[1] === "pm" : !1, _ = t ? n(m(t))[1] === "am" : !1, l = "amPm", [g, v] = L(u);
+  return e("select", {
+    "aria-label": i,
+    // biome-ignore lint/a11y/noAutofocus: This is up to developers' decision
+    autoFocus: s,
+    className: D(`${a}__input`, `${a}__${l}`),
+    "data-input": "true",
+    "data-select": "true",
+    disabled: d,
+    name: l,
+    onChange: c,
+    onKeyDown: f,
+    // Assertion is needed for React 18 compatibility
+    ref: p,
+    required: b,
+    value: o !== null ? o : "",
+    children: [!o && e("option", { value: "", children: "--" }), e("option", { disabled: h, value: "am", children: g }), e("option", { disabled: _, value: "pm", children: v })]
+  });
 }
 export {
-  g as default
+  w as default
 };

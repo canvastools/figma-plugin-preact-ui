@@ -344,6 +344,8 @@ const OverlayPositionerComponent = (
 
       if (insideOverlay || insideAnchor) return
 
+      if ((target as HTMLElement).closest?.('[data-overlay-keep-open]')) return
+
       // If the click landed inside another OverlayPositioner, only stay open
       // when that overlay is a descendant (its anchor lives inside our
       // container).  Clicks inside an ancestor overlay that contains our

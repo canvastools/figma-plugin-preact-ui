@@ -1,26 +1,56 @@
-const u = (e, t, n, o) => {
-  if (n === "length" || n === "prototype" || n === "arguments" || n === "caller")
-    return;
-  const r = Object.getOwnPropertyDescriptor(e, n), c = Object.getOwnPropertyDescriptor(t, n);
-  !g(r, c) && o || Object.defineProperty(e, n, c);
-}, g = function(e, t) {
-  return e === void 0 || e.configurable || e.writable === t.writable && e.enumerable === t.enumerable && e.configurable === t.configurable && (e.writable || e.value === t.value);
-}, b = (e, t) => {
-  const n = Object.getPrototypeOf(t);
-  n !== Object.getPrototypeOf(e) && Object.setPrototypeOf(e, n);
-}, l = (e, t) => `/* Wrapped ${e}*/
-${t}`, f = Object.getOwnPropertyDescriptor(Function.prototype, "toString"), s = Object.getOwnPropertyDescriptor(Function.prototype.toString, "name"), O = (e, t, n) => {
-  const o = n === "" ? "" : `with ${n.trim()}() `, r = l.bind(null, o, t.toString());
-  Object.defineProperty(r, "name", s);
-  const { writable: c, enumerable: i, configurable: a } = f;
-  Object.defineProperty(e, "toString", { value: r, writable: c, enumerable: i, configurable: a });
-};
-function p(e, t, { ignoreNonConfigurable: n = !1 } = {}) {
-  const { name: o } = e;
-  for (const r of Reflect.ownKeys(t))
-    u(e, t, r, n);
-  return b(e, t), O(e, t, o), e;
-}
+var e = {
+  GREGORY: "gregory",
+  HEBREW: "hebrew",
+  ISLAMIC: "islamic",
+  ISO_8601: "iso8601"
+}, r = {
+  gregory: [
+    "en-CA",
+    "en-US",
+    "es-AR",
+    "es-BO",
+    "es-CL",
+    "es-CO",
+    "es-CR",
+    "es-DO",
+    "es-EC",
+    "es-GT",
+    "es-HN",
+    "es-MX",
+    "es-NI",
+    "es-PA",
+    "es-PE",
+    "es-PR",
+    "es-SV",
+    "es-VE",
+    "pt-BR"
+  ],
+  hebrew: ["he", "he-IL"],
+  islamic: [
+    // ar-LB, ar-MA intentionally missing
+    "ar",
+    "ar-AE",
+    "ar-BH",
+    "ar-DZ",
+    "ar-EG",
+    "ar-IQ",
+    "ar-JO",
+    "ar-KW",
+    "ar-LY",
+    "ar-OM",
+    "ar-QA",
+    "ar-SA",
+    "ar-SD",
+    "ar-SY",
+    "ar-YE",
+    "dv",
+    "dv-MV",
+    "ps",
+    "ps-AR"
+  ]
+}, s = [0, 1, 2, 3, 4, 5, 6];
 export {
-  p as default
+  e as CALENDAR_TYPES,
+  r as CALENDAR_TYPE_LOCALES,
+  s as WEEKDAYS
 };

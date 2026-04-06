@@ -1,6 +1,6 @@
-import { StoryObj } from "@storybook/preact"
+import { StoryObj } from '@storybook/preact'
 
-import { ColorSwatch } from "../ColorSwatch"
+import { ColorSwatch } from '../ColorSwatch'
 
 type Story = StoryObj<typeof ColorSwatch>
 
@@ -8,14 +8,14 @@ export const DisabledStory: Story = {
   parameters: {
     controls: { disable: true },
     viewport: {
-      defaultViewport: "large",
+      defaultViewport: 'large',
     },
     docs: {
       description: {
-        story: "Disabled swatch stops receiving hover and focus events.",
+        story: 'Disabled swatch stops receiving hover and focus events.',
       },
       source: {
-        language: "tsx",
+        language: 'tsx',
         code: `
 <ColorSwatch disabled/>
 `,

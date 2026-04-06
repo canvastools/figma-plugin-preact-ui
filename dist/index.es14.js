@@ -1,7 +1,7 @@
 import "./index.es14.css";
-import { jsx as i } from "./index.es129.js";
+import { jsx as i } from "./index.es143.js";
 /* empty css            */
-import { typedForwardRef as d } from "./index.es131.js";
+import { typedForwardRef as d } from "./index.es145.js";
 import { bem as n } from "./index.es62.js";
 const a = ({ id: r, className: o, variant: e = "full", ...m }, t) => {
   const s = n("Divider", void 0, {

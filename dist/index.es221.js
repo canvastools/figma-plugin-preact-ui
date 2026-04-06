@@ -1,23 +1,26 @@
-import { getUserLocale as o } from "./index.es194.js";
-const c = /* @__PURE__ */ new Map();
-function l(e) {
-  return function(a, r) {
-    const t = a || o();
-    c.has(t) || c.set(t, /* @__PURE__ */ new Map());
-    const n = c.get(t);
-    return n.has(e) || n.set(e, new Intl.DateTimeFormat(t || void 0, e).format), n.get(e)(r);
-  };
-}
-const m = /* @__PURE__ */ new Map();
-function h(e) {
-  return (f, a) => {
-    const r = f || o();
-    m.has(r) || m.set(r, /* @__PURE__ */ new Map());
-    const t = m.get(r);
-    return t.has(e) || t.set(e, new Intl.NumberFormat(r || void 0, e).format), t.get(e)(a);
-  };
+const u = (e, t, n, o) => {
+  if (n === "length" || n === "prototype" || n === "arguments" || n === "caller")
+    return;
+  const r = Object.getOwnPropertyDescriptor(e, n), c = Object.getOwnPropertyDescriptor(t, n);
+  !g(r, c) && o || Object.defineProperty(e, n, c);
+}, g = function(e, t) {
+  return e === void 0 || e.configurable || e.writable === t.writable && e.enumerable === t.enumerable && e.configurable === t.configurable && (e.writable || e.value === t.value);
+}, b = (e, t) => {
+  const n = Object.getPrototypeOf(t);
+  n !== Object.getPrototypeOf(e) && Object.setPrototypeOf(e, n);
+}, l = (e, t) => `/* Wrapped ${e}*/
+${t}`, f = Object.getOwnPropertyDescriptor(Function.prototype, "toString"), s = Object.getOwnPropertyDescriptor(Function.prototype.toString, "name"), O = (e, t, n) => {
+  const o = n === "" ? "" : `with ${n.trim()}() `, r = l.bind(null, o, t.toString());
+  Object.defineProperty(r, "name", s);
+  const { writable: c, enumerable: i, configurable: a } = f;
+  Object.defineProperty(e, "toString", { value: r, writable: c, enumerable: i, configurable: a });
+};
+function p(e, t, { ignoreNonConfigurable: n = !1 } = {}) {
+  const { name: o } = e;
+  for (const r of Reflect.ownKeys(t))
+    u(e, t, r, n);
+  return b(e, t), O(e, t, o), e;
 }
 export {
-  l as getFormatter,
-  h as getNumberFormatter
+  p as default
 };
