@@ -3,5 +3,6 @@ export interface ControlGroupProps {
     className?: string;
     groupFocus?: boolean;
     fullWidth?: boolean;
+    disabled?: boolean;
     children: preact.ComponentChildren;
 }
