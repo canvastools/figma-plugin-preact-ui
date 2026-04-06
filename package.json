@@ -63,8 +63,8 @@
     "prod": "vite build && tsc -p tsconfig.types.json && node ./scripts/clean-scss-imports.js && rollup -c rollup.config.dts.js && rm -rf dist/tmp-types && tsc && eslint . || true",
     "lint": "tsc && eslint . || true",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
-    "deploy-storybook": "gh-pages -d storybook-static"
+    "build-storybook": "STORYBOOK_BASE_PATH=/figma-plugin-preact-ui/ storybook build",
+    "deploy-storybook": "touch storybook-static/.nojekyll && gh-pages -d storybook-static --dotfiles"
   },
   "dependencies": {
     "react-calendar": "^6.0.0",

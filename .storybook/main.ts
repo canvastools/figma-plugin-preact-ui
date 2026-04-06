@@ -19,6 +19,10 @@ const config: StorybookConfig = {
     check: true,
   },
   viteFinal: async (config) => {
+    if (process.env.STORYBOOK_BASE_PATH) {
+      config.base = process.env.STORYBOOK_BASE_PATH
+    }
+
     // Ignore all SCSS imports by mapping them to a virtual JS module
     config.plugins = config.plugins || []
     const VIRTUAL_PREFIX = "\0virtual-empty-scss:"
