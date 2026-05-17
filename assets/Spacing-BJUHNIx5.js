@@ -1,0 +1,1 @@
+import{u as m}from"./hooks.module-6Sbq__eq.js";import{t as c,b as e}from"./typedForwardRef-CtFJgl6m.js";const p=({id:o,className:n,size:t,direction:a="column",...i},r)=>{const s=e("Spacing",void 0,{size:String(t),direction:a});return m("div",{id:o,className:[s,n].join(" ").trim(),ref:r,...i})},g=c(p);export{g as S};

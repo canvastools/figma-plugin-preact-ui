@@ -1,0 +1,1 @@
+import{u as a}from"./hooks.module-6Sbq__eq.js";import{t as i,b as d}from"./typedForwardRef-CtFJgl6m.js";const c=({id:o,className:e,variant:t="inline",children:r,...s},m)=>{const n=d("Code",void 0,{variant:t});return a("div",{id:o,className:[n,e].join(" ").trim(),ref:m,...s,children:r})},f=i(c);export{f as C};
