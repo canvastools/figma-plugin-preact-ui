@@ -82,6 +82,11 @@ const meta: Meta<typeof useNumericInput> = {
       defaultValue: { summary: false },
       description: 'Evaluates simple arithmetic expressions before validation and formatting.',
     },
+    trimTrailingZeros: {
+      control: { type: 'boolean' },
+      defaultValue: { summary: false },
+      description: 'Whether to trim trailing zeros from the formatted value.',
+    },
     useNumericInput: {
       control: { disable: true },
       table: {
@@ -139,6 +144,7 @@ export const Demo: Story = {
     doubleValue: false,
     normalizeOnError: false,
     math: false,
+    trimTrailingZeros: false,
   },
   parameters: {
     viewport: {
