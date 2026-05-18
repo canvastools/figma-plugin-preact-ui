@@ -30,6 +30,8 @@ const ButtonComponent = (
   }: ButtonProps,
   ref: preact.Ref<HTMLButtonElement>,
 ) => {
+  const wrapChildrenInText = typeof children === 'string' || typeof children === 'number'
+
   const _className = bem('Button', undefined, {
     intent: `${intent}-${intentModifier}`,
     ghost,
@@ -41,6 +43,7 @@ const ButtonComponent = (
     prefix: Boolean(prefix),
     suffix: Boolean(suffix),
     tooltip: Boolean(tooltip),
+    customChildren: !wrapChildrenInText,
   })
 
   const handleClick = (event: MouseEvent) => {
@@ -84,9 +87,13 @@ const ButtonComponent = (
           {prefix && <div className="Button__prefix">{prefix}</div>}
           {children != null && children !== false && children !== true && (
             <div className="Button__children">
-              <Text variant="body" size="medium" intent={intent} intentModifier={intentModifier} disabled={disabled}>
-                {children}
-              </Text>
+              {wrapChildrenInText ? (
+                <Text variant="body" size="medium" intent={intent} intentModifier={intentModifier} disabled={disabled}>
+                  {children}
+                </Text>
+              ) : (
+                children
+              )}
             </div>
           )}
           {suffix && <div className="Button__suffix">{suffix}</div>}

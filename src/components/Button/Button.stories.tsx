@@ -7,6 +7,7 @@ import { DisabledStory } from './stories/Disabled.story'
 import { WidthStory } from './stories/Width.story'
 import { PrefixStory } from './stories/Prefix.story'
 import { SuffixStory } from './stories/Suffix.story'
+import { CustomChildrenStory } from './stories/CustomChildren.story'
 
 import { TooltipContext } from '../../index'
 
@@ -165,3 +166,4 @@ export const Disabled = DisabledStory
 export const Width = WidthStory
 export const Prefix = PrefixStory
 export const Suffix = SuffixStory
+export const CustomChildren = CustomChildrenStory

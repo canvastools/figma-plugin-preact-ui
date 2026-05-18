@@ -67,6 +67,8 @@
   }
 
   &__children {
+    display: flex;
+    flex-flow: row nowrap;
     padding: 0 var(--pui-spacing-100);
     text-overflow: ellipsis;
     overflow: hidden;
@@ -207,5 +209,9 @@
     &:active {
       background-color: var(--pui-color-success-bg-disabled) !important;
     }
+  }
+
+  &_customChildren &__children {
+    padding: 0;
   }
 }
