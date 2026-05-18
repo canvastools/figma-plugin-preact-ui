@@ -53,10 +53,6 @@
   width: fit-content;
   cursor: default;
 
-  &:not(&_customChildren) {
-    overflow: hidden;
-  }
-
   &:focus-visible {
     outline: 1px solid var(--pui-color-system-border-focused);
     outline-offset: 1px;
@@ -74,8 +70,11 @@
     flex-flow: row nowrap;
     padding: 0 var(--pui-spacing-100);
     text-overflow: ellipsis;
-    overflow: hidden;
     white-space: nowrap;
+  }
+
+  &:not(&_customChildren) &__children {
+    overflow: hidden;
   }
 
   &_prefix &__children {
