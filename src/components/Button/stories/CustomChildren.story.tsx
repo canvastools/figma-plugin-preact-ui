@@ -32,6 +32,13 @@ export const CustomChildrenStory: Story = {
             <Text>Custom Button</Text>
           </Stack>
         </Button>
+
+        <Button fullWidth>
+          <Stack spacing={100} direction="row">
+            <ColorSwatch fill={{ r: 255, g: 0, b: 0, a: 1 }} />
+            <Text>Custom Button</Text>
+          </Stack>
+        </Button>
       </Stack>
     </div>
   ),

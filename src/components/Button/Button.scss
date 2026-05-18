@@ -113,6 +113,11 @@
     width: 100%;
   }
 
+  &_fullWidth:is(&_customChildren) &__content,
+  &_fullWidth:is(&_customChildren) &__children {
+    width: 100%;
+  }
+
   @include Button_intent-outlined('neutral', 'default');
   @include Button_intent-filled('neutral', 'secondary');
   @include Button_intent-ghost('neutral', 'default');

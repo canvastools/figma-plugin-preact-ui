@@ -1,34 +1,15 @@
-function t(o) {
-  return o.getBoundingClientRect();
-}
-function g(o, r) {
-  return {
-    get collidedTop() {
-      return t(o).top < t(r).top;
-    },
-    get collidedBottom() {
-      return t(o).bottom > t(r).bottom;
-    },
-    get collidedLeft() {
-      return t(o).left < t(r).left;
-    },
-    get collidedRight() {
-      return t(o).right > t(r).right;
-    },
-    get overflowTop() {
-      return t(r).top - t(o).top;
-    },
-    get overflowBottom() {
-      return t(o).bottom - t(r).bottom;
-    },
-    get overflowLeft() {
-      return t(r).left - t(o).left;
-    },
-    get overflowRight() {
-      return t(o).right - t(r).right;
-    }
-  };
+import "preact/compat";
+import { jsx as d } from "./index.es143.js";
+function m(t) {
+  var o = t.angle, i = o === void 0 ? 0 : o, c = t.name, a = t.length, r = a === void 0 ? 100 : a, e = t.oppositeLength, l = e === void 0 ? 10 : e, n = t.width, h = n === void 0 ? 1 : n;
+  return d("div", { className: "react-clock__hand react-clock__".concat(c, "-hand"), style: {
+    transform: "rotate(".concat(i, "deg)")
+  }, children: d("div", { className: "react-clock__hand__body react-clock__".concat(c, "-hand__body"), style: {
+    width: "".concat(h, "px"),
+    top: "".concat(50 - r / 2, "%"),
+    bottom: "".concat(50 - l / 2, "%")
+  } }) });
 }
 export {
-  g as default
+  m as default
 };

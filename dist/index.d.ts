@@ -1085,6 +1085,7 @@ interface NumericInputConfig {
     normalizeOnError?: boolean;
     doubleValue?: boolean;
     math?: boolean;
+    trimTrailingZeros?: boolean;
 }
 interface NumericInputParseResult {
     rawValue: string;

@@ -1,11 +1,35 @@
-function e(r) {
-  return r !== null && r !== !1 && !Number.isNaN(Number(r));
+import { getDefaultExportFromCjs as f } from "./index.es246.js";
+var g = process.env.NODE_ENV !== "production", i = function() {
+};
+if (g) {
+  var c = function(e, r) {
+    var a = arguments.length;
+    r = new Array(a > 1 ? a - 1 : 0);
+    for (var n = 1; n < a; n++)
+      r[n - 1] = arguments[n];
+    var u = 0, t = "Warning: " + e.replace(/%s/g, function() {
+      return r[u++];
+    });
+    typeof console < "u" && console.error(t);
+    try {
+      throw new Error(t);
+    } catch {
+    }
+  };
+  i = function(o, e, r) {
+    var a = arguments.length;
+    r = new Array(a > 2 ? a - 2 : 0);
+    for (var n = 2; n < a; n++)
+      r[n - 2] = arguments[n];
+    if (e === void 0)
+      throw new Error(
+        "`warning(condition, format, ...args)` requires a warning message argument"
+      );
+    o || c.apply(null, [e].concat(r));
+  };
 }
-function t() {
-  for (var r = [], a = 0; a < arguments.length; a++)
-    r[a] = arguments[a];
-  return Math.max.apply(Math, r.filter(e));
-}
+var s = i;
+const w = /* @__PURE__ */ f(s);
 export {
-  t as safeMax
+  w as default
 };
