@@ -88,7 +88,7 @@ const ButtonComponent = (
           {children != null && children !== false && children !== true && (
             <div className="Button__children">
               {wrapChildrenInText ? (
-                <Text variant="body" size="medium" intent={intent} intentModifier={intentModifier} disabled={disabled}>
+                <Text variant="body" size="medium" intent={intent} intentModifier={intentModifier} disabled={disabled} truncate>
                   {children}
                 </Text>
               ) : (

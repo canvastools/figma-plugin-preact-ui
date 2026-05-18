@@ -51,8 +51,11 @@
   border: none;
   flex: 0 0 auto;
   width: fit-content;
-  overflow: hidden;
   cursor: default;
+
+  &:not(&_customChildren) {
+    overflow: hidden;
+  }
 
   &:focus-visible {
     outline: 1px solid var(--pui-color-system-border-focused);
