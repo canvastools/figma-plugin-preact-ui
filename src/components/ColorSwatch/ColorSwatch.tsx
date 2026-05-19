@@ -112,10 +112,11 @@ const ColorSwatchComponent = (
         anchorRef.current = el
       }}
       {...buttonRest}
-      disabled={disabled}
+      aria-disabled={disabled || undefined}
+      tabIndex={disabled ? -1 : (buttonRest.tabIndex as number | undefined)}
       onClick={(event) => {
-        nativeOnClick?.(event)
         if (disabled) return
+        nativeOnClick?.(event)
         onClick?.({ event, fill })
       }}
       onKeyDown={(event) => {

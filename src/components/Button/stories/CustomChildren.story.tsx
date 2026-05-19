@@ -16,8 +16,12 @@ export const CustomChildrenStory: Story = {
       source: {
         language: 'tsx',
         code: `<Button>
-	<ColorSwatch fill={{ r: 255, g: 0, b: 0, a: 1 }}/>
-	<Text>Hello</Text>
+  <ColorSwatch 
+    fill={{ r: 255, g: 0, b: 0, a: 1 }}
+    disabled
+    size="small"
+  />
+  <Text>Hello</Text>
 </Button>
 `,
       },
@@ -26,16 +30,16 @@ export const CustomChildrenStory: Story = {
   render: () => (
     <div className="sb-column sb-width-full">
       <Stack spacing={400} fullWidth>
-        <Button>
+        <Button onClick={() => console.log('Button clicked')}>
           <Stack spacing={100} direction="row">
-            <ColorSwatch fill={{ r: 255, g: 0, b: 0, a: 1 }} />
+            <ColorSwatch fill={{ r: 255, g: 0, b: 0, a: 1 }} disabled size="small" />
             <Text>Custom Button</Text>
           </Stack>
         </Button>
 
-        <Button fullWidth>
+        <Button fullWidth onClick={() => console.log('Button clicked')}>
           <Stack spacing={100} direction="row">
-            <ColorSwatch fill={{ r: 255, g: 0, b: 0, a: 1 }} />
+            <ColorSwatch fill={{ r: 255, g: 0, b: 0, a: 1 }} disabled size="small" />
             <Text>Custom Button</Text>
           </Stack>
         </Button>
