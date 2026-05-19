@@ -107,7 +107,7 @@ export { useNumericInput } from './hooks/useNumericInput/useNumericInput';
 export type { NumericInputConfig, NumericInputError, NumericInputParseResult, } from './hooks/useNumericInput/useNumericInput.types';
 export { useStringInput } from './hooks/useStringInput/useStringInput';
 export type { StringInputConfig, StringInputError, StringInputParseResult } from './hooks/useStringInput/useStringInput';
-export { colorToHex, hexToColor, colorToHexAlpha, hexAlphaToColor, colorToRgba, rgbaToColor } from './utils';
+export { colorToHex, hexToColor, colorToHexAlpha, hexAlphaToColor, colorToRgba, rgbaToColor, roundAlpha, clamp } from './utils';
 export type { Rgba } from './utils';
 export { bem } from './utils';
 export { adjust, ai, arrowDown, arrowLeft, arrowRight, arrowUp, blendMode, blendModeFilled, blur, check, chevronDoubleDown, chevronDoubleLeft, chevronDoubleRight, chevronDoubleUp, chevronDown, chevronLeft, chevronRight, chevronUp, close, copy, corners, dragHandle, eyeDropper, duplicate, filter, filterFilled, frame, help, home, imports, info, insert, instance, letterSpacing, lineHeight, link, lockLocked, lowerCase, plus, radiusBottomLeft, radiusBottomRight, radiusTopLeft, radiusTopRight, refresh, minus, mixed, more, opacity, paddingBottom, paddingHorizontal, paddingLeft, paddingRight, paddingSides, paddingTop, paddingVertical, people, person, rotation, returns, rotate, search, select, settings, spacingHorizontal, spacingVertical, spread, strikethrough, strokeDash, strokeSolid, strokeWidth, swap, titleCase, underline, upperCase, viewGrid, viewList, warning, widget, x, y, } from './components/Icon/glyphs';
