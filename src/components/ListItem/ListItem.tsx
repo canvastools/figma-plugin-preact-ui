@@ -243,10 +243,12 @@ const ListItemComponent = (
     if (draggable) {
       setIsDragging(true)
       // Determine if this drag should be multi based on current selection BEFORE mutating it
-      const isMultiDrag = selectedItemIds.has(id) && selectedItemIds.size > 1
+      const isMultiDrag = selectable && selectedItemIds.has(id) && selectedItemIds.size > 1
       const ids = isMultiDrag ? Array.from(selectedItemIds) : [id]
-      // If not multi, set exact selection to this id only
-      if (selectionMode !== undefined && !isMultiDrag) {
+      // If not multi, set exact selection to this id only.
+      // Only mutate selection for selectable items – otherwise dragging an
+      // unselectable item would visually select it.
+      if (selectable && selectionMode !== undefined && !isMultiDrag) {
         setSelection([id])
       }
       const payload = { ids }
