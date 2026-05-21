@@ -391,7 +391,7 @@ const ListItemComponent = (
       }}
       key={id}
       {...rest}
-      tabIndex={selectable ? 0 : -1}
+      tabIndex={selectable || draggable || collapsable ? 0 : -1}
       onFocus={(e) => {
         if (e.currentTarget === e.target) {
           setIsFocused(true)
