@@ -473,7 +473,6 @@ const ListItemComponent = (
           {draggable && (
             <div
               className="ListItem__drag-handle"
-              data-pui-interactive="true"
               draggable={true}
               onDragStart={(e: DragEvent) => {
                 e.stopPropagation()
