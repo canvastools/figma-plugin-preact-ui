@@ -154,6 +154,17 @@ const SelectComponent = (
             }
             onValueChange?.({ event, value })
             setIsOpen(false)
+            // Return focus to the trigger when the selection was made via the
+            // keyboard. MenuContext activates items by calling `ref.current.click()`
+            // on Enter/Space (synthetic MouseEvent with `detail === 0`), and right
+            // after the click it re-focuses the item itself. Defer to the next
+            // frame so our focus call lands *after* that and after the menu has
+            // unmounted from the closed state.
+            if (event && (event as MouseEvent).detail === 0) {
+              requestAnimationFrame(() => {
+                triggerRef.current?.focus()
+              })
+            }
           }}
         />
       </MenuContext>

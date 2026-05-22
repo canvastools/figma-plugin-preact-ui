@@ -168,16 +168,32 @@ const ListItemComponent = (
   }
 
   const moveFocus = (direction: 'prev' | 'next') => {
-    const allItems = Array.from(document.querySelectorAll<HTMLElement>('.ListItem'))
-    if (!allItems.length) return
     const current = selfRef.current
+    if (!current) return
+
+    // Scope navigation to the outermost ListContainer ancestor so arrow keys
+    // don't jump between sibling ListContexts on the same page.
+    let root: HTMLElement | null = current.closest('.ListContainer') as HTMLElement | null
+    while (root) {
+      const outer = root.parentElement?.closest('.ListContainer') as HTMLElement | null
+      if (!outer) break
+      root = outer
+    }
+    if (!root) return
+
+    const allItems = Array.from(root.querySelectorAll<HTMLElement>('.ListItem'))
+    if (!allItems.length) return
     const visibleItems = allItems.filter((el) => {
       // Skip items that are not visible (collapsed or display:none)
       return el.offsetParent !== null
     })
     const index = visibleItems.indexOf(current as HTMLElement)
     if (index === -1) return
-    const nextIndex = direction === 'prev' ? Math.max(0, index - 1) : Math.min(visibleItems.length - 1, index + 1)
+
+    // Wrap around at the ends so the focus cycles within the context.
+    const lastIndex = visibleItems.length - 1
+    const nextIndex =
+      direction === 'prev' ? (index === 0 ? lastIndex : index - 1) : index === lastIndex ? 0 : index + 1
     const target = visibleItems[nextIndex]
     if (target && target !== current) {
       target.focus()
