@@ -1,15 +1,15 @@
-import{u as e,d as w}from"./hooks.module-6Sbq__eq.js";import{f as Y}from"./index-B4E_jmCM.js";import{C as r}from"./ColorSwatch-q8rTZbJ5.js";import{T as o}from"./Text-BbQ_b1VF.js";import{S as b}from"./Stack-FIJoWfyG.js";import{I as Z}from"./Icon-C6_npEhI.js";import{a as ee}from"./ai-B0_Kkljm.js";import{a as re}from"./TooltipContext-DRGVUEob.js";import"./preact.module-gH5CyEHP.js";import"./typedForwardRef-CtFJgl6m.js";import"./compat.module-CHmB9zKI.js";import"./color-OwKICefG.js";import"./TooltipContainer-CJCq4A9v.js";const ae={parameters:{controls:{disable:!0},viewport:{defaultViewport:"large"},docs:{source:{language:"tsx",code:`
+import{u as e,d as w}from"./hooks.module-6Sbq__eq.js";import{f as Y}from"./index-B4E_jmCM.js";import{C as r}from"./ColorSwatch-q8rTZbJ5.js";import{T as t}from"./Text-BbQ_b1VF.js";import{S as b}from"./Stack-FIJoWfyG.js";import{I as Z}from"./Icon-C6_npEhI.js";import{a as ee}from"./ai-B0_Kkljm.js";import{a as re}from"./TooltipContext-DRGVUEob.js";import"./preact.module-gH5CyEHP.js";import"./typedForwardRef-CtFJgl6m.js";import"./compat.module-CHmB9zKI.js";import"./color-OwKICefG.js";import"./TooltipContainer-CJCq4A9v.js";const oe={parameters:{controls:{disable:!0},viewport:{defaultViewport:"large"},docs:{source:{language:"tsx",code:`
 <ColorSwatch size="small"/>
 
 <ColorSwatch size="medium"/>
 
 <ColorSwatch size="large"/>
-`}}},render:()=>e("div",{className:"sb-row sb-width-full sb-gap-16",children:[e(r,{size:"small"}),e(r,{size:"medium"}),e(r,{size:"large"})]})},oe={parameters:{controls:{disable:!0},viewport:{defaultViewport:"large"},docs:{source:{language:"tsx",code:`
+`}}},render:()=>e("div",{className:"sb-row sb-width-full sb-gap-16",children:[e(r,{size:"small"}),e(r,{size:"medium"}),e(r,{size:"large"})]})},ae={parameters:{controls:{disable:!0},viewport:{defaultViewport:"large"},docs:{source:{language:"tsx",code:`
 <ColorSwatch fill={{ r: 255, g: 0, b: 0, a: 1 }}/>
 `}}},render:()=>e("div",{className:"sb-row sb-width-full sb-gap-16",children:[e(r,{fill:{r:255,g:0,b:0,a:1}}),e(r,{fill:{r:255,g:0,b:0,a:.5}}),e(r,{fill:{r:255,g:0,b:0,a:0}})]})},te={parameters:{controls:{disable:!0},viewport:{defaultViewport:"large"},docs:{source:{language:"tsx",code:`
 <ColorSwatch fill={{ r: 255, g: 0, b: 0, a: 1 }} alpha={false}/>
 <ColorSwatch fill={{ r: 255, g: 0, b: 0, a: 0.5 }} alpha={false}/>
-`}}},render:()=>e("div",{className:"sb-column sb-width-full sb-gap-16",children:[e(o,{children:"Alpha: true"}),e(b,{direction:"row",spacing:"200",children:[e(r,{fill:{r:255,g:0,b:0,a:1},alpha:!0}),e(r,{fill:{r:255,g:0,b:0,a:.5},alpha:!0}),e(r,{fill:{r:255,g:0,b:0,a:0},alpha:!0})]}),e(o,{children:"Alpha: false"}),e(b,{direction:"row",spacing:"200",children:[e(r,{fill:{r:255,g:0,b:0,a:1},alpha:!1}),e(r,{fill:{r:255,g:0,b:0,a:.5},alpha:!1}),e(r,{fill:{r:255,g:0,b:0,a:0},alpha:!1})]})]})},le={parameters:{controls:{disable:!0},viewport:{defaultViewport:"large"},docs:{description:{story:"Disabled swatch stops receiving hover and focus events."},source:{language:"tsx",code:`
+`}}},render:()=>e("div",{className:"sb-column sb-width-full sb-gap-16",children:[e(t,{children:"Alpha: true"}),e(b,{direction:"row",spacing:"200",children:[e(r,{fill:{r:255,g:0,b:0,a:1},alpha:!0}),e(r,{fill:{r:255,g:0,b:0,a:.5},alpha:!0}),e(r,{fill:{r:255,g:0,b:0,a:0},alpha:!0})]}),e(t,{children:"Alpha: false"}),e(b,{direction:"row",spacing:"200",children:[e(r,{fill:{r:255,g:0,b:0,a:1},alpha:!1}),e(r,{fill:{r:255,g:0,b:0,a:.5},alpha:!1}),e(r,{fill:{r:255,g:0,b:0,a:0},alpha:!1})]})]})},le={parameters:{controls:{disable:!0},viewport:{defaultViewport:"large"},docs:{description:{story:"Disabled swatch stops receiving hover and focus events."},source:{language:"tsx",code:`
 <ColorSwatch disabled/>
 `}}},render:()=>e("div",{className:"sb-column sb-width-full sb-gap-16",children:e(r,{disabled:!0})})},se={parameters:{controls:{disable:!0},viewport:{defaultViewport:"large"},docs:{source:{language:"tsx",code:`
 <ColorSwatch selected />
@@ -18,7 +18,7 @@ import{u as e,d as w}from"./hooks.module-6Sbq__eq.js";import{f as Y}from"./index
   selection="rainbow"
   selected
 />
-`}}},render:()=>{const[a,f]=w(!0),[t,h]=w(!0);return e("div",{className:"sb-column sb-width-300 sb-gap-16",children:[e("div",{className:"sb-row sb-width-full sb-gap-16",children:[e(o,{fullWidth:!0,children:["default, ",a?"true":"false"]}),e(r,{selected:a,onClick:()=>f(!a)}),e(r,{fill:{r:255,g:0,b:0,a:1},selected:a,onClick:()=>f(!a)})]}),e("div",{className:"sb-row sb-width-full sb-gap-16",children:[e(o,{fullWidth:!0,children:["rainbow, ",t?"true":"false"]}),e(r,{selection:"rainbow",selected:t,onClick:()=>h(!t)}),e(r,{fill:{r:255,g:0,b:0,a:1},selection:"rainbow",selected:t,onClick:()=>h(!t)})]})]})}},ie={parameters:{controls:{disable:!0},viewport:{defaultViewport:"large"},docs:{source:{language:"tsx",code:`
+`}}},render:()=>{const[o,f]=w(!0),[a,h]=w(!0);return e("div",{className:"sb-column sb-width-300 sb-gap-16",children:[e("div",{className:"sb-row sb-width-full sb-gap-16",children:[e(t,{fullWidth:!0,children:["default, ",o?"true":"false"]}),e(r,{selected:o,onClick:()=>f(!o)}),e(r,{fill:{r:255,g:0,b:0,a:1},selected:o,onClick:()=>f(!o)}),e(r,{fill:{r:255,g:0,b:0,a:1},selected:o,onClick:()=>f(!o),disabled:!0})]}),e("div",{className:"sb-row sb-width-full sb-gap-16",children:[e(t,{fullWidth:!0,children:["rainbow, ",a?"true":"false"]}),e(r,{selection:"rainbow",selected:a,onClick:()=>h(!a)}),e(r,{fill:{r:255,g:0,b:0,a:1},selection:"rainbow",selected:a,onClick:()=>h(!a)}),e(r,{fill:{r:255,g:0,b:0,a:1},selection:"rainbow",selected:a,onClick:()=>h(!a),disabled:!0})]})]})}},ie={parameters:{controls:{disable:!0},viewport:{defaultViewport:"large"},docs:{source:{language:"tsx",code:`
 import { ai } from "figma-plugin-preact-ui"
 
 <ColorSwatch>
@@ -47,7 +47,7 @@ import { ai } from "figma-plugin-preact-ui"
     { type: 'gradient-radial', ... },
   ]}
 />
-`}}},render:()=>e("div",{className:"sb-column sb-width-full sb-gap-16",children:[e(o,{children:"Alpha: true"}),e(b,{direction:"row",spacing:"200",children:[e(r,{fill:[x,z],size:"large"}),e(r,{fill:[v,l],size:"large"}),e(r,{fill:[y,S],size:"large"}),e(r,{fill:[C,l],size:"large"})]}),e(o,{children:"Alpha: false"}),e(b,{direction:"row",spacing:"200",children:[e(r,{fill:[x,z],size:"large",alpha:!1}),e(r,{fill:[v,l],size:"large",alpha:!1}),e(r,{fill:[y,S],size:"large",alpha:!1}),e(r,{fill:[C,l],size:"large",alpha:!1})]})]})},Te={title:"Components/ColorSwatch",component:r,tags:["autodocs"],argTypes:{id:{control:{type:"text"},table:{type:{summary:"string"}}},className:{control:{type:"text"}},size:{control:{type:"radio"},options:["small","medium","large"],defaultValue:{summary:"medium"}},fill:{control:{type:"object"},table:{type:{summary:"Color | GradientPaint | Array<Color | GradientPaint>",detail:`
+`}}},render:()=>e("div",{className:"sb-column sb-width-full sb-gap-16",children:[e(t,{children:"Alpha: true"}),e(b,{direction:"row",spacing:"200",children:[e(r,{fill:[x,z],size:"large",selection:"rainbow"}),e(r,{fill:[v,l],size:"large",selection:"rainbow"}),e(r,{fill:[y,S],size:"large",selection:"rainbow"}),e(r,{fill:[C,l],size:"large",selection:"rainbow"})]}),e(t,{children:"Alpha: false"}),e(b,{direction:"row",spacing:"200",children:[e(r,{fill:[x,z],size:"large",alpha:!1}),e(r,{fill:[v,l],size:"large",alpha:!1}),e(r,{fill:[y,S],size:"large",alpha:!1}),e(r,{fill:[C,l],size:"large",alpha:!1})]})]})},Te={title:"Components/ColorSwatch",component:r,tags:["autodocs"],argTypes:{id:{control:{type:"text"},table:{type:{summary:"string"}}},className:{control:{type:"text"}},size:{control:{type:"radio"},options:["small","medium","large"],defaultValue:{summary:"medium"}},fill:{control:{type:"object"},table:{type:{summary:"Color | GradientPaint | Array<Color | GradientPaint>",detail:`
 Color:{
   r: number
   g: number
@@ -83,7 +83,7 @@ args: {
 <TooltipContext>
   <ColorSwatch {...args}/>
 </TooltipContext>
-`}}},render:a=>e("div",{className:"sb-column sb-width-full",children:e(re,{children:e(r,{...a})})})},i=ae,n=oe,c=te,d=le,p=se,u=ie,g=pe,m=ue;var V,T,N;s.parameters={...s.parameters,docs:{...(V=s.parameters)==null?void 0:V.docs,source:{originalSource:`{
+`}}},render:o=>e("div",{className:"sb-column sb-width-full",children:e(re,{children:e(r,{...o})})})},i=oe,n=ae,c=te,d=le,p=se,u=ie,g=pe,m=ue;var V,T,N;s.parameters={...s.parameters,docs:{...(V=s.parameters)==null?void 0:V.docs,source:{originalSource:`{
   tags: ['!autodocs'],
   args: {
     id: undefined,
