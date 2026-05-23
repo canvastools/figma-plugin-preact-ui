@@ -1,4 +1,4 @@
-import{d as x,u as a}from"./hooks.module-6Sbq__eq.js";import{f as C}from"./index-B4E_jmCM.js";import{a as l,b as T,T as e}from"./TabList-BChU91p7.js";import{S as n}from"./Section-f0GkCzPh.js";import{T as t}from"./TabPanel-BUi4_mso.js";import{T as b}from"./Text-BbQ_b1VF.js";import"./preact.module-gH5CyEHP.js";import"./typedForwardRef-CtFJgl6m.js";import"./compat.module-CHmB9zKI.js";import"./Icon-C6_npEhI.js";const S={parameters:{controls:{disable:!0},viewport:{defaultViewport:"large"},docs:{source:{language:"tsx",code:`
+import{d as x,u as a}from"./hooks.module-6Sbq__eq.js";import{f as C}from"./index-B4E_jmCM.js";import{a as l,b as T,T as e}from"./TabList-DMzPZMVR.js";import{S as n}from"./Section-f0GkCzPh.js";import{T as t}from"./TabPanel-vbhb9DC5.js";import{T as b}from"./Text-BbQ_b1VF.js";import"./preact.module-gH5CyEHP.js";import"./typedForwardRef-CtFJgl6m.js";import"./compat.module-CHmB9zKI.js";import"./Icon-C6_npEhI.js";const S={parameters:{controls:{disable:!0},viewport:{defaultViewport:"large"},docs:{source:{language:"tsx",code:`
 const [activeTab, setActiveTab] = useState("tab-1")
 
 <TabContext 

@@ -1,4 +1,4 @@
-import{u as a}from"./hooks.module-6Sbq__eq.js";import{a as d,b as e,T as t}from"./TabList-BChU91p7.js";import{S as n}from"./Section-f0GkCzPh.js";import{S as g}from"./Stack-FIJoWfyG.js";import"./preact.module-gH5CyEHP.js";import"./typedForwardRef-CtFJgl6m.js";import"./compat.module-CHmB9zKI.js";import"./Text-BbQ_b1VF.js";import"./Icon-C6_npEhI.js";const v={parameters:{controls:{disable:!0},viewport:{defaultViewport:"large"},docs:{source:{language:"tsx",code:`
+import{u as a}from"./hooks.module-6Sbq__eq.js";import{a as d,b as e,T as t}from"./TabList-DMzPZMVR.js";import{S as n}from"./Section-f0GkCzPh.js";import{S as g}from"./Stack-FIJoWfyG.js";import"./preact.module-gH5CyEHP.js";import"./typedForwardRef-CtFJgl6m.js";import"./compat.module-CHmB9zKI.js";import"./Text-BbQ_b1VF.js";import"./Icon-C6_npEhI.js";const v={parameters:{controls:{disable:!0},viewport:{defaultViewport:"large"},docs:{source:{language:"tsx",code:`
 <TabContext defaultActiveId="tab-1">
   <TabList>
     <Tab id="tab-1">{children}</Tab>
