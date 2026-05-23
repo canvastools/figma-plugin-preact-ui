@@ -84,10 +84,10 @@ export const MultipleStory: Story = {
     <div className="sb-column sb-width-full sb-gap-16">
       <Text>Alpha: true</Text>
       <Stack direction="row" spacing="200">
-        <ColorSwatch fill={[blue, magentaTransparent]} size="large" />
-        <ColorSwatch fill={[yellow, redTransparent]} size="large" />
-        <ColorSwatch fill={[linear, radialTransparent]} size="large" />
-        <ColorSwatch fill={[angular, redTransparent]} size="large" />
+        <ColorSwatch fill={[blue, magentaTransparent]} size="large" selection="rainbow" />
+        <ColorSwatch fill={[yellow, redTransparent]} size="large" selection="rainbow" />
+        <ColorSwatch fill={[linear, radialTransparent]} size="large" selection="rainbow" />
+        <ColorSwatch fill={[angular, redTransparent]} size="large" selection="rainbow" />
       </Stack>
       <Text>Alpha: false</Text>
       <Stack direction="row" spacing="200">
