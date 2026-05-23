@@ -6,7 +6,7 @@ import { PrefixStory } from './stories/Prefix.story'
 import { SuffixStory } from './stories/Suffix.story'
 import { CustomChildrenStory } from './stories/CustomChildren.story'
 
-import { TabContext, TabList, Section } from '../../index'
+import { TabContext, TabList, Section, TooltipContext } from '../../index'
 
 import { Tab } from './Tab'
 
@@ -58,6 +58,15 @@ const meta: Meta<typeof Tab> = {
         },
       },
     },
+    tooltip: {
+      control: { type: 'text' },
+      description: 'Tooltip content.',
+      table: {
+        type: {
+          summary: 'preact.ComponentChildren',
+        },
+      },
+    },
     children: {
       control: { disable: true },
       description: '<strong>*</strong>',
@@ -92,6 +101,7 @@ export const Demo: Story = {
   args: {
     className: '',
     variant: 'default',
+    tooltip: 'Tab tooltip',
     onClick: fn(),
   },
   parameters: {
@@ -115,6 +125,14 @@ export const Demo: Story = {
   <TabPanel tabId="tab-3">Tab 3 Panel</TabPanel>
   
 </TabContext>
+
+// Use TooltipContext to make tooltips work
+
+<TooltipContext>
+  <TabContext defaultActiveId="tab-1">
+    ...
+  </TabContext>
+</TooltipContext>
         `,
       },
     },
@@ -124,35 +142,39 @@ export const Demo: Story = {
     if (args.variant === 'default') {
       return (
         <div className="sb-column sb-width-full">
-          <TabContext defaultActiveId="tab-1">
-            <Section>
-              <TabList>
-                <Tab {...args} id="tab-1">
-                  Tab 1
-                </Tab>
-                <Tab {...args} id="tab-2">
-                  Tab 2
-                </Tab>
-                <Tab {...args} id="tab-3">
-                  Tab 3
-                </Tab>
-              </TabList>
-            </Section>
-          </TabContext>
+          <TooltipContext>
+            <TabContext defaultActiveId="tab-1">
+              <Section>
+                <TabList>
+                  <Tab {...args} id="tab-1">
+                    Tab 1
+                  </Tab>
+                  <Tab {...args} id="tab-2">
+                    Tab 2
+                  </Tab>
+                  <Tab {...args} id="tab-3">
+                    Tab 3
+                  </Tab>
+                </TabList>
+              </Section>
+            </TabContext>
+          </TooltipContext>
         </div>
       )
     } else {
       return (
         <div className="sb-column sb-width-full">
-          <TabContext defaultActiveId="tab-1">
-            <Section>
-              <TabList>
-                <Tab {...args} id="tab-1" variant="single">
-                  Single
-                </Tab>
-              </TabList>
-            </Section>
-          </TabContext>
+          <TooltipContext>
+            <TabContext defaultActiveId="tab-1">
+              <Section>
+                <TabList>
+                  <Tab {...args} id="tab-1" variant="single">
+                    Single
+                  </Tab>
+                </TabList>
+              </Section>
+            </TabContext>
+          </TooltipContext>
         </div>
       )
     }
