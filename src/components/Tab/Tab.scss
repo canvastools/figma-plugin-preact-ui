@@ -60,6 +60,10 @@
     padding-right: var(--pui-spacing-200);
   }
 
+  &_customChildren &__children {
+    padding: 0;
+  }
+
   &_variant-default {
     border: none;
     background-color: var(--pui-color-neutral-bg-default);

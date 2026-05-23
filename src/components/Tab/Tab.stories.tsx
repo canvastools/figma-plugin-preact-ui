@@ -4,6 +4,7 @@ import { fn } from '@storybook/test'
 import { VariantStory } from './stories/Variant.story'
 import { PrefixStory } from './stories/Prefix.story'
 import { SuffixStory } from './stories/Suffix.story'
+import { CustomChildrenStory } from './stories/CustomChildren.story'
 
 import { TabContext, TabList, Section } from '../../index'
 
@@ -161,3 +162,4 @@ export const Demo: Story = {
 export const Variant = VariantStory
 export const Prefix = PrefixStory
 export const Suffix = SuffixStory
+export const CustomChildren = CustomChildrenStory

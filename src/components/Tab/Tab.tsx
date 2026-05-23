@@ -16,6 +16,8 @@ const TabComponent = (
   { id, className, variant = 'default', prefix, suffix, children, onClick, ...rest }: TabProps,
   ref: preact.Ref<HTMLButtonElement>,
 ) => {
+  const wrapChildrenInText = typeof children === 'string' || typeof children === 'number'
+
   const { activeId, onTabChange, registerTab } = useTabContext()
 
   const buttonRef = useRef<HTMLButtonElement | null>(null)
@@ -37,6 +39,7 @@ const TabComponent = (
     selected: id === activeId,
     prefix: Boolean(prefix),
     suffix: Boolean(suffix),
+    customChildren: !wrapChildrenInText,
   })
 
   const handleClick = (event: MouseEvent) => {
@@ -66,15 +69,19 @@ const TabComponent = (
       {prefix && <div className="Tab__prefix">{prefix && renderAdditionalContent(prefix, selected)}</div>}
       {children != null && children !== false && children !== true && (
         <div className="Tab__children">
-          <Text
-            variant="body"
-            size="medium"
-            strong={fake || id === activeId}
-            intent="neutral"
-            intentModifier={selected ? 'default' : 'secondary'}
-          >
-            {children}
-          </Text>
+          {wrapChildrenInText ? (
+            <Text
+              variant="body"
+              size="medium"
+              strong={fake || id === activeId}
+              intent="neutral"
+              intentModifier={selected ? 'default' : 'secondary'}
+            >
+              {children}
+            </Text>
+          ) : (
+            children
+          )}
         </div>
       )}
       {suffix && <div className="Tab__suffix">{suffix && renderAdditionalContent(suffix, selected)}</div>}
