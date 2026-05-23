@@ -93,6 +93,13 @@
     z-index: 2;
   }
 
+  &__layer {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    z-index: 2;
+  }
+
   &__children {
     position: absolute;
     top: 0;

@@ -3,10 +3,12 @@ import { fn } from '@storybook/test'
 
 import { SizeStory } from './stories/Size.story'
 import { ColorStory } from './stories/Color.story'
+import { AlphaStory } from './stories/Alpha.story'
 import { DisabledStory } from './stories/Disabled.story'
 import { SelectionStory } from './stories/Selection.story'
 import { ChildrenStory } from './stories/Children.story'
 import { GradientStory } from './stories/Gradient.story'
+import { MultipleStory } from './stories/Multiple.story'
 
 import { TooltipContext } from '../../index'
 
@@ -38,7 +40,7 @@ const meta: Meta<typeof ColorSwatch> = {
       control: { type: 'object' },
       table: {
         type: {
-          summary: 'Color | GradientPaint',
+          summary: 'Color | GradientPaint | Array<Color | GradientPaint>',
           detail: `
 Color:{
   r: number
@@ -65,6 +67,11 @@ Vector: {
 `,
         },
       },
+    },
+    alpha: {
+      control: { type: 'boolean' },
+      description: 'When true, transparent solid colors are split into opaque + alpha halves to preview transparency.',
+      defaultValue: { summary: true },
     },
     disabled: {
       control: { type: 'boolean' },
@@ -104,7 +111,7 @@ Vector: {
           detail: `
 args: { 
   event: MouseEvent
-  fill: Color | undefined
+  fill: Color | GradientPaint | Array<Color | GradientPaint> | undefined
 }
           `,
         },
@@ -124,6 +131,7 @@ export const Demo: Story = {
     className: '',
     size: 'medium',
     fill: { r: 1, g: 0, b: 0, a: 1 } as Color,
+    alpha: true,
     disabled: false,
     selected: false,
     selection: 'default',
@@ -160,7 +168,9 @@ export const Demo: Story = {
 
 export const Size = SizeStory
 export const _Color = ColorStory
+export const Alpha = AlphaStory
 export const Disabled = DisabledStory
 export const Selection = SelectionStory
 export const Children = ChildrenStory
 export const Gradient = GradientStory
+export const Multiple = MultipleStory
