@@ -40,6 +40,7 @@ const TextAreaComponent = (
     maxLength,
     tooltip,
     autoFocus = false,
+    selectOnFocus = false,
     maxWidth,
     minHeight,
     maxHeight,
@@ -177,6 +178,11 @@ const TextAreaComponent = (
   const handleFocus = (event: preact.JSX.TargetedFocusEvent<HTMLTextAreaElement>) => {
     event.stopPropagation()
     setIsFocused(true)
+    if (selectOnFocus) {
+      // setTimeout to survive the trailing mouseup that would otherwise collapse the selection on click
+      const el = event.currentTarget
+      setTimeout(() => el.select(), 0)
+    }
     onFocus?.({
       event: event as FocusEvent,
       value: event.currentTarget.value,

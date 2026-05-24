@@ -16,6 +16,7 @@ export interface TextAreaProps {
   maxHeight?: number | string
   resize?: 'y'
   autoFocus?: boolean
+  selectOnFocus?: boolean
   onValueChange?: (args: { event: Event; value: string }) => void
   onBlur?: (args: { event: FocusEvent; value: string }) => void
   onFocus?: (args: { event: FocusEvent; value: string }) => void

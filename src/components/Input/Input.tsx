@@ -32,6 +32,7 @@ const InputComponent = (
     maxLength,
     tooltip,
     autoFocus = false,
+    selectOnFocus = false,
     maxWidth,
     onValueChange,
     onBlur,
@@ -141,6 +142,11 @@ const InputComponent = (
   const handleFocus = (event: preact.JSX.TargetedFocusEvent<HTMLInputElement>) => {
     event.stopPropagation()
     setIsFocused(true)
+    if (selectOnFocus) {
+      // setTimeout to survive the trailing mouseup that would otherwise collapse the selection on click
+      const el = event.currentTarget
+      setTimeout(() => el.select(), 0)
+    }
     onFocus?.({
       event: event as FocusEvent,
       value: event.currentTarget.value,

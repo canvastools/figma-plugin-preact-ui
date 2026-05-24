@@ -124,6 +124,11 @@ const meta: Meta<typeof Input> = {
       control: { type: 'boolean' },
       defaultValue: { summary: false },
     },
+    selectOnFocus: {
+      control: { type: 'boolean' },
+      defaultValue: { summary: false },
+      description: 'Select all text when the input receives focus.',
+    },
     maxWidth: {
       control: { type: 'number' },
       description: 'Maximum width of the input (excluding label). Only applicable when variant is `list`.',
@@ -212,6 +217,7 @@ export const Demo: Story = {
     minLength: 0,
     maxLength: 9999,
     autoFocus: false,
+    selectOnFocus: false,
     maxWidth: undefined,
     onValueChange: fn(),
     onBlur: fn(),

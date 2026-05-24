@@ -83,6 +83,11 @@ const meta: Meta<typeof TextArea> = {
       control: { type: 'boolean' },
       defaultValue: { summary: false },
     },
+    selectOnFocus: {
+      control: { type: 'boolean' },
+      defaultValue: { summary: false },
+      description: 'Select all text when the textarea receives focus.',
+    },
     maxWidth: {
       control: { type: 'number' },
       description: 'Maximum width of the field (excluding label). Only applicable when variant is `list`.',
@@ -194,6 +199,7 @@ export const Demo: Story = {
     minLength: 0,
     maxLength: 9999,
     autoFocus: false,
+    selectOnFocus: false,
     maxWidth: undefined,
     minHeight: 40,
     maxHeight: 136,
