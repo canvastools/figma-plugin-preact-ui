@@ -20,6 +20,7 @@ export interface InputProps {
     maxLength?: number;
     maxWidth?: number | string;
     autoFocus?: boolean;
+    selectOnFocus?: boolean;
     onValueChange?: (args: {
         event: Event;
         value: string;
