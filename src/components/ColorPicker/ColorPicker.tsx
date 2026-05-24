@@ -201,6 +201,7 @@ const ControlsRgba = ({
           <Input
             className="ColorPicker__inputCompact"
             tooltip="Green"
+            selectOnFocus={true}
             value={inputGreenValue}
             onValueChange={(e) => setInputGreenValue(e.value)}
             onBlur={(e) => {
@@ -237,6 +238,7 @@ const ControlsRgba = ({
           <Input
             className="ColorPicker__inputCompact"
             tooltip="Blue"
+            selectOnFocus={true}
             value={inputBlueValue}
             onValueChange={(e) => setInputBlueValue(e.value)}
             onBlur={(e) => {
@@ -273,6 +275,7 @@ const ControlsRgba = ({
           <Input
             className="ColorPicker__controlOpacity"
             tooltip="Opacity"
+            selectOnFocus={true}
             value={inputOpacityValue}
             suffix={
               <Text intentModifier="secondary">
@@ -369,6 +372,7 @@ const ControlsHex = ({
       <div className="ColorPicker__controlsValues">
         <Input
           tooltip="Hex value"
+          selectOnFocus={true}
           value={hexValue.toUpperCase()}
           onValueChange={(e) => setHexValue(e.value)}
           onBlur={(e) => {
@@ -450,6 +454,7 @@ const ControlsHexAlpha = ({
         <ControlGroup groupFocus fullWidth>
           <Input
             tooltip="Hex value"
+            selectOnFocus={true}
             value={hexValue.toUpperCase()}
             onValueChange={(e) => setHexValue(e.value)}
             onBlur={(e) => {
@@ -463,6 +468,7 @@ const ControlsHexAlpha = ({
 
           <Input
             tooltip="Opacity"
+            selectOnFocus={true}
             className="ColorPicker__controlOpacity"
             value={hexOpacityValue}
             suffix={
