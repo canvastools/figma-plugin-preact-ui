@@ -200,6 +200,7 @@ export {
   chevronRight,
   chevronUp,
   close,
+  container,
   copy,
   corners,
   dragHandle,
