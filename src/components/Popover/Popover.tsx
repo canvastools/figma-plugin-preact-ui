@@ -21,6 +21,7 @@ type PopoverBodyProps = {
   draggable: boolean
   width?: number
   height?: number
+  constrainHeight?: boolean
   placement: OverlayPositionerPlacement
   placementFallback: OverlayPositionerPlacement[]
   offsetX: number
@@ -35,6 +36,7 @@ const PopoverBody = ({
   draggable,
   width,
   height,
+  constrainHeight = false,
   placement,
   placementFallback,
   offsetX,
@@ -69,7 +71,13 @@ const PopoverBody = ({
       onClose={handleClose}
       closeOnClickOutside={true}
     >
-      <PopoverContainer ref={containerRef} width={width} height={height} showArrow={showArrow}>
+      <PopoverContainer
+        ref={containerRef}
+        width={width}
+        height={height}
+        showArrow={showArrow}
+        constrainHeight={constrainHeight}
+      >
         <PopoverHeader onClose={handleClose}>{popoverHeaderProps?.children}</PopoverHeader>
         {children}
       </PopoverContainer>
@@ -89,6 +97,7 @@ const PopoverComponent = (
     draggable = true,
     width,
     height,
+    constrainHeight = false,
     placement = 'bottom-left',
     placementFallback = ['bottom-right', 'top-left', 'top-right'],
     offsetX = 0,
@@ -132,6 +141,7 @@ const PopoverComponent = (
             draggable={draggable}
             width={width}
             height={height}
+            constrainHeight={constrainHeight}
             placement={placement}
             placementFallback={placementFallback}
             offsetX={offsetX}

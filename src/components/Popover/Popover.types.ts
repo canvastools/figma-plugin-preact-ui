@@ -2,7 +2,7 @@ import type { PopoverHeaderProps, PopoverContextProps, PopoverContainerProps, Ov
 
 type PopoverContextPropsPick = Pick<PopoverContextProps, 'triggerRef' | 'anchorRef'>
 
-type PopoverContainerPropsPick = Pick<PopoverContainerProps, 'width' | 'height' | 'showArrow'>
+type PopoverContainerPropsPick = Pick<PopoverContainerProps, 'width' | 'height' | 'showArrow' | 'constrainHeight'>
 
 type OverlayPositionerPropsPick = Pick<
   OverlayPositionerProps,

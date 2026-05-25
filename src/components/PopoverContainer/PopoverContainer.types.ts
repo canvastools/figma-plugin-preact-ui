@@ -4,5 +4,6 @@ export interface PopoverContainerProps {
   width?: number
   height?: number
   showArrow?: boolean
+  constrainHeight?: boolean
   children: preact.ComponentChildren
 }

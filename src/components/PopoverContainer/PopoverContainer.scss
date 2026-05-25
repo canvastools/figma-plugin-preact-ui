@@ -15,6 +15,10 @@
     outline: none;
   }
 
+  &_constrain-height {
+    max-height: var(--overlay-available-height, none);
+  }
+
   &__arrow {
     position: absolute;
     pointer-events: none;

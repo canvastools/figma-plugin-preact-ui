@@ -6,11 +6,12 @@ import './PopoverContainer.scss'
 /* --- */
 
 const PopoverContainerComponent = (
-  { id, className, width, height, showArrow, children, ...rest }: PopoverContainerProps,
+  { id, className, width, height, showArrow, constrainHeight = false, children, ...rest }: PopoverContainerProps,
   ref: preact.Ref<HTMLDivElement>,
 ) => {
   const _className = bem('PopoverContainer', undefined, {
     arrow: showArrow,
+    'constrain-height': constrainHeight,
   })
 
   return (

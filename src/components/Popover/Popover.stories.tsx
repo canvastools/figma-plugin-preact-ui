@@ -79,6 +79,7 @@ const meta: Meta<typeof Popover> = {
   width: number
   height: number
   showArrow: boolean
+  constrainHeight: boolean
 }
 `,
         },
