@@ -1,4 +1,4 @@
-import{A as c,d as x,u as e}from"./hooks.module-6Sbq__eq.js";import{P as n}from"./Popover-DnvyRr36.js";import{T as t}from"./Text-BbQ_b1VF.js";import{B as p}from"./Button-CJrKFz2E.js";import{S as d}from"./Section-f0GkCzPh.js";import"./preact.module-gH5CyEHP.js";import"./typedForwardRef-CtFJgl6m.js";import"./compat.module-CHmB9zKI.js";import"./PopoverContext-BKF6rnxf.js";import"./PopoverContainer-B0Zygp5e.js";import"./PopoverHeader-BegSpFQm.js";import"./ButtonIcon-COvrc5nB.js";import"./Icon-C6_npEhI.js";import"./TooltipContext-DRGVUEob.js";import"./TooltipContainer-CJCq4A9v.js";import"./close-DceWr2La.js";const S={parameters:{controls:{disable:!0},viewport:{defaultViewport:"large"},docs:{source:{language:"tsx",code:`
+import{A as c,d as x,u as e}from"./hooks.module-6Sbq__eq.js";import{P as n}from"./Popover-VEn9YRKw.js";import{T as t}from"./Text-BbQ_b1VF.js";import{B as p}from"./Button-CJrKFz2E.js";import{S as d}from"./Section-f0GkCzPh.js";import"./preact.module-gH5CyEHP.js";import"./typedForwardRef-CtFJgl6m.js";import"./compat.module-CHmB9zKI.js";import"./PopoverContext-BKF6rnxf.js";import"./PopoverContainer-Bf0_hTR7.js";import"./PopoverHeader-BegSpFQm.js";import"./ButtonIcon-COvrc5nB.js";import"./Icon-C6_npEhI.js";import"./TooltipContext-DRGVUEob.js";import"./TooltipContainer-CJCq4A9v.js";import"./close-DceWr2La.js";const S={parameters:{controls:{disable:!0},viewport:{defaultViewport:"large"},docs:{source:{language:"tsx",code:`
 const triggerRef = useRef(null)
 const [open, setOpen] = useState(false)
 
@@ -61,6 +61,7 @@ const triggerRef = useRef(null)
   width: number
   height: number
   showArrow: boolean
+  constrainHeight: boolean
 }
 `}}},"...OverlayPositionerProps":{control:{disable:!0},table:{type:{summary:"Pick<OverlayPositionerProps>",detail:`
 {

@@ -18,6 +18,7 @@ export { chevronLeft } from './chevronLeft';
 export { chevronRight } from './chevronRight';
 export { chevronUp } from './chevronUp';
 export { close } from './close';
+export { container } from './container';
 export { copy } from './copy';
 export { corners } from './corners';
 export { dragHandle } from './dragHandle';
