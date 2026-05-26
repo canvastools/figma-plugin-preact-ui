@@ -4,7 +4,6 @@ type OverlayPositionerPropsPick = Pick<OverlayPositionerProps, 'anchorRef' | 'pl
 export interface TooltipProps extends OverlayPositionerPropsPick, TooltipContainerPropsPick {
     id?: string;
     className?: string;
-    triggerRef?: preact.RefObject<HTMLElement | null>;
     children: preact.ComponentChildren;
 }
 export {};
