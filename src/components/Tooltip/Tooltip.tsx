@@ -13,7 +13,6 @@ const TooltipComponent = (
   {
     id,
     className,
-    triggerRef,
     anchorRef,
     width,
     height,
@@ -45,7 +44,7 @@ const TooltipComponent = (
   }, [open, onOpen, onClose])
 
   useEffect(() => {
-    const targetRef = triggerRef ?? anchorRef
+    const targetRef = anchorRef
     if (!targetRef?.current || !context) return
 
     const el = targetRef.current
@@ -71,11 +70,11 @@ const TooltipComponent = (
       el.removeEventListener('mouseleave', handleLeave)
       el.removeEventListener('pointerdown', handlePointerDown)
     }
-  }, [triggerRef, anchorRef, context])
+  }, [anchorRef, context])
 
   const _className = bem('Tooltip', undefined, undefined)
 
-  const resolvedAnchorRef = (anchorRef ?? triggerRef) as preact.RefObject<HTMLElement> | null
+  const resolvedAnchorRef = anchorRef as preact.RefObject<HTMLElement> | null
 
   return (
     <OverlayPositioner

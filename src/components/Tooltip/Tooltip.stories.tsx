@@ -29,13 +29,6 @@ const meta: Meta<typeof Tooltip> = {
     className: {
       control: { type: 'text' },
     },
-    triggerRef: {
-      control: { disable: true },
-      description: 'Ref to the trigger element.',
-      table: {
-        type: { summary: 'preact.RefObject' },
-      },
-    },
     children: {
       control: { control: 'text' },
       description: '<strong>*</strong>',
@@ -99,13 +92,13 @@ export const Demo: Story = {
       source: {
         language: 'tsx',
         code: `
-const triggerRef = useRef(null)
+const anchorRef = useRef(null)
 
 <TooltipContext>
-  <Text ref={triggerRef}>Hover to see Tooltip</Text>
+  <Text ref={anchorRef}>Hover to see Tooltip</Text>
   
   <Tooltip
-    triggerRef={triggerRef}
+    anchorRef={anchorRef}
     {...args}
   >
     {children}
@@ -116,14 +109,14 @@ const triggerRef = useRef(null)
     },
   },
   render: (args) => {
-    const triggerRef = useRef<HTMLDivElement | null>(null)
+    const anchorRef = useRef<HTMLDivElement | null>(null)
 
     return (
       <div className="sb-column sb-width-300 sb-container">
         <TooltipContext>
-          <Text ref={triggerRef}>Hover to see Tooltip.</Text>
+          <Text ref={anchorRef}>Hover to see Tooltip.</Text>
           {/* @ts-expect-error Storybook spread */}
-          <Tooltip triggerRef={triggerRef} {...args} />
+          <Tooltip anchorRef={anchorRef} {...args} />
         </TooltipContext>
       </div>
     )
