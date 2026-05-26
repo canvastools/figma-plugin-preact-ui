@@ -88,6 +88,24 @@ const SelectComponent = (
     }
   }
 
+  const handlePrefixMouseDown = (event: preact.JSX.TargetedMouseEvent<HTMLDivElement>) => {
+    const prefixEl = event.currentTarget
+    let el = event.target as HTMLElement | null
+
+    while (el && el !== prefixEl) {
+      const interactiveAttr = el.getAttribute('data-pui-interactive')
+      if (interactiveAttr === 'true') {
+        event.stopPropagation()
+        return
+      }
+      if (interactiveAttr === 'false') {
+        return
+      }
+
+      el = el.parentElement
+    }
+  }
+
   const _className = bem('Select', undefined, {
     filled: hasContent,
     grouped: Boolean(grouped),
@@ -125,7 +143,11 @@ const SelectComponent = (
         onBlur={handleBlur as preact.JSX.FocusEventHandler<HTMLDivElement>}
         onKeyDown={handleKeyDown}
       >
-        {prefix && <div className="Select__prefix">{prefix}</div>}
+        {prefix && (
+          <div className="Select__prefix" onMouseDown={handlePrefixMouseDown}>
+            {prefix}
+          </div>
+        )}
 
         <div className={'Select__content'}>
           {hasContent ? flatOptions.find((opt) => opt.value === internalValue)?.label : placeholder}
