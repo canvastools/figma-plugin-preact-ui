@@ -15,7 +15,7 @@ import {
 
 import { Input, Text, Select, ControlGroup, useNumericInput, useStringInput } from '../../index'
 
-import { RgbaColorPicker, HexColorPicker, HexAlphaColorPicker } from 'react-colorful'
+import { RgbaColorPicker, RgbColorPicker, HexColorPicker, HexAlphaColorPicker } from 'react-colorful'
 
 import type { ColorPickerProps, Color, ColorPickerType } from './ColorPicker.types'
 import './ColorPicker.scss'
@@ -81,6 +81,7 @@ const ControlsRgba = ({
   setType,
   options,
   selectRef,
+  showOpacity = true,
 }: {
   color: Color
   setColor: (color: Color) => void
@@ -88,6 +89,7 @@ const ControlsRgba = ({
   setType: (t: ColorPickerType) => void
   options: { value: string; label: string }[]
   selectRef: preact.RefObject<HTMLDivElement>
+  showOpacity?: boolean
 }) => {
   const rgba = colorToRgba(color)
 
@@ -272,53 +274,55 @@ const ControlsRgba = ({
             }
           />
 
-          <Input
-            className="ColorPicker__controlOpacity"
-            tooltip="Opacity"
-            selectOnFocus={true}
-            value={inputOpacityValue}
-            suffix={
-              <Text intentModifier="secondary">
-                <div className="ColorPicker__controlOpacityContainer">%</div>
-              </Text>
-            }
-            onValueChange={(e) => setInputOpacityValue(e.value)}
-            onBlur={(e) => {
-              const parsed = opacityValidation.parse(e.value)
-
-              if (parsed.error === 'required' || parsed.error === 'invalid_number' || parsed.error === 'not_integer') {
-                setColor(rgbaToColor({ r: rgba.r, g: rgba.g, b: rgba.b, a: RGBA_VALUES.a.min }))
-                setInputOpacityValue(String(parsed.formattedValue ?? '0'))
-                return
+          {showOpacity && (
+            <Input
+              className="ColorPicker__controlOpacity"
+              tooltip="Opacity"
+              selectOnFocus={true}
+              value={inputOpacityValue}
+              suffix={
+                <Text intentModifier="secondary">
+                  <div className="ColorPicker__controlOpacityContainer">%</div>
+                </Text>
               }
+              onValueChange={(e) => setInputOpacityValue(e.value)}
+              onBlur={(e) => {
+                const parsed = opacityValidation.parse(e.value)
 
-              if (parsed.error === 'less_than_min') {
-                setColor(rgbaToColor({ r: rgba.r, g: rgba.g, b: rgba.b, a: RGBA_VALUES.a.min }))
-                setInputOpacityValue(String(parsed.formattedValue ?? '0'))
-                return
-              }
+                if (parsed.error === 'required' || parsed.error === 'invalid_number' || parsed.error === 'not_integer') {
+                  setColor(rgbaToColor({ r: rgba.r, g: rgba.g, b: rgba.b, a: RGBA_VALUES.a.min }))
+                  setInputOpacityValue(String(parsed.formattedValue ?? '0'))
+                  return
+                }
 
-              if (parsed.error === 'greater_than_max') {
-                setColor(rgbaToColor({ r: rgba.r, g: rgba.g, b: rgba.b, a: RGBA_VALUES.a.max }))
-                setInputOpacityValue(String(parsed.formattedValue ?? '0'))
-                return
-              }
+                if (parsed.error === 'less_than_min') {
+                  setColor(rgbaToColor({ r: rgba.r, g: rgba.g, b: rgba.b, a: RGBA_VALUES.a.min }))
+                  setInputOpacityValue(String(parsed.formattedValue ?? '0'))
+                  return
+                }
 
-              const percent = parsed.normalizedValue ?? 0
-              const fraction = roundAlpha(clamp(percent / 100, RGBA_VALUES.a.min, RGBA_VALUES.a.max))
+                if (parsed.error === 'greater_than_max') {
+                  setColor(rgbaToColor({ r: rgba.r, g: rgba.g, b: rgba.b, a: RGBA_VALUES.a.max }))
+                  setInputOpacityValue(String(parsed.formattedValue ?? '0'))
+                  return
+                }
 
-              setColor(rgbaToColor({ r: rgba.r, g: rgba.g, b: rgba.b, a: fraction }))
-              setInputOpacityValue(String(parsed.formattedValue ?? '0'))
-            }}
-            onKeyDown={(e) =>
-              opacityValidation.handleKeyDown(e, (next) => {
-                setInputOpacityValue(String(next))
-                if (typeof next !== 'number') return
-                const fraction = roundAlpha(clamp(next / 100, RGBA_VALUES.a.min, RGBA_VALUES.a.max))
+                const percent = parsed.normalizedValue ?? 0
+                const fraction = roundAlpha(clamp(percent / 100, RGBA_VALUES.a.min, RGBA_VALUES.a.max))
+
                 setColor(rgbaToColor({ r: rgba.r, g: rgba.g, b: rgba.b, a: fraction }))
-              })
-            }
-          />
+                setInputOpacityValue(String(parsed.formattedValue ?? '0'))
+              }}
+              onKeyDown={(e) =>
+                opacityValidation.handleKeyDown(e, (next) => {
+                  setInputOpacityValue(String(next))
+                  if (typeof next !== 'number') return
+                  const fraction = roundAlpha(clamp(next / 100, RGBA_VALUES.a.min, RGBA_VALUES.a.max))
+                  setColor(rgbaToColor({ r: rgba.r, g: rgba.g, b: rgba.b, a: fraction }))
+                })
+              }
+            />
+          )}
         </ControlGroup>
       </div>
     </>
@@ -395,6 +399,7 @@ const ControlsHexAlpha = ({
   setType,
   options,
   selectRef,
+  showOpacity = true,
 }: {
   color: Color
   setColor: (color: Color) => void
@@ -402,6 +407,7 @@ const ControlsHexAlpha = ({
   setType: (t: ColorPickerType) => void
   options: { value: string; label: string }[]
   selectRef: preact.RefObject<HTMLDivElement>
+  showOpacity?: boolean
 }) => {
   const [hexValue, setHexValue] = useState<string>(colorToHex(color).slice(1))
 
@@ -466,54 +472,56 @@ const ControlsHexAlpha = ({
             }}
           />
 
-          <Input
-            tooltip="Opacity"
-            selectOnFocus={true}
-            className="ColorPicker__controlOpacity"
-            value={hexOpacityValue}
-            suffix={
-              <Text intentModifier="secondary">
-                <div className="ColorPicker__controlOpacityContainer">%</div>
-              </Text>
-            }
-            onValueChange={(e) => {
-              setHexOpacityValue(e.value)
-            }}
-            onBlur={(e) => {
-              const parsed = hexOpacityValidation.parse(e.value)
-
-              if (parsed.error === 'required' || parsed.error === 'invalid_number' || parsed.error === 'not_integer') {
-                setColor({ ...color, a: HEX_VALUES.a.min })
-                setHexOpacityValue(String(parsed.formattedValue))
-                return
+          {showOpacity && (
+            <Input
+              tooltip="Opacity"
+              selectOnFocus={true}
+              className="ColorPicker__controlOpacity"
+              value={hexOpacityValue}
+              suffix={
+                <Text intentModifier="secondary">
+                  <div className="ColorPicker__controlOpacityContainer">%</div>
+                </Text>
               }
+              onValueChange={(e) => {
+                setHexOpacityValue(e.value)
+              }}
+              onBlur={(e) => {
+                const parsed = hexOpacityValidation.parse(e.value)
 
-              if (parsed.error === 'less_than_min') {
-                setColor({ ...color, a: HEX_VALUES.a.min })
-                setHexOpacityValue(String(parsed.formattedValue))
-                return
-              }
+                if (parsed.error === 'required' || parsed.error === 'invalid_number' || parsed.error === 'not_integer') {
+                  setColor({ ...color, a: HEX_VALUES.a.min })
+                  setHexOpacityValue(String(parsed.formattedValue))
+                  return
+                }
 
-              if (parsed.error === 'greater_than_max') {
-                setColor({ ...color, a: HEX_VALUES.a.max })
-                setHexOpacityValue(String(parsed.formattedValue))
-                return
-              }
+                if (parsed.error === 'less_than_min') {
+                  setColor({ ...color, a: HEX_VALUES.a.min })
+                  setHexOpacityValue(String(parsed.formattedValue))
+                  return
+                }
 
-              const percent = parsed.normalizedValue ?? 0
-              const fraction = roundAlpha(clamp(percent / 100, HEX_VALUES.a.min, HEX_VALUES.a.max))
-              setColor({ ...color, a: fraction })
-              setHexOpacityValue(String(parsed.formattedValue))
-            }}
-            onKeyDown={(e) =>
-              hexOpacityValidation.handleKeyDown(e, (next) => {
-                setHexOpacityValue(String(next))
-                if (typeof next !== 'number') return
-                const fraction = roundAlpha(clamp(next / 100, HEX_VALUES.a.min, HEX_VALUES.a.max))
+                if (parsed.error === 'greater_than_max') {
+                  setColor({ ...color, a: HEX_VALUES.a.max })
+                  setHexOpacityValue(String(parsed.formattedValue))
+                  return
+                }
+
+                const percent = parsed.normalizedValue ?? 0
+                const fraction = roundAlpha(clamp(percent / 100, HEX_VALUES.a.min, HEX_VALUES.a.max))
                 setColor({ ...color, a: fraction })
-              })
-            }
-          />
+                setHexOpacityValue(String(parsed.formattedValue))
+              }}
+              onKeyDown={(e) =>
+                hexOpacityValidation.handleKeyDown(e, (next) => {
+                  setHexOpacityValue(String(next))
+                  if (typeof next !== 'number') return
+                  const fraction = roundAlpha(clamp(next / 100, HEX_VALUES.a.min, HEX_VALUES.a.max))
+                  setColor({ ...color, a: fraction })
+                })
+              }
+            />
+          )}
         </ControlGroup>
       </div>
     </>
@@ -530,6 +538,7 @@ const ColorPickerComponent = (
     types,
     color,
     showControls = true,
+    alpha = true,
     width = 207,
     fullWidth = false,
     onTypeChange,
@@ -564,11 +573,16 @@ const ColorPickerComponent = (
     [types],
   )
 
+  const visibleTypes: ColorPickerType[] = useMemo(
+    () => (alpha ? allowedTypes : allowedTypes.filter((t) => t !== 'hexAlpha')),
+    [allowedTypes, alpha],
+  )
+
   // Picker type state:
   // - uncontrolled by default, initialised from `defaultType`
   // - when `type` is provided, it acts as a controlled override
   const [internalType, setInternalType] = useState<ColorPickerType>(() =>
-    allowedTypes.includes(defaultType as ColorPickerType) ? (defaultType as ColorPickerType) : allowedTypes[0],
+    visibleTypes.includes(defaultType as ColorPickerType) ? (defaultType as ColorPickerType) : visibleTypes[0],
   )
 
   useEffect(() => {
@@ -577,7 +591,7 @@ const ColorPickerComponent = (
     }
   }, [type])
 
-  const allowedTypesKey = useMemo(() => (allowedTypes && allowedTypes.length ? allowedTypes.join('|') : ''), [allowedTypes])
+  const visibleTypesKey = useMemo(() => (visibleTypes && visibleTypes.length ? visibleTypes.join('|') : ''), [visibleTypes])
 
   useEffect(() => {
     // In controlled state (`type` provided), `defaultType` should not
@@ -586,11 +600,23 @@ const ColorPickerComponent = (
       return
     }
 
-    const nextType = (allowedTypes as ColorPickerType[]).includes(defaultType as ColorPickerType)
+    const nextType = visibleTypes.includes(defaultType as ColorPickerType)
       ? (defaultType as ColorPickerType)
-      : allowedTypes[0]
+      : visibleTypes[0]
     setInternalType(nextType)
-  }, [defaultType, allowedTypesKey, allowedTypes, type])
+  }, [defaultType, visibleTypesKey, visibleTypes, type])
+
+  useEffect(() => {
+    if (type || alpha || internalType !== 'hexAlpha') {
+      return
+    }
+
+    const nextType = visibleTypes[0]
+    if (nextType && nextType !== internalType) {
+      setInternalType(nextType)
+      onTypeChange?.({ type: nextType })
+    }
+  }, [alpha, internalType, visibleTypes, type, onTypeChange])
 
   const currentType: ColorPickerType = internalType
 
@@ -688,10 +714,10 @@ const ColorPickerComponent = (
 
   // Build Select options based on allowed types and rename hexAlpha to "Hex"
   // when hex is not available but hexAlpha is.
-  const baseOptions = TYPE_OPTIONS.filter((o) => allowedTypes.includes(o.value as ColorPickerType))
+  const baseOptions = TYPE_OPTIONS.filter((o) => visibleTypes.includes(o.value as ColorPickerType))
 
   const computedOptions =
-    !allowedTypes.includes('hex' as ColorPickerType) && allowedTypes.includes('hexAlpha' as ColorPickerType)
+    !visibleTypes.includes('hex' as ColorPickerType) && visibleTypes.includes('hexAlpha' as ColorPickerType)
       ? baseOptions.map((o) => (o.value === 'hexAlpha' ? { ...o, label: 'Hex' } : o))
       : baseOptions
 
@@ -745,11 +771,19 @@ const ColorPickerComponent = (
           }}
         />
       )}
-      {currentType === 'rgba' && (
+      {currentType === 'rgba' && alpha && (
         <RgbaColorPicker
           color={colorToRgba(internalColor)}
           onChange={(e) => {
             scheduleNextColor(rgbaToColor(e))
+          }}
+        />
+      )}
+      {currentType === 'rgba' && !alpha && (
+        <RgbColorPicker
+          color={colorToRgba(internalColor)}
+          onChange={(rgb) => {
+            scheduleNextColor(rgbaToColor({ ...rgb, a: internalColor.a }))
           }}
         />
       )}
@@ -773,6 +807,7 @@ const ColorPickerComponent = (
               setType={handleTypeChange}
               options={computedOptions}
               selectRef={modeSelectRef}
+              showOpacity={alpha}
             />
           )}
           {currentType === 'rgba' && (
@@ -783,6 +818,7 @@ const ColorPickerComponent = (
               setType={handleTypeChange}
               options={computedOptions}
               selectRef={modeSelectRef}
+              showOpacity={alpha}
             />
           )}
         </div>
