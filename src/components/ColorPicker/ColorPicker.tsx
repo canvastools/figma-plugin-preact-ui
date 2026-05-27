@@ -64,6 +64,18 @@ const TYPE_OPTIONS = [
   { value: 'hexAlpha', label: 'Hex alpha' },
 ]
 
+const resolveVisibleTypes = (allowedTypes: ColorPickerType[], alpha: boolean): ColorPickerType[] => {
+  if (alpha) return allowedTypes
+  // hexAlpha → hex (preserving position), then deduplicate
+  return allowedTypes.map((t) => (t === 'hexAlpha' ? 'hex' : t)).filter((t, i, a) => a.indexOf(t) === i)
+}
+
+const resolvePickerType = (pickerType: ColorPickerType, visibleTypes: ColorPickerType[]): ColorPickerType => {
+  if (visibleTypes.includes(pickerType)) return pickerType
+  if (pickerType === 'hexAlpha' && visibleTypes.includes('hex')) return 'hex'
+  return visibleTypes[0]
+}
+
 const hexMask = (input: string): string => {
   const cleaned = input
     .toUpperCase()
@@ -399,7 +411,6 @@ const ControlsHexAlpha = ({
   setType,
   options,
   selectRef,
-  showOpacity = true,
 }: {
   color: Color
   setColor: (color: Color) => void
@@ -407,7 +418,6 @@ const ControlsHexAlpha = ({
   setType: (t: ColorPickerType) => void
   options: { value: string; label: string }[]
   selectRef: preact.RefObject<HTMLDivElement>
-  showOpacity?: boolean
 }) => {
   const [hexValue, setHexValue] = useState<string>(colorToHex(color).slice(1))
 
@@ -472,56 +482,54 @@ const ControlsHexAlpha = ({
             }}
           />
 
-          {showOpacity && (
-            <Input
-              tooltip="Opacity"
-              selectOnFocus={true}
-              className="ColorPicker__controlOpacity"
-              value={hexOpacityValue}
-              suffix={
-                <Text intentModifier="secondary">
-                  <div className="ColorPicker__controlOpacityContainer">%</div>
-                </Text>
-              }
-              onValueChange={(e) => {
-                setHexOpacityValue(e.value)
-              }}
-              onBlur={(e) => {
-                const parsed = hexOpacityValidation.parse(e.value)
+          <Input
+            tooltip="Opacity"
+            selectOnFocus={true}
+            className="ColorPicker__controlOpacity"
+            value={hexOpacityValue}
+            suffix={
+              <Text intentModifier="secondary">
+                <div className="ColorPicker__controlOpacityContainer">%</div>
+              </Text>
+            }
+            onValueChange={(e) => {
+              setHexOpacityValue(e.value)
+            }}
+            onBlur={(e) => {
+              const parsed = hexOpacityValidation.parse(e.value)
 
-                if (parsed.error === 'required' || parsed.error === 'invalid_number' || parsed.error === 'not_integer') {
-                  setColor({ ...color, a: HEX_VALUES.a.min })
-                  setHexOpacityValue(String(parsed.formattedValue))
-                  return
-                }
-
-                if (parsed.error === 'less_than_min') {
-                  setColor({ ...color, a: HEX_VALUES.a.min })
-                  setHexOpacityValue(String(parsed.formattedValue))
-                  return
-                }
-
-                if (parsed.error === 'greater_than_max') {
-                  setColor({ ...color, a: HEX_VALUES.a.max })
-                  setHexOpacityValue(String(parsed.formattedValue))
-                  return
-                }
-
-                const percent = parsed.normalizedValue ?? 0
-                const fraction = roundAlpha(clamp(percent / 100, HEX_VALUES.a.min, HEX_VALUES.a.max))
-                setColor({ ...color, a: fraction })
+              if (parsed.error === 'required' || parsed.error === 'invalid_number' || parsed.error === 'not_integer') {
+                setColor({ ...color, a: HEX_VALUES.a.min })
                 setHexOpacityValue(String(parsed.formattedValue))
-              }}
-              onKeyDown={(e) =>
-                hexOpacityValidation.handleKeyDown(e, (next) => {
-                  setHexOpacityValue(String(next))
-                  if (typeof next !== 'number') return
-                  const fraction = roundAlpha(clamp(next / 100, HEX_VALUES.a.min, HEX_VALUES.a.max))
-                  setColor({ ...color, a: fraction })
-                })
+                return
               }
-            />
-          )}
+
+              if (parsed.error === 'less_than_min') {
+                setColor({ ...color, a: HEX_VALUES.a.min })
+                setHexOpacityValue(String(parsed.formattedValue))
+                return
+              }
+
+              if (parsed.error === 'greater_than_max') {
+                setColor({ ...color, a: HEX_VALUES.a.max })
+                setHexOpacityValue(String(parsed.formattedValue))
+                return
+              }
+
+              const percent = parsed.normalizedValue ?? 0
+              const fraction = roundAlpha(clamp(percent / 100, HEX_VALUES.a.min, HEX_VALUES.a.max))
+              setColor({ ...color, a: fraction })
+              setHexOpacityValue(String(parsed.formattedValue))
+            }}
+            onKeyDown={(e) =>
+              hexOpacityValidation.handleKeyDown(e, (next) => {
+                setHexOpacityValue(String(next))
+                if (typeof next !== 'number') return
+                const fraction = roundAlpha(clamp(next / 100, HEX_VALUES.a.min, HEX_VALUES.a.max))
+                setColor({ ...color, a: fraction })
+              })
+            }
+          />
         </ControlGroup>
       </div>
     </>
@@ -574,7 +582,7 @@ const ColorPickerComponent = (
   )
 
   const visibleTypes: ColorPickerType[] = useMemo(
-    () => (alpha ? allowedTypes : allowedTypes.filter((t) => t !== 'hexAlpha')),
+    () => resolveVisibleTypes(allowedTypes, alpha),
     [allowedTypes, alpha],
   )
 
@@ -582,7 +590,7 @@ const ColorPickerComponent = (
   // - uncontrolled by default, initialised from `defaultType`
   // - when `type` is provided, it acts as a controlled override
   const [internalType, setInternalType] = useState<ColorPickerType>(() =>
-    visibleTypes.includes(defaultType as ColorPickerType) ? (defaultType as ColorPickerType) : visibleTypes[0],
+    resolvePickerType(defaultType as ColorPickerType, resolveVisibleTypes(allowedTypes, alpha)),
   )
 
   useEffect(() => {
@@ -600,25 +608,21 @@ const ColorPickerComponent = (
       return
     }
 
-    const nextType = visibleTypes.includes(defaultType as ColorPickerType)
-      ? (defaultType as ColorPickerType)
-      : visibleTypes[0]
+    const nextType = resolvePickerType(defaultType as ColorPickerType, visibleTypes)
     setInternalType(nextType)
   }, [defaultType, visibleTypesKey, visibleTypes, type])
 
   useEffect(() => {
-    if (type || alpha || internalType !== 'hexAlpha') {
-      return
-    }
+    if (type || visibleTypes.includes(internalType)) return
 
-    const nextType = visibleTypes[0]
-    if (nextType && nextType !== internalType) {
+    const nextType = resolvePickerType(internalType, visibleTypes)
+    if (nextType !== internalType) {
       setInternalType(nextType)
       onTypeChange?.({ type: nextType })
     }
-  }, [alpha, internalType, visibleTypes, type, onTypeChange])
+  }, [internalType, visibleTypes, type, onTypeChange])
 
-  const currentType: ColorPickerType = internalType
+  const currentType: ColorPickerType = resolvePickerType(internalType, visibleTypes)
 
   const handleTypeChange = (nextType: ColorPickerType) => {
     if (nextType === internalType) return
@@ -807,7 +811,6 @@ const ColorPickerComponent = (
               setType={handleTypeChange}
               options={computedOptions}
               selectRef={modeSelectRef}
-              showOpacity={alpha}
             />
           )}
           {currentType === 'rgba' && (
