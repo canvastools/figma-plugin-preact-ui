@@ -1,4 +1,4 @@
-import{u as e}from"./hooks.module-6Sbq__eq.js";import{M as i}from"./MenuDivider-AltCHnUL.js";import{M as o}from"./MenuContainer-DIktfDZk.js";import{M as n}from"./MenuItemAction-D6NJohij.js";import"./preact.module-gH5CyEHP.js";import"./typedForwardRef-CtFJgl6m.js";import"./compat.module-CHmB9zKI.js";import"./Icon-C6_npEhI.js";import"./chevronUp-CJIqewiB.js";import"./chevronDown-CECORTRu.js";import"./Text-BbQ_b1VF.js";const M={parameters:{controls:{disable:!0},viewport:{defaultViewport:"large"},docs:{source:{language:"tsx",code:`
+import{u as e}from"./hooks.module-6Sbq__eq.js";import{M as i}from"./MenuDivider-AltCHnUL.js";import{M as o}from"./MenuContainer-CKfCUuSm.js";import{M as n}from"./MenuItemAction-BHJsI-R3.js";import"./preact.module-gH5CyEHP.js";import"./typedForwardRef-CtFJgl6m.js";import"./compat.module-CHmB9zKI.js";import"./Icon-C6_npEhI.js";import"./chevronUp-CJIqewiB.js";import"./chevronDown-CECORTRu.js";import"./Text-BbQ_b1VF.js";const M={parameters:{controls:{disable:!0},viewport:{defaultViewport:"large"},docs:{source:{language:"tsx",code:`
 <MenuDivider variant="full" />
 
 <MenuDivider variant="inset" />
