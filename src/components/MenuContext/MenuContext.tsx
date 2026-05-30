@@ -216,6 +216,14 @@ const MenuContext = ({ triggerRef, anchorRef, open, setOpen, children }: MenuCon
       const { key, shiftKey, metaKey, ctrlKey, altKey } = event
       const target = event.target as HTMLElement | null
 
+      if (key === 'Escape' || key === 'Esc') {
+        event.preventDefault()
+        event.stopPropagation()
+        setOpen?.(false)
+        triggerRef?.current?.focus()
+        return
+      }
+
       if (metaKey || ctrlKey || altKey) return
 
       // Activate the currently active menu item with Enter / Space.
@@ -378,6 +386,8 @@ const MenuContext = ({ triggerRef, anchorRef, open, setOpen, children }: MenuCon
     lastInteractionItemId,
     moveFocus,
     open,
+    setOpen,
+    triggerRef,
   ])
 
   // Resume hover handling only after the user actually moves the mouse again
