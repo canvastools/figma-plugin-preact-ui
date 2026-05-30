@@ -84,7 +84,12 @@ const SelectComponent = (
 
   const handleKeyDown = (event: preact.JSX.TargetedKeyboardEvent<HTMLDivElement>) => {
     if (event.key === 'Escape' || event.key === 'Esc') {
-      event.currentTarget.blur()
+      if (isOpen) {
+        event.stopPropagation()
+        setIsOpen(false)
+      } else {
+        event.currentTarget.blur()
+      }
     }
   }
 
