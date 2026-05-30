@@ -98,12 +98,14 @@ const ListItemComponent = (
     })
     const handleGlobalDragEnd = () => {
       setIsDragging(false)
+      document.documentElement.classList.remove('pui-dragging')
       endZoneRef.current?.classList.remove('ListItem__end-dropzone-active')
       endZoneDropParentRef.current = null
     }
 
     const handleResetDragStates = () => {
       setIsDragging(false)
+      document.documentElement.classList.remove('pui-dragging')
       endZoneRef.current?.classList.remove('ListItem__end-dropzone-active')
       endZoneDropParentRef.current = null
     }
@@ -387,6 +389,7 @@ const ListItemComponent = (
   const handleDragHandleDragStart = (e: DragEvent) => {
     if (draggable) {
       setIsDragging(true)
+      document.documentElement.classList.add('pui-dragging')
       // Determine if this drag should be multi based on current selection BEFORE mutating it
       const isMultiDrag = selectable && selectedItemIds.has(id) && selectedItemIds.size > 1
       const ids = isMultiDrag ? Array.from(selectedItemIds) : [id]
@@ -417,6 +420,7 @@ const ListItemComponent = (
   const handleDragHandleDragEnd = (e: DragEvent) => {
     if (draggable) {
       setIsDragging(false)
+      document.documentElement.classList.remove('pui-dragging')
       try {
         delete (window as { __puiDraggingIds?: string[] }).__puiDraggingIds
       } catch {
