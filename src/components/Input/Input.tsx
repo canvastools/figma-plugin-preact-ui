@@ -28,6 +28,7 @@ const InputComponent = (
     suffix,
     showSuffixOnHover = false,
     focusOnDoubleClick = false,
+    focusOnPrefix = false,
     minLength = 0,
     maxLength,
     tooltip,
@@ -185,10 +186,35 @@ const InputComponent = (
     }
   }
 
+  const startEditingFromMouse = () => {
+    wrapperLastInteractionWasMouse.current = true
+    if (isEditing) {
+      setTimeout(() => inputRef.current?.focus(), 0)
+    } else {
+      setIsEditing(true)
+    }
+  }
+
   const handleDoubleClickDisplay = () => {
     if (!focusOnDoubleClick) return
-    wrapperLastInteractionWasMouse.current = true
-    setIsEditing(true)
+    startEditingFromMouse()
+  }
+
+  const handlePrefixMouseDown = (event: preact.JSX.TargetedMouseEvent<HTMLDivElement>) => {
+    if (disabled) return
+    event.preventDefault()
+    inputRef.current?.focus()
+  }
+
+  const handlePrefixDoubleClick = (event: preact.JSX.TargetedMouseEvent<HTMLDivElement>) => {
+    if (disabled) return
+    event.preventDefault()
+    event.stopPropagation()
+    startEditingFromMouse()
+  }
+
+  const handlePrefixBlockDoubleClick = (event: preact.JSX.TargetedMouseEvent<HTMLDivElement>) => {
+    event.stopPropagation()
   }
 
   useEffect(() => {
@@ -230,7 +256,21 @@ const InputComponent = (
             flexShrink: maxWidth ? 0 : undefined,
           }}
         >
-          {prefix && <div className="Input__prefix">{prefix}</div>}
+          {prefix && (
+            <div
+              className="Input__prefix"
+              onMouseDownCapture={focusOnPrefix && !focusOnDoubleClick ? handlePrefixMouseDown : undefined}
+              onDblClickCapture={
+                focusOnPrefix && focusOnDoubleClick
+                  ? handlePrefixDoubleClick
+                  : !focusOnPrefix && focusOnDoubleClick
+                    ? handlePrefixBlockDoubleClick
+                    : undefined
+              }
+            >
+              {prefix}
+            </div>
+          )}
           {showEditableInput ? (
             <input
               className="Input__input-native"

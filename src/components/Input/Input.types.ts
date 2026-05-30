@@ -15,6 +15,7 @@ export interface InputProps {
   suffix?: preact.ComponentChildren
   showSuffixOnHover?: boolean
   focusOnDoubleClick?: boolean
+  focusOnPrefix?: boolean
   tooltip?: preact.ComponentChildren
   minLength?: number
   maxLength?: number

@@ -101,6 +101,10 @@ const meta: Meta<typeof Input> = {
       control: { type: 'boolean' },
       defaultValue: { summary: false },
     },
+    focusOnPrefix: {
+      control: { type: 'boolean' },
+      defaultValue: { summary: false },
+    },
     minLength: {
       control: { type: 'number' },
       defaultValue: { summary: 0 },
