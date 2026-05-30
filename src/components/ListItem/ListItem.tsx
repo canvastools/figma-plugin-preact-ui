@@ -44,6 +44,7 @@ const ListItemComponent = (
     dragImage,
     reorderItems,
     getPathForId,
+    onKeyDown: contextOnKeyDown,
   } = useListContext()
   const [isDragging, setIsDragging] = useState(false)
   const [isFocused, setIsFocused] = useState(false)
@@ -303,6 +304,7 @@ const ListItemComponent = (
 
   const handleKeyDown = (e: KeyboardEvent) => {
     if (isInteractiveTarget(e.target as HTMLElement | null)) return
+    contextOnKeyDown?.({ event: e, itemId: id })
     switch (e.key) {
       case 'ArrowUp':
         if (e.altKey) {

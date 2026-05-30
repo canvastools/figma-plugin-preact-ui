@@ -19,7 +19,7 @@ export type ListItemPropsPick = Pick<
 
 type ListContextPropsPick = Pick<
   ListContextProps,
-  'selectedItemIds' | 'selectionMode' | 'deselectOnClickOutside' | 'onItemsChange' | 'onSelectionChange'
+  'selectedItemIds' | 'selectionMode' | 'deselectOnClickOutside' | 'onItemsChange' | 'onSelectionChange' | 'onKeyDown'
 >
 
 export interface ListProps extends ListContextPropsPick {
