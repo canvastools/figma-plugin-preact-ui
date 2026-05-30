@@ -1,6 +1,6 @@
 import { StoryObj } from '@storybook/preact'
 
-import { Icon, ColorSwatch, search } from '../../../index'
+import { Icon, search } from '../../../index'
 
 import { Input } from '../Input'
 
