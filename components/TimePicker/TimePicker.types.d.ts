@@ -17,7 +17,6 @@ export interface TimePickerProps {
     autoFocus?: boolean;
     grouped?: 'first' | 'last' | 'middle';
     tooltip?: preact.ComponentChildren;
-    tabIndex?: number;
     onTimeChange?: (args: {
         date: TimePickerDate | undefined;
         time: string;

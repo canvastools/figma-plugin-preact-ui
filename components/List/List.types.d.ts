@@ -7,6 +7,5 @@ export interface ListProps extends ListContextPropsPick {
     items: ListItemData[];
     listItemProps: ListItemPropsPick | ((item: ListItemData) => ListItemPropsPick);
     renderItem?: (item: ListItemData) => preact.ComponentChildren;
-    tabIndex?: number;
 }
 export {};
