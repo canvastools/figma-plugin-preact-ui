@@ -30,6 +30,7 @@ const ListItemComponent = (
     onSelect,
     items,
     children,
+    tabIndex,
     ...rest
   }: ListItemProps,
   ref: preact.Ref<HTMLDivElement>,
@@ -542,7 +543,7 @@ const ListItemComponent = (
       }}
       key={id}
       {...rest}
-      tabIndex={selectable || draggable || collapsable ? 0 : undefined}
+      tabIndex={tabIndex ?? (selectable || draggable || collapsable ? 0 : undefined)}
       onFocus={(e) => {
         if (e.currentTarget === e.target) {
           setIsFocused(true)

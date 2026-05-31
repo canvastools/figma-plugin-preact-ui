@@ -39,6 +39,7 @@ const InputComponent = (
     onBlur,
     onFocus,
     onKeyDown,
+    tabIndex,
     ...rest
   }: InputProps,
   ref: preact.Ref<HTMLDivElement>,
@@ -250,7 +251,7 @@ const InputComponent = (
           onFocus={handleRootFocus}
           onBlur={handleRootBlur}
           onDblClick={handleDoubleClickDisplay}
-          tabIndex={focusOnDoubleClick ? 0 : undefined}
+          tabIndex={tabIndex ?? (focusOnDoubleClick ? 0 : undefined)}
           style={{
             maxWidth: variant === 'default' ? undefined : typeof maxWidth === 'number' ? `${maxWidth}px` : maxWidth,
             flexShrink: maxWidth ? 0 : undefined,
@@ -281,6 +282,7 @@ const InputComponent = (
               maxLength={maxLength}
               type={type}
               disabled={disabled}
+              tabIndex={!focusOnDoubleClick ? tabIndex : undefined}
               placeholder={placeholder}
               value={isControlled ? value : internalValue}
               onChange={handleChange}

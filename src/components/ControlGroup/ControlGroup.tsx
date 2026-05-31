@@ -9,7 +9,7 @@ import './ControlGroup.scss'
 /* --- */
 
 const ControlGroupComponent = (
-  { id, className, groupFocus = false, fullWidth = false, disabled = false, children, ...rest }: ControlGroupProps,
+  { id, className, groupFocus = false, fullWidth = false, disabled = false, children, tabIndex, ...rest }: ControlGroupProps,
   ref: preact.Ref<HTMLDivElement>,
 ) => {
   const childrenArray = toChildArray(children).filter(isValidElement) as VNode[]
@@ -21,7 +21,7 @@ const ControlGroupComponent = (
   })
 
   return (
-    <div id={id} className={[_className, className].join(' ').trim()} data-pui-interactive="true" ref={ref} {...rest}>
+    <div id={id} className={[_className, className].join(' ').trim()} data-pui-interactive="true" ref={ref} tabIndex={tabIndex} {...rest}>
       {childrenArray.map((child, index) =>
         cloneElement(child, {
           ...child.props,

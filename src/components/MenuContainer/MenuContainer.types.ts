@@ -4,6 +4,7 @@ export interface MenuContainerProps {
   width?: number
   height?: number
   children: preact.ComponentChildren
+  tabIndex?: number
 }
 
 export type MenuContainerPropsPick = Pick<MenuContainerProps, 'width'>

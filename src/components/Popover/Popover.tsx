@@ -28,6 +28,7 @@ type PopoverBodyProps = {
   offsetY: number
   offsetEdge: number
   showArrow: boolean
+  tabIndex?: number
   children: preact.ComponentChildren
 }
 
@@ -43,6 +44,7 @@ const PopoverBody = ({
   offsetY,
   offsetEdge,
   showArrow,
+  tabIndex,
   children,
 }: PopoverBodyProps) => {
   const { triggerRef, anchorRef, open, setOpen } = usePopoverContext()
@@ -77,6 +79,7 @@ const PopoverBody = ({
         height={height}
         showArrow={showArrow}
         constrainHeight={constrainHeight}
+        tabIndex={tabIndex}
       >
         <PopoverHeader onClose={handleClose}>{popoverHeaderProps?.children}</PopoverHeader>
         {children}
@@ -104,6 +107,7 @@ const PopoverComponent = (
     offsetY = 8,
     offsetEdge = 16,
     showArrow = false,
+    tabIndex,
     children,
     onOpen,
     onClose,
@@ -148,6 +152,7 @@ const PopoverComponent = (
             offsetY={offsetY}
             offsetEdge={offsetEdge}
             showArrow={showArrow}
+            tabIndex={tabIndex}
           >
             {children}
           </PopoverBody>

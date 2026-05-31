@@ -87,6 +87,13 @@ const meta: Meta<typeof MenuItemOption> = {
         },
       },
     },
+    tabIndex: {
+      control: { type: 'number' },
+      description: 'Tab order of the menu item. Omit for -1 (roving focus in menus).',
+      table: {
+        type: { summary: 'number' },
+      },
+    },
     onSelectedChange: {
       table: {
         type: {

@@ -29,6 +29,7 @@ const CalendarComponent = (
     onDetailUp,
     onDetailDown,
     onViewChange,
+    tabIndex,
     ...rest
   }: CalendarProps,
   ref: preact.Ref<HTMLDivElement>,
@@ -52,7 +53,7 @@ const CalendarComponent = (
   }
 
   return (
-    <div id={id} ref={ref} onKeyDown={handleKeyDown} data-pui-interactive="true">
+    <div id={id} ref={ref} tabIndex={tabIndex} onKeyDown={handleKeyDown} data-pui-interactive="true">
       <ReactCalendar
         className={[_className, className].join(' ').trim()}
         locale={locale}

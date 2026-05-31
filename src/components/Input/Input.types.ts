@@ -22,6 +22,7 @@ export interface InputProps {
   maxWidth?: number | string
   autoFocus?: boolean
   selectOnFocus?: boolean
+  tabIndex?: number
   onValueChange?: (args: { event: Event; value: string }) => void
   onBlur?: (args: { event: FocusEvent; value: string }) => void
   onFocus?: (args: { event: FocusEvent; value: string }) => void

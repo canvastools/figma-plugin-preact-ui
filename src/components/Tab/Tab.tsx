@@ -14,7 +14,7 @@ import './Tab.scss'
 /* --- */
 
 const TabComponent = (
-  { id, className, variant = 'default', prefix, suffix, children, tooltip, onClick, ...rest }: TabProps,
+  { id, className, variant = 'default', prefix, suffix, children, tooltip, tabIndex, onClick, ...rest }: TabProps,
   ref: preact.Ref<HTMLButtonElement>,
 ) => {
   const wrapChildrenInText = typeof children === 'string' || typeof children === 'number'
@@ -97,8 +97,8 @@ const TabComponent = (
         className={[_className, className].join(' ').trim()}
         data-pui-interactive="true"
         ref={setRef}
-        tabIndex={id === activeId ? 0 : -1}
         {...rest}
+        tabIndex={tabIndex ?? (id === activeId ? 0 : -1)}
         onClick={handleClick}
       >
         <div className="Tab__container Tab__container_fake">

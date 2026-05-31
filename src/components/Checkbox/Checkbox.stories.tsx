@@ -60,6 +60,13 @@ const meta: Meta<typeof Checkbox> = {
     label: {
       control: { type: 'text' },
     },
+    tabIndex: {
+      control: { type: 'number' },
+      description: 'Tab order of the focusable element. Omit to keep the default focus behavior.',
+      table: {
+        type: { summary: 'number' },
+      },
+    },
     onCheckedChange: {
       table: {
         type: {

@@ -104,6 +104,13 @@ Vector: {
         },
       },
     },
+    tabIndex: {
+      control: { type: 'number' },
+      description: 'Tab order of the swatch button. Omit for native button order when enabled; -1 when disabled.',
+      table: {
+        type: { summary: 'number' },
+      },
+    },
     onClick: {
       table: {
         type: {

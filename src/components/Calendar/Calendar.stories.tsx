@@ -119,6 +119,13 @@ const meta: Meta<typeof Calendar> = {
       options: ['full', 'simple'],
       defaultValue: { summary: 'full' },
     },
+    tabIndex: {
+      control: { type: 'number' },
+      description: 'Tab order of the root wrapper element. Omit when the wrapper should not be in the tab sequence.',
+      table: {
+        type: { summary: 'number' },
+      },
+    },
     onDateChange: {
       table: {
         type: {

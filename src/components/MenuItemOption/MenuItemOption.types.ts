@@ -8,5 +8,6 @@ export interface MenuItemOptionProps {
   prefix?: preact.ComponentChildren
   suffix?: preact.ComponentChildren
   children: preact.ComponentChildren
+  tabIndex?: number
   onSelectedChange?: (args: { event: MouseEvent; id: string; selected: boolean }) => void
 }

@@ -76,6 +76,13 @@ const meta: Meta<typeof Tab> = {
         },
       },
     },
+    tabIndex: {
+      control: { type: 'number' },
+      description: 'Tab order of the tab button. Omit for roving tabindex (active: 0, inactive: -1).',
+      table: {
+        type: { summary: 'number' },
+      },
+    },
     onClick: {
       table: {
         type: {

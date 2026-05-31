@@ -70,6 +70,7 @@ const ColorSwatchComponent = (
     selection = 'default',
     tooltip,
     children,
+    tabIndex,
     onClick,
     ...rest
   }: ColorSwatchProps,
@@ -117,7 +118,7 @@ const ColorSwatchComponent = (
       }}
       {...buttonRest}
       aria-disabled={disabled || undefined}
-      tabIndex={disabled ? -1 : (buttonRest.tabIndex as number | undefined)}
+      tabIndex={disabled ? -1 : tabIndex}
       onClick={(event) => {
         if (disabled) return
         nativeOnClick?.(event)

@@ -38,6 +38,13 @@ const meta: Meta<typeof PopoverHeader> = {
         },
       },
     },
+    tabIndex: {
+      control: { type: 'number' },
+      description: 'Tab order of the popover header wrapper. Omit when it should not be in the tab sequence.',
+      table: {
+        type: { summary: 'number' },
+      },
+    },
     onClose: {
       table: {
         type: {

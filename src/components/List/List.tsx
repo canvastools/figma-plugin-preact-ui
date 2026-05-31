@@ -21,6 +21,7 @@ const ListComponent = (
     onItemsChange,
     onSelectionChange,
     onKeyDown,
+    tabIndex,
     ...rest
   }: ListProps,
   ref: preact.Ref<HTMLDivElement>,
@@ -89,7 +90,7 @@ const ListComponent = (
       onSelectionChange={onSelectionChange}
       onKeyDown={onKeyDown}
     >
-      <div id={id} className={[_className, className].join(' ').trim()} ref={ref} {...rest}>
+      <div id={id} className={[_className, className].join(' ').trim()} ref={ref} tabIndex={tabIndex} {...rest}>
         {renderItems(items, 0)}
       </div>
     </ListContext>

@@ -96,6 +96,13 @@ const meta: Meta<typeof Button> = {
         },
       },
     },
+    tabIndex: {
+      control: { type: 'number' },
+      description: 'Tab order of the focusable element. Omit to keep the default focus behavior.',
+      table: {
+        type: { summary: 'number' },
+      },
+    },
     onClick: {
       table: {
         type: {

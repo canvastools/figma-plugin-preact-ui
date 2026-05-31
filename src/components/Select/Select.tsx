@@ -31,6 +31,7 @@ const SelectComponent = (
     grouped,
     error = false,
     disabled = false,
+    tabIndex,
     prefix,
     menuContainerProps,
     tooltip,
@@ -137,8 +138,8 @@ const SelectComponent = (
         className={[_className, className].join(' ').trim()}
         data-pui-interactive="true"
         ref={attachTriggerRef}
-        tabIndex={disabled ? -1 : 0}
         {...rest}
+        tabIndex={tabIndex ?? (disabled ? -1 : 0)}
         onFocus={handleFocus as preact.JSX.FocusEventHandler<HTMLDivElement>}
         onBlur={handleBlur as preact.JSX.FocusEventHandler<HTMLDivElement>}
         onKeyDown={handleKeyDown}

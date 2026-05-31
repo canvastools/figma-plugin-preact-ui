@@ -9,6 +9,7 @@ export interface CheckboxProps {
   defaultChecked?: CheckboxValue
   mixed?: boolean
   disabled?: boolean
+  tabIndex?: number
   label?: string
   onCheckedChange?: (args: { event: Event; checked: CheckboxValue }) => void
 }

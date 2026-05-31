@@ -36,6 +36,13 @@ const meta: Meta<typeof Switch> = {
       control: { type: 'boolean' },
       defaultValue: { summary: false },
     },
+    tabIndex: {
+      control: { type: 'number' },
+      description: 'Tab order of the focusable element. Omit to keep the default focus behavior.',
+      table: {
+        type: { summary: 'number' },
+      },
+    },
     onCheckedChange: {
       table: {
         type: {

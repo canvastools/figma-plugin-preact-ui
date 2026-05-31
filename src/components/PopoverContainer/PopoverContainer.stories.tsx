@@ -50,6 +50,14 @@ const meta: Meta<typeof PopoverContainer> = {
         },
       },
     },
+    tabIndex: {
+      control: { type: 'number' },
+      description: 'Tab order of the popover container. Omit for -1 (programmatic focus when opened).',
+      table: {
+        type: { summary: 'number' },
+      },
+    },
+
   },
 }
 

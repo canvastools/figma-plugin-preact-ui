@@ -8,7 +8,7 @@ import './Switch.scss'
 /* --- */
 
 const SwitchComponent = (
-  { id, className, checked, defaultChecked = false, disabled = false, onCheckedChange, ...rest }: SwitchProps,
+  { id, className, checked, defaultChecked = false, disabled = false, tabIndex, onCheckedChange, ...rest }: SwitchProps,
   ref: preact.Ref<HTMLDivElement>,
 ) => {
   const isControlled = checked !== undefined
@@ -58,6 +58,7 @@ const SwitchComponent = (
           type="checkbox"
           checked={isChecked}
           disabled={disabled}
+          tabIndex={tabIndex}
           onClick={handleInputClick}
           onChange={handleChange}
           onKeyDown={handleKeyDown}

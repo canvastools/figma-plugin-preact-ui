@@ -25,6 +25,7 @@ const ButtonComponent = (
     suffix,
     children,
     tooltip,
+    tabIndex,
     onClick,
     ...rest
   }: ButtonProps,
@@ -79,6 +80,7 @@ const ButtonComponent = (
           itemRef.current = el
         }}
         disabled={disabled}
+        tabIndex={tabIndex}
         onClick={handleClick}
         onKeyDown={handleKeyDown}
         {...rest}

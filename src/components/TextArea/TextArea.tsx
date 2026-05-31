@@ -49,6 +49,7 @@ const TextAreaComponent = (
     onBlur,
     onFocus,
     onKeyDown,
+    tabIndex,
     ...rest
   }: TextAreaProps,
   ref: preact.Ref<HTMLDivElement>,
@@ -244,6 +245,7 @@ const TextAreaComponent = (
             minLength={minLength}
             maxLength={maxLength}
             disabled={disabled}
+            tabIndex={tabIndex}
             placeholder={placeholder}
             value={displayedValue}
             onChange={handleChange}

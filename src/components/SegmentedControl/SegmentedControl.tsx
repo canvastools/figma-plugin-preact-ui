@@ -20,6 +20,7 @@ const SegmentedControlComponent = (
     disabled = false,
     fullWidth = false,
     onValueChange,
+    tabIndex,
     ...rest
   }: SegmentedControlProps,
   ref: preact.Ref<HTMLDivElement>,
@@ -211,7 +212,7 @@ const SegmentedControlComponent = (
                 itemRefs.current[idx] = el
                 anchorRef.current = el
               }}
-              tabIndex={isActive ? 0 : -1}
+              tabIndex={tabIndex !== undefined ? (isActive ? tabIndex : -1) : isActive ? 0 : -1}
               onClick={(e) => commitChange(e as MouseEvent, option.value)}
               disabled={disabled}
             >

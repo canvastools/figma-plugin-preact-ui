@@ -33,6 +33,7 @@ const MenuItemOptionComponent = (
     suffix,
     children,
     onSelectedChange,
+    tabIndex,
     ...rest
   }: MenuItemOptionProps,
   ref: preact.Ref<HTMLDivElement>,
@@ -132,7 +133,6 @@ const MenuItemOptionComponent = (
       id={id}
       className={[_className, className].join(' ').trim()}
       data-pui-interactive="true"
-      tabIndex={-1}
       ref={(el) => {
         if (typeof ref === 'function') {
           ref(el)
@@ -143,6 +143,7 @@ const MenuItemOptionComponent = (
         itemRef.current = el
       }}
       {...rest}
+      tabIndex={tabIndex ?? -1}
       onClick={handleClick}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}

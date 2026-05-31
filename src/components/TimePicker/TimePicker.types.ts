@@ -18,6 +18,7 @@ export interface TimePickerProps {
   autoFocus?: boolean
   grouped?: 'first' | 'last' | 'middle'
   tooltip?: preact.ComponentChildren
+  tabIndex?: number
   onTimeChange?: (args: { date: TimePickerDate | undefined; time: string }) => void
   onBlur?: (args: { event: FocusEvent; date: TimePickerDate | undefined; time: string }) => void
   onFocus?: (args: { event: FocusEvent; date: TimePickerDate | undefined; time: string }) => void

@@ -106,6 +106,14 @@ const meta: Meta<typeof Popover> = {
         },
       },
     },
+    tabIndex: {
+      control: { type: 'number' },
+      description: 'Tab order of the popover container (via PopoverContainer). Omit for -1 when opened.',
+      table: {
+        type: { summary: 'number' },
+      },
+    },
+
   },
 }
 
