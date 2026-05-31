@@ -17,6 +17,7 @@ export interface TextAreaProps {
     resize?: 'y';
     autoFocus?: boolean;
     selectOnFocus?: boolean;
+    tabIndex?: number;
     onValueChange?: (args: {
         event: Event;
         value: string;

@@ -13,6 +13,7 @@ export interface ButtonIconProps {
     tooltip?: preact.ComponentChildren;
     children?: preact.ComponentChildren;
     icon?: IconPropsPick;
+    tabIndex?: number;
     onClick?: (args: {
         event: MouseEvent;
     }) => void;

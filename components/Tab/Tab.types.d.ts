@@ -6,6 +6,7 @@ export interface TabProps {
     suffix?: preact.ComponentChildren;
     tooltip?: preact.ComponentChildren;
     children: preact.ComponentChildren;
+    tabIndex?: number;
     onClick?: (args: {
         event: MouseEvent;
         id: string;

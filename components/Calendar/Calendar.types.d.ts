@@ -14,6 +14,7 @@ export interface CalendarProps {
     maxDetail?: 'century' | 'decade' | 'year' | 'month';
     showNavigation?: boolean;
     navigation?: 'full' | 'simple';
+    tabIndex?: number;
     onDateChange?: (args: {
         date: CalendarDate;
     }) => void;

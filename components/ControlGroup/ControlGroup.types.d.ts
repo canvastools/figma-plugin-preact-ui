@@ -5,4 +5,5 @@ export interface ControlGroupProps {
     fullWidth?: boolean;
     disabled?: boolean;
     children: preact.ComponentChildren;
+    tabIndex?: number;
 }

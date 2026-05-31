@@ -24,6 +24,7 @@ export interface ColorSwatchProps {
     selection?: 'default' | 'rainbow';
     tooltip?: preact.ComponentChildren;
     children?: preact.ComponentChildren;
+    tabIndex?: number;
     onClick?: (args: {
         event: MouseEvent;
         fill: ColorSwatchFill | undefined;
