@@ -536,14 +536,11 @@ const useNumericInput = (config: NumericInputConfig): NumericInput => {
 
             target.value = nextDisplay
 
-            // Keep the caret on the side that was adjusted. For simplicity,
-            // place it at the end of that segment.
             if (updateLeft) {
-              const pos = leftText.length
-              target.setSelectionRange(pos, pos)
+              target.setSelectionRange(0, leftText.length)
             } else {
-              const pos = nextDisplay.length
-              target.setSelectionRange(pos, pos)
+              const start = leftText.length + 2
+              target.setSelectionRange(start, nextDisplay.length)
             }
 
             onValueChange?.(nextDisplay)
