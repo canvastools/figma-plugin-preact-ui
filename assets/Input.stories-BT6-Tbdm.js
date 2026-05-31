@@ -11,7 +11,7 @@ const [value, setValue] = useState("Hello World!")
 <Input variant="default" />
 
 <Input variant="list" />
-`}}},render:()=>e("div",{className:"sb-column sb-width-300 sb-gap-40",children:[e(t,{defaultValue:"Hello World!",label:"Label",variant:"default",tabIndex:0}),e(t,{defaultValue:"Hello World!",label:"Label",variant:"list",tabIndex:0})]})},Q={parameters:{controls:{disable:!0},viewport:{defaultViewport:"large"},docs:{source:{language:"tsx",code:`
+`}}},render:()=>e("div",{className:"sb-column sb-width-300 sb-gap-40",children:[e(t,{defaultValue:"Hello World!",label:"Label",variant:"default"}),e(t,{defaultValue:"Hello World!",label:"Label",variant:"list"})]})},Q={parameters:{controls:{disable:!0},viewport:{defaultViewport:"large"},docs:{source:{language:"tsx",code:`
 <Input placeholder="Placeholder" />
 `}}},render:()=>e("div",{className:"sb-column sb-width-300 sb-gap-16",children:e(t,{placeholder:"Placeholder"})})},R={parameters:{controls:{disable:!0},viewport:{defaultViewport:"large"},docs:{source:{language:"tsx",code:`
 <Input disabled />
