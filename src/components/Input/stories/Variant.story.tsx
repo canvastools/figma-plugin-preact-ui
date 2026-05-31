@@ -26,8 +26,8 @@ export const VariantStory: Story = {
   },
   render: () => (
     <div className="sb-column sb-width-300 sb-gap-40">
-      <Input defaultValue="Hello World!" label="Label" variant="default" tabIndex={0} />
-      <Input defaultValue="Hello World!" label="Label" variant="list" tabIndex={0} />
+      <Input defaultValue="Hello World!" label="Label" variant="default" />
+      <Input defaultValue="Hello World!" label="Label" variant="list" />
     </div>
   ),
 }
