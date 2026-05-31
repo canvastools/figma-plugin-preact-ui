@@ -58,7 +58,7 @@ const SwitchComponent = (
           type="checkbox"
           checked={isChecked}
           disabled={disabled}
-          tabIndex={tabIndex}
+          {...(tabIndex !== undefined ? { tabIndex } : {})}
           onClick={handleInputClick}
           onChange={handleChange}
           onKeyDown={handleKeyDown}

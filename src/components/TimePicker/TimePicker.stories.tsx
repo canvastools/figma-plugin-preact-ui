@@ -113,13 +113,6 @@ const meta: Meta<typeof TimePicker> = {
         },
       },
     },
-    tabIndex: {
-      control: { type: 'number' },
-      description: 'Tab order of the root wrapper element. Omit when the wrapper should not be in the tab sequence.',
-      table: {
-        type: { summary: 'number' },
-      },
-    },
     onTimeChange: {
       description:
         '`date` argument will be returned as `Date` if the `date` or `defaultDate` is provided as Date, otherwise it will be `undefined`.',

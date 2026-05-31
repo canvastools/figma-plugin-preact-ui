@@ -251,7 +251,7 @@ const InputComponent = (
           onFocus={handleRootFocus}
           onBlur={handleRootBlur}
           onDblClick={handleDoubleClickDisplay}
-          tabIndex={tabIndex ?? (focusOnDoubleClick ? 0 : undefined)}
+          tabIndex={focusOnDoubleClick ? (tabIndex ?? 0) : undefined}
           style={{
             maxWidth: variant === 'default' ? undefined : typeof maxWidth === 'number' ? `${maxWidth}px` : maxWidth,
             flexShrink: maxWidth ? 0 : undefined,
@@ -282,7 +282,7 @@ const InputComponent = (
               maxLength={maxLength}
               type={type}
               disabled={disabled}
-              tabIndex={!focusOnDoubleClick ? tabIndex : undefined}
+              {...(tabIndex !== undefined && !focusOnDoubleClick ? { tabIndex } : {})}
               placeholder={placeholder}
               value={isControlled ? value : internalValue}
               onChange={handleChange}

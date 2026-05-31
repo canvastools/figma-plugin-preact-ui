@@ -114,13 +114,6 @@ const meta: Meta<typeof ColorPicker> = {
       defaultValue: { summary: 'false' },
       description: 'Overrides `width` property.',
     },
-    tabIndex: {
-      control: { type: 'number' },
-      description: 'Tab order of the color picker root wrapper. Omit when it should not be in the tab sequence.',
-      table: {
-        type: { summary: 'number' },
-      },
-    },
     onTypeChange: {
       table: {
         type: {

@@ -36,7 +36,6 @@ const TimePickerComponent = (
     onBlur,
     onFocus,
     onKeyDown,
-    tabIndex,
     ...rest
   }: TimePickerProps,
   ref: preact.Ref<HTMLDivElement>,
@@ -225,7 +224,6 @@ const TimePickerComponent = (
         <div
           className="TimePicker__container"
           data-pui-interactive="true"
-          tabIndex={tabIndex}
           onKeyDown={handleKeyDown}
           onMouseDown={handleInputGroupMouseDown}
           onFocus={handleContainerFocus}

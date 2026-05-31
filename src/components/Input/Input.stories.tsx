@@ -144,7 +144,8 @@ const meta: Meta<typeof Input> = {
     },
     tabIndex: {
       control: { type: 'number' },
-      description: 'Tab order for the input, or for the display container when focusOnDoubleClick is enabled. Omit to keep the default.',
+      description:
+        'Tab order of the focusable element (input, or display container when focusOnDoubleClick is enabled). Applied to a single tab stop only. Omit to keep the default.',
       table: {
         type: { summary: 'number' },
       },

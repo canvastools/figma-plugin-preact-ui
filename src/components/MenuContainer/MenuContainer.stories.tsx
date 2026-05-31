@@ -48,13 +48,6 @@ const meta: Meta<typeof MenuContainer> = {
         },
       },
     },
-    tabIndex: {
-      control: { type: 'number' },
-      description: 'Tab order of the menu container wrapper. Omit when it should not be in the tab sequence.',
-      table: {
-        type: { summary: 'number' },
-      },
-    },
 
   },
 }

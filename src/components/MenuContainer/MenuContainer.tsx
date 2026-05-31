@@ -13,7 +13,7 @@ import './MenuContainer.scss'
 const SCROLL_SPEED = 6
 
 const MenuContainerComponent = (
-  { id, className, width, height, children, tabIndex, ...rest }: MenuContainerProps,
+  { id, className, width, height, children, ...rest }: MenuContainerProps,
   ref: preact.Ref<HTMLDivElement>,
 ) => {
   const context = useContext(RawMenuContext)
@@ -139,7 +139,6 @@ const MenuContainerComponent = (
       className={[_className, className].join(' ').trim()}
       data-pui-interactive="true"
       ref={ref}
-      tabIndex={tabIndex}
       {...rest}
       style={{
         width,

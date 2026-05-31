@@ -195,7 +195,6 @@ const MenuComponent = (
     offsetEdge = 16,
     onOpen,
     onClose,
-    tabIndex,
     ...rest
   }: MenuProps,
   ref: preact.Ref<HTMLDivElement>,
@@ -211,7 +210,7 @@ const MenuComponent = (
   return (
     <MenuContext triggerRef={triggerRef} anchorRef={anchorRef} open={internalOpen} setOpen={setInternalOpen}>
       {internalOpen && (
-        <div id={id} className={[_className, className].join(' ').trim()} ref={ref} tabIndex={tabIndex} {...rest}>
+        <div id={id} className={[_className, className].join(' ').trim()} ref={ref} {...rest}>
           <MenuBody
             items={items}
             width={width}

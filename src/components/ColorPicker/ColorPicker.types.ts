@@ -19,7 +19,6 @@ export interface ColorPickerProps {
   alpha?: boolean
   width?: number
   fullWidth?: boolean
-  tabIndex?: number
   onTypeChange?: (args: { type: ColorPickerType }) => void
   onColorChange?: (args: { color: Color; hex: string; opacity: number }) => void
 }

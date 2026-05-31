@@ -77,7 +77,7 @@ const ButtonIconComponent = (
           itemRef.current = el
         }}
         disabled={disabled}
-        tabIndex={tabIndex}
+        {...(tabIndex !== undefined ? { tabIndex } : {})}
         onClick={handleClick}
         onKeyDown={handleKeyDown}
         {...rest}

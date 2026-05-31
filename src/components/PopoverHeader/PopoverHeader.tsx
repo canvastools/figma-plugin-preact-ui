@@ -8,13 +8,13 @@ import './PopoverHeader.scss'
 /* --- */
 
 const PopoverHeaderComponent = (
-  { id, className, children, tabIndex, onClose, ...rest }: PopoverHeaderProps,
+  { id, className, children, onClose, ...rest }: PopoverHeaderProps,
   ref: preact.Ref<HTMLDivElement>,
 ) => {
   const _className = bem('PopoverHeader', undefined, undefined)
 
   return (
-    <div id={id} className={[_className, className].join(' ').trim()} ref={ref} tabIndex={tabIndex} {...rest}>
+    <div id={id} className={[_className, className].join(' ').trim()} ref={ref} {...rest}>
       <div className="PopoverHeader__content">
         <Text strong fullWidth>
           {children}

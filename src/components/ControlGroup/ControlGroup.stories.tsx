@@ -53,13 +53,6 @@ const meta: Meta<typeof ControlGroup> = {
         },
       },
     },
-    tabIndex: {
-      control: { type: 'number' },
-      description: 'Tab order of the control group wrapper. Omit when it should not be in the tab sequence.',
-      table: {
-        type: { summary: 'number' },
-      },
-    },
 
   },
 }

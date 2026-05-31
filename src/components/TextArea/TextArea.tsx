@@ -245,7 +245,7 @@ const TextAreaComponent = (
             minLength={minLength}
             maxLength={maxLength}
             disabled={disabled}
-            tabIndex={tabIndex}
+            {...(tabIndex !== undefined ? { tabIndex } : {})}
             placeholder={placeholder}
             value={displayedValue}
             onChange={handleChange}

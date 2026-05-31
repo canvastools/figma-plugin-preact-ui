@@ -40,13 +40,6 @@ const meta: Meta<typeof ListContainer> = {
         },
       },
     },
-    tabIndex: {
-      control: { type: 'number' },
-      description: 'Tab order of the list container wrapper. Omit when it should not be in the tab sequence.',
-      table: {
-        type: { summary: 'number' },
-      },
-    },
 
   },
 }

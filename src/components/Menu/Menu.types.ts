@@ -39,5 +39,4 @@ export interface MenuProps extends MenuContextPropsPick, MenuContainerPropsPick,
   id?: string
   className?: string
   items: MenuItemData[]
-  tabIndex?: number
 }

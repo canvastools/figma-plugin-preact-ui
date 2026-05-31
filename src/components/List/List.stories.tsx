@@ -103,13 +103,6 @@ const meta: Meta = {
         },
       },
     },
-    tabIndex: {
-      control: { type: 'number' },
-      description: 'Tab order of the list root wrapper. Omit when the list should not be in the tab sequence.',
-      table: {
-        type: { summary: 'number' },
-      },
-    },
 
   },
 }

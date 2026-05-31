@@ -8,7 +8,7 @@ import './ListContainer.scss'
 /* --- */
 
 const ListContainerComponent = (
-  { id, className, children, tabIndex, ...rest }: ListContainerProps & { nestingLevel?: number },
+  { id, className, children, ...rest }: ListContainerProps & { nestingLevel?: number },
   ref: preact.Ref<HTMLDivElement>,
 ) => {
   const { reorderItems, registerRootElement, getPathForId } = useListContext()
@@ -645,7 +645,6 @@ const ListContainerComponent = (
         if (typeof ref === 'function') ref(node as HTMLDivElement)
         else if (ref) (ref as preact.RefObject<HTMLDivElement>).current = node
       }}
-      tabIndex={tabIndex}
       {...rest}
       onDragOver={handleDragOver}
       onDrop={handleDrop}

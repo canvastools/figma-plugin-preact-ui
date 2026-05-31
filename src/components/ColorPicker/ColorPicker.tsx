@@ -551,7 +551,6 @@ const ColorPickerComponent = (
     fullWidth = false,
     onTypeChange,
     onColorChange,
-    tabIndex,
     ...rest
   }: ColorPickerProps,
   ref: preact.Ref<HTMLDivElement>,
@@ -749,7 +748,6 @@ const ColorPickerComponent = (
       onKeyDownCapture={handleInteractionKeyDownCapture}
       onMouseDownCapture={handleInteractionMouseDownCapture}
       onKeyDown={handleKeyDown}
-      tabIndex={tabIndex}
       {...rest}
       style={{
         width: fullWidth ? undefined : (width as number),
