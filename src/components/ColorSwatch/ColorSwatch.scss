@@ -163,9 +163,9 @@
     border-width: 0;
   }
 
-  &:focus-visible &__container:before,
-  &:hover &__container:before,
-  &:is(&_selected) &__container:before {
+  &:focus-visible:not(&_disabled) &__container:before,
+  &:hover:not(&_disabled) &__container:before,
+  &:is(&_selected):not(&_disabled) &__container:before {
     display: none !important;
   }
 
