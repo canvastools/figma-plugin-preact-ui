@@ -29,6 +29,7 @@ type PopoverBodyProps = {
   offsetEdge: number
   showArrow: boolean
   tabIndex?: number
+  autoReposition?: boolean
   children: preact.ComponentChildren
 }
 
@@ -45,6 +46,7 @@ const PopoverBody = ({
   offsetEdge,
   showArrow,
   tabIndex,
+  autoReposition = true,
   children,
 }: PopoverBodyProps) => {
   const { triggerRef, anchorRef, open, setOpen } = usePopoverContext()
@@ -70,6 +72,7 @@ const PopoverBody = ({
       offsetX={offsetX}
       offsetY={offsetY}
       offsetEdge={offsetEdge}
+      autoReposition={autoReposition}
       onClose={handleClose}
       closeOnClickOutside={true}
     >
@@ -108,6 +111,7 @@ const PopoverComponent = (
     offsetEdge = 16,
     showArrow = false,
     tabIndex,
+    autoReposition = true,
     children,
     onOpen,
     onClose,
@@ -153,6 +157,7 @@ const PopoverComponent = (
             offsetEdge={offsetEdge}
             showArrow={showArrow}
             tabIndex={tabIndex}
+            autoReposition={autoReposition}
           >
             {children}
           </PopoverBody>

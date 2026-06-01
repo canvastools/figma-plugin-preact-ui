@@ -2,7 +2,7 @@ import { createPortal } from 'preact/compat'
 
 import { bem, typedForwardRef } from '../../utils'
 
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'preact/hooks'
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'preact/hooks'
 
 import type { OverlayPositionerProps, OverlayPositionerPlacement } from './OverlayPositioner.types'
 import './OverlayPositioner.scss'
@@ -212,6 +212,7 @@ const OverlayPositionerComponent = (
     open,
     defaultOpen = false,
     closeOnClickOutside = true,
+    autoReposition = true,
     onOpen,
     onClose,
     children,
@@ -228,40 +229,57 @@ const OverlayPositionerComponent = (
   const isOpen = isControlled ? (open as boolean) : internalOpen
   const [appliedPlacement, setAppliedPlacement] = useState<string>(placement)
   const rafRef = useRef<number | null>(null)
+  const isDraggingRef = useRef(false)
 
   const resolvedPlacementFallback = useMemo<OverlayPositionerPlacement[] | undefined>(
     () => (placementFallback && Array.isArray(placementFallback) ? placementFallback : undefined),
     [placementFallback],
   )
 
-  const recompute = useMemo(
-    () => () => {
-      const vw = window.innerWidth
-      const vh = window.innerHeight
-      const anchorEl = anchorRef.current as HTMLElement | null
-      if (!anchorEl) return
-      const rect = anchorEl.getBoundingClientRect()
-      const measured = containerRef.current?.getBoundingClientRect()
-      const w = Math.round(measured?.width || 0)
-      const h = Math.round(measured?.height || 0)
-      if (!w || !h) {
-        if (rafRef.current != null) cancelAnimationFrame(rafRef.current)
-        rafRef.current = requestAnimationFrame(() => {
-          rafRef.current = null
-          recompute()
-        })
-        return
-      }
+  const recompute = useCallback(() => {
+    const vw = window.innerWidth
+    const vh = window.innerHeight
+    const anchorEl = anchorRef.current as HTMLElement | null
+    if (!anchorEl) return
+    const rect = anchorEl.getBoundingClientRect()
+    const el = containerRef.current
+    const measured = el?.getBoundingClientRect()
+    const w = Math.round(measured?.width || 0)
+    let h = Math.round(measured?.height || 0)
+    if (!w || !h) {
+      if (rafRef.current != null) cancelAnimationFrame(rafRef.current)
+      rafRef.current = requestAnimationFrame(() => {
+        rafRef.current = null
+        recompute()
+      })
+      return
+    }
 
-      // Compute coords and arrow using placement + fallback rules
-      const result = computePlacement(vw, vh, rect, w, h, placement, resolvedPlacementFallback, offsetX, offsetY, offsetEdge, 8)
-      setCoords(result.coords)
-      setArrowData(result.arrow)
-      setAppliedPlacement(result.placement)
-      setIsReady(true)
-    },
-    [anchorRef, placement, offsetX, offsetY, offsetEdge, resolvedPlacementFallback],
-  )
+    // When a direct child clips overflow (e.g. PopoverContainer with
+    // constrainHeight), use its full content height for placement so the
+    // algorithm picks a position that maximises visible area.
+    if (el) {
+      for (let i = 0; i < el.children.length; i++) {
+        const child = el.children[i] as HTMLElement
+        if (child.scrollHeight > child.clientHeight + 1) {
+          h += child.scrollHeight - child.clientHeight
+          break
+        }
+      }
+    }
+
+    // Compute coords and arrow using placement + fallback rules
+    const result = computePlacement(vw, vh, rect, w, h, placement, resolvedPlacementFallback, offsetX, offsetY, offsetEdge, 8)
+    setCoords(result.coords)
+    setArrowData(result.arrow)
+    setAppliedPlacement(result.placement)
+    setIsReady(true)
+  }, [anchorRef, placement, offsetX, offsetY, offsetEdge, resolvedPlacementFallback])
+
+  const reposition = useCallback(() => {
+    setManualPos(null)
+    recompute()
+  }, [recompute])
 
   useLayoutEffect(() => {
     if (isOpen) {
@@ -285,9 +303,11 @@ const OverlayPositionerComponent = (
     // Recompute when overlay content resizes (fonts, images, dynamic content)
     const el = containerRef.current
     let ro: ResizeObserver | null = null
-    if (el) {
+    if (autoReposition && el) {
       try {
-        ro = new ResizeObserver(() => recompute())
+        ro = new ResizeObserver(() => {
+          if (!isDraggingRef.current) reposition()
+        })
         ro.observe(el)
       } catch {
         // ResizeObserver not supported; skip observing overlay size
@@ -303,7 +323,7 @@ const OverlayPositionerComponent = (
         rafRef.current = null
       }
     }
-  }, [isOpen, recompute])
+  }, [isOpen, recompute, autoReposition, reposition])
 
   const wasOpenRef = useRef<boolean>(false)
   useEffect(() => {
@@ -469,6 +489,7 @@ const OverlayPositionerComponent = (
     const target = e.target as HTMLElement | null
     if (isInteractiveElement(target)) return
     e.preventDefault()
+    isDraggingRef.current = true
     const startLeft = manualPos ? manualPos.left : coords.left
     const startTop = manualPos ? manualPos.top : coords.top
     const startMouseX = e.clientX
@@ -479,6 +500,7 @@ const OverlayPositionerComponent = (
       setManualPos({ left: startLeft + dx, top: startTop + dy })
     }
     const onUp = () => {
+      isDraggingRef.current = false
       window.removeEventListener('mousemove', onMove)
       window.removeEventListener('mouseup', onUp)
     }
@@ -492,12 +514,8 @@ const OverlayPositionerComponent = (
       className={[_className, className].join(' ').trim()}
       ref={(node) => {
         containerRef.current = node
-        if (typeof ref === 'function') {
-          ref(node)
-        } else if (ref) {
-          // eslint-disable-next-line
-          ;(ref as preact.RefObject<HTMLDivElement | null>).current = node
-        }
+        if (typeof ref === 'function') ref(node)
+        else if (ref) (ref as preact.RefObject<HTMLDivElement | null>).current = node
       }}
       style={style}
       data-arrow-side={arrowData?.side}

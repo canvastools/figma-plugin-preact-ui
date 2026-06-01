@@ -14,6 +14,7 @@ type OverlayPositionerPropsPick = Pick<
   | 'offsetX'
   | 'offsetY'
   | 'offsetEdge'
+  | 'autoReposition'
   | 'onOpen'
   | 'onClose'
 >
