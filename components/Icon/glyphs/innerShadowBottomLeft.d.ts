@@ -1,2 +1,2 @@
 import { GlyphProps } from '../Icon.types';
-export declare const innerShadowBottomLeft: ({ variant, size }: GlyphProps) => import("preact").JSX.Element;
+export declare const innerShadowBottomLeft: ({ variant }: GlyphProps) => import("preact").JSX.Element;
