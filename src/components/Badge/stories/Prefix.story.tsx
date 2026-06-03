@@ -80,6 +80,7 @@ const prefixCombinations = () => {
           <Icon
             glyph={link}
             size={16}
+            variant="downscaled"
             intent={intent as IconProps['intent']}
             intentModifier={intentModifier as IconProps['intentModifier']}
           />
@@ -107,6 +108,7 @@ export const PrefixStory: Story = {
     <Icon
       glyph={link}
       size={16}
+      variant="downscaled"
       intent="neutral"
     />
   }
