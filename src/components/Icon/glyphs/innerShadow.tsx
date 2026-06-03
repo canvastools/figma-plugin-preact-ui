@@ -1,10 +1,10 @@
 import { GlyphProps } from '../Icon.types'
 
-export const innerShadow = ({ variant, size }: GlyphProps) => {
-  const combination = size + '_' + variant
+export const innerShadow = ({ variant }: GlyphProps) => {
+  const combination = variant
 
   switch (combination) {
-    case '16_default':
+    case 'downscaled':
       return (
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M12 12H4V4H12V12ZM6 6V10H10V6H6Z" fill="currentColor" fill-opacity="0.3" />
@@ -15,7 +15,7 @@ export const innerShadow = ({ variant, size }: GlyphProps) => {
         </svg>
       )
 
-    case '24_default':
+    case 'default':
       return (
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M17 17H7V7H17V17ZM9 9V15H15V9H9Z" fill="currentColor" fill-opacity="0.3" />
@@ -26,7 +26,7 @@ export const innerShadow = ({ variant, size }: GlyphProps) => {
         </svg>
       )
 
-    case '24_upscaled':
+    case 'upscaled':
       return (
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M19 19H5V5H19V19ZM7 7V17H17V7H7Z" fill="currentColor" fill-opacity="0.3" />
@@ -38,6 +38,6 @@ export const innerShadow = ({ variant, size }: GlyphProps) => {
       )
 
     default:
-      throw new Error(`innerShadow icon error: Unsupported combination size=${size}, variant=${variant}`)
+      throw new Error(`innerShadow icon error: Unsupported combination variant=${variant}`)
   }
 }

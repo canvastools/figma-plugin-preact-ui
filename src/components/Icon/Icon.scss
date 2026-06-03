@@ -16,23 +16,33 @@
 
 .Icon {
   display: flex;
+  align-items: center;
+  justify-content: center;
 
   & > svg {
     display: block;
+    flex: 0 0 auto;
   }
 
-  &_size {
-    &-16,
-    &-16 > svg {
-      width: 16px;
-      height: 16px;
-    }
+  &_size-16 {
+    width: 16px;
+    height: 16px;
+  }
 
-    &-24,
-    &-24 > svg {
-      width: 24px;
-      height: 24px;
-    }
+  &_size-24 {
+    width: 24px;
+    height: 24px;
+  }
+
+  &_variant-downscaled > svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  &_variant-default > svg,
+  &_variant-upscaled > svg {
+    width: 24px;
+    height: 24px;
   }
 
   @include Icon_intent('neutral', 'default');
