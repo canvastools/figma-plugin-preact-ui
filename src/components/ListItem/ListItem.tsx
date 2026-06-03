@@ -196,8 +196,7 @@ const ListItemComponent = (
 
     // Wrap around at the ends so the focus cycles within the context.
     const lastIndex = visibleItems.length - 1
-    const nextIndex =
-      direction === 'prev' ? (index === 0 ? lastIndex : index - 1) : index === lastIndex ? 0 : index + 1
+    const nextIndex = direction === 'prev' ? (index === 0 ? lastIndex : index - 1) : index === lastIndex ? 0 : index + 1
     const target = visibleItems[nextIndex]
     if (target && target !== current) {
       target.focus()
@@ -240,9 +239,7 @@ const ListItemComponent = (
     const myEl = selfRef.current
     const containerEl = myEl?.parentElement
     const itemEls = containerEl
-      ? (Array.from(containerEl.children).filter((el) =>
-          (el as HTMLElement).classList.contains('ListItem'),
-        ) as HTMLElement[])
+      ? (Array.from(containerEl.children).filter((el) => (el as HTMLElement).classList.contains('ListItem')) as HTMLElement[])
       : []
     const containerLength = itemEls.length
 
@@ -279,13 +276,10 @@ const ListItemComponent = (
         if (prevSiblingEl.getAttribute('data-accepts-children') === 'false') return
         const previousSiblingPath = [...myParentPath, firstIdx - 1]
         // Append to the end of the previous sibling's existing children.
-        const prevSiblingChildrenContainer = prevSiblingEl.querySelector(
-          ':scope > .ListItem__items > .ListContainer',
-        )
+        const prevSiblingChildrenContainer = prevSiblingEl.querySelector(':scope > .ListItem__items > .ListContainer')
         const prevSiblingChildrenCount = prevSiblingChildrenContainer
-          ? Array.from(prevSiblingChildrenContainer.children).filter((el) =>
-              (el as HTMLElement).classList.contains('ListItem'),
-            ).length
+          ? Array.from(prevSiblingChildrenContainer.children).filter((el) => (el as HTMLElement).classList.contains('ListItem'))
+              .length
           : 0
         reorderItems(siblingIds, prevSiblingChildrenCount, previousSiblingPath)
         refocusAfterMove()
@@ -618,6 +612,7 @@ const ListItemComponent = (
                 intentModifier="secondary"
                 glyph={effectiveCollapsed ? chevronRightGlyph : chevronDownGlyph}
                 size={16}
+                variant="default"
               />
             </div>
           )}

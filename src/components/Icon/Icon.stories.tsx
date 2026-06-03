@@ -67,7 +67,7 @@ const meta: Meta<typeof Icon> = {
     },
     variant: {
       control: { type: 'radio' },
-      options: ['default', 'upscaled'],
+      options: ['default', 'upscaled', 'downscaled'],
       defaultValue: { summary: 'default' },
       description: 'Some icons may have glyph variations (e.g. size) while preserving the container dimensions.',
     },

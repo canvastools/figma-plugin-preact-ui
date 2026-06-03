@@ -39,7 +39,7 @@ const IconComponent = (
   if (children) {
     content = children
   } else if (glyph) {
-    content = glyph({ variant, size })
+    content = glyph({ variant })
   } else {
     throw new Error(`Icon component error: No valid glyph or children provided`)
   }

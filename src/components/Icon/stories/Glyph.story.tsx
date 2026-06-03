@@ -15,15 +15,15 @@ const copyToClipboard = (text: string) => {
 }
 
 const glyphCombinations = (glyph: string) => {
-  const combinations: { variant: 'default' | 'upscaled'; size: 16 | 24 }[] = [
+  const combinations: { variant: 'default' | 'upscaled' | 'downscaled'; size: 16 | 24 }[] = [
     { variant: 'upscaled', size: 24 },
     { variant: 'default', size: 24 },
-    { variant: 'default', size: 16 },
+    { variant: 'downscaled', size: 16 },
   ]
 
   return combinations.map(({ variant, size }) => {
     try {
-      glyphs[glyph as keyof typeof glyphs]!({ variant, size }) // Probe support for this size/variant pair
+      glyphs[glyph as keyof typeof glyphs]!({ variant }) // Probe support for this size/variant pair
 
       return (
         <div

@@ -31,8 +31,8 @@ export const VariantStory: Story = {
   },
   render: () => (
     <div className="sb-row sb-width-full sb-gap-16">
-      <Icon glyph={link} variant="default" />
-      <Icon glyph={link} variant="upscaled" />
+      <Icon glyph={link} variant="default" className="sb-container" />
+      <Icon glyph={link} variant="upscaled" className="sb-container" />
     </div>
   ),
 }
