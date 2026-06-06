@@ -255,17 +255,25 @@ const OverlayPositionerComponent = (
       return
     }
 
-    // When a direct child clips overflow (e.g. PopoverContainer with
-    // constrainHeight), use its full content height for placement so the
-    // algorithm picks a position that maximises visible area.
+    // Detect clipped/scrollable overflow anywhere in the overlay tree.
+    // When content is constrained (e.g. PopoverContainer with constrainHeight
+    // wrapping a ScrollContainer that scrolls internally), the outer box stays
+    // capped, so we add back the largest hidden amount to reconstruct the
+    // natural content height. computePlacement then picks a position that
+    // maximises the visible area.
     if (el) {
-      for (let i = 0; i < el.children.length; i++) {
-        const child = el.children[i] as HTMLElement
-        if (child.scrollHeight > child.clientHeight + 1) {
-          h += child.scrollHeight - child.clientHeight
-          break
+      const findOverflow = (node: HTMLElement, depth: number): number => {
+        let max = node.scrollHeight - node.clientHeight
+        if (max < 0) max = 0
+        if (depth >= 6) return max
+        for (let i = 0; i < node.children.length; i++) {
+          const v = findOverflow(node.children[i] as HTMLElement, depth + 1)
+          if (v > max) max = v
         }
+        return max
       }
+      const overflow = findOverflow(el, 0)
+      if (overflow > 1) h += overflow
     }
 
     // Compute coords and arrow using placement + fallback rules
@@ -300,17 +308,39 @@ const OverlayPositionerComponent = (
     window.addEventListener('resize', onWin)
     window.addEventListener('scroll', onWin, true)
 
-    // Recompute when overlay content resizes (fonts, images, dynamic content)
+    // Coalesce reposition triggers into a single rAF so that a burst of
+    // resize / mutation callbacks (which can cascade as available-height and
+    // max-height settle) results in just one recompute per frame.
+    let scheduled: number | null = null
+    const scheduleReposition = () => {
+      if (isDraggingRef.current) return
+      if (scheduled != null) return
+      scheduled = requestAnimationFrame(() => {
+        scheduled = null
+        if (!isDraggingRef.current) reposition()
+      })
+    }
+
+    // Recompute when overlay content resizes (fonts, images, content shrinking
+    // back below the cap) and when its subtree mutates (content toggled). The
+    // MutationObserver is required because, once the overlay is capped by
+    // max-height, growing content no longer changes the observed box size, so a
+    // ResizeObserver alone would never fire.
     const el = containerRef.current
     let ro: ResizeObserver | null = null
+    let mo: MutationObserver | null = null
     if (autoReposition && el) {
       try {
-        ro = new ResizeObserver(() => {
-          if (!isDraggingRef.current) reposition()
-        })
+        ro = new ResizeObserver(scheduleReposition)
         ro.observe(el)
       } catch {
         // ResizeObserver not supported; skip observing overlay size
+      }
+      try {
+        mo = new MutationObserver(scheduleReposition)
+        mo.observe(el, { childList: true, subtree: true, characterData: true })
+      } catch {
+        // MutationObserver not supported; skip observing overlay mutations
       }
     }
 
@@ -318,6 +348,8 @@ const OverlayPositionerComponent = (
       window.removeEventListener('resize', onWin)
       window.removeEventListener('scroll', onWin, true)
       if (ro) ro.disconnect()
+      if (mo) mo.disconnect()
+      if (scheduled != null) cancelAnimationFrame(scheduled)
       if (rafRef.current != null) {
         cancelAnimationFrame(rafRef.current)
         rafRef.current = null

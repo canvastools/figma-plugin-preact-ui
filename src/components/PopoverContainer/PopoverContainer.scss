@@ -16,7 +16,17 @@
   }
 
   &_constrain-height {
+    // Height stays content-driven (so the container shrinks back when content
+    // collapses) but is capped to the space available below the resolved
+    // placement. min-height: 0 lets the flex children shrink so the inner
+    // ScrollContainer can scroll instead of overflowing the popover.
     max-height: var(--overlay-available-height, none);
+    min-height: 0;
+
+    > .ScrollContainer {
+      flex: 1 1 auto;
+      min-height: 0;
+    }
   }
 
   &__arrow {
