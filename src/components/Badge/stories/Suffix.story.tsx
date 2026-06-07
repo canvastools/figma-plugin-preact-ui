@@ -46,6 +46,10 @@ const validSuffixCombinations = [
     intent: 'brand',
     intentModifier: 'default',
   },
+  {
+    intent: 'brand',
+    intentModifier: 'secondary',
+  },
 
   // danger
   {

@@ -46,6 +46,10 @@ const validPrefixCombinations = [
     intent: 'brand',
     intentModifier: 'default',
   },
+  {
+    intent: 'brand',
+    intentModifier: 'secondary',
+  },
 
   // danger
   {
