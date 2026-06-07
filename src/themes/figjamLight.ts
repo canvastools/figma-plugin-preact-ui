@@ -157,6 +157,8 @@ const figjamLight: ColorTokenTree = {
         'default-hover': '#8638e5',
         'default-pressed': '#7C2BDA',
 
+        secondary: '#7C2BDA',
+
         disabled: '#D9D9D9',
       },
       text: {

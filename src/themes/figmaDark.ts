@@ -157,6 +157,8 @@ const figmaDark: ColorTokenTree = {
         'default-hover': '#0A6CC2',
         'default-pressed': '#105CAD',
 
+        secondary: '#105CAD',
+
         disabled: '#757575',
       },
       text: {
