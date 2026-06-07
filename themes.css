@@ -95,6 +95,7 @@
   --pui-color-brand-bg-default: #0D99FF;
   --pui-color-brand-bg-default-hover: #198DFB;
   --pui-color-brand-bg-default-pressed: #0768CF;
+  --pui-color-brand-bg-secondary: #0768CF;
   --pui-color-brand-bg-disabled: #D9D9D9;
   --pui-color-brand-text-default: #FFFFFF;
   --pui-color-brand-text-secondary: #A8DAFF;
@@ -221,6 +222,7 @@
   --pui-color-brand-bg-default: #0C8CE9;
   --pui-color-brand-bg-default-hover: #0A6CC2;
   --pui-color-brand-bg-default-pressed: #105CAD;
+  --pui-color-brand-bg-secondary: #105CAD;
   --pui-color-brand-bg-disabled: #757575;
   --pui-color-brand-text-default: #FFFFFF;
   --pui-color-brand-text-secondary: #A8D6F7;
@@ -347,6 +349,7 @@
   --pui-color-brand-bg-default: #9747ff;
   --pui-color-brand-bg-default-hover: #8638e5;
   --pui-color-brand-bg-default-pressed: #7C2BDA;
+  --pui-color-brand-bg-secondary: #7C2BDA;
   --pui-color-brand-bg-disabled: #D9D9D9;
   --pui-color-brand-text-default: #FFFFFF;
   --pui-color-brand-text-secondary: #DABDFF;
