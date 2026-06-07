@@ -86,6 +86,7 @@ args: {
   positionY: number
   isAtTop: boolean
   isAtBottom: boolean
+  hasScroll: boolean
   onScroll: (event: Event) => void
   setPositionY: (positionY: number) => void // set the scroll position
   resetPositionY: () => void // reset the scroll position to the top
