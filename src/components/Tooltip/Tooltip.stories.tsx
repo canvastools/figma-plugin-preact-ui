@@ -36,6 +36,13 @@ const meta: Meta<typeof Tooltip> = {
         type: { summary: 'JSX.Element' },
       },
     },
+    trigger: {
+      control: { type: 'inline-radio' },
+      options: ['hover', 'click'],
+      table: {
+        defaultValue: { summary: 'hover' },
+      },
+    },
     '...TooltipContainerProps': {
       control: { disable: true },
       table: {
@@ -66,6 +73,20 @@ const meta: Meta<typeof Tooltip> = {
   offsetEdge: number
   onOpen: () => void
   onClose: () => void
+}
+          `,
+        },
+      },
+    },
+    '...TooltipTimingOptions': {
+      control: { disable: true },
+      table: {
+        type: {
+          summary: 'TooltipTimingOptions',
+          detail: `
+{
+  showDelay?: number
+  hideDelay?: number
 }
           `,
         },
@@ -115,6 +136,55 @@ const anchorRef = useRef(null)
       <div className="sb-column sb-width-300 sb-container">
         <TooltipContext>
           <Text ref={anchorRef}>Hover to see Tooltip.</Text>
+          {/* @ts-expect-error Storybook spread */}
+          <Tooltip anchorRef={anchorRef} {...args} />
+        </TooltipContext>
+      </div>
+    )
+  },
+}
+
+export const Click: Story = {
+  args: {
+    trigger: 'click',
+    showDelay: 0,
+    hideDelay: 0,
+    children: 'Click tooltip content',
+  },
+  parameters: {
+    viewport: {
+      defaultViewport: 'large',
+    },
+    docs: {
+      source: {
+        language: 'tsx',
+        code: `
+const anchorRef = useRef(null)
+
+<TooltipContext>
+  <Text ref={anchorRef}>Click to see Tooltip</Text>
+
+  <Tooltip
+    anchorRef={anchorRef}
+    trigger="click"
+    showDelay={0}
+    hideDelay={0}
+    {...args}
+  >
+    {children}
+  </Tooltip>
+</TooltipContext>
+`,
+      },
+    },
+  },
+  render: (args) => {
+    const anchorRef = useRef<HTMLDivElement | null>(null)
+
+    return (
+      <div className="sb-column sb-width-300 sb-container">
+        <TooltipContext>
+          <Text ref={anchorRef}>Click to see Tooltip.</Text>
           {/* @ts-expect-error Storybook spread */}
           <Tooltip anchorRef={anchorRef} {...args} />
         </TooltipContext>

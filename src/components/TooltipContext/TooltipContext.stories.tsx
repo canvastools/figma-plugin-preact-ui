@@ -48,15 +48,30 @@ const meta: Meta<typeof TooltipContext> = {
   registerHoverStart: (
     ref: preact.RefObject,
     setOpen: (open: boolean) => void
+    options?: TooltipTimingOptions
   ) => void
   registerHoverEnd: (
     ref: preact.RefObject,
     setOpen: (open: boolean) => void
+    options?: TooltipTimingOptions
   ) => void
   registerPointerDown: (
     ref: preact.RefObject,
-    setOpen: (open: boolean) => void
+    setOpen: (open: boolean) => void,
+    options?: TooltipTimingOptions
   ) => void
+  registerClick: (
+    ref: preact.RefObject,
+    setOpen: (open: boolean) => void,
+    options?: TooltipTimingOptions
+  ) => void
+}
+
+// Types
+
+type TooltipTimingOptions = {
+  showDelay?: number
+  hideDelay?: number
 }
 `,
         },

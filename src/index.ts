@@ -153,7 +153,13 @@ export { TooltipContainer } from './components/TooltipContainer/TooltipContainer
 export type { TooltipContainerProps } from './components/TooltipContainer/TooltipContainer.types'
 
 export { TooltipContext, useTooltipContext } from './components/TooltipContext/TooltipContext'
-export type { TooltipContextValue, TooltipContextProps } from './components/TooltipContext/TooltipContext.types'
+export type {
+  TooltipContextValue,
+  TooltipContextProps,
+  TooltipTimingOptions,
+  TooltipTrigger,
+} from './components/TooltipContext/TooltipContext.types'
+export { TOOLTIP_DEFAULT_SHOW_DELAY, TOOLTIP_DEFAULT_HIDE_DELAY } from './components/TooltipContext/TooltipContext.types'
 
 export { WindowResizer } from './components/WindowResizer/WindowResizer'
 export type { WindowResizerProps } from './components/WindowResizer/WindowResizer.types'
