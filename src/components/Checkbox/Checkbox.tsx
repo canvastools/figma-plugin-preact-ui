@@ -114,12 +114,12 @@ const CheckboxComponent = (
         />
         {isChecked && !mixed && (
           <div className="Checkbox__icon">
-            <Icon glyph={checkGlyph} intent={intent} intentModifier={intentModifier} size={16} variant="downscaled" />
+            <Icon glyph={checkGlyph} intent={intent} intentModifier={intentModifier} size={16} />
           </div>
         )}
         {isChecked && mixed && (
           <div className="Checkbox__icon">
-            <Icon glyph={mixedGlyph} intent={intent} intentModifier={intentModifier} size={16} variant="downscaled" />
+            <Icon glyph={mixedGlyph} intent={intent} intentModifier={intentModifier} size={16} />
           </div>
         )}
       </div>
