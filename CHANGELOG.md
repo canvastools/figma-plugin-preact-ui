@@ -1,5 +1,29 @@
 # Changelog
 
+### 1.2.0 - 10 Jun 2026
+
+- Minor style fixes
+- Added 35 icons
+
+- Fixed ListItem getting selected on drag when `selectable=false`
+- Fixed keyboard navigation for ListItem, Select
+- Fixed ListItem end-dropzone blocking hover on the last item in a branch
+
+- New spacing token: `300`
+- useNumericInut: added `trimTrailingZeros` prop
+- PopoverContainer, Popover: added `constrainHeight`
+- Popover, OverlayPositioner: added `autoReposition` for automatic repositioning when content height changes
+- Input: added `focusOnPrefix` prop
+- Input, TextArea: added `selectOnFocus` prop
+- Custom children for Button, Tab
+- ColorSwatch:, ColorPicker: added `alpha` prop,
+- ColorSwatch: added `fill` array support
+- ListContext: added `onKeyDown` prop
+- Button, ButtonIcon, ButtonIconToggle, Checkbox, ColorSwatch, Input, ListItem, MenuItemAction, MenuItemOption, Popover, PopoverContainer, SegmentedControl, Select, Switch, Tab, TextArea: added `tabIndex` prop for custom tab order on the focusable element (defaults unchanged)
+- Tooltip: added `trigger` prop
+- TooltipContext: added `registerClick`; `registerHoverStart`, `registerHoverEnd`, and `registerPointerDown` accept per-tooltip `showDelay` / `hideDelay` options
+- ScrollContext: added `hasScroll` when the registered scroll container overflows vertically
+
 ### 1.1.0 - 6 Apr 2026
 
 - Minor style fixes
