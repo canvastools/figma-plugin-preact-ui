@@ -212,7 +212,7 @@ const OverlayPositionerComponent = (
     open,
     defaultOpen = false,
     closeOnClickOutside = true,
-    autoReposition = true,
+    autoReposition = false,
     onOpen,
     onClose,
     children,

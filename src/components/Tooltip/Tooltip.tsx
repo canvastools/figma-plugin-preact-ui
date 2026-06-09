@@ -187,16 +187,7 @@ const TooltipComponent = (
       el.removeEventListener('mouseleave', handleLeave)
       el.removeEventListener('pointerdown', handlePointerDown)
     }
-  }, [
-    anchorRef,
-    clearHideTimeout,
-    clearShowTimeout,
-    context,
-    scheduleLocalHide,
-    scheduleLocalShow,
-    timingOptions,
-    trigger,
-  ])
+  }, [anchorRef, clearHideTimeout, clearShowTimeout, context, scheduleLocalHide, scheduleLocalShow, timingOptions, trigger])
 
   const _className = bem('Tooltip', undefined, undefined)
 

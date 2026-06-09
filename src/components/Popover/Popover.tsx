@@ -46,7 +46,7 @@ const PopoverBody = ({
   offsetEdge,
   showArrow,
   tabIndex,
-  autoReposition = true,
+  autoReposition = false,
   children,
 }: PopoverBodyProps) => {
   const { triggerRef, anchorRef, open, setOpen } = usePopoverContext()
@@ -111,7 +111,7 @@ const PopoverComponent = (
     offsetEdge = 16,
     showArrow = false,
     tabIndex,
-    autoReposition = true,
+    autoReposition = false,
     children,
     onOpen,
     onClose,

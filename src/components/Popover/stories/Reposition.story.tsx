@@ -31,6 +31,7 @@ const [expanded, setExpanded] = useState(false)
   open={open}
   constrainHeight
   popoverHeaderProps={{ children: 'Dynamic height' }}
+  autoReposition={true}
 >
   <ScrollContainer>
     {/* autoReposition adjusts position when content height changes */}
@@ -59,6 +60,7 @@ const [expanded, setExpanded] = useState(false)
           popoverHeaderProps={{
             children: 'Dynamic height',
           }}
+          autoReposition={true}
         >
           <ScrollContainer>
             <Section>

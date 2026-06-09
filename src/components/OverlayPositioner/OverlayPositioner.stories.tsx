@@ -141,6 +141,11 @@ const meta: Meta<typeof OverlayPositioner> = {
         },
       },
     },
+    autoReposition: {
+      control: { type: 'boolean' },
+      defaultValue: { summary: false },
+      description: 'Automatically reposition the overlay when the content height changes to occupy the available space.',
+    },
     trigger: {
       control: { type: 'radio' },
       options: ['click', 'hover'],
@@ -211,6 +216,7 @@ export const Demo: Story = {
     defaultOpen: false,
     placement: 'bottom',
     placementFallback: undefined,
+    autoReposition: false,
     trigger: 'click',
     draggable: false,
     offsetX: 0,
