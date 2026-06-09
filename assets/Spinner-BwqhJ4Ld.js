@@ -1,0 +1,1 @@
+import{u as n}from"./hooks.module-6Sbq__eq.js";import{t,b as a}from"./typedForwardRef-CtFJgl6m.js";const p=({id:e,className:r,size:i="medium",...o},s)=>{const m=a("Spinner",void 0,{size:i});return n("div",{id:e,className:[m,r].join(" ").trim(),ref:s,...o,children:n("div",{className:"Spinner__spinner"})})},S=t(p);export{S};
