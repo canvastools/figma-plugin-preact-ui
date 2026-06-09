@@ -73,6 +73,7 @@ const PopoverBody = ({
       offsetY={offsetY}
       offsetEdge={offsetEdge}
       autoReposition={autoReposition}
+      constrainHeight={constrainHeight}
       onClose={handleClose}
       closeOnClickOutside={true}
     >

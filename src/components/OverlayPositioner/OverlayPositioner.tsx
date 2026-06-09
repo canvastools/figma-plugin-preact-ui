@@ -213,6 +213,7 @@ const OverlayPositionerComponent = (
     defaultOpen = false,
     closeOnClickOutside = true,
     autoReposition = false,
+    constrainHeight = false,
     onOpen,
     onClose,
     children,
@@ -261,7 +262,11 @@ const OverlayPositionerComponent = (
     // capped, so we add back the largest hidden amount to reconstruct the
     // natural content height. computePlacement then picks a position that
     // maximises the visible area.
-    if (el) {
+    //
+    // Only do this for explicitly height-constrained overlays. Content-sized
+    // overlays (e.g. tooltips) can report phantom overflow from absolutely
+    // positioned decorations such as arrows, which would corrupt placement.
+    if (constrainHeight && el) {
       const findOverflow = (node: HTMLElement, depth: number): number => {
         let max = node.scrollHeight - node.clientHeight
         if (max < 0) max = 0
@@ -282,7 +287,7 @@ const OverlayPositionerComponent = (
     setArrowData(result.arrow)
     setAppliedPlacement(result.placement)
     setIsReady(true)
-  }, [anchorRef, placement, offsetX, offsetY, offsetEdge, resolvedPlacementFallback])
+  }, [anchorRef, placement, offsetX, offsetY, offsetEdge, resolvedPlacementFallback, constrainHeight])
 
   const reposition = useCallback(() => {
     setManualPos(null)

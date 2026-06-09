@@ -28,6 +28,7 @@ export interface OverlayPositionerProps {
   offsetEdge?: number
   closeOnClickOutside?: boolean
   autoReposition?: boolean
+  constrainHeight?: boolean
   onOpen?: () => void
   onClose?: () => void
   children: preact.ComponentChildren
