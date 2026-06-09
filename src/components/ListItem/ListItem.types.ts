@@ -26,4 +26,5 @@ export interface ListItemProps {
   onCollapsedChange?: (args: { event: MouseEvent; collapsed: boolean }) => void
   items?: preact.ComponentChildren
   children?: preact.ComponentChildren
+  tabIndex?: number
 }

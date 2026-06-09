@@ -56,6 +56,7 @@
   @include Badge_intent-outlined('neutral', 'success');
   @include Badge_intent-filled('neutral-inverted', 'default');
   @include Badge_intent-filled('brand', 'default');
+  @include Badge_intent-filled('brand', 'secondary');
   @include Badge_intent-filled('danger', 'default');
   @include Badge_intent-filled('warning', 'default');
   @include Badge_intent-filled('success', 'default');

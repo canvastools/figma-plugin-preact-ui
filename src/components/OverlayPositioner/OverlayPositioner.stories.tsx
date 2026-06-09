@@ -141,6 +141,17 @@ const meta: Meta<typeof OverlayPositioner> = {
         },
       },
     },
+    autoReposition: {
+      control: { type: 'boolean' },
+      defaultValue: { summary: false },
+      description: 'Automatically reposition the overlay when the content height changes to occupy the available space.',
+    },
+    constrainHeight: {
+      control: { type: 'boolean' },
+      defaultValue: { summary: false },
+      description:
+        'When true, the positioner reconstructs the natural (unclipped) content height of the overlay for placement, so a height-constrained overlay (e.g. a Popover whose body scrolls internally) is placed where the most content is visible. Leave false for overlays that size to their content such as tooltips, where absolutely-positioned decorations (arrows) would otherwise be mistaken for clipped content.',
+    },
     trigger: {
       control: { type: 'radio' },
       options: ['click', 'hover'],
@@ -211,12 +222,14 @@ export const Demo: Story = {
     defaultOpen: false,
     placement: 'bottom',
     placementFallback: undefined,
+    autoReposition: false,
     trigger: 'click',
     draggable: false,
     offsetX: 0,
     offsetY: 0,
     offsetEdge: 0,
     closeOnClickOutside: true,
+    constrainHeight: false,
     onOpen: fn(),
     onClose: fn(),
   },

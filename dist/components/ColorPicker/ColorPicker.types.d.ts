@@ -14,6 +14,7 @@ export interface ColorPickerProps {
     color?: Color | null;
     defaultColor?: Color;
     showControls?: boolean;
+    alpha?: boolean;
     width?: number;
     fullWidth?: boolean;
     onTypeChange?: (args: {

@@ -1,11 +1,11 @@
 import "./index.es32.css";
-import { jsx as o } from "./index.es143.js";
+import { jsx as o } from "./index.es178.js";
 import { ButtonIcon as d } from "./index.es6.js";
 import { Text as c } from "./index.es47.js";
 /* empty css            */
-import { typedForwardRef as s } from "./index.es145.js";
-import { bem as a } from "./index.es62.js";
-import { close as l } from "./index.es81.js";
+import { typedForwardRef as s } from "./index.es180.js";
+import { bem as a } from "./index.es63.js";
+import { close as l } from "./index.es83.js";
 const v = ({ id: e, className: t, children: i, onClose: r, ...m }, n) => {
   const p = a("PopoverHeader", void 0, void 0);
   return /* @__PURE__ */ o("div", { id: e, className: [p, t].join(" ").trim(), ref: n, ...m, children: /* @__PURE__ */ o("div", { className: "PopoverHeader__content", children: [

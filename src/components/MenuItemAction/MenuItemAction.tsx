@@ -32,6 +32,7 @@ const MenuItemActionComponent = (
     children,
     paddingLikeOption = false,
     onClick,
+    tabIndex,
     ...rest
   }: MenuItemActionProps,
   ref: preact.Ref<HTMLDivElement>,
@@ -119,7 +120,6 @@ const MenuItemActionComponent = (
         id={id}
         className={[_className, className].join(' ').trim()}
         data-pui-interactive="true"
-        tabIndex={-1}
         ref={(el) => {
           if (typeof ref === 'function') {
             ref(el)
@@ -130,6 +130,7 @@ const MenuItemActionComponent = (
           itemRef.current = el
         }}
         {...rest}
+        tabIndex={tabIndex ?? -1}
         onClick={handleClick}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}

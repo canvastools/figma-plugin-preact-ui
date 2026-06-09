@@ -1,144 +1,149 @@
-import { jsx as Z } from "./index.es143.js";
+import { jsx as R } from "./index.es178.js";
 import { createContext as g } from "preact";
-import { useContext as G, useRef as W, useState as S, useCallback as b, useEffect as N } from "preact/hooks";
-const p = g(void 0), te = () => {
-  const l = G(p);
-  if (!l) throw new Error("MenuContext not found");
-  return l;
-}, re = () => G(p), ne = ({ triggerRef: l, anchorRef: V, open: c, setOpen: d, children: X }) => {
-  const A = W([]), k = W(!1), M = W({
+import { useContext as X, useRef as z, useState as M, useCallback as b, useEffect as L } from "preact/hooks";
+const G = g(void 0), re = () => {
+  const s = X(G);
+  if (!s) throw new Error("MenuContext not found");
+  return s;
+}, ne = () => X(G), oe = ({ triggerRef: s, anchorRef: $, open: i, setOpen: u, children: j }) => {
+  const N = z([]), A = z(!1), F = z({
     query: "",
     lastTime: 0
-  }), [v, x] = S(null), [P, z] = S(null), [F, y] = S(!1), [C, D] = S(!1), [q, T] = S(null), $ = b((r) => (A.current.push(r), () => {
-    A.current = A.current.filter((e) => e.id !== r.id);
-  }), []), E = b(() => A.current.filter((e) => !e.disabled && e.ref.current).slice().sort((e, t) => {
-    const n = e.ref.current, u = t.ref.current;
-    if (!n || !u || n === u) return 0;
-    const m = n.compareDocumentPosition(u);
-    return m & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : m & Node.DOCUMENT_POSITION_PRECEDING ? 1 : 0;
-  }), []), U = b(
+  }), [v, E] = M(null), [k, V] = M(null), [U, y] = M(!1), [C, D] = M(!1), [W, T] = M(null), p = b((r) => (N.current.push(r), () => {
+    N.current = N.current.filter((e) => e.id !== r.id);
+  }), []), h = b(() => N.current.filter((e) => !e.disabled && e.ref.current).slice().sort((e, t) => {
+    const o = e.ref.current, c = t.ref.current;
+    if (!o || !c || o === c) return 0;
+    const a = o.compareDocumentPosition(c);
+    return a & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : a & Node.DOCUMENT_POSITION_PRECEDING ? 1 : 0;
+  }), []), _ = b(
     (r) => {
-      var u;
-      const e = E();
+      var c;
+      const e = h();
       if (!e.length) return;
-      const t = r ?? ((u = e[0]) == null ? void 0 : u.id), n = e.find((m) => m.id === t);
-      n && n.ref.current && (n.ref.current.focus({ preventScroll: !0 }), x(t ?? null), T(t ?? null));
+      const t = r ?? ((c = e[0]) == null ? void 0 : c.id), o = e.find((a) => a.id === t);
+      o && o.ref.current && (o.ref.current.focus({ preventScroll: !0 }), E(t ?? null), T(t ?? null));
     },
-    [E]
-  ), j = b(() => {
-    C || x(null);
-  }, [C]), Q = b(
+    [h]
+  ), Q = b(() => {
+    C || E(null);
+  }, [C]), Y = b(
     (r) => {
-      C || (z(r), r !== null && y(!1));
+      C || (V(r), r !== null && y(!1));
     },
     [C]
-  ), K = b(
+  ), P = b(
     (r) => {
-      const e = E();
+      const e = h();
       if (!e.length) return;
-      const t = e.findIndex((m) => m.id === v);
-      let n;
-      t === -1 ? n = r === "next" ? 0 : e.length - 1 : r === "next" ? n = (t + 1) % e.length : n = (t - 1 + e.length) % e.length;
-      const u = e[n];
-      u != null && u.ref.current && (u.ref.current.focus({ preventScroll: !0 }), x(u.id), T(u.id));
+      const t = e.findIndex((a) => a.id === v);
+      let o;
+      t === -1 ? o = r === "next" ? 0 : e.length - 1 : r === "next" ? o = (t + 1) % e.length : o = (t - 1 + e.length) % e.length;
+      const c = e[o];
+      c != null && c.ref.current && (c.ref.current.focus({ preventScroll: !0 }), E(c.id), T(c.id));
     },
-    [v, E]
+    [v, h]
   );
-  N(() => {
-    if (!(l != null && l.current)) return;
-    const r = l.current, e = (t) => {
-      var u;
-      const { key: n } = t;
-      if (n === "Escape" || n === "Esc") {
-        if (!c) return;
-        t.preventDefault(), d == null || d(!1), r.focus();
+  L(() => {
+    if (!(s != null && s.current)) return;
+    const r = s.current, e = (t) => {
+      var c;
+      const { key: o } = t;
+      if (o === "Escape" || o === "Esc") {
+        if (!i) return;
+        t.preventDefault(), u == null || u(!1), r.focus();
         return;
       }
-      if (n === "Enter" || n === " ") {
-        if (t.preventDefault(), !c)
-          k.current = !0, d == null || d(!0);
+      if (o === "Enter" || o === " ") {
+        if (t.preventDefault(), !i)
+          A.current = !0, u == null || u(!0);
         else {
-          const m = A.current.filter((a) => !a.disabled);
-          if (!m.length) return;
-          (u = (m.find((a) => a.id === v) ?? m[0]).ref.current) == null || u.click();
+          const a = N.current.filter((l) => !l.disabled);
+          if (!a.length) return;
+          (c = (a.find((l) => l.id === v) ?? a[0]).ref.current) == null || c.click();
         }
         return;
       }
-      if (n === "ArrowDown") {
-        t.preventDefault(), c ? K("next") : (k.current = !0, d == null || d(!0));
+      if (o === "ArrowDown") {
+        t.preventDefault(), i ? P("next") : (A.current = !0, u == null || u(!0));
         return;
       }
-      n === "ArrowUp" && c && (t.preventDefault(), K("prev"));
+      o === "ArrowUp" && i && (t.preventDefault(), P("prev"));
     };
     return r.addEventListener("keydown", e), () => {
       r.removeEventListener("keydown", e);
     };
-  }, [l, c, d, v, K]), N(() => {
-    if (!(l != null && l.current)) return;
-    const r = l.current, e = (t) => {
-      t.preventDefault(), k.current = !1, d == null || d(!c);
+  }, [s, i, u, v, P]), L(() => {
+    if (!(s != null && s.current)) return;
+    const r = s.current, e = (t) => {
+      t.preventDefault(), A.current = !1, u == null || u(!i);
     };
     return r.addEventListener("mousedown", e), () => {
       r.removeEventListener("mousedown", e);
     };
-  }, [l, c, d]), N(() => {
-    if (!c) {
-      x(null), z(null), y(!1), D(!1), T(null), M.current = { query: "", lastTime: 0 };
+  }, [s, i, u]), L(() => {
+    if (!i) {
+      E(null), V(null), y(!1), D(!1), T(null), F.current = { query: "", lastTime: 0 };
       return;
     }
-    k.current && (k.current = !1, requestAnimationFrame(() => {
-      U(void 0);
+    A.current && (A.current = !1, requestAnimationFrame(() => {
+      _(void 0);
     }));
-  }, [U, c]);
-  const Y = V ?? l;
-  N(() => {
-    if (!c) return;
+  }, [_, i]);
+  const B = $ ?? s;
+  L(() => {
+    if (!i) return;
     const r = (e) => {
-      const { key: t, shiftKey: n, metaKey: u, ctrlKey: m, altKey: _ } = e, a = e.target;
-      if (!(u || m || _)) {
+      var K;
+      const { key: t, shiftKey: o, metaKey: c, ctrlKey: a, altKey: H } = e, l = e.target;
+      if (t === "Escape" || t === "Esc") {
+        e.preventDefault(), e.stopPropagation(), u == null || u(!1), (K = s == null ? void 0 : s.current) == null || K.focus();
+        return;
+      }
+      if (!(c || a || H)) {
         if (t === "Enter" || t === " ") {
-          if (a && (a.tagName === "INPUT" || a.tagName === "TEXTAREA" || a.isContentEditable))
+          if (l && (l.tagName === "INPUT" || l.tagName === "TEXTAREA" || l.isContentEditable))
             return;
           e.preventDefault(), e.stopPropagation();
-          const s = E();
-          if (!s.length) return;
-          let o;
-          !F && P && (o = s.find((w) => w.id === P)), !o && v && (o = s.find((w) => w.id === v)), o || (o = s[0]), o != null && o.ref.current && (o.ref.current.click(), o.ref.current.focus({ preventScroll: !0 }), x(o.id), T(o.id), y(!0), D(!0));
+          const d = h();
+          if (!d.length) return;
+          let n;
+          !U && k && (n = d.find((x) => x.id === k)), !n && v && (n = d.find((x) => x.id === v)), n || (n = d[0]), n != null && n.ref.current && (n.ref.current.click(), n.ref.current.focus({ preventScroll: !0 }), E(n.id), T(n.id), y(!0), D(!0));
           return;
         }
         if (t === "Tab") {
-          e.preventDefault(), e.stopPropagation(), K(n ? "prev" : "next"), y(!0), D(!0);
+          e.preventDefault(), e.stopPropagation(), P(o ? "prev" : "next"), y(!0), D(!0);
           return;
         }
         if (t === "ArrowDown" || t === "ArrowUp") {
-          if (a && (a.tagName === "INPUT" || a.tagName === "TEXTAREA" || a.isContentEditable))
+          if (l && (l.tagName === "INPUT" || l.tagName === "TEXTAREA" || l.isContentEditable))
             return;
           e.preventDefault(), e.stopPropagation();
-          const s = E();
-          if (!s.length) return;
-          const o = s.length;
+          const d = h();
+          if (!d.length) return;
+          const n = d.length;
           if (!v) {
-            if (!F && P) {
-              const f = s.findIndex((I) => I.id === P);
+            if (!U && k) {
+              const f = d.findIndex((w) => w.id === k);
               if (f !== -1) {
-                const I = t === "ArrowDown" ? (f + 1) % o : (f - 1 + o) % o, i = s[I];
-                i != null && i.ref.current && (i.ref.current.focus({ preventScroll: !0 }), x(i.id), T(i.id), y(!0), D(!0));
+                const w = t === "ArrowDown" ? (f + 1) % n : (f - 1 + n) % n, I = d[w];
+                I != null && I.ref.current && (I.ref.current.focus({ preventScroll: !0 }), E(I.id), T(I.id), y(!0), D(!0));
                 return;
               }
             }
-            if (q) {
-              const f = s.findIndex((I) => I.id === q);
+            if (W) {
+              const f = d.findIndex((w) => w.id === W);
               if (f !== -1) {
-                const I = t === "ArrowDown" ? (f + 1) % o : (f - 1 + o) % o, i = s[I];
-                i != null && i.ref.current && (i.ref.current.focus({ preventScroll: !0 }), x(i.id), T(i.id), y(!0), D(!0));
+                const w = t === "ArrowDown" ? (f + 1) % n : (f - 1 + n) % n, I = d[w];
+                I != null && I.ref.current && (I.ref.current.focus({ preventScroll: !0 }), E(I.id), T(I.id), y(!0), D(!0));
                 return;
               }
             }
-            U(void 0), y(!0), D(!0);
+            _(void 0), y(!0), D(!0);
             return;
           }
-          const w = s.findIndex((f) => f.id === v), L = w === -1 ? 0 : w, H = t === "ArrowDown" ? (L + 1) % o : (L - 1 + o) % o, h = s[H];
-          h != null && h.ref.current && (h.ref.current.focus({ preventScroll: !0 }), x(h.id), T(h.id), y(!0), D(!0));
+          const x = d.findIndex((f) => f.id === v), S = x === -1 ? 0 : x, q = t === "ArrowDown" ? (S + 1) % n : (S - 1 + n) % n, m = d[q];
+          m != null && m.ref.current && (m.ref.current.focus({ preventScroll: !0 }), E(m.id), T(m.id), y(!0), D(!0));
         }
       }
     };
@@ -146,66 +151,68 @@ const p = g(void 0), te = () => {
       window.removeEventListener("keydown", r, !0);
     };
   }, [
-    U,
+    _,
     v,
-    E,
-    F,
+    h,
+    U,
+    k,
+    W,
     P,
-    q,
-    K,
-    c
-  ]), N(() => {
-    if (!c) return;
+    i,
+    u,
+    s
+  ]), L(() => {
+    if (!i) return;
     const r = () => {
       C && D(!1);
     };
     return window.addEventListener("pointermove", r), () => {
       window.removeEventListener("pointermove", r);
     };
-  }, [c, C]), N(() => {
-    if (!c) return;
+  }, [i, C]), L(() => {
+    if (!i) return;
     const r = 500, e = (t) => {
-      const { key: n, metaKey: u, ctrlKey: m, altKey: _ } = t;
-      if (u || m || _ || n === " " || n.length !== 1) return;
-      const a = n.toLowerCase();
-      if (!/^[\w !"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]$/.test(a)) return;
+      const { key: o, metaKey: c, ctrlKey: a, altKey: H } = t;
+      if (c || a || H || o === " " || o.length !== 1) return;
+      const l = o.toLowerCase();
+      if (!/^[\w !"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]$/.test(l)) return;
       t.preventDefault();
-      const s = Date.now(), { lastTime: o } = M.current;
-      let { query: w } = M.current;
-      s - o > r && (w = ""), w += a, M.current = { query: w, lastTime: s };
-      const L = E();
-      if (!L.length) return;
-      const H = w.toLowerCase(), h = (I) => {
-        const i = I.ref.current;
-        return i ? (i.textContent || i.innerText || "").trim().toLowerCase() : "";
-      }, f = L.find((I) => h(I).startsWith(H)) || // Fallback to "contains" match
-      L.find((I) => h(I).includes(H));
-      f != null && f.ref.current && (f.ref.current.focus({ preventScroll: !0 }), x(f.id), T(f.id));
+      const K = Date.now(), { lastTime: d } = F.current;
+      let { query: n } = F.current;
+      K - d > r && (n = ""), n += l, F.current = { query: n, lastTime: K };
+      const x = h();
+      if (!x.length) return;
+      const S = n.toLowerCase(), q = (f) => {
+        const w = f.ref.current;
+        return w ? (w.textContent || w.innerText || "").trim().toLowerCase() : "";
+      }, m = x.find((f) => q(f).startsWith(S)) || // Fallback to "contains" match
+      x.find((f) => q(f).includes(S));
+      m != null && m.ref.current && (m.ref.current.focus({ preventScroll: !0 }), E(m.id), T(m.id));
     };
     return window.addEventListener("keydown", e), () => {
       window.removeEventListener("keydown", e);
     };
-  }, [E, c]);
-  const B = b((r) => {
-    x(r);
-  }, []), J = {
-    triggerRef: l,
-    anchorRef: Y,
-    open: c !== void 0 ? c : !1,
-    setOpen: d !== void 0 ? d : () => {
+  }, [h, i]);
+  const J = b((r) => {
+    E(r);
+  }, []), Z = {
+    triggerRef: s,
+    anchorRef: B,
+    open: i !== void 0 ? i : !1,
+    setOpen: u !== void 0 ? u : () => {
     },
-    registerItem: $,
+    registerItem: p,
     focusedItemId: v,
-    setFocusedItem: B,
-    clearFocus: j,
-    setHoveredItem: Q,
-    keyboardInteraction: F
+    setFocusedItem: J,
+    clearFocus: Q,
+    setHoveredItem: Y,
+    keyboardInteraction: U
   };
-  return /* @__PURE__ */ Z(p.Provider, { value: J, children: X });
+  return /* @__PURE__ */ R(G.Provider, { value: Z, children: j });
 };
 export {
-  ne as MenuContext,
-  p as RawMenuContext,
-  te as useMenuContext,
-  re as useMenuContextOptional
+  oe as MenuContext,
+  G as RawMenuContext,
+  re as useMenuContext,
+  ne as useMenuContextOptional
 };

@@ -19,7 +19,7 @@ export const ChildrenStory: Story = {
 import { ai } from "figma-plugin-preact-ui"
 
 <ColorSwatch>
-  <Icon glyph={ai} size={16} />
+  <Icon glyph={ai} size={16} variant="downscaled" />
 </ColorSwatch> 
 
 <ColorSwatch>
@@ -32,7 +32,7 @@ import { ai } from "figma-plugin-preact-ui"
   render: () => (
     <div className="sb-row sb-width-full sb-gap-16">
       <ColorSwatch fill={{ r: 255, g: 0, b: 0, a: 0.5 }}>
-        <Icon glyph={ai} size={16} />
+        <Icon glyph={ai} size={16} variant="downscaled" />
       </ColorSwatch>
       <ColorSwatch>
         <img src="https://placehold.co/48x48" />

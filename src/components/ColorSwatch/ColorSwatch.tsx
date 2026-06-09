@@ -46,16 +46,16 @@ const gradientToCSS = (gradient: GradientPaint, opaque = false): string => {
   }
 }
 
-const getFillStyles = (fill: Color | GradientPaint): preact.JSX.CSSProperties[] => {
+const getFillStyles = (fill: Color | GradientPaint, alpha = true): preact.JSX.CSSProperties[] => {
   if (isGradient(fill)) {
     return [{ background: gradientToCSS(fill) }]
   }
 
-  if (hasOpacity(fill)) {
+  if (alpha && hasOpacity(fill)) {
     return [{ backgroundColor: colorToHex(fill) }, { backgroundColor: colorToHexAlpha(fill) }]
   }
 
-  return [{ backgroundColor: colorToHex(fill) }]
+  return [{ backgroundColor: colorToHexAlpha(fill) }]
 }
 
 const ColorSwatchComponent = (
@@ -64,11 +64,13 @@ const ColorSwatchComponent = (
     className,
     size = 'medium',
     fill,
+    alpha = true,
     disabled = false,
     selected = false,
     selection = 'default',
     tooltip,
     children,
+    tabIndex,
     onClick,
     ...rest
   }: ColorSwatchProps,
@@ -76,9 +78,12 @@ const ColorSwatchComponent = (
 ) => {
   const anchorRef = useRef<HTMLElement | null>(null)
 
+  const isArray = Array.isArray(fill)
+  const hasFill = isArray ? fill.length > 0 : fill !== undefined
+
   const _className = bem('ColorSwatch', undefined, {
     selection: selection,
-    value: !!fill,
+    value: hasFill,
     size,
     disabled,
     selected,
@@ -112,10 +117,11 @@ const ColorSwatchComponent = (
         anchorRef.current = el
       }}
       {...buttonRest}
-      disabled={disabled}
+      aria-disabled={disabled || undefined}
+      tabIndex={disabled ? -1 : tabIndex}
       onClick={(event) => {
-        nativeOnClick?.(event)
         if (disabled) return
+        nativeOnClick?.(event)
         onClick?.({ event, fill })
       }}
       onKeyDown={(event) => {
@@ -124,7 +130,15 @@ const ColorSwatchComponent = (
       }}
     >
       <div className="ColorSwatch__container">
-        {fill && getFillStyles(fill).map((style, i) => <div key={i} className="ColorSwatch__fill" style={style} />)}
+        {isArray
+          ? fill.map((f, i) => (
+              <div key={i} className="ColorSwatch__layer">
+                {getFillStyles(f, alpha).map((style, j) => (
+                  <div key={j} className="ColorSwatch__fill" style={style} />
+                ))}
+              </div>
+            ))
+          : fill && getFillStyles(fill, alpha).map((style, i) => <div key={i} className="ColorSwatch__fill" style={style} />)}
 
         {children && <div className="ColorSwatch__children">{children}</div>}
       </div>

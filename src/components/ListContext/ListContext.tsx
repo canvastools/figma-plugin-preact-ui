@@ -20,6 +20,7 @@ const ListContext = (props: ListContextProps) => {
     deselectOnClickOutside = false,
     onItemsChange,
     onSelectionChange,
+    onKeyDown,
     children,
   } = props
 
@@ -622,6 +623,7 @@ const ListContext = (props: ListContextProps) => {
     getPathForId,
     registerItemPath,
     dragImage: dragImageRef.current,
+    onKeyDown,
   }
 
   return <RawListContext.Provider value={contextValue}>{children}</RawListContext.Provider>

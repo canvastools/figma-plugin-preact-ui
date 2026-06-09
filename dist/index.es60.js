@@ -1,13 +1,17 @@
-const a = {
+const p = {
   class: ":root",
-  prefix: "--pui-radius",
+  prefix: "--pui-spacing",
   variables: {
-    small: "2px",
-    medium: "5px",
-    large: "13px",
-    full: "100%"
+    0: "0px",
+    100: "4px",
+    200: "8px",
+    300: "12px",
+    400: "16px",
+    600: "24px",
+    800: "32px",
+    1e3: "40px"
   }
 };
 export {
-  a as radius
+  p as spacing
 };

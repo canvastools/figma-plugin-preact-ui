@@ -31,8 +31,8 @@ export const SizeStory: Story = {
   },
   render: () => (
     <div className="sb-row sb-width-full sb-gap-16">
-      <Icon glyph={link} size={24} />
-      <Icon glyph={link} size={16} />
+      <Icon glyph={link} size={24} className="sb-container" />
+      <Icon glyph={link} size={16} className="sb-container" />
     </div>
   ),
 }

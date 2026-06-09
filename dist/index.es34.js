@@ -1,86 +1,101 @@
-import { jsx as z } from "./index.es143.js";
-import { createContext as C } from "preact";
-import { useContext as j, useState as p, useRef as a, useEffect as Y } from "preact/hooks";
-const w = C(void 0), Q = () => {
-  const u = j(w);
-  if (!u) throw new Error("ScrollContext not found");
-  return u;
-}, W = () => j(w), X = ({
-  defaultPositionY: u = 0,
-  positionY: r,
-  onScroll: d,
-  spyThreshold: m = 0,
-  onSpyTargetChange: c,
-  children: q
+import { jsx as N } from "./index.es178.js";
+import { createContext as Q } from "preact";
+import { useContext as P, useState as m, useRef as a, useEffect as S } from "preact/hooks";
+const H = Q(void 0), $ = () => {
+  const f = P(H);
+  if (!f) throw new Error("ScrollContext not found");
+  return f;
+}, C = () => P(H), tt = ({
+  defaultPositionY: f = 0,
+  positionY: c,
+  onScroll: p,
+  spyThreshold: v = 0,
+  onSpyTargetChange: i,
+  children: Y
 }) => {
-  const [D, B] = p(u), [F, S] = p(u === 0), [K, h] = p(!1), [x, y] = p(null), E = a(null), H = a(m), R = a(null), I = a([]), v = a(null), M = r !== void 0 ? r : D, O = () => {
-    const e = R.current;
-    if (!e) return;
+  const [j, B] = m(f), [q, O] = m(f === 0), [F, g] = m(!1), [K, x] = m(!1), [b, y] = m(null), z = a(null), D = a(v), I = a(null), R = a([]), h = a(null), o = a(null), L = c !== void 0 ? c : j, E = (t) => {
+    x(t.scrollHeight - t.clientHeight > 0);
+  }, T = () => {
     const t = I.current;
-    if (!t.length) {
-      x !== null && (y(null), c == null || c({ id: null }));
+    if (!t) return;
+    const e = R.current;
+    if (!e.length) {
+      b !== null && (y(null), i == null || i({ id: null }));
       return;
     }
-    const n = e.getBoundingClientRect(), o = H.current ?? 0;
-    let s = null, l = -1 / 0;
-    for (const { id: i, element: P } of t) {
-      if (!P) continue;
-      const b = P.getBoundingClientRect().top - n.top - o;
-      b <= 0 && b > l && (l = b, s = i);
+    const n = t.getBoundingClientRect(), s = D.current ?? 0;
+    let r = null, l = -1 / 0;
+    for (const { id: u, element: M } of e) {
+      if (!M) continue;
+      const w = M.getBoundingClientRect().top - n.top - s;
+      w <= 0 && w > l && (l = w, r = u);
     }
-    s !== x && (y(s), c == null || c({ id: s ?? null }));
-  }, f = () => {
-    v.current == null && (v.current = requestAnimationFrame(() => {
-      v.current = null;
+    r !== b && (y(r), i == null || i({ id: r ?? null }));
+  }, d = () => {
+    h.current == null && (h.current = requestAnimationFrame(() => {
+      h.current = null;
       try {
-        O();
+        T();
       } catch {
       }
     }));
-  }, T = (e) => {
-    R.current = e, e && f();
-  }, U = (e, t) => {
-    const n = I.current, o = n.findIndex((s) => s.id === e);
-    if (!t) {
-      o !== -1 && (n.splice(o, 1), f());
+  }, U = (t) => {
+    var r;
+    if ((r = o.current) == null || r.call(o), o.current = null, I.current = t, !t) {
+      x(!1);
       return;
     }
-    o === -1 ? n.push({ id: e, element: t }) : n[o].element = t, f();
-  }, V = (e) => {
-    const t = e.currentTarget || e.target;
-    if (!t) return;
-    const n = t.scrollHeight - t.clientHeight;
-    E.current = n;
-    const o = n > 0;
-    let s = !1, l = !1, i;
-    o ? (s = t.scrollTop <= 0, l = t.scrollTop >= n, i = s ? 0 : l ? n : t.scrollTop) : i = 0, S(o ? s : !0), h(o ? l : !0), r === void 0 && B(i), d == null || d({ positionY: i }), I.current.length && R.current && f();
-  }, A = (e) => {
-    B(e);
-    const t = E.current, n = typeof t == "number" && t > 0;
-    S(n ? e === 0 : !0), h(n ? e >= t : !0);
-  }, g = () => {
+    E(t);
+    const e = () => E(t), n = new ResizeObserver(e), s = new MutationObserver(e);
+    n.observe(t), s.observe(t, { childList: !0, subtree: !0, characterData: !0 }), o.current = () => {
+      n.disconnect(), s.disconnect();
+    }, d();
+  }, V = (t, e) => {
+    const n = R.current, s = n.findIndex((r) => r.id === t);
+    if (!e) {
+      s !== -1 && (n.splice(s, 1), d());
+      return;
+    }
+    s === -1 ? n.push({ id: t, element: e }) : n[s].element = e, d();
+  }, k = (t) => {
+    const e = t.currentTarget || t.target;
+    if (!e) return;
+    const n = e.scrollHeight - e.clientHeight;
+    z.current = n;
+    const s = n > 0;
+    let r = !1, l = !1, u;
+    s ? (r = e.scrollTop <= 0, l = e.scrollTop >= n, u = r ? 0 : l ? n : e.scrollTop) : u = 0, O(s ? r : !0), g(s ? l : !0), x(s), c === void 0 && B(u), p == null || p({ positionY: u }), R.current.length && I.current && d();
+  }, A = (t) => {
+    B(t);
+    const e = z.current, n = typeof e == "number" && e > 0;
+    O(n ? t === 0 : !0), g(n ? t >= e : !0), x(n);
+  }, G = () => {
     A(0);
   };
-  Y(() => {
-    r !== void 0 && A(r);
-  }, [r]), Y(() => {
-    H.current = m, f();
-  }, [m]);
-  const k = {
-    positionY: M,
-    isAtTop: F,
-    isAtBottom: K,
-    onScroll: V,
+  S(() => {
+    c !== void 0 && A(c);
+  }, [c]), S(() => {
+    D.current = v, d();
+  }, [v]), S(() => () => {
+    var t;
+    return (t = o.current) == null ? void 0 : t.call(o);
+  }, []);
+  const J = {
+    positionY: L,
+    isAtTop: q,
+    isAtBottom: F,
+    hasScroll: K,
+    onScroll: k,
     setPositionY: A,
-    resetPositionY: g,
-    spyActiveId: x,
-    registerSpyTarget: U,
-    registerScrollRoot: T
+    resetPositionY: G,
+    spyActiveId: b,
+    registerSpyTarget: V,
+    registerScrollRoot: U
   };
-  return /* @__PURE__ */ z(w.Provider, { value: k, children: q });
+  return /* @__PURE__ */ N(H.Provider, { value: J, children: Y });
 };
 export {
-  X as ScrollContext,
-  Q as useScrollContext,
-  W as useScrollContextOptional
+  tt as ScrollContext,
+  $ as useScrollContext,
+  C as useScrollContextOptional
 };

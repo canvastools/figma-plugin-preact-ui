@@ -1,18 +1,18 @@
 import "./index.es10.css";
-import { jsx as a } from "./index.es143.js";
-import { useState as w, useRef as I, useEffect as C, useMemo as Y } from "preact/hooks";
-import { ControlGroup as Z } from "./index.es12.js";
-import { Input as A } from "./index.es17.js";
-import { Select as W } from "./index.es38.js";
-import { Text as J } from "./index.es47.js";
-import { useNumericInput as M } from "./index.es54.js";
-import { useStringInput as Q } from "./index.es55.js";
-import { HexColorPicker as ie, HexAlphaColorPicker as le, RgbaColorPicker as ue } from "./index.es152.js";
+import { jsx as i } from "./index.es178.js";
+import { useState as w, useRef as z, useEffect as P, useMemo as X } from "preact/hooks";
+import { ControlGroup as ee } from "./index.es12.js";
+import { Input as D } from "./index.es17.js";
+import { Select as Y } from "./index.es38.js";
+import { Text as re } from "./index.es47.js";
+import { useNumericInput as I } from "./index.es55.js";
+import { useStringInput as te } from "./index.es56.js";
+import { HexColorPicker as ce, HexAlphaColorPicker as me, RgbaColorPicker as de, RgbColorPicker as ge } from "./index.es187.js";
 /* empty css            */
-import { typedForwardRef as se } from "./index.es145.js";
-import { roundAlpha as B, clamp as H, colorToHex as k, hexToColor as U, colorToHexAlpha as ce, hexAlphaToColor as me, colorToRgba as G, rgbaToColor as d } from "./index.es61.js";
-import { bem as de } from "./index.es62.js";
-import { Fragment as j } from "preact";
+import { typedForwardRef as pe } from "./index.es180.js";
+import { roundAlpha as K, clamp as B, colorToHex as k, hexToColor as Z, colorToHexAlpha as fe, hexAlphaToColor as he, colorToRgba as U, rgbaToColor as g } from "./index.es62.js";
+import { bem as xe } from "./index.es63.js";
+import { Fragment as J } from "preact";
 const u = {
   r: {
     min: 0,
@@ -35,19 +35,20 @@ const u = {
     min: 0,
     max: 1
   }
-}, pe = [
+}, be = [
   { value: "rgba", label: "RGB" },
   { value: "hex", label: "Hex" },
   { value: "hexAlpha", label: "Hex alpha" }
-], $ = (o) => o.toUpperCase().replace(/[^0-9A-F]/g, "0").padEnd(6, "0").slice(0, 6), ge = ({
-  color: o,
-  setColor: i,
-  type: V,
-  setType: b,
-  options: P,
-  selectRef: S
+], $ = (n, o) => o ? n : n.map((h) => h === "hexAlpha" ? "hex" : h).filter((h, f, S) => S.indexOf(h) === f), W = (n, o) => o.includes(n) ? n : n === "hexAlpha" && o.includes("hex") ? "hex" : o[0], ne = (n) => n.toUpperCase().replace(/[^0-9A-F]/g, "0").padEnd(6, "0").slice(0, 6), Ve = ({
+  color: n,
+  setColor: o,
+  type: h,
+  setType: f,
+  options: S,
+  selectRef: y,
+  showOpacity: v = !0
 }) => {
-  const e = G(o), g = M({
+  const e = U(n), b = I({
     value: e.r.toString(),
     required: !0,
     min: u.r.min,
@@ -56,7 +57,7 @@ const u = {
     step: 1,
     stepLarge: 10,
     normalizeOnError: !0
-  }), O = M({
+  }), V = I({
     value: e.g.toString(),
     required: !0,
     min: u.g.min,
@@ -65,7 +66,7 @@ const u = {
     step: 1,
     stepLarge: 10,
     normalizeOnError: !0
-  }), h = M({
+  }), C = I({
     value: e.b.toString(),
     required: !0,
     min: u.b.min,
@@ -74,7 +75,7 @@ const u = {
     step: 1,
     stepLarge: 10,
     normalizeOnError: !0
-  }), v = M({
+  }), s = I({
     value: Math.round(e.a * 100).toString(),
     required: !0,
     min: 0,
@@ -83,212 +84,216 @@ const u = {
     step: 1,
     stepLarge: 10,
     normalizeOnError: !0
-  }), [p, s] = w(e.r.toString()), [c, l] = w(e.g.toString()), [D, _] = w(e.b.toString()), [x, y] = w(Math.round(e.a * 100).toString());
-  return C(() => {
-    const n = G(o);
-    s(n.r.toString()), l(n.g.toString()), _(n.b.toString()), y(Math.round(n.a * 100).toString());
-  }, [o]), /* @__PURE__ */ a(j, { children: [
-    /* @__PURE__ */ a("div", { style: { minWidth: "52px" }, children: /* @__PURE__ */ a(
-      W,
+  }), [p, l] = w(e.r.toString()), [O, d] = w(e.g.toString()), [M, _] = w(e.b.toString()), [F, c] = w(Math.round(e.a * 100).toString());
+  return P(() => {
+    const a = U(n);
+    l(a.r.toString()), d(a.g.toString()), _(a.b.toString()), c(Math.round(a.a * 100).toString());
+  }, [n]), /* @__PURE__ */ i(J, { children: [
+    /* @__PURE__ */ i("div", { style: { minWidth: "52px" }, children: /* @__PURE__ */ i(
+      Y,
       {
-        ref: S,
-        options: P,
-        value: V,
-        onValueChange: (n) => b(n.value),
+        ref: y,
+        options: S,
+        value: h,
+        onValueChange: (a) => f(a.value),
         tooltip: "Color mode",
         menuContainerProps: { width: 120 }
       }
     ) }),
-    /* @__PURE__ */ a("div", { className: "ColorPicker__controlsValues", children: /* @__PURE__ */ a(Z, { groupFocus: !0, fullWidth: !0, children: [
-      /* @__PURE__ */ a(
-        A,
+    /* @__PURE__ */ i("div", { className: "ColorPicker__controlsValues", children: /* @__PURE__ */ i(ee, { groupFocus: !0, fullWidth: !0, children: [
+      /* @__PURE__ */ i(
+        D,
         {
           className: "ColorPicker__inputCompact",
           tooltip: "Red",
           value: p,
-          onValueChange: (n) => s(n.value),
-          onBlur: (n) => {
-            const r = g.parse(n.value);
+          onValueChange: (a) => l(a.value),
+          onBlur: (a) => {
+            const r = b.parse(a.value);
             if (r.error === "required" || r.error === "invalid_number" || r.error === "not_integer") {
-              i(d({ r: u.r.min, g: e.g, b: e.b, a: e.a })), s(String(r.formattedValue ?? "0"));
+              o(g({ r: u.r.min, g: e.g, b: e.b, a: e.a })), l(String(r.formattedValue ?? "0"));
               return;
             }
             if (r.error === "less_than_min") {
-              i(d({ r: u.r.min, g: e.g, b: e.b, a: e.a })), s(String(r.formattedValue ?? "0"));
+              o(g({ r: u.r.min, g: e.g, b: e.b, a: e.a })), l(String(r.formattedValue ?? "0"));
               return;
             }
             if (r.error === "greater_than_max") {
-              i(d({ r: u.r.max, g: e.g, b: e.b, a: e.a })), s(String(r.formattedValue ?? "0"));
+              o(g({ r: u.r.max, g: e.g, b: e.b, a: e.a })), l(String(r.formattedValue ?? "0"));
               return;
             }
-            i(d({ r: r.normalizedValue ?? 0, g: e.g, b: e.b, a: e.a })), s(String(r.formattedValue ?? "0"));
+            o(g({ r: r.normalizedValue ?? 0, g: e.g, b: e.b, a: e.a })), l(String(r.formattedValue ?? "0"));
           },
-          onKeyDown: (n) => g.handleKeyDown(n, (r) => {
-            s(String(r));
-          })
-        }
-      ),
-      /* @__PURE__ */ a(
-        A,
-        {
-          className: "ColorPicker__inputCompact",
-          tooltip: "Green",
-          value: c,
-          onValueChange: (n) => l(n.value),
-          onBlur: (n) => {
-            const r = O.parse(n.value);
-            if (r.error === "required" || r.error === "invalid_number" || r.error === "not_integer") {
-              i(d({ r: e.r, g: u.g.min, b: e.b, a: e.a })), l(String(r.formattedValue ?? "0"));
-              return;
-            }
-            if (r.error === "less_than_min") {
-              i(d({ r: e.r, g: u.g.min, b: e.b, a: e.a })), l(String(r.formattedValue ?? "0"));
-              return;
-            }
-            if (r.error === "greater_than_max") {
-              i(d({ r: e.r, g: u.g.max, b: e.b, a: e.a })), l(String(r.formattedValue ?? "0"));
-              return;
-            }
-            i(d({ r: e.r, g: r.normalizedValue ?? 0, b: e.b, a: e.a })), l(String(r.formattedValue ?? "0"));
-          },
-          onKeyDown: (n) => O.handleKeyDown(n, (r) => {
+          onKeyDown: (a) => b.handleKeyDown(a, (r) => {
             l(String(r));
           })
         }
       ),
-      /* @__PURE__ */ a(
-        A,
+      /* @__PURE__ */ i(
+        D,
         {
           className: "ColorPicker__inputCompact",
-          tooltip: "Blue",
-          value: D,
-          onValueChange: (n) => _(n.value),
-          onBlur: (n) => {
-            const r = h.parse(n.value);
+          tooltip: "Green",
+          selectOnFocus: !0,
+          value: O,
+          onValueChange: (a) => d(a.value),
+          onBlur: (a) => {
+            const r = V.parse(a.value);
             if (r.error === "required" || r.error === "invalid_number" || r.error === "not_integer") {
-              i(d({ r: e.r, g: e.g, b: u.b.min, a: e.a })), _(String(r.formattedValue ?? "0"));
+              o(g({ r: e.r, g: u.g.min, b: e.b, a: e.a })), d(String(r.formattedValue ?? "0"));
               return;
             }
             if (r.error === "less_than_min") {
-              i(d({ r: e.r, g: e.g, b: u.b.min, a: e.a })), _(String(r.formattedValue ?? "0"));
+              o(g({ r: e.r, g: u.g.min, b: e.b, a: e.a })), d(String(r.formattedValue ?? "0"));
               return;
             }
             if (r.error === "greater_than_max") {
-              i(d({ r: e.r, g: e.g, b: u.b.max, a: e.a })), _(String(r.formattedValue ?? "0"));
+              o(g({ r: e.r, g: u.g.max, b: e.b, a: e.a })), d(String(r.formattedValue ?? "0"));
               return;
             }
-            i(d({ r: e.r, g: e.g, b: r.normalizedValue ?? 0, a: e.a })), _(String(r.formattedValue ?? "0"));
+            o(g({ r: e.r, g: r.normalizedValue ?? 0, b: e.b, a: e.a })), d(String(r.formattedValue ?? "0"));
           },
-          onKeyDown: (n) => h.handleKeyDown(n, (r) => {
+          onKeyDown: (a) => V.handleKeyDown(a, (r) => {
+            d(String(r));
+          })
+        }
+      ),
+      /* @__PURE__ */ i(
+        D,
+        {
+          className: "ColorPicker__inputCompact",
+          tooltip: "Blue",
+          selectOnFocus: !0,
+          value: M,
+          onValueChange: (a) => _(a.value),
+          onBlur: (a) => {
+            const r = C.parse(a.value);
+            if (r.error === "required" || r.error === "invalid_number" || r.error === "not_integer") {
+              o(g({ r: e.r, g: e.g, b: u.b.min, a: e.a })), _(String(r.formattedValue ?? "0"));
+              return;
+            }
+            if (r.error === "less_than_min") {
+              o(g({ r: e.r, g: e.g, b: u.b.min, a: e.a })), _(String(r.formattedValue ?? "0"));
+              return;
+            }
+            if (r.error === "greater_than_max") {
+              o(g({ r: e.r, g: e.g, b: u.b.max, a: e.a })), _(String(r.formattedValue ?? "0"));
+              return;
+            }
+            o(g({ r: e.r, g: e.g, b: r.normalizedValue ?? 0, a: e.a })), _(String(r.formattedValue ?? "0"));
+          },
+          onKeyDown: (a) => C.handleKeyDown(a, (r) => {
             _(String(r));
           })
         }
       ),
-      /* @__PURE__ */ a(
-        A,
+      v && /* @__PURE__ */ i(
+        D,
         {
           className: "ColorPicker__controlOpacity",
           tooltip: "Opacity",
-          value: x,
-          suffix: /* @__PURE__ */ a(J, { intentModifier: "secondary", children: /* @__PURE__ */ a("div", { className: "ColorPicker__controlOpacityContainer", children: "%" }) }),
-          onValueChange: (n) => y(n.value),
-          onBlur: (n) => {
-            const r = v.parse(n.value);
+          selectOnFocus: !0,
+          value: F,
+          suffix: /* @__PURE__ */ i(re, { intentModifier: "secondary", children: /* @__PURE__ */ i("div", { className: "ColorPicker__controlOpacityContainer", children: "%" }) }),
+          onValueChange: (a) => c(a.value),
+          onBlur: (a) => {
+            const r = s.parse(a.value);
             if (r.error === "required" || r.error === "invalid_number" || r.error === "not_integer") {
-              i(d({ r: e.r, g: e.g, b: e.b, a: u.a.min })), y(String(r.formattedValue ?? "0"));
+              o(g({ r: e.r, g: e.g, b: e.b, a: u.a.min })), c(String(r.formattedValue ?? "0"));
               return;
             }
             if (r.error === "less_than_min") {
-              i(d({ r: e.r, g: e.g, b: e.b, a: u.a.min })), y(String(r.formattedValue ?? "0"));
+              o(g({ r: e.r, g: e.g, b: e.b, a: u.a.min })), c(String(r.formattedValue ?? "0"));
               return;
             }
             if (r.error === "greater_than_max") {
-              i(d({ r: e.r, g: e.g, b: e.b, a: u.a.max })), y(String(r.formattedValue ?? "0"));
+              o(g({ r: e.r, g: e.g, b: e.b, a: u.a.max })), c(String(r.formattedValue ?? "0"));
               return;
             }
-            const f = r.normalizedValue ?? 0, q = B(H(f / 100, u.a.min, u.a.max));
-            i(d({ r: e.r, g: e.g, b: e.b, a: q })), y(String(r.formattedValue ?? "0"));
+            const H = r.normalizedValue ?? 0, x = K(B(H / 100, u.a.min, u.a.max));
+            o(g({ r: e.r, g: e.g, b: e.b, a: x })), c(String(r.formattedValue ?? "0"));
           },
-          onKeyDown: (n) => v.handleKeyDown(n, (r) => {
-            if (y(String(r)), typeof r != "number") return;
-            const f = B(H(r / 100, u.a.min, u.a.max));
-            i(d({ r: e.r, g: e.g, b: e.b, a: f }));
+          onKeyDown: (a) => s.handleKeyDown(a, (r) => {
+            if (c(String(r)), typeof r != "number") return;
+            const H = K(B(r / 100, u.a.min, u.a.max));
+            o(g({ r: e.r, g: e.g, b: e.b, a: H }));
           })
         }
       )
     ] }) })
   ] });
-}, fe = ({
-  color: o,
-  setColor: i,
-  type: V,
-  setType: b,
-  options: P,
-  selectRef: S
+}, ve = ({
+  color: n,
+  setColor: o,
+  type: h,
+  setType: f,
+  options: S,
+  selectRef: y
 }) => {
-  const [e, g] = w(k(o).slice(1));
-  C(() => {
-    g(k(o).slice(1));
-  }, [o]);
-  const O = Q({
-    value: k(o).slice(1),
+  const [v, e] = w(k(n).slice(1));
+  P(() => {
+    e(k(n).slice(1));
+  }, [n]);
+  const b = te({
+    value: k(n).slice(1),
     required: !0,
     minLength: 6,
     maxLength: 6,
     allowedCharacters: "0123456789abcdefABCDEF",
     trim: !0,
-    format: $,
+    format: ne,
     normalizeOnError: !0
   });
-  return /* @__PURE__ */ a(j, { children: [
-    /* @__PURE__ */ a("div", { style: { minWidth: "52px" }, children: /* @__PURE__ */ a(
-      W,
+  return /* @__PURE__ */ i(J, { children: [
+    /* @__PURE__ */ i("div", { style: { minWidth: "52px" }, children: /* @__PURE__ */ i(
+      Y,
       {
-        ref: S,
-        options: P,
-        value: V,
-        onValueChange: (h) => b(h.value),
+        ref: y,
+        options: S,
+        value: h,
+        onValueChange: (V) => f(V.value),
         tooltip: "Color mode",
         menuContainerProps: { width: 120 }
       }
     ) }),
-    /* @__PURE__ */ a("div", { className: "ColorPicker__controlsValues", children: /* @__PURE__ */ a(
-      A,
+    /* @__PURE__ */ i("div", { className: "ColorPicker__controlsValues", children: /* @__PURE__ */ i(
+      D,
       {
         tooltip: "Hex value",
-        value: e.toUpperCase(),
-        onValueChange: (h) => g(h.value),
-        onBlur: (h) => {
-          const v = O.parse(h.value), p = U(v.formattedValue, o.a);
-          p && i({ ...o, ...p }), g(v.formattedValue);
+        selectOnFocus: !0,
+        value: v.toUpperCase(),
+        onValueChange: (V) => e(V.value),
+        onBlur: (V) => {
+          const C = b.parse(V.value), s = Z(C.formattedValue, n.a);
+          s && o({ ...n, ...s }), e(C.formattedValue);
         }
       }
     ) })
   ] });
-}, he = ({
-  color: o,
-  setColor: i,
-  type: V,
-  setType: b,
-  options: P,
-  selectRef: S
+}, _e = ({
+  color: n,
+  setColor: o,
+  type: h,
+  setType: f,
+  options: S,
+  selectRef: y
 }) => {
-  const [e, g] = w(k(o).slice(1));
-  C(() => {
-    g(k(o).slice(1));
-  }, [o]);
-  const O = Q({
-    value: k(o).slice(1),
+  const [v, e] = w(k(n).slice(1));
+  P(() => {
+    e(k(n).slice(1));
+  }, [n]);
+  const b = te({
+    value: k(n).slice(1),
     required: !0,
     minLength: 6,
     maxLength: 6,
     allowedCharacters: "0123456789abcdefABCDEF",
     trim: !0,
-    format: $,
+    format: ne,
     normalizeOnError: !0
-  }), h = M({
+  }), V = I({
     // Work in 0–100% space for the UI, map back to 0–1 alpha in handlers
-    value: Math.round(o.a * 100).toString(),
+    value: Math.round(n.a * 100).toString(),
     required: !0,
     min: 0,
     max: 100,
@@ -296,144 +301,154 @@ const u = {
     step: 1,
     stepLarge: 10,
     normalizeOnError: !0
-  }), [v, p] = w(Math.round(o.a * 100).toString());
-  return C(() => {
-    p(Math.round(o.a * 100).toString());
-  }, [o.a]), /* @__PURE__ */ a(j, { children: [
-    /* @__PURE__ */ a("div", { style: { minWidth: "52px" }, children: /* @__PURE__ */ a(
-      W,
+  }), [C, s] = w(Math.round(n.a * 100).toString());
+  return P(() => {
+    s(Math.round(n.a * 100).toString());
+  }, [n.a]), /* @__PURE__ */ i(J, { children: [
+    /* @__PURE__ */ i("div", { style: { minWidth: "52px" }, children: /* @__PURE__ */ i(
+      Y,
       {
-        ref: S,
-        options: P,
-        value: V,
-        onValueChange: (s) => b(s.value),
+        ref: y,
+        options: S,
+        value: h,
+        onValueChange: (p) => f(p.value),
         tooltip: "Color mode",
         menuContainerProps: { width: 120 }
       }
     ) }),
-    /* @__PURE__ */ a("div", { className: "ColorPicker__controlsValues", children: /* @__PURE__ */ a(Z, { groupFocus: !0, fullWidth: !0, children: [
-      /* @__PURE__ */ a(
-        A,
+    /* @__PURE__ */ i("div", { className: "ColorPicker__controlsValues", children: /* @__PURE__ */ i(ee, { groupFocus: !0, fullWidth: !0, children: [
+      /* @__PURE__ */ i(
+        D,
         {
           tooltip: "Hex value",
-          value: e.toUpperCase(),
-          onValueChange: (s) => g(s.value),
-          onBlur: (s) => {
-            const c = O.parse(s.value), l = U(c.formattedValue, o.a);
-            l && i({ ...o, ...l }), g(c.formattedValue);
+          selectOnFocus: !0,
+          value: v.toUpperCase(),
+          onValueChange: (p) => e(p.value),
+          onBlur: (p) => {
+            const l = b.parse(p.value), O = Z(l.formattedValue, n.a);
+            O && o({ ...n, ...O }), e(l.formattedValue);
           }
         }
       ),
-      /* @__PURE__ */ a(
-        A,
+      /* @__PURE__ */ i(
+        D,
         {
           tooltip: "Opacity",
+          selectOnFocus: !0,
           className: "ColorPicker__controlOpacity",
-          value: v,
-          suffix: /* @__PURE__ */ a(J, { intentModifier: "secondary", children: /* @__PURE__ */ a("div", { className: "ColorPicker__controlOpacityContainer", children: "%" }) }),
-          onValueChange: (s) => {
-            p(s.value);
+          value: C,
+          suffix: /* @__PURE__ */ i(re, { intentModifier: "secondary", children: /* @__PURE__ */ i("div", { className: "ColorPicker__controlOpacityContainer", children: "%" }) }),
+          onValueChange: (p) => {
+            s(p.value);
           },
-          onBlur: (s) => {
-            const c = h.parse(s.value);
-            if (c.error === "required" || c.error === "invalid_number" || c.error === "not_integer") {
-              i({ ...o, a: E.a.min }), p(String(c.formattedValue));
+          onBlur: (p) => {
+            const l = V.parse(p.value);
+            if (l.error === "required" || l.error === "invalid_number" || l.error === "not_integer") {
+              o({ ...n, a: E.a.min }), s(String(l.formattedValue));
               return;
             }
-            if (c.error === "less_than_min") {
-              i({ ...o, a: E.a.min }), p(String(c.formattedValue));
+            if (l.error === "less_than_min") {
+              o({ ...n, a: E.a.min }), s(String(l.formattedValue));
               return;
             }
-            if (c.error === "greater_than_max") {
-              i({ ...o, a: E.a.max }), p(String(c.formattedValue));
+            if (l.error === "greater_than_max") {
+              o({ ...n, a: E.a.max }), s(String(l.formattedValue));
               return;
             }
-            const l = c.normalizedValue ?? 0, D = B(H(l / 100, E.a.min, E.a.max));
-            i({ ...o, a: D }), p(String(c.formattedValue));
+            const O = l.normalizedValue ?? 0, d = K(B(O / 100, E.a.min, E.a.max));
+            o({ ...n, a: d }), s(String(l.formattedValue));
           },
-          onKeyDown: (s) => h.handleKeyDown(s, (c) => {
-            if (p(String(c)), typeof c != "number") return;
-            const l = B(H(c / 100, E.a.min, E.a.max));
-            i({ ...o, a: l });
+          onKeyDown: (p) => V.handleKeyDown(p, (l) => {
+            if (s(String(l)), typeof l != "number") return;
+            const O = K(B(l / 100, E.a.min, E.a.max));
+            o({ ...n, a: O });
           })
         }
       )
     ] }) })
   ] });
-}, xe = ({
-  id: o,
-  className: i,
-  defaultType: V = "hex",
-  type: b,
-  defaultColor: P,
-  types: S,
-  color: e,
-  showControls: g = !0,
-  width: O = 207,
-  fullWidth: h = !1,
-  onTypeChange: v,
+}, Se = ({
+  id: n,
+  className: o,
+  defaultType: h = "hex",
+  type: f,
+  defaultColor: S,
+  types: y,
+  color: v,
+  showControls: e = !0,
+  alpha: b = !0,
+  width: V = 207,
+  fullWidth: C = !1,
+  onTypeChange: s,
   onColorChange: p,
-  ...s
-}, c) => {
-  const [l, D] = w(() => e || P || { r: 1, g: 0, b: 0, a: 1 }), _ = I(null);
-  C(() => {
-    if (e) {
+  ...l
+}, O) => {
+  const [d, M] = w(() => v || S || { r: 1, g: 0, b: 0, a: 1 }), _ = z(null);
+  P(() => {
+    if (v) {
       const t = {
-        ...e,
-        a: B(H(e.a, 0, 1))
+        ...v,
+        a: K(B(v.a, 0, 1))
       };
-      D(t), _.current = t;
+      M(t), _.current = t;
     }
-  }, [e]);
-  const x = Y(
-    () => S && S.length ? S : ["hex", "hexAlpha", "rgba"],
-    [S]
-  ), [y, n] = w(
-    () => x.includes(V) ? V : x[0]
+  }, [v]);
+  const F = X(
+    () => y && y.length ? y : ["hex", "hexAlpha", "rgba"],
+    [y]
+  ), c = X(
+    () => $(F, b),
+    [F, b]
+  ), [a, r] = w(
+    () => W(h, $(F, b))
   );
-  C(() => {
-    b && n(b);
-  }, [b]);
-  const r = Y(() => x && x.length ? x.join("|") : "", [x]);
-  C(() => {
-    if (b)
+  P(() => {
+    f && r(f);
+  }, [f]);
+  const H = X(() => c && c.length ? c.join("|") : "", [c]);
+  P(() => {
+    if (f)
       return;
-    const t = x.includes(V) ? V : x[0];
-    n(t);
-  }, [V, r, x, b]);
-  const f = y, q = (t) => {
-    t !== y && (n(t), v == null || v({ type: t }));
-  }, z = I(null), L = I(!1), F = I(null), R = I(null), ee = (t, m) => t.r === m.r && t.g === m.g && t.b === m.b && t.a === m.a, re = () => {
-    const t = F.current;
-    if (F.current = null, R.current = null, !t) return;
+    const t = W(h, c);
+    r(t);
+  }, [h, H, c, f]), P(() => {
+    if (f || c.includes(a)) return;
+    const t = W(a, c);
+    t !== a && (r(t), s == null || s({ type: t }));
+  }, [a, c, f, s]);
+  const x = W(a, c), T = (t) => {
+    t !== a && (r(t), s == null || s({ type: t }));
+  }, q = z(null), L = z(!1), G = z(null), R = z(null), ae = (t, m) => t.r === m.r && t.g === m.g && t.b === m.b && t.a === m.a, oe = () => {
+    const t = G.current;
+    if (G.current = null, R.current = null, !t) return;
     const m = {
       ...t,
-      a: B(H(t.a, 0, 1))
+      a: K(B(t.a, 0, 1))
     }, N = _.current;
-    N !== null && ee(m, N) || (_.current = m, D(m), p == null || p({
+    N !== null && ae(m, N) || (_.current = m, M(m), p == null || p({
       color: m,
       hex: k(m),
       opacity: m.a
     }));
-  }, K = (t) => {
-    F.current = t, R.current == null && (R.current = window.requestAnimationFrame(re));
+  }, A = (t) => {
+    G.current = t, R.current == null && (R.current = window.requestAnimationFrame(oe));
   };
-  C(() => () => {
-    R.current != null && (cancelAnimationFrame(R.current), R.current = null), F.current = null;
+  P(() => () => {
+    R.current != null && (cancelAnimationFrame(R.current), R.current = null), G.current = null;
   }, []);
-  const te = de("ColorPicker", void 0, {
-    type: f,
-    controls: g,
-    fullWidth: !!h
-  }), ne = (t) => {
+  const ie = xe("ColorPicker", void 0, {
+    type: x,
+    controls: e,
+    fullWidth: !!C
+  }), le = (t) => {
     t.key && (L.current = !0);
-  }, ae = () => {
+  }, ue = () => {
     L.current = !1;
   };
-  C(() => {
-    !g || !z.current || L.current && (z.current.focus(), L.current = !1);
-  }, [f, g]);
-  const X = pe.filter((t) => x.includes(t.value)), T = !x.includes("hex") && x.includes("hexAlpha") ? X.map((t) => t.value === "hexAlpha" ? { ...t, label: "Hex" } : t) : X, oe = (t) => {
+  P(() => {
+    !e || !q.current || L.current && (q.current.focus(), L.current = !1);
+  }, [x, e]);
+  const Q = be.filter((t) => c.includes(t.value)), j = !c.includes("hex") && c.includes("hexAlpha") ? Q.map((t) => t.value === "hexAlpha" ? { ...t, label: "Hex" } : t) : Q, se = (t) => {
     const m = t.key;
     if (m === "Escape" || m === "Esc") {
       t.stopPropagation(), t.preventDefault();
@@ -441,89 +456,99 @@ const u = {
       N && typeof N.blur == "function" && N.blur();
     }
   };
-  return /* @__PURE__ */ a(
+  return /* @__PURE__ */ i(
     "div",
     {
-      id: o,
-      className: [te, i].join(" ").trim(),
+      id: n,
+      className: [ie, o].join(" ").trim(),
       "data-pui-interactive": "true",
-      ref: c,
-      onKeyDownCapture: ne,
-      onMouseDownCapture: ae,
-      onKeyDown: oe,
-      ...s,
+      ref: O,
+      onKeyDownCapture: le,
+      onMouseDownCapture: ue,
+      onKeyDown: se,
+      ...l,
       style: {
-        width: h ? void 0 : O
+        width: C ? void 0 : V
       },
       children: [
-        f === "hex" && /* @__PURE__ */ a(
-          ie,
+        x === "hex" && /* @__PURE__ */ i(
+          ce,
           {
-            color: k(l),
+            color: k(d),
             onChange: (t) => {
-              const m = U(t, l.a);
-              m && K(m);
+              const m = Z(t, d.a);
+              m && A(m);
             }
           }
         ),
-        f === "hexAlpha" && /* @__PURE__ */ a(
-          le,
+        x === "hexAlpha" && /* @__PURE__ */ i(
+          me,
           {
-            color: ce(l),
+            color: fe(d),
             onChange: (t) => {
-              const m = me(t);
-              m && K(m);
+              const m = he(t);
+              m && A(m);
             }
           }
         ),
-        f === "rgba" && /* @__PURE__ */ a(
-          ue,
+        x === "rgba" && b && /* @__PURE__ */ i(
+          de,
           {
-            color: G(l),
+            color: U(d),
             onChange: (t) => {
-              K(d(t));
+              A(g(t));
             }
           }
         ),
-        g && /* @__PURE__ */ a("div", { className: "ColorPicker__controls", children: [
-          f === "hex" && /* @__PURE__ */ a(
-            fe,
+        x === "rgba" && !b && /* @__PURE__ */ i(
+          ge,
+          {
+            color: U(d),
+            onChange: (t) => {
+              A(g({ ...t, a: d.a }));
+            }
+          }
+        ),
+        e && /* @__PURE__ */ i("div", { className: "ColorPicker__controls", children: [
+          x === "hex" && /* @__PURE__ */ i(
+            ve,
             {
-              color: l,
-              setColor: (t) => K(t),
-              type: f,
-              setType: q,
-              options: T,
-              selectRef: z
+              color: d,
+              setColor: (t) => A(t),
+              type: x,
+              setType: T,
+              options: j,
+              selectRef: q
             }
           ),
-          f === "hexAlpha" && /* @__PURE__ */ a(
-            he,
+          x === "hexAlpha" && /* @__PURE__ */ i(
+            _e,
             {
-              color: l,
-              setColor: K,
-              type: f,
-              setType: q,
-              options: T,
-              selectRef: z
+              color: d,
+              setColor: A,
+              type: x,
+              setType: T,
+              options: j,
+              selectRef: q
             }
           ),
-          f === "rgba" && /* @__PURE__ */ a(
-            ge,
+          x === "rgba" && /* @__PURE__ */ i(
+            Ve,
             {
-              color: l,
-              setColor: K,
-              type: f,
-              setType: q,
-              options: T,
-              selectRef: z
+              color: d,
+              setColor: A,
+              type: x,
+              setType: T,
+              options: j,
+              selectRef: q,
+              showOpacity: b
             }
           )
         ] })
       ]
     }
   );
-}, Re = se(xe);
+}, He = pe(Se);
 export {
-  Re as ColorPicker
+  He as ColorPicker
 };

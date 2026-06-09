@@ -1,6 +1,5 @@
 export interface GlyphProps {
     variant: IconProps['variant'];
-    size: number;
 }
 export type Glyph = (props: GlyphProps) => preact.VNode;
 export interface IconProps {
@@ -9,7 +8,7 @@ export interface IconProps {
     glyph?: Glyph;
     intent?: 'neutral' | 'neutral-inverted' | 'neutral-inverted-fixed' | 'brand' | 'danger' | 'warning' | 'success';
     intentModifier?: 'default' | 'secondary' | 'brand' | 'danger' | 'warning' | 'success' | 'component';
-    variant?: 'default' | 'upscaled';
+    variant?: 'default' | 'upscaled' | 'downscaled';
     size?: 16 | 24;
     disabled?: boolean;
     selected?: boolean;

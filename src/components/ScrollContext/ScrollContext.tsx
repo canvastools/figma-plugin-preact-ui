@@ -26,6 +26,7 @@ const ScrollContext = ({
   const [internalPositionY, setInternalPositionY] = useState<number>(defaultPositionY)
   const [isAtTop, setIsAtTop] = useState<boolean>(defaultPositionY === 0)
   const [isAtBottom, setIsAtBottom] = useState<boolean>(false)
+  const [hasScroll, setHasScroll] = useState<boolean>(false)
 
   const [spyActiveId, setSpyActiveId] = useState<string | null>(null)
 
@@ -35,8 +36,13 @@ const ScrollContext = ({
   const spyRootRef = useRef<HTMLElement | null>(null)
   const spyTargetsRef = useRef<{ id: string; element: HTMLElement | null }[]>([])
   const spyRafIdRef = useRef<number | null>(null)
+  const scrollRootCleanupRef = useRef<(() => void) | null>(null)
 
   const currentPositionY = controlledPositionY !== undefined ? controlledPositionY : internalPositionY
+
+  const measureHasScroll = (el: HTMLElement) => {
+    setHasScroll(el.scrollHeight - el.clientHeight > 0)
+  }
 
   const evaluateSpyActiveId = () => {
     const root = spyRootRef.current
@@ -86,11 +92,29 @@ const ScrollContext = ({
   }
 
   const registerScrollRoot = (ref: HTMLElement | null) => {
+    scrollRootCleanupRef.current?.()
+    scrollRootCleanupRef.current = null
     spyRootRef.current = ref
-    // Whenever the root changes, recompute active target.
-    if (ref) {
-      scheduleSpyUpdate()
+
+    if (!ref) {
+      setHasScroll(false)
+      return
     }
+
+    measureHasScroll(ref)
+
+    const onRootChange = () => measureHasScroll(ref)
+    const resizeObs = new ResizeObserver(onRootChange)
+    const mutationObs = new MutationObserver(onRootChange)
+    resizeObs.observe(ref)
+    mutationObs.observe(ref, { childList: true, subtree: true, characterData: true })
+
+    scrollRootCleanupRef.current = () => {
+      resizeObs.disconnect()
+      mutationObs.disconnect()
+    }
+
+    scheduleSpyUpdate()
   }
 
   const registerSpyTarget = (id: string, ref: HTMLElement | null) => {
@@ -138,6 +162,7 @@ const ScrollContext = ({
 
     setIsAtTop(hasScrollable ? atTop : true)
     setIsAtBottom(hasScrollable ? atBottom : true)
+    setHasScroll(hasScrollable)
 
     if (controlledPositionY === undefined) {
       setInternalPositionY(newPositionY)
@@ -157,6 +182,7 @@ const ScrollContext = ({
     const hasScrollable = typeof max === 'number' && max > 0
     setIsAtTop(hasScrollable ? positionY === 0 : true)
     setIsAtBottom(hasScrollable ? positionY >= (max as number) : true)
+    setHasScroll(hasScrollable)
   }
 
   const resetPositionY = () => {
@@ -175,10 +201,15 @@ const ScrollContext = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [spyThreshold])
 
+  useEffect(() => {
+    return () => scrollRootCleanupRef.current?.()
+  }, [])
+
   const contextValue: ScrollContextValue = {
     positionY: currentPositionY,
     isAtTop,
     isAtBottom,
+    hasScroll,
     onScroll: handleScroll,
     setPositionY: updatePositionY,
     resetPositionY,

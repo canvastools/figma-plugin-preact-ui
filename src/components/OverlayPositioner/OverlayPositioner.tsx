@@ -2,7 +2,7 @@ import { createPortal } from 'preact/compat'
 
 import { bem, typedForwardRef } from '../../utils'
 
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'preact/hooks'
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'preact/hooks'
 
 import type { OverlayPositionerProps, OverlayPositionerPlacement } from './OverlayPositioner.types'
 import './OverlayPositioner.scss'
@@ -212,6 +212,8 @@ const OverlayPositionerComponent = (
     open,
     defaultOpen = false,
     closeOnClickOutside = true,
+    autoReposition = false,
+    constrainHeight = false,
     onOpen,
     onClose,
     children,
@@ -228,40 +230,69 @@ const OverlayPositionerComponent = (
   const isOpen = isControlled ? (open as boolean) : internalOpen
   const [appliedPlacement, setAppliedPlacement] = useState<string>(placement)
   const rafRef = useRef<number | null>(null)
+  const isDraggingRef = useRef(false)
 
   const resolvedPlacementFallback = useMemo<OverlayPositionerPlacement[] | undefined>(
     () => (placementFallback && Array.isArray(placementFallback) ? placementFallback : undefined),
     [placementFallback],
   )
 
-  const recompute = useMemo(
-    () => () => {
-      const vw = window.innerWidth
-      const vh = window.innerHeight
-      const anchorEl = anchorRef.current as HTMLElement | null
-      if (!anchorEl) return
-      const rect = anchorEl.getBoundingClientRect()
-      const measured = containerRef.current?.getBoundingClientRect()
-      const w = Math.round(measured?.width || 0)
-      const h = Math.round(measured?.height || 0)
-      if (!w || !h) {
-        if (rafRef.current != null) cancelAnimationFrame(rafRef.current)
-        rafRef.current = requestAnimationFrame(() => {
-          rafRef.current = null
-          recompute()
-        })
-        return
-      }
+  const recompute = useCallback(() => {
+    const vw = window.innerWidth
+    const vh = window.innerHeight
+    const anchorEl = anchorRef.current as HTMLElement | null
+    if (!anchorEl) return
+    const rect = anchorEl.getBoundingClientRect()
+    const el = containerRef.current
+    const measured = el?.getBoundingClientRect()
+    const w = Math.round(measured?.width || 0)
+    let h = Math.round(measured?.height || 0)
+    if (!w || !h) {
+      if (rafRef.current != null) cancelAnimationFrame(rafRef.current)
+      rafRef.current = requestAnimationFrame(() => {
+        rafRef.current = null
+        recompute()
+      })
+      return
+    }
 
-      // Compute coords and arrow using placement + fallback rules
-      const result = computePlacement(vw, vh, rect, w, h, placement, resolvedPlacementFallback, offsetX, offsetY, offsetEdge, 8)
-      setCoords(result.coords)
-      setArrowData(result.arrow)
-      setAppliedPlacement(result.placement)
-      setIsReady(true)
-    },
-    [anchorRef, placement, offsetX, offsetY, offsetEdge, resolvedPlacementFallback],
-  )
+    // Detect clipped/scrollable overflow anywhere in the overlay tree.
+    // When content is constrained (e.g. PopoverContainer with constrainHeight
+    // wrapping a ScrollContainer that scrolls internally), the outer box stays
+    // capped, so we add back the largest hidden amount to reconstruct the
+    // natural content height. computePlacement then picks a position that
+    // maximises the visible area.
+    //
+    // Only do this for explicitly height-constrained overlays. Content-sized
+    // overlays (e.g. tooltips) can report phantom overflow from absolutely
+    // positioned decorations such as arrows, which would corrupt placement.
+    if (constrainHeight && el) {
+      const findOverflow = (node: HTMLElement, depth: number): number => {
+        let max = node.scrollHeight - node.clientHeight
+        if (max < 0) max = 0
+        if (depth >= 6) return max
+        for (let i = 0; i < node.children.length; i++) {
+          const v = findOverflow(node.children[i] as HTMLElement, depth + 1)
+          if (v > max) max = v
+        }
+        return max
+      }
+      const overflow = findOverflow(el, 0)
+      if (overflow > 1) h += overflow
+    }
+
+    // Compute coords and arrow using placement + fallback rules
+    const result = computePlacement(vw, vh, rect, w, h, placement, resolvedPlacementFallback, offsetX, offsetY, offsetEdge, 8)
+    setCoords(result.coords)
+    setArrowData(result.arrow)
+    setAppliedPlacement(result.placement)
+    setIsReady(true)
+  }, [anchorRef, placement, offsetX, offsetY, offsetEdge, resolvedPlacementFallback, constrainHeight])
+
+  const reposition = useCallback(() => {
+    setManualPos(null)
+    recompute()
+  }, [recompute])
 
   useLayoutEffect(() => {
     if (isOpen) {
@@ -282,15 +313,39 @@ const OverlayPositionerComponent = (
     window.addEventListener('resize', onWin)
     window.addEventListener('scroll', onWin, true)
 
-    // Recompute when overlay content resizes (fonts, images, dynamic content)
+    // Coalesce reposition triggers into a single rAF so that a burst of
+    // resize / mutation callbacks (which can cascade as available-height and
+    // max-height settle) results in just one recompute per frame.
+    let scheduled: number | null = null
+    const scheduleReposition = () => {
+      if (isDraggingRef.current) return
+      if (scheduled != null) return
+      scheduled = requestAnimationFrame(() => {
+        scheduled = null
+        if (!isDraggingRef.current) reposition()
+      })
+    }
+
+    // Recompute when overlay content resizes (fonts, images, content shrinking
+    // back below the cap) and when its subtree mutates (content toggled). The
+    // MutationObserver is required because, once the overlay is capped by
+    // max-height, growing content no longer changes the observed box size, so a
+    // ResizeObserver alone would never fire.
     const el = containerRef.current
     let ro: ResizeObserver | null = null
-    if (el) {
+    let mo: MutationObserver | null = null
+    if (autoReposition && el) {
       try {
-        ro = new ResizeObserver(() => recompute())
+        ro = new ResizeObserver(scheduleReposition)
         ro.observe(el)
       } catch {
         // ResizeObserver not supported; skip observing overlay size
+      }
+      try {
+        mo = new MutationObserver(scheduleReposition)
+        mo.observe(el, { childList: true, subtree: true, characterData: true })
+      } catch {
+        // MutationObserver not supported; skip observing overlay mutations
       }
     }
 
@@ -298,12 +353,14 @@ const OverlayPositionerComponent = (
       window.removeEventListener('resize', onWin)
       window.removeEventListener('scroll', onWin, true)
       if (ro) ro.disconnect()
+      if (mo) mo.disconnect()
+      if (scheduled != null) cancelAnimationFrame(scheduled)
       if (rafRef.current != null) {
         cancelAnimationFrame(rafRef.current)
         rafRef.current = null
       }
     }
-  }, [isOpen, recompute])
+  }, [isOpen, recompute, autoReposition, reposition])
 
   const wasOpenRef = useRef<boolean>(false)
   useEffect(() => {
@@ -469,6 +526,7 @@ const OverlayPositionerComponent = (
     const target = e.target as HTMLElement | null
     if (isInteractiveElement(target)) return
     e.preventDefault()
+    isDraggingRef.current = true
     const startLeft = manualPos ? manualPos.left : coords.left
     const startTop = manualPos ? manualPos.top : coords.top
     const startMouseX = e.clientX
@@ -479,6 +537,7 @@ const OverlayPositionerComponent = (
       setManualPos({ left: startLeft + dx, top: startTop + dy })
     }
     const onUp = () => {
+      isDraggingRef.current = false
       window.removeEventListener('mousemove', onMove)
       window.removeEventListener('mouseup', onUp)
     }
@@ -492,12 +551,8 @@ const OverlayPositionerComponent = (
       className={[_className, className].join(' ').trim()}
       ref={(node) => {
         containerRef.current = node
-        if (typeof ref === 'function') {
-          ref(node)
-        } else if (ref) {
-          // eslint-disable-next-line
-          ;(ref as preact.RefObject<HTMLDivElement | null>).current = node
-        }
+        if (typeof ref === 'function') ref(node)
+        else if (ref) (ref as preact.RefObject<HTMLDivElement | null>).current = node
       }}
       style={style}
       data-arrow-side={arrowData?.side}

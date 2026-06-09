@@ -1,4 +1,4 @@
-import { jsx as l } from "./index.es143.js";
+import { jsx as l } from "./index.es178.js";
 import { createContext as m } from "preact";
 import { useEffect as v, useContext as x } from "preact/hooks";
 const a = m(void 0), y = () => {

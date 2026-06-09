@@ -2,7 +2,7 @@ import type { PopoverHeaderProps, PopoverContextProps, PopoverContainerProps, Ov
 
 type PopoverContextPropsPick = Pick<PopoverContextProps, 'triggerRef' | 'anchorRef'>
 
-type PopoverContainerPropsPick = Pick<PopoverContainerProps, 'width' | 'height' | 'showArrow'>
+type PopoverContainerPropsPick = Pick<PopoverContainerProps, 'width' | 'height' | 'showArrow' | 'constrainHeight' | 'tabIndex'>
 
 type OverlayPositionerPropsPick = Pick<
   OverlayPositionerProps,
@@ -14,6 +14,7 @@ type OverlayPositionerPropsPick = Pick<
   | 'offsetX'
   | 'offsetY'
   | 'offsetEdge'
+  | 'autoReposition'
   | 'onOpen'
   | 'onClose'
 >

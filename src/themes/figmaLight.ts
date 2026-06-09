@@ -157,6 +157,8 @@ const figmaLight: ColorTokenTree = {
         'default-hover': '#198DFB',
         'default-pressed': '#0768CF',
 
+        secondary: '#0768CF',
+
         disabled: '#D9D9D9',
       },
       text: {

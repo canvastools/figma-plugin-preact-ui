@@ -1,77 +1,80 @@
 import "./index.es11.css";
-import { jsx as s } from "./index.es143.js";
-import { useRef as C } from "preact/hooks";
-import { Tooltip as b } from "./index.es50.js";
+import { jsx as s } from "./index.es178.js";
+import { useRef as v } from "preact/hooks";
+import { Tooltip as R } from "./index.es50.js";
 /* empty css            */
-import { typedForwardRef as M } from "./index.es145.js";
-import { bem as _ } from "./index.es62.js";
-import { colorToHex as h, colorToHexAlpha as T } from "./index.es61.js";
-const N = (r) => "gradientStops" in r, R = (r) => r.a < 1, j = (r, c = !1) => {
-  const { r: n, g: o, b: a, a: e } = r.color;
-  return `rgba(${Math.round(n * 255)}, ${Math.round(o * 255)}, ${Math.round(a * 255)}, ${c ? 1 : e}) ${r.position * 100}%`;
-}, k = (r, c = !1) => {
-  const n = r.gradientStops.map((e) => j(e, c)).join(", "), [o, a] = r.gradientHandlePositions;
+import { typedForwardRef as j } from "./index.es180.js";
+import { bem as k } from "./index.es63.js";
+import { colorToHex as F, colorToHexAlpha as f } from "./index.es62.js";
+const H = (r) => "gradientStops" in r, I = (r) => r.a < 1, P = (r, e = !1) => {
+  const { r: c, g: o, b: n, a } = r.color;
+  return `rgba(${Math.round(c * 255)}, ${Math.round(o * 255)}, ${Math.round(n * 255)}, ${e ? 1 : a}) ${r.position * 100}%`;
+}, D = (r, e = !1) => {
+  const c = r.gradientStops.map((a) => P(a, e)).join(", "), [o, n] = r.gradientHandlePositions;
   switch (r.type) {
     case "gradient-linear":
-      return `linear-gradient(${Math.atan2(a.y - o.y, a.x - o.x) * (180 / Math.PI) + 90}deg, ${n})`;
+      return `linear-gradient(${Math.atan2(n.y - o.y, n.x - o.x) * (180 / Math.PI) + 90}deg, ${c})`;
     case "gradient-radial":
-      return `radial-gradient(circle at ${o.x * 100}% ${o.y * 100}%, ${n})`;
+      return `radial-gradient(circle at ${o.x * 100}% ${o.y * 100}%, ${c})`;
     case "gradient-angular":
-      return `conic-gradient(from ${Math.atan2(a.y - o.y, a.x - o.x) * (180 / Math.PI) + 90}deg at ${o.x * 100}% ${o.y * 100}%, ${n})`;
+      return `conic-gradient(from ${Math.atan2(n.y - o.y, n.x - o.x) * (180 / Math.PI) + 90}deg at ${o.x * 100}% ${o.y * 100}%, ${c})`;
   }
-}, A = (r) => N(r) ? [{ background: k(r) }] : R(r) ? [{ backgroundColor: h(r) }, { backgroundColor: T(r) }] : [{ backgroundColor: h(r) }], H = ({
+}, S = (r, e = !0) => H(r) ? [{ background: D(r) }] : e && I(r) ? [{ backgroundColor: F(r) }, { backgroundColor: f(r) }] : [{ backgroundColor: f(r) }], E = ({
   id: r,
-  className: c,
-  size: n = "medium",
+  className: e,
+  size: c = "medium",
   fill: o,
+  alpha: n = !0,
   disabled: a = !1,
-  selected: e = !1,
-  selection: f = "default",
-  tooltip: l,
+  selected: $ = !1,
+  selection: w = "default",
+  tooltip: h,
   children: g,
+  tabIndex: x,
   onClick: u,
-  ...y
+  ...C
 }, i) => {
-  const p = C(null), $ = _("ColorSwatch", void 0, {
-    selection: f,
-    value: !!o,
-    size: n,
+  const p = v(null), y = Array.isArray(o), _ = y ? o.length > 0 : o !== void 0, b = k("ColorSwatch", void 0, {
+    selection: w,
+    value: _,
+    size: c,
     disabled: a,
-    selected: e
-  }), S = (t) => {
+    selected: $
+  }), M = (t) => {
     a || (t.key === "Escape" || t.key === "Esc") && t.currentTarget.blur();
   }, {
     onClick: d,
     onKeyDown: m,
-    ...w
-  } = y;
+    ...N
+  } = C;
   return /* @__PURE__ */ s(
     "button",
     {
       id: r,
-      className: [$, c].join(" ").trim(),
+      className: [b, e].join(" ").trim(),
       "data-pui-interactive": "true",
       ref: (t) => {
         typeof i == "function" ? i(t) : i && (i.current = t), p.current = t;
       },
-      ...w,
-      disabled: a,
+      ...N,
+      "aria-disabled": a || void 0,
+      tabIndex: a ? -1 : x,
       onClick: (t) => {
-        d == null || d(t), !a && (u == null || u({ event: t, fill: o }));
+        a || (d == null || d(t), u == null || u({ event: t, fill: o }));
       },
       onKeyDown: (t) => {
-        S(t), m == null || m(t);
+        M(t), m == null || m(t);
       },
       children: [
         /* @__PURE__ */ s("div", { className: "ColorSwatch__container", children: [
-          o && A(o).map((t, x) => /* @__PURE__ */ s("div", { className: "ColorSwatch__fill", style: t }, x)),
+          y ? o.map((t, l) => /* @__PURE__ */ s("div", { className: "ColorSwatch__layer", children: S(t, n).map((A, T) => /* @__PURE__ */ s("div", { className: "ColorSwatch__fill", style: A }, T)) }, l)) : o && S(o, n).map((t, l) => /* @__PURE__ */ s("div", { className: "ColorSwatch__fill", style: t }, l)),
           g && /* @__PURE__ */ s("div", { className: "ColorSwatch__children", children: g })
         ] }),
-        l && /* @__PURE__ */ s(b, { anchorRef: p, children: l })
+        h && /* @__PURE__ */ s(R, { anchorRef: p, children: h })
       ]
     }
   );
-}, q = M(H);
+}, Q = j(E);
 export {
-  q as ColorSwatch
+  Q as ColorSwatch
 };

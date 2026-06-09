@@ -20,6 +20,7 @@ const CheckboxComponent = (
     mixed = false,
     disabled = false,
     label,
+    tabIndex,
     onCheckedChange,
     ...rest
   }: CheckboxProps,
@@ -106,6 +107,7 @@ const CheckboxComponent = (
           }}
           checked={isChecked}
           disabled={disabled}
+          {...(tabIndex !== undefined ? { tabIndex } : {})}
           onClick={handleInputClick}
           onChange={handleChange}
           onKeyDown={handleKeyDown}

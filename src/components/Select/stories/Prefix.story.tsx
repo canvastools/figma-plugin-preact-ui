@@ -1,6 +1,6 @@
 import { StoryObj } from '@storybook/preact'
 
-import { Icon, search } from '../../../index'
+import { Icon, ButtonIcon, search, link } from '../../../index'
 
 import { Select } from '../Select'
 import { SelectOptionData } from '../Select.types'
@@ -37,8 +37,9 @@ export const PrefixStory: Story = {
     ]
 
     return (
-      <div className="sb-column sb-width-300">
+      <div className="sb-column sb-width-300 sb-gap-16">
         <Select options={options} defaultValue="option-1" prefix={<Icon glyph={search} intentModifier="secondary" />} />
+        <Select options={options} defaultValue="option-1" prefix={<ButtonIcon translucent icon={{ glyph: link }} />} />
       </div>
     )
   },

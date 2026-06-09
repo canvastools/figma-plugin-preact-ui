@@ -83,6 +83,13 @@ const meta: Meta<typeof MenuItemAction> = {
       defaultValue: { summary: false },
       description: 'Add padding to the left of the content to make it aligned with options.',
     },
+    tabIndex: {
+      control: { type: 'number' },
+      description: 'Tab order of the menu item. Omit for -1 (roving focus in menus).',
+      table: {
+        type: { summary: 'number' },
+      },
+    },
     onClick: {
       table: {
         type: {

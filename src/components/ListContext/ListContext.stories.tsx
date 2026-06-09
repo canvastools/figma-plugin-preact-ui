@@ -75,6 +75,19 @@ args: {
         },
       },
     },
+    onKeyDown: {
+      table: {
+        type: {
+          summary: '(args) => void',
+          detail: `
+args: {
+  event: KeyboardEvent
+  itemId: string
+}
+          `,
+        },
+      },
+    },
     children: {
       control: { disable: true },
       description: '<strong>*</strong>',
@@ -120,6 +133,7 @@ args: {
   selectionMode: "none" | "single" | "multi"
   registerRootElement?: (el: HTMLElement | null) => () => void
   dragImage: HTMLDivElement | null
+  onKeyDown?: (args: { event: KeyboardEvent; itemId: string }) => void
 }
         `,
         },

@@ -72,6 +72,13 @@ type IconPropsPick = {
       control: { type: 'boolean' },
       defaultValue: { summary: false },
     },
+    tabIndex: {
+      control: { type: 'number' },
+      description: 'Tab order of the active segment button. Inactive segments stay at -1. Omit for roving tabindex (active: 0).',
+      table: {
+        type: { summary: 'number' },
+      },
+    },
     onValueChange: {
       table: {
         type: {

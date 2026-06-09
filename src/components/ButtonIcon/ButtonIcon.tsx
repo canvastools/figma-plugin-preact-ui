@@ -26,6 +26,7 @@ const ButtonIconComponent = (
     tooltip,
     children,
     icon,
+    tabIndex,
     onClick,
     ...rest
   }: ButtonIconProps,
@@ -76,6 +77,7 @@ const ButtonIconComponent = (
           itemRef.current = el
         }}
         disabled={disabled}
+        {...(tabIndex !== undefined ? { tabIndex } : {})}
         onClick={handleClick}
         onKeyDown={handleKeyDown}
         {...rest}

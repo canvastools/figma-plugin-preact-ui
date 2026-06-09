@@ -23,6 +23,10 @@ export interface ListContextValue {
     selectionMode?: 'single' | 'multi';
     registerRootElement?: (el: HTMLElement | null) => () => void;
     dragImage?: HTMLDivElement | null;
+    onKeyDown?: (args: {
+        event: KeyboardEvent;
+        itemId: string;
+    }) => void;
 }
 export interface ListContextProps {
     items?: ListItemData[];
@@ -34,6 +38,10 @@ export interface ListContextProps {
     }) => void;
     onSelectionChange?: (args: {
         selectedItemIds: string[];
+    }) => void;
+    onKeyDown?: (args: {
+        event: KeyboardEvent;
+        itemId: string;
     }) => void;
     children: preact.ComponentChildren;
 }

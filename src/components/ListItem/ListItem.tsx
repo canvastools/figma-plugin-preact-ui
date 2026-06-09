@@ -30,6 +30,7 @@ const ListItemComponent = (
     onSelect,
     items,
     children,
+    tabIndex,
     ...rest
   }: ListItemProps,
   ref: preact.Ref<HTMLDivElement>,
@@ -44,6 +45,7 @@ const ListItemComponent = (
     dragImage,
     reorderItems,
     getPathForId,
+    onKeyDown: contextOnKeyDown,
   } = useListContext()
   const [isDragging, setIsDragging] = useState(false)
   const [isFocused, setIsFocused] = useState(false)
@@ -98,12 +100,14 @@ const ListItemComponent = (
     })
     const handleGlobalDragEnd = () => {
       setIsDragging(false)
+      document.documentElement.classList.remove('pui-dragging')
       endZoneRef.current?.classList.remove('ListItem__end-dropzone-active')
       endZoneDropParentRef.current = null
     }
 
     const handleResetDragStates = () => {
       setIsDragging(false)
+      document.documentElement.classList.remove('pui-dragging')
       endZoneRef.current?.classList.remove('ListItem__end-dropzone-active')
       endZoneDropParentRef.current = null
     }
@@ -168,34 +172,174 @@ const ListItemComponent = (
   }
 
   const moveFocus = (direction: 'prev' | 'next') => {
-    const allItems = Array.from(document.querySelectorAll<HTMLElement>('.ListItem'))
-    if (!allItems.length) return
     const current = selfRef.current
+    if (!current) return
+
+    // Scope navigation to the outermost ListContainer ancestor so arrow keys
+    // don't jump between sibling ListContexts on the same page.
+    let root: HTMLElement | null = current.closest('.ListContainer') as HTMLElement | null
+    while (root) {
+      const outer = root.parentElement?.closest('.ListContainer') as HTMLElement | null
+      if (!outer) break
+      root = outer
+    }
+    if (!root) return
+
+    const allItems = Array.from(root.querySelectorAll<HTMLElement>('.ListItem'))
+    if (!allItems.length) return
     const visibleItems = allItems.filter((el) => {
       // Skip items that are not visible (collapsed or display:none)
       return el.offsetParent !== null
     })
     const index = visibleItems.indexOf(current as HTMLElement)
     if (index === -1) return
-    const nextIndex = direction === 'prev' ? Math.max(0, index - 1) : Math.min(visibleItems.length - 1, index + 1)
+
+    // Wrap around at the ends so the focus cycles within the context.
+    const lastIndex = visibleItems.length - 1
+    const nextIndex = direction === 'prev' ? (index === 0 ? lastIndex : index - 1) : index === lastIndex ? 0 : index + 1
     const target = visibleItems[nextIndex]
     if (target && target !== current) {
       target.focus()
     }
   }
 
+  // Keyboard reordering: move the focused item (or all selected siblings) in
+  // the requested direction. Mirrors mouse drag-and-drop constraints:
+  // - Requires `draggable` on the focused item.
+  // - If `selectable=true`, multi-move applies: all selected siblings of the
+  //   focused item (items sharing the same parent path) move together.
+  // - If `selectable=false`, only the focused item moves (selection is ignored,
+  //   mirroring the mouse drag behavior where non-selectable items don't
+  //   participate in multi-drag).
+  // - For nesting (`right`), the previous sibling must accept children.
+  const moveItems = (direction: 'up' | 'down' | 'left' | 'right') => {
+    const myPath = getPathForId?.(id)
+    if (!myPath || myPath.length === 0) return
+    const myParentPath = myPath.slice(0, -1)
+
+    const isMulti = selectable && selectedItemIds.has(id) && selectedItemIds.size > 1
+    const candidateIds = isMulti ? Array.from(selectedItemIds) : [id]
+
+    const siblings: { id: string; index: number }[] = []
+    for (const cid of candidateIds) {
+      const cp = getPathForId?.(cid)
+      if (!cp || cp.length === 0) continue
+      const cParent = cp.slice(0, -1)
+      if (cParent.length === myParentPath.length && cParent.every((v, i) => v === myParentPath[i])) {
+        siblings.push({ id: cid, index: cp[cp.length - 1] })
+      }
+    }
+    if (siblings.length === 0) return
+
+    siblings.sort((a, b) => a.index - b.index)
+    const siblingIds = siblings.map((s) => s.id)
+    const firstIdx = siblings[0].index
+    const lastIdx = siblings[siblings.length - 1].index
+
+    const myEl = selfRef.current
+    const containerEl = myEl?.parentElement
+    const itemEls = containerEl
+      ? (Array.from(containerEl.children).filter((el) => (el as HTMLElement).classList.contains('ListItem')) as HTMLElement[])
+      : []
+    const containerLength = itemEls.length
+
+    // Refocus the originally focused item after the tree re-renders, so the
+    // user can chain multiple keyboard moves without losing their anchor.
+    const refocusAfterMove = () => {
+      requestAnimationFrame(() => {
+        const el = document.querySelector(`[data-item-id="${id}"]`)
+        if (el instanceof HTMLElement) {
+          el.focus({ preventScroll: false })
+        }
+      })
+    }
+
+    switch (direction) {
+      case 'up': {
+        if (firstIdx === 0) return
+        const targetParentPath = myParentPath.length > 0 ? myParentPath : undefined
+        reorderItems(siblingIds, firstIdx - 1, targetParentPath)
+        refocusAfterMove()
+        break
+      }
+      case 'down': {
+        if (lastIdx >= containerLength - 1) return
+        const targetParentPath = myParentPath.length > 0 ? myParentPath : undefined
+        reorderItems(siblingIds, lastIdx + 2, targetParentPath)
+        refocusAfterMove()
+        break
+      }
+      case 'right': {
+        if (firstIdx === 0) return
+        const prevSiblingEl = itemEls[firstIdx - 1]
+        if (!prevSiblingEl) return
+        if (prevSiblingEl.getAttribute('data-accepts-children') === 'false') return
+        const previousSiblingPath = [...myParentPath, firstIdx - 1]
+        // Append to the end of the previous sibling's existing children.
+        const prevSiblingChildrenContainer = prevSiblingEl.querySelector(':scope > .ListItem__items > .ListContainer')
+        const prevSiblingChildrenCount = prevSiblingChildrenContainer
+          ? Array.from(prevSiblingChildrenContainer.children).filter((el) => (el as HTMLElement).classList.contains('ListItem'))
+              .length
+          : 0
+        reorderItems(siblingIds, prevSiblingChildrenCount, previousSiblingPath)
+        refocusAfterMove()
+        break
+      }
+      case 'left': {
+        if (myParentPath.length === 0) return
+        const grandparentPath = myParentPath.slice(0, -1)
+        const parentIndexInGrandparent = myParentPath[myParentPath.length - 1]
+        const targetParentPath = grandparentPath.length > 0 ? grandparentPath : undefined
+        reorderItems(siblingIds, parentIndexInGrandparent + 1, targetParentPath)
+        refocusAfterMove()
+        break
+      }
+    }
+  }
+
   const handleKeyDown = (e: KeyboardEvent) => {
     if (isInteractiveTarget(e.target as HTMLElement | null)) return
+    contextOnKeyDown?.({ event: e, itemId: id })
     switch (e.key) {
       case 'ArrowUp':
+        if (e.altKey) {
+          if (draggable) {
+            e.preventDefault()
+            e.stopPropagation()
+            moveItems('up')
+          }
+          break
+        }
         e.preventDefault()
         e.stopPropagation()
         moveFocus('prev')
         break
       case 'ArrowDown':
+        if (e.altKey) {
+          if (draggable) {
+            e.preventDefault()
+            e.stopPropagation()
+            moveItems('down')
+          }
+          break
+        }
         e.preventDefault()
         e.stopPropagation()
         moveFocus('next')
+        break
+      case 'ArrowLeft':
+        if (e.altKey && draggable) {
+          e.preventDefault()
+          e.stopPropagation()
+          moveItems('left')
+        }
+        break
+      case 'ArrowRight':
+        if (e.altKey && draggable) {
+          e.preventDefault()
+          e.stopPropagation()
+          moveItems('right')
+        }
         break
       case 'Enter':
         // Keyboard "click" – toggle selection like a mouse click
@@ -242,11 +386,14 @@ const ListItemComponent = (
   const handleDragHandleDragStart = (e: DragEvent) => {
     if (draggable) {
       setIsDragging(true)
+      document.documentElement.classList.add('pui-dragging')
       // Determine if this drag should be multi based on current selection BEFORE mutating it
-      const isMultiDrag = selectedItemIds.has(id) && selectedItemIds.size > 1
+      const isMultiDrag = selectable && selectedItemIds.has(id) && selectedItemIds.size > 1
       const ids = isMultiDrag ? Array.from(selectedItemIds) : [id]
-      // If not multi, set exact selection to this id only
-      if (selectionMode !== undefined && !isMultiDrag) {
+      // If not multi, set exact selection to this id only.
+      // Only mutate selection for selectable items – otherwise dragging an
+      // unselectable item would visually select it.
+      if (selectable && selectionMode !== undefined && !isMultiDrag) {
         setSelection([id])
       }
       const payload = { ids }
@@ -270,6 +417,7 @@ const ListItemComponent = (
   const handleDragHandleDragEnd = (e: DragEvent) => {
     if (draggable) {
       setIsDragging(false)
+      document.documentElement.classList.remove('pui-dragging')
       try {
         delete (window as { __puiDraggingIds?: string[] }).__puiDraggingIds
       } catch {
@@ -389,7 +537,7 @@ const ListItemComponent = (
       }}
       key={id}
       {...rest}
-      tabIndex={selectable ? 0 : -1}
+      tabIndex={tabIndex ?? (selectable || draggable || collapsable ? 0 : undefined)}
       onFocus={(e) => {
         if (e.currentTarget === e.target) {
           setIsFocused(true)
@@ -464,6 +612,7 @@ const ListItemComponent = (
                 intentModifier="secondary"
                 glyph={effectiveCollapsed ? chevronRightGlyph : chevronDownGlyph}
                 size={16}
+                variant="default"
               />
             </div>
           )}
@@ -471,7 +620,6 @@ const ListItemComponent = (
           {draggable && (
             <div
               className="ListItem__drag-handle"
-              data-pui-interactive="true"
               draggable={true}
               onDragStart={(e: DragEvent) => {
                 e.stopPropagation()

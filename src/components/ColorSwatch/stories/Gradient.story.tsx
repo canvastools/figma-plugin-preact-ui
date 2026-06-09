@@ -27,7 +27,7 @@ const radial: GradientPaint = {
   ],
   gradientStops: [
     { position: 0, color: { r: 0.4, g: 0.6, b: 1, a: 1 } },
-    { position: 1, color: { r: 0.2, g: 0.2, b: 0.6, a: 1 } },
+    { position: 1, color: { r: 0.2, g: 0.2, b: 0.6, a: 0.2 } },
   ],
 }
 

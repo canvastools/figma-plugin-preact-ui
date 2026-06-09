@@ -4,6 +4,7 @@ import { useState } from 'preact/hooks'
 
 import { Button, Text, ScrollContext, Stack } from '../../../index'
 
+import { useScrollContext } from '../../ScrollContext/ScrollContext'
 import { ScrollContainer } from '../ScrollContainer'
 
 type Story = StoryObj<typeof ScrollContainer>
@@ -74,9 +75,15 @@ export const DynamicContentStory: Story = {
   render: () => {
     const [content, setContent] = useState(initialContent)
 
+    const HasScrollIndicator = () => {
+      const { hasScroll } = useScrollContext()
+      return <Text>hasScroll: {String(hasScroll)}</Text>
+    }
+
     return (
       <div className="sb-column sb-width-full sb-height-300">
         <ScrollContext>
+          <HasScrollIndicator />
           <ScrollContainer>
             <Stack spacing={400}>
               <Text variant="body" size="medium">

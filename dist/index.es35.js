@@ -1,37 +1,37 @@
 import "./index.es35.css";
-import { jsx as w } from "./index.es143.js";
-import { useState as d, useRef as i, useCallback as k, useEffect as p } from "preact/hooks";
+import { jsx as M } from "./index.es178.js";
+import { useState as d, useRef as i, useCallback as C, useEffect as p } from "preact/hooks";
 /* empty css            */
-import { useScrollContextOptional as ot } from "./index.es34.js";
-import { typedForwardRef as nt } from "./index.es145.js";
-import { bem as C } from "./index.es62.js";
-const rt = ({ id: Y, className: E, children: B, ...D }, b) => {
-  const r = ot(), [I, N] = d(void 0), [_, z] = d(!0), [F, O] = d(!1), M = r && typeof r.positionY == "number" ? r.positionY : I, q = r ? r.isAtTop : _, P = r ? r.isAtBottom : F, U = (r == null ? void 0 : r.registerScrollRoot) ?? (() => {
-  }), j = i(null), m = i(null), f = i(null), [T, W] = d({ top: 0, height: 24 }), [$, y] = d(!1), [G, J] = d(!1), L = i(0), S = i(!1), H = i(""), x = i(null), R = i(!1), g = i(null), K = C("ScrollContainer", void 0, void 0), c = k(() => {
+import { useScrollContextOptional as nt } from "./index.es34.js";
+import { typedForwardRef as rt } from "./index.es180.js";
+import { bem as E } from "./index.es63.js";
+const T = 12, ct = ({ id: Y, className: B, children: D, ...I }, b) => {
+  const r = nt(), [_, N] = d(void 0), [z, F] = d(!0), [O, U] = d(!1), H = r && typeof r.positionY == "number" ? r.positionY : _, q = r ? r.isAtTop : z, P = r ? r.isAtBottom : O, $ = (r == null ? void 0 : r.registerScrollRoot) ?? (() => {
+  }), j = i(null), m = i(null), f = i(null), [S, W] = d({ top: 0, height: 24 }), [K, L] = d(!1), [G, J] = d(!1), A = i(0), w = i(!1), x = i(""), R = i(null), y = i(!1), g = i(null), Q = E("ScrollContainer", void 0, void 0), c = C(() => {
     const t = m.current, o = f.current;
     if (!t || !o) return;
-    const e = Math.max(0, t.scrollHeight - t.clientHeight), n = e > 0, s = n ? t.clientHeight / t.scrollHeight : 1, l = o.clientHeight - 8, u = Math.max(24, Math.round(l * s)), h = l - u, v = n ? Math.round(h * t.scrollTop / e) : 0;
+    const e = Math.max(0, t.scrollHeight - t.clientHeight), n = e > 0, s = n ? t.clientHeight / t.scrollHeight : 1, l = o.clientHeight - T * 2, u = Math.max(24, Math.round(l * s)), h = l - u, v = n ? Math.round(h * t.scrollTop / e) : 0;
     W({ top: v, height: u }), J(n);
-  }, []), a = k(() => {
-    x.current == null && (x.current = requestAnimationFrame(() => {
-      x.current = null, c();
+  }, []), a = C(() => {
+    R.current == null && (R.current = requestAnimationFrame(() => {
+      R.current = null, c();
     }));
   }, [c]);
   p(() => {
     const t = m.current;
-    if (!(!t || typeof M != "number"))
+    if (!(!t || typeof H != "number"))
       try {
-        const o = Math.max(0, t.scrollHeight - t.clientHeight), e = Math.max(0, Math.min(M, o));
+        const o = Math.max(0, t.scrollHeight - t.clientHeight), e = Math.max(0, Math.min(H, o));
         t.scrollTop !== e && (t.scrollTop = e), a();
       } catch {
       }
-  }, [M, a]), p(() => {
+  }, [H, a]), p(() => {
     a();
   }, [q, P, a]), p(() => {
     const t = m.current;
     if (!t) return;
     const o = () => {
-      if (R.current) {
+      if (y.current) {
         const n = Math.max(0, t.scrollHeight - t.clientHeight);
         t.scrollTop = n;
       }
@@ -46,7 +46,7 @@ const rt = ({ id: Y, className: E, children: B, ...D }, b) => {
     const t = m.current;
     if (!t) return;
     const o = new MutationObserver(() => {
-      if (R.current) {
+      if (y.current) {
         const e = Math.max(0, t.scrollHeight - t.clientHeight);
         t.scrollTop = e;
       }
@@ -59,7 +59,7 @@ const rt = ({ id: Y, className: E, children: B, ...D }, b) => {
     };
     return window.addEventListener("resize", t), () => window.removeEventListener("resize", t);
   }, [c]);
-  const Q = (t) => {
+  const V = (t) => {
     if (r)
       r.onScroll(t);
     else {
@@ -67,84 +67,85 @@ const rt = ({ id: Y, className: E, children: B, ...D }, b) => {
       if (e) {
         const n = e.scrollHeight - e.clientHeight, s = n > 0;
         let l = !1, u = !1, h;
-        s ? (l = e.scrollTop <= 0, u = e.scrollTop >= n, h = l ? 0 : u ? n : e.scrollTop) : h = 0, z(s ? l : !0), O(s ? u : !0), N(h);
+        s ? (l = e.scrollTop <= 0, u = e.scrollTop >= n, h = l ? 0 : u ? n : e.scrollTop) : h = 0, F(s ? l : !0), U(s ? u : !0), N(h);
       }
     }
     const o = m.current;
     if (o) {
       const e = Math.max(0, o.scrollHeight - o.clientHeight);
-      R.current = e > 0 && Math.abs(e - o.scrollTop) <= 1;
+      y.current = e > 0 && Math.abs(e - o.scrollTop) <= 1;
     }
     a();
-  }, V = (t) => {
+  }, X = (t) => {
     if (t.button !== 0) return;
     const o = f.current;
     if (!o) return;
-    t.preventDefault(), y(!0), S.current = !0, c();
+    t.preventDefault(), L(!0), w.current = !0, c();
     const e = t.clientY;
-    L.current = e - (o.getBoundingClientRect().top + T.top + 2), H.current = document.body.style.userSelect, document.body.style.userSelect = "none";
-    const n = (l) => X(l), s = () => Z();
+    A.current = e - (o.getBoundingClientRect().top + T + S.top), x.current = document.body.style.userSelect, document.body.style.userSelect = "none";
+    const n = (l) => Z(l), s = () => tt();
     g.current = { move: n, up: s }, window.addEventListener("mousemove", n), window.addEventListener("mouseup", s);
-  }, X = (t) => {
-    if (!S.current) return;
+  }, Z = (t) => {
+    if (!w.current) return;
     const o = m.current, e = f.current;
     if (!o || !e) return;
     const n = Math.max(0, o.scrollHeight - o.clientHeight);
     if (n <= 0) return;
-    const s = e.getBoundingClientRect(), l = t.clientY - s.top - 2 - L.current, u = e.clientHeight - 4, h = T.height, v = u - h;
+    const s = e.getBoundingClientRect(), l = t.clientY - s.top - T - A.current, u = e.clientHeight - T * 2, h = S.height, v = u - h;
     if (v <= 0) return;
     t.preventDefault();
-    const et = Math.max(0, Math.min(v, l)), A = Math.round(et * n / v);
-    o.scrollTop !== A && (o.scrollTop = A, a());
-  }, Z = () => {
+    const ot = Math.max(0, Math.min(v, l)), k = Math.round(ot * n / v);
+    o.scrollTop !== k && (o.scrollTop = k, a());
+  }, tt = () => {
     const t = g.current;
-    t && (window.removeEventListener("mousemove", t.move), window.removeEventListener("mouseup", t.up), g.current = null), y(!1), S.current = !1, document.body.style.userSelect = H.current;
+    t && (window.removeEventListener("mousemove", t.move), window.removeEventListener("mouseup", t.up), g.current = null), L(!1), w.current = !1, document.body.style.userSelect = x.current;
   };
   p(() => () => {
     const t = g.current;
-    t && (window.removeEventListener("mousemove", t.move), window.removeEventListener("mouseup", t.up), g.current = null), S.current = !1, document.body.style.userSelect = H.current;
+    t && (window.removeEventListener("mousemove", t.move), window.removeEventListener("mouseup", t.up), g.current = null), w.current = !1, document.body.style.userSelect = x.current;
   }, []);
-  const tt = C("ScrollContainer", "track", {
+  const et = E("ScrollContainer", "track", {
     noScroll: !G,
-    dragging: $
+    dragging: K
   });
-  return /* @__PURE__ */ w(
+  return /* @__PURE__ */ M(
     "div",
     {
       id: Y,
-      className: [K, E].join(" ").trim(),
+      className: [Q, B].join(" ").trim(),
       ref: (t) => {
         j.current = t, typeof b == "function" ? b(t) : b && (b.current = t);
       },
-      ...D,
+      ...I,
       children: [
-        /* @__PURE__ */ w(
+        /* @__PURE__ */ M(
           "div",
           {
             className: "ScrollContainer__content",
             ref: (t) => {
-              m.current = t, U(t);
+              m.current = t, $(t);
             },
-            onScroll: (t) => Q(t),
-            children: B
+            onScroll: (t) => V(t),
+            children: D
           }
         ),
-        /* @__PURE__ */ w("div", { className: tt, ref: f, "data-pui-interactive": "true", children: /* @__PURE__ */ w(
+        /* @__PURE__ */ M("div", { className: et, ref: f, "data-pui-interactive": "true", children: /* @__PURE__ */ M(
           "div",
           {
             className: "ScrollContainer__thumb",
             style: {
-              height: `${T.height}px`,
-              transform: `translateY(${T.top}px)`
+              height: `${S.height}px`,
+              top: `${T}px`,
+              transform: `translateY(${S.top}px)`
             },
             "data-pui-interactive": "true",
-            onMouseDown: (t) => V(t)
+            onMouseDown: (t) => X(t)
           }
         ) })
       ]
     }
   );
-}, mt = nt(rt);
+}, ht = rt(ct);
 export {
-  mt as ScrollContainer
+  ht as ScrollContainer
 };

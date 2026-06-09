@@ -31,6 +31,7 @@ const SelectComponent = (
     grouped,
     error = false,
     disabled = false,
+    tabIndex,
     prefix,
     menuContainerProps,
     tooltip,
@@ -83,8 +84,26 @@ const SelectComponent = (
   }
 
   const handleKeyDown = (event: preact.JSX.TargetedKeyboardEvent<HTMLDivElement>) => {
-    if (event.key === 'Escape' || event.key === 'Esc') {
+    if ((event.key === 'Escape' || event.key === 'Esc') && !isOpen) {
       event.currentTarget.blur()
+    }
+  }
+
+  const handlePrefixMouseDown = (event: preact.JSX.TargetedMouseEvent<HTMLDivElement>) => {
+    const prefixEl = event.currentTarget
+    let el = event.target as HTMLElement | null
+
+    while (el && el !== prefixEl) {
+      const interactiveAttr = el.getAttribute('data-pui-interactive')
+      if (interactiveAttr === 'true') {
+        event.stopPropagation()
+        return
+      }
+      if (interactiveAttr === 'false') {
+        return
+      }
+
+      el = el.parentElement
     }
   }
 
@@ -119,13 +138,17 @@ const SelectComponent = (
         className={[_className, className].join(' ').trim()}
         data-pui-interactive="true"
         ref={attachTriggerRef}
-        tabIndex={disabled ? -1 : 0}
         {...rest}
+        tabIndex={tabIndex ?? (disabled ? -1 : 0)}
         onFocus={handleFocus as preact.JSX.FocusEventHandler<HTMLDivElement>}
         onBlur={handleBlur as preact.JSX.FocusEventHandler<HTMLDivElement>}
         onKeyDown={handleKeyDown}
       >
-        {prefix && <div className="Select__prefix">{prefix}</div>}
+        {prefix && (
+          <div className="Select__prefix" onMouseDown={handlePrefixMouseDown}>
+            {prefix}
+          </div>
+        )}
 
         <div className={'Select__content'}>
           {hasContent ? flatOptions.find((opt) => opt.value === internalValue)?.label : placeholder}
@@ -154,6 +177,17 @@ const SelectComponent = (
             }
             onValueChange?.({ event, value })
             setIsOpen(false)
+            // Return focus to the trigger when the selection was made via the
+            // keyboard. MenuContext activates items by calling `ref.current.click()`
+            // on Enter/Space (synthetic MouseEvent with `detail === 0`), and right
+            // after the click it re-focuses the item itself. Defer to the next
+            // frame so our focus call lands *after* that and after the menu has
+            // unmounted from the closed state.
+            if (event && (event as MouseEvent).detail === 0) {
+              requestAnimationFrame(() => {
+                triggerRef.current?.focus()
+              })
+            }
           }}
         />
       </MenuContext>

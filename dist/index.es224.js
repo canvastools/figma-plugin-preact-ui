@@ -1,122 +1,91 @@
-import { useRef as h, useCallback as q, Children as D, useEffect as G } from "preact/compat";
-import { jsx as J } from "./index.es143.js";
-import B from "./index.es238.js";
-import R from "./index.es239.js";
-var K = function(t, i) {
-  var r = {};
-  for (var e in t) Object.prototype.hasOwnProperty.call(t, e) && i.indexOf(e) < 0 && (r[e] = t[e]);
-  if (t != null && typeof Object.getOwnPropertySymbols == "function")
-    for (var s = 0, e = Object.getOwnPropertySymbols(t); s < e.length; s++)
-      i.indexOf(e[s]) < 0 && Object.prototype.propertyIsEnumerable.call(t, e[s]) && (r[e[s]] = t[e[s]]);
-  return r;
-};
-const Q = typeof window < "u", Y = Q && "MutationObserver" in window;
-function P(t) {
-  return t.charAt(0).toUpperCase() + t.slice(1);
-}
-function Z(t) {
-  let i = t.parentElement;
-  for (; i; ) {
-    const { overflow: r } = window.getComputedStyle(i);
-    if (r.split(" ").every((e) => e === "auto" || e === "scroll"))
-      return i;
-    i = i.parentElement;
+import { useState as be, useRef as W, useEffect as q, useCallback as d, useMemo as Ce, createElement as M, createPortal as _e } from "preact/compat";
+import { jsx as o } from "./index.es178.js";
+import { clsx as S } from "./index.es229.js";
+import ve from "./index.es257.js";
+import Pe from "./index.es258.js";
+import ge from "./index.es259.js";
+import ye from "./index.es260.js";
+const n = "react-time-picker", $e = ["mousedown", "focusin", "touchstart"], j = {
+  xmlns: "http://www.w3.org/2000/svg",
+  width: 19,
+  height: 19,
+  viewBox: "0 0 19 19",
+  stroke: "black",
+  strokeWidth: 2
+}, Ae = o("svg", { ...j, "aria-hidden": "true", className: `${n}__clock-button__icon ${n}__button__icon`, fill: "none", children: [o("circle", { cx: "9.5", cy: "9.5", r: "7.5" }), o("path", { d: "M9.5 4.5 v5 h4" })] }), xe = o("svg", { ...j, "aria-hidden": "true", className: `${n}__clear-button__icon ${n}__button__icon`, children: [o("line", { x1: "4", x2: "15", y1: "4", y2: "15" }), o("line", { x1: "15", x2: "4", y1: "4", y2: "15" })] });
+function Te(v) {
+  const { amPmAriaLabel: B, autoFocus: G, className: K, clearAriaLabel: R, clearIcon: i = xe, clockAriaLabel: z, clockIcon: u = Ae, closeClock: H = !0, "data-testid": J, hourAriaLabel: Q, hourPlaceholder: U, disableClock: P, disabled: l, format: V, id: X, isOpen: m = null, locale: g, maxTime: Y, maxDetail: Z = "minute", minTime: ee, minuteAriaLabel: oe, minutePlaceholder: ne, name: te = "time", nativeInputAriaLabel: ce, onClockClose: p, onClockOpen: y, onChange: $, onFocus: A, onInvalidChange: ae, openClockOnFocus: se = !0, required: re, value: f, secondAriaLabel: le, secondPlaceholder: ie, shouldCloseClock: k, shouldOpenClock: x, ...w } = v, [c, h] = be(m), N = W(null), F = W(null);
+  q(() => {
+    h(m);
+  }, [m]);
+  function L({ reason: e }) {
+    x && !x({ reason: e }) || (h(!0), y && y());
   }
-  return document.documentElement;
-}
-function T({ axis: t, container: i, element: r, invertAxis: e, scrollContainer: s, secondary: l, spacing: o }) {
-  const w = window.getComputedStyle(r), u = i.parentElement;
-  if (!u)
-    return;
-  const d = B(u, s), p = B(u, document.documentElement), m = t === "x", a = m ? "left" : "top", n = m ? "right" : "bottom", c = m ? "width" : "height", y = `overflow${P(a)}`, S = `overflow${P(n)}`, v = `scroll${P(a)}`, x = P(c), b = `offset${x}`, j = `client${x}`, M = `min-${c}`, L = s[b] - s[j], N = typeof o == "object" ? o[a] : o;
-  let O = -Math.max(d[y], p[y] + document.documentElement[v]) - N;
-  const U = typeof o == "object" ? o[n] : o;
-  let g = -Math.max(d[S], p[S] - document.documentElement[v]) - U - L;
-  l && (O += u[j], g += u[j]);
-  const V = r[b];
-  function A() {
-    r.style[a] = "auto", r.style[n] = l ? "0" : "100%";
+  const s = d(({ reason: e }) => {
+    k && !k({ reason: e }) || (h(!1), p && p());
+  }, [p, k]);
+  function ue() {
+    c ? s({ reason: "buttonClick" }) : L({ reason: "buttonClick" });
   }
-  function C() {
-    r.style[a] = l ? "0" : "100%", r.style[n] = "auto";
+  function E(e, t = H) {
+    t && s({ reason: "select" }), $ && $(e);
   }
-  function F(z, E) {
-    const f = V <= z;
-    return f && E(), f;
+  function de(e) {
+    A && A(e), // Internet Explorer still fires onFocus on disabled elements
+    !(l || c || !se || e.target.dataset.select === "true") && L({ reason: "focus" });
   }
-  function I() {
-    return F(O, A);
+  const b = d((e) => {
+    e.key === "Escape" && s({ reason: "escape" });
+  }, [s]);
+  function me() {
+    E(null);
   }
-  function W() {
-    return F(g, C);
+  function O(e) {
+    e.stopPropagation();
   }
-  function X() {
-    const z = O > g, E = w.getPropertyValue(M), f = E ? Number.parseInt(E, 10) : null;
-    function H(_) {
-      R(!f || _ >= f, `<Fit />'s child will not fit anywhere with its current ${M} of ${f}px.`);
-      const k = Math.max(_, f || 0);
-      R(!1, `<Fit />'s child needed to have its ${c} decreased to ${k}px.`), r.style[c] = `${k}px`;
-    }
-    z ? (H(O), A()) : (H(g), C());
+  const C = d((e) => {
+    const { current: t } = N, { current: a } = F, r = "composedPath" in e ? e.composedPath()[0] : e.target;
+    r && t && !t.contains(r) && (!a || !a.contains(r)) && s({ reason: "outsideAction" });
+  }, [s]), _ = d((e = c) => {
+    for (const t of $e)
+      e ? document.addEventListener(t, C) : document.removeEventListener(t, C);
+    e ? document.addEventListener("keydown", b) : document.removeEventListener("keydown", b);
+  }, [c, C, b]);
+  q(() => (_(), () => {
+    _(!1);
+  }), [_]);
+  function pe() {
+    const [e] = Array.isArray(f) ? f : [f], t = {
+      amPmAriaLabel: B,
+      hourAriaLabel: Q,
+      minuteAriaLabel: oe,
+      nativeInputAriaLabel: ce,
+      secondAriaLabel: le
+    }, a = {
+      hourPlaceholder: U,
+      minutePlaceholder: ne,
+      secondPlaceholder: ie
+    };
+    return o("div", { className: `${n}__wrapper`, children: [o(ye, { ...t, ...a, autoFocus: G, className: `${n}__inputGroup`, disabled: l, format: V, isClockOpen: c, locale: g, maxDetail: Z, maxTime: Y, minTime: ee, name: te, onChange: E, onInvalidChange: ae, required: re, value: e }), i !== null && o("button", { "aria-label": R, className: `${n}__clear-button ${n}__button`, disabled: l, onClick: me, onFocus: O, type: "button", children: typeof i == "function" ? M(i) : i }), u !== null && !P && o("button", { "aria-expanded": c || !1, "aria-label": z, className: `${n}__clock-button ${n}__button`, disabled: l, onClick: ue, onFocus: O, type: "button", children: typeof u == "function" ? M(u) : u })] });
   }
-  let $;
-  e ? $ = I() || W() : $ = W() || I(), $ || X();
-}
-function tt(t) {
-  T(t);
-}
-function et(t) {
-  T(Object.assign(Object.assign({}, t), { axis: t.axis === "x" ? "y" : "x", secondary: !0 }));
-}
-function nt(t) {
-  const { invertAxis: i, invertSecondaryAxis: r } = t, e = K(t, ["invertAxis", "invertSecondaryAxis"]);
-  tt(Object.assign(Object.assign({}, e), { invertAxis: i })), et(Object.assign(Object.assign({}, e), { invertAxis: r }));
-}
-function ct({ children: t, invertAxis: i, invertSecondaryAxis: r, mainAxis: e = "y", spacing: s = 8 }) {
-  const l = h(void 0), o = h(void 0), w = h(void 0), u = h(void 0), d = h(void 0), p = q(() => {
-    if (!d.current || !l.current || !o.current)
-      return;
-    const n = o.current.clientWidth, c = o.current.clientHeight;
-    if (w.current === n && u.current === c)
-      return;
-    w.current = n, u.current = c;
-    const y = l.current.parentElement;
-    if (!y)
-      return;
-    const S = window.getComputedStyle(o.current), { position: v } = S;
-    v !== "absolute" && (o.current.style.position = "absolute");
-    const x = window.getComputedStyle(y), { position: b } = x;
-    b !== "relative" && b !== "absolute" && (y.style.position = "relative"), nt({
-      axis: e,
-      container: l.current,
-      element: o.current,
-      invertAxis: i,
-      invertSecondaryAxis: r,
-      scrollContainer: d.current,
-      spacing: s
-    });
-  }, [i, r, e, s]), m = D.only(t);
-  G(() => {
-    p();
-    function n() {
-      p();
-    }
-    Y && o.current && new MutationObserver(n).observe(o.current, {
-      attributes: !0,
-      attributeFilter: ["class", "style"]
-    });
-  }, [p]);
-  function a(n) {
-    !n || !(n instanceof HTMLElement) || (o.current = n, d.current = Z(n));
+  function fe() {
+    if (c === null || P)
+      return null;
+    const { clockProps: e, portalContainer: t, value: a } = v, r = `${n}__clock`, I = S(r, `${r}--${c ? "open" : "closed"}`), [he] = Array.isArray(a) ? a : [a], T = o(Pe, { locale: g, value: he, ...e });
+    return t ? _e(o("div", { ref: F, className: I, children: T }), t) : o(ge, { children: o("div", { ref: (D) => {
+      D && !c && D.removeAttribute("style");
+    }, className: I, children: T }) });
   }
-  return J("span", { ref: (n) => {
-    if (!n)
-      return;
-    l.current = n;
-    const c = n == null ? void 0 : n.firstElementChild;
-    a(c);
-  }, style: { display: "contents" }, children: m });
+  const ke = Ce(
+    () => ve(w),
+    // biome-ignore lint/correctness/useExhaustiveDependencies: FIXME
+    [w]
+  );
+  return (
+    // biome-ignore lint/a11y/noStaticElementInteractions: False positive caused by non interactive wrapper listening for bubbling events
+    o("div", { className: S(n, `${n}--${c ? "open" : "closed"}`, `${n}--${l ? "disabled" : "enabled"}`, K), "data-testid": J, id: X, ...ke, onFocus: de, ref: N, children: [pe(), fe()] })
+  );
 }
 export {
-  ct as default
+  Te as default
 };

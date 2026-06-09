@@ -1,10 +1,10 @@
 import { GlyphProps } from '../Icon.types'
 
-export const help = ({ variant, size }: GlyphProps) => {
-  const combination = size + '_' + variant
+export const help = ({ variant }: GlyphProps) => {
+  const combination = variant
 
   switch (combination) {
-    case '16_default':
+    case 'downscaled':
       return (
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
@@ -14,7 +14,7 @@ export const help = ({ variant, size }: GlyphProps) => {
         </svg>
       )
 
-    case '24_default':
+    case 'default':
       return (
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
@@ -24,7 +24,7 @@ export const help = ({ variant, size }: GlyphProps) => {
         </svg>
       )
 
-    case '24_upscaled':
+    case 'upscaled':
       return (
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
@@ -35,6 +35,6 @@ export const help = ({ variant, size }: GlyphProps) => {
       )
 
     default:
-      throw new Error(`help icon error: Unsupported combination size=${size}, variant=${variant}`)
+      throw new Error(`help icon error: Unsupported combination variant=${variant}`)
   }
 }

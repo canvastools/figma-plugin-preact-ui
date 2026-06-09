@@ -8,6 +8,7 @@ export interface MenuItemActionProps {
     suffix?: preact.ComponentChildren;
     children: preact.ComponentChildren;
     paddingLikeOption?: boolean;
+    tabIndex?: number;
     onClick?: (args: {
         event: MouseEvent;
         id: string;

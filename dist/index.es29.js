@@ -1,98 +1,120 @@
 import "./index.es29.css";
-import { jsx as r } from "./index.es143.js";
-import { useState as B, useEffect as C, useRef as k } from "preact/hooks";
-import { OverlayPositioner as E } from "./index.es28.js";
-import { PopoverContainer as I } from "./index.es30.js";
-import { PopoverContext as S, usePopoverContext as _ } from "./index.es31.js";
-import { PopoverHeader as g } from "./index.es32.js";
+import { jsx as e } from "./index.es178.js";
+import { useState as S, useEffect as w, useRef as N } from "preact/hooks";
+import { OverlayPositioner as _ } from "./index.es28.js";
+import { PopoverContainer as q } from "./index.es30.js";
+import { PopoverContext as z, usePopoverContext as A } from "./index.es31.js";
+import { PopoverHeader as D } from "./index.es32.js";
 /* empty css            */
-import { typedForwardRef as q } from "./index.es145.js";
-import { bem as z } from "./index.es62.js";
-const A = ({
-  popoverHeaderProps: e,
-  draggable: h,
-  width: d,
+import { typedForwardRef as G } from "./index.es180.js";
+import { bem as J } from "./index.es63.js";
+const K = ({
+  popoverHeaderProps: o,
+  draggable: d,
+  width: h,
   height: v,
-  placement: o,
-  placementFallback: c,
-  offsetX: p,
-  offsetY: P,
-  offsetEdge: b,
-  showArrow: x,
-  children: R
+  constrainHeight: r = !1,
+  placement: c,
+  placementFallback: p,
+  offsetX: P,
+  offsetY: b,
+  offsetEdge: x,
+  showArrow: R,
+  tabIndex: y,
+  autoReposition: C = !1,
+  children: j
 }) => {
-  const { triggerRef: i, anchorRef: y, open: n, setOpen: s } = _(), m = k(null), l = () => {
+  const { triggerRef: f, anchorRef: k, open: i, setOpen: n } = A(), l = N(null), m = () => {
     var t;
-    s == null || s(!1), (t = i == null ? void 0 : i.current) == null || t.focus();
+    n == null || n(!1), (t = f == null ? void 0 : f.current) == null || t.focus();
   };
-  return C(() => {
+  return w(() => {
     var t;
-    n && ((t = m.current) == null || t.focus());
-  }, [n]), /* @__PURE__ */ r(
-    E,
+    i && ((t = l.current) == null || t.focus());
+  }, [i]), /* @__PURE__ */ e(
+    _,
     {
-      anchorRef: y,
-      open: n,
-      draggable: h,
-      placement: o,
-      placementFallback: c ?? [],
-      offsetX: p,
-      offsetY: P,
-      offsetEdge: b,
-      onClose: l,
+      anchorRef: k,
+      open: i,
+      draggable: d,
+      placement: c,
+      placementFallback: p ?? [],
+      offsetX: P,
+      offsetY: b,
+      offsetEdge: x,
+      autoReposition: C,
+      constrainHeight: r,
+      onClose: m,
       closeOnClickOutside: !0,
-      children: /* @__PURE__ */ r(I, { ref: m, width: d, height: v, showArrow: x, children: [
-        /* @__PURE__ */ r(g, { onClose: l, children: e == null ? void 0 : e.children }),
-        R
-      ] })
+      children: /* @__PURE__ */ e(
+        q,
+        {
+          ref: l,
+          width: h,
+          height: v,
+          showArrow: R,
+          constrainHeight: r,
+          tabIndex: y,
+          children: [
+            /* @__PURE__ */ e(D, { onClose: m, children: o == null ? void 0 : o.children }),
+            j
+          ]
+        }
+      )
     }
   );
-}, D = ({
-  id: e,
-  className: h,
-  triggerRef: d,
+}, L = ({
+  id: o,
+  className: d,
+  triggerRef: h,
   anchorRef: v,
-  defaultOpen: o = !1,
+  defaultOpen: r = !1,
   open: c,
   popoverHeaderProps: p,
   draggable: P = !0,
   width: b,
   height: x,
-  placement: R = "bottom-left",
-  placementFallback: i = ["bottom-right", "top-left", "top-right"],
-  offsetX: y = 0,
-  offsetY: n = 8,
-  offsetEdge: s = 16,
-  showArrow: m = !1,
-  children: l,
+  constrainHeight: R = !1,
+  placement: y = "bottom-left",
+  placementFallback: C = ["bottom-right", "top-left", "top-right"],
+  offsetX: j = 0,
+  offsetY: f = 8,
+  offsetEdge: k = 16,
+  showArrow: i = !1,
+  tabIndex: n,
+  autoReposition: l = !1,
+  children: m,
   onOpen: t,
-  onClose: u,
-  ...w
-}, F) => {
-  const N = z("Popover", void 0, void 0), [f, j] = B(c ?? o);
-  C(() => {
-    j(c ?? o);
-  }, [c, o]);
-  const a = k(!1);
-  return C(() => {
-    f && !a.current ? (a.current = !0, t == null || t()) : !f && a.current && (a.current = !1, u == null || u());
-  }, [f, t, u]), /* @__PURE__ */ r(S, { triggerRef: d, anchorRef: v, open: f, setOpen: j, children: f && /* @__PURE__ */ r("div", { id: e, className: [N, h].join(" ").trim(), ref: F, ...w, children: /* @__PURE__ */ r(
-    A,
+  onClose: a,
+  ...B
+}, E) => {
+  const I = J("Popover", void 0, void 0), [s, F] = S(c ?? r);
+  w(() => {
+    F(c ?? r);
+  }, [c, r]);
+  const u = N(!1);
+  return w(() => {
+    s && !u.current ? (u.current = !0, t == null || t()) : !s && u.current && (u.current = !1, a == null || a());
+  }, [s, t, a]), /* @__PURE__ */ e(z, { triggerRef: h, anchorRef: v, open: s, setOpen: F, children: s && /* @__PURE__ */ e("div", { id: o, className: [I, d].join(" ").trim(), ref: E, ...B, children: /* @__PURE__ */ e(
+    K,
     {
       popoverHeaderProps: p,
       draggable: P,
       width: b,
       height: x,
-      placement: R,
-      placementFallback: i,
-      offsetX: y,
-      offsetY: n,
-      offsetEdge: s,
-      showArrow: m,
-      children: l
+      constrainHeight: R,
+      placement: y,
+      placementFallback: C,
+      offsetX: j,
+      offsetY: f,
+      offsetEdge: k,
+      showArrow: i,
+      tabIndex: n,
+      autoReposition: l,
+      children: m
     }
   ) }) });
-}, W = q(D);
+}, $ = G(L);
 export {
-  W as Popover
+  $ as Popover
 };

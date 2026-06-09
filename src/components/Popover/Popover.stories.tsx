@@ -5,6 +5,7 @@ import { useRef } from 'preact/hooks'
 import { ControlledStory } from './stories/Controlled.story'
 import { UncontrolledStory } from './stories/Uncontrolled.story'
 import { ArrowStory } from './stories/Arrow.story'
+import { RepositionStory } from './stories/Reposition.story'
 
 import { Text, Section, Button } from '../../index'
 
@@ -79,6 +80,7 @@ const meta: Meta<typeof Popover> = {
   width: number
   height: number
   showArrow: boolean
+  constrainHeight: boolean
 }
 `,
         },
@@ -99,12 +101,21 @@ const meta: Meta<typeof Popover> = {
   offsetX: number
   offsetY: number
   offsetEdge: number
+  autoReposition: boolean
   onOpen: () => void
   onClose: () => void
 }`,
         },
       },
     },
+    tabIndex: {
+      control: { type: 'number' },
+      description: 'Tab order of the popover container (via PopoverContainer). Omit for -1 when opened.',
+      table: {
+        type: { summary: 'number' },
+      },
+    },
+
   },
 }
 
@@ -158,3 +169,4 @@ export const Demo: Story = {
 export const Uncontrolled = UncontrolledStory
 export const Controlled = ControlledStory
 export const Arrow = ArrowStory
+export const Reposition = RepositionStory

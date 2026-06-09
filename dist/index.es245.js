@@ -1,83 +1,34 @@
-import { useLayoutEffect as _, useEffect as I } from "preact/compat";
-import { jsx as a } from "./index.es143.js";
-import { clsx as b } from "./index.es194.js";
-import { updateInputWidth as u, getFontShorthand as K } from "./index.es246.js";
-import { Fragment as $ } from "preact";
-const l = typeof window < "u", x = l ? _ : I, O = l && /(MSIE|Trident\/|Edge\/)/.test(navigator.userAgent), W = l && /Firefox/.test(navigator.userAgent);
-function k(t) {
-  const { target: n } = t;
-  O ? requestAnimationFrame(() => n.select()) : n.select();
-}
-function A(t) {
-  if (document.readyState === "complete")
-    return;
-  function n() {
-    u(t);
-  }
-  window.addEventListener("load", n);
-}
-function D(t) {
-  if (!document.fonts)
-    return;
-  const n = K(t);
-  if (!n || document.fonts.check(n))
-    return;
-  function i() {
-    u(t);
-  }
-  document.fonts.addEventListener("loadingdone", i);
-}
-function P(t) {
-  if (t && "selectionStart" in t && t.selectionStart !== null && "selectionEnd" in t && t.selectionEnd !== null)
-    return t.value.slice(t.selectionStart, t.selectionEnd);
-  if ("getSelection" in window) {
-    const n = window.getSelection();
-    return n == null ? void 0 : n.toString();
-  }
-  return null;
-}
-function Z(t) {
-  if (t !== null)
-    return function(o) {
-      if (W)
-        return;
-      const { key: i, target: e } = o, { value: s } = e, d = i.length === 1 && /\d/.test(i), c = P(e);
-      (!d || !(c || s.length < t)) && o.preventDefault();
-    };
-}
-function B({ ariaLabel: t, autoFocus: n, className: o, disabled: i, inputRef: e, max: s, min: d, name: c, nameForClass: h, onChange: p, onKeyDown: L, onKeyUp: f, placeholder: S = "--", required: y, showLeadingZeros: E, step: F, value: r }) {
-  x(() => {
-    !e || !e.current || (u(e.current), A(e.current), D(e.current));
-  }, [e, r]);
-  const g = E && r && Number(r) < 10 && (r === "0" || !r.toString().startsWith("0")), w = s ? s.toString().length : null;
-  return a($, { children: [g ? a("span", { className: `${o}__leadingZero`, children: "0" }) : null, a("input", {
-    "aria-label": t,
-    autoComplete: "off",
-    // biome-ignore lint/a11y/noAutofocus: This is up to developers' decision
-    autoFocus: n,
-    className: b(`${o}__input`, `${o}__${h || c}`, g && `${o}__input--hasLeadingZero`),
-    "data-input": "true",
-    disabled: i,
-    inputMode: "numeric",
-    max: s,
-    min: d,
-    name: c,
-    onChange: p,
-    onFocus: k,
-    onKeyDown: L,
-    onKeyPress: Z(w),
-    onKeyUp: (m) => {
-      u(m.target), f && f(m);
-    },
-    placeholder: S,
-    // Assertion is needed for React 18 compatibility
-    ref: e,
-    required: y,
-    step: F,
-    type: "number",
-    value: r !== null ? r : ""
-  })] });
+import "preact/compat";
+import { jsx as l } from "./index.es178.js";
+import { getYear as p, getMonthStart as s } from "./index.es246.js";
+import h from "./index.es247.js";
+import g from "./index.es249.js";
+var i = function() {
+  return i = Object.assign || function(e) {
+    for (var a, n = 1, t = arguments.length; n < t; n++) {
+      a = arguments[n];
+      for (var r in a) Object.prototype.hasOwnProperty.call(a, r) && (e[r] = a[r]);
+    }
+    return e;
+  }, i.apply(this, arguments);
+}, v = function(e, a) {
+  var n = {};
+  for (var t in e) Object.prototype.hasOwnProperty.call(e, t) && a.indexOf(t) < 0 && (n[t] = e[t]);
+  if (e != null && typeof Object.getOwnPropertySymbols == "function")
+    for (var r = 0, t = Object.getOwnPropertySymbols(e); r < t.length; r++)
+      a.indexOf(t[r]) < 0 && Object.prototype.propertyIsEnumerable.call(e, t[r]) && (n[t[r]] = e[t[r]]);
+  return n;
+};
+function S(e) {
+  var a = e.activeStartDate, n = e.hover, t = e.value, r = e.valueType, f = v(e, ["activeStartDate", "hover", "value", "valueType"]), c = 0, d = 11, m = p(a);
+  return l(h, { className: "react-calendar__year-view__months", dateTransform: function(u) {
+    var o = /* @__PURE__ */ new Date();
+    return o.setFullYear(m, u, 1), s(o);
+  }, dateType: "month", end: d, hover: n, renderTile: function(u) {
+    var o = u.date, y = v(u, ["date"]);
+    return l(g, i({}, f, y, { activeStartDate: a, date: o }), o.getTime());
+  }, start: c, value: t, valueType: r });
 }
 export {
-  B as default
+  S as default
 };

@@ -153,7 +153,13 @@ export { TooltipContainer } from './components/TooltipContainer/TooltipContainer
 export type { TooltipContainerProps } from './components/TooltipContainer/TooltipContainer.types'
 
 export { TooltipContext, useTooltipContext } from './components/TooltipContext/TooltipContext'
-export type { TooltipContextValue, TooltipContextProps } from './components/TooltipContext/TooltipContext.types'
+export type {
+  TooltipContextValue,
+  TooltipContextProps,
+  TooltipTimingOptions,
+  TooltipTrigger,
+} from './components/TooltipContext/TooltipContext.types'
+export { TOOLTIP_DEFAULT_SHOW_DELAY, TOOLTIP_DEFAULT_HIDE_DELAY } from './components/TooltipContext/TooltipContext.types'
 
 export { WindowResizer } from './components/WindowResizer/WindowResizer'
 export type { WindowResizerProps } from './components/WindowResizer/WindowResizer.types'
@@ -172,7 +178,7 @@ export type { StringInputConfig, StringInputError, StringInputParseResult } from
 
 // Utils
 
-export { colorToHex, hexToColor, colorToHexAlpha, hexAlphaToColor, colorToRgba, rgbaToColor } from './utils'
+export { colorToHex, hexToColor, colorToHexAlpha, hexAlphaToColor, colorToRgba, rgbaToColor, roundAlpha, clamp } from './utils'
 export type { Rgba } from './utils'
 
 export { bem } from './utils'
@@ -186,6 +192,7 @@ export {
   arrowLeft,
   arrowRight,
   arrowUp,
+  backgroundBlur,
   blendMode,
   blendModeFilled,
   blur,
@@ -199,18 +206,44 @@ export {
   chevronRight,
   chevronUp,
   close,
+  container,
   copy,
   corners,
   dragHandle,
+  dropShadow,
+  dropShadowBottom,
+  dropShadowBottomLeft,
+  dropShadowBottomRight,
+  dropShadowLeft,
+  dropShadowRight,
+  dropShadowTop,
+  dropShadowTopLeft,
+  dropShadowTopRight,
+  effect,
+  eye,
   eyeDropper,
   duplicate,
+  fillStroke,
   filter,
   filterFilled,
   frame,
+  fontSize,
+  gradient,
   help,
+  hidden,
   home,
+  image,
   imports,
   info,
+  innerShadow,
+  innerShadowBottom,
+  innerShadowBottomLeft,
+  innerShadowBottomRight,
+  innerShadowLeft,
+  innerShadowRight,
+  innerShadowTop,
+  innerShadowTopLeft,
+  innerShadowTopRight,
   insert,
   instance,
   letterSpacing,
@@ -219,11 +252,13 @@ export {
   lockLocked,
   lowerCase,
   plus,
+  pushToMainComponent,
   radiusBottomLeft,
   radiusBottomRight,
   radiusTopLeft,
   radiusTopRight,
   refresh,
+  resetInstance,
   minus,
   mixed,
   more,
@@ -235,6 +270,8 @@ export {
   paddingSides,
   paddingTop,
   paddingVertical,
+  palette,
+  pattern,
   people,
   person,
   rotation,
@@ -243,6 +280,7 @@ export {
   search,
   select,
   settings,
+  solid,
   spacingHorizontal,
   spacingVertical,
   spread,
@@ -251,9 +289,11 @@ export {
   strokeSolid,
   strokeWidth,
   swap,
+  text,
   titleCase,
   underline,
   upperCase,
+  video,
   viewGrid,
   viewList,
   warning,

@@ -9,6 +9,9 @@ import { useScrollContextOptional } from '../../index'
 
 /* --- */
 
+/** Vertical inset of the thumb from the track edges (top and bottom). */
+const TRACK_THUMB_INSET = 12
+
 const ScrollContainerComponent = (
   { id, className, children, ...rest }: ScrollContainerProps,
   ref: preact.Ref<HTMLDivElement>,
@@ -55,7 +58,7 @@ const ScrollContainerComponent = (
     const maxScrollTop = Math.max(0, el.scrollHeight - el.clientHeight)
     const hasScrollable = maxScrollTop > 0
     const visibleRatio = hasScrollable ? el.clientHeight / el.scrollHeight : 1
-    const trackLength = track.clientHeight - 8
+    const trackLength = track.clientHeight - TRACK_THUMB_INSET * 2
     const thumbHeight = Math.max(24, Math.round(trackLength * visibleRatio))
     const available = trackLength - thumbHeight
     const top = hasScrollable ? Math.round((available * el.scrollTop) / maxScrollTop) : 0
@@ -187,7 +190,7 @@ const ScrollContainerComponent = (
     recomputeThumb()
 
     const startY = (e as MouseEvent).clientY
-    dragOffsetRef.current = startY - (track.getBoundingClientRect().top + thumbState.top + 2)
+    dragOffsetRef.current = startY - (track.getBoundingClientRect().top + TRACK_THUMB_INSET + thumbState.top)
 
     prevUserSelectRef.current = document.body.style.userSelect
     document.body.style.userSelect = 'none'
@@ -212,8 +215,8 @@ const ScrollContainerComponent = (
     if (maxScrollTop <= 0) return
 
     const trackRect = track.getBoundingClientRect()
-    const y = (e as MouseEvent).clientY - trackRect.top - 2 - dragOffsetRef.current
-    const trackLength = track.clientHeight - 4
+    const y = (e as MouseEvent).clientY - trackRect.top - TRACK_THUMB_INSET - dragOffsetRef.current
+    const trackLength = track.clientHeight - TRACK_THUMB_INSET * 2
     const thumbHeight = thumbState.height
     const available = trackLength - thumbHeight
     if (available <= 0) return
@@ -283,6 +286,7 @@ const ScrollContainerComponent = (
           className="ScrollContainer__thumb"
           style={{
             height: `${thumbState.height}px`,
+            top: `${TRACK_THUMB_INSET}px`,
             transform: `translateY(${thumbState.top}px)`,
           }}
           data-pui-interactive="true"

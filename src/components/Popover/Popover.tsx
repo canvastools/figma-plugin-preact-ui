@@ -21,12 +21,15 @@ type PopoverBodyProps = {
   draggable: boolean
   width?: number
   height?: number
+  constrainHeight?: boolean
   placement: OverlayPositionerPlacement
   placementFallback: OverlayPositionerPlacement[]
   offsetX: number
   offsetY: number
   offsetEdge: number
   showArrow: boolean
+  tabIndex?: number
+  autoReposition?: boolean
   children: preact.ComponentChildren
 }
 
@@ -35,12 +38,15 @@ const PopoverBody = ({
   draggable,
   width,
   height,
+  constrainHeight = false,
   placement,
   placementFallback,
   offsetX,
   offsetY,
   offsetEdge,
   showArrow,
+  tabIndex,
+  autoReposition = false,
   children,
 }: PopoverBodyProps) => {
   const { triggerRef, anchorRef, open, setOpen } = usePopoverContext()
@@ -66,10 +72,19 @@ const PopoverBody = ({
       offsetX={offsetX}
       offsetY={offsetY}
       offsetEdge={offsetEdge}
+      autoReposition={autoReposition}
+      constrainHeight={constrainHeight}
       onClose={handleClose}
       closeOnClickOutside={true}
     >
-      <PopoverContainer ref={containerRef} width={width} height={height} showArrow={showArrow}>
+      <PopoverContainer
+        ref={containerRef}
+        width={width}
+        height={height}
+        showArrow={showArrow}
+        constrainHeight={constrainHeight}
+        tabIndex={tabIndex}
+      >
         <PopoverHeader onClose={handleClose}>{popoverHeaderProps?.children}</PopoverHeader>
         {children}
       </PopoverContainer>
@@ -89,12 +104,15 @@ const PopoverComponent = (
     draggable = true,
     width,
     height,
+    constrainHeight = false,
     placement = 'bottom-left',
     placementFallback = ['bottom-right', 'top-left', 'top-right'],
     offsetX = 0,
     offsetY = 8,
     offsetEdge = 16,
     showArrow = false,
+    tabIndex,
+    autoReposition = false,
     children,
     onOpen,
     onClose,
@@ -132,12 +150,15 @@ const PopoverComponent = (
             draggable={draggable}
             width={width}
             height={height}
+            constrainHeight={constrainHeight}
             placement={placement}
             placementFallback={placementFallback}
             offsetX={offsetX}
             offsetY={offsetY}
             offsetEdge={offsetEdge}
             showArrow={showArrow}
+            tabIndex={tabIndex}
+            autoReposition={autoReposition}
           >
             {children}
           </PopoverBody>

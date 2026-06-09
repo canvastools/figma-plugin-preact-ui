@@ -14,5 +14,6 @@ export interface SegmentedControlProps {
   defaultValue?: string
   disabled?: boolean
   fullWidth?: boolean
+  tabIndex?: number
   onValueChange?: (args: { event: MouseEvent | KeyboardEvent; value: string }) => void
 }

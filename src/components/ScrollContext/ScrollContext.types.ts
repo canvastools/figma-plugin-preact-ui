@@ -2,6 +2,7 @@ export interface ScrollContextValue {
   positionY: number
   isAtTop: boolean
   isAtBottom: boolean
+  hasScroll: boolean
   onScroll: (event: Event) => void
   setPositionY: (positionY: number) => void
   resetPositionY: () => void

@@ -6,5 +6,6 @@ export interface SwitchProps {
   checked?: SwitchValue
   defaultChecked?: SwitchValue
   disabled?: boolean
+  tabIndex?: number
   onCheckedChange?: (args: { event: Event; checked: SwitchValue }) => void
 }

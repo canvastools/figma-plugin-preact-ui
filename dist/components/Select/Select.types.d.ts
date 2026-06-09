@@ -15,6 +15,7 @@ export interface SelectProps {
     grouped?: 'first' | 'last' | 'middle';
     error?: boolean;
     disabled?: boolean;
+    tabIndex?: number;
     prefix?: preact.ComponentChildren;
     tooltip?: preact.ComponentChildren;
     onBlur?: () => void;

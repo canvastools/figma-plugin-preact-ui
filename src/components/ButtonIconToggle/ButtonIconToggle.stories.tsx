@@ -35,6 +35,13 @@ const meta: Meta<typeof ButtonIconToggle> = {
       defaultValue: false,
       description: 'Value for uncontrolled state.',
     },
+    tabIndex: {
+      control: { type: 'number' },
+      description: 'Tab order of the focusable element. Omit to keep the default focus behavior.',
+      table: {
+        type: { summary: 'number' },
+      },
+    },
     onSelectedChange: {
       action: 'changed',
       table: {

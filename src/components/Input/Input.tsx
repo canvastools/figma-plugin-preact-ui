@@ -28,15 +28,18 @@ const InputComponent = (
     suffix,
     showSuffixOnHover = false,
     focusOnDoubleClick = false,
+    focusOnPrefix = false,
     minLength = 0,
     maxLength,
     tooltip,
     autoFocus = false,
+    selectOnFocus = false,
     maxWidth,
     onValueChange,
     onBlur,
     onFocus,
     onKeyDown,
+    tabIndex,
     ...rest
   }: InputProps,
   ref: preact.Ref<HTMLDivElement>,
@@ -141,6 +144,11 @@ const InputComponent = (
   const handleFocus = (event: preact.JSX.TargetedFocusEvent<HTMLInputElement>) => {
     event.stopPropagation()
     setIsFocused(true)
+    if (selectOnFocus) {
+      // setTimeout to survive the trailing mouseup that would otherwise collapse the selection on click
+      const el = event.currentTarget
+      setTimeout(() => el.select(), 0)
+    }
     onFocus?.({
       event: event as FocusEvent,
       value: event.currentTarget.value,
@@ -179,10 +187,35 @@ const InputComponent = (
     }
   }
 
+  const startEditingFromMouse = () => {
+    wrapperLastInteractionWasMouse.current = true
+    if (isEditing) {
+      setTimeout(() => inputRef.current?.focus(), 0)
+    } else {
+      setIsEditing(true)
+    }
+  }
+
   const handleDoubleClickDisplay = () => {
     if (!focusOnDoubleClick) return
-    wrapperLastInteractionWasMouse.current = true
-    setIsEditing(true)
+    startEditingFromMouse()
+  }
+
+  const handlePrefixMouseDown = (event: preact.JSX.TargetedMouseEvent<HTMLDivElement>) => {
+    if (disabled) return
+    event.preventDefault()
+    inputRef.current?.focus()
+  }
+
+  const handlePrefixDoubleClick = (event: preact.JSX.TargetedMouseEvent<HTMLDivElement>) => {
+    if (disabled) return
+    event.preventDefault()
+    event.stopPropagation()
+    startEditingFromMouse()
+  }
+
+  const handlePrefixBlockDoubleClick = (event: preact.JSX.TargetedMouseEvent<HTMLDivElement>) => {
+    event.stopPropagation()
   }
 
   useEffect(() => {
@@ -218,13 +251,27 @@ const InputComponent = (
           onFocus={handleRootFocus}
           onBlur={handleRootBlur}
           onDblClick={handleDoubleClickDisplay}
-          tabIndex={focusOnDoubleClick ? 0 : undefined}
+          tabIndex={focusOnDoubleClick ? (tabIndex ?? 0) : undefined}
           style={{
             maxWidth: variant === 'default' ? undefined : typeof maxWidth === 'number' ? `${maxWidth}px` : maxWidth,
             flexShrink: maxWidth ? 0 : undefined,
           }}
         >
-          {prefix && <div className="Input__prefix">{prefix}</div>}
+          {prefix && (
+            <div
+              className="Input__prefix"
+              onMouseDownCapture={focusOnPrefix && !focusOnDoubleClick ? handlePrefixMouseDown : undefined}
+              onDblClickCapture={
+                focusOnPrefix && focusOnDoubleClick
+                  ? handlePrefixDoubleClick
+                  : !focusOnPrefix && focusOnDoubleClick
+                    ? handlePrefixBlockDoubleClick
+                    : undefined
+              }
+            >
+              {prefix}
+            </div>
+          )}
           {showEditableInput ? (
             <input
               className="Input__input-native"
@@ -235,6 +282,7 @@ const InputComponent = (
               maxLength={maxLength}
               type={type}
               disabled={disabled}
+              {...(tabIndex !== undefined && !focusOnDoubleClick ? { tabIndex } : {})}
               placeholder={placeholder}
               value={isControlled ? value : internalValue}
               onChange={handleChange}

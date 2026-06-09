@@ -100,6 +100,11 @@ const meta: Meta<typeof ColorPicker> = {
       control: { type: 'boolean' },
       defaultValue: { summary: 'true' },
     },
+    alpha: {
+      control: { type: 'boolean' },
+      defaultValue: { summary: 'true' },
+      description: 'When false, hides hexAlpha mode and opacity controls in other modes.',
+    },
     width: {
       control: { type: 'number' },
       defaultValue: { summary: '207' },
@@ -149,6 +154,7 @@ export const Demo: Story = {
     className: '',
     defaultType: 'hex',
     types: ['rgba', 'hex', 'hexAlpha'],
+    alpha: true,
     defaultColor: {
       r: 1,
       g: 0,

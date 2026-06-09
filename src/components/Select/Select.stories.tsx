@@ -92,6 +92,13 @@ const meta: Meta<typeof Select> = {
         },
       },
     },
+    tabIndex: {
+      control: { type: 'number' },
+      description: 'Tab order of the select trigger. Omit for 0 when enabled and -1 when disabled.',
+      table: {
+        type: { summary: 'number' },
+      },
+    },
     onBlur: {
       table: { type: { summary: '() => void' } },
     },

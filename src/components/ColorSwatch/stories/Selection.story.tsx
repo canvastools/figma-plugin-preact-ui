@@ -42,6 +42,12 @@ export const SelectionStory: Story = {
             selected={selectedDefault}
             onClick={() => setSelectedDefault(!selectedDefault)}
           />
+          <ColorSwatch
+            fill={{ r: 255, g: 0, b: 0, a: 1 }}
+            selected={selectedDefault}
+            onClick={() => setSelectedDefault(!selectedDefault)}
+            disabled
+          />
         </div>
         <div className="sb-row sb-width-full sb-gap-16">
           <Text fullWidth>rainbow, {selectedRainbow ? 'true' : 'false'}</Text>
@@ -51,6 +57,13 @@ export const SelectionStory: Story = {
             selection="rainbow"
             selected={selectedRainbow}
             onClick={() => setSelectedRainbow(!selectedRainbow)}
+          />
+          <ColorSwatch
+            fill={{ r: 255, g: 0, b: 0, a: 1 }}
+            selection="rainbow"
+            selected={selectedRainbow}
+            onClick={() => setSelectedRainbow(!selectedRainbow)}
+            disabled
           />
         </div>
       </div>

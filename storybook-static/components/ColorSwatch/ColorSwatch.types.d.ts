@@ -12,18 +12,21 @@ export type Vector = {
     x: number;
     y: number;
 };
+export type ColorSwatchFill = Color | GradientPaint | Array<Color | GradientPaint>;
 export interface ColorSwatchProps {
     id?: string;
     className?: string;
     size?: 'small' | 'medium' | 'large';
-    fill?: Color | GradientPaint;
+    fill?: ColorSwatchFill;
+    alpha?: boolean;
     disabled?: boolean;
     selected?: boolean;
     selection?: 'default' | 'rainbow';
     tooltip?: preact.ComponentChildren;
     children?: preact.ComponentChildren;
+    tabIndex?: number;
     onClick?: (args: {
         event: MouseEvent;
-        fill: Color | GradientPaint | undefined;
+        fill: ColorSwatchFill | undefined;
     }) => void;
 }

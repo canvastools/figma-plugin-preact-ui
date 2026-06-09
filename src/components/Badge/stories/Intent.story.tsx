@@ -45,6 +45,10 @@ const validIntentCombinations = [
     intent: 'brand',
     intentModifier: 'default',
   },
+  {
+    intent: 'brand',
+    intentModifier: 'secondary',
+  },
 
   // danger
   {

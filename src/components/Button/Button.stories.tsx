@@ -7,6 +7,7 @@ import { DisabledStory } from './stories/Disabled.story'
 import { WidthStory } from './stories/Width.story'
 import { PrefixStory } from './stories/Prefix.story'
 import { SuffixStory } from './stories/Suffix.story'
+import { CustomChildrenStory } from './stories/CustomChildren.story'
 
 import { TooltipContext } from '../../index'
 
@@ -95,6 +96,13 @@ const meta: Meta<typeof Button> = {
         },
       },
     },
+    tabIndex: {
+      control: { type: 'number' },
+      description: 'Tab order of the focusable element. Omit to keep the default focus behavior.',
+      table: {
+        type: { summary: 'number' },
+      },
+    },
     onClick: {
       table: {
         type: {
@@ -165,3 +173,4 @@ export const Disabled = DisabledStory
 export const Width = WidthStory
 export const Prefix = PrefixStory
 export const Suffix = SuffixStory
+export const CustomChildren = CustomChildrenStory

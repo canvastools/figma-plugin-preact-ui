@@ -34,4 +34,5 @@ export interface ListItemProps {
     }) => void;
     items?: preact.ComponentChildren;
     children?: preact.ComponentChildren;
+    tabIndex?: number;
 }

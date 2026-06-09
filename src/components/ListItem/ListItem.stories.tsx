@@ -71,6 +71,13 @@ type ListItemPadding = keyof typeof spacing.variables // string | number
       control: { type: 'boolean' },
       defaultValue: { summary: false },
     },
+    tabIndex: {
+      control: { type: 'number' },
+      description: 'Tab order of the list item. Omit to use 0 when selectable, draggable, or collapsable; otherwise not tabbable.',
+      table: {
+        type: { summary: 'number' },
+      },
+    },
     onDragStart: {
       table: {
         type: {

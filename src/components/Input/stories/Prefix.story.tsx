@@ -31,6 +31,11 @@ export const PrefixStory: Story = {
   render: () => (
     <div className="sb-column sb-width-300 sb-gap-16">
       <Input placeholder="Input with prefix" prefix={<Icon glyph={search} intentModifier="secondary" />} />
+      <Input
+        placeholder="Input with prefix (focusOnPrefix)"
+        focusOnPrefix
+        prefix={<Icon glyph={search} intentModifier="secondary" />}
+      />
     </div>
   ),
 }

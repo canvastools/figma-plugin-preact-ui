@@ -1,2 +1,2 @@
 import { GlyphProps } from '../Icon.types';
-export declare const plus: ({ variant, size }: GlyphProps) => import("preact").JSX.Element;
+export declare const plus: ({ variant }: GlyphProps) => import("preact").JSX.Element;

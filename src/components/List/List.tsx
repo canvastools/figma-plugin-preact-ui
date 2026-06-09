@@ -20,6 +20,7 @@ const ListComponent = (
     deselectOnClickOutside,
     onItemsChange,
     onSelectionChange,
+    onKeyDown,
     ...rest
   }: ListProps,
   ref: preact.Ref<HTMLDivElement>,
@@ -86,6 +87,7 @@ const ListComponent = (
       deselectOnClickOutside={deselectOnClickOutside}
       onItemsChange={onItemsChange}
       onSelectionChange={onSelectionChange}
+      onKeyDown={onKeyDown}
     >
       <div id={id} className={[_className, className].join(' ').trim()} ref={ref} {...rest}>
         {renderItems(items, 0)}

@@ -1,11 +1,12 @@
 import { bem, typedForwardRef } from '../../utils'
 
+import { Fragment } from 'preact'
 import { toChildArray, cloneElement } from 'preact'
 import { useRef } from 'preact/hooks'
 
 import type { VNode } from 'preact'
 
-import { useTabContext, Text, Icon } from '../../index'
+import { useTabContext, Text, Icon, Tooltip } from '../../index'
 
 import type { TabProps } from './Tab.types'
 import './Tab.scss'
@@ -13,9 +14,11 @@ import './Tab.scss'
 /* --- */
 
 const TabComponent = (
-  { id, className, variant = 'default', prefix, suffix, children, onClick, ...rest }: TabProps,
+  { id, className, variant = 'default', prefix, suffix, children, tooltip, tabIndex, onClick, ...rest }: TabProps,
   ref: preact.Ref<HTMLButtonElement>,
 ) => {
+  const wrapChildrenInText = typeof children === 'string' || typeof children === 'number'
+
   const { activeId, onTabChange, registerTab } = useTabContext()
 
   const buttonRef = useRef<HTMLButtonElement | null>(null)
@@ -37,6 +40,8 @@ const TabComponent = (
     selected: id === activeId,
     prefix: Boolean(prefix),
     suffix: Boolean(suffix),
+    tooltip: Boolean(tooltip),
+    customChildren: !wrapChildrenInText,
   })
 
   const handleClick = (event: MouseEvent) => {
@@ -66,15 +71,19 @@ const TabComponent = (
       {prefix && <div className="Tab__prefix">{prefix && renderAdditionalContent(prefix, selected)}</div>}
       {children != null && children !== false && children !== true && (
         <div className="Tab__children">
-          <Text
-            variant="body"
-            size="medium"
-            strong={fake || id === activeId}
-            intent="neutral"
-            intentModifier={selected ? 'default' : 'secondary'}
-          >
-            {children}
-          </Text>
+          {wrapChildrenInText ? (
+            <Text
+              variant="body"
+              size="medium"
+              strong={fake || id === activeId}
+              intent="neutral"
+              intentModifier={selected ? 'default' : 'secondary'}
+            >
+              {children}
+            </Text>
+          ) : (
+            children
+          )}
         </div>
       )}
       {suffix && <div className="Tab__suffix">{suffix && renderAdditionalContent(suffix, selected)}</div>}
@@ -82,22 +91,25 @@ const TabComponent = (
   )
 
   return (
-    <button
-      id={id}
-      className={[_className, className].join(' ').trim()}
-      data-pui-interactive="true"
-      ref={setRef}
-      tabIndex={id === activeId ? 0 : -1}
-      {...rest}
-      onClick={handleClick}
-    >
-      <div className="Tab__container Tab__container_fake">
-        <Content fake selected={id === activeId} />
-      </div>
-      <div className="Tab__container Tab__container_real">
-        <Content selected={id === activeId} />
-      </div>
-    </button>
+    <Fragment>
+      <button
+        id={id}
+        className={[_className, className].join(' ').trim()}
+        data-pui-interactive="true"
+        ref={setRef}
+        {...rest}
+        tabIndex={tabIndex ?? (id === activeId ? 0 : -1)}
+        onClick={handleClick}
+      >
+        <div className="Tab__container Tab__container_fake">
+          <Content fake selected={id === activeId} />
+        </div>
+        <div className="Tab__container Tab__container_real">
+          <Content selected={id === activeId} />
+        </div>
+      </button>
+      {tooltip && <Tooltip anchorRef={buttonRef}>{tooltip}</Tooltip>}
+    </Fragment>
   )
 }
 

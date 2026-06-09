@@ -288,7 +288,7 @@ const parseNumericInput = (raw: unknown, required?: boolean, math?: boolean): In
 }
 
 const buildSingleResult = (raw: string, config: NumericInputConfig): NumericInputParseResult => {
-  const { min, max, required, unit, normalizeOnError = false } = config
+  const { min, max, required, unit, normalizeOnError = false, trimTrailingZeros = false } = config
 
   const { value: parsed, error: parseError } = parseNumericInput(raw, required, config.math)
 
@@ -356,6 +356,10 @@ const buildSingleResult = (raw: string, config: NumericInputConfig): NumericInpu
     }
   } else {
     numericString = String(normalizedValue)
+  }
+
+  if (trimTrailingZeros && numericString.includes('.')) {
+    numericString = numericString.replace(/0+$/, '').replace(/\.$/, '')
   }
 
   const formattedValue = unit ? `${numericString}${unit}` : numericString
@@ -532,14 +536,11 @@ const useNumericInput = (config: NumericInputConfig): NumericInput => {
 
             target.value = nextDisplay
 
-            // Keep the caret on the side that was adjusted. For simplicity,
-            // place it at the end of that segment.
             if (updateLeft) {
-              const pos = leftText.length
-              target.setSelectionRange(pos, pos)
+              target.setSelectionRange(0, leftText.length)
             } else {
-              const pos = nextDisplay.length
-              target.setSelectionRange(pos, pos)
+              const start = leftText.length + 2
+              target.setSelectionRange(start, nextDisplay.length)
             }
 
             onValueChange?.(nextDisplay)

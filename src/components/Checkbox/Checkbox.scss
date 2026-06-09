@@ -40,7 +40,7 @@
     height: 16px;
     position: relative;
     background-color: var(--pui-color-neutral-bg-secondary);
-    border-radius: var(--pui-radius-medium);
+    border-radius: var(--pui-radius-small);
     outline-offset: 1px;
 
     &:has(:focus-visible) {

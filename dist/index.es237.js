@@ -1,26 +1,32 @@
-import { getFormatter as c } from "./index.es235.js";
-const p = ["9", "٩"], a = new RegExp(`[${p.join("")}]`), o = c({ hour: "numeric" });
-function g(t) {
-  const u = o(t, new Date(2017, 0, 1, 9)), f = o(t, new Date(2017, 0, 1, 21)), [r, i] = u.split(a), [m, n] = f.split(a);
-  if (n !== void 0) {
-    if (r !== m)
-      return [r, m].map((e) => e.trim());
-    if (i !== n)
-      return [i, n].map((e) => e.trim());
-  }
-  return ["AM", "PM"];
-}
-function s(t) {
-  return t !== null && t !== !1 && !Number.isNaN(Number(t));
-}
-function M(...t) {
-  return Math.min(...t.filter(s));
-}
-function x(...t) {
-  return Math.max(...t.filter(s));
+import "preact/compat";
+import { jsx as f } from "./index.es178.js";
+import { getDecadeStart as m } from "./index.es246.js";
+import s from "./index.es247.js";
+import h from "./index.es248.js";
+import { getBeginOfCenturyYear as p } from "./index.es235.js";
+var u = function() {
+  return u = Object.assign || function(e) {
+    for (var a, n = 1, t = arguments.length; n < t; n++) {
+      a = arguments[n];
+      for (var r in a) Object.prototype.hasOwnProperty.call(a, r) && (e[r] = a[r]);
+    }
+    return e;
+  }, u.apply(this, arguments);
+}, d = function(e, a) {
+  var n = {};
+  for (var t in e) Object.prototype.hasOwnProperty.call(e, t) && a.indexOf(t) < 0 && (n[t] = e[t]);
+  if (e != null && typeof Object.getOwnPropertySymbols == "function")
+    for (var r = 0, t = Object.getOwnPropertySymbols(e); r < t.length; r++)
+      a.indexOf(t[r]) < 0 && Object.prototype.propertyIsEnumerable.call(e, t[r]) && (n[t[r]] = e[t[r]]);
+  return n;
+};
+function D(e) {
+  var a = e.activeStartDate, n = e.hover, t = e.showNeighboringCentury, r = e.value, l = e.valueType, v = d(e, ["activeStartDate", "hover", "showNeighboringCentury", "value", "valueType"]), o = p(a), y = o + (t ? 119 : 99);
+  return f(s, { className: "react-calendar__century-view__decades", dateTransform: m, dateType: "decade", end: y, hover: n, renderTile: function(i) {
+    var c = i.date, g = d(i, ["date"]);
+    return f(h, u({}, v, g, { activeStartDate: a, currentCentury: o, date: c }), c.getTime());
+  }, start: o, step: 10, value: r, valueType: l });
 }
 export {
-  g as getAmPmLabels,
-  x as safeMax,
-  M as safeMin
+  D as default
 };

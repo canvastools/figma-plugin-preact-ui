@@ -1,31 +1,32 @@
 import "./index.es30.css";
-import { jsx as r } from "./index.es143.js";
+import { jsx as r } from "./index.es178.js";
 /* empty css            */
-import { typedForwardRef as c } from "./index.es145.js";
-import { bem as d } from "./index.es62.js";
-const v = ({ id: e, className: t, width: n, height: a, showArrow: o, children: i, ...m }, p) => {
-  const s = d("PopoverContainer", void 0, {
-    arrow: o
+import { typedForwardRef as v } from "./index.es180.js";
+import { bem as l } from "./index.es63.js";
+const f = ({ id: e, className: t, width: n, height: a, showArrow: o, constrainHeight: i = !1, tabIndex: m, children: s, ...p }, c) => {
+  const d = l("PopoverContainer", void 0, {
+    arrow: o,
+    "constrain-height": i
   });
   return /* @__PURE__ */ r(
     "div",
     {
       id: e,
-      className: [s, t].join(" ").trim(),
-      ref: p,
-      tabIndex: -1,
-      ...m,
+      className: [d, t].join(" ").trim(),
+      ref: c,
+      ...p,
+      tabIndex: m ?? -1,
       style: {
         width: n,
         height: a
       },
       children: [
         o && /* @__PURE__ */ r("div", { className: "PopoverContainer__arrow" }),
-        i
+        s
       ]
     }
   );
-}, x = c(v);
+}, _ = v(f);
 export {
-  x as PopoverContainer
+  _ as PopoverContainer
 };

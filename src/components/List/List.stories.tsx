@@ -97,11 +97,13 @@ const meta: Meta = {
   deselectOnClickOutside: boolean
   onItemsChange: (args: { items: ListItemData[] }) => void
   onSelectionChange: (args: { selectedItemIds: string[] }) => void
+  onKeyDown: (args: { event: KeyboardEvent; itemId: string }) => void
 }
 `,
         },
       },
     },
+
   },
 }
 
