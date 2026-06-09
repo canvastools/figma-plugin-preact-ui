@@ -1,35 +1,36 @@
-import { getDefaultExportFromCjs as f } from "./index.es246.js";
-var g = process.env.NODE_ENV !== "production", i = function() {
-};
-if (g) {
-  var c = function(e, r) {
-    var a = arguments.length;
-    r = new Array(a > 1 ? a - 1 : 0);
-    for (var n = 1; n < a; n++)
-      r[n - 1] = arguments[n];
-    var u = 0, t = "Warning: " + e.replace(/%s/g, function() {
-      return r[u++];
-    });
-    typeof console < "u" && console.error(t);
-    try {
-      throw new Error(t);
-    } catch {
-    }
-  };
-  i = function(o, e, r) {
-    var a = arguments.length;
-    r = new Array(a > 2 ? a - 2 : 0);
-    for (var n = 2; n < a; n++)
-      r[n - 2] = arguments[n];
-    if (e === void 0)
-      throw new Error(
-        "`warning(condition, format, ...args)` requires a warning message argument"
-      );
-    o || c.apply(null, [e].concat(r));
+import { getUserLocale as i } from "./index.es243.js";
+var m = /* @__PURE__ */ new Map();
+function u(a) {
+  return function(o, f) {
+    var e = o || i();
+    m.has(e) || m.set(e, /* @__PURE__ */ new Map());
+    var n = m.get(e);
+    return n.has(a) || n.set(a, new Intl.DateTimeFormat(e || void 0, a).format), n.get(a)(f);
   };
 }
-var s = i;
-const w = /* @__PURE__ */ f(s);
+function v(a) {
+  var t = new Date(a);
+  return new Date(t.setHours(12));
+}
+function r(a) {
+  return function(t, o) {
+    return u(a)(t, v(o));
+  };
+}
+var c = { day: "numeric" }, h = {
+  day: "numeric",
+  month: "long",
+  year: "numeric"
+}, s = { month: "long" }, y = {
+  month: "long",
+  year: "numeric"
+}, g = { weekday: "short" }, d = { weekday: "long" }, l = { year: "numeric" }, p = r(c), w = r(h), O = r(s), k = r(y), M = r(g), W = r(d), L = r(l);
 export {
-  w as default
+  p as formatDay,
+  w as formatLongDate,
+  O as formatMonth,
+  k as formatMonthYear,
+  M as formatShortWeekday,
+  W as formatWeekday,
+  L as formatYear
 };

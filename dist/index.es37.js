@@ -1,85 +1,86 @@
 import "./index.es37.css";
-import { jsx as f } from "./index.es143.js";
-import { Fragment as z } from "preact";
-import { useState as B, useEffect as E, useRef as p, useMemo as G } from "preact/hooks";
+import { jsx as f } from "./index.es178.js";
+import { Fragment as B } from "preact";
+import { useState as G, useEffect as K, useRef as I, useMemo as U } from "preact/hooks";
 /* empty css            */
-import { Icon as U } from "./index.es16.js";
-import { Text as q } from "./index.es47.js";
-import { Tooltip as H } from "./index.es50.js";
-import { typedForwardRef as J } from "./index.es145.js";
-import { bem as K } from "./index.es62.js";
-const O = ({
-  id: k,
-  className: R,
+import { Icon as q } from "./index.es16.js";
+import { Text as H } from "./index.es47.js";
+import { Tooltip as J } from "./index.es50.js";
+import { typedForwardRef as O } from "./index.es180.js";
+import { bem as k } from "./index.es63.js";
+const Q = ({
+  id: R,
+  className: S,
   options: c = [],
   value: m,
-  defaultValue: S,
+  defaultValue: T,
   disabled: u = !1,
-  fullWidth: T = !1,
-  onValueChange: y,
-  ...C
-}, L) => {
-  const [M, b] = B(S), g = m !== void 0, v = g ? m : M;
-  E(() => {
-    g && b(m);
+  fullWidth: C = !1,
+  onValueChange: v,
+  tabIndex: b,
+  ...L
+}, M) => {
+  const [N, D] = G(T), g = m !== void 0, y = g ? m : N;
+  K(() => {
+    g && D(m);
   }, [g, m]);
-  const N = K("SegmentedControl", void 0, {
-    fullWidth: T
-  }), i = p([]);
+  const P = k("SegmentedControl", void 0, {
+    fullWidth: C
+  }), i = I([]);
   i.current = c.map((t, e) => i.current[e] || null);
-  const x = p([]);
+  const x = I([]);
   x.current = c.map(
     (t, e) => x.current[e] || { current: null }
   );
-  const h = p(null), w = G(() => c.findIndex((t) => t.value === v), [c, v]), D = (t) => {
+  const h = I(null), w = U(() => c.findIndex((t) => t.value === y), [c, y]), A = (t) => {
     const e = Math.max(0, Math.min(c.length - 1, t)), n = i.current[e];
     n && n.focus();
-  }, A = (t, e) => {
-    g || b(e), y == null || y({ event: t, value: e });
+  }, E = (t, e) => {
+    g || D(e), v == null || v({ event: t, value: e });
   };
-  E(() => {
+  K(() => {
     const t = (n) => {
       n.key === "Tab" && (h.current = n.shiftKey ? "backward" : "forward");
     }, e = (n) => {
-      const a = n.target;
-      if (!a || i.current.findIndex((l) => l === a) === -1) return;
+      const s = n.target;
+      if (!s || i.current.findIndex((l) => l === s) === -1) return;
       const r = h.current;
       if (!r) return;
-      const s = r === "backward" ? c.length - 1 : 0;
-      if (s < 0) return;
-      const o = i.current[s];
-      o && o !== a && o.focus(), h.current = null;
+      const a = r === "backward" ? c.length - 1 : 0;
+      if (a < 0) return;
+      const o = i.current[a];
+      o && o !== s && o.focus(), h.current = null;
     };
     return window.addEventListener("keydown", t), window.addEventListener("focusin", e), () => {
       window.removeEventListener("keydown", t), window.removeEventListener("focusin", e);
     };
   }, [c.length]);
-  const P = (t) => {
+  const F = (t) => {
     if (u) return;
-    const e = t, n = e.key, a = n === "ArrowLeft" || n === "ArrowRight" || n === "ArrowUp" || n === "ArrowDown", d = n === "Tab";
-    if (a || d) {
-      const r = e.target, s = r ? i.current.findIndex((I) => I === r) : -1, o = s >= 0 ? s : w >= 0 ? w : 0;
+    const e = t, n = e.key, s = n === "ArrowLeft" || n === "ArrowRight" || n === "ArrowUp" || n === "ArrowDown", d = n === "Tab";
+    if (s || d) {
+      const r = e.target, a = r ? i.current.findIndex((p) => p === r) : -1, o = a >= 0 ? a : w >= 0 ? w : 0;
       if (d) {
         h.current = null;
-        const I = c.length - 1;
-        if (!e.shiftKey && o === I || e.shiftKey && o === 0)
+        const p = c.length - 1;
+        if (!e.shiftKey && o === p || e.shiftKey && o === 0)
           return;
         e.stopPropagation(), e.preventDefault();
-        const _ = e.shiftKey ? -1 : 1, j = o + _;
-        D(j);
+        const j = e.shiftKey ? -1 : 1, z = o + j;
+        A(z);
         return;
       }
       e.stopPropagation(), e.preventDefault();
-      const F = (o + (n === "ArrowRight" || n === "ArrowDown" ? 1 : -1) + c.length) % c.length;
-      D(F);
+      const _ = (o + (n === "ArrowRight" || n === "ArrowDown" ? 1 : -1) + c.length) % c.length;
+      A(_);
       return;
     }
     if (n === "Enter" || n === " " || n === "Spacebar") {
       e.stopPropagation(), e.preventDefault();
-      const r = e.target, s = r ? i.current.findIndex((l) => l === r) : -1, o = s >= 0 ? s : w >= 0 ? w : -1;
+      const r = e.target, a = r ? i.current.findIndex((l) => l === r) : -1, o = a >= 0 ? a : w >= 0 ? w : -1;
       if (o >= 0) {
         const l = c[o];
-        l && A(e, l.value);
+        l && E(e, l.value);
       }
       return;
     }
@@ -92,32 +93,32 @@ const O = ({
   return /* @__PURE__ */ f(
     "div",
     {
-      id: k,
-      className: [N, R].join(" ").trim(),
+      id: R,
+      className: [P, S].join(" ").trim(),
       "data-pui-interactive": "true",
-      ref: L,
-      ...C,
-      onKeyDown: P,
+      ref: M,
+      ...L,
+      onKeyDown: F,
       children: c.map((t, e) => {
-        const n = t.value === v, a = x.current[e], d = K("SegmentedControl", "item", {
+        const n = t.value === y, s = x.current[e], d = k("SegmentedControl", "item", {
           selected: n,
           disabled: u,
           icon: !!t.icon
         });
-        return /* @__PURE__ */ f(z, { children: [
+        return /* @__PURE__ */ f(B, { children: [
           /* @__PURE__ */ f(
             "button",
             {
               className: d,
               ref: (r) => {
-                i.current[e] = r, a.current = r;
+                i.current[e] = r, s.current = r;
               },
-              tabIndex: n ? 0 : -1,
-              onClick: (r) => A(r, t.value),
+              tabIndex: b !== void 0 ? n ? b : -1 : n ? 0 : -1,
+              onClick: (r) => E(r, t.value),
               disabled: u,
               children: [
                 t.icon && /* @__PURE__ */ f(
-                  U,
+                  q,
                   {
                     glyph: typeof t.icon.glyph == "function" ? t.icon.glyph : void 0,
                     intent: "neutral",
@@ -128,17 +129,17 @@ const O = ({
                     children: typeof t.icon.glyph != "function" ? t.icon.glyph : void 0
                   }
                 ),
-                !t.icon && /* @__PURE__ */ f(q, { intent: "neutral", intentModifier: n ? "default" : "secondary", disabled: u, children: t.label })
+                !t.icon && /* @__PURE__ */ f(H, { intent: "neutral", intentModifier: n ? "default" : "secondary", disabled: u, children: t.label })
               ]
             },
             t.value
           ),
-          t.icon && /* @__PURE__ */ f(H, { anchorRef: a, children: t.label })
+          t.icon && /* @__PURE__ */ f(J, { anchorRef: s, children: t.label })
         ] }, t.value);
       })
     }
   );
-}, ne = J(O);
+}, re = O(Q);
 export {
-  ne as SegmentedControl
+  re as SegmentedControl
 };

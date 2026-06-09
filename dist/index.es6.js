@@ -1,18 +1,18 @@
 import "./index.es6.css";
-import { jsx as n } from "./index.es143.js";
-import { toChildArray as D, cloneElement as E, Fragment as _ } from "preact";
-import { useRef as d } from "preact/hooks";
-import { Icon as y } from "./index.es16.js";
-import { Tooltip as x } from "./index.es50.js";
+import { jsx as n } from "./index.es178.js";
+import { toChildArray as E, cloneElement as _, Fragment as d } from "preact";
+import { useRef as z } from "preact/hooks";
+import { Icon as g } from "./index.es16.js";
+import { Tooltip as F } from "./index.es50.js";
 /* empty css            */
-import { typedForwardRef as z } from "./index.es145.js";
-import { bem as F } from "./index.es62.js";
-const K = ({
-  id: g,
-  className: h,
+import { typedForwardRef as K } from "./index.es180.js";
+import { bem as P } from "./index.es63.js";
+const T = ({
+  id: h,
+  className: B,
   intent: p = "neutral",
   intentModifier: s = "default",
-  ghost: B = !1,
+  ghost: v = !1,
   size: I = "medium",
   grouped: i,
   translucent: N = !1,
@@ -21,12 +21,13 @@ const K = ({
   tooltip: m,
   children: u,
   icon: t,
+  tabIndex: c,
   onClick: f,
   ...R
 }, e) => {
-  const j = F("ButtonIcon", void 0, {
+  const j = P("ButtonIcon", void 0, {
     intent: `${p}-${s}`,
-    ghost: B,
+    ghost: v,
     size: I,
     grouped: !!i,
     groupedPosition: i ?? void 0,
@@ -34,32 +35,33 @@ const K = ({
     disabled: r,
     selected: a,
     tooltip: !!m
-  }), v = (o) => {
+  }), w = (o) => {
     if (r) {
       o.preventDefault();
       return;
     }
     o.stopPropagation(), f == null || f({ event: o });
-  }, w = (o) => {
+  }, D = (o) => {
     (o.key === "Escape" || o.key === "Esc") && o.currentTarget.blur();
-  }, c = d(null);
-  return /* @__PURE__ */ n(_, { children: [
+  }, l = z(null);
+  return /* @__PURE__ */ n(d, { children: [
     /* @__PURE__ */ n(
       "button",
       {
-        id: g,
-        className: [j, h].join(" ").trim(),
+        id: h,
+        className: [j, B].join(" ").trim(),
         "data-pui-interactive": "true",
         ref: (o) => {
-          typeof e == "function" ? e(o) : e && (e.current = o), c.current = o;
+          typeof e == "function" ? e(o) : e && (e.current = o), l.current = o;
         },
         disabled: r,
-        onClick: v,
-        onKeyDown: w,
+        ...c !== void 0 ? { tabIndex: c } : {},
+        onClick: w,
+        onKeyDown: D,
         ...R,
         children: (u || t) && /* @__PURE__ */ n("div", { className: "ButtonIcon__children", children: [
           t && /* @__PURE__ */ n(
-            y,
+            g,
             {
               glyph: t.glyph,
               intent: p,
@@ -70,11 +72,11 @@ const K = ({
               disabled: r
             }
           ),
-          u && !t && D(u).map((o) => {
+          u && !t && E(u).map((o) => {
             if (typeof o == "object" && o !== null) {
-              const l = o;
-              if (l.type === y)
-                return E(l, {
+              const y = o;
+              if (y.type === g)
+                return _(y, {
                   disabled: r,
                   selected: a
                 });
@@ -84,9 +86,9 @@ const K = ({
         ] })
       }
     ),
-    m && /* @__PURE__ */ n(x, { anchorRef: c, children: m })
+    m && /* @__PURE__ */ n(F, { anchorRef: l, children: m })
   ] });
-}, C = z(K);
+}, G = K(T);
 export {
-  C as ButtonIcon
+  G as ButtonIcon
 };

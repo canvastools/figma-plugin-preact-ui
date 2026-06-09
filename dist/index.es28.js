@@ -1,18 +1,18 @@
 import "./index.es28.css";
-import { jsx as at } from "./index.es143.js";
-import { createPortal as st } from "preact/compat";
-import { useRef as J, useState as j, useMemo as Y, useLayoutEffect as ct, useEffect as H } from "preact/hooks";
+import { jsx as ht } from "./index.es178.js";
+import { createPortal as Mt } from "preact/compat";
+import { useRef as Z, useState as B, useMemo as vt, useCallback as rt, useLayoutEffect as bt, useEffect as U } from "preact/hooks";
 /* empty css            */
-import { typedForwardRef as lt } from "./index.es145.js";
-import { bem as ut } from "./index.es62.js";
-const mt = (v, b, t, a, s, B, N, p, u, o, c) => {
-  const $ = [B];
-  if (N && Array.isArray(N))
-    for (const M of N) $.push(M);
-  const U = (M, n) => M >= o && n >= o && M + a <= v - o && n + s <= b - o, m = (M, n, r) => Math.max(n, Math.min(r, Math.round(M))), y = (M) => {
-    switch (M) {
+import { typedForwardRef as xt } from "./index.es180.js";
+import { bem as Lt } from "./index.es63.js";
+const yt = (x, L, t, i, c, W, T, M, h, o, l) => {
+  const $ = [W];
+  if (T && Array.isArray(T))
+    for (const p of T) $.push(p);
+  const _ = (p, n) => p >= o && n >= o && p + i <= x - o && n + c <= L - o, v = (p, n, r) => Math.max(n, Math.min(r, Math.round(p))), F = (p) => {
+    switch (p) {
       case "over": {
-        const n = Math.max(o, Math.min(v - a - o, Math.round(t.left + p))), r = Math.max(o, Math.min(b - s - o, Math.round(t.top + u)));
+        const n = Math.max(o, Math.min(x - i - o, Math.round(t.left + M))), r = Math.max(o, Math.min(L - c - o, Math.round(t.top + h)));
         return {
           coords: { left: n, top: r },
           arrow: { left: 0, top: 0, side: "top" }
@@ -21,246 +21,269 @@ const mt = (v, b, t, a, s, B, N, p, u, o, c) => {
       case "top": {
         const n = Math.max(
           o,
-          Math.min(v - a - o, Math.round(t.left + t.width / 2 - a / 2 + p))
-        ), r = t.top - s - u, l = m(t.left + t.width / 2 - n, c, a - c);
+          Math.min(x - i - o, Math.round(t.left + t.width / 2 - i / 2 + M))
+        ), r = t.top - c - h, a = v(t.left + t.width / 2 - n, l, i - l);
         return {
           coords: { left: n, top: r },
-          arrow: { left: l, top: s, side: "top" }
+          arrow: { left: a, top: c, side: "top" }
         };
       }
       case "top-left": {
-        const n = Math.max(o, Math.min(v - a - o, Math.round(t.left + p))), r = t.top - s - u, l = m(t.left - n + t.width / 2, c, a - c);
+        const n = Math.max(o, Math.min(x - i - o, Math.round(t.left + M))), r = t.top - c - h, a = v(t.left - n + t.width / 2, l, i - l);
         return {
           coords: { left: n, top: r },
-          arrow: { left: l, top: s, side: "top" }
+          arrow: { left: a, top: c, side: "top" }
         };
       }
       case "top-right": {
-        const n = Math.max(o, Math.min(v - a - o, Math.round(t.right - a - p))), r = t.top - s - u, l = m(t.left - n + t.width / 2, c, a - c);
+        const n = Math.max(o, Math.min(x - i - o, Math.round(t.right - i - M))), r = t.top - c - h, a = v(t.left - n + t.width / 2, l, i - l);
         return {
           coords: { left: n, top: r },
-          arrow: { left: l, top: s, side: "top" }
+          arrow: { left: a, top: c, side: "top" }
         };
       }
       case "bottom": {
         const n = Math.max(
           o,
-          Math.min(v - a - o, Math.round(t.left + t.width / 2 - a / 2 + p))
-        ), r = t.bottom + u, l = m(t.left - n + t.width / 2, c, a - c);
+          Math.min(x - i - o, Math.round(t.left + t.width / 2 - i / 2 + M))
+        ), r = t.bottom + h, a = v(t.left - n + t.width / 2, l, i - l);
         return {
           coords: { left: n, top: r },
-          arrow: { left: l, top: 0, side: "bottom" }
+          arrow: { left: a, top: 0, side: "bottom" }
         };
       }
       case "bottom-left": {
-        const n = Math.max(o, Math.min(v - a - o, Math.round(t.left + p))), r = t.bottom + u, l = m(t.left - n + t.width / 2, c, a - c);
+        const n = Math.max(o, Math.min(x - i - o, Math.round(t.left + M))), r = t.bottom + h, a = v(t.left - n + t.width / 2, l, i - l);
         return {
           coords: { left: n, top: r },
-          arrow: { left: l, top: 0, side: "bottom" }
+          arrow: { left: a, top: 0, side: "bottom" }
         };
       }
       case "bottom-right": {
-        const n = Math.max(o, Math.min(v - a - o, Math.round(t.right - a - p))), r = t.bottom + u, l = m(t.left - n + t.width / 2, c, a - c);
+        const n = Math.max(o, Math.min(x - i - o, Math.round(t.right - i - M))), r = t.bottom + h, a = v(t.left - n + t.width / 2, l, i - l);
         return {
           coords: { left: n, top: r },
-          arrow: { left: l, top: 0, side: "bottom" }
+          arrow: { left: a, top: 0, side: "bottom" }
         };
       }
       case "left": {
-        const n = t.left - a - p, r = Math.max(
+        const n = t.left - i - M, r = Math.max(
           o,
-          Math.min(b - s - o, Math.round(t.top + t.height / 2 - s / 2 + u))
-        ), l = m(t.top - r + t.height / 2, c, s - c);
+          Math.min(L - c - o, Math.round(t.top + t.height / 2 - c / 2 + h))
+        ), a = v(t.top - r + t.height / 2, l, c - l);
         return {
           coords: { left: n, top: r },
-          arrow: { left: a, top: l, side: "left" }
+          arrow: { left: i, top: a, side: "left" }
         };
       }
       case "left-top": {
-        const n = t.left - a - p, r = Math.max(o, Math.min(b - s - o, Math.round(t.top + u))), l = m(t.top - r + t.height / 2, c, s - c);
+        const n = t.left - i - M, r = Math.max(o, Math.min(L - c - o, Math.round(t.top + h))), a = v(t.top - r + t.height / 2, l, c - l);
         return {
           coords: { left: n, top: r },
-          arrow: { left: a, top: l, side: "left" }
+          arrow: { left: i, top: a, side: "left" }
         };
       }
       case "left-bottom": {
-        const n = t.left - a - p, r = Math.max(o, Math.min(b - s - o, Math.round(t.bottom - s - u))), l = m(t.top - r + t.height / 2, c, s - c);
+        const n = t.left - i - M, r = Math.max(o, Math.min(L - c - o, Math.round(t.bottom - c - h))), a = v(t.top - r + t.height / 2, l, c - l);
         return {
           coords: { left: n, top: r },
-          arrow: { left: a, top: l, side: "left" }
+          arrow: { left: i, top: a, side: "left" }
         };
       }
       case "right": {
-        const n = t.right + p, r = Math.max(
+        const n = t.right + M, r = Math.max(
           o,
-          Math.min(b - s - o, Math.round(t.top + t.height / 2 - s / 2 + u))
-        ), l = m(t.top - r + t.height / 2, c, s - c);
+          Math.min(L - c - o, Math.round(t.top + t.height / 2 - c / 2 + h))
+        ), a = v(t.top - r + t.height / 2, l, c - l);
         return {
           coords: { left: n, top: r },
-          arrow: { left: 0, top: l, side: "right" }
+          arrow: { left: 0, top: a, side: "right" }
         };
       }
       case "right-top": {
-        const n = t.right + p, r = Math.max(o, Math.min(b - s - o, Math.round(t.top + u))), l = m(t.top - r + t.height / 2, c / 2, s - c);
+        const n = t.right + M, r = Math.max(o, Math.min(L - c - o, Math.round(t.top + h))), a = v(t.top - r + t.height / 2, l / 2, c - l);
         return {
           coords: { left: n, top: r },
-          arrow: { left: 0, top: l, side: "right" }
+          arrow: { left: 0, top: a, side: "right" }
         };
       }
       case "right-bottom": {
-        const n = t.right + p, r = Math.max(o, Math.min(b - s - o, Math.round(t.bottom - s - u))), l = m(t.top - r + t.height / 2, c, s - c);
+        const n = t.right + M, r = Math.max(o, Math.min(L - c - o, Math.round(t.bottom - c - h))), a = v(t.top - r + t.height / 2, l, c - l);
         return {
           coords: { left: n, top: r },
-          arrow: { left: 0, top: l, side: "right" }
+          arrow: { left: 0, top: a, side: "right" }
         };
       }
       default: {
-        const n = Math.max(o, Math.min(v - a - o, Math.round(t.left + t.width / 2 - a / 2))), r = t.bottom + u, l = m(t.left - n + t.width / 2, c, a - c);
+        const n = Math.max(o, Math.min(x - i - o, Math.round(t.left + t.width / 2 - i / 2))), r = t.bottom + h, a = v(t.left - n + t.width / 2, l, i - l);
         return {
           coords: { left: n, top: r },
-          arrow: { left: l, top: s, side: "bottom" }
+          arrow: { left: a, top: c, side: "bottom" }
         };
       }
     }
   };
-  for (const M of $) {
-    const n = y(M);
-    if (!N || U(n.coords.left, n.coords.top)) {
-      const r = Math.max(o, Math.min(v - a - o, Math.round(n.coords.left))), l = Math.max(o, Math.min(b - s - o, Math.round(n.coords.top)));
-      return { coords: { left: r, top: l }, arrow: n.arrow, placement: M };
+  for (const p of $) {
+    const n = F(p);
+    if (!T || _(n.coords.left, n.coords.top)) {
+      const r = Math.max(o, Math.min(x - i - o, Math.round(n.coords.left))), a = Math.max(o, Math.min(L - c - o, Math.round(n.coords.top)));
+      return { coords: { left: r, top: a }, arrow: n.arrow, placement: p };
     }
   }
-  const k = y($[0]);
+  const w = F($[0]);
   return {
     coords: {
-      left: Math.max(o, Math.min(v - a - o, Math.round(k.coords.left))),
-      top: Math.max(o, Math.min(b - s - o, Math.round(k.coords.top)))
+      left: Math.max(o, Math.min(x - i - o, Math.round(w.coords.left))),
+      top: Math.max(o, Math.min(L - c - o, Math.round(w.coords.top)))
     },
-    arrow: k.arrow,
+    arrow: w.arrow,
     placement: $[0]
   };
-}, pt = ({
-  id: v,
-  className: b,
+}, ft = ({
+  id: x,
+  className: L,
   anchorRef: t,
-  placement: a = "bottom",
-  placementFallback: s,
-  offsetX: B = 0,
-  offsetY: N = 0,
-  offsetEdge: p = 0,
-  trigger: u = "click",
+  placement: i = "bottom",
+  placementFallback: c,
+  offsetX: W = 0,
+  offsetY: T = 0,
+  offsetEdge: M = 0,
+  trigger: h = "click",
   draggable: o = !1,
-  open: c,
+  open: l,
   defaultOpen: $ = !1,
-  closeOnClickOutside: U = !0,
-  onOpen: m,
-  onClose: y,
-  children: k
-}, M) => {
-  const n = J(null), [r, l] = j({ top: 0, left: 0 }), [K, Q] = j(!1), [D, g] = j(null), [A, V] = j(null), [E, W] = j($), f = typeof c == "boolean", L = f ? c : E, [z, S] = j(a), I = J(null), Z = Y(
-    () => s && Array.isArray(s) ? s : void 0,
-    [s]
-  ), O = Y(
-    () => () => {
-      var T;
-      const i = window.innerWidth, d = window.innerHeight, e = t.current;
-      if (!e) return;
-      const w = e.getBoundingClientRect(), h = (T = n.current) == null ? void 0 : T.getBoundingClientRect(), x = Math.round((h == null ? void 0 : h.width) || 0), R = Math.round((h == null ? void 0 : h.height) || 0);
-      if (!x || !R) {
-        I.current != null && cancelAnimationFrame(I.current), I.current = requestAnimationFrame(() => {
-          I.current = null, O();
-        });
-        return;
-      }
-      const P = mt(i, d, w, x, R, a, Z, B, N, p, 8);
-      l(P.coords), g(P.arrow), S(P.placement), Q(!0);
-    },
-    [t, a, B, N, p, Z]
-  );
-  ct(() => {
-    L && (Q(!1), O());
-  }, [L, O]), H(() => {
-    L || V(null);
-  }, [L]), H(() => {
-    if (!L) return;
-    const i = () => O();
-    window.addEventListener("resize", i), window.addEventListener("scroll", i, !0);
-    const d = n.current;
-    let e = null;
-    if (d)
+  closeOnClickOutside: _ = !0,
+  autoReposition: v = !1,
+  constrainHeight: F = !1,
+  onOpen: w,
+  onClose: p,
+  children: n
+}, r) => {
+  const a = Z(null), [G, et] = B({ top: 0, left: 0 }), [X, Y] = B(!1), [k, it] = B(null), [A, C] = B(null), [at, J] = B($), N = typeof l == "boolean", y = N ? l : at, [st, ct] = B(i), R = Z(null), K = Z(!1), E = vt(
+    () => c && Array.isArray(c) ? c : void 0,
+    [c]
+  ), D = rt(() => {
+    const e = window.innerWidth, d = window.innerHeight, s = t.current;
+    if (!s) return;
+    const b = s.getBoundingClientRect(), m = a.current, u = m == null ? void 0 : m.getBoundingClientRect(), I = Math.round((u == null ? void 0 : u.width) || 0);
+    let P = Math.round((u == null ? void 0 : u.height) || 0);
+    if (!I || !P) {
+      R.current != null && cancelAnimationFrame(R.current), R.current = requestAnimationFrame(() => {
+        R.current = null, D();
+      });
+      return;
+    }
+    if (F && m) {
+      const O = (j, nt) => {
+        let q = j.scrollHeight - j.clientHeight;
+        if (q < 0 && (q = 0), nt >= 6) return q;
+        for (let g = 0; g < j.children.length; g++) {
+          const ot = O(j.children[g], nt + 1);
+          ot > q && (q = ot);
+        }
+        return q;
+      }, H = O(m, 0);
+      H > 1 && (P += H);
+    }
+    const f = yt(e, d, b, I, P, i, E, W, T, M, 8);
+    et(f.coords), it(f.arrow), ct(f.placement), Y(!0);
+  }, [t, i, W, T, M, E, F]), z = rt(() => {
+    C(null), D();
+  }, [D]);
+  bt(() => {
+    y && (Y(!1), D());
+  }, [y, D]), U(() => {
+    y || C(null);
+  }, [y]), U(() => {
+    if (!y) return;
+    const e = () => D();
+    window.addEventListener("resize", e), window.addEventListener("scroll", e, !0);
+    let d = null;
+    const s = () => {
+      K.current || d == null && (d = requestAnimationFrame(() => {
+        d = null, K.current || z();
+      }));
+    }, b = a.current;
+    let m = null, u = null;
+    if (v && b) {
       try {
-        e = new ResizeObserver(() => O()), e.observe(d);
+        m = new ResizeObserver(s), m.observe(b);
       } catch {
       }
+      try {
+        u = new MutationObserver(s), u.observe(b, { childList: !0, subtree: !0, characterData: !0 });
+      } catch {
+      }
+    }
     return () => {
-      window.removeEventListener("resize", i), window.removeEventListener("scroll", i, !0), e && e.disconnect(), I.current != null && (cancelAnimationFrame(I.current), I.current = null);
+      window.removeEventListener("resize", e), window.removeEventListener("scroll", e, !0), m && m.disconnect(), u && u.disconnect(), d != null && cancelAnimationFrame(d), R.current != null && (cancelAnimationFrame(R.current), R.current = null);
     };
-  }, [L, O]);
-  const q = J(!1);
-  H(() => {
-    if (L && !q.current)
-      q.current = !0, m == null || m();
-    else if (!L && q.current) {
-      if (q.current = !1, f) return;
-      y == null || y();
+  }, [y, D, v, z]);
+  const Q = Z(!1);
+  U(() => {
+    if (y && !Q.current)
+      Q.current = !0, w == null || w();
+    else if (!y && Q.current) {
+      if (Q.current = !1, N) return;
+      p == null || p();
     }
-  }, [f, L, y, m]), H(() => {
-    if (!L || !U) return;
-    const i = (d) => {
-      var F;
-      const e = d.target, w = n.current, h = t.current;
-      if (!w || !e || !h) return;
-      const x = document.activeElement;
-      if (x && x !== e) {
-        const G = x.contains(e) || x === e, it = x.tagName === "INPUT" || x.tagName === "TEXTAREA" || x.isContentEditable;
-        !G && it && x.blur();
+  }, [N, y, p, w]), U(() => {
+    if (!y || !_) return;
+    const e = (d) => {
+      var O;
+      const s = d.target, b = a.current, m = t.current;
+      if (!b || !s || !m) return;
+      const u = document.activeElement;
+      if (u && u !== s) {
+        const H = u.contains(s) || u === s, j = u.tagName === "INPUT" || u.tagName === "TEXTAREA" || u.isContentEditable;
+        !H && j && u.blur();
       }
-      const R = w.contains(e), P = h.contains(e);
-      if (R || P || (F = e.closest) != null && F.call(e, "[data-overlay-keep-open]")) return;
-      const T = e != null && e.closest ? e.closest(".OverlayPositioner") : null;
-      T && !T.contains(h) || (f ? y == null || y() : W(!1));
+      const I = b.contains(s), P = m.contains(s);
+      if (I || P || (O = s.closest) != null && O.call(s, "[data-overlay-keep-open]")) return;
+      const f = s != null && s.closest ? s.closest(".OverlayPositioner") : null;
+      f && !f.contains(m) || (N ? p == null || p() : J(!1));
     };
-    return window.addEventListener("mousedown", i, !0), () => window.removeEventListener("mousedown", i, !0);
-  }, [L, U, t, f, y]), H(() => {
-    if (f) return;
-    const i = t.current;
-    if (i) {
-      if (u === "click") {
-        const d = (e) => {
-          e.preventDefault(), W((w) => !w);
+    return window.addEventListener("mousedown", e, !0), () => window.removeEventListener("mousedown", e, !0);
+  }, [y, _, t, N, p]), U(() => {
+    if (N) return;
+    const e = t.current;
+    if (e) {
+      if (h === "click") {
+        const d = (s) => {
+          s.preventDefault(), J((b) => !b);
         };
-        return i.addEventListener("click", d), () => i.removeEventListener("click", d);
+        return e.addEventListener("click", d), () => e.removeEventListener("click", d);
       }
-      if (u === "hover") {
+      if (h === "hover") {
         const d = () => {
-          W(!0);
-        }, e = () => {
-          W(!1);
+          J(!0);
+        }, s = () => {
+          J(!1);
         };
-        return i.addEventListener("mouseenter", d), i.addEventListener("mouseleave", e), () => {
-          i.removeEventListener("mouseenter", d), i.removeEventListener("mouseleave", e);
+        return e.addEventListener("mouseenter", d), e.addEventListener("mouseleave", s), () => {
+          e.removeEventListener("mouseenter", d), e.removeEventListener("mouseleave", s);
         };
       }
     }
-  }, [f, u, t]);
-  const C = (A ? A.top : r.top) || 0, tt = (A ? A.left : r.left) || 0, _ = {
-    top: `${C}px`,
-    left: `${tt}px`,
-    visibility: K ? "visible" : "hidden",
-    pointerEvents: K ? void 0 : "none"
+  }, [N, h, t]);
+  const S = (A ? A.top : G.top) || 0, lt = (A ? A.left : G.left) || 0, V = {
+    top: `${S}px`,
+    left: `${lt}px`,
+    visibility: X ? "visible" : "hidden",
+    pointerEvents: X ? void 0 : "none"
   };
-  D && (_["--overlay-arrow-left"] = `${D.left}px`, _["--overlay-arrow-top"] = `${D.top}px`);
-  const X = typeof window < "u" ? Math.max(window.innerHeight - C - p, 100) : void 0;
-  X != null && (_["--overlay-available-height"] = `${X}px`);
-  const nt = ut("OverlayPositioner", void 0, {
-    placement: z
+  k && (V["--overlay-arrow-left"] = `${k.left}px`, V["--overlay-arrow-top"] = `${k.top}px`);
+  const tt = typeof window < "u" ? Math.max(window.innerHeight - S - M, 100) : void 0;
+  tt != null && (V["--overlay-available-height"] = `${tt}px`);
+  const ut = Lt("OverlayPositioner", void 0, {
+    placement: st
   });
-  if (!L) return null;
-  const ot = (i) => {
-    if (!i) return !1;
-    const d = n.current;
-    let e = i;
-    const w = [
+  if (!y) return null;
+  const mt = (e) => {
+    if (!e) return !1;
+    const d = a.current;
+    let s = e;
+    const b = [
       "button",
       "input",
       "select",
@@ -271,43 +294,43 @@ const mt = (v, b, t, a, s, B, N, p, u, o, c) => {
       "audio",
       "[data-pui-interactive='true']"
     ].join(",");
-    if (i.closest && i.closest(w))
+    if (e.closest && e.closest(b))
       return !0;
-    for (; e && d && e !== d; ) {
-      const h = e.getAttribute && e.getAttribute("tabindex");
-      if (h != null && h !== "" && !Number.isNaN(Number(h)) && Number(h) >= 0)
+    for (; s && d && s !== d; ) {
+      const m = s.getAttribute && s.getAttribute("tabindex");
+      if (m != null && m !== "" && !Number.isNaN(Number(m)) && Number(m) >= 0)
         return !0;
-      e = e.parentElement;
+      s = s.parentElement;
     }
     return !1;
-  }, rt = (i) => {
-    if (!o || i.button !== 0) return;
-    const d = i.target;
-    if (ot(d)) return;
-    i.preventDefault();
-    const e = A ? A.left : r.left, w = A ? A.top : r.top, h = i.clientX, x = i.clientY, R = (T) => {
-      const F = T.clientX - h, G = T.clientY - x;
-      V({ left: e + F, top: w + G });
+  }, pt = (e) => {
+    if (!o || e.button !== 0) return;
+    const d = e.target;
+    if (mt(d)) return;
+    e.preventDefault(), K.current = !0;
+    const s = A ? A.left : G.left, b = A ? A.top : G.top, m = e.clientX, u = e.clientY, I = (f) => {
+      const O = f.clientX - m, H = f.clientY - u;
+      C({ left: s + O, top: b + H });
     }, P = () => {
-      window.removeEventListener("mousemove", R), window.removeEventListener("mouseup", P);
+      K.current = !1, window.removeEventListener("mousemove", I), window.removeEventListener("mouseup", P);
     };
-    window.addEventListener("mousemove", R), window.addEventListener("mouseup", P);
-  }, et = /* @__PURE__ */ at(
+    window.addEventListener("mousemove", I), window.addEventListener("mouseup", P);
+  }, dt = /* @__PURE__ */ ht(
     "div",
     {
-      id: v,
-      className: [nt, b].join(" ").trim(),
-      ref: (i) => {
-        n.current = i, typeof M == "function" ? M(i) : M && (M.current = i);
+      id: x,
+      className: [ut, L].join(" ").trim(),
+      ref: (e) => {
+        a.current = e, typeof r == "function" ? r(e) : r && (r.current = e);
       },
-      style: _,
-      "data-arrow-side": D == null ? void 0 : D.side,
-      onMouseDown: (i) => rt(i),
-      children: k
+      style: V,
+      "data-arrow-side": k == null ? void 0 : k.side,
+      onMouseDown: (e) => pt(e),
+      children: n
     }
   );
-  return st(et, document.body);
-}, Lt = lt(pt);
+  return Mt(dt, document.body);
+}, Dt = xt(ft);
 export {
-  Lt as OverlayPositioner
+  Dt as OverlayPositioner
 };

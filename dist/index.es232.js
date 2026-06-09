@@ -1,15 +1,21 @@
 import "preact/compat";
-import { jsx as m } from "./index.es143.js";
-import { getMinutes as r, getHours as p } from "./index.es211.js";
-import M from "./index.es245.js";
-import { safeMin as c, safeMax as g } from "./index.es237.js";
-function h({ hour: u, maxTime: t, minTime: n, showLeadingZeros: e = !0, ...i }) {
-  function o(f) {
-    return u === p(f).toString();
+import { jsx as i } from "./index.es178.js";
+import s from "./index.es238.js";
+var t = function() {
+  return t = Object.assign || function(r) {
+    for (var e, n = 1, o = arguments.length; n < o; n++) {
+      e = arguments[n];
+      for (var a in e) Object.prototype.hasOwnProperty.call(e, a) && (r[a] = e[a]);
+    }
+    return r;
+  }, t.apply(this, arguments);
+};
+function f(r) {
+  function e() {
+    return i(s, t({}, r));
   }
-  const s = c(59, t && o(t) && r(t)), a = g(0, n && o(n) && r(n));
-  return m(M, { max: s, min: a, name: "minute", showLeadingZeros: e, ...i });
+  return i("div", { className: "react-calendar__decade-view", children: e() });
 }
 export {
-  h as default
+  f as default
 };

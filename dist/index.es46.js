@@ -1,10 +1,10 @@
 import "./index.es46.css";
-import { jsx as e } from "./index.es143.js";
+import { jsx as e } from "./index.es178.js";
 import { Fragment as l } from "preact";
 /* empty css            */
 import { useTabContext as p } from "./index.es44.js";
-import { typedForwardRef as d } from "./index.es145.js";
-import { bem as f } from "./index.es62.js";
+import { typedForwardRef as d } from "./index.es180.js";
+import { bem as f } from "./index.es63.js";
 const b = ({ id: t, className: a, tabId: o, fullHeight: m = !1, children: n, ...i }, s) => {
   const { activeId: r } = p();
   if (o !== r) return /* @__PURE__ */ e(l, {});

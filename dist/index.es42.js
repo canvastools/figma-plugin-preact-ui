@@ -1,49 +1,50 @@
 import "./index.es42.css";
-import { jsx as i } from "./index.es143.js";
-import { useState as y, useEffect as k } from "preact/hooks";
+import { jsx as c } from "./index.es178.js";
+import { useState as k, useEffect as N } from "preact/hooks";
 /* empty css            */
-import { typedForwardRef as N } from "./index.es145.js";
-import { bem as x } from "./index.es62.js";
-const B = ({ id: p, className: m, checked: o, defaultChecked: u = !1, disabled: r = !1, onCheckedChange: s, ...f }, d) => {
-  const c = o !== void 0, [a, e] = y(c ? !!o : !!u);
-  k(() => {
-    c && e(!!o);
-  }, [c, o]);
-  const h = x("Switch", void 0, {
-    checked: a,
+import { typedForwardRef as x } from "./index.es180.js";
+import { bem as B } from "./index.es63.js";
+const D = ({ id: m, className: u, checked: o, defaultChecked: f = !1, disabled: r = !1, tabIndex: a, onCheckedChange: s, ...d }, h) => {
+  const i = o !== void 0, [e, n] = k(i ? !!o : !!f);
+  N(() => {
+    i && n(!!o);
+  }, [i, o]);
+  const w = B("Switch", void 0, {
+    checked: e,
     disabled: r
-  }), w = (t) => {
-    var l;
+  }), S = (t) => {
+    var p;
     if (r) {
-      (l = t.preventDefault) == null || l.call(t);
+      (p = t.preventDefault) == null || p.call(t);
       return;
     }
-    const n = t.currentTarget.checked;
-    c || e(n), s == null || s({
+    const l = t.currentTarget.checked;
+    i || n(l), s == null || s({
       event: t,
-      checked: n
+      checked: l
     });
-  }, S = (t) => {
-    t.stopPropagation();
   }, _ = (t) => {
+    t.stopPropagation();
+  }, y = (t) => {
     (t.key === "Escape" || t.key === "Esc") && t.currentTarget.blur();
   };
-  return /* @__PURE__ */ i("div", { id: p, className: [h, m].join(" ").trim(), "data-pui-interactive": "true", ...f, ref: d, children: /* @__PURE__ */ i("div", { className: "Switch__input", children: [
-    /* @__PURE__ */ i(
+  return /* @__PURE__ */ c("div", { id: m, className: [w, u].join(" ").trim(), "data-pui-interactive": "true", ...d, ref: h, children: /* @__PURE__ */ c("div", { className: "Switch__input", children: [
+    /* @__PURE__ */ c(
       "input",
       {
         className: "Switch__input-native",
         type: "checkbox",
-        checked: a,
+        checked: e,
         disabled: r,
-        onClick: S,
-        onChange: w,
-        onKeyDown: _
+        ...a !== void 0 ? { tabIndex: a } : {},
+        onClick: _,
+        onChange: S,
+        onKeyDown: y
       }
     ),
-    /* @__PURE__ */ i("div", { className: "Switch__control" })
+    /* @__PURE__ */ c("div", { className: "Switch__control" })
   ] }) });
-}, T = N(B);
+}, v = x(D);
 export {
-  T as Switch
+  v as Switch
 };

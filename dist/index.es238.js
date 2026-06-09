@@ -1,15 +1,32 @@
 import "preact/compat";
-import { jsx as d } from "./index.es143.js";
-function m(t) {
-  var o = t.angle, i = o === void 0 ? 0 : o, c = t.name, a = t.length, r = a === void 0 ? 100 : a, e = t.oppositeLength, l = e === void 0 ? 10 : e, n = t.width, h = n === void 0 ? 1 : n;
-  return d("div", { className: "react-clock__hand react-clock__".concat(c, "-hand"), style: {
-    transform: "rotate(".concat(i, "deg)")
-  }, children: d("div", { className: "react-clock__hand__body react-clock__".concat(c, "-hand__body"), style: {
-    width: "".concat(h, "px"),
-    top: "".concat(50 - r / 2, "%"),
-    bottom: "".concat(50 - l / 2, "%")
-  } }) });
+import { jsx as f } from "./index.es178.js";
+import { getYearStart as y } from "./index.es246.js";
+import s from "./index.es247.js";
+import h from "./index.es250.js";
+import { getBeginOfDecadeYear as p } from "./index.es235.js";
+var i = function() {
+  return i = Object.assign || function(e) {
+    for (var a, n = 1, r = arguments.length; n < r; n++) {
+      a = arguments[n];
+      for (var t in a) Object.prototype.hasOwnProperty.call(a, t) && (e[t] = a[t]);
+    }
+    return e;
+  }, i.apply(this, arguments);
+}, d = function(e, a) {
+  var n = {};
+  for (var r in e) Object.prototype.hasOwnProperty.call(e, r) && a.indexOf(r) < 0 && (n[r] = e[r]);
+  if (e != null && typeof Object.getOwnPropertySymbols == "function")
+    for (var t = 0, r = Object.getOwnPropertySymbols(e); t < r.length; t++)
+      a.indexOf(r[t]) < 0 && Object.prototype.propertyIsEnumerable.call(e, r[t]) && (n[r[t]] = e[r[t]]);
+  return n;
+};
+function j(e) {
+  var a = e.activeStartDate, n = e.hover, r = e.showNeighboringDecade, t = e.value, l = e.valueType, v = d(e, ["activeStartDate", "hover", "showNeighboringDecade", "value", "valueType"]), o = p(a), g = o + (r ? 11 : 9);
+  return f(s, { className: "react-calendar__decade-view__years", dateTransform: y, dateType: "year", end: g, hover: n, renderTile: function(u) {
+    var c = u.date, m = d(u, ["date"]);
+    return f(h, i({}, v, m, { activeStartDate: a, currentDecade: o, date: c }), c.getTime());
+  }, start: o, value: t, valueType: l });
 }
 export {
-  m as default
+  j as default
 };

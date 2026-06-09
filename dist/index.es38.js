@@ -1,152 +1,169 @@
 import "./index.es38.css";
-import { jsx as t } from "./index.es143.js";
-import { Fragment as x, cloneElement as z } from "preact";
-import { useState as M, useRef as B, useMemo as w, useEffect as q } from "preact/hooks";
+import { jsx as t } from "./index.es178.js";
+import { Fragment as $, cloneElement as H } from "preact";
+import { useState as A, useRef as J, useMemo as N, useEffect as L } from "preact/hooks";
 /* empty css            */
-import { Icon as G } from "./index.es16.js";
-import { MenuContainer as H } from "./index.es23.js";
-import { MenuContext as J, useMenuContext as L } from "./index.es24.js";
-import { MenuDivider as Q } from "./index.es25.js";
-import { MenuItemOption as U } from "./index.es27.js";
-import { OverlayPositioner as W } from "./index.es28.js";
-import { Tooltip as X } from "./index.es50.js";
-import { typedForwardRef as Y } from "./index.es145.js";
-import { bem as Z } from "./index.es62.js";
-import { chevronDown as V } from "./index.es77.js";
-const C = ({
-  id: u,
-  className: m,
-  options: a,
-  placeholder: i,
-  defaultValue: c,
-  value: s,
-  grouped: l,
+import { Icon as Q } from "./index.es16.js";
+import { MenuContainer as U } from "./index.es23.js";
+import { MenuContext as W, useMenuContext as X } from "./index.es24.js";
+import { MenuDivider as Y } from "./index.es25.js";
+import { MenuItemOption as Z } from "./index.es27.js";
+import { OverlayPositioner as V } from "./index.es28.js";
+import { Tooltip as C } from "./index.es50.js";
+import { typedForwardRef as ee } from "./index.es180.js";
+import { bem as re } from "./index.es63.js";
+import { chevronDown as te } from "./index.es79.js";
+const ne = ({
+  id: d,
+  className: p,
+  options: f,
+  placeholder: s,
+  defaultValue: l,
+  value: o,
+  grouped: a,
   error: r = !1,
   disabled: n = !1,
-  prefix: d,
-  menuContainerProps: A,
-  tooltip: R,
-  onBlur: v,
-  onFocus: p,
-  onValueChange: h,
-  ...D
-}, f) => {
-  var k;
-  const [T, _] = M(!1), [b, E] = M(!1), [y, N] = M(s !== void 0 ? s : c), O = B(null), $ = !!(s ?? y ?? "").length, I = w(() => {
-    const e = a ?? [];
+  tabIndex: k,
+  prefix: v,
+  menuContainerProps: P,
+  tooltip: E,
+  onBlur: h,
+  onFocus: y,
+  onValueChange: M,
+  ...T
+}, u) => {
+  var D;
+  const [F, I] = A(!1), [O, R] = A(!1), [b, _] = A(o !== void 0 ? o : l), m = J(null), x = !!(o ?? b ?? "").length, w = N(() => {
+    const e = f ?? [];
     return Array.isArray(e) && e.length > 0 && Array.isArray(e[0]) ? e : [e];
-  }, [a]), j = w(
-    () => I.reduce((e, o) => e.concat(o), []),
-    [I]
+  }, [f]), j = N(
+    () => w.reduce((e, i) => e.concat(i), []),
+    [w]
   );
-  q(() => {
-    s !== void 0 && N(s);
-  }, [s]);
-  const F = () => {
-    n || (_(!0), p == null || p());
-  }, K = () => {
-    n || (_(!1), v == null || v());
-  }, P = (e) => {
-    (e.key === "Escape" || e.key === "Esc") && e.currentTarget.blur();
-  }, S = Z("Select", void 0, {
-    filled: $,
-    grouped: !!l,
-    groupedPosition: l ?? void 0,
-    prefix: !!d,
+  L(() => {
+    o !== void 0 && _(o);
+  }, [o]);
+  const K = () => {
+    n || (I(!0), y == null || y());
+  }, S = () => {
+    n || (I(!1), h == null || h());
+  }, q = (e) => {
+    (e.key === "Escape" || e.key === "Esc") && !O && e.currentTarget.blur();
+  }, z = (e) => {
+    const i = e.currentTarget;
+    let c = e.target;
+    for (; c && c !== i; ) {
+      const g = c.getAttribute("data-pui-interactive");
+      if (g === "true") {
+        e.stopPropagation();
+        return;
+      }
+      if (g === "false")
+        return;
+      c = c.parentElement;
+    }
+  }, B = re("Select", void 0, {
+    filled: x,
+    grouped: !!a,
+    groupedPosition: a ?? void 0,
+    prefix: !!v,
     error: r,
     disabled: n,
-    focused: T,
-    open: b
-  }), g = (e) => {
-    if (O.current = e, !!f)
-      if (typeof f == "function")
-        f(e);
+    focused: F,
+    open: O
+  }), G = (e) => {
+    if (m.current = e, !!u)
+      if (typeof u == "function")
+        u(e);
       else {
-        const o = f;
-        o.current = e;
+        const i = u;
+        i.current = e;
       }
   };
-  return /* @__PURE__ */ t(x, { children: [
+  return /* @__PURE__ */ t($, { children: [
     /* @__PURE__ */ t(
       "div",
       {
-        id: u,
-        className: [S, m].join(" ").trim(),
+        id: d,
+        className: [B, p].join(" ").trim(),
         "data-pui-interactive": "true",
-        ref: g,
-        tabIndex: n ? -1 : 0,
-        ...D,
-        onFocus: F,
-        onBlur: K,
-        onKeyDown: P,
+        ref: G,
+        ...T,
+        tabIndex: k ?? (n ? -1 : 0),
+        onFocus: K,
+        onBlur: S,
+        onKeyDown: q,
         children: [
-          d && /* @__PURE__ */ t("div", { className: "Select__prefix", children: d }),
-          /* @__PURE__ */ t("div", { className: "Select__content", children: $ ? (k = j.find((e) => e.value === y)) == null ? void 0 : k.label : i }),
-          /* @__PURE__ */ t("div", { className: "Select__suffix", children: /* @__PURE__ */ t(G, { glyph: V, size: 16, intent: "neutral", disabled: n }) })
+          v && /* @__PURE__ */ t("div", { className: "Select__prefix", onMouseDown: z, children: v }),
+          /* @__PURE__ */ t("div", { className: "Select__content", children: x ? (D = j.find((e) => e.value === b)) == null ? void 0 : D.label : s }),
+          /* @__PURE__ */ t("div", { className: "Select__suffix", children: /* @__PURE__ */ t(Q, { glyph: te, size: 16, intent: "neutral", disabled: n }) })
         ]
       }
     ),
     /* @__PURE__ */ t(
-      J,
+      W,
       {
-        triggerRef: O,
-        open: b,
+        triggerRef: m,
+        open: O,
         setOpen: (e) => {
-          n || E(e);
+          n || R(e);
         },
         children: /* @__PURE__ */ t(
-          ee,
+          ie,
           {
-            menuContainerProps: A,
-            groups: I,
-            selectedValue: y,
-            onSelectedChange: ({ event: e, value: o }) => {
-              o !== void 0 && N(o), h == null || h({ event: e, value: o }), E(!1);
+            menuContainerProps: P,
+            groups: w,
+            selectedValue: b,
+            onSelectedChange: ({ event: e, value: i }) => {
+              i !== void 0 && _(i), M == null || M({ event: e, value: i }), R(!1), e && e.detail === 0 && requestAnimationFrame(() => {
+                var c;
+                (c = m.current) == null || c.focus();
+              });
             }
           }
         )
       }
     ),
-    R && /* @__PURE__ */ t(X, { anchorRef: O, children: R })
+    E && /* @__PURE__ */ t(C, { anchorRef: m, children: E })
   ] });
-}, ee = ({ menuContainerProps: u, groups: m, selectedValue: a, onSelectedChange: i }) => {
-  const c = L();
+}, ie = ({ menuContainerProps: d, groups: p, selectedValue: f, onSelectedChange: s }) => {
+  const l = X();
   return /* @__PURE__ */ t(
-    W,
+    V,
     {
-      anchorRef: c.anchorRef,
+      anchorRef: l.anchorRef,
       placement: "over",
       offsetEdge: 16,
-      open: c.open,
+      open: l.open,
       closeOnClickOutside: !0,
-      onClose: () => c.setOpen(!1),
-      children: /* @__PURE__ */ t(H, { ...u, children: m.map((s, l) => /* @__PURE__ */ t(x, { children: [
-        l > 0 ? /* @__PURE__ */ t(Q, { variant: "inset" }) : null,
-        s.map((r) => r.children && typeof r.children != "string" ? z(r.children, {
-          key: `${l}-${r.value}`,
+      onClose: () => l.setOpen(!1),
+      children: /* @__PURE__ */ t(U, { ...d, children: p.map((o, a) => /* @__PURE__ */ t($, { children: [
+        a > 0 ? /* @__PURE__ */ t(Y, { variant: "inset" }) : null,
+        o.map((r) => r.children && typeof r.children != "string" ? H(r.children, {
+          key: `${a}-${r.value}`,
           id: r.value,
           label: r.label,
           value: r.value,
           disabled: r.disabled,
-          focused: c.focusedItemId === r.value,
-          selected: r.value === a,
-          onSelectedChange: ({ event: n }) => i == null ? void 0 : i({ event: n, value: r.value })
+          focused: l.focusedItemId === r.value,
+          selected: r.value === f,
+          onSelectedChange: ({ event: n }) => s == null ? void 0 : s({ event: n, value: r.value })
         }) : /* @__PURE__ */ t(
-          U,
+          Z,
           {
             disabled: r.disabled,
             id: r.value,
-            focused: c.focusedItemId === r.value,
-            selected: r.value === a,
-            onSelectedChange: ({ event: n }) => i == null ? void 0 : i({ event: n, value: r.value }),
+            focused: l.focusedItemId === r.value,
+            selected: r.value === f,
+            onSelectedChange: ({ event: n }) => s == null ? void 0 : s({ event: n, value: r.value }),
             children: r.label
           },
-          `${l}-${r.value}`
+          `${a}-${r.value}`
         ))
-      ] }, `group-${l}`)) })
+      ] }, `group-${a}`)) })
     }
   );
-}, pe = Y(C);
+}, Oe = ee(ne);
 export {
-  pe as Select
+  Oe as Select
 };

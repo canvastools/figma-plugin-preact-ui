@@ -1,11 +1,11 @@
-import { jsx as ue } from "./index.es143.js";
-import { createContext as he } from "preact";
-import { useState as N, useRef as T, useMemo as me, useCallback as A, useEffect as j, useContext as ge } from "preact/hooks";
-const _ = he(void 0), pe = () => {
-  const P = ge(_);
+import { jsx as he } from "./index.es178.js";
+import { createContext as me } from "preact";
+import { useState as N, useRef as T, useMemo as ge, useCallback as A, useEffect as j, useContext as Ie } from "preact/hooks";
+const _ = me(void 0), xe = () => {
+  const P = Ie(_);
   if (!P) throw new Error("ListContext not found");
   return P;
-}, xe = (P) => {
+}, ve = (P) => {
   const {
     items: V,
     selectedItemIds: B = [],
@@ -13,11 +13,12 @@ const _ = he(void 0), pe = () => {
     deselectOnClickOutside: q = !1,
     onItemsChange: L,
     onSelectionChange: h,
-    children: $
-  } = P, H = V !== void 0, [ee, te] = N(V ?? []), [K, R] = N(new Set(B)), [ne, Q] = N(/* @__PURE__ */ new Set()), D = T(/* @__PURE__ */ new Map()), J = T(/* @__PURE__ */ new Map()), U = H && L !== void 0, y = h !== void 0, v = H ? V : ee, p = me(
-    () => y ? new Set(B) : K,
-    [y, B, K]
-  ), O = T(null), W = T(/* @__PURE__ */ new Set()), X = A((e) => {
+    onKeyDown: $,
+    children: ee
+  } = P, G = V !== void 0, [te, ne] = N(V ?? []), [H, R] = N(new Set(B)), [se, Q] = N(/* @__PURE__ */ new Set()), O = T(/* @__PURE__ */ new Map()), J = T(/* @__PURE__ */ new Map()), U = G && L !== void 0, y = h !== void 0, v = G ? V : te, p = ge(
+    () => y ? new Set(B) : H,
+    [y, B, H]
+  ), D = T(null), K = T(/* @__PURE__ */ new Set()), X = A((e) => {
     const s = [], t = (o) => {
       o.forEach((i) => {
         s.push(i.id), i.items && i.items.length && t(i.items);
@@ -52,7 +53,7 @@ const _ = he(void 0), pe = () => {
         var i, g, f;
         for (const a of t) {
           if (a.id === e)
-            return o && ((i = o.items) == null ? void 0 : i.length) === 1 && ((g = D.current.get(o.id)) == null ? void 0 : g.selectionScope) === "withDescendants" ? o.id : e;
+            return o && ((i = o.items) == null ? void 0 : i.length) === 1 && ((g = O.current.get(o.id)) == null ? void 0 : g.selectionScope) === "withDescendants" ? o.id : e;
           if ((f = a.items) != null && f.length) {
             const c = s(a.items, a);
             if (c !== void 0) return c;
@@ -62,16 +63,16 @@ const _ = he(void 0), pe = () => {
       return s(v, null) ?? e;
     },
     [v]
-  ), se = A(
+  ), re = A(
     (e) => {
       const s = new Set(e);
       y || R(s), h == null || h({ selectedItemIds: Array.from(s) });
     },
     [y, h]
-  ), re = A(
+  ), ce = A(
     (e, s) => {
       if (z === void 0) return;
-      const t = Y(e), o = D.current.get(t), i = (o == null ? void 0 : o.selectionScope) === "withDescendants", g = (n, m) => {
+      const t = Y(e), o = O.current.get(t), i = (o == null ? void 0 : o.selectionScope) === "withDescendants", g = (n, m) => {
         if (n.size !== m.size) return !1;
         for (const w of n)
           if (!m.has(w)) return !1;
@@ -87,15 +88,15 @@ const _ = he(void 0), pe = () => {
           n = /* @__PURE__ */ new Set(), m || n.add(t);
         }
         if (g(n, p)) {
-          O.current = t;
+          D.current = t;
           return;
         }
-        y || R(n), h == null || h({ selectedItemIds: Array.from(n) }), O.current = t;
+        y || R(n), h == null || h({ selectedItemIds: Array.from(n) }), D.current = t;
         return;
       }
       if (a) {
         const n = X(v);
-        let m = O.current || t, w = n.indexOf(m);
+        let m = D.current || t, w = n.indexOf(m);
         const r = n.indexOf(t);
         if (w === -1 && (m = t, w = n.indexOf(m)), w === -1 || r === -1) return;
         const [l, S] = w <= r ? [w, r] : [r, w], I = n.slice(l, S + 1), u = /* @__PURE__ */ new Set(), d = /* @__PURE__ */ new Set(), M = /* @__PURE__ */ new Map(), b = (E, x) => {
@@ -113,17 +114,17 @@ const _ = he(void 0), pe = () => {
           return !1;
         };
         if (I.forEach((E) => {
-          const x = D.current.get(E);
+          const x = O.current.get(E);
           if ((x == null ? void 0 : x.selectable) === !1) {
             (x == null ? void 0 : x.selectionScope) === "withDescendants" && d.add(E);
             return;
           }
-          C(E) || ((x == null ? void 0 : x.selectionScope) === "withDescendants" ? [E, ...k(E)].forEach((fe) => u.add(fe)) : u.add(E));
+          C(E) || ((x == null ? void 0 : x.selectionScope) === "withDescendants" ? [E, ...k(E)].forEach((ue) => u.add(ue)) : u.add(E));
         }), g(u, p)) {
-          O.current = t;
+          D.current = t;
           return;
         }
-        y || R(u), h == null || h({ selectedItemIds: Array.from(u) }), O.current = t;
+        y || R(u), h == null || h({ selectedItemIds: Array.from(u) }), D.current = t;
         return;
       }
       if (f) {
@@ -134,10 +135,10 @@ const _ = he(void 0), pe = () => {
         } else
           n.has(t) ? n.delete(t) : n.add(t);
         if (g(n, p)) {
-          O.current = t;
+          D.current = t;
           return;
         }
-        y || R(n), h == null || h({ selectedItemIds: Array.from(n) }), O.current = t;
+        y || R(n), h == null || h({ selectedItemIds: Array.from(n) }), D.current = t;
         return;
       }
       let c;
@@ -147,10 +148,10 @@ const _ = he(void 0), pe = () => {
       } else
         c = p.size === 1 && p.has(t) ? /* @__PURE__ */ new Set() : /* @__PURE__ */ new Set([t]);
       if (g(c, p)) {
-        O.current = t;
+        D.current = t;
         return;
       }
-      y || R(c), h == null || h({ selectedItemIds: Array.from(c) }), O.current = t;
+      y || R(c), h == null || h({ selectedItemIds: Array.from(c) }), D.current = t;
     },
     [
       z,
@@ -162,7 +163,7 @@ const _ = he(void 0), pe = () => {
       k,
       Y
     ]
-  ), ce = A(
+  ), oe = A(
     (e, s, t) => {
       if (e.length === 0) return;
       const o = JSON.parse(JSON.stringify(v)), i = (() => {
@@ -236,7 +237,7 @@ const _ = he(void 0), pe = () => {
           d.length === r.length && d.every((C, E) => C === r[E]) && M < l && S++;
         }), w[w.length - 1] = Math.max(0, l - S);
       }
-      f(o, w, m, a), U || te(o), L == null || L({ items: o });
+      f(o, w, m, a), U || ne(o), L == null || L({ items: o });
     },
     [v, L, U]
   );
@@ -245,7 +246,7 @@ const _ = he(void 0), pe = () => {
     const e = (s) => {
       const t = s.target;
       if (t) {
-        for (const o of W.current)
+        for (const o of K.current)
           if (o.contains(t)) return;
         if (p.size > 0) {
           const o = /* @__PURE__ */ new Set();
@@ -255,22 +256,22 @@ const _ = he(void 0), pe = () => {
     };
     return document.addEventListener("pointerdown", e), () => document.removeEventListener("pointerdown", e);
   }, [z, q, p, y, h]);
-  const G = T(null), [, Z] = N(0);
+  const W = T(null), [, Z] = N(0);
   j(() => {
     const e = document.createElement("div");
-    return e.style.width = "20px", e.style.height = "20px", e.style.opacity = "0", e.style.position = "absolute", e.style.top = "-1000px", e.style.pointerEvents = "none", document.body.appendChild(e), G.current = e, Z((s) => s + 1), () => {
-      document.body.removeChild(e), G.current = null, Z((s) => s + 1);
+    return e.style.width = "20px", e.style.height = "20px", e.style.opacity = "0", e.style.position = "absolute", e.style.top = "-1000px", e.style.pointerEvents = "none", document.body.appendChild(e), W.current = e, Z((s) => s + 1), () => {
+      document.body.removeChild(e), W.current = null, Z((s) => s + 1);
     };
   }, []);
-  const oe = A((e) => e ? (W.current.add(e), () => {
-    W.current.delete(e);
+  const ie = A((e) => e ? (K.current.add(e), () => {
+    K.current.delete(e);
   }) : () => {
-  }, []), ie = A(
-    (e, s) => (D.current.set(e, s), () => {
-      D.current.delete(e);
+  }, []), le = A(
+    (e, s) => (O.current.set(e, s), () => {
+      O.current.delete(e);
     }),
     []
-  ), le = A((e) => J.current.get(e) || null, []), ae = A((e, s) => (J.current.set(e, s), () => {
+  ), ae = A((e) => J.current.get(e) || null, []), de = A((e, s) => (J.current.set(e, s), () => {
     J.current.delete(e);
   }), []);
   j(() => {
@@ -304,13 +305,13 @@ const _ = he(void 0), pe = () => {
       const a = [f, ...k(f)], c = a.length > 0 && a.every((n) => e.has(n));
       return o.set(f, c), c;
     }, g = /* @__PURE__ */ new Set();
-    D.current.forEach((f, a) => {
+    O.current.forEach((f, a) => {
       f.selectionScope === "individual" && e.has(a) && g.add(a);
-    }), D.current.forEach((f, a) => {
+    }), O.current.forEach((f, a) => {
       if (f.selectionScope !== "withDescendants" || !e.has(a) || !i(a)) return;
       let c = s.get(a) ?? null;
       for (; c; ) {
-        const n = D.current.get(c);
+        const n = O.current.get(c);
         if ((n == null ? void 0 : n.selectionScope) === "withDescendants" && e.has(c) && i(c))
           return;
         c = s.get(c) ?? null;
@@ -318,24 +319,25 @@ const _ = he(void 0), pe = () => {
       g.add(a);
     }), Q(g);
   }, [k, v, p]);
-  const de = {
+  const fe = {
     items: v,
     selectedItemIds: p,
-    selectionOriginIds: ne,
+    selectionOriginIds: se,
     deselectOnClickOutside: q,
-    setSelection: se,
-    toggleSelect: re,
-    reorderItems: ce,
+    setSelection: re,
+    toggleSelect: ce,
+    reorderItems: oe,
     selectionMode: z,
-    registerRootElement: oe,
-    registerItem: ie,
-    getPathForId: le,
-    registerItemPath: ae,
-    dragImage: G.current
+    registerRootElement: ie,
+    registerItem: le,
+    getPathForId: ae,
+    registerItemPath: de,
+    dragImage: W.current,
+    onKeyDown: $
   };
-  return /* @__PURE__ */ ue(_.Provider, { value: de, children: $ });
+  return /* @__PURE__ */ he(_.Provider, { value: fe, children: ee });
 };
 export {
-  xe as ListContext,
-  pe as useListContext
+  ve as ListContext,
+  xe as useListContext
 };

@@ -1,174 +1,202 @@
 import "./index.es17.css";
-import { jsx as s } from "./index.es143.js";
-import { Fragment as dt } from "preact";
-import { useState as n, useRef as x, useImperativeHandle as pt, useEffect as B } from "preact/hooks";
-import { Text as ft } from "./index.es47.js";
-import { Tooltip as mt } from "./index.es50.js";
+import { jsx as o } from "./index.es178.js";
+import { Fragment as yt } from "preact";
+import { useState as l, useRef as M, useImperativeHandle as It, useEffect as x } from "preact/hooks";
+import { Text as _t } from "./index.es47.js";
+import { Tooltip as Et } from "./index.es50.js";
 /* empty css            */
-import { typedForwardRef as gt } from "./index.es145.js";
-import { bem as z } from "./index.es62.js";
-const ht = ({
-  id: L,
-  className: W,
-  variant: p = "default",
-  label: f,
-  placeholder: m,
-  type: $ = "text",
-  value: a,
-  defaultValue: q,
-  ghost: A = !1,
-  grouped: P,
-  error: G = !1,
-  disabled: F = !1,
-  prefix: g,
-  suffix: h,
-  showSuffixOnHover: J = !1,
+import { typedForwardRef as Pt } from "./index.es180.js";
+import { bem as $ } from "./index.es63.js";
+const wt = ({
+  id: q,
+  className: A,
+  variant: f = "default",
+  label: m,
+  placeholder: g,
+  type: C = "text",
+  value: s,
+  defaultValue: D,
+  ghost: G = !1,
+  grouped: k,
+  error: J = !1,
+  disabled: u = !1,
+  prefix: h,
+  suffix: T,
+  showSuffixOnHover: Q = !1,
   focusOnDoubleClick: r = !1,
-  minLength: Q = 0,
-  maxLength: U,
-  tooltip: k,
-  autoFocus: M = !1,
-  maxWidth: c,
+  focusOnPrefix: y = !1,
+  minLength: U = 0,
+  maxLength: V,
+  tooltip: H,
+  autoFocus: S = !1,
+  selectOnFocus: X = !1,
+  maxWidth: d,
   onValueChange: I,
-  onBlur: y,
-  onFocus: T,
-  onKeyDown: _,
-  ...V
-}, X) => {
-  const i = a !== void 0, [E, Y] = n(() => q ?? ""), [Z, H] = n(!1), [v, N] = n(!1), [C, S] = n(!1), [b, R] = n(!!(a ?? E ?? "")), [l, w] = n(!1), o = x(null), u = x(null), d = x(!1);
-  pt(X, () => o.current, []), B(() => {
-    if (!M) return;
+  onBlur: _,
+  onFocus: E,
+  onKeyDown: P,
+  tabIndex: w,
+  ...Y
+}, Z) => {
+  const c = s !== void 0, [N, b] = l(() => D ?? ""), [O, j] = l(!1), [tt, R] = l(!1), [et, v] = l(!1), [K, B] = l(!!(s ?? N ?? "")), [a, F] = l(!1), n = M(null), i = M(null), p = M(!1);
+  It(Z, () => n.current, []), x(() => {
+    if (!S) return;
     const t = window.setTimeout(() => {
       var e;
-      (e = u.current) == null || e.focus();
+      (e = i.current) == null || e.focus();
     }, 25);
     return () => clearTimeout(t);
-  }, [M]), B(() => {
-    i && a !== void 0 && R(a.length > 0);
-  }, [i, a]);
-  const D = z("Input", void 0, {
-    filled: b,
-    ghost: A,
-    disabled: F,
-    variant: p,
-    label: !!f,
-    grouped: !!P,
-    groupedPosition: P ?? void 0,
-    prefix: !!g,
-    suffix: !!h,
-    suffixOnHover: !!J,
-    focused: Z,
+  }, [S]), x(() => {
+    c && s !== void 0 && B(s.length > 0);
+  }, [c, s]);
+  const rt = $("Input", void 0, {
+    filled: K,
+    ghost: G,
+    disabled: u,
+    variant: f,
+    label: !!m,
+    grouped: !!k,
+    groupedPosition: k ?? void 0,
+    prefix: !!h,
+    suffix: !!T,
+    suffixOnHover: !!Q,
+    focused: O,
     // For double-click mode, apply keyboardFocus only when the wrapper
     // itself is focused via keyboard (Tab), not mouse.
-    keyboardFocus: r && C && v,
-    editing: l,
+    keyboardFocus: r && et && tt,
+    editing: a,
     doubleClick: r,
-    error: G
-  }), O = z("Input__display", void 0, {
-    placeholder: !!(m && !b)
-  }), tt = (t) => {
+    error: J
+  }), ot = $("Input__display", void 0, {
+    placeholder: !!(g && !K)
+  }), st = (t) => {
     t.stopPropagation();
     const e = t.currentTarget.value;
-    i || Y(e), R(e.length > 0), I == null || I({
+    c || b(e), B(e.length > 0), I == null || I({
       event: t,
       value: e
     });
-  }, et = (t) => {
-    t.stopPropagation(), H(!1), R(t.currentTarget.value.length > 0), y == null || y({
+  }, at = (t) => {
+    t.stopPropagation(), j(!1), B(t.currentTarget.value.length > 0), _ == null || _({
       event: t,
       value: t.currentTarget.value
-    }), r && o.current && l && setTimeout(() => {
-      o.current && o.current.focus();
+    }), r && n.current && a && setTimeout(() => {
+      n.current && n.current.focus();
     }, 0);
-  }, rt = (t) => {
-    t.currentTarget === t.target && (S(!0), N(!d.current));
-  }, st = (t) => {
-    t.currentTarget === t.target && (S(!1), N(!1));
-  }, at = (t) => {
-    t.stopPropagation(), H(!0), T == null || T({
+  }, nt = (t) => {
+    t.currentTarget === t.target && (v(!0), R(!p.current));
+  }, it = (t) => {
+    t.currentTarget === t.target && (v(!1), R(!1));
+  }, lt = (t) => {
+    if (t.stopPropagation(), j(!0), X) {
+      const e = t.currentTarget;
+      setTimeout(() => e.select(), 0);
+    }
+    E == null || E({
       event: t,
       value: t.currentTarget.value
     });
-  }, ot = (t) => {
-    t.stopPropagation(), _ == null || _({
+  }, ct = (t) => {
+    t.stopPropagation(), P == null || P({
       event: t,
       value: t.currentTarget.value
     }), (t.key === "Enter" || t.key === "Escape" || t.key === "Esc") && t.currentTarget.blur();
-  }, nt = (t) => {
+  }, ut = (t) => {
     t.stopPropagation();
-  }, it = () => {
-    d.current = !0;
-  }, lt = (t) => {
-    r && t.target === t.currentTarget && (t.key === " " || t.key === "Spacebar" || t.key === "Enter") && (t.preventDefault(), t.stopPropagation(), d.current = !1, w(!0));
-  }, ct = () => {
-    r && (d.current = !0, w(!0));
+  }, dt = () => {
+    p.current = !0;
+  }, pt = (t) => {
+    r && t.target === t.currentTarget && (t.key === " " || t.key === "Spacebar" || t.key === "Enter") && (t.preventDefault(), t.stopPropagation(), p.current = !1, F(!0));
+  }, z = () => {
+    p.current = !0, a ? setTimeout(() => {
+      var t;
+      return (t = i.current) == null ? void 0 : t.focus();
+    }, 0) : F(!0);
+  }, ft = () => {
+    r && z();
+  }, mt = (t) => {
+    var e;
+    u || (t.preventDefault(), (e = i.current) == null || e.focus());
+  }, gt = (t) => {
+    u || (t.preventDefault(), t.stopPropagation(), z());
+  }, ht = (t) => {
+    t.stopPropagation();
   };
-  B(() => {
-    r && l && setTimeout(() => {
-      var t, e, K;
-      (t = u.current) == null || t.focus(), (K = (e = u.current) == null ? void 0 : e.select) == null || K.call(e);
+  x(() => {
+    r && a && setTimeout(() => {
+      var t, e, W;
+      (t = i.current) == null || t.focus(), (W = (e = i.current) == null ? void 0 : e.select) == null || W.call(e);
     }, 0);
-  }, [r, l]);
-  const j = !r || l, ut = i ? a ?? "" : E;
-  return /* @__PURE__ */ s(dt, { children: [
-    /* @__PURE__ */ s(
+  }, [r, a]);
+  const L = !r || a, Tt = c ? s ?? "" : N;
+  return /* @__PURE__ */ o(yt, { children: [
+    /* @__PURE__ */ o(
       "div",
       {
-        id: L,
-        className: [D, W].join(" ").trim(),
-        "data-pui-interactive": j ? "true" : "false",
-        ref: o,
-        ...V,
+        id: q,
+        className: [rt, A].join(" ").trim(),
+        "data-pui-interactive": L ? "true" : "false",
+        ref: n,
+        ...Y,
         children: [
-          f && /* @__PURE__ */ s(ft, { className: "Input__label", intentModifier: "secondary", size: p === "list" ? "medium" : "small", truncate: !0, children: f }),
-          /* @__PURE__ */ s(
+          m && /* @__PURE__ */ o(_t, { className: "Input__label", intentModifier: "secondary", size: f === "list" ? "medium" : "small", truncate: !0, children: m }),
+          /* @__PURE__ */ o(
             "div",
             {
               className: "Input__container",
-              onKeyDown: lt,
-              onMouseDown: it,
-              onFocus: rt,
-              onBlur: st,
-              onDblClick: ct,
-              tabIndex: r ? 0 : void 0,
+              onKeyDown: pt,
+              onMouseDown: dt,
+              onFocus: nt,
+              onBlur: it,
+              onDblClick: ft,
+              tabIndex: r ? w ?? 0 : void 0,
               style: {
-                maxWidth: p === "default" ? void 0 : typeof c == "number" ? `${c}px` : c,
-                flexShrink: c ? 0 : void 0
+                maxWidth: f === "default" ? void 0 : typeof d == "number" ? `${d}px` : d,
+                flexShrink: d ? 0 : void 0
               },
               children: [
-                g && /* @__PURE__ */ s("div", { className: "Input__prefix", children: g }),
-                j ? /* @__PURE__ */ s(
+                h && /* @__PURE__ */ o(
+                  "div",
+                  {
+                    className: "Input__prefix",
+                    onMouseDownCapture: y && !r ? mt : void 0,
+                    onDblClickCapture: y && r ? gt : !y && r ? ht : void 0,
+                    children: h
+                  }
+                ),
+                L ? /* @__PURE__ */ o(
                   "input",
                   {
                     className: "Input__input-native",
                     ref: (t) => {
-                      u.current = t;
+                      i.current = t;
                     },
-                    minLength: Q,
-                    maxLength: U,
-                    type: $,
-                    disabled: F,
-                    placeholder: m,
-                    value: i ? a : E,
-                    onChange: tt,
-                    onClick: nt,
+                    minLength: U,
+                    maxLength: V,
+                    type: C,
+                    disabled: u,
+                    ...w !== void 0 && !r ? { tabIndex: w } : {},
+                    placeholder: g,
+                    value: c ? s : N,
+                    onChange: st,
+                    onClick: ut,
                     onBlur: (t) => {
-                      et(t), r && (w(!1), N(!1));
+                      at(t), r && (F(!1), R(!1));
                     },
-                    onFocus: at,
-                    onKeyDown: ot
+                    onFocus: lt,
+                    onKeyDown: ct
                   }
-                ) : /* @__PURE__ */ s("div", { className: O, children: ut || m }),
-                h && /* @__PURE__ */ s("div", { className: "Input__suffix", children: h })
+                ) : /* @__PURE__ */ o("div", { className: ot, children: Tt || g }),
+                T && /* @__PURE__ */ o("div", { className: "Input__suffix", children: T })
               ]
             }
           )
         ]
       }
     ),
-    k && /* @__PURE__ */ s(mt, { anchorRef: o, children: k })
+    H && /* @__PURE__ */ o(Et, { anchorRef: n, children: H })
   ] });
-}, xt = gt(ht);
+}, St = Pt(wt);
 export {
-  xt as Input
+  St as Input
 };

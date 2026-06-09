@@ -1,67 +1,67 @@
-const F = {
-  class: "figma-dark",
+const e = {
+  class: "figma-light",
   prefix: "--pui-color",
   variables: {
     neutral: {
       bg: {
-        default: "#2C2C2C",
-        "default-hover": "#FFFFFF0F",
-        "default-pressed": "#FFFFFF1F",
-        "default-selected": "#85A5FF5C",
-        "default-selected-hover": "#91B4FF5C",
-        "default-selected-pressed": "#85A5FF5C",
-        secondary: "#383838",
-        "secondary-hover": "#FFFFFF1F",
-        "secondary-pressed": "#FFFFFF0F",
-        "secondary-selected": "#6385FF42",
-        tertiary: "#444444",
-        "brand-hover": "#85A5FF5C",
-        "brand-pressed": "#6385FF42",
-        "danger-hover": "#AD3C1366",
-        "danger-pressed": "#9E4A29CC",
-        disabled: "#2C2C2C"
+        default: "#FFFFFF",
+        "default-hover": "#0000000D",
+        "default-pressed": "#0000001C",
+        "default-selected": "#0D99FF1F",
+        "default-selected-hover": "#0D99FF40",
+        "default-selected-pressed": "#0D99FF1F",
+        secondary: "#F5F5F5",
+        "secondary-hover": "#0000001C",
+        "secondary-pressed": "#0000000A",
+        "secondary-selected": "#0D99FF0F",
+        tertiary: "#E6E6E6",
+        "brand-hover": "#0D99FF1F",
+        "brand-pressed": "#0D99FF40",
+        "danger-hover": "#F2482214",
+        "danger-pressed": "#F2482229",
+        disabled: "#F5F5F5"
       },
       text: {
-        default: "#FFFFFF",
-        "default-selected": "#7CC4F8",
-        secondary: "#FFFFFFB3",
-        brand: "#7CC4F8",
-        danger: "#FCA397",
-        warning: "#F7D15F",
-        success: "#79D297",
-        component: "#D1A8FF",
-        disabled: "#FFFFFF66",
-        placeholder: "#FFFFFF8C"
+        default: "#000000E6",
+        "default-selected": "#007BE5",
+        secondary: "#00000085",
+        brand: "#007BE5",
+        danger: "#DC3412",
+        warning: "#B86200",
+        success: "#009951",
+        component: "#8638e5",
+        disabled: "#0000004D",
+        placeholder: "#00000080"
       },
       icon: {
-        default: "#FFFFFF",
-        "default-selected": "#7CC4F8",
-        secondary: "#FFFFFFB3",
-        tertiary: "#FFFFFF59",
-        brand: "#7CC4F8",
-        danger: "#FCA397",
-        warning: "#F7D15F",
-        success: "#79D297",
-        component: "#D1A8FF",
-        disabled: "#FFFFFF66"
+        default: "#000000E6",
+        "default-selected": "#007BE5",
+        secondary: "#00000085",
+        tertiary: "#00000033",
+        brand: "#007BE5",
+        danger: "#DC3412",
+        warning: "#B86200",
+        success: "#009951",
+        component: "#8638e5",
+        disabled: "#0000004D"
       },
       border: {
-        default: "#FFFFFF1F",
-        "default-hover": "#FFFFFF14",
-        "default-selected": "#0C8CE9",
-        "default-selected-contrast": "#7CC4F86B",
-        secondary: "#FFFFFF59",
-        brand: "#7CC4F866",
-        "brand-hover": "#7CC4F866",
-        "brand-selected": "#7CC4F8",
-        danger: "#F2482285",
-        "danger-error": "#D4583B",
-        warning: "#F2822780",
-        success: "#09ED743D",
-        disabled: "#FFFFFF1F",
-        "drop-position": "#FFFFFF",
-        "drop-position-restricted": "#D4583B",
-        swatch: "#FFFFFF1F"
+        default: "#0000001C",
+        "default-hover": "#00000014",
+        "default-selected": "#0D99FF",
+        "default-selected-contrast": "#0D99FF6B",
+        secondary: "#00000033",
+        brand: "#0D99FF40",
+        "brand-hover": "#0D99FF85",
+        "brand-selected": "#0D99FF",
+        danger: "#F248224D",
+        "danger-error": "#F24822",
+        warning: "#F2A42780",
+        success: "#12E3745C",
+        disabled: "#0000001C",
+        "drop-position": "#1A1A1A",
+        "drop-position-restricted": "#F24822",
+        swatch: "#0000001F"
       }
     },
     "neutral-fixed": {
@@ -71,18 +71,18 @@ const F = {
     },
     "neutral-inverted": {
       bg: {
-        default: "#FFFFFF",
-        "default-hover": "#D9D9D9",
-        "default-pressed": "#BFBFBF",
-        disabled: "#757575"
+        default: "#2C2C2C",
+        "default-hover": "#5C5C5C",
+        "default-pressed": "#808080",
+        disabled: "#D9D9D9"
       },
       text: {
-        default: "#1A1A1A",
-        disabled: "#2C2C2C"
+        default: "#FFFFFF",
+        disabled: "#FFFFFF"
       },
       icon: {
-        default: "#1A1A1A",
-        disabled: "#2C2C2C"
+        default: "#FFFFFF",
+        disabled: "#FFFFFF"
       }
     },
     "neutral-inverted-fixed": {
@@ -111,101 +111,102 @@ const F = {
     },
     brand: {
       bg: {
-        default: "#0C8CE9",
-        "default-hover": "#0A6CC2",
-        "default-pressed": "#105CAD",
-        disabled: "#757575"
+        default: "#0D99FF",
+        "default-hover": "#198DFB",
+        "default-pressed": "#0768CF",
+        secondary: "#0768CF",
+        disabled: "#D9D9D9"
       },
       text: {
         default: "#FFFFFF",
-        secondary: "#A8D6F7",
-        disabled: "#2C2C2C"
+        secondary: "#A8DAFF",
+        disabled: "#FFFFFF"
       },
       icon: {
         default: "#FFFFFF",
-        secondary: "#A8D6F7",
-        disabled: "#2C2C2C"
+        secondary: "#A8DAFF",
+        disabled: "#FFFFFF"
       },
       border: {
-        default: "#7CC4F8"
+        default: "#007BE5"
       }
     },
     danger: {
       bg: {
-        default: "#E03E1A",
-        "default-hover": "#C4381C",
-        "default-pressed": "#963323",
-        secondary: "#7C2622",
-        disabled: "#757575"
+        default: "#F24822",
+        "default-hover": "#DC3412",
+        "default-pressed": "#BD2915",
+        secondary: "#FFE2E0",
+        disabled: "#D9D9D9"
       },
       text: {
         default: "#FFFFFF",
-        disabled: "#2C2C2C"
+        disabled: "#FFFFFF"
       },
       icon: {
         default: "#FFFFFF",
-        disabled: "#2C2C2C"
+        disabled: "#FFFFFF"
       },
       border: {
-        default: "#A55440"
+        default: "#DC3412"
       }
     },
     warning: {
       bg: {
-        default: "#F3C11B",
-        disabled: "#757575"
+        default: "#FFCD29",
+        disabled: "#D9D9D9"
       },
       text: {
         default: "#000000",
-        disabled: "#2C2C2C"
+        disabled: "#FFFFFF"
       },
       icon: {
         default: "#000000",
-        disabled: "#2C2C2C"
+        disabled: "#FFFFFF"
       },
       border: {}
     },
     success: {
       bg: {
-        default: "#198F51",
-        "default-hover": "#078348",
-        "default-pressed": "#0A5C35",
-        disabled: "#757575"
+        default: "#14AE5C",
+        "default-hover": "#009951",
+        "default-pressed": "#008043",
+        disabled: "#D9D9D9"
       },
       text: {
         default: "#FFFFFF",
-        disabled: "#2C2C2C"
+        disabled: "#FFFFFF"
       },
       icon: {
         default: "#FFFFFF",
-        disabled: "#2C2C2C"
+        disabled: "#FFFFFF"
       },
       border: {
-        default: "#078348"
+        default: "#009951"
       }
     },
     system: {
       bg: {
-        scrollbar: "#686868",
-        resizer: "#A3A3A3"
+        scrollbar: "#D4D4D4",
+        resizer: "#A8A8A8"
       },
       border: {
-        focused: "#0C8CE9"
+        focused: "#0D99FF"
       }
     },
     shadow: {
-      "popover-hard": "#0000008A",
-      "popover-soft": "#00000052",
-      "popover-glare": "#ffffff0A",
-      "tooltip-hard": "#0000008A",
-      "tooltip-soft": "#00000052",
+      "popover-hard": "#0000002E",
+      "popover-soft": "#0000001F",
+      "popover-glare": "#FFFFFF",
+      "tooltip-hard": "#0000001C",
+      "tooltip-soft": "#0000001F",
       "tooltip-glare": "#ffffff0A",
-      "menu-hard": "#0000008A",
-      "menu-soft": "#00000052",
+      "menu-hard": "#0000002E",
+      "menu-soft": "#0000001F",
       "menu-glare": "#ffffff0A"
     }
   }
 };
 export {
-  F as figmaDark
+  e as figmaLight
 };
