@@ -11,6 +11,21 @@ type Coords = { top: number; left: number }
 type ArrowSide = 'top' | 'bottom' | 'left' | 'right'
 type ArrowData = { left: number; top: number; side: ArrowSide }
 
+// Largest clipped/scrollable overflow anywhere in the overlay tree. When
+// content is constrained (e.g. PopoverContainer with constrainHeight wrapping
+// a ScrollContainer that scrolls internally), the outer box stays capped, so
+// adding back the hidden amount reconstructs the natural content height.
+const findMaxHiddenOverflow = (node: HTMLElement, depth: number): number => {
+  let max = node.scrollHeight - node.clientHeight
+  if (max < 0) max = 0
+  if (depth >= 6) return max
+  for (let i = 0; i < node.children.length; i++) {
+    const v = findMaxHiddenOverflow(node.children[i] as HTMLElement, depth + 1)
+    if (v > max) max = v
+  }
+  return max
+}
+
 const computePlacement = (
   vw: number,
   vh: number,
@@ -256,28 +271,14 @@ const OverlayPositionerComponent = (
       return
     }
 
-    // Detect clipped/scrollable overflow anywhere in the overlay tree.
-    // When content is constrained (e.g. PopoverContainer with constrainHeight
-    // wrapping a ScrollContainer that scrolls internally), the outer box stays
-    // capped, so we add back the largest hidden amount to reconstruct the
-    // natural content height. computePlacement then picks a position that
-    // maximises the visible area.
+    // Reconstruct the natural content height so computePlacement can pick a
+    // position that maximises the visible area.
     //
     // Only do this for explicitly height-constrained overlays. Content-sized
     // overlays (e.g. tooltips) can report phantom overflow from absolutely
     // positioned decorations such as arrows, which would corrupt placement.
     if (constrainHeight && el) {
-      const findOverflow = (node: HTMLElement, depth: number): number => {
-        let max = node.scrollHeight - node.clientHeight
-        if (max < 0) max = 0
-        if (depth >= 6) return max
-        for (let i = 0; i < node.children.length; i++) {
-          const v = findOverflow(node.children[i] as HTMLElement, depth + 1)
-          if (v > max) max = v
-        }
-        return max
-      }
-      const overflow = findOverflow(el, 0)
+      const overflow = findMaxHiddenOverflow(el, 0)
       if (overflow > 1) h += overflow
     }
 
@@ -289,10 +290,43 @@ const OverlayPositionerComponent = (
     setIsReady(true)
   }, [anchorRef, placement, offsetX, offsetY, offsetEdge, resolvedPlacementFallback, constrainHeight])
 
+  // Keep a dragged overlay on-screen without discarding the manual position:
+  // X stays where the user dropped it, Y only shifts up when the (possibly
+  // grown) content no longer fits below, so the overlay grows in place
+  // instead of snapping back to the anchor.
+  const clampManualPos = useCallback(() => {
+    const el = containerRef.current
+    if (!el) return
+    const vw = window.innerWidth
+    const vh = window.innerHeight
+    const measured = el.getBoundingClientRect()
+    const w = Math.round(measured.width)
+    let h = Math.round(measured.height)
+    if (!w || !h) return
+    if (constrainHeight) {
+      const overflow = findMaxHiddenOverflow(el, 0)
+      if (overflow > 1) h += overflow
+    }
+    setManualPos((pos) => {
+      if (!pos) return pos
+      const left = Math.max(offsetEdge, Math.min(vw - w - offsetEdge, Math.round(pos.left)))
+      const top = Math.max(offsetEdge, Math.min(vh - h - offsetEdge, Math.round(pos.top)))
+      if (left === pos.left && top === pos.top) return pos
+      return { left, top }
+    })
+  }, [constrainHeight, offsetEdge])
+
+  const manualPosRef = useRef<Coords | null>(null)
+  manualPosRef.current = manualPos
+
   const reposition = useCallback(() => {
+    if (manualPosRef.current) {
+      clampManualPos()
+      return
+    }
     setManualPos(null)
     recompute()
-  }, [recompute])
+  }, [clampManualPos, recompute])
 
   useLayoutEffect(() => {
     if (isOpen) {
@@ -309,10 +343,6 @@ const OverlayPositionerComponent = (
   useEffect(() => {
     if (!isOpen) return
 
-    const onWin = () => recompute()
-    window.addEventListener('resize', onWin)
-    window.addEventListener('scroll', onWin, true)
-
     // Coalesce reposition triggers into a single rAF so that a burst of
     // resize / mutation callbacks (which can cascade as available-height and
     // max-height settle) results in just one recompute per frame.
@@ -325,6 +355,10 @@ const OverlayPositionerComponent = (
         if (!isDraggingRef.current) reposition()
       })
     }
+
+    const onWin = () => scheduleReposition()
+    window.addEventListener('resize', onWin)
+    window.addEventListener('scroll', onWin, true)
 
     // Recompute when overlay content resizes (fonts, images, content shrinking
     // back below the cap) and when its subtree mutates (content toggled). The
