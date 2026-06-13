@@ -143,6 +143,7 @@ const MenuItemOptionComponent = (
         itemRef.current = el
       }}
       {...rest}
+      data-pui-selected={isSelected ? 'true' : undefined}
       tabIndex={tabIndex ?? -1}
       onClick={handleClick}
       onMouseEnter={handleMouseEnter}

@@ -2,6 +2,7 @@ import { Meta, StoryObj } from '@storybook/preact'
 
 import { SizeStory } from './stories/Size.story'
 import { ManyItemsStory } from './stories/ManyItems.story'
+import { ScrollToSelectedStory } from './stories/ScrollToSelected.story'
 
 import { MenuContainer } from './MenuContainer'
 
@@ -98,3 +99,4 @@ export const Demo: Story = {
 
 export const Size = SizeStory
 export const ManyItems = ManyItemsStory
+export const ScrollToSelected = ScrollToSelectedStory

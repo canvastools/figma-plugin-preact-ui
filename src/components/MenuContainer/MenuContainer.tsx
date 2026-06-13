@@ -59,6 +59,46 @@ const MenuContainerComponent = (
     }
   }, [updateScrollState])
 
+  const centerOnElement = useCallback(
+    (target: HTMLElement) => {
+      const el = scrollRef.current
+      if (!el || !el.contains(target)) return
+
+      const scrollRect = el.getBoundingClientRect()
+      const targetRect = target.getBoundingClientRect()
+
+      const itemTopInContent = targetRect.top - scrollRect.top + el.scrollTop
+      const targetScrollTop = itemTopInContent + targetRect.height / 2 - el.clientHeight / 2
+
+      const maxScroll = el.scrollHeight - el.clientHeight
+      el.scrollTop = Math.max(0, Math.min(maxScroll, targetScrollTop))
+      updateScrollState()
+    },
+    [updateScrollState],
+  )
+
+  // On open, scroll the selected option into view so it isn't hidden behind the
+  // scroll fold. Runs after the overlay has been positioned (double rAF) so the
+  // scroll metrics are final.
+  useEffect(() => {
+    const el = scrollRef.current
+    if (!el) return
+
+    let raf1 = 0
+    let raf2 = 0
+    raf1 = requestAnimationFrame(() => {
+      raf2 = requestAnimationFrame(() => {
+        const selected = el.querySelector<HTMLElement>('[data-pui-selected="true"]')
+        if (selected) centerOnElement(selected)
+      })
+    })
+
+    return () => {
+      cancelAnimationFrame(raf1)
+      cancelAnimationFrame(raf2)
+    }
+  }, [centerOnElement])
+
   const stopScrolling = useCallback(() => {
     if (rafRef.current != null) {
       cancelAnimationFrame(rafRef.current)
@@ -104,15 +144,7 @@ const MenuContainerComponent = (
       const target = e.target as HTMLElement | null
       if (!target || !el.contains(target)) return
 
-      const scrollRect = el.getBoundingClientRect()
-      const targetRect = target.getBoundingClientRect()
-
-      const itemTopInContent = targetRect.top - scrollRect.top + el.scrollTop
-      const targetScrollTop = itemTopInContent + targetRect.height / 2 - el.clientHeight / 2
-
-      const maxScroll = el.scrollHeight - el.clientHeight
-      el.scrollTop = Math.max(0, Math.min(maxScroll, targetScrollTop))
-      updateScrollState()
+      centerOnElement(target)
     }
 
     el.addEventListener('pointerdown', handlePointerDown, true)
@@ -123,7 +155,7 @@ const MenuContainerComponent = (
       window.removeEventListener('pointerup', handlePointerUp, true)
       el.removeEventListener('focusin', handleFocusIn)
     }
-  }, [updateScrollState])
+  }, [centerOnElement])
 
   useEffect(() => {
     return () => stopScrolling()
