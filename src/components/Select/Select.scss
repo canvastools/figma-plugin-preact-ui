@@ -6,9 +6,8 @@
   display: flex;
   align-items: center;
   height: 24px;
-  width: 100%;
   user-select: none;
-
+  width: fit-content;
   border-radius: var(--pui-radius-medium);
   overflow: hidden;
 
@@ -17,6 +16,10 @@
   outline-offset: -1px;
   outline-color: var(--pui-color-neutral-border-default);
   background-color: var(--pui-color-neutral-bg-default);
+
+  &_fullWidth {
+    width: 100%;
+  }
 
   &_open {
     outline-width: 0px;
@@ -27,6 +30,11 @@
   &:hover:is(:focus-within) {
     outline-color: var(--pui-color-neutral-border-default-selected) !important;
     z-index: 1;
+  }
+
+  &_ghost {
+    background-color: transparent;
+    outline-color: transparent;
   }
 
   &_error {
@@ -61,7 +69,7 @@
     display: flex;
     align-items: center;
     flex: 1;
-    padding: 0 var(--pui-spacing-200);
+    padding: 0 var(--pui-spacing-100) 0 var(--pui-spacing-200);
     white-space: nowrap;
     overflow: hidden;
     cursor: default;
@@ -98,5 +106,10 @@
 
   &_disabled &__content {
     color: var(--pui-color-neutral-text-disabled) !important;
+  }
+
+  &_ghost:is(&_disabled) {
+    background-color: transparent !important;
+    outline-color: transparent !important;
   }
 }

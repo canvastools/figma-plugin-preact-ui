@@ -15,8 +15,10 @@ export interface SelectProps {
   defaultValue?: string
   value?: string
   grouped?: 'first' | 'last' | 'middle'
+  ghost?: boolean
   error?: boolean
   disabled?: boolean
+  fullWidth?: boolean
   tabIndex?: number
   prefix?: preact.ComponentChildren
   tooltip?: preact.ComponentChildren
