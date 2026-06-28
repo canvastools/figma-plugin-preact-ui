@@ -1,0 +1,1 @@
+import{u as d}from"./hooks.module-BOklADZz.js";import{t as n,b as p}from"./typedForwardRef-IM0ZXC4v.js";const c=({id:o,className:r,showDividerTop:a=!1,showDividerBottom:t=!1,children:e,...s},i)=>{const m=p("Bar",void 0,{dividerTop:a,dividerBottom:t});return d("div",{id:o,className:[m,r].join(" ").trim(),ref:i,...s,children:e})},l=n(c);export{l as B};
