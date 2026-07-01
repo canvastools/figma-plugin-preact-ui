@@ -22,6 +22,7 @@ const ListItemComponent = (
     selectionScope = 'individual',
     collapsed,
     collapsable = false,
+    collapseIconIntent = 'secondary',
     onCollapsedChange,
     onDragStart,
     onDragEnd,
@@ -609,7 +610,7 @@ const ListItemComponent = (
             >
               <Icon
                 intent="neutral"
-                intentModifier="secondary"
+                intentModifier={collapseIconIntent}
                 glyph={effectiveCollapsed ? chevronRightGlyph : chevronDownGlyph}
                 size={16}
                 variant="default"

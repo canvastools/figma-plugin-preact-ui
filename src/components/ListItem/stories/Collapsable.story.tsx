@@ -78,12 +78,15 @@ export const CollapsableStory: Story = {
               hoverable={true}
               items={item.items ? renderItems(item.items, level + 1, variant) : undefined}
               collapsable={true}
+              collapseIconIntent={item.id.startsWith('Frame 2') ? 'component-secondary' : 'secondary'}
             >
               <Stack direction="row" y="center">
                 {variant === 'layer' && <Spacing direction="row" size={200} />}
                 <Stack direction="row" spacing={200} y="center">
-                  {item.id === 'Frame 2' && <Icon glyph={instance} size={16} intentModifier="component" />}
-                  {item.id.startsWith('Frame 2-') && <Icon glyph={frame} size={16} intentModifier="component" />}
+                  {item.id === 'Frame 2' && <Icon glyph={instance} size={16} intentModifier="component" variant="downscaled" />}
+                  {item.id.startsWith('Frame 2-') && (
+                    <Icon glyph={frame} size={16} intentModifier="component" variant="downscaled" />
+                  )}
                   <Text wrap={false} intentModifier={item.id.startsWith('Frame 2') ? 'component' : 'default'}>
                     {item.id}
                   </Text>
