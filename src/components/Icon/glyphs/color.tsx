@@ -1,6 +1,6 @@
 import { GlyphProps } from '../Icon.types'
 
-export const palette = ({ variant }: GlyphProps) => {
+export const color = ({ variant }: GlyphProps) => {
   const combination = variant
 
   switch (combination) {
@@ -35,6 +35,6 @@ export const palette = ({ variant }: GlyphProps) => {
       )
 
     default:
-      throw new Error(`palette icon error: Unsupported combination variant=${variant}`)
+      throw new Error(`color icon error: Unsupported combination variant=${variant}`)
   }
 }
