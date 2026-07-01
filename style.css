@@ -72,7 +72,9 @@
   --pui-color-neutral-border-warning: #F2A42780;
   --pui-color-neutral-border-success: #12E3745C;
   --pui-color-neutral-border-component: #8638e5;
+  --pui-color-neutral-border-component-secondary: #C5B2DC;
   --pui-color-neutral-border-slot: #FF24BD;
+  --pui-color-neutral-border-slot-secondary: #E5AED4;
   --pui-color-neutral-border-disabled: #0000001C;
   --pui-color-neutral-border-drop-position: #1A1A1A;
   --pui-color-neutral-border-drop-position-restricted: #F24822;
@@ -206,8 +208,10 @@
   --pui-color-neutral-border-danger-error: #D4583B;
   --pui-color-neutral-border-warning: #F2822780;
   --pui-color-neutral-border-success: #09ED743D;
-  --pui-color-neutral-border-component: #8638e5;
-  --pui-color-neutral-border-slot: #FF24BD;
+  --pui-color-neutral-border-component: #D1A8FF;
+  --pui-color-neutral-border-component-secondary: #6B5884;
+  --pui-color-neutral-border-slot: #F08DD1;
+  --pui-color-neutral-border-slot-secondary: #9B4A81;
   --pui-color-neutral-border-disabled: #FFFFFF1F;
   --pui-color-neutral-border-drop-position: #FFFFFF;
   --pui-color-neutral-border-drop-position-restricted: #D4583B;
@@ -342,7 +346,9 @@
   --pui-color-neutral-border-warning: #F2A42780;
   --pui-color-neutral-border-success: #12E3745C;
   --pui-color-neutral-border-component: #8638e5;
+  --pui-color-neutral-border-component-secondary: #C5B2DC;
   --pui-color-neutral-border-slot: #FF24BD;
+  --pui-color-neutral-border-slot-secondary: #E5AED4;
   --pui-color-neutral-border-disabled: #0000001C;
   --pui-color-neutral-border-drop-position: #1A1A1A;
   --pui-color-neutral-border-drop-position-restricted: #F24822;
