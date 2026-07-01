@@ -96,9 +96,11 @@ const figmaDark: ColorTokenTree = {
 
         success: '#09ED743D',
 
-        component: '#8638e5',
+        component: '#D1A8FF',
+        'component-secondary': '#6B5884',
 
-        slot: '#FF24BD',
+        slot: '#F08DD1',
+        'slot-secondary': '#9B4A81',
 
         disabled: '#FFFFFF1F',
 

@@ -97,8 +97,10 @@ const figmaLight: ColorTokenTree = {
         success: '#12E3745C',
 
         component: '#8638e5',
+        'component-secondary': '#C5B2DC',
 
         slot: '#FF24BD',
+        'slot-secondary': '#E5AED4',
 
         disabled: '#0000001C',
 
