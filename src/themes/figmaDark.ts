@@ -44,6 +44,10 @@ const figmaDark: ColorTokenTree = {
         success: '#79D297',
 
         component: '#D1A8FF',
+        'component-secondary': '#6B5884',
+
+        slot: '#F08DD1',
+        'slot-secondary': '#9B4A81',
 
         disabled: '#FFFFFF66',
 
@@ -66,6 +70,10 @@ const figmaDark: ColorTokenTree = {
         success: '#79D297',
 
         component: '#D1A8FF',
+        'component-secondary': '#6B5884',
+
+        slot: '#F08DD1',
+        'slot-secondary': '#9B4A81',
 
         disabled: '#FFFFFF66',
       },
@@ -87,6 +95,10 @@ const figmaDark: ColorTokenTree = {
         warning: '#F2822780',
 
         success: '#09ED743D',
+
+        component: '#8638e5',
+
+        slot: '#FF24BD',
 
         disabled: '#FFFFFF1F',
 

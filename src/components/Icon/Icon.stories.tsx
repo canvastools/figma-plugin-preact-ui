@@ -44,7 +44,19 @@ const meta: Meta<typeof Icon> = {
     },
     intentModifier: {
       control: { type: 'radio' },
-      options: ['default', 'secondary', 'tertiary', 'brand', 'danger', 'warning', 'success', 'component'],
+      options: [
+        'default',
+        'secondary',
+        'tertiary',
+        'brand',
+        'danger',
+        'warning',
+        'success',
+        'component',
+        'component-secondary',
+        'slot',
+        'slot-secondary',
+      ],
       defaultValue: { summary: 'default' },
     },
     disabled: {
