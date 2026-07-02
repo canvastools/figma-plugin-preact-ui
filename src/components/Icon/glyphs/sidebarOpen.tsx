@@ -1,6 +1,6 @@
 import { GlyphProps } from '../Icon.types'
 
-export const sidebar = ({ variant }: GlyphProps) => {
+export const sidebarOpen = ({ variant }: GlyphProps) => {
   const combination = variant
 
   switch (combination) {
@@ -34,6 +34,6 @@ export const sidebar = ({ variant }: GlyphProps) => {
       )
 
     default:
-      throw new Error(`sidebar icon error: Unsupported combination variant=${variant}`)
+      throw new Error(`sidebarOpen icon error: Unsupported combination variant=${variant}`)
   }
 }
