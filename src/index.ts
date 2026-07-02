@@ -77,6 +77,9 @@ export type { MenuDividerProps } from './components/MenuDivider/MenuDivider.type
 export { MenuItemAction } from './components/MenuItemAction/MenuItemAction'
 export type { MenuItemActionProps } from './components/MenuItemAction/MenuItemAction.types'
 
+export { MenuItemGroup } from './components/MenuItemGroup/MenuItemGroup'
+export type { MenuItemGroupProps } from './components/MenuItemGroup/MenuItemGroup.types'
+
 export { MenuItemOption } from './components/MenuItemOption/MenuItemOption'
 export type { MenuItemOptionProps } from './components/MenuItemOption/MenuItemOption.types'
 

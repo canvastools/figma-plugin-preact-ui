@@ -9,6 +9,7 @@ import {
   MenuContainer,
   MenuItemAction,
   MenuItemOption,
+  MenuItemGroup,
   MenuDivider,
   OverlayPositioner,
 } from '../../index'
@@ -84,6 +85,12 @@ const MenuBody = ({
   }, [open, setOpen, onClose, triggerRef])
 
   const renderItem = (item: MenuItemData, index: number) => {
+    if (item.type === 'group') {
+      const { type: _groupKind, ...rest } = item
+      void _groupKind
+      return <MenuItemGroup key={index} {...rest} />
+    }
+
     if (item.type === 'action') {
       const { type: _actionKind, ...rest } = item
       void _actionKind

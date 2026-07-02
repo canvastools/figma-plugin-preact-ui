@@ -43,6 +43,13 @@ const meta: Meta = {
           summary: 'MenuItemData[]',
           detail: `
 
+// Group label
+
+{
+  type: "group" // required
+  ...Pick<MenuItemGroupProps>
+}
+
 // Action item
 
 {
@@ -162,6 +169,11 @@ export const Demo: Story = {
 
     const items: MenuItemData[] = [
       {
+        type: 'group',
+        children: 'Group 1',
+        paddingLikeOption: true,
+      },
+      {
         type: 'action',
         id: 'action-1',
         children: 'Action 1',
@@ -178,6 +190,11 @@ export const Demo: Story = {
         onClick: fn(),
       },
       { type: 'divider' },
+      {
+        type: 'group',
+        children: 'Group 2',
+        paddingLikeOption: true,
+      },
       {
         type: 'option',
         id: 'option-1',

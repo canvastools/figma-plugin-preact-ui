@@ -6,7 +6,7 @@ import { ScrollToSelectedStory } from './stories/ScrollToSelected.story'
 
 import { MenuContainer } from './MenuContainer'
 
-import { MenuDivider, MenuItemAction, MenuItemOption } from '../../index'
+import { MenuDivider, MenuItemAction, MenuItemOption, MenuItemGroup } from '../../index'
 
 const meta: Meta<typeof MenuContainer> = {
   title: 'Components/MenuContainer',
@@ -49,7 +49,6 @@ const meta: Meta<typeof MenuContainer> = {
         },
       },
     },
-
   },
 }
 
@@ -81,10 +80,12 @@ export const Demo: Story = {
   render: (args) => (
     <div className="sb-column sb-width-full">
       <MenuContainer {...args}>
-        <MenuItemAction paddingLikeOption>Action 1</MenuItemAction>
-        <MenuItemAction paddingLikeOption>Action 2</MenuItemAction>
-        <MenuItemAction paddingLikeOption>Action 3</MenuItemAction>
+        <MenuItemGroup>Group 1</MenuItemGroup>
+        <MenuItemAction>Action 1</MenuItemAction>
+        <MenuItemAction>Action 2</MenuItemAction>
+        <MenuItemAction>Action 3</MenuItemAction>
         <MenuDivider variant="inset" />
+        <MenuItemGroup paddingLikeOption>Group 2</MenuItemGroup>
         <MenuItemOption defaultSelected>Option 1</MenuItemOption>
         <MenuItemOption>Option 2</MenuItemOption>
         <MenuItemOption>Option 3</MenuItemOption>
