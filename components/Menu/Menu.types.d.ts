@@ -1,5 +1,7 @@
-import { MenuContextProps, MenuContainerProps, MenuItemActionProps, MenuItemOptionProps, MenuDividerProps, OverlayPositionerProps } from '../../index';
+import { MenuContextProps, MenuContainerProps, MenuItemActionProps, MenuItemOptionProps, MenuItemGroupProps, MenuDividerProps, OverlayPositionerProps } from '../../index';
 export type MenuItemData = ({
+    type: 'group';
+} & Pick<MenuItemGroupProps, 'className' | 'children' | 'paddingLikeOption'>) | ({
     type: 'action';
     closeOnClick?: boolean;
 } & Pick<MenuItemActionProps, 'id' | 'intentModifier' | 'disabled' | 'prefix' | 'suffix' | 'children' | 'paddingLikeOption' | 'onClick'>) | ({
