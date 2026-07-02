@@ -114,6 +114,9 @@ const figjamLight: ColorTokenTree = {
       bg: {
         swatch: '#FFFFFF',
       },
+      border: {
+        default: '#00000033',
+      },
     },
     'neutral-inverted': {
       bg: {
@@ -162,7 +165,7 @@ const figjamLight: ColorTokenTree = {
         disabled: '#808080',
       },
       border: {
-        default: '#383838',
+        default: '#FFFFFF1C',
       },
     },
     brand: {
