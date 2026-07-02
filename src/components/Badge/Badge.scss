@@ -54,6 +54,10 @@
   @include Badge_intent-outlined('neutral', 'danger');
   @include Badge_intent-outlined('neutral', 'warning');
   @include Badge_intent-outlined('neutral', 'success');
+  @include Badge_intent-outlined('neutral', 'component');
+  @include Badge_intent-outlined('neutral', 'component-secondary');
+  @include Badge_intent-outlined('neutral', 'slot');
+  @include Badge_intent-outlined('neutral', 'slot-secondary');
   @include Badge_intent-filled('neutral-inverted', 'default');
   @include Badge_intent-filled('brand', 'default');
   @include Badge_intent-filled('brand', 'secondary');
