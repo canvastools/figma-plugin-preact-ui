@@ -34,7 +34,18 @@ const meta: Meta<typeof Text> = {
     },
     intentModifier: {
       control: { type: 'radio' },
-      options: ['default', 'secondary', 'brand', 'danger', 'warning', 'success', 'component'],
+      options: [
+        'default',
+        'secondary',
+        'brand',
+        'danger',
+        'warning',
+        'success',
+        'component',
+        'component-secondary',
+        'slot',
+        'slot-secondary',
+      ],
       defaultValue: { summary: 'default' },
     },
     variant: {

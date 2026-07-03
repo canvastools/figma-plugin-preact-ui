@@ -1,151 +1,127 @@
 import "./index.es22.css";
-import { jsx as s } from "./index.es178.js";
-import { cloneElement as _ } from "preact";
-import { useState as D, useEffect as K, useRef as F } from "preact/hooks";
-import { MenuContainer as R } from "./index.es23.js";
-import { MenuContext as S, useMenuContext as j } from "./index.es24.js";
-import { MenuDivider as m } from "./index.es25.js";
-import { MenuItemAction as L } from "./index.es26.js";
-import { MenuItemOption as N } from "./index.es27.js";
-import { OverlayPositioner as x } from "./index.es28.js";
+import { jsx as e } from "./index.es203.js";
+import { cloneElement as K } from "preact";
+import { useState as S } from "preact/hooks";
+import { MenuContext as j, useMenuContext as m } from "./index.es24.js";
+import { MenuContainer as F } from "./index.es23.js";
+import { MenuItemAction as N } from "./index.es26.js";
+import { MenuItemOption as R } from "./index.es28.js";
+import { MenuItemGroup as w } from "./index.es27.js";
+import { MenuDivider as A } from "./index.es25.js";
+import { OverlayPositioner as B } from "./index.es29.js";
 /* empty css            */
-import { typedForwardRef as A } from "./index.es180.js";
-import { bem as B } from "./index.es63.js";
-const P = ({
-  items: k,
-  width: v,
-  height: M,
-  placement: C,
-  placementFallback: I,
-  offsetX: w,
-  offsetY: b,
-  offsetEdge: a,
-  onOpen: c,
-  onClose: t
-}) => {
-  const { triggerRef: i, anchorRef: E, open: d, focusedItemId: p, setOpen: h } = j(), l = F(!1);
-  K(() => {
-    d && !l.current ? (l.current = !0, c == null || c()) : !d && l.current && (l.current = !1);
-  }, [d, c]);
-  const f = () => {
-    h(!1), t == null || t();
-  };
-  K(() => {
-    if (!d) return;
-    const n = (r) => {
-      var o;
-      const { key: e } = r;
-      (e === "Escape" || e === "Esc") && (r.preventDefault(), h(!1), t == null || t(), (o = i == null ? void 0 : i.current) == null || o.focus());
-    };
-    return window.addEventListener("keydown", n), () => {
-      window.removeEventListener("keydown", n);
-    };
-  }, [d, h, t, i]);
-  const O = (n, r) => {
+import { typedForwardRef as D } from "./index.es205.js";
+import { bem as E } from "./index.es65.js";
+const G = ({ items: f, width: a, height: u, placement: h, placementFallback: C, offsetX: y, offsetY: k, offsetEdge: p }) => {
+  const { anchorRef: M, open: g, focusedItemId: i, setOpen: I } = m(), l = () => {
+    I(!1);
+  }, O = (n, o) => {
+    if (n.type === "group") {
+      const { type: c, ...r } = n;
+      return /* @__PURE__ */ e(w, { ...r }, o);
+    }
     if (n.type === "action") {
-      const { type: e, ...o } = n, u = (g) => {
-        var y;
-        (y = n.onClick) == null || y.call(n, g), n.closeOnClick && f();
+      const { type: c, ...r } = n, t = (s) => {
+        var d;
+        (d = n.onClick) == null || d.call(n, s), n.closeOnClick && l();
       };
-      return /* @__PURE__ */ s(
-        L,
+      return /* @__PURE__ */ e(
+        N,
         {
-          ...o,
+          ...r,
           id: n.id,
-          onClick: u,
-          focused: n.id ? p === n.id : !1
+          onClick: t,
+          focused: n.id ? i === n.id : !1
         },
-        n.id ?? r
+        n.id ?? o
       );
     }
     if (n.type === "option") {
-      const { type: e, ...o } = n, u = (g) => {
-        var y;
-        (y = n.onSelectedChange) == null || y.call(n, g), n.closeOnClick && f();
+      const { type: c, ...r } = n, t = (s) => {
+        var d;
+        (d = n.onSelectedChange) == null || d.call(n, s), n.closeOnClick && l();
       };
-      return /* @__PURE__ */ s(
-        N,
+      return /* @__PURE__ */ e(
+        R,
         {
-          ...o,
+          ...r,
           id: n.id,
-          onSelectedChange: u,
-          focused: n.id ? p === n.id : !1
+          onSelectedChange: t,
+          focused: n.id ? i === n.id : !1
         },
-        n.id ?? r
+        n.id ?? o
       );
     }
     if (n.type === "custom") {
-      const e = (o) => {
-        var u;
-        (u = n.onClick) == null || u.call(n, o), n.closeOnClick && f();
+      const c = (r) => {
+        var t;
+        (t = n.onClick) == null || t.call(n, r), n.closeOnClick && l();
       };
-      return n.children && typeof n.children != "string" ? _(n.children, {
-        key: n.id ?? r,
+      return n.children && typeof n.children != "string" ? K(n.children, {
+        key: n.id ?? o,
         id: n.id,
         disabled: n.disabled,
-        focused: n.id ? p === n.id : !1,
-        onClick: e
+        focused: n.id ? i === n.id : !1,
+        onClick: c
       }) : null;
     }
     if (n.type === "divider") {
-      const { type: e, ...o } = n;
-      return /* @__PURE__ */ s(m, { ...o }, r);
+      const { type: c, ...r } = n;
+      return /* @__PURE__ */ e(A, { ...r }, o);
     }
     return null;
   };
-  return /* @__PURE__ */ s(
-    x,
+  return /* @__PURE__ */ e(
+    B,
     {
-      anchorRef: E,
-      open: d,
-      placement: C,
-      placementFallback: I ?? [],
-      offsetX: w,
-      offsetY: b,
-      offsetEdge: a,
-      onClose: f,
+      anchorRef: M,
+      open: g,
+      placement: h,
+      placementFallback: C ?? [],
+      offsetX: y,
+      offsetY: k,
+      offsetEdge: p,
+      onClose: l,
       closeOnClickOutside: !0,
-      children: /* @__PURE__ */ s(R, { width: v, height: M, children: k.map((n, r) => O(n, r)) })
+      children: /* @__PURE__ */ e(F, { width: a, height: u, children: f.map((n, o) => O(n, o)) })
     }
   );
-}, q = ({
-  id: k,
-  className: v,
-  items: M,
-  triggerRef: C,
-  anchorRef: I,
-  width: w,
-  height: b,
-  open: a,
-  defaultOpen: c = !1,
-  placement: t = "bottom-left",
+}, P = ({
+  id: f,
+  className: a,
+  items: u,
+  triggerRef: h,
+  anchorRef: C,
+  width: y,
+  height: k,
+  open: p,
+  defaultOpen: M = !1,
+  placement: g = "bottom-left",
   placementFallback: i = ["bottom-right", "top-left", "top-right"],
-  offsetX: E = 0,
-  offsetY: d = 4,
-  offsetEdge: p = 16,
-  onOpen: h,
-  onClose: l,
-  ...f
-}, O) => {
-  const n = B("Menu", void 0, void 0), [r, e] = D(a ?? c);
-  return K(() => {
-    e(a ?? c);
-  }, [a, c]), /* @__PURE__ */ s(S, { triggerRef: C, anchorRef: I, open: r, setOpen: e, children: r && /* @__PURE__ */ s("div", { id: k, className: [n, v].join(" ").trim(), ref: O, ...f, children: /* @__PURE__ */ s(
-    P,
+  offsetX: I = 0,
+  offsetY: l = 4,
+  offsetEdge: O = 16,
+  onOpen: n,
+  onClose: o,
+  ...c
+}, r) => {
+  const t = E("Menu", void 0, void 0), s = p !== void 0, [d, _] = S(M), v = s ? p : d;
+  return /* @__PURE__ */ e(j, { triggerRef: h, anchorRef: C, open: v, setOpen: (b) => {
+    b !== v && (s || _(b), b ? n == null || n() : o == null || o());
+  }, children: v && /* @__PURE__ */ e("div", { id: f, className: [t, a].join(" ").trim(), ref: r, ...c, children: /* @__PURE__ */ e(
+    G,
     {
-      items: M,
-      width: w,
-      height: b,
-      placement: t,
+      items: u,
+      width: y,
+      height: k,
+      placement: g,
       placementFallback: i,
-      offsetX: E,
-      offsetY: d,
-      offsetEdge: p,
-      onOpen: h,
-      onClose: l
+      offsetX: I,
+      offsetY: l,
+      offsetEdge: O
     }
   ) }) });
-}, $ = A(q);
+}, x = D(P);
 export {
-  $ as Menu
+  x as Menu
 };

@@ -1,20 +1,18 @@
 import "./index.es33.css";
-import { jsx as r } from "./index.es178.js";
-import { useState as l, useEffect as p } from "preact/hooks";
+import { jsx as o } from "./index.es203.js";
+import { Text as d } from "./index.es49.js";
+import { ButtonIcon as c } from "./index.es6.js";
 /* empty css            */
-import { typedForwardRef as f } from "./index.es180.js";
-import { bem as b } from "./index.es63.js";
-const g = ({ id: s, className: i, variant: e = "indeterminate", delay: t = 0, value: o = 0, ...m }, n) => {
-  const [a, c] = l(!1);
-  p(() => {
-    const u = window.setTimeout(() => {
-      c(!0);
-    }, t);
-    return () => clearTimeout(u);
-  }, [t]);
-  const d = b("Progress", void 0, { variant: e, visible: a });
-  return /* @__PURE__ */ r("div", { id: s, className: [d, i].join(" ").trim(), "data-pui-interactive": "true", ref: n, ...m, children: e === "determinate" && /* @__PURE__ */ r("div", { className: "Progress__bar", style: { width: `${o}%` } }) });
-}, h = f(g);
+import { typedForwardRef as s } from "./index.es205.js";
+import { bem as a } from "./index.es65.js";
+import { close as l } from "./index.es90.js";
+const v = ({ id: e, className: t, children: i, onClose: r, ...m }, n) => {
+  const p = a("PopoverHeader", void 0, void 0);
+  return /* @__PURE__ */ o("div", { id: e, className: [p, t].join(" ").trim(), ref: n, ...m, children: /* @__PURE__ */ o("div", { className: "PopoverHeader__content", children: [
+    /* @__PURE__ */ o(d, { strong: !0, fullWidth: !0, children: i }),
+    /* @__PURE__ */ o(c, { ghost: !0, icon: { glyph: l }, onClick: r ? () => r() : void 0 })
+  ] }) });
+}, N = s(v);
 export {
-  h as Progress
+  N as PopoverHeader
 };

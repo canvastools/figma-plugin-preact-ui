@@ -6,7 +6,8 @@ import { useEffect, useRef, useState } from 'preact/hooks'
 
 import { TimePicker as ReactTimePicker } from 'react-time-picker'
 
-import { Text, Tooltip } from '../../index'
+import { Text } from '../Text/Text'
+import { Tooltip } from '../Tooltip/Tooltip'
 
 import type { TimePickerDate, TimePickerProps } from './TimePicker.types'
 import './TimePicker.scss'

@@ -33,6 +33,22 @@ const validIntentCombinations = [
     intent: 'neutral',
     intentModifier: 'success',
   },
+  {
+    intent: 'neutral',
+    intentModifier: 'component',
+  },
+  {
+    intent: 'neutral',
+    intentModifier: 'component-secondary',
+  },
+  {
+    intent: 'neutral',
+    intentModifier: 'slot',
+  },
+  {
+    intent: 'neutral',
+    intentModifier: 'slot-secondary',
+  },
 
   // neutral-inverted
   {

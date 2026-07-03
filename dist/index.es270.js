@@ -1,23 +1,56 @@
-import { getUserLocale as o } from "./index.es243.js";
-const c = /* @__PURE__ */ new Map();
-function l(e) {
-  return function(a, r) {
-    const t = a || o();
-    c.has(t) || c.set(t, /* @__PURE__ */ new Map());
-    const n = c.get(t);
-    return n.has(e) || n.set(e, new Intl.DateTimeFormat(t || void 0, e).format), n.get(e)(r);
-  };
-}
-const m = /* @__PURE__ */ new Map();
-function h(e) {
-  return (f, a) => {
-    const r = f || o();
-    m.has(r) || m.set(r, /* @__PURE__ */ new Map());
-    const t = m.get(r);
-    return t.has(e) || t.set(e, new Intl.NumberFormat(r || void 0, e).format), t.get(e)(a);
-  };
-}
+var e = {
+  GREGORY: "gregory",
+  HEBREW: "hebrew",
+  ISLAMIC: "islamic",
+  ISO_8601: "iso8601"
+}, r = {
+  gregory: [
+    "en-CA",
+    "en-US",
+    "es-AR",
+    "es-BO",
+    "es-CL",
+    "es-CO",
+    "es-CR",
+    "es-DO",
+    "es-EC",
+    "es-GT",
+    "es-HN",
+    "es-MX",
+    "es-NI",
+    "es-PA",
+    "es-PE",
+    "es-PR",
+    "es-SV",
+    "es-VE",
+    "pt-BR"
+  ],
+  hebrew: ["he", "he-IL"],
+  islamic: [
+    // ar-LB, ar-MA intentionally missing
+    "ar",
+    "ar-AE",
+    "ar-BH",
+    "ar-DZ",
+    "ar-EG",
+    "ar-IQ",
+    "ar-JO",
+    "ar-KW",
+    "ar-LY",
+    "ar-OM",
+    "ar-QA",
+    "ar-SA",
+    "ar-SD",
+    "ar-SY",
+    "ar-YE",
+    "dv",
+    "dv-MV",
+    "ps",
+    "ps-AR"
+  ]
+}, s = [0, 1, 2, 3, 4, 5, 6];
 export {
-  l as getFormatter,
-  h as getNumberFormatter
+  e as CALENDAR_TYPES,
+  r as CALENDAR_TYPE_LOCALES,
+  s as WEEKDAYS
 };

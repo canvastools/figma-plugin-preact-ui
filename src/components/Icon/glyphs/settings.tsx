@@ -35,6 +35,6 @@ export const settings = ({ variant }: GlyphProps) => {
       )
 
     default:
-      throw new Error(`Settings icon error: Unsupported combination variant=${variant}`)
+      throw new Error(`settings icon error: Unsupported combination variant=${variant}`)
   }
 }

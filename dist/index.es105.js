@@ -1,34 +1,64 @@
-import { jsx as L } from "./index.es178.js";
-const r = ({ variant: t }) => {
-  switch (t) {
+import { jsx as o } from "./index.es203.js";
+const i = ({ variant: r }) => {
+  switch (r) {
     case "downscaled":
-      return /* @__PURE__ */ L("svg", { width: "16", height: "16", viewBox: "0 0 16 16", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: /* @__PURE__ */ L(
-        "path",
-        {
-          d: "M8.52539 12H7.67383L6.96289 10.0361H4.15234L3.44141 12H2.59082L5.10449 5.0625H6.0127L8.52539 12ZM13.4102 12H12.7227L12.3467 10.9121H10.5625L10.1846 12H9.49707L11.0322 7.58789H11.8857L13.4102 12ZM10.7715 10.3125H12.1387L11.457 8.33984L10.7715 10.3125ZM4.40625 9.33691H6.70996L5.55859 6.15625L4.40625 9.33691Z",
-          fill: "currentColor"
-        }
-      ) });
+      return /* @__PURE__ */ o("svg", { width: "16", height: "16", viewBox: "0 0 16 16", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: [
+        /* @__PURE__ */ o(
+          "path",
+          {
+            d: "M11.5 2C12.3284 2 13 2.67157 13 3.5L13 5L12 4H4L3 5V3.5C3 2.67157 3.67157 2 4.5 2L11.5 2Z",
+            fill: "currentColor",
+            "fill-opacity": "0.3"
+          }
+        ),
+        /* @__PURE__ */ o(
+          "path",
+          {
+            d: "M11.5 3C12.3284 3 13 3.67157 13 4.5V11.5C13 12.2767 12.4097 12.9154 11.6533 12.9922L11.5 13H4.5L4.34668 12.9922C3.64069 12.9205 3.07949 12.3593 3.00781 11.6533L3 11.5V4.5C3 3.67157 3.67157 3 4.5 3H11.5ZM4.5 4C4.22386 4 4 4.22386 4 4.5V11.5C4 11.7761 4.22386 12 4.5 12H11.5C11.7761 12 12 11.7761 12 11.5V4.5C12 4.22386 11.7761 4 11.5 4H4.5Z",
+            fill: "currentColor"
+          }
+        )
+      ] });
     case "default":
-      return /* @__PURE__ */ L("svg", { width: "24", height: "24", viewBox: "0 0 24 24", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: /* @__PURE__ */ L(
-        "path",
-        {
-          d: "M12.6572 16H11.5928L10.7715 13.7324H7.61523L6.79297 16H5.73047L8.62891 8H9.75879L12.6572 16ZM18.3027 16H17.4033L16.9883 14.7998H15L14.583 16H13.6826L15.4531 10.9121H16.5439L18.3027 16ZM15.2783 13.999H16.7109L15.9971 11.9326L15.2783 13.999ZM7.90527 12.9316H10.4814L9.19336 9.375L7.90527 12.9316Z",
-          fill: "currentColor"
-        }
-      ) });
+      return /* @__PURE__ */ o("svg", { width: "24", height: "24", viewBox: "0 0 24 24", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: [
+        /* @__PURE__ */ o(
+          "path",
+          {
+            d: "M16 4C17.1046 4 18 4.89543 18 6V8L17 7L7 7L6 8V6C6 4.89543 6.89543 4 8 4L16 4Z",
+            fill: "currentColor",
+            "fill-opacity": "0.3"
+          }
+        ),
+        /* @__PURE__ */ o(
+          "path",
+          {
+            d: "M16.2041 6.01074C17.2128 6.113 18 6.96435 18 8V16L17.9893 16.2041C17.8938 17.1457 17.1457 17.8938 16.2041 17.9893L16 18H8C6.96435 18 6.113 17.2128 6.01074 16.2041L6 16V8C6 6.89543 6.89543 6 8 6H16L16.2041 6.01074ZM8 7C7.44772 7 7 7.44772 7 8V16C7 16.5523 7.44772 17 8 17H16C16.5523 17 17 16.5523 17 16V8C17 7.44772 16.5523 7 16 7H8Z",
+            fill: "currentColor"
+          }
+        )
+      ] });
     case "upscaled":
-      return /* @__PURE__ */ L("svg", { width: "24", height: "24", viewBox: "0 0 24 24", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: /* @__PURE__ */ L(
-        "path",
-        {
-          d: "M12.7729 18H11.4956L10.3491 14.834H5.86377L4.71729 18H3.43994L7.42334 7.00781H8.7915L12.7729 18ZM20.5327 18H19.4741L18.8696 16.251H16.0308L15.4224 18H14.3628L16.7964 11.0088H18.1157L20.5327 18ZM16.3442 15.3506H18.5581L17.4546 12.1572L16.3442 15.3506ZM6.22607 13.834H9.98779L8.10693 8.64062L6.22607 13.834Z",
-          fill: "currentColor"
-        }
-      ) });
+      return /* @__PURE__ */ o("svg", { width: "24", height: "24", viewBox: "0 0 24 24", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: [
+        /* @__PURE__ */ o(
+          "path",
+          {
+            d: "M18 2C19.1046 2 20 2.89543 20 4V6L19 5L5 5L4 6V4C4 2.89543 4.89543 2 6 2L18 2Z",
+            fill: "currentColor",
+            "fill-opacity": "0.3"
+          }
+        ),
+        /* @__PURE__ */ o(
+          "path",
+          {
+            d: "M18 4C19.1046 4 20 4.89543 20 6V18C20 19.1046 19.1046 20 18 20H6C4.89543 20 4 19.1046 4 18V6C4 4.89543 4.89543 4 6 4H18ZM6 5C5.44772 5 5 5.44772 5 6V18C5 18.5523 5.44772 19 6 19H18C18.5523 19 19 18.5523 19 18V6C19 5.44772 18.5523 5 18 5H6Z",
+            fill: "currentColor"
+          }
+        )
+      ] });
     default:
-      throw new Error(`fontSize icon error: Unsupported combination variant=${t}`);
+      throw new Error(`dropShadowTop icon error: Unsupported combination variant=${r}`);
   }
 };
 export {
-  r as fontSize
+  i as dropShadowTop
 };

@@ -2,7 +2,9 @@ import { useEffect, useRef, useState } from 'preact/hooks'
 
 import { bem, typedForwardRef } from '../../utils'
 
-import { Text, Icon, check as checkGlyph, mixed as mixedGlyph } from '../../index'
+import { Text } from '../Text/Text'
+import { Icon } from '../Icon/Icon'
+import { check as checkGlyph, mixed as mixedGlyph } from '../Icon/glyphs'
 
 import type { CheckboxProps } from './Checkbox.types'
 import './Checkbox.scss'

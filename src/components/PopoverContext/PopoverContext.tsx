@@ -1,6 +1,8 @@
 import { createContext } from 'preact'
 
-import { useContext, useEffect } from 'preact/hooks'
+import { useContext, useEffect, useMemo } from 'preact/hooks'
+
+import { useRefElement } from '../../utils'
 
 import type { PopoverContextProps, PopoverContextValue } from './PopoverContext.types'
 
@@ -16,16 +18,22 @@ const usePopoverContext = () => {
 const PopoverContext = ({ triggerRef, anchorRef, open, setOpen, children }: PopoverContextProps) => {
   const resolvedAnchorRef = (anchorRef ?? triggerRef) as PopoverContextValue['anchorRef']
 
-  const contextValue: PopoverContextValue = {
-    triggerRef: triggerRef as PopoverContextValue['triggerRef'],
-    anchorRef: resolvedAnchorRef,
-    open: open !== undefined ? open : false,
-    setOpen: setOpen,
-  }
+  // Resolve the trigger element through state so listeners are attached even
+  // when the trigger mounts after this provider (e.g. conditional rendering).
+  const triggerEl = useRefElement(triggerRef as preact.RefObject<HTMLElement | null> | undefined)
+
+  const contextValue: PopoverContextValue = useMemo(
+    () => ({
+      triggerRef: triggerRef as PopoverContextValue['triggerRef'],
+      anchorRef: resolvedAnchorRef,
+      open: open !== undefined ? open : false,
+      setOpen: setOpen,
+    }),
+    [triggerRef, resolvedAnchorRef, open, setOpen],
+  )
 
   useEffect(() => {
-    if (!triggerRef?.current) return
-    const triggerEl = triggerRef.current
+    if (!triggerEl) return
 
     const handleMouseDown = (event: MouseEvent) => {
       event.preventDefault()
@@ -50,7 +58,7 @@ const PopoverContext = ({ triggerRef, anchorRef, open, setOpen, children }: Popo
       triggerEl.removeEventListener('mousedown', handleMouseDown)
       triggerEl.removeEventListener('keydown', handleEnter)
     }
-  }, [triggerRef, open, setOpen])
+  }, [triggerEl, open, setOpen])
 
   // Global Escape handling while popover is open
   useEffect(() => {

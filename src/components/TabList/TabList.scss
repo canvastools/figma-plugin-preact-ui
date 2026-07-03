@@ -37,6 +37,11 @@
   &_variant-default:is(&_scrollable) &__children {
     overflow-x: auto;
     scrollbar-width: none;
+
+    // Safari has no scrollbar-width support (until 18.2)
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 
   &_variant-list &__children {

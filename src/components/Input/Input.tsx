@@ -3,7 +3,8 @@ import { useEffect, useRef, useState, useImperativeHandle } from 'preact/hooks'
 
 import { bem, typedForwardRef } from '../../utils'
 
-import { Tooltip, Text } from '../../index'
+import { Tooltip } from '../Tooltip/Tooltip'
+import { Text } from '../Text/Text'
 
 import type { InputProps } from './Input.types'
 import './Input.scss'
@@ -98,7 +99,7 @@ const InputComponent = (
     placeholder: Boolean(placeholder && !hasContent),
   })
 
-  const handleChange = (event: preact.JSX.TargetedEvent<HTMLInputElement, Event>) => {
+  const handleInput = (event: preact.JSX.TargetedEvent<HTMLInputElement, Event>) => {
     event.stopPropagation()
     const nextValue = event.currentTarget.value
     if (!isControlled) {
@@ -285,7 +286,9 @@ const InputComponent = (
               {...(tabIndex !== undefined && !focusOnDoubleClick ? { tabIndex } : {})}
               placeholder={placeholder}
               value={isControlled ? value : internalValue}
-              onChange={handleChange}
+              // onInput fires per keystroke in plain Preact; onChange would
+              // only work through preact/compat's global vnode patch.
+              onInput={handleInput}
               onClick={handleClick}
               onBlur={(event) => {
                 handleBlur(event)

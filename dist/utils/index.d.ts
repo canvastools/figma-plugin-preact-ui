@@ -3,3 +3,4 @@ export { colorToHex, hexToColor, colorToHexAlpha, hexAlphaToColor, colorToRgba, 
 export type { Rgba } from './color/color';
 export { typedForwardRef } from './typedForwardRef';
 export { uuid } from './uuid';
+export { useRefElement } from './useRefElement';

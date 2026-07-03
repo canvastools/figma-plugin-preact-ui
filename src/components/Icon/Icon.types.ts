@@ -9,7 +9,17 @@ export interface IconProps {
   className?: string
   glyph?: Glyph
   intent?: 'neutral' | 'neutral-inverted' | 'neutral-inverted-fixed' | 'brand' | 'danger' | 'warning' | 'success'
-  intentModifier?: 'default' | 'secondary' | 'brand' | 'danger' | 'warning' | 'success' | 'component'
+  intentModifier?:
+    | 'default'
+    | 'secondary'
+    | 'brand'
+    | 'danger'
+    | 'warning'
+    | 'success'
+    | 'component'
+    | 'component-secondary'
+    | 'slot'
+    | 'slot-secondary'
   variant?: 'default' | 'upscaled' | 'downscaled'
   size?: 16 | 24
   disabled?: boolean

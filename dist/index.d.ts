@@ -38,7 +38,7 @@ interface BadgeProps {
     id?: string;
     className?: string;
     intent?: 'neutral' | 'neutral-inverted' | 'brand' | 'danger' | 'warning' | 'success';
-    intentModifier?: 'default' | 'secondary' | 'brand' | 'danger' | 'warning' | 'success';
+    intentModifier?: 'default' | 'secondary' | 'brand' | 'danger' | 'warning' | 'success' | 'component' | 'component-secondary' | 'slot' | 'slot-secondary';
     prefix?: preact.ComponentChildren;
     suffix?: preact.ComponentChildren;
     children: preact.ComponentChildren;
@@ -93,7 +93,7 @@ interface IconProps {
     className?: string;
     glyph?: Glyph;
     intent?: 'neutral' | 'neutral-inverted' | 'neutral-inverted-fixed' | 'brand' | 'danger' | 'warning' | 'success';
-    intentModifier?: 'default' | 'secondary' | 'brand' | 'danger' | 'warning' | 'success' | 'component';
+    intentModifier?: 'default' | 'secondary' | 'brand' | 'danger' | 'warning' | 'success' | 'component' | 'component-secondary' | 'slot' | 'slot-secondary';
     variant?: 'default' | 'upscaled' | 'downscaled';
     size?: 16 | 24;
     disabled?: boolean;
@@ -370,30 +370,6 @@ declare const Input: (props: InputProps & {
     ref?: preact$1.Ref<HTMLDivElement> | undefined;
 }) => preact$1.VNode | null;
 
-type ListItemPropsPick = Pick<ListItemProps, 'variant' | 'padding' | 'draggable' | 'onDragStart' | 'onDragEnd' | 'acceptsChildren' | 'selectable' | 'selectionScope' | 'onSelect' | 'hoverable' | 'collapsed' | 'collapsable' | 'onCollapsedChange'>;
-type ListContextPropsPick = Pick<ListContextProps, 'selectedItemIds' | 'selectionMode' | 'deselectOnClickOutside' | 'onItemsChange' | 'onSelectionChange' | 'onKeyDown'>;
-interface ListProps extends ListContextPropsPick {
-    id?: string;
-    className?: string;
-    items: ListItemData[];
-    listItemProps: ListItemPropsPick | ((item: ListItemData) => ListItemPropsPick);
-    renderItem?: (item: ListItemData) => preact.ComponentChildren;
-}
-
-declare const List: (props: ListProps & {
-    ref?: preact$1.Ref<HTMLDivElement> | undefined;
-}) => preact$1.VNode | null;
-
-interface ListContainerProps {
-    id?: string;
-    className?: string;
-    children: preact.ComponentChildren;
-}
-
-declare const ListContainer: (props: ListContainerProps & {
-    ref?: preact$1.Ref<HTMLDivElement> | undefined;
-}) => preact$1.VNode | null;
-
 interface ListItemData {
     id: string;
     selected?: boolean;
@@ -414,7 +390,6 @@ interface ListContextValue {
         selectionScope?: 'individual' | 'withDescendants';
     }) => () => void;
     getPathForId?: (id: string) => number[] | null;
-    registerItemPath?: (id: string, path: number[]) => () => void;
     reorderItems: (itemIds: string[], targetIndex: number, targetParentPath?: number[]) => void;
     selectionMode?: 'single' | 'multi';
     registerRootElement?: (el: HTMLElement | null) => () => void;
@@ -442,9 +417,6 @@ interface ListContextProps {
     children: preact.ComponentChildren;
 }
 
-declare const useListContext: () => ListContextValue;
-declare const ListContext: (props: ListContextProps) => preact$1.JSX.Element;
-
 type ListItemPadding = keyof typeof spacing.variables;
 interface ListItemProps {
     id: string;
@@ -468,67 +440,50 @@ interface ListItemProps {
     selectable?: boolean;
     selectionScope?: 'individual' | 'withDescendants';
     onSelect?: (args: {
-        event: MouseEvent;
+        event: MouseEvent | KeyboardEvent;
         selected: boolean;
     }) => void;
     hoverable?: boolean;
     collapsed?: boolean;
     collapsable?: boolean;
     onCollapsedChange?: (args: {
-        event: MouseEvent;
+        event: MouseEvent | KeyboardEvent;
         collapsed: boolean;
     }) => void;
+    collapseIconIntent?: 'secondary' | 'component-secondary' | 'slot-secondary';
     items?: preact.ComponentChildren;
     children?: preact.ComponentChildren;
     tabIndex?: number;
 }
 
-declare const ListItem: (props: ListItemProps & {
-    ref?: preact$1.Ref<HTMLDivElement> | undefined;
-}) => preact$1.VNode | null;
-
-type MenuItemData = ({
-    type: 'action';
-    closeOnClick?: boolean;
-} & Pick<MenuItemActionProps, 'id' | 'intentModifier' | 'disabled' | 'prefix' | 'suffix' | 'children' | 'paddingLikeOption' | 'onClick'>) | ({
-    type: 'option';
-    closeOnClick?: boolean;
-} & Pick<MenuItemOptionProps, 'id' | 'defaultSelected' | 'selected' | 'disabled' | 'prefix' | 'suffix' | 'children' | 'onSelectedChange'>) | {
-    type: 'custom';
-    id?: string;
-    disabled?: boolean;
-    children?: preact.ComponentChildren;
-    onClick?: (args: {
-        event: MouseEvent;
-        id: string;
-    }) => void;
-    closeOnClick?: boolean;
-} | ({
-    type: 'divider';
-} & Pick<MenuDividerProps, 'className' | 'variant'>);
-type MenuContextPropsPick = Pick<MenuContextProps, 'triggerRef' | 'anchorRef'>;
-type MenuContainerPropsPick$1 = Pick<MenuContainerProps, 'width' | 'height'>;
-type OverlayPositionerPropsPick$2 = Pick<OverlayPositionerProps, 'open' | 'defaultOpen' | 'placement' | 'placementFallback' | 'offsetX' | 'offsetY' | 'offsetEdge' | 'onOpen' | 'onClose'>;
-interface MenuProps extends MenuContextPropsPick, MenuContainerPropsPick$1, OverlayPositionerPropsPick$2 {
+type ListItemPropsPick = Pick<ListItemProps, 'variant' | 'padding' | 'draggable' | 'onDragStart' | 'onDragEnd' | 'acceptsChildren' | 'selectable' | 'selectionScope' | 'onSelect' | 'hoverable' | 'collapsed' | 'collapsable' | 'onCollapsedChange'>;
+type ListContextPropsPick = Pick<ListContextProps, 'selectedItemIds' | 'selectionMode' | 'deselectOnClickOutside' | 'onItemsChange' | 'onSelectionChange' | 'onKeyDown'>;
+interface ListProps extends ListContextPropsPick {
     id?: string;
     className?: string;
-    items: MenuItemData[];
+    items: ListItemData[];
+    listItemProps: ListItemPropsPick | ((item: ListItemData) => ListItemPropsPick);
+    renderItem?: (item: ListItemData) => preact.ComponentChildren;
 }
 
-declare const Menu: (props: MenuProps & {
+declare const List: (props: ListProps & {
     ref?: preact$1.Ref<HTMLDivElement> | undefined;
 }) => preact$1.VNode | null;
 
-interface MenuContainerProps {
+interface ListContainerProps {
     id?: string;
     className?: string;
-    width?: number;
-    height?: number;
     children: preact.ComponentChildren;
 }
-type MenuContainerPropsPick = Pick<MenuContainerProps, 'width'>;
 
-declare const MenuContainer: (props: MenuContainerProps & {
+declare const ListContainer: (props: ListContainerProps & {
+    ref?: preact$1.Ref<HTMLDivElement> | undefined;
+}) => preact$1.VNode | null;
+
+declare const useListContext: () => ListContextValue;
+declare const ListContext: (props: ListContextProps) => preact$1.JSX.Element;
+
+declare const ListItem: (props: ListItemProps & {
     ref?: preact$1.Ref<HTMLDivElement> | undefined;
 }) => preact$1.VNode | null;
 
@@ -557,19 +512,14 @@ interface MenuContextProps {
     children: preact.ComponentChildren;
 }
 
-declare const useMenuContext: () => MenuContextValue;
-declare const useMenuContextOptional: () => MenuContextValue | undefined;
-declare const MenuContext: ({ triggerRef, anchorRef, open, setOpen, children }: MenuContextProps) => preact$1.JSX.Element;
-
-interface MenuDividerProps {
+interface MenuContainerProps {
     id?: string;
     className?: string;
-    variant?: 'full' | 'inset';
+    width?: number;
+    height?: number;
+    children: preact.ComponentChildren;
 }
-
-declare const MenuDivider: (props: MenuDividerProps & {
-    ref?: preact$1.Ref<HTMLDivElement> | undefined;
-}) => preact$1.VNode | null;
+type MenuContainerPropsPick$1 = Pick<MenuContainerProps, 'width'>;
 
 interface MenuItemActionProps {
     id?: string;
@@ -587,10 +537,6 @@ interface MenuItemActionProps {
         id: string;
     }) => void;
 }
-
-declare const MenuItemAction: (props: MenuItemActionProps & {
-    ref?: preact$1.Ref<HTMLDivElement> | undefined;
-}) => preact$1.VNode | null;
 
 interface MenuItemOptionProps {
     id?: string;
@@ -610,9 +556,17 @@ interface MenuItemOptionProps {
     }) => void;
 }
 
-declare const MenuItemOption: (props: MenuItemOptionProps & {
-    ref?: preact$1.Ref<HTMLDivElement> | undefined;
-}) => preact$1.VNode | null;
+interface MenuItemGroupProps {
+    className?: string;
+    children: preact.ComponentChildren;
+    paddingLikeOption?: boolean;
+}
+
+interface MenuDividerProps {
+    id?: string;
+    className?: string;
+    variant?: 'full' | 'inset';
+}
 
 type OverlayPositionerPlacement = 'over' | 'top' | 'top-left' | 'top-right' | 'bottom' | 'bottom-left' | 'bottom-right' | 'left' | 'left-top' | 'left-bottom' | 'right' | 'right-top' | 'right-bottom';
 interface OverlayPositionerProps {
@@ -636,9 +590,99 @@ interface OverlayPositionerProps {
     children: preact.ComponentChildren;
 }
 
+type MenuItemData = ({
+    type: 'group';
+} & Pick<MenuItemGroupProps, 'className' | 'children' | 'paddingLikeOption'>) | ({
+    type: 'action';
+    closeOnClick?: boolean;
+} & Pick<MenuItemActionProps, 'id' | 'intentModifier' | 'disabled' | 'prefix' | 'suffix' | 'children' | 'paddingLikeOption' | 'onClick'>) | ({
+    type: 'option';
+    closeOnClick?: boolean;
+} & Pick<MenuItemOptionProps, 'id' | 'defaultSelected' | 'selected' | 'disabled' | 'prefix' | 'suffix' | 'children' | 'onSelectedChange'>) | {
+    type: 'custom';
+    id?: string;
+    disabled?: boolean;
+    children?: preact.ComponentChildren;
+    onClick?: (args: {
+        event: MouseEvent;
+        id: string;
+    }) => void;
+    closeOnClick?: boolean;
+} | ({
+    type: 'divider';
+} & Pick<MenuDividerProps, 'className' | 'variant'>);
+type MenuContextPropsPick = Pick<MenuContextProps, 'triggerRef' | 'anchorRef'>;
+type MenuContainerPropsPick = Pick<MenuContainerProps, 'width' | 'height'>;
+type OverlayPositionerPropsPick$2 = Pick<OverlayPositionerProps, 'open' | 'defaultOpen' | 'placement' | 'placementFallback' | 'offsetX' | 'offsetY' | 'offsetEdge' | 'onOpen' | 'onClose'>;
+interface MenuProps extends MenuContextPropsPick, MenuContainerPropsPick, OverlayPositionerPropsPick$2 {
+    id?: string;
+    className?: string;
+    items: MenuItemData[];
+}
+
+declare const Menu: (props: MenuProps & {
+    ref?: preact$1.Ref<HTMLDivElement> | undefined;
+}) => preact$1.VNode | null;
+
+declare const MenuContainer: (props: MenuContainerProps & {
+    ref?: preact$1.Ref<HTMLDivElement> | undefined;
+}) => preact$1.VNode | null;
+
+declare const useMenuContext: () => MenuContextValue;
+declare const useMenuContextOptional: () => MenuContextValue | undefined;
+declare const MenuContext: ({ triggerRef, anchorRef, open, setOpen, children }: MenuContextProps) => preact$1.JSX.Element;
+
+declare const MenuDivider: (props: MenuDividerProps & {
+    ref?: preact$1.Ref<HTMLDivElement> | undefined;
+}) => preact$1.VNode | null;
+
+declare const MenuItemAction: (props: MenuItemActionProps & {
+    ref?: preact$1.Ref<HTMLDivElement> | undefined;
+}) => preact$1.VNode | null;
+
+declare const MenuItemGroup: (props: MenuItemGroupProps & {
+    ref?: preact$1.Ref<HTMLDivElement> | undefined;
+}) => preact$1.VNode | null;
+
+declare const MenuItemOption: (props: MenuItemOptionProps & {
+    ref?: preact$1.Ref<HTMLDivElement> | undefined;
+}) => preact$1.VNode | null;
+
 declare const OverlayPositioner: (props: OverlayPositionerProps & {
     ref?: preact$1.Ref<HTMLDivElement> | undefined;
 }) => preact$1.VNode | null;
+
+interface PopoverHeaderProps {
+    id?: string;
+    className?: string;
+    children: preact.ComponentChildren;
+    onClose?: () => void;
+}
+
+interface PopoverContextValue {
+    triggerRef?: preact.RefObject<HTMLElement | null>;
+    anchorRef?: preact.RefObject<HTMLElement | null>;
+    open?: boolean;
+    setOpen?: (open: boolean) => void;
+}
+interface PopoverContextProps {
+    triggerRef?: preact.RefObject<HTMLElement | null>;
+    anchorRef?: preact.RefObject<HTMLElement | null>;
+    open?: boolean;
+    setOpen?: (open: boolean) => void;
+    children: preact.ComponentChildren;
+}
+
+interface PopoverContainerProps {
+    id?: string;
+    className?: string;
+    width?: number;
+    height?: number;
+    showArrow?: boolean;
+    constrainHeight?: boolean;
+    tabIndex?: number;
+    children: preact.ComponentChildren;
+}
 
 type PopoverContextPropsPick = Pick<PopoverContextProps, 'triggerRef' | 'anchorRef'>;
 type PopoverContainerPropsPick = Pick<PopoverContainerProps, 'width' | 'height' | 'showArrow' | 'constrainHeight' | 'tabIndex'>;
@@ -655,44 +699,12 @@ declare const Popover: (props: PopoverProps & {
     ref?: preact$1.Ref<HTMLDivElement> | undefined;
 }) => preact$1.VNode | null;
 
-interface PopoverContainerProps {
-    id?: string;
-    className?: string;
-    width?: number;
-    height?: number;
-    showArrow?: boolean;
-    constrainHeight?: boolean;
-    tabIndex?: number;
-    children: preact.ComponentChildren;
-}
-
 declare const PopoverContainer: (props: PopoverContainerProps & {
     ref?: preact$1.Ref<HTMLDivElement> | undefined;
 }) => preact$1.VNode | null;
 
-interface PopoverContextValue {
-    triggerRef?: preact.RefObject<HTMLElement | null>;
-    anchorRef?: preact.RefObject<HTMLElement | null>;
-    open?: boolean;
-    setOpen?: (open: boolean) => void;
-}
-interface PopoverContextProps {
-    triggerRef?: preact.RefObject<HTMLElement | null>;
-    anchorRef?: preact.RefObject<HTMLElement | null>;
-    open?: boolean;
-    setOpen?: (open: boolean) => void;
-    children: preact.ComponentChildren;
-}
-
 declare const usePopoverContext: () => PopoverContextValue;
 declare const PopoverContext: ({ triggerRef, anchorRef, open, setOpen, children }: PopoverContextProps) => preact$1.JSX.Element;
-
-interface PopoverHeaderProps {
-    id?: string;
-    className?: string;
-    children: preact.ComponentChildren;
-    onClose?: () => void;
-}
 
 declare const PopoverHeader: (props: PopoverHeaderProps & {
     ref?: preact$1.Ref<HTMLDivElement> | undefined;
@@ -767,6 +779,24 @@ declare const Section: (props: SectionProps & {
     ref?: preact$1.Ref<HTMLDivElement> | undefined;
 }) => preact$1.VNode | null;
 
+type SectionPropsPick = Pick<SectionProps, 'variant' | 'padding' | 'children'>;
+interface SectionCollapsibleProps {
+    id?: string;
+    className?: string;
+    collapsed?: boolean;
+    onCollapsedChange?: (args: {
+        event: MouseEvent | KeyboardEvent;
+        collapsed: boolean;
+    }) => void;
+    sectionProps?: SectionPropsPick;
+    children?: preact.ComponentChildren;
+    tabIndex?: number;
+}
+
+declare const SectionCollapsible: (props: SectionCollapsibleProps & {
+    ref?: preact$1.Ref<HTMLDivElement> | undefined;
+}) => preact$1.VNode | null;
+
 interface SegmentedControlOptionData {
     value: string;
     label: string;
@@ -805,18 +835,26 @@ interface SelectProps {
     defaultValue?: string;
     value?: string;
     grouped?: 'first' | 'last' | 'middle';
+    ghost?: boolean;
     error?: boolean;
     disabled?: boolean;
+    fullWidth?: boolean;
     tabIndex?: number;
     prefix?: preact.ComponentChildren;
     tooltip?: preact.ComponentChildren;
-    onBlur?: () => void;
-    onFocus?: () => void;
+    onBlur?: (args: {
+        event: FocusEvent;
+        value?: string;
+    }) => void;
+    onFocus?: (args: {
+        event: FocusEvent;
+        value?: string;
+    }) => void;
     onValueChange?: (args: {
         event: MouseEvent;
         value: string;
     }) => void;
-    menuContainerProps?: MenuContainerPropsPick;
+    menuContainerProps?: MenuContainerPropsPick$1;
 }
 
 declare const Select: (props: SelectProps & {
@@ -944,7 +982,7 @@ interface TextProps {
     id?: string;
     className?: string;
     intent?: 'neutral' | 'neutral-inverted' | 'neutral-inverted-fixed' | 'brand' | 'danger' | 'warning' | 'success';
-    intentModifier?: 'default' | 'secondary' | 'brand' | 'danger' | 'warning' | 'success' | 'component';
+    intentModifier?: 'default' | 'secondary' | 'brand' | 'danger' | 'warning' | 'success' | 'component' | 'component-secondary' | 'slot' | 'slot-secondary';
     variant?: 'heading' | 'body';
     size?: 'small' | 'medium' | 'large';
     strong?: boolean;
@@ -1049,19 +1087,6 @@ declare const TimePicker: (props: TimePickerProps & {
     ref?: preact$1.Ref<HTMLDivElement> | undefined;
 }) => preact$1.VNode | null;
 
-type TooltipContainerPropsPick = Pick<TooltipContainerProps, 'width' | 'height' | 'showArrow'>;
-type OverlayPositionerPropsPick = Pick<OverlayPositionerProps, 'anchorRef' | 'placement' | 'placementFallback' | 'offsetX' | 'offsetY' | 'offsetEdge' | 'onOpen' | 'onClose'>;
-interface TooltipProps extends OverlayPositionerPropsPick, TooltipContainerPropsPick, TooltipTimingOptions {
-    id?: string;
-    className?: string;
-    trigger?: TooltipTrigger;
-    children: preact.ComponentChildren;
-}
-
-declare const Tooltip: (props: TooltipProps & {
-    ref?: preact$1.Ref<HTMLDivElement> | undefined;
-}) => preact$1.VNode | null;
-
 interface TooltipContainerProps {
     id?: string;
     className?: string;
@@ -1070,10 +1095,6 @@ interface TooltipContainerProps {
     showArrow?: boolean;
     children: preact.ComponentChildren;
 }
-
-declare const TooltipContainer: (props: TooltipContainerProps & {
-    ref?: preact$1.Ref<HTMLDivElement> | undefined;
-}) => preact$1.VNode | null;
 
 declare const TOOLTIP_DEFAULT_SHOW_DELAY = 1200;
 declare const TOOLTIP_DEFAULT_HIDE_DELAY = 480;
@@ -1091,6 +1112,23 @@ interface TooltipContextValue {
 interface TooltipContextProps {
     children: preact.ComponentChildren;
 }
+
+type TooltipContainerPropsPick = Pick<TooltipContainerProps, 'width' | 'height' | 'showArrow'>;
+type OverlayPositionerPropsPick = Pick<OverlayPositionerProps, 'anchorRef' | 'placement' | 'placementFallback' | 'offsetX' | 'offsetY' | 'offsetEdge' | 'onOpen' | 'onClose'>;
+interface TooltipProps extends OverlayPositionerPropsPick, TooltipContainerPropsPick, TooltipTimingOptions {
+    id?: string;
+    className?: string;
+    trigger?: TooltipTrigger;
+    children: preact.ComponentChildren;
+}
+
+declare const Tooltip: (props: TooltipProps & {
+    ref?: preact$1.Ref<HTMLDivElement> | undefined;
+}) => preact$1.VNode | null;
+
+declare const TooltipContainer: (props: TooltipContainerProps & {
+    ref?: preact$1.Ref<HTMLDivElement> | undefined;
+}) => preact$1.VNode | null;
 
 declare const useTooltipContext: () => TooltipContextValue | undefined;
 declare const TooltipContext: ({ children }: TooltipContextProps) => preact$1.JSX.Element;
@@ -1213,6 +1251,8 @@ declare const adjust: ({ variant }: GlyphProps) => preact$1.JSX.Element;
 
 declare const ai: ({ variant }: GlyphProps) => preact$1.JSX.Element;
 
+declare const aiRewrite: ({ variant }: GlyphProps) => preact$1.JSX.Element;
+
 declare const arrowDown: ({ variant }: GlyphProps) => preact$1.JSX.Element;
 
 declare const arrowLeft: ({ variant }: GlyphProps) => preact$1.JSX.Element;
@@ -1229,7 +1269,15 @@ declare const blendModeFilled: ({ variant }: GlyphProps) => preact$1.JSX.Element
 
 declare const blur: ({ variant }: GlyphProps) => preact$1.JSX.Element;
 
+declare const boolean: ({ variant }: GlyphProps) => preact$1.JSX.Element;
+
+declare const brokenLink: ({ variant }: GlyphProps) => preact$1.JSX.Element;
+
+declare const bullet: ({ variant }: GlyphProps) => preact$1.JSX.Element;
+
 declare const check: ({ variant }: GlyphProps) => preact$1.JSX.Element;
+
+declare const checkCircle: ({ variant }: GlyphProps) => preact$1.JSX.Element;
 
 declare const chevronDoubleDown: ({ variant }: GlyphProps) => preact$1.JSX.Element;
 
@@ -1248,6 +1296,14 @@ declare const chevronRight: ({ variant }: GlyphProps) => preact$1.JSX.Element;
 declare const chevronUp: ({ variant }: GlyphProps) => preact$1.JSX.Element;
 
 declare const close: ({ variant }: GlyphProps) => preact$1.JSX.Element;
+
+declare const collapse: ({ variant }: GlyphProps) => preact$1.JSX.Element;
+
+declare const center: ({ variant }: GlyphProps) => preact$1.JSX.Element;
+
+declare const color: ({ variant }: GlyphProps) => preact$1.JSX.Element;
+
+declare const component: ({ variant }: GlyphProps) => preact$1.JSX.Element;
 
 declare const container: ({ variant }: GlyphProps) => preact$1.JSX.Element;
 
@@ -1276,6 +1332,8 @@ declare const dropShadowTopLeft: ({ variant }: GlyphProps) => preact$1.JSX.Eleme
 declare const dropShadowTopRight: ({ variant }: GlyphProps) => preact$1.JSX.Element;
 
 declare const duplicate: ({ variant }: GlyphProps) => preact$1.JSX.Element;
+
+declare const easing: ({ variant }: GlyphProps) => preact$1.JSX.Element;
 
 declare const effect: ({ variant }: GlyphProps) => preact$1.JSX.Element;
 
@@ -1313,6 +1371,10 @@ declare const insert: ({ variant }: GlyphProps) => preact$1.JSX.Element;
 
 declare const instance: ({ variant }: GlyphProps) => preact$1.JSX.Element;
 
+declare const instanceSwap: ({ variant }: GlyphProps) => preact$1.JSX.Element;
+
+declare const key: ({ variant }: GlyphProps) => preact$1.JSX.Element;
+
 declare const fillStroke: ({ variant }: GlyphProps) => preact$1.JSX.Element;
 
 declare const filter: ({ variant }: GlyphProps) => preact$1.JSX.Element;
@@ -1325,6 +1387,8 @@ declare const fontSize: ({ variant }: GlyphProps) => preact$1.JSX.Element;
 
 declare const gradient: ({ variant }: GlyphProps) => preact$1.JSX.Element;
 
+declare const group: ({ variant }: GlyphProps) => preact$1.JSX.Element;
+
 declare const help: ({ variant }: GlyphProps) => preact$1.JSX.Element;
 
 declare const hidden: ({ variant }: GlyphProps) => preact$1.JSX.Element;
@@ -1336,6 +1400,10 @@ declare const lineHeight: ({ variant }: GlyphProps) => preact$1.JSX.Element;
 declare const link: ({ variant }: GlyphProps) => preact$1.JSX.Element;
 
 declare const lockLocked: ({ variant }: GlyphProps) => preact$1.JSX.Element;
+
+declare const lockLockedFilled: ({ variant }: GlyphProps) => preact$1.JSX.Element;
+
+declare const lockUnlocked: ({ variant }: GlyphProps) => preact$1.JSX.Element;
 
 declare const lowerCase: ({ variant }: GlyphProps) => preact$1.JSX.Element;
 
@@ -1365,6 +1433,8 @@ declare const mixed: ({ variant }: GlyphProps) => preact$1.JSX.Element;
 
 declare const more: ({ variant }: GlyphProps) => preact$1.JSX.Element;
 
+declare const number: ({ variant }: GlyphProps) => preact$1.JSX.Element;
+
 declare const opacity: ({ variant }: GlyphProps) => preact$1.JSX.Element;
 
 declare const paddingBottom: ({ variant }: GlyphProps) => preact$1.JSX.Element;
@@ -1381,8 +1451,6 @@ declare const paddingTop: ({ variant }: GlyphProps) => preact$1.JSX.Element;
 
 declare const paddingVertical: ({ variant }: GlyphProps) => preact$1.JSX.Element;
 
-declare const palette: ({ variant }: GlyphProps) => preact$1.JSX.Element;
-
 declare const pattern: ({ variant }: GlyphProps) => preact$1.JSX.Element;
 
 declare const people: ({ variant }: GlyphProps) => preact$1.JSX.Element;
@@ -1393,9 +1461,13 @@ declare const rotation: ({ variant }: GlyphProps) => preact$1.JSX.Element;
 
 declare const search: ({ variant }: GlyphProps) => preact$1.JSX.Element;
 
+declare const section: ({ variant }: GlyphProps) => preact$1.JSX.Element;
+
 declare const select: ({ variant }: GlyphProps) => preact$1.JSX.Element;
 
 declare const settings: ({ variant }: GlyphProps) => preact$1.JSX.Element;
+
+declare const slot: ({ variant }: GlyphProps) => preact$1.JSX.Element;
 
 declare const solid: ({ variant }: GlyphProps) => preact$1.JSX.Element;
 
@@ -1407,6 +1479,12 @@ declare const spread: ({ variant }: GlyphProps) => preact$1.JSX.Element;
 
 declare const strikethrough: ({ variant }: GlyphProps) => preact$1.JSX.Element;
 
+declare const string: ({ variant }: GlyphProps) => preact$1.JSX.Element;
+
+declare const sidebarClosed: ({ variant }: GlyphProps) => preact$1.JSX.Element;
+
+declare const sidebarOpen: ({ variant }: GlyphProps) => preact$1.JSX.Element;
+
 declare const strokeDash: ({ variant }: GlyphProps) => preact$1.JSX.Element;
 
 declare const strokeSolid: ({ variant }: GlyphProps) => preact$1.JSX.Element;
@@ -1417,11 +1495,17 @@ declare const swap: ({ variant }: GlyphProps) => preact$1.JSX.Element;
 
 declare const text: ({ variant }: GlyphProps) => preact$1.JSX.Element;
 
+declare const time: ({ variant }: GlyphProps) => preact$1.JSX.Element;
+
 declare const titleCase: ({ variant }: GlyphProps) => preact$1.JSX.Element;
+
+declare const unlink: ({ variant }: GlyphProps) => preact$1.JSX.Element;
 
 declare const underline: ({ variant }: GlyphProps) => preact$1.JSX.Element;
 
 declare const upperCase: ({ variant }: GlyphProps) => preact$1.JSX.Element;
+
+declare const variant: ({ variant }: GlyphProps) => preact$1.JSX.Element;
 
 declare const video: ({ variant }: GlyphProps) => preact$1.JSX.Element;
 
@@ -1437,5 +1521,5 @@ declare const x: ({ variant }: GlyphProps) => preact$1.JSX.Element;
 
 declare const y: ({ variant }: GlyphProps) => preact$1.JSX.Element;
 
-export { Avatar, Badge, Bar, Button, ButtonIcon, ButtonIconToggle, Calendar, Checkbox, Code, ColorPicker, ColorSwatch, ControlGroup, Divider, Fog, Icon, Input, List, ListContainer, ListContext, ListItem, Menu, MenuContainer, MenuContext, MenuDivider, MenuItemAction, MenuItemOption, OverlayPositioner, Popover, PopoverContainer, PopoverContext, PopoverHeader, Progress, ScrollContainer, ScrollContext, Section, SegmentedControl, Select, Spacing, Spinner, Stack, Switch, TOOLTIP_DEFAULT_HIDE_DELAY, TOOLTIP_DEFAULT_SHOW_DELAY, Tab, TabContext, TabList, TabPanel, Text, TextArea, TimePicker, Tooltip, TooltipContainer, TooltipContext, WindowResizer, adjust, ai, arrowDown, arrowLeft, arrowRight, arrowUp, backgroundBlur, bem, blendMode, blendModeFilled, blur, check, chevronDoubleDown, chevronDoubleLeft, chevronDoubleRight, chevronDoubleUp, chevronDown, chevronLeft, chevronRight, chevronUp, clamp, close, colorToHex, colorToHexAlpha, colorToRgba, container, copy, corners, dragHandle, dropShadow, dropShadowBottom, dropShadowBottomLeft, dropShadowBottomRight, dropShadowLeft, dropShadowRight, dropShadowTop, dropShadowTopLeft, dropShadowTopRight, duplicate, effect, eye, eyeDropper, figjamLight, figmaDark, figmaLight, fillStroke, filter, filterFilled, fontSize, frame, gradient, help, hexAlphaToColor, hexToColor, hidden, home, image, imports, info, innerShadow, innerShadowBottom, innerShadowBottomLeft, innerShadowBottomRight, innerShadowLeft, innerShadowRight, innerShadowTop, innerShadowTopLeft, innerShadowTopRight, insert, instance, letterSpacing, lineHeight, link, lockLocked, lowerCase, minus, mixed, more, opacity, paddingBottom, paddingHorizontal, paddingLeft, paddingRight, paddingSides, paddingTop, paddingVertical, palette, pattern, people, person, plus, pushToMainComponent, radius, radiusBottomLeft, radiusBottomRight, radiusTopLeft, radiusTopRight, refresh, resetInstance, returns, rgbaToColor, rotate, rotation, roundAlpha, search, select, settings, solid, spacing, spacingHorizontal, spacingVertical, spread, strikethrough, strokeDash, strokeSolid, strokeWidth, swap, text, titleCase, underline, upperCase, useListContext, useMenuContext, useMenuContextOptional, useNumericInput, usePopoverContext, useScrollContext, useScrollContextOptional, useStringInput, useTabContext, useTooltipContext, video, viewGrid, viewList, warning, widget, x, y };
-export type { AvatarProps, BadgeProps, BarProps, ButtonIconProps, ButtonIconToggleProps, ButtonProps, CalendarDate, CalendarProps, CheckboxProps, CheckboxValue, CodeProps, Color, ColorPickerProps, ColorPickerType, ColorStop, ColorSwatchProps, ControlGroupProps, DividerProps, FogProps, Glyph, GlyphProps, GradientPaint, IconProps, IconPropsPick, InputProps, ListContainerProps, ListContextProps, ListContextValue, ListItemData, ListItemProps, ListItemPropsPick, ListProps, MenuContainerProps, MenuContainerPropsPick, MenuContextProps, MenuContextValue, MenuDividerProps, MenuItemActionProps, MenuItemData, MenuItemOptionProps, MenuProps, NumericInputConfig, NumericInputError, NumericInputParseResult, OverlayPositionerPlacement, OverlayPositionerProps, PopoverContainerProps, PopoverContextProps, PopoverContextValue, PopoverHeaderProps, PopoverProps, ProgressProps, Rgba, ScrollContainerProps, ScrollContextProps, ScrollContextValue, SectionPadding, SectionProps, SegmentedControlOptionData, SegmentedControlProps, SelectOptionData, SelectProps, SpacingProps, SpinnerProps, StackProps, StringInputConfig, StringInputError, StringInputParseResult, SwitchProps, TabContextProps, TabContextValue, TabListProps, TabPanelProps, TabProps, TextAreaProps, TextProps, TimePickerDate, TimePickerProps, TooltipContainerProps, TooltipContextProps, TooltipContextValue, TooltipProps, TooltipTimingOptions, TooltipTrigger, Vector, WindowResizerProps };
+export { Avatar, Badge, Bar, Button, ButtonIcon, ButtonIconToggle, Calendar, Checkbox, Code, ColorPicker, ColorSwatch, ControlGroup, Divider, Fog, Icon, Input, List, ListContainer, ListContext, ListItem, Menu, MenuContainer, MenuContext, MenuDivider, MenuItemAction, MenuItemGroup, MenuItemOption, OverlayPositioner, Popover, PopoverContainer, PopoverContext, PopoverHeader, Progress, ScrollContainer, ScrollContext, Section, SectionCollapsible, SegmentedControl, Select, Spacing, Spinner, Stack, Switch, TOOLTIP_DEFAULT_HIDE_DELAY, TOOLTIP_DEFAULT_SHOW_DELAY, Tab, TabContext, TabList, TabPanel, Text, TextArea, TimePicker, Tooltip, TooltipContainer, TooltipContext, WindowResizer, adjust, ai, aiRewrite, arrowDown, arrowLeft, arrowRight, arrowUp, backgroundBlur, bem, blendMode, blendModeFilled, blur, boolean, brokenLink, bullet, center, check, checkCircle, chevronDoubleDown, chevronDoubleLeft, chevronDoubleRight, chevronDoubleUp, chevronDown, chevronLeft, chevronRight, chevronUp, clamp, close, collapse, color, colorToHex, colorToHexAlpha, colorToRgba, component, container, copy, corners, dragHandle, dropShadow, dropShadowBottom, dropShadowBottomLeft, dropShadowBottomRight, dropShadowLeft, dropShadowRight, dropShadowTop, dropShadowTopLeft, dropShadowTopRight, duplicate, easing, effect, eye, eyeDropper, figjamLight, figmaDark, figmaLight, fillStroke, filter, filterFilled, fontSize, frame, gradient, group, help, hexAlphaToColor, hexToColor, hidden, home, image, imports, info, innerShadow, innerShadowBottom, innerShadowBottomLeft, innerShadowBottomRight, innerShadowLeft, innerShadowRight, innerShadowTop, innerShadowTopLeft, innerShadowTopRight, insert, instance, instanceSwap, key, letterSpacing, lineHeight, link, lockLocked, lockLockedFilled, lockUnlocked, lowerCase, minus, mixed, more, number, opacity, paddingBottom, paddingHorizontal, paddingLeft, paddingRight, paddingSides, paddingTop, paddingVertical, pattern, people, person, plus, pushToMainComponent, radius, radiusBottomLeft, radiusBottomRight, radiusTopLeft, radiusTopRight, refresh, resetInstance, returns, rgbaToColor, rotate, rotation, roundAlpha, search, section, select, settings, sidebarClosed, sidebarOpen, slot, solid, spacing, spacingHorizontal, spacingVertical, spread, strikethrough, string, strokeDash, strokeSolid, strokeWidth, swap, text, time, titleCase, underline, unlink, upperCase, useListContext, useMenuContext, useMenuContextOptional, useNumericInput, usePopoverContext, useScrollContext, useScrollContextOptional, useStringInput, useTabContext, useTooltipContext, variant, video, viewGrid, viewList, warning, widget, x, y };
+export type { AvatarProps, BadgeProps, BarProps, ButtonIconProps, ButtonIconToggleProps, ButtonProps, CalendarDate, CalendarProps, CheckboxProps, CheckboxValue, CodeProps, Color, ColorPickerProps, ColorPickerType, ColorStop, ColorSwatchProps, ControlGroupProps, DividerProps, FogProps, Glyph, GlyphProps, GradientPaint, IconProps, IconPropsPick, InputProps, ListContainerProps, ListContextProps, ListContextValue, ListItemData, ListItemProps, ListItemPropsPick, ListProps, MenuContainerProps, MenuContainerPropsPick$1 as MenuContainerPropsPick, MenuContextProps, MenuContextValue, MenuDividerProps, MenuItemActionProps, MenuItemData, MenuItemGroupProps, MenuItemOptionProps, MenuProps, NumericInputConfig, NumericInputError, NumericInputParseResult, OverlayPositionerPlacement, OverlayPositionerProps, PopoverContainerProps, PopoverContextProps, PopoverContextValue, PopoverHeaderProps, PopoverProps, ProgressProps, Rgba, ScrollContainerProps, ScrollContextProps, ScrollContextValue, SectionCollapsibleProps, SectionPadding, SectionProps, SegmentedControlOptionData, SegmentedControlProps, SelectOptionData, SelectProps, SpacingProps, SpinnerProps, StackProps, StringInputConfig, StringInputError, StringInputParseResult, SwitchProps, TabContextProps, TabContextValue, TabListProps, TabPanelProps, TabProps, TextAreaProps, TextProps, TimePickerDate, TimePickerProps, TooltipContainerProps, TooltipContextProps, TooltipContextValue, TooltipProps, TooltipTimingOptions, TooltipTrigger, Vector, WindowResizerProps };

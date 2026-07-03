@@ -236,6 +236,7 @@ export const Colors: Story = {
       intents: {
         neutral: true,
         'neutral-inverted': true,
+        'neutral-fixed': true,
         'neutral-inverted-fixed': true,
         brand: true,
         danger: true,

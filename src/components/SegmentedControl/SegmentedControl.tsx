@@ -6,7 +6,10 @@ import { useEffect, useMemo, useRef, useState } from 'preact/hooks'
 import type { SegmentedControlProps } from './SegmentedControl.types'
 import './SegmentedControl.scss'
 
-import { Tooltip, Text, Icon, type Glyph } from '../../index'
+import { Tooltip } from '../Tooltip/Tooltip'
+import { Text } from '../Text/Text'
+import { Icon } from '../Icon/Icon'
+import type { Glyph } from '../Icon/Icon.types'
 
 /* --- */
 
@@ -72,6 +75,12 @@ const SegmentedControlComponent = (
       lastTabDirectionRef.current = event.shiftKey ? 'backward' : 'forward'
     }
 
+    // A pointer press means the upcoming focusin is mouse-driven, so the last
+    // remembered Tab direction is stale and must not redirect focus.
+    const handleGlobalPointerDown = () => {
+      lastTabDirectionRef.current = null
+    }
+
     const handleFocusIn = (event: FocusEvent) => {
       const target = event.target as HTMLElement | null
       if (!target) return
@@ -95,10 +104,12 @@ const SegmentedControlComponent = (
     }
 
     window.addEventListener('keydown', handleGlobalKeyDown)
+    window.addEventListener('pointerdown', handleGlobalPointerDown, true)
     window.addEventListener('focusin', handleFocusIn)
 
     return () => {
       window.removeEventListener('keydown', handleGlobalKeyDown)
+      window.removeEventListener('pointerdown', handleGlobalPointerDown, true)
       window.removeEventListener('focusin', handleFocusIn)
     }
   }, [options.length])

@@ -103,6 +103,7 @@ export const Demo: Story = {
   args: {
     id: undefined,
     className: '',
+    trigger: 'hover',
     children: 'Tooltip content',
   },
   parameters: {

@@ -13,7 +13,12 @@ import {
   roundAlpha,
 } from '../../utils'
 
-import { Input, Text, Select, ControlGroup, useNumericInput, useStringInput } from '../../index'
+import { Input } from '../Input/Input'
+import { Text } from '../Text/Text'
+import { Select } from '../Select/Select'
+import { ControlGroup } from '../ControlGroup/ControlGroup'
+import { useNumericInput } from '../../hooks/useNumericInput/useNumericInput'
+import { useStringInput } from '../../hooks/useStringInput/useStringInput'
 
 import { RgbaColorPicker, RgbColorPicker, HexColorPicker, HexAlphaColorPicker } from 'react-colorful'
 
@@ -164,7 +169,7 @@ const ControlsRgba = ({
 
   return (
     <>
-      <div style={{ minWidth: '52px' }}>
+      <div style={{ width: '52px' }}>
         <Select
           ref={selectRef}
           options={options}
@@ -172,6 +177,7 @@ const ControlsRgba = ({
           onValueChange={(e) => setType(e.value as ColorPickerType)}
           tooltip="Color mode"
           menuContainerProps={{ width: 120 }}
+          fullWidth={true}
         />
       </div>
       <div className="ColorPicker__controlsValues">
@@ -179,6 +185,7 @@ const ControlsRgba = ({
           <Input
             className="ColorPicker__inputCompact"
             tooltip="Red"
+            selectOnFocus={true}
             value={inputRedValue}
             onValueChange={(e) => setInputRedValue(e.value)}
             onBlur={(e) => {
@@ -375,7 +382,7 @@ const ControlsHex = ({
 
   return (
     <>
-      <div style={{ minWidth: '52px' }}>
+      <div style={{ width: '52px' }}>
         <Select
           ref={selectRef}
           options={options}
@@ -383,6 +390,7 @@ const ControlsHex = ({
           onValueChange={(e) => setType(e.value as ColorPickerType)}
           tooltip="Color mode"
           menuContainerProps={{ width: 120 }}
+          fullWidth={true}
         />
       </div>
       <div className="ColorPicker__controlsValues">
@@ -456,7 +464,7 @@ const ControlsHexAlpha = ({
 
   return (
     <>
-      <div style={{ minWidth: '52px' }}>
+      <div style={{ width: '52px' }}>
         <Select
           ref={selectRef}
           options={options}
@@ -464,6 +472,7 @@ const ControlsHexAlpha = ({
           onValueChange={(e) => setType(e.value as ColorPickerType)}
           tooltip="Color mode"
           menuContainerProps={{ width: 120 }}
+          fullWidth={true}
         />
       </div>
       <div className="ColorPicker__controlsValues">
@@ -581,10 +590,7 @@ const ColorPickerComponent = (
     [types],
   )
 
-  const visibleTypes: ColorPickerType[] = useMemo(
-    () => resolveVisibleTypes(allowedTypes, alpha),
-    [allowedTypes, alpha],
-  )
+  const visibleTypes: ColorPickerType[] = useMemo(() => resolveVisibleTypes(allowedTypes, alpha), [allowedTypes, alpha])
 
   // Picker type state:
   // - uncontrolled by default, initialised from `defaultType`
@@ -601,26 +607,26 @@ const ColorPickerComponent = (
 
   const visibleTypesKey = useMemo(() => (visibleTypes && visibleTypes.length ? visibleTypes.join('|') : ''), [visibleTypes])
 
+  // Consumers often pass `types` as an inline array, so `visibleTypes` gets a
+  // new identity on every parent render. Effects below must not depend on that
+  // identity (it would reset the user's selection on every render), so they
+  // read the current value through a ref and react to the stable string key.
+  const visibleTypesRef = useRef<ColorPickerType[]>(visibleTypes)
+  visibleTypesRef.current = visibleTypes
+
+  // Keep the uncontrolled selection valid when the set of visible types
+  // changes; the user's current choice is preserved whenever it is still
+  // available. `defaultType` only seeds the initial state.
   useEffect(() => {
-    // In controlled state (`type` provided), `defaultType` should not
-    // override the externally controlled value.
-    if (type) {
-      return
-    }
+    if (type || visibleTypesRef.current.includes(internalType)) return
 
-    const nextType = resolvePickerType(defaultType as ColorPickerType, visibleTypes)
-    setInternalType(nextType)
-  }, [defaultType, visibleTypesKey, visibleTypes, type])
-
-  useEffect(() => {
-    if (type || visibleTypes.includes(internalType)) return
-
-    const nextType = resolvePickerType(internalType, visibleTypes)
+    const nextType = resolvePickerType(internalType, visibleTypesRef.current)
     if (nextType !== internalType) {
       setInternalType(nextType)
       onTypeChange?.({ type: nextType })
     }
-  }, [internalType, visibleTypes, type, onTypeChange])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [internalType, visibleTypesKey, type, onTypeChange])
 
   const currentType: ColorPickerType = resolvePickerType(internalType, visibleTypes)
 

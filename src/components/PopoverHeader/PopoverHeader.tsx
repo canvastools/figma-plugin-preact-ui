@@ -1,6 +1,8 @@
 import { bem, typedForwardRef } from '../../utils'
 
-import { Text, ButtonIcon, close as iconClose } from '../../index'
+import { Text } from '../Text/Text'
+import { ButtonIcon } from '../ButtonIcon/ButtonIcon'
+import { close as iconClose } from '../Icon/glyphs'
 
 import type { PopoverHeaderProps } from './PopoverHeader.types'
 import './PopoverHeader.scss'

@@ -6,7 +6,10 @@ import { useRef } from 'preact/hooks'
 
 import type { VNode } from 'preact'
 
-import { useTabContext, Text, Icon, Tooltip } from '../../index'
+import { useTabContext } from '../TabContext/TabContext'
+import { Text } from '../Text/Text'
+import { Icon } from '../Icon/Icon'
+import { Tooltip } from '../Tooltip/Tooltip'
 
 import type { TabProps } from './Tab.types'
 import './Tab.scss'
@@ -50,8 +53,6 @@ const TabComponent = (
     onClick?.({ event, id })
   }
 
-  type ContentProps = { fake?: boolean; selected: boolean }
-
   const renderAdditionalContent = (content: preact.ComponentChildren, selected: boolean) => {
     return toChildArray(content).map((contentChild) => {
       if (typeof contentChild === 'object' && contentChild !== null) {
@@ -66,7 +67,10 @@ const TabComponent = (
     })
   }
 
-  const Content = ({ fake = false, selected = false }: ContentProps) => (
+  // Plain render function, not a nested component: a component type created
+  // inside render would be new on every render and force Preact to remount
+  // the whole subtree each time.
+  const renderContent = ({ fake = false, selected = false }: { fake?: boolean; selected: boolean }) => (
     <div className="Tab__content">
       {prefix && <div className="Tab__prefix">{prefix && renderAdditionalContent(prefix, selected)}</div>}
       {children != null && children !== false && children !== true && (
@@ -101,12 +105,8 @@ const TabComponent = (
         tabIndex={tabIndex ?? (id === activeId ? 0 : -1)}
         onClick={handleClick}
       >
-        <div className="Tab__container Tab__container_fake">
-          <Content fake selected={id === activeId} />
-        </div>
-        <div className="Tab__container Tab__container_real">
-          <Content selected={id === activeId} />
-        </div>
+        <div className="Tab__container Tab__container_fake">{renderContent({ fake: true, selected: id === activeId })}</div>
+        <div className="Tab__container Tab__container_real">{renderContent({ selected: id === activeId })}</div>
       </button>
       {tooltip && <Tooltip anchorRef={buttonRef}>{tooltip}</Tooltip>}
     </Fragment>

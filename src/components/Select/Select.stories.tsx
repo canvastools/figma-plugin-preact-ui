@@ -67,6 +67,10 @@ const meta: Meta<typeof Select> = {
       control: { type: 'radio' },
       options: [undefined, 'first', 'last', 'middle'],
     },
+    ghost: {
+      control: { type: 'boolean' },
+      defaultValue: { summary: false },
+    },
     error: {
       control: { type: 'boolean' },
       defaultValue: { summary: 'false' },
@@ -146,6 +150,7 @@ export const Demo: Story = {
     placeholder: 'Placeholder',
     defaultValue: '',
     grouped: undefined,
+    ghost: false,
     error: false,
     disabled: false,
     tooltip: 'Select tooltip',

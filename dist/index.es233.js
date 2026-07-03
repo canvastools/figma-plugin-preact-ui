@@ -1,21 +1,11 @@
-import "preact/compat";
-import { jsx as i } from "./index.es178.js";
-import s from "./index.es245.js";
-var a = function() {
-  return a = Object.assign || function(n) {
-    for (var r, e = 1, o = arguments.length; e < o; e++) {
-      r = arguments[e];
-      for (var t in r) Object.prototype.hasOwnProperty.call(r, t) && (n[t] = r[t]);
-    }
-    return n;
-  }, a.apply(this, arguments);
+import { useState as s, useEffect as c } from "preact/hooks";
+const m = (t) => {
+  const [l, u] = s((t == null ? void 0 : t.current) ?? null);
+  return c(() => {
+    const n = (t == null ? void 0 : t.current) ?? null;
+    u((e) => e === n ? e : n);
+  }), l;
 };
-function d(n) {
-  function r() {
-    return i(s, a({}, n));
-  }
-  return i("div", { className: "react-calendar__year-view", children: r() });
-}
 export {
-  d as default
+  m as useRefElement
 };

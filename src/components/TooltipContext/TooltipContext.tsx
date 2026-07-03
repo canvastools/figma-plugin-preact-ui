@@ -165,9 +165,7 @@ const TooltipContext = ({ children }: TooltipContextProps) => {
   )
 
   const registerPointerDown: TooltipContextValue['registerPointerDown'] = useCallback(
-    (ref, setOpen, options) => {
-      const hideDelay = resolveHideDelay(options)
-
+    () => {
       if (showTimeoutRef.current != null) {
         clearTimeout(showTimeoutRef.current)
         showTimeoutRef.current = null
@@ -179,9 +177,12 @@ const TooltipContext = ({ children }: TooltipContextProps) => {
         clearVisible()
       }
 
-      scheduleHideDelayPhase(ref, setOpen, hideDelay)
+      // Pointer down is an intentional dismiss: drop the quick-switch grace
+      // window so the next hover goes through the normal show delay
+      cancelLeavingPhase()
+      lastTriggerLeaveTimeRef.current = null
     },
-    [clearVisible, scheduleHideDelayPhase],
+    [cancelLeavingPhase, clearVisible],
   )
 
   const registerHoverEnd: TooltipContextValue['registerHoverEnd'] = useCallback(

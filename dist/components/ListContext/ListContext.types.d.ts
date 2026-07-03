@@ -18,7 +18,6 @@ export interface ListContextValue {
         selectionScope?: 'individual' | 'withDescendants';
     }) => () => void;
     getPathForId?: (id: string) => number[] | null;
-    registerItemPath?: (id: string, path: number[]) => () => void;
     reorderItems: (itemIds: string[], targetIndex: number, targetParentPath?: number[]) => void;
     selectionMode?: 'single' | 'multi';
     registerRootElement?: (el: HTMLElement | null) => () => void;

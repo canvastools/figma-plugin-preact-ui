@@ -1,39 +1,91 @@
-import { Children as m, cloneElement as y } from "preact/compat";
-import { jsx as g } from "./index.es178.js";
-var l = function() {
-  return l = Object.assign || function(e) {
-    for (var t, o = 1, n = arguments.length; o < n; o++) {
-      t = arguments[o];
-      for (var r in t) Object.prototype.hasOwnProperty.call(t, r) && (e[r] = t[r]);
-    }
-    return e;
-  }, l.apply(this, arguments);
-}, h = function(e, t) {
-  var o = {};
-  for (var n in e) Object.prototype.hasOwnProperty.call(e, n) && t.indexOf(n) < 0 && (o[n] = e[n]);
-  if (e != null && typeof Object.getOwnPropertySymbols == "function")
-    for (var r = 0, n = Object.getOwnPropertySymbols(e); r < n.length; r++)
-      t.indexOf(n[r]) < 0 && Object.prototype.propertyIsEnumerable.call(e, n[r]) && (o[n[r]] = e[n[r]]);
-  return o;
-};
-function c(e) {
-  return "".concat(e, "%");
-}
-function w(e) {
-  var t = e.children, o = e.className, n = e.count, r = e.direction, a = e.offset, s = e.style, u = e.wrap, p = h(e, ["children", "className", "count", "direction", "offset", "style", "wrap"]);
-  return g("div", l({ className: o, style: l({ display: "flex", flexDirection: r, flexWrap: u ? "wrap" : "nowrap" }, s) }, p, { children: m.map(t, function(i, d) {
-    var f = a && d === 0 ? c(100 * a / n) : null;
-    return y(i, l(l({}, i.props), { style: {
-      flexBasis: c(100 / n),
-      flexShrink: 0,
-      flexGrow: 0,
-      overflow: "hidden",
-      marginLeft: f,
-      marginInlineStart: f,
-      marginInlineEnd: 0
-    } }));
-  }) }));
+import { useState as be, useRef as W, useEffect as q, useCallback as d, useMemo as Ce, createElement as M, createPortal as _e } from "preact/compat";
+import { jsx as o } from "./index.es203.js";
+import { clsx as S } from "./index.es257.js";
+import ve from "./index.es285.js";
+import Pe from "./index.es286.js";
+import ge from "./index.es287.js";
+import ye from "./index.es288.js";
+const n = "react-time-picker", $e = ["mousedown", "focusin", "touchstart"], j = {
+  xmlns: "http://www.w3.org/2000/svg",
+  width: 19,
+  height: 19,
+  viewBox: "0 0 19 19",
+  stroke: "black",
+  strokeWidth: 2
+}, Ae = o("svg", { ...j, "aria-hidden": "true", className: `${n}__clock-button__icon ${n}__button__icon`, fill: "none", children: [o("circle", { cx: "9.5", cy: "9.5", r: "7.5" }), o("path", { d: "M9.5 4.5 v5 h4" })] }), xe = o("svg", { ...j, "aria-hidden": "true", className: `${n}__clear-button__icon ${n}__button__icon`, children: [o("line", { x1: "4", x2: "15", y1: "4", y2: "15" }), o("line", { x1: "15", x2: "4", y1: "4", y2: "15" })] });
+function Te(v) {
+  const { amPmAriaLabel: B, autoFocus: G, className: K, clearAriaLabel: R, clearIcon: i = xe, clockAriaLabel: z, clockIcon: u = Ae, closeClock: H = !0, "data-testid": J, hourAriaLabel: Q, hourPlaceholder: U, disableClock: P, disabled: l, format: V, id: X, isOpen: m = null, locale: g, maxTime: Y, maxDetail: Z = "minute", minTime: ee, minuteAriaLabel: oe, minutePlaceholder: ne, name: te = "time", nativeInputAriaLabel: ce, onClockClose: p, onClockOpen: y, onChange: $, onFocus: A, onInvalidChange: ae, openClockOnFocus: se = !0, required: re, value: f, secondAriaLabel: le, secondPlaceholder: ie, shouldCloseClock: k, shouldOpenClock: x, ...w } = v, [c, h] = be(m), N = W(null), F = W(null);
+  q(() => {
+    h(m);
+  }, [m]);
+  function L({ reason: e }) {
+    x && !x({ reason: e }) || (h(!0), y && y());
+  }
+  const s = d(({ reason: e }) => {
+    k && !k({ reason: e }) || (h(!1), p && p());
+  }, [p, k]);
+  function ue() {
+    c ? s({ reason: "buttonClick" }) : L({ reason: "buttonClick" });
+  }
+  function E(e, t = H) {
+    t && s({ reason: "select" }), $ && $(e);
+  }
+  function de(e) {
+    A && A(e), // Internet Explorer still fires onFocus on disabled elements
+    !(l || c || !se || e.target.dataset.select === "true") && L({ reason: "focus" });
+  }
+  const b = d((e) => {
+    e.key === "Escape" && s({ reason: "escape" });
+  }, [s]);
+  function me() {
+    E(null);
+  }
+  function O(e) {
+    e.stopPropagation();
+  }
+  const C = d((e) => {
+    const { current: t } = N, { current: a } = F, r = "composedPath" in e ? e.composedPath()[0] : e.target;
+    r && t && !t.contains(r) && (!a || !a.contains(r)) && s({ reason: "outsideAction" });
+  }, [s]), _ = d((e = c) => {
+    for (const t of $e)
+      e ? document.addEventListener(t, C) : document.removeEventListener(t, C);
+    e ? document.addEventListener("keydown", b) : document.removeEventListener("keydown", b);
+  }, [c, C, b]);
+  q(() => (_(), () => {
+    _(!1);
+  }), [_]);
+  function pe() {
+    const [e] = Array.isArray(f) ? f : [f], t = {
+      amPmAriaLabel: B,
+      hourAriaLabel: Q,
+      minuteAriaLabel: oe,
+      nativeInputAriaLabel: ce,
+      secondAriaLabel: le
+    }, a = {
+      hourPlaceholder: U,
+      minutePlaceholder: ne,
+      secondPlaceholder: ie
+    };
+    return o("div", { className: `${n}__wrapper`, children: [o(ye, { ...t, ...a, autoFocus: G, className: `${n}__inputGroup`, disabled: l, format: V, isClockOpen: c, locale: g, maxDetail: Z, maxTime: Y, minTime: ee, name: te, onChange: E, onInvalidChange: ae, required: re, value: e }), i !== null && o("button", { "aria-label": R, className: `${n}__clear-button ${n}__button`, disabled: l, onClick: me, onFocus: O, type: "button", children: typeof i == "function" ? M(i) : i }), u !== null && !P && o("button", { "aria-expanded": c || !1, "aria-label": z, className: `${n}__clock-button ${n}__button`, disabled: l, onClick: ue, onFocus: O, type: "button", children: typeof u == "function" ? M(u) : u })] });
+  }
+  function fe() {
+    if (c === null || P)
+      return null;
+    const { clockProps: e, portalContainer: t, value: a } = v, r = `${n}__clock`, I = S(r, `${r}--${c ? "open" : "closed"}`), [he] = Array.isArray(a) ? a : [a], T = o(Pe, { locale: g, value: he, ...e });
+    return t ? _e(o("div", { ref: F, className: I, children: T }), t) : o(ge, { children: o("div", { ref: (D) => {
+      D && !c && D.removeAttribute("style");
+    }, className: I, children: T }) });
+  }
+  const ke = Ce(
+    () => ve(w),
+    // biome-ignore lint/correctness/useExhaustiveDependencies: FIXME
+    [w]
+  );
+  return (
+    // biome-ignore lint/a11y/noStaticElementInteractions: False positive caused by non interactive wrapper listening for bubbling events
+    o("div", { className: S(n, `${n}--${c ? "open" : "closed"}`, `${n}--${l ? "disabled" : "enabled"}`, K), "data-testid": J, id: X, ...ke, onFocus: de, ref: N, children: [pe(), fe()] })
+  );
 }
 export {
-  w as default
+  Te as default
 };

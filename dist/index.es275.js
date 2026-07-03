@@ -1,14 +1,23 @@
-import { memo as l } from "preact/compat";
-import { jsx as c } from "./index.es178.js";
-var u = l(function(r) {
-  var e = r.angle, a = e === void 0 ? 0 : e, t = r.length, o = t === void 0 ? 10 : t, m = r.name, n = r.number;
-  return c("div", { className: "react-clock__mark react-clock__".concat(m, "-mark"), style: {
-    transform: "rotate(".concat(a, "deg)")
-  }, children: c("div", { className: "react-clock__mark__number", style: {
-    transform: "rotate(-".concat(a, "deg)"),
-    top: "".concat(o / 2, "%")
-  }, children: n }) });
-});
+import "preact/compat";
+import { jsx as h } from "./index.es203.js";
+import x from "./index.es278.js";
+import { getTileClasses as N } from "./index.es264.js";
+function C(e) {
+  for (var l = e.className, t = e.count, u = t === void 0 ? 3 : t, v = e.dateTransform, d = e.dateType, f = e.end, p = e.hover, m = e.offset, T = e.renderTile, i = e.start, s = e.step, n = s === void 0 ? 1 : s, c = e.value, y = e.valueType, o = [], r = i; r <= f; r += n) {
+    var a = v(r);
+    o.push(T({
+      classes: N({
+        date: a,
+        dateType: d,
+        hover: p,
+        value: c,
+        valueType: y
+      }),
+      date: a
+    }));
+  }
+  return h(x, { className: l, count: u, offset: m, wrap: !0, children: o });
+}
 export {
-  u as default
+  C as default
 };

@@ -14,7 +14,6 @@ const ListContainerComponent = (
   const { reorderItems, registerRootElement, getPathForId } = useListContext()
   const rootRef = useRef<HTMLDivElement | null>(null)
   const endZoneDropParentRef = useRef<HTMLElement | null>(null)
-  const unregisterRootRef = useRef<(() => void) | null>(null)
   const hoverStateRef = useRef<{
     el: HTMLElement | null
     pos: 'above' | 'below' | 'inside' | 'self' | null
@@ -34,18 +33,12 @@ const ListContainerComponent = (
       // ignore style errors
     }
   }, [])
-  // const idToPathLocal = useRef<Map<string, number[]>>(new Map())
 
   // Register/unregister this container as a root element for outside-click detection
   useEffect(() => {
     const el = rootRef.current
     if (!registerRootElement || !el) return
-    const unregister = registerRootElement(el)
-    unregisterRootRef.current = unregister
-    return () => {
-      unregisterRootRef.current?.()
-      unregisterRootRef.current = null
-    }
+    return registerRootElement(el)
   }, [registerRootElement])
 
   // Clear all drag-related classes for this container subtree
@@ -634,14 +627,6 @@ const ListContainerComponent = (
       data-pui-interactive="true"
       ref={(node) => {
         rootRef.current = node
-        // Keep ListContext root elements in sync with the current DOM node
-        if (unregisterRootRef.current) {
-          unregisterRootRef.current()
-          unregisterRootRef.current = null
-        }
-        if (node && registerRootElement) {
-          unregisterRootRef.current = registerRootElement(node)
-        }
         if (typeof ref === 'function') ref(node as HTMLDivElement)
         else if (ref) (ref as preact.RefObject<HTMLDivElement>).current = node
       }}

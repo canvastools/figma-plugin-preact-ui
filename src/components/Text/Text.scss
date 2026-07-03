@@ -21,6 +21,7 @@
 
 .Text {
   @include typography-styles-default;
+  -webkit-user-select: none; // Safari only supports the prefixed form
   user-select: none;
   white-space: nowrap;
 
@@ -42,6 +43,9 @@
   @include Text_intent('neutral', 'warning');
   @include Text_intent('neutral', 'success');
   @include Text_intent('neutral', 'component');
+  @include Text_intent('neutral', 'component-secondary');
+  @include Text_intent('neutral', 'slot');
+  @include Text_intent('neutral', 'slot-secondary');
   @include Text_intent('neutral-inverted', 'default');
   @include Text_intent('neutral-inverted-fixed', 'default');
   @include Text_intent('neutral-inverted-fixed', 'secondary');

@@ -1,8 +1,8 @@
 import "./index.es25.css";
-import { jsx as e } from "./index.es178.js";
+import { jsx as e } from "./index.es203.js";
 /* empty css            */
-import { typedForwardRef as s } from "./index.es180.js";
-import { bem as d } from "./index.es63.js";
+import { typedForwardRef as s } from "./index.es205.js";
+import { bem as d } from "./index.es65.js";
 const a = ({ id: i, className: r, variant: o = "full", ...m }, n) => {
   const t = d("MenuDivider", void 0, {
     variant: o

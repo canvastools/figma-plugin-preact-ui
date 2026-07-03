@@ -77,6 +77,9 @@ export type { MenuDividerProps } from './components/MenuDivider/MenuDivider.type
 export { MenuItemAction } from './components/MenuItemAction/MenuItemAction'
 export type { MenuItemActionProps } from './components/MenuItemAction/MenuItemAction.types'
 
+export { MenuItemGroup } from './components/MenuItemGroup/MenuItemGroup'
+export type { MenuItemGroupProps } from './components/MenuItemGroup/MenuItemGroup.types'
+
 export { MenuItemOption } from './components/MenuItemOption/MenuItemOption'
 export type { MenuItemOptionProps } from './components/MenuItemOption/MenuItemOption.types'
 
@@ -106,6 +109,9 @@ export type { ScrollContainerProps } from './components/ScrollContainer/ScrollCo
 
 export { Section } from './components/Section/Section'
 export type { SectionProps, SectionPadding } from './components/Section/Section.types'
+
+export { SectionCollapsible } from './components/SectionCollapsible/SectionCollapsible'
+export type { SectionCollapsibleProps } from './components/SectionCollapsible/SectionCollapsible.types'
 
 export { SegmentedControl } from './components/SegmentedControl/SegmentedControl'
 export type { SegmentedControlProps, SegmentedControlOptionData } from './components/SegmentedControl/SegmentedControl.types'
@@ -188,6 +194,7 @@ export { bem } from './utils'
 export {
   adjust,
   ai,
+  aiRewrite,
   arrowDown,
   arrowLeft,
   arrowRight,
@@ -196,7 +203,11 @@ export {
   blendMode,
   blendModeFilled,
   blur,
+  boolean,
+  brokenLink,
+  bullet,
   check,
+  checkCircle,
   chevronDoubleDown,
   chevronDoubleLeft,
   chevronDoubleRight,
@@ -206,6 +217,10 @@ export {
   chevronRight,
   chevronUp,
   close,
+  collapse,
+  center,
+  color,
+  component,
   container,
   copy,
   corners,
@@ -219,6 +234,7 @@ export {
   dropShadowTop,
   dropShadowTopLeft,
   dropShadowTopRight,
+  easing,
   effect,
   eye,
   eyeDropper,
@@ -229,6 +245,7 @@ export {
   frame,
   fontSize,
   gradient,
+  group,
   help,
   hidden,
   home,
@@ -246,10 +263,14 @@ export {
   innerShadowTopRight,
   insert,
   instance,
+  instanceSwap,
+  key,
   letterSpacing,
   lineHeight,
   link,
   lockLocked,
+  lockLockedFilled,
+  lockUnlocked,
   lowerCase,
   plus,
   pushToMainComponent,
@@ -262,6 +283,7 @@ export {
   minus,
   mixed,
   more,
+  number,
   opacity,
   paddingBottom,
   paddingHorizontal,
@@ -270,7 +292,6 @@ export {
   paddingSides,
   paddingTop,
   paddingVertical,
-  palette,
   pattern,
   people,
   person,
@@ -278,21 +299,29 @@ export {
   returns,
   rotate,
   search,
+  section,
   select,
   settings,
+  slot,
   solid,
   spacingHorizontal,
   spacingVertical,
   spread,
   strikethrough,
+  string,
+  sidebarClosed,
+  sidebarOpen,
   strokeDash,
   strokeSolid,
   strokeWidth,
   swap,
   text,
+  time,
   titleCase,
+  unlink,
   underline,
   upperCase,
+  variant,
   video,
   viewGrid,
   viewList,

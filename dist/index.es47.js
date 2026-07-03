@@ -1,76 +1,15 @@
 import "./index.es47.css";
-import { jsx as f } from "./index.es178.js";
+import { jsx as o } from "./index.es203.js";
 /* empty css            */
-import { typedForwardRef as T } from "./index.es180.js";
-import { bem as A } from "./index.es63.js";
-const b = (e) => {
-  const s = [], r = /\[([^\]]+)\]\(([^)]+)\)/g;
-  let t = 0, n = r.exec(e), l = 0;
-  for (; n; ) {
-    const [a, i, o] = n;
-    n.index > t && s.push(e.slice(t, n.index)), s.push(
-      /* @__PURE__ */ f("a", { className: "Text__link", href: o, children: i }, `Text-link-${l}`)
-    ), l += 1, t = n.index + a.length, n = r.exec(e);
-  }
-  return t < e.length && s.push(e.slice(t)), s.length > 0 ? s : e;
-}, w = (e) => {
-  const s = (r) => typeof r == "string" ? b(r) : r;
-  if (Array.isArray(e)) {
-    const r = [];
-    return e.forEach((t) => {
-      const n = s(t);
-      Array.isArray(n) ? r.push(...n) : r.push(n);
-    }), r;
-  }
-  return s(e);
-}, N = ({
-  id: e,
-  className: s,
-  intent: r = "neutral",
-  intentModifier: t = "default",
-  variant: n = "body",
-  size: l = "medium",
-  strong: a = !1,
-  align: i = "left",
-  disabled: o = !1,
-  selected: d = !1,
-  wrap: u = !0,
-  textColor: c,
-  truncate: m = !1,
-  inline: p = !1,
-  fullWidth: h = !1,
-  children: y,
-  ...k
-}, x) => {
-  const g = A("Text", void 0, {
-    ...!c && {
-      intent: `${r}-${t}`,
-      disabled: o,
-      selected: d
-    },
-    variant: n,
-    size: l,
-    strong: a,
-    align: i,
-    inline: p,
-    fullWidth: h,
-    wrap: u,
-    truncated: m
+import { typedForwardRef as p } from "./index.es205.js";
+import { bem as f } from "./index.es65.js";
+const l = ({ id: s, className: a, variant: r = "default", scrollable: m = !0, children: t, ...e }, i) => {
+  const n = f("TabList", void 0, {
+    variant: r,
+    scrollable: m
   });
-  return /* @__PURE__ */ f(
-    "div",
-    {
-      id: e,
-      className: [g, s].join(" ").trim(),
-      ref: x,
-      ...k,
-      style: {
-        ...c ? { color: c } : {}
-      },
-      children: w(y)
-    }
-  );
-}, I = T(N);
+  return /* @__PURE__ */ o("div", { id: s, className: [n, a].join(" ").trim(), ref: i, ...e, children: t != null && t !== !1 && t !== !0 && /* @__PURE__ */ o("div", { className: "TabList__children", children: t }) });
+}, L = p(l);
 export {
-  I as Text
+  L as TabList
 };

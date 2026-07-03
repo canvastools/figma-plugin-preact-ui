@@ -73,7 +73,8 @@ type ListItemPadding = keyof typeof spacing.variables // string | number
     },
     tabIndex: {
       control: { type: 'number' },
-      description: 'Tab order of the list item. Omit to use 0 when selectable, draggable, or collapsable; otherwise not tabbable.',
+      description:
+        'Tab order of the list item. Omit to use 0 when selectable, draggable, or collapsable; otherwise not tabbable.',
       table: {
         type: { summary: 'number' },
       },
@@ -148,6 +149,11 @@ type ListItemPadding = keyof typeof spacing.variables // string | number
     collapsable: {
       control: { type: 'boolean' },
       defaultValue: { summary: false },
+    },
+    collapseIconIntent: {
+      control: { type: 'radio' },
+      options: ['secondary', 'component-secondary', 'slot-secondary'],
+      defaultValue: { summary: 'secondary' },
     },
     onCollapsedChange: {
       table: {
@@ -226,6 +232,7 @@ export const Demo: Story = {
     selectionScope: 'individual',
     hoverable: true,
     collapsable: false,
+    collapseIconIntent: 'secondary',
     onDragStart: fn(),
     onDragEnd: fn(),
     onSelect: fn(),

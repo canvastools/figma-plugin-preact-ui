@@ -1,69 +1,62 @@
 import "preact/compat";
-import { jsx as o } from "./index.es178.js";
-import { clsx as oe } from "./index.es229.js";
-import { getHours as C, getMinutes as u, getSeconds as a, getMilliseconds as s } from "./index.es246.js";
-import h from "./index.es273.js";
-import P from "./index.es274.js";
-import de from "./index.es275.js";
-import { formatHour as ie } from "./index.es276.js";
-import { safeMax as ue } from "./index.es277.js";
-function pe(e) {
-  var T = e.className, m = e.formatHour, q = m === void 0 ? ie : m, c = e.hourHandLength, D = c === void 0 ? 50 : c, $ = e.hourHandOppositeLength, l = e.hourHandWidth, A = l === void 0 ? 4 : l, g = e.hourMarksLength, f = g === void 0 ? 10 : g, H = e.hourMarksWidth, B = H === void 0 ? 3 : H, E = e.locale, p = e.minuteHandLength, G = p === void 0 ? 70 : p, I = e.minuteHandOppositeLength, v = e.minuteHandWidth, J = v === void 0 ? 2 : v, M = e.minuteMarksLength, k = M === void 0 ? 6 : M, L = e.minuteMarksWidth, K = L === void 0 ? 1 : L, W = e.renderHourMarks, d = W === void 0 ? !0 : W, b = e.renderMinuteHand, N = b === void 0 ? !0 : b, F = e.renderMinuteMarks, w = F === void 0 ? !0 : F, Q = e.renderNumbers, O = e.renderSecondHand, S = O === void 0 ? !0 : O, x = e.secondHandLength, R = x === void 0 ? 90 : x, U = e.secondHandOppositeLength, j = e.secondHandWidth, V = j === void 0 ? 1 : j, y = e.size, z = y === void 0 ? 150 : y, i = e.useMillisecondPrecision, n = e.value;
-  function X() {
-    if (!w)
-      return null;
-    for (var t = [], r = 1; r <= 60; r += 1) {
-      var te = d && !(r % 5);
-      te || t.push(o(P, { angle: r * 6, length: k, name: "minute", width: K }, "minute_".concat(r)));
-    }
-    return t;
+import { jsx as r } from "./index.es203.js";
+import { getUserLocale as ee } from "./index.es271.js";
+import { getBeginPrevious as te, getBeginPrevious2 as ae, getBeginNext as re, getBeginNext2 as ne, getEndPrevious as ie, getEndPrevious2 as le, getDecadeLabel as oe, getCenturyLabel as ce } from "./index.es263.js";
+import { formatMonthYear as ve, formatYear as ue } from "./index.es272.js";
+import { Fragment as be } from "preact";
+var n = "react-calendar__navigation";
+function Le(e) {
+  var i = e.activeStartDate, T = e.drillUp, d = e.formatMonthYear, U = d === void 0 ? ve : d, m = e.formatYear, b = m === void 0 ? ue : m, o = e.locale, c = e.maxDate, v = e.minDate, p = e.navigationAriaLabel, F = p === void 0 ? "" : p, M = e.navigationAriaLive, f = e.navigationLabel, x = e.next2AriaLabel, j = x === void 0 ? "" : x, L = e.next2Label, g = L === void 0 ? "»" : L, h = e.nextAriaLabel, V = h === void 0 ? "" : h, A = e.nextLabel, D = A === void 0 ? "›" : A, _ = e.prev2AriaLabel, $ = _ === void 0 ? "" : _, w = e.prev2Label, N = w === void 0 ? "«" : w, C = e.prevAriaLabel, G = C === void 0 ? "" : C, k = e.prevLabel, y = k === void 0 ? "‹" : k, u = e.setActiveStartDate, I = e.showDoubleView, a = e.view, O = e.views, q = O.indexOf(a) > 0, l = a !== "century", B = te(a, i), S = l ? ae(a, i) : void 0, s = re(a, i), Y = l ? ne(a, i) : void 0, z = function() {
+    if (B.getFullYear() < 0)
+      return !0;
+    var t = ie(a, i);
+    return v && v >= t;
+  }(), H = l && function() {
+    if (S.getFullYear() < 0)
+      return !0;
+    var t = le(a, i);
+    return v && v >= t;
+  }(), J = c && c < s, K = l && c && c < Y;
+  function Q() {
+    u(B, "prev");
   }
-  function Y() {
-    if (!d)
-      return null;
-    for (var t = [], r = 1; r <= 12; r += 1)
-      t.push(o(P, { angle: r * 30, length: f, name: "hour", width: B }, "hour_".concat(r)));
-    return t;
+  function R() {
+    u(S, "prev2");
+  }
+  function W() {
+    u(s, "next");
+  }
+  function X() {
+    u(Y, "next2");
+  }
+  function P(t) {
+    var E = function() {
+      switch (a) {
+        case "century":
+          return ce(o, b, t);
+        case "decade":
+          return oe(o, b, t);
+        case "year":
+          return b(o, t);
+        case "month":
+          return U(o, t);
+        default:
+          throw new Error("Invalid view: ".concat(a, "."));
+      }
+    }();
+    return f ? f({
+      date: t,
+      label: E,
+      locale: o || ee() || void 0,
+      view: a
+    }) : E;
   }
   function Z() {
-    if (!Q)
-      return null;
-    for (var t = [], r = 1; r <= 12; r += 1)
-      t.push(o(de, { angle: r * 30, length: ue(d && f, w && k, 0), name: "number", number: q(E, r) }, "number_".concat(r)));
-    return t;
+    var t = "".concat(n, "__label");
+    return r("button", { "aria-label": F, "aria-live": M, className: t, disabled: !q, onClick: T, style: { flexGrow: 1 }, type: "button", children: [r("span", { className: "".concat(t, "__labelText ").concat(t, "__labelText--from"), children: P(i) }), I ? r(be, { children: [r("span", { className: "".concat(t, "__divider"), children: " – " }), r("span", { className: "".concat(t, "__labelText ").concat(t, "__labelText--to"), children: P(s) })] }) : null] });
   }
-  function _() {
-    return o("div", { className: "react-clock__face", children: [X(), Y(), Z()] });
-  }
-  function ee() {
-    var t = n ? C(n) * 30 + u(n) / 2 + a(n) / 120 + (i ? s(n) / 12e4 : 0) : 0;
-    return o(h, { angle: t, length: D, name: "hour", oppositeLength: $, width: A });
-  }
-  function ne() {
-    if (!N)
-      return null;
-    var t = n ? C(n) * 360 + u(n) * 6 + a(n) / 10 + (i ? s(n) / 1e4 : 0) : 0;
-    return o(h, { angle: t, length: G, name: "minute", oppositeLength: I, width: J });
-  }
-  function re() {
-    if (!S)
-      return null;
-    var t = n ? u(n) * 360 + a(n) * 6 + (i ? s(n) * 6e-3 : 0) : 0;
-    return o(h, { angle: t, length: R, name: "second", oppositeLength: U, width: V });
-  }
-  return o("time", { className: oe("react-clock", T), dateTime: n instanceof Date ? (
-    // Returns a string in the format "HH:MM" or "HH:MM:SS"
-    n.toLocaleTimeString("en", {
-      hourCycle: "h23",
-      hour: "2-digit",
-      minute: N ? "2-digit" : void 0,
-      second: S ? "2-digit" : void 0
-    })
-  ) : n || void 0, style: {
-    width: z,
-    height: z
-  }, children: [_(), ee(), ne(), re()] });
+  return r("div", { className: n, children: [N !== null && l ? r("button", { "aria-label": $, className: "".concat(n, "__arrow ").concat(n, "__prev2-button"), disabled: H, onClick: R, type: "button", children: N }) : null, y !== null && r("button", { "aria-label": G, className: "".concat(n, "__arrow ").concat(n, "__prev-button"), disabled: z, onClick: Q, type: "button", children: y }), Z(), D !== null && r("button", { "aria-label": V, className: "".concat(n, "__arrow ").concat(n, "__next-button"), disabled: J, onClick: W, type: "button", children: D }), g !== null && l ? r("button", { "aria-label": j, className: "".concat(n, "__arrow ").concat(n, "__next2-button"), disabled: K, onClick: X, type: "button", children: g }) : null] });
 }
 export {
-  pe as default
+  Le as default
 };

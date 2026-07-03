@@ -79,6 +79,7 @@
     align-items: center;
     justify-content: center;
     z-index: 5;
+    -webkit-user-select: none; // Safari only supports the prefixed form
     user-select: none;
     opacity: 0;
     cursor: grab;
@@ -97,6 +98,7 @@
     display: none;
     align-items: center;
     justify-content: center;
+    opacity: 0;
     z-index: 5;
   }
 

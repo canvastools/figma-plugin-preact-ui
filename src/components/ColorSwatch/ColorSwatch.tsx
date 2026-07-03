@@ -2,8 +2,8 @@ import { useRef } from 'preact/hooks'
 
 import { bem, typedForwardRef } from '../../utils'
 
-import { Tooltip } from '../../index'
-import { colorToHex, colorToHexAlpha } from '../../index'
+import { Tooltip } from '../Tooltip/Tooltip'
+import { colorToHex, colorToHexAlpha } from '../../utils'
 
 import type { Color } from '../ColorPicker/ColorPicker.types'
 import type { ColorSwatchProps, GradientPaint, ColorStop } from './ColorSwatch.types'

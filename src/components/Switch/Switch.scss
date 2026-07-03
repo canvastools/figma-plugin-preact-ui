@@ -38,18 +38,17 @@
     height: 8px;
     border-radius: 14px;
     background-color: var(--pui-color-neutral-inverted-fixed-icon-default);
-    box-shadow: 0 0 0 1px var(--pui-color-neutral-border-secondary);
+    box-shadow: 0 0 0 1px var(--pui-color-neutral-fixed-border-default);
     transition: transform 0.1s ease-out, background-color 0.1s ease-out, box-shadow 0.1s ease-out;
   }
 
   &_checked &__input {
     background-color: var(--pui-color-brand-bg-default);
-    box-shadow: inset 0 0 0 1px var(--pui-color-brand-border-default);
+    box-shadow: inset 0 0 0 1px var(--pui-color-neutral-border-default);
   }
 
   &_checked &__control {
     transform: translateX(12px);
-    box-shadow: 0 0 0 1px var(--pui-color-brand-border-default);
   }
 
   &_disabled &__input {

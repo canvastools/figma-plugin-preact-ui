@@ -2,14 +2,11 @@ import { bem, typedForwardRef } from '../../utils'
 
 import { useEffect, useRef, useState } from 'preact/hooks'
 
-import {
-  OverlayPositionerPlacement,
-  OverlayPositioner,
-  PopoverContainer,
-  PopoverHeader,
-  PopoverContext,
-  usePopoverContext,
-} from '../../index'
+import { OverlayPositioner } from '../OverlayPositioner/OverlayPositioner'
+import { PopoverContainer } from '../PopoverContainer/PopoverContainer'
+import { PopoverHeader } from '../PopoverHeader/PopoverHeader'
+import { PopoverContext, usePopoverContext } from '../PopoverContext/PopoverContext'
+import type { OverlayPositionerPlacement } from '../OverlayPositioner/OverlayPositioner.types'
 
 import type { PopoverProps } from './Popover.types'
 import './Popover.scss'
@@ -122,28 +119,25 @@ const PopoverComponent = (
 ) => {
   const _className = bem('Popover', undefined, undefined)
 
-  const [internalOpen, setInternalOpen] = useState<boolean>(open ?? defaultOpen)
+  // Controlled/uncontrolled open state:
+  // - `open` provided → fully controlled, internal state is ignored; every
+  //   interaction that wants to change it only fires onOpen/onClose and the
+  //   parent decides.
+  // - otherwise `defaultOpen` seeds internal state.
+  const isControlled = open !== undefined
+  const [internalOpen, setInternalOpen] = useState<boolean>(defaultOpen)
+  const isOpen = isControlled ? (open as boolean) : internalOpen
 
-  // Keep internal state in sync with controlled `open` prop (if provided)
-  useEffect(() => {
-    setInternalOpen(open ?? defaultOpen)
-  }, [open, defaultOpen])
-
-  // Fire onOpen / onClose exactly once per open/close cycle
-  const wasOpenRef = useRef(false)
-  useEffect(() => {
-    if (internalOpen && !wasOpenRef.current) {
-      wasOpenRef.current = true
-      onOpen?.()
-    } else if (!internalOpen && wasOpenRef.current) {
-      wasOpenRef.current = false
-      onClose?.()
-    }
-  }, [internalOpen, onOpen, onClose])
+  const handleOpenChange = (next: boolean) => {
+    if (next === isOpen) return
+    if (!isControlled) setInternalOpen(next)
+    if (next) onOpen?.()
+    else onClose?.()
+  }
 
   return (
-    <PopoverContext triggerRef={triggerRef} anchorRef={anchorRef} open={internalOpen} setOpen={setInternalOpen}>
-      {internalOpen && (
+    <PopoverContext triggerRef={triggerRef} anchorRef={anchorRef} open={isOpen} setOpen={handleOpenChange}>
+      {isOpen && (
         <div id={id} className={[_className, className].join(' ').trim()} ref={ref} {...rest}>
           <PopoverBody
             popoverHeaderProps={popoverHeaderProps}

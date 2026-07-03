@@ -5,7 +5,7 @@ import { bem, typedForwardRef } from '../../utils'
 import type { TabPanelProps } from './TabPanel.types'
 import './TabPanel.scss'
 
-import { useTabContext } from '../../index'
+import { useTabContext } from '../TabContext/TabContext'
 
 /* --- */
 

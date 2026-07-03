@@ -44,6 +44,10 @@ const figmaDark: ColorTokenTree = {
         success: '#79D297',
 
         component: '#D1A8FF',
+        'component-secondary': '#6B5884',
+
+        slot: '#F08DD1',
+        'slot-secondary': '#9B4A81',
 
         disabled: '#FFFFFF66',
 
@@ -66,6 +70,10 @@ const figmaDark: ColorTokenTree = {
         success: '#79D297',
 
         component: '#D1A8FF',
+        'component-secondary': '#6B5884',
+
+        slot: '#F08DD1',
+        'slot-secondary': '#9B4A81',
 
         disabled: '#FFFFFF66',
       },
@@ -88,6 +96,12 @@ const figmaDark: ColorTokenTree = {
 
         success: '#09ED743D',
 
+        component: '#D1A8FF',
+        'component-secondary': '#6B5884',
+
+        slot: '#F08DD1',
+        'slot-secondary': '#9B4A81',
+
         disabled: '#FFFFFF1F',
 
         'drop-position': '#FFFFFF',
@@ -99,6 +113,9 @@ const figmaDark: ColorTokenTree = {
     'neutral-fixed': {
       bg: {
         swatch: '#FFFFFF',
+      },
+      border: {
+        default: '#00000033',
       },
     },
     'neutral-inverted': {
@@ -148,7 +165,7 @@ const figmaDark: ColorTokenTree = {
         disabled: '#808080',
       },
       border: {
-        default: '#383838',
+        default: '#FFFFFF1C',
       },
     },
     brand: {
