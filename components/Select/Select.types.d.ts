@@ -1,4 +1,4 @@
-import { MenuContainerPropsPick } from '../../index';
+import { MenuContainerPropsPick } from '../MenuContainer/MenuContainer.types';
 export interface SelectOptionData {
     label: string;
     value: string;
@@ -20,8 +20,14 @@ export interface SelectProps {
     tabIndex?: number;
     prefix?: preact.ComponentChildren;
     tooltip?: preact.ComponentChildren;
-    onBlur?: () => void;
-    onFocus?: () => void;
+    onBlur?: (args: {
+        event: FocusEvent;
+        value?: string;
+    }) => void;
+    onFocus?: (args: {
+        event: FocusEvent;
+        value?: string;
+    }) => void;
     onValueChange?: (args: {
         event: MouseEvent;
         value: string;

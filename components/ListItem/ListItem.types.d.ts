@@ -22,14 +22,14 @@ export interface ListItemProps {
     selectable?: boolean;
     selectionScope?: 'individual' | 'withDescendants';
     onSelect?: (args: {
-        event: MouseEvent;
+        event: MouseEvent | KeyboardEvent;
         selected: boolean;
     }) => void;
     hoverable?: boolean;
     collapsed?: boolean;
     collapsable?: boolean;
     onCollapsedChange?: (args: {
-        event: MouseEvent;
+        event: MouseEvent | KeyboardEvent;
         collapsed: boolean;
     }) => void;
     collapseIconIntent?: 'secondary' | 'component-secondary' | 'slot-secondary';

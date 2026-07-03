@@ -1,0 +1,1 @@
+import{u as i}from"./hooks.module-DDuEt2mE.js";import{t as d,b as m}from"./typedForwardRef-eUJP59ez.js";const n=({id:e,className:r,variant:o="full",...s},t)=>{const a=m("Divider",void 0,{variant:o});return i("div",{id:e,className:[a,r].join(" ").trim(),ref:t,...s,children:i("div",{className:"Divider__line"})})},v=d(n);export{v as D};
