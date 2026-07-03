@@ -1,5 +1,5 @@
 import { createContext } from 'preact'
-import { useContext, useState, useEffect, useRef } from 'preact/hooks'
+import { useContext, useState, useEffect, useCallback, useMemo, useRef } from 'preact/hooks'
 
 import type { TabContextValue, TabContextProps } from './TabContext.types'
 
@@ -18,12 +18,15 @@ const TabContext = ({ defaultActiveId = '', activeId: controlledActiveId, onTabC
 
   const currentId = controlledActiveId !== undefined ? controlledActiveId : internalActiveId
 
-  const handleChange = (newId: string) => {
-    if (controlledActiveId === undefined) {
-      setInternalActiveId(newId)
-    }
-    onTabChange?.({ id: newId })
-  }
+  const handleChange = useCallback(
+    (newId: string) => {
+      if (controlledActiveId === undefined) {
+        setInternalActiveId(newId)
+      }
+      onTabChange?.({ id: newId })
+    },
+    [controlledActiveId, onTabChange],
+  )
 
   useEffect(() => {
     if (controlledActiveId !== undefined) {
@@ -34,7 +37,7 @@ const TabContext = ({ defaultActiveId = '', activeId: controlledActiveId, onTabC
   const tabRegistryRef = useRef<{ id: string; ref: HTMLButtonElement | null }[]>([])
   const lastTabDirectionRef = useRef<'forward' | 'backward' | null>(null)
 
-  const registerTab = (id: string, ref: HTMLButtonElement | null) => {
+  const registerTab = useCallback((id: string, ref: HTMLButtonElement | null) => {
     const registry = tabRegistryRef.current
     const existingIndex = registry.findIndex((tab) => tab.id === id)
 
@@ -51,9 +54,9 @@ const TabContext = ({ defaultActiveId = '', activeId: controlledActiveId, onTabC
     } else {
       registry[existingIndex].ref = ref
     }
-  }
+  }, [])
 
-  const setFocusedTab = (id?: string) => {
+  const setFocusedTab = useCallback((id?: string) => {
     const registry = tabRegistryRef.current
     if (!registry.length) return
 
@@ -64,7 +67,7 @@ const TabContext = ({ defaultActiveId = '', activeId: controlledActiveId, onTabC
     if (target?.ref) {
       target.ref.focus()
     }
-  }
+  }, [])
 
   const moveFocus = (direction: 'next' | 'prev') => {
     const registry = tabRegistryRef.current
@@ -146,13 +149,16 @@ const TabContext = ({ defaultActiveId = '', activeId: controlledActiveId, onTabC
     }
   }
 
-  const contextValue: TabContextValue = {
-    activeId: currentId,
-    onTabChange: handleChange,
-    setActiveTab: setInternalActiveId,
-    registerTab,
-    setFocusedTab,
-  }
+  const contextValue: TabContextValue = useMemo(
+    () => ({
+      activeId: currentId,
+      onTabChange: handleChange,
+      setActiveTab: setInternalActiveId,
+      registerTab,
+      setFocusedTab,
+    }),
+    [currentId, handleChange, registerTab, setFocusedTab],
+  )
 
   const handleKeyDownRef = useRef(handleKeyDown)
   handleKeyDownRef.current = handleKeyDown
@@ -175,6 +181,12 @@ const TabContext = ({ defaultActiveId = '', activeId: controlledActiveId, onTabC
     const handleGlobalKeyDown = (event: KeyboardEvent) => {
       if (event.key !== 'Tab') return
       lastTabDirectionRef.current = event.shiftKey ? 'backward' : 'forward'
+    }
+
+    // A pointer press means the upcoming focusin is mouse-driven, so the last
+    // remembered Tab direction is stale and must not redirect focus.
+    const handleGlobalPointerDown = () => {
+      lastTabDirectionRef.current = null
     }
 
     const handleFocusIn = (event: FocusEvent) => {
@@ -200,10 +212,12 @@ const TabContext = ({ defaultActiveId = '', activeId: controlledActiveId, onTabC
     }
 
     window.addEventListener('keydown', handleGlobalKeyDown)
+    window.addEventListener('pointerdown', handleGlobalPointerDown, true)
     window.addEventListener('focusin', handleFocusIn)
 
     return () => {
       window.removeEventListener('keydown', handleGlobalKeyDown)
+      window.removeEventListener('pointerdown', handleGlobalPointerDown, true)
       window.removeEventListener('focusin', handleFocusIn)
     }
   }, [])

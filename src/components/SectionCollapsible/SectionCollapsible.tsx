@@ -2,7 +2,9 @@ import { useEffect, useState } from 'preact/hooks'
 
 import { bem, typedForwardRef } from '../../utils'
 
-import { Icon, Section, chevronDown, chevronRight } from '../../index'
+import { Icon } from '../Icon/Icon'
+import { Section } from '../Section/Section'
+import { chevronDown, chevronRight } from '../Icon/glyphs'
 
 import type { SectionCollapsibleProps } from './SectionCollapsible.types'
 import './SectionCollapsible.scss'
@@ -34,7 +36,7 @@ const SectionCollapsibleComponent = (
       setInternalCollapsed(nextCollapsed)
     }
 
-    onCollapsedChange?.({ event: event as MouseEvent, collapsed: nextCollapsed })
+    onCollapsedChange?.({ event, collapsed: nextCollapsed })
   }
 
   const handleClick = (event: MouseEvent) => {
