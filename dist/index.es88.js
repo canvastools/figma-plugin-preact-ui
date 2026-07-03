@@ -1,64 +1,36 @@
-import { jsx as o } from "./index.es178.js";
-const l = ({ variant: r }) => {
-  switch (r) {
+import { jsx as e } from "./index.es203.js";
+const n = ({ variant: o }) => {
+  switch (o) {
     case "downscaled":
-      return /* @__PURE__ */ o("svg", { width: "16", height: "16", viewBox: "0 0 16 16", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: [
-        /* @__PURE__ */ o(
-          "path",
-          {
-            d: "M12.5 2C13.3284 2 14 2.67157 14 3.5V12.5C14 13.3284 13.3284 14 12.5 14H3.5C2.67157 14 2 13.3284 2 12.5V3.5C2 2.67157 2.67157 2 3.5 2H12.5ZM4 4V12H12V4H4Z",
-            fill: "currentColor",
-            "fill-opacity": "0.3"
-          }
-        ),
-        /* @__PURE__ */ o(
-          "path",
-          {
-            d: "M11.5 3C12.3284 3 13 3.67157 13 4.5V11.5C13 12.2767 12.4097 12.9154 11.6533 12.9922L11.5 13H4.5L4.34668 12.9922C3.64069 12.9205 3.07949 12.3593 3.00781 11.6533L3 11.5V4.5C3 3.67157 3.67157 3 4.5 3H11.5ZM4.5 4C4.22386 4 4 4.22386 4 4.5V11.5C4 11.7761 4.22386 12 4.5 12H11.5C11.7761 12 12 11.7761 12 11.5V4.5C12 4.22386 11.7761 4 11.5 4H4.5Z",
-            fill: "currentColor"
-          }
-        )
-      ] });
+      return /* @__PURE__ */ e("svg", { width: "16", height: "16", viewBox: "0 0 16 16", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: /* @__PURE__ */ e(
+        "path",
+        {
+          d: "M7.14638 6.23348C6.95116 6.03826 6.95125 5.72172 7.14638 5.52645C7.34164 5.33119 7.65815 5.33119 7.85341 5.52645L10.328 8.00106L7.85341 10.4757C7.65815 10.6709 7.34164 10.6709 7.14638 10.4757C6.95129 10.2804 6.95117 9.96384 7.14638 9.76864L8.91396 8.00106L7.14638 6.23348Z",
+          fill: "currentColor"
+        }
+      ) });
     case "default":
-      return /* @__PURE__ */ o("svg", { width: "24", height: "24", viewBox: "0 0 24 24", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: [
-        /* @__PURE__ */ o(
-          "path",
-          {
-            d: "M17 4C18.6569 4 20 5.34315 20 7V17C20 18.6569 18.6569 20 17 20H7C5.34315 20 4 18.6569 4 17V7C4 5.34315 5.34315 4 7 4H17ZM7 7V17H17V7H7Z",
-            fill: "currentColor",
-            "fill-opacity": "0.3"
-          }
-        ),
-        /* @__PURE__ */ o(
-          "path",
-          {
-            d: "M16.2041 6.01074C17.2128 6.113 18 6.96435 18 8V16L17.9893 16.2041C17.8938 17.1457 17.1457 17.8938 16.2041 17.9893L16 18H8C6.96435 18 6.113 17.2128 6.01074 16.2041L6 16V8C6 6.89543 6.89543 6 8 6H16L16.2041 6.01074ZM8 7C7.44772 7 7 7.44772 7 8V16C7 16.5523 7.44772 17 8 17H16C16.5523 17 17 16.5523 17 16V8C17 7.44772 16.5523 7 16 7H8Z",
-            fill: "currentColor"
-          }
-        )
-      ] });
+      return /* @__PURE__ */ e("svg", { width: "24", height: "24", viewBox: "0 0 24 24", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: /* @__PURE__ */ e(
+        "path",
+        {
+          d: "M11.1464 10.2342C10.9512 10.039 10.9512 9.72147 11.1464 9.52621C11.3417 9.33129 11.6583 9.33126 11.8535 9.52621L14.3281 12.0018L11.8535 14.4764C11.6582 14.6717 11.3417 14.6716 11.1464 14.4764C10.9512 14.2811 10.9512 13.9646 11.1464 13.7694L12.914 12.0018L11.1464 10.2342Z",
+          fill: "currentColor"
+        }
+      ) });
     case "upscaled":
-      return /* @__PURE__ */ o("svg", { width: "24", height: "24", viewBox: "0 0 24 24", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: [
-        /* @__PURE__ */ o(
-          "path",
-          {
-            d: "M19 2C20.6569 2 22 3.34315 22 5V19C22 20.6569 20.6569 22 19 22H5C3.34315 22 2 20.6569 2 19V5C2 3.34315 3.34315 2 5 2H19ZM5 5V19H19V5H5Z",
-            fill: "currentColor",
-            "fill-opacity": "0.3"
-          }
-        ),
-        /* @__PURE__ */ o(
-          "path",
-          {
-            d: "M18 4C19.1046 4 20 4.89543 20 6V18C20 19.1046 19.1046 20 18 20H6C4.89543 20 4 19.1046 4 18V6C4 4.89543 4.89543 4 6 4H18ZM6 5C5.44772 5 5 5.44772 5 6V18C5 18.5523 5.44772 19 6 19H18C18.5523 19 19 18.5523 19 18V6C19 5.44772 18.5523 5 18 5H6Z",
-            fill: "currentColor"
-          }
-        )
-      ] });
+      return /* @__PURE__ */ e("svg", { width: "24", height: "24", viewBox: "0 0 24 24", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: /* @__PURE__ */ e(
+        "path",
+        {
+          "fill-rule": "evenodd",
+          "clip-rule": "evenodd",
+          d: "M15.8451 19.8231C15.6327 20.0477 15.2779 20.0578 15.0531 19.8456L7.17519 12.4061C7.06342 12.3005 6.99958 12.1536 6.99941 11.9999C6.99941 11.8459 7.06336 11.6984 7.17519 11.5926L15.0531 4.15319C15.2779 3.9409 15.6328 3.95091 15.8451 4.17565C16.0574 4.40047 16.0474 4.75529 15.8227 4.96764L8.37539 11.9989L15.8226 19.0311C16.0474 19.2435 16.0574 19.5983 15.8451 19.8231Z",
+          fill: "currentColor"
+        }
+      ) });
     default:
-      throw new Error(`dropShadow icon error: Unsupported combination variant=${r}`);
+      throw new Error(`chevronRight icon error: Unsupported combination variant=${o}`);
   }
 };
 export {
-  l as dropShadow
+  n as chevronRight
 };

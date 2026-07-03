@@ -1,46 +1,17 @@
-const r = (t, n, s) => Math.min(Math.max(t, n), s), c = (t) => {
-  const n = r(Math.round(t * 255), 0, 255).toString(16);
-  return n.length === 1 ? "0" + n : n;
-}, i = (t) => {
-  const n = t.startsWith("#") ? t.slice(1) : t;
-  if (/^[0-9a-fA-F]{6}$/.test(n))
-    return n.toUpperCase();
-}, l = (t) => `#${c(t.r)}${c(t.g)}${c(t.b)}`, p = (t, n = 1) => {
-  const s = i(t);
-  if (!s) return;
-  const e = parseInt(s.slice(0, 2), 16) / 255, o = parseInt(s.slice(2, 4), 16) / 255, a = parseInt(s.slice(4, 6), 16) / 255;
-  return { r: e, g: o, b: a, a: n };
-}, u = (t) => {
-  const n = l(t), e = r(Math.round(t.a * 255), 0, 255).toString(16).padStart(2, "0").toUpperCase();
-  return `${n}${e}`;
-}, h = (t) => {
-  const n = t.startsWith("#") ? t.slice(1) : t;
-  if (/^[0-9a-fA-F]{8}$/.test(n)) {
-    const s = parseInt(n.slice(0, 2), 16) / 255, e = parseInt(n.slice(2, 4), 16) / 255, o = parseInt(n.slice(4, 6), 16) / 255, a = parseInt(n.slice(6, 8), 16) / 255;
-    return { r: s, g: e, b: o, a };
+const p = {
+  class: ":root",
+  prefix: "--pui-spacing",
+  variables: {
+    0: "0px",
+    100: "4px",
+    200: "8px",
+    300: "12px",
+    400: "16px",
+    600: "24px",
+    800: "32px",
+    1e3: "40px"
   }
-  if (/^[0-9a-fA-F]{6}$/.test(n)) {
-    const s = parseInt(n.slice(0, 2), 16) / 255, e = parseInt(n.slice(2, 4), 16) / 255, o = parseInt(n.slice(4, 6), 16) / 255;
-    return { r: s, g: e, b: o, a: 1 };
-  }
-}, d = (t) => Math.round(t * 100) / 100, g = (t) => ({
-  r: r(Math.round(t.r * 255), 0, 255),
-  g: r(Math.round(t.g * 255), 0, 255),
-  b: r(Math.round(t.b * 255), 0, 255),
-  a: r(t.a, 0, 1)
-}), I = (t) => ({
-  r: r(t.r, 0, 255) / 255,
-  g: r(t.g, 0, 255) / 255,
-  b: r(t.b, 0, 255) / 255,
-  a: r(t.a, 0, 1)
-});
+};
 export {
-  r as clamp,
-  l as colorToHex,
-  u as colorToHexAlpha,
-  g as colorToRgba,
-  h as hexAlphaToColor,
-  p as hexToColor,
-  I as rgbaToColor,
-  d as roundAlpha
+  p as spacing
 };

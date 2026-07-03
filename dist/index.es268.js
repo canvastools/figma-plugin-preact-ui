@@ -1,39 +1,18 @@
 import "preact/compat";
-import { jsx as f } from "./index.es178.js";
-import { getHoursMinutesSeconds as h, getHoursMinutes as m, getHours as g } from "./index.es246.js";
-function y({ ariaLabel: u, disabled: i, maxTime: n, minTime: r, name: a, onChange: d, required: c, value: o, valueType: s }) {
-  const e = (() => {
-    switch (s) {
-      case "hour":
-        return (t) => `${g(t)}:00`;
-      case "minute":
-        return m;
-      case "second":
-        return h;
-      default:
-        throw new Error("Invalid valueType");
-    }
-  })(), p = (() => {
-    switch (s) {
-      case "hour":
-        return 3600;
-      case "minute":
-        return 60;
-      case "second":
-        return 1;
-      default:
-        throw new Error("Invalid valueType");
-    }
-  })();
-  function l(t) {
-    t.stopPropagation();
+import { jsx as t } from "./index.es203.js";
+import { clsx as _ } from "./index.es257.js";
+import { getMonthStart as M, getYear as g, getMonth as x } from "./index.es274.js";
+import p from "./index.es278.js";
+import { getDayOfWeek as N, isWeekend as O, isCurrentDayOfWeek as S } from "./index.es263.js";
+import { formatWeekday as b, formatShortWeekday as w } from "./index.es272.js";
+var v = "react-calendar__month-view__weekdays", n = "".concat(v, "__weekday");
+function I(e) {
+  for (var m = e.calendarType, c = e.formatShortWeekday, h = c === void 0 ? w : c, l = e.formatWeekday, u = l === void 0 ? b : l, i = e.locale, d = e.onMouseLeave, y = /* @__PURE__ */ new Date(), o = M(y), W = g(o), k = x(o), f = [], a = 1; a <= 7; a += 1) {
+    var r = new Date(W, k, a - N(o, m)), s = u(i, r);
+    f.push(t("div", { className: _(n, S(r) && "".concat(n, "--current"), O(r, m) && "".concat(n, "--weekend")), children: t("abbr", { "aria-label": s, title: s, children: h(i, r).replace(".", "") }) }, a));
   }
-  return f("input", { "aria-label": u, disabled: i, hidden: !0, max: n ? e(n) : void 0, min: r ? e(r) : void 0, name: a, onChange: d, onFocus: l, required: c, step: p, style: {
-    visibility: "hidden",
-    position: "absolute",
-    zIndex: "-999"
-  }, type: "time", value: o ? e(o) : "" });
+  return t(p, { className: v, count: 7, onFocus: d, onMouseOver: d, children: f });
 }
 export {
-  y as default
+  I as default
 };

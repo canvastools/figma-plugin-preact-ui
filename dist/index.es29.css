@@ -1,1 +1,1 @@
-.Popover{position:absolute}
+.OverlayPositioner{position:fixed;z-index:50}

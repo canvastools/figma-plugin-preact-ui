@@ -1,45 +1,45 @@
 import "./index.es17.css";
-import { jsx as o } from "./index.es178.js";
-import { Fragment as yt } from "preact";
-import { useState as l, useRef as M, useImperativeHandle as It, useEffect as x } from "preact/hooks";
-import { Text as _t } from "./index.es47.js";
-import { Tooltip as Et } from "./index.es50.js";
+import { jsx as o } from "./index.es203.js";
+import { Fragment as Tt } from "preact";
+import { useState as l, useRef as M, useImperativeHandle as yt, useEffect as x } from "preact/hooks";
+import { Tooltip as _t } from "./index.es52.js";
+import { Text as Et } from "./index.es49.js";
 /* empty css            */
-import { typedForwardRef as Pt } from "./index.es180.js";
-import { bem as $ } from "./index.es63.js";
+import { typedForwardRef as Pt } from "./index.es205.js";
+import { bem as $ } from "./index.es65.js";
 const wt = ({
   id: q,
   className: A,
   variant: f = "default",
   label: m,
   placeholder: g,
-  type: C = "text",
+  type: D = "text",
   value: s,
-  defaultValue: D,
-  ghost: G = !1,
+  defaultValue: G,
+  ghost: J = !1,
   grouped: k,
-  error: J = !1,
-  disabled: u = !1,
+  error: Q = !1,
+  disabled: c = !1,
   prefix: h,
-  suffix: T,
-  showSuffixOnHover: Q = !1,
+  suffix: I,
+  showSuffixOnHover: U = !1,
   focusOnDoubleClick: r = !1,
-  focusOnPrefix: y = !1,
-  minLength: U = 0,
-  maxLength: V,
+  focusOnPrefix: T = !1,
+  minLength: V = 0,
+  maxLength: X,
   tooltip: H,
   autoFocus: S = !1,
-  selectOnFocus: X = !1,
-  maxWidth: d,
-  onValueChange: I,
+  selectOnFocus: Y = !1,
+  maxWidth: p,
+  onValueChange: y,
   onBlur: _,
   onFocus: E,
   onKeyDown: P,
   tabIndex: w,
-  ...Y
-}, Z) => {
-  const c = s !== void 0, [N, b] = l(() => D ?? ""), [O, j] = l(!1), [tt, R] = l(!1), [et, v] = l(!1), [K, B] = l(!!(s ?? N ?? "")), [a, F] = l(!1), n = M(null), i = M(null), p = M(!1);
-  It(Z, () => n.current, []), x(() => {
+  ...Z
+}, C) => {
+  const u = s !== void 0, [N, b] = l(() => G ?? ""), [O, j] = l(!1), [tt, R] = l(!1), [et, v] = l(!1), [K, B] = l(!!(s ?? N ?? "")), [a, F] = l(!1), n = M(null), i = M(null), d = M(!1);
+  yt(C, () => n.current, []), x(() => {
     if (!S) return;
     const t = window.setTimeout(() => {
       var e;
@@ -47,32 +47,32 @@ const wt = ({
     }, 25);
     return () => clearTimeout(t);
   }, [S]), x(() => {
-    c && s !== void 0 && B(s.length > 0);
-  }, [c, s]);
+    u && s !== void 0 && B(s.length > 0);
+  }, [u, s]);
   const rt = $("Input", void 0, {
     filled: K,
-    ghost: G,
-    disabled: u,
+    ghost: J,
+    disabled: c,
     variant: f,
     label: !!m,
     grouped: !!k,
     groupedPosition: k ?? void 0,
     prefix: !!h,
-    suffix: !!T,
-    suffixOnHover: !!Q,
+    suffix: !!I,
+    suffixOnHover: !!U,
     focused: O,
     // For double-click mode, apply keyboardFocus only when the wrapper
     // itself is focused via keyboard (Tab), not mouse.
     keyboardFocus: r && et && tt,
     editing: a,
     doubleClick: r,
-    error: J
+    error: Q
   }), ot = $("Input__display", void 0, {
     placeholder: !!(g && !K)
   }), st = (t) => {
     t.stopPropagation();
     const e = t.currentTarget.value;
-    c || b(e), B(e.length > 0), I == null || I({
+    u || b(e), B(e.length > 0), y == null || y({
       event: t,
       value: e
     });
@@ -84,11 +84,11 @@ const wt = ({
       n.current && n.current.focus();
     }, 0);
   }, nt = (t) => {
-    t.currentTarget === t.target && (v(!0), R(!p.current));
+    t.currentTarget === t.target && (v(!0), R(!d.current));
   }, it = (t) => {
     t.currentTarget === t.target && (v(!1), R(!1));
   }, lt = (t) => {
-    if (t.stopPropagation(), j(!0), X) {
+    if (t.stopPropagation(), j(!0), Y) {
       const e = t.currentTarget;
       setTimeout(() => e.select(), 0);
     }
@@ -96,19 +96,19 @@ const wt = ({
       event: t,
       value: t.currentTarget.value
     });
-  }, ct = (t) => {
+  }, ut = (t) => {
     t.stopPropagation(), P == null || P({
       event: t,
       value: t.currentTarget.value
     }), (t.key === "Enter" || t.key === "Escape" || t.key === "Esc") && t.currentTarget.blur();
-  }, ut = (t) => {
+  }, ct = (t) => {
     t.stopPropagation();
-  }, dt = () => {
-    p.current = !0;
-  }, pt = (t) => {
-    r && t.target === t.currentTarget && (t.key === " " || t.key === "Spacebar" || t.key === "Enter") && (t.preventDefault(), t.stopPropagation(), p.current = !1, F(!0));
+  }, pt = () => {
+    d.current = !0;
+  }, dt = (t) => {
+    r && t.target === t.currentTarget && (t.key === " " || t.key === "Spacebar" || t.key === "Enter") && (t.preventDefault(), t.stopPropagation(), d.current = !1, F(!0));
   }, z = () => {
-    p.current = !0, a ? setTimeout(() => {
+    d.current = !0, a ? setTimeout(() => {
       var t;
       return (t = i.current) == null ? void 0 : t.focus();
     }, 0) : F(!0);
@@ -116,9 +116,9 @@ const wt = ({
     r && z();
   }, mt = (t) => {
     var e;
-    u || (t.preventDefault(), (e = i.current) == null || e.focus());
+    c || (t.preventDefault(), (e = i.current) == null || e.focus());
   }, gt = (t) => {
-    u || (t.preventDefault(), t.stopPropagation(), z());
+    c || (t.preventDefault(), t.stopPropagation(), z());
   }, ht = (t) => {
     t.stopPropagation();
   };
@@ -128,8 +128,8 @@ const wt = ({
       (t = i.current) == null || t.focus(), (W = (e = i.current) == null ? void 0 : e.select) == null || W.call(e);
     }, 0);
   }, [r, a]);
-  const L = !r || a, Tt = c ? s ?? "" : N;
-  return /* @__PURE__ */ o(yt, { children: [
+  const L = !r || a, It = u ? s ?? "" : N;
+  return /* @__PURE__ */ o(Tt, { children: [
     /* @__PURE__ */ o(
       "div",
       {
@@ -137,30 +137,30 @@ const wt = ({
         className: [rt, A].join(" ").trim(),
         "data-pui-interactive": L ? "true" : "false",
         ref: n,
-        ...Y,
+        ...Z,
         children: [
-          m && /* @__PURE__ */ o(_t, { className: "Input__label", intentModifier: "secondary", size: f === "list" ? "medium" : "small", truncate: !0, children: m }),
+          m && /* @__PURE__ */ o(Et, { className: "Input__label", intentModifier: "secondary", size: f === "list" ? "medium" : "small", truncate: !0, children: m }),
           /* @__PURE__ */ o(
             "div",
             {
               className: "Input__container",
-              onKeyDown: pt,
-              onMouseDown: dt,
+              onKeyDown: dt,
+              onMouseDown: pt,
               onFocus: nt,
               onBlur: it,
               onDblClick: ft,
               tabIndex: r ? w ?? 0 : void 0,
               style: {
-                maxWidth: f === "default" ? void 0 : typeof d == "number" ? `${d}px` : d,
-                flexShrink: d ? 0 : void 0
+                maxWidth: f === "default" ? void 0 : typeof p == "number" ? `${p}px` : p,
+                flexShrink: p ? 0 : void 0
               },
               children: [
                 h && /* @__PURE__ */ o(
                   "div",
                   {
                     className: "Input__prefix",
-                    onMouseDownCapture: y && !r ? mt : void 0,
-                    onDblClickCapture: y && r ? gt : !y && r ? ht : void 0,
+                    onMouseDownCapture: T && !r ? mt : void 0,
+                    onDblClickCapture: T && r ? gt : !T && r ? ht : void 0,
                     children: h
                   }
                 ),
@@ -171,30 +171,30 @@ const wt = ({
                     ref: (t) => {
                       i.current = t;
                     },
-                    minLength: U,
-                    maxLength: V,
-                    type: C,
-                    disabled: u,
+                    minLength: V,
+                    maxLength: X,
+                    type: D,
+                    disabled: c,
                     ...w !== void 0 && !r ? { tabIndex: w } : {},
                     placeholder: g,
-                    value: c ? s : N,
-                    onChange: st,
-                    onClick: ut,
+                    value: u ? s : N,
+                    onInput: st,
+                    onClick: ct,
                     onBlur: (t) => {
                       at(t), r && (F(!1), R(!1));
                     },
                     onFocus: lt,
-                    onKeyDown: ct
+                    onKeyDown: ut
                   }
-                ) : /* @__PURE__ */ o("div", { className: ot, children: Tt || g }),
-                T && /* @__PURE__ */ o("div", { className: "Input__suffix", children: T })
+                ) : /* @__PURE__ */ o("div", { className: ot, children: It || g }),
+                I && /* @__PURE__ */ o("div", { className: "Input__suffix", children: I })
               ]
             }
           )
         ]
       }
     ),
-    H && /* @__PURE__ */ o(Et, { anchorRef: n, children: H })
+    H && /* @__PURE__ */ o(_t, { anchorRef: n, children: H })
   ] });
 }, St = Pt(wt);
 export {

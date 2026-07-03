@@ -1,15 +1,15 @@
 import "./index.es21.css";
-import { jsx as h } from "./index.es178.js";
+import { jsx as h } from "./index.es203.js";
 import { useState as $, useRef as q, useEffect as C } from "preact/hooks";
 /* empty css            */
+import { useListContext as bt } from "./index.es20.js";
 import { Icon as at } from "./index.es16.js";
-import { useListContext as kt } from "./index.es20.js";
-import { typedForwardRef as bt } from "./index.es180.js";
-import { bem as Kt } from "./index.es63.js";
-import { chevronRight as Nt } from "./index.es81.js";
-import { chevronDown as Zt } from "./index.es79.js";
-import { dragHandle as zt } from "./index.es87.js";
-const Bt = ({
+import { typedForwardRef as Kt } from "./index.es205.js";
+import { bem as Nt } from "./index.es65.js";
+import { chevronRight as Zt } from "./index.es88.js";
+import { chevronDown as zt } from "./index.es86.js";
+import { dragHandle as Bt } from "./index.es98.js";
+const Mt = ({
   id: f,
   className: ct,
   variant: lt = "default",
@@ -20,33 +20,34 @@ const Bt = ({
   selectionScope: N = "individual",
   collapsed: T,
   collapsable: Z = !1,
+  collapseIconIntent: ft = "secondary",
   onCollapsedChange: p,
   onDragStart: H,
   onDragEnd: G,
   selectable: I = !1,
-  hoverable: ft = !1,
+  hoverable: mt = !1,
   onSelect: E,
   items: J,
   children: tt,
-  tabIndex: mt,
-  ...dt
+  tabIndex: dt,
+  ...vt
 }, z) => {
   const {
     selectedItemIds: _,
     selectionOriginIds: F,
     toggleSelect: et,
     selectionMode: U,
-    setSelection: vt,
+    setSelection: pt,
     registerItem: B,
-    dragImage: pt,
+    dragImage: gt,
     reorderItems: k,
     getPathForId: D,
     onKeyDown: Q
-  } = kt(), [gt, M] = $(!1), [Lt, rt] = $(!1), [ht, It] = $(!1), w = q(null), nt = q(null), V = q(null), L = q(null), R = T !== void 0, [Dt, W] = $(!!T);
+  } = bt(), [Lt, M] = $(!1), [ht, rt] = $(!1), [It, Dt] = $(!1), w = q(null), nt = q(null), V = q(null), L = q(null), R = T !== void 0, [yt, W] = $(!!T);
   C(() => {
     R && W(!!T);
   }, [T]);
-  const b = R ? !!T : Dt;
+  const b = R ? !!T : yt;
   C(() => {
     const t = w.current;
     if (!t) return;
@@ -61,13 +62,13 @@ const Bt = ({
           n = a[o];
           break;
         }
-      It(n === t);
+      Dt(n === t);
     };
     e();
     const i = new MutationObserver(e);
     return i.observe(r, { childList: !0 }), () => i.disconnect();
   }, []);
-  const S = _.has(f), yt = N === "individual" ? S : !!(F != null && F.has(f)), _t = !!J;
+  const S = _.has(f), _t = N === "individual" ? S : !!(F != null && F.has(f)), wt = !!J;
   C(() => {
     const t = B == null ? void 0 : B(f, {
       selectable: I,
@@ -83,20 +84,20 @@ const Bt = ({
       document.removeEventListener("dragend", r), document.removeEventListener("resetDragStates", e), t == null || t();
     };
   }, [f, B, I, N]);
-  const wt = Kt("ListItem", void 0, {
+  const Et = Nt("ListItem", void 0, {
     "selection-scope-descendants": N === "withDescendants",
     variant: lt,
     nested: O > 0,
     draggable: d,
     selectable: I,
     selected: S,
-    "selection-origin": yt,
-    focused: Lt,
-    hoverable: ft,
-    "has-children": _t,
+    "selection-origin": _t,
+    focused: ht,
+    hoverable: mt,
+    "has-children": wt,
     collapsed: b,
     collapsable: Z,
-    dragging: gt
+    dragging: Lt
   }), X = (t) => {
     if (!t) return !1;
     let r = t;
@@ -109,7 +110,7 @@ const Bt = ({
       r = r.parentElement;
     }
     return !1;
-  }, Et = (t) => {
+  }, Pt = (t) => {
     if (t.detail > 1 || X(t.target) || !I || U === void 0) return;
     const r = t.shiftKey, e = t.metaKey || t.ctrlKey;
     et(f, { range: r, additive: e }), E == null || E({ event: t, selected: !S });
@@ -176,7 +177,7 @@ const Bt = ({
         break;
       }
     }
-  }, Pt = (t) => {
+  }, At = (t) => {
     if (!X(t.target))
       switch (Q == null || Q({ event: t, itemId: f }), t.key) {
         case "ArrowUp":
@@ -215,7 +216,6 @@ const Bt = ({
             t.preventDefault(), t.stopPropagation();
             const r = !b;
             R ? p == null || p({
-              // Cast to MouseEvent for compatibility with callback type
               event: t,
               collapsed: r
             }) : (W(r), p == null || p({
@@ -231,7 +231,7 @@ const Bt = ({
     if (d) {
       M(!0), document.documentElement.classList.add("pui-dragging");
       const a = I && _.has(f) && _.size > 1, n = a ? Array.from(_) : [f];
-      I && U !== void 0 && !a && vt([f]);
+      I && U !== void 0 && !a && pt([f]);
       const c = { ids: n };
       try {
         (r = t.dataTransfer) == null || r.setData("application/json", JSON.stringify(c));
@@ -239,7 +239,7 @@ const Bt = ({
       }
       (e = t.dataTransfer) == null || e.setData("text/plain", n[0]), window.__puiDraggingIds = n;
       try {
-        (i = t.dataTransfer) == null || i.setDragImage(pt, 0, 0);
+        (i = t.dataTransfer) == null || i.setDragImage(gt, 0, 0);
       } catch {
       }
       H == null || H({ event: t });
@@ -253,7 +253,7 @@ const Bt = ({
       }
       G == null || G({ event: t });
     }
-  }, At = (t) => {
+  }, xt = (t) => {
     var n, c;
     t.preventDefault(), t.stopPropagation(), t.dataTransfer && (t.dataTransfer.dropEffect = "move"), t.currentTarget.classList.add("ListItem__end-dropzone-active");
     const e = (n = w.current) == null ? void 0 : n.closest(".ListContainer");
@@ -280,7 +280,7 @@ const Bt = ({
     L.current !== a && (document.querySelectorAll(".ListItem_drop-parent").forEach((l) => {
       l.classList.remove("ListItem_drop-parent");
     }), a && a.classList.add("ListItem_drop-parent"), L.current = a);
-  }, xt = (t) => {
+  }, Tt = (t) => {
     var n, c, o;
     t.preventDefault(), t.stopPropagation(), t.currentTarget.classList.remove("ListItem__end-dropzone-active"), L.current && (L.current.classList.remove("ListItem_drop-parent"), L.current = null);
     let e = null;
@@ -306,26 +306,26 @@ const Bt = ({
       }).length : 0, P = u == null ? void 0 : u.closest(".ListItem"), K = (P == null ? void 0 : P.getAttribute("data-item-id")) || null, A = K ? (D == null ? void 0 : D(K)) || [] : [];
       k(e, v, K ? A : void 0);
     }
-  }, Tt = (t) => {
+  }, kt = (t) => {
     t.currentTarget.classList.remove("ListItem__end-dropzone-active"), L.current && (L.current.classList.remove("ListItem_drop-parent"), L.current = null);
   };
   return /* @__PURE__ */ h(
     "div",
     {
       id: f,
-      className: [wt, ct].join(" ").trim(),
+      className: [Et, ct].join(" ").trim(),
       ref: (t) => {
         w.current = t, typeof z == "function" ? z(t) : z && (z.current = t);
       },
-      ...dt,
-      tabIndex: mt ?? (I || d || Z ? 0 : void 0),
+      ...vt,
+      tabIndex: dt ?? (I || d || Z ? 0 : void 0),
       onFocus: (t) => {
         t.currentTarget === t.target && rt(!0);
       },
       onBlur: (t) => {
         t.currentTarget === t.target && rt(!1);
       },
-      onKeyDown: Pt,
+      onKeyDown: At,
       "data-nesting-level": O,
       "data-item-id": f,
       "data-accepts-children": ut ? "true" : "false",
@@ -341,7 +341,7 @@ const Bt = ({
           "div",
           {
             className: "ListItem__content",
-            onClick: Et,
+            onClick: Pt,
             draggable: d,
             onMouseDown: d ? (t) => {
               nt.current = t.target;
@@ -373,8 +373,8 @@ const Bt = ({
                     at,
                     {
                       intent: "neutral",
-                      intentModifier: "secondary",
-                      glyph: b ? Nt : Zt,
+                      intentModifier: ft,
+                      glyph: b ? Zt : zt,
                       size: 16,
                       variant: "default"
                     }
@@ -390,7 +390,7 @@ const Bt = ({
                     t.stopPropagation(), it(t);
                   },
                   onDragEnd: ot,
-                  children: /* @__PURE__ */ h(at, { glyph: zt, iconColor: "var(--pui-color-neutral-icon-tertiary)", size: 16 })
+                  children: /* @__PURE__ */ h(at, { glyph: Bt, iconColor: "var(--pui-color-neutral-icon-tertiary)", size: 16 })
                 }
               ),
               tt && /* @__PURE__ */ h("div", { className: "ListItem__children", children: tt })
@@ -398,21 +398,20 @@ const Bt = ({
           }
         ),
         J && /* @__PURE__ */ h("div", { className: "ListItem__items", children: J }),
-        ht && /* @__PURE__ */ h(
+        It && /* @__PURE__ */ h(
           "div",
           {
             ref: V,
             className: "ListItem__end-dropzone",
-            onDragOver: At,
-            onDrop: xt,
-            onDragLeave: Tt
+            onDragOver: xt,
+            onDrop: Tt,
+            onDragLeave: kt
           }
         )
       ]
-    },
-    f
+    }
   );
-}, Ft = bt(Bt);
+}, Ut = Kt(Mt);
 export {
-  Ft as ListItem
+  Ut as ListItem
 };

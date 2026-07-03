@@ -1,23 +1,26 @@
 import "./index.es13.css";
-import { jsx as a } from "./index.es178.js";
-import R from "./index.es191.js";
+import { jsx as a } from "./index.es203.js";
+import R from "./index.es216.js";
 import { Icon as o } from "./index.es16.js";
 /* empty css            */
-import { typedForwardRef as j } from "./index.es180.js";
-import { bem as k } from "./index.es63.js";
-import { chevronDoubleRight as E } from "./index.es77.js";
-import { chevronRight as N } from "./index.es81.js";
-import { chevronDoubleLeft as I } from "./index.es76.js";
-import { chevronLeft as P } from "./index.es80.js";
+import { typedForwardRef as k } from "./index.es205.js";
+import { bem as E } from "./index.es65.js";
+import { chevronDoubleRight as N } from "./index.es84.js";
+import { chevronRight as j } from "./index.es88.js";
+import { chevronDoubleLeft as I } from "./index.es83.js";
+import { chevronLeft as P } from "./index.es87.js";
 const S = ({
-  id: d,
+  id: n,
   className: u,
   locale: c = "en-US",
   type: s = "iso8601",
   defaultView: f = "month",
   view: i,
   defaultDate: y = null,
-  date: v = null,
+  // No default here: `undefined` keeps the calendar uncontrolled (selection
+  // is stored internally), while an explicit `null` means "controlled,
+  // nothing selected". react-calendar treats these differently.
+  date: v,
   minDate: b = new Date((/* @__PURE__ */ new Date()).setFullYear((/* @__PURE__ */ new Date()).getFullYear() - 5)),
   maxDate: h = new Date((/* @__PURE__ */ new Date()).setFullYear((/* @__PURE__ */ new Date()).getFullYear() + 5)),
   minDetail: g = "century",
@@ -25,15 +28,15 @@ const S = ({
   showNavigation: F = !0,
   navigation: w = "full",
   onDateChange: l,
-  onDetailUp: n,
-  onDetailDown: m,
-  onViewChange: p,
+  onDetailUp: p,
+  onDetailDown: d,
+  onViewChange: m,
   ...x
 }, Y) => {
-  const K = k("Calendar", void 0, {
+  const K = E("Calendar", void 0, {
     navigation: F ? w : void 0
   });
-  return /* @__PURE__ */ a("div", { id: d, ref: Y, onKeyDown: (e) => {
+  return /* @__PURE__ */ a("div", { id: n, className: u, ref: Y, onKeyDown: (e) => {
     const t = e.key;
     if (t === "Escape" || t === "Esc") {
       e.stopPropagation(), e.preventDefault();
@@ -43,7 +46,7 @@ const S = ({
   }, "data-pui-interactive": "true", children: /* @__PURE__ */ a(
     R,
     {
-      className: [K, u].join(" ").trim(),
+      className: K,
       locale: c,
       calendarType: s,
       defaultView: f,
@@ -56,27 +59,27 @@ const S = ({
       maxDetail: L,
       prevLabel: /* @__PURE__ */ a(o, { glyph: P }),
       prev2Label: /* @__PURE__ */ a(o, { glyph: I }),
-      nextLabel: /* @__PURE__ */ a(o, { glyph: N }),
-      next2Label: /* @__PURE__ */ a(o, { glyph: E }),
+      nextLabel: /* @__PURE__ */ a(o, { glyph: j }),
+      next2Label: /* @__PURE__ */ a(o, { glyph: N }),
       onChange: (e) => {
         l == null || l({ date: e });
       },
       onDrillUp: (e) => {
         const { value: t, ...r } = e;
-        n == null || n({ ...r, date: t });
+        p == null || p({ ...r, date: t });
       },
       onDrillDown: (e) => {
         const { value: t, ...r } = e;
-        m == null || m({ ...r, date: t });
+        d == null || d({ ...r, date: t });
       },
       onViewChange: (e) => {
         const { value: t, ...r } = e;
-        p == null || p({ ...r, date: t });
+        m == null || m({ ...r, date: t });
       },
       ...x
     }
   ) });
-}, O = j(S);
+}, O = k(S);
 export {
   O as Calendar
 };

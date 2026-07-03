@@ -1,12 +1,12 @@
 import "./index.es6.css";
-import { jsx as n } from "./index.es178.js";
+import { jsx as n } from "./index.es203.js";
 import { toChildArray as E, cloneElement as _, Fragment as d } from "preact";
 import { useRef as z } from "preact/hooks";
 import { Icon as g } from "./index.es16.js";
-import { Tooltip as F } from "./index.es50.js";
+import { Tooltip as F } from "./index.es52.js";
 /* empty css            */
-import { typedForwardRef as K } from "./index.es180.js";
-import { bem as P } from "./index.es63.js";
+import { typedForwardRef as K } from "./index.es205.js";
+import { bem as P } from "./index.es65.js";
 const T = ({
   id: h,
   className: B,

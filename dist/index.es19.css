@@ -1,1 +1,1 @@
-.ListContainer{width:100%;position:relative;display:flex;flex-direction:column}
+.ListContainer{width:100%;position:relative;display:flex;flex-direction:column}.ListContainer:hover .ListItem__collapse-toggle{opacity:1}

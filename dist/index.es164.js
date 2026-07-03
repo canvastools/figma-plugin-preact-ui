@@ -1,34 +1,34 @@
-import { jsx as o } from "./index.es178.js";
-const n = ({ variant: t }) => {
-  switch (t) {
+import { jsx as C } from "./index.es203.js";
+const r = ({ variant: o }) => {
+  switch (o) {
     case "downscaled":
-      return /* @__PURE__ */ o("svg", { width: "16", height: "16", viewBox: "0 0 16 16", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: /* @__PURE__ */ o(
+      return /* @__PURE__ */ C("svg", { width: "16", height: "16", viewBox: "0 0 16 16", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: /* @__PURE__ */ C(
         "path",
         {
-          d: "M12.5 8C12.7761 8 13 8.22386 13 8.5C12.9999 8.77609 12.7761 9 12.5 9H3.5C3.2239 9 3.00007 8.77609 3 8.5C3 8.22386 3.22386 8 3.5 8H12.5Z",
+          d: "M11.5 3C12.3284 3 13 3.67157 13 4.5V11.5C13 12.2767 12.4097 12.9154 11.6533 12.9922L11.5 13H4.5L4.34668 12.9922C3.64069 12.9205 3.07949 12.3593 3.00781 11.6533L3 11.5V4.5C3 3.67157 3.67157 3 4.5 3H11.5ZM4.5 4C4.22386 4 4 4.22386 4 4.5V11.5C4 11.7761 4.22386 12 4.5 12H11.5C11.7761 12 12 11.7761 12 11.5V4.5C12 4.22386 11.7761 4 11.5 4H4.5ZM10.5 5C10.7761 5 11 5.22386 11 5.5C11 5.77614 10.7761 6 10.5 6H5.5C5.22386 6 5 5.77614 5 5.5C5 5.22386 5.22386 5 5.5 5H10.5Z",
           fill: "currentColor"
         }
       ) });
     case "default":
-      return /* @__PURE__ */ o("svg", { width: "24", height: "24", viewBox: "0 0 24 24", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: /* @__PURE__ */ o(
+      return /* @__PURE__ */ C("svg", { width: "24", height: "24", viewBox: "0 0 24 24", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: /* @__PURE__ */ C(
         "path",
         {
-          d: "M17.5001 12.0001C17.7762 12.0002 18.0001 12.224 18.0001 12.5001C18 12.7761 17.7762 13.0001 17.5001 13.0001H6.50013C6.22405 13.0001 6.00022 12.7762 6.00013 12.5001C6.00013 12.224 6.22399 12.0001 6.50013 12.0001H17.5001Z",
+          d: "M16 6C17.1046 6 18 6.89543 18 8V16C18 17.1046 17.1046 18 16 18H8C6.89543 18 6 17.1046 6 16V8C6 6.89543 6.89543 6 8 6H16ZM8 7C7.44772 7 7 7.44772 7 8V16C7 16.5523 7.44772 17 8 17H16C16.5523 17 17 16.5523 17 16V8C17 7.44772 16.5523 7 16 7H8ZM14.5 9C14.7761 9 15 9.22386 15 9.5C15 9.77614 14.7761 10 14.5 10H9.5C9.22386 10 9 9.77614 9 9.5C9 9.22386 9.22386 9 9.5 9H14.5Z",
           fill: "currentColor"
         }
       ) });
     case "upscaled":
-      return /* @__PURE__ */ o("svg", { width: "24", height: "24", viewBox: "0 0 24 24", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: /* @__PURE__ */ o(
+      return /* @__PURE__ */ C("svg", { width: "24", height: "24", viewBox: "0 0 24 24", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: /* @__PURE__ */ C(
         "path",
         {
-          d: "M19.4997 11.9996C19.7757 11.9996 19.9995 12.2237 19.9997 12.4996C19.9997 12.7758 19.7758 12.9996 19.4997 12.9996H4.49967C4.22368 12.9995 3.99967 12.7757 3.99967 12.4996C3.99986 12.2238 4.2238 11.9998 4.49967 11.9996H19.4997Z",
+          d: "M18 4C19.1046 4 20 4.89543 20 6V18C20 19.1046 19.1046 20 18 20H6C4.89543 20 4 19.1046 4 18V6C4 4.89543 4.89543 4 6 4H18ZM6 5C5.44772 5 5 5.44772 5 6V18C5 18.5523 5.44772 19 6 19H18C18.5523 19 19 18.5523 19 18V6C19 5.44772 18.5523 5 18 5H6ZM16.5 7C16.7761 7 17 7.22386 17 7.5C17 7.77614 16.7761 8 16.5 8H7.5C7.22386 8 7 7.77614 7 7.5C7 7.22386 7.22386 7 7.5 7H16.5Z",
           fill: "currentColor"
         }
       ) });
     default:
-      throw new Error(`strokeSolid icon error: Unsupported combination variant=${t}`);
+      throw new Error(`paddingTop icon error: Unsupported combination variant=${o}`);
   }
 };
 export {
-  n as strokeSolid
+  r as paddingTop
 };

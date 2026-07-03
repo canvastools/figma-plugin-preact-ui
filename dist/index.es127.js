@@ -1,34 +1,64 @@
-import { jsx as C } from "./index.es178.js";
-const e = ({ variant: o }) => {
-  switch (o) {
+import { jsx as o } from "./index.es203.js";
+const i = ({ variant: t }) => {
+  switch (t) {
     case "downscaled":
-      return /* @__PURE__ */ C("svg", { width: "16", height: "16", viewBox: "0 0 16 16", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: /* @__PURE__ */ C(
-        "path",
-        {
-          d: "M8 2C9.65685 2 11 3.34315 11 5V6H11.5C12.3284 6 13 6.67157 13 7.5V11.5L12.9922 11.6533C12.9205 12.3593 12.3593 12.9205 11.6533 12.9922L11.5 13H4.5L4.34668 12.9922C3.64069 12.9205 3.07949 12.3593 3.00781 11.6533L3 11.5V7.5C3 6.67157 3.67157 6 4.5 6H5V5C5 3.34315 6.34315 2 8 2ZM4.5 7C4.22386 7 4 7.22386 4 7.5V11.5C4 11.7761 4.22386 12 4.5 12H11.5C11.7761 12 12 11.7761 12 11.5V7.5C12 7.22386 11.7761 7 11.5 7H4.5ZM8 3C6.89543 3 6 3.89543 6 5V6H10V5C10 3.89543 9.10457 3 8 3Z",
-          fill: "currentColor"
-        }
-      ) });
+      return /* @__PURE__ */ o("svg", { width: "16", height: "16", viewBox: "0 0 16 16", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: [
+        /* @__PURE__ */ o(
+          "path",
+          {
+            d: "M4 12V9C4 9.55228 4.44772 10 5 10H11C11.5523 10 12 9.55228 12 9V12H4Z",
+            fill: "currentColor",
+            "fill-opacity": "0.3"
+          }
+        ),
+        /* @__PURE__ */ o(
+          "path",
+          {
+            d: "M11.5 3C12.3284 3 13 3.67157 13 4.5V11.5C13 12.2767 12.4097 12.9154 11.6533 12.9922L11.5 13H4.5L4.34668 12.9922C3.64069 12.9205 3.07949 12.3593 3.00781 11.6533L3 11.5V4.5C3 3.67157 3.67157 3 4.5 3H11.5ZM4.5 4C4.22386 4 4 4.22386 4 4.5V11.5C4 11.7761 4.22386 12 4.5 12H11.5C11.7761 12 12 11.7761 12 11.5V4.5C12 4.22386 11.7761 4 11.5 4H4.5Z",
+            fill: "currentColor"
+          }
+        )
+      ] });
     case "default":
-      return /* @__PURE__ */ C("svg", { width: "24", height: "24", viewBox: "0 0 24 24", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: /* @__PURE__ */ C(
-        "path",
-        {
-          d: "M15 9V8C15 6.34315 13.6569 5 12 5C10.3431 5 9 6.34315 9 8V9H15ZM8 10C7.44772 10 7 10.4477 7 11V16C7 16.5523 7.44772 17 8 17H16C16.5523 17 17 16.5523 17 16V11C17 10.4477 16.5523 10 16 10H8ZM16.2041 9.01074C17.2128 9.113 18 9.96435 18 11V16C18 17.0357 17.2128 17.887 16.2041 17.9893L16 18H8C6.96435 18 6.113 17.2128 6.01074 16.2041L6 16V11C6 9.89543 6.89543 9 8 9V8C8 5.79086 9.79086 4 12 4C14.2091 4 16 5.79086 16 8V9L16.2041 9.01074Z",
-          fill: "currentColor"
-        }
-      ) });
+      return /* @__PURE__ */ o("svg", { width: "24", height: "24", viewBox: "0 0 24 24", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: [
+        /* @__PURE__ */ o(
+          "path",
+          {
+            d: "M7 17V14C7 14.5523 7.44772 15 8 15H16C16.5523 15 17 14.5523 17 14V17H7Z",
+            fill: "currentColor",
+            "fill-opacity": "0.3"
+          }
+        ),
+        /* @__PURE__ */ o(
+          "path",
+          {
+            d: "M16.2041 6.01074C17.2128 6.113 18 6.96435 18 8V16L17.9893 16.2041C17.8938 17.1457 17.1457 17.8938 16.2041 17.9893L16 18H8C6.96435 18 6.113 17.2128 6.01074 16.2041L6 16V8C6 6.89543 6.89543 6 8 6H16L16.2041 6.01074ZM8 7C7.44772 7 7 7.44772 7 8V16C7 16.5523 7.44772 17 8 17H16C16.5523 17 17 16.5523 17 16V8C17 7.44772 16.5523 7 16 7H8Z",
+            fill: "currentColor"
+          }
+        )
+      ] });
     case "upscaled":
-      return /* @__PURE__ */ C("svg", { width: "24", height: "24", viewBox: "0 0 24 24", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: /* @__PURE__ */ C(
-        "path",
-        {
-          d: "M16 9V7.5C16 5.29086 14.2091 3.5 12 3.5C9.79086 3.5 8 5.29086 8 7.5V9H16ZM6 10C5.44772 10 5 10.4477 5 11V18C5 18.5523 5.44772 19 6 19H18C18.5523 19 19 18.5523 19 18V11C19 10.4477 18.5523 10 18 10H6ZM18 9C19.1046 9 20 9.89543 20 11V18L19.9893 18.2041C19.887 19.2128 19.0357 20 18 20H6C4.96435 20 4.113 19.2128 4.01074 18.2041L4 18V11C4 9.89543 4.89543 9 6 9H7V7.5C7 4.73858 9.23858 2.5 12 2.5C14.7614 2.5 17 4.73858 17 7.5V9H18Z",
-          fill: "currentColor"
-        }
-      ) });
+      return /* @__PURE__ */ o("svg", { width: "24", height: "24", viewBox: "0 0 24 24", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: [
+        /* @__PURE__ */ o(
+          "path",
+          {
+            d: "M5 19L5 16C5 16.5523 5.44772 17 6 17H18C18.5523 17 19 16.5523 19 16V19H5Z",
+            fill: "currentColor",
+            "fill-opacity": "0.3"
+          }
+        ),
+        /* @__PURE__ */ o(
+          "path",
+          {
+            d: "M18 4C19.1046 4 20 4.89543 20 6V18C20 19.1046 19.1046 20 18 20H6C4.89543 20 4 19.1046 4 18V6C4 4.89543 4.89543 4 6 4H18ZM6 5C5.44772 5 5 5.44772 5 6V18C5 18.5523 5.44772 19 6 19H18C18.5523 19 19 18.5523 19 18V6C19 5.44772 18.5523 5 18 5H6Z",
+            fill: "currentColor"
+          }
+        )
+      ] });
     default:
-      throw new Error(`lockLocked icon error: Unsupported combination variant=${o}`);
+      throw new Error(`innerShadowBottom icon error: Unsupported combination variant=${t}`);
   }
 };
 export {
-  e as lockLocked
+  i as innerShadowBottom
 };

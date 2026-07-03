@@ -1,90 +1,92 @@
 import "./index.es26.css";
-import { jsx as o } from "./index.es178.js";
-import { Fragment as w, cloneElement as z } from "preact";
-import { useRef as D, useEffect as O, useState as T } from "preact/hooks";
-import { useMenuContextOptional as b } from "./index.es24.js";
-import { Text as q } from "./index.es47.js";
+import { jsx as r } from "./index.es203.js";
+import { Fragment as D, cloneElement as O } from "preact";
+import { useRef as y, useEffect as T, useState as b } from "preact/hooks";
+import { Text as q } from "./index.es49.js";
+import { useMenuContextOptional as G } from "./index.es24.js";
 /* empty css            */
-import { typedForwardRef as G } from "./index.es180.js";
-import { uuid as J } from "./index.es204.js";
-import { bem as K } from "./index.es63.js";
-const p = {
+import { typedForwardRef as J } from "./index.es205.js";
+import { uuid as K } from "./index.es229.js";
+import { bem as Q } from "./index.es65.js";
+const d = {
   intent: "brand",
-  intentModifiers: "default"
-}, Q = () => () => {
-}, U = () => {
+  intentModifier: "default"
+}, U = () => () => {
 }, V = () => {
 }, W = () => {
-}, X = ({
-  className: h,
-  id: d,
+}, X = () => {
+}, Y = ({
+  className: _,
+  id: I,
   intentModifier: f = "default",
   disabled: t = !1,
   focused: v = !1,
   prefix: i,
   suffix: c,
-  children: r,
-  paddingLikeOption: y = !1,
+  children: o,
+  paddingLikeOption: F = !1,
   onClick: l,
-  tabIndex: _,
-  ...F
-}, a) => {
-  const N = b(), { registerItem: I, clearFocus: x, setHoveredItem: H, setFocusedItem: E } = N ?? {
-    registerItem: Q,
-    clearFocus: U,
-    setHoveredItem: V,
-    setFocusedItem: W
-  }, M = D(null), n = d ?? J();
-  O(() => I({
+  tabIndex: N,
+  ...x
+}, u) => {
+  const H = G(), { registerItem: g, clearFocus: R, setHoveredItem: E, setFocusedItem: P } = H ?? {
+    registerItem: U,
+    clearFocus: V,
+    setHoveredItem: W,
+    setFocusedItem: X
+  }, M = y(null), p = y(null);
+  p.current === null && (p.current = K());
+  const n = I ?? p.current;
+  T(() => g({
     id: n,
     ref: M,
     disabled: t
-  }), [t, n, I]);
-  const [P, g] = T(!1), s = P || v, R = K("MenuItemAction", void 0, {
+  }), [t, n, g]);
+  const [j, A] = b(!1), s = j || v, S = Q("MenuItemAction", void 0, {
     intentModifier: f,
     disabled: t,
     focused: v,
     prefix: !!i,
     suffix: !!c,
-    paddingLikeOption: y
-  }), j = (e) => {
+    paddingLikeOption: F
+  }), B = (e) => {
     if (t) {
       e.preventDefault();
       return;
     }
-    e.stopPropagation(), l == null || l({ event: e, id: n }), n && E(n);
-  }, S = () => {
-    t || (x(), n && H(n), g(!0));
-  }, B = () => {
-    t || g(!1);
-  }, m = (e, A) => {
+    e.stopPropagation(), l == null || l({ event: e, id: n }), n && P(n);
+  }, C = () => {
+    t || (R(), n && E(n), A(!0));
+  }, L = () => {
+    t || A(!1);
+  }, a = (e, h) => {
     if (Array.isArray(e))
-      return e.map((u) => m(u, A));
+      return e.map((m) => a(m, h));
     if (e && typeof e == "object" && "type" in e && typeof e.type != "string") {
-      const u = e, C = u.props || {}, L = { ...A };
-      return z(u, L, C.children);
+      const m = e, w = m.props || {}, z = { ...h };
+      return O(m, z, w.children);
     }
     return e;
   };
-  return /* @__PURE__ */ o(w, { children: /* @__PURE__ */ o(
+  return /* @__PURE__ */ r(D, { children: /* @__PURE__ */ r(
     "div",
     {
-      id: d,
-      className: [R, h].join(" ").trim(),
+      id: I,
+      className: [S, _].join(" ").trim(),
       "data-pui-interactive": "true",
       ref: (e) => {
-        typeof a == "function" ? a(e) : a && (a.current = e), M.current = e;
+        typeof u == "function" ? u(e) : u && (u.current = e), M.current = e;
       },
-      ...F,
-      tabIndex: _ ?? -1,
-      onClick: j,
-      onMouseEnter: S,
-      onMouseLeave: B,
-      children: /* @__PURE__ */ o("div", { className: "MenuItemAction__content", children: [
-        i && /* @__PURE__ */ o("div", { className: "MenuItemAction__prefix", children: s ? m(i, {
-          ...p
+      ...x,
+      tabIndex: N ?? -1,
+      onClick: B,
+      onMouseEnter: C,
+      onMouseLeave: L,
+      children: /* @__PURE__ */ r("div", { className: "MenuItemAction__content", children: [
+        i && /* @__PURE__ */ r("div", { className: "MenuItemAction__prefix", children: s ? a(i, {
+          ...d
         }) : i }),
-        r != null && r !== !1 && r !== !0 && /* @__PURE__ */ o("div", { className: "MenuItemAction__children", children: /* @__PURE__ */ o(
+        o != null && o !== !1 && o !== !0 && /* @__PURE__ */ r("div", { className: "MenuItemAction__children", children: /* @__PURE__ */ r(
           q,
           {
             variant: "body",
@@ -92,18 +94,18 @@ const p = {
             intent: s ? f === "danger" ? "danger" : "brand" : "neutral-inverted-fixed",
             intentModifier: s ? "default" : f,
             disabled: t,
-            children: s ? m(r, {
-              ...p
-            }) : r
+            children: s ? a(o, {
+              ...d
+            }) : o
           }
         ) }),
-        c && /* @__PURE__ */ o("div", { className: "MenuItemAction__suffix", children: s ? m(c, {
-          ...p
+        c && /* @__PURE__ */ r("div", { className: "MenuItemAction__suffix", children: s ? a(c, {
+          ...d
         }) : c })
       ] })
     }
   ) });
-}, se = G(X);
+}, ie = J(Y);
 export {
-  se as MenuItemAction
+  ie as MenuItemAction
 };

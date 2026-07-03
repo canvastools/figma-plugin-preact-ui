@@ -1,195 +1,34 @@
-import u, { useRef as g, useLayoutEffect as re, useEffect as y, useState as te, useCallback as ne, useMemo as oe } from "preact/compat";
-function m() {
-  return (m = Object.assign || function(e) {
-    for (var r = 1; r < arguments.length; r++) {
-      var t = arguments[r];
-      for (var n in t) Object.prototype.hasOwnProperty.call(t, n) && (e[n] = t[n]);
-    }
-    return e;
-  }).apply(this, arguments);
-}
-function q(e, r) {
-  if (e == null) return {};
-  var t, n, o = {}, a = Object.keys(e);
-  for (n = 0; n < a.length; n++) r.indexOf(t = a[n]) >= 0 || (o[t] = e[t]);
-  return o;
-}
-function H(e) {
-  var r = g(e), t = g(function(n) {
-    r.current && r.current(n);
-  });
-  return r.current = e, t.current;
-}
-var _ = function(e, r, t) {
-  return r === void 0 && (r = 0), t === void 0 && (t = 1), e > t ? t : e < r ? r : e;
-}, C = function(e) {
-  return "touches" in e;
-}, I = function(e) {
-  return e && e.ownerDocument.defaultView || self;
-}, S = function(e, r, t) {
-  var n = e.getBoundingClientRect(), o = C(r) ? function(a, c) {
-    for (var l = 0; l < a.length; l++) if (a[l].identifier === c) return a[l];
-    return a[0];
-  }(r.touches, t) : r;
-  return { left: _((o.pageX - (n.left + I(e).pageXOffset)) / n.width), top: _((o.pageY - (n.top + I(e).pageYOffset)) / n.height) };
-}, R = function(e) {
-  !C(e) && e.preventDefault();
-}, z = u.memo(function(e) {
-  var r = e.onMove, t = e.onKey, n = q(e, ["onMove", "onKey"]), o = g(null), a = H(r), c = H(t), l = g(null), f = g(!1), i = oe(function() {
-    var Z = function(h) {
-      R(h), (C(h) ? h.touches.length > 0 : h.buttons > 0) && o.current ? a(S(o.current, h, l.current)) : w(!1);
-    }, $ = function() {
-      return w(!1);
-    };
-    function w(h) {
-      var v = f.current, p = I(o.current), x = h ? p.addEventListener : p.removeEventListener;
-      x(v ? "touchmove" : "mousemove", Z), x(v ? "touchend" : "mouseup", $);
-    }
-    return [function(h) {
-      var v = h.nativeEvent, p = o.current;
-      if (p && (R(v), !function(G, ee) {
-        return ee && !C(G);
-      }(v, f.current) && p)) {
-        if (C(v)) {
-          f.current = !0;
-          var x = v.changedTouches || [];
-          x.length && (l.current = x[0].identifier);
+import { jsx as C } from "./index.es203.js";
+const e = ({ variant: t }) => {
+  switch (t) {
+    case "downscaled":
+      return /* @__PURE__ */ C("svg", { width: "16", height: "16", viewBox: "0 0 16 16", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: /* @__PURE__ */ C(
+        "path",
+        {
+          d: "M12.1025 9.00488C12.6066 9.05628 13 9.48237 13 10V12L12.9951 12.1025C12.9472 12.5729 12.5729 12.9472 12.1025 12.9951L12 13H4C3.44776 13 3.00007 12.5522 3 12V10C3 9.44772 3.44772 9 4 9H12L12.1025 9.00488ZM4 12H12V10H4V12ZM12.1025 5.00488C12.6066 5.05628 13 5.48237 13 6V7C12.9999 7.51758 12.6066 7.94373 12.1025 7.99512L12 8H4C3.48237 8 3.05628 7.6066 3.00488 7.10254L3 7V6C3 5.44772 3.44772 5 4 5H12L12.1025 5.00488ZM4 7H12V6H4V7ZM12.5 3C12.7761 3.00007 13 3.2239 13 3.5C12.9999 3.77604 12.776 3.99993 12.5 4H3.5C3.2239 4 3.00007 3.77609 3 3.5C3 3.22386 3.22386 3 3.5 3H12.5Z",
+          fill: "currentColor"
         }
-        p.focus(), a(S(p, v, l.current)), w(!0);
-      }
-    }, function(h) {
-      var v = h.which || h.keyCode;
-      v < 37 || v > 40 || (h.preventDefault(), c({ left: v === 39 ? 0.05 : v === 37 ? -0.05 : 0, top: v === 40 ? 0.05 : v === 38 ? -0.05 : 0 }));
-    }, w];
-  }, [c, a]), d = i[0], b = i[1], P = i[2];
-  return y(function() {
-    return P;
-  }, [P]), u.createElement("div", m({}, n, { onTouchStart: d, onMouseDown: d, className: "react-colorful__interactive", ref: o, onKeyDown: b, tabIndex: 0, role: "slider" }));
-}), E = function(e) {
-  return e.filter(Boolean).join(" ");
-}, D = function(e) {
-  var r = e.color, t = e.left, n = e.top, o = n === void 0 ? 0.5 : n, a = E(["react-colorful__pointer", e.className]);
-  return u.createElement("div", { className: a, style: { top: 100 * o + "%", left: 100 * t + "%" } }, u.createElement("div", { className: "react-colorful__pointer-fill", style: { backgroundColor: r } }));
-}, s = function(e, r, t) {
-  return r === void 0 && (r = 0), t === void 0 && (t = Math.pow(10, r)), Math.round(t * e) / t;
-}, A = function(e) {
-  return L(O(e));
-}, O = function(e) {
-  return e[0] === "#" && (e = e.substring(1)), e.length < 6 ? { r: parseInt(e[0] + e[0], 16), g: parseInt(e[1] + e[1], 16), b: parseInt(e[2] + e[2], 16), a: e.length === 4 ? s(parseInt(e[3] + e[3], 16) / 255, 2) : 1 } : { r: parseInt(e.substring(0, 2), 16), g: parseInt(e.substring(2, 4), 16), b: parseInt(e.substring(4, 6), 16), a: e.length === 8 ? s(parseInt(e.substring(6, 8), 16) / 255, 2) : 1 };
-}, B = function(e) {
-  return ae(K(e));
-}, X = function(e) {
-  var r = e.s, t = e.v, n = e.a, o = (200 - r) * t / 100;
-  return { h: s(e.h), s: s(o > 0 && o < 200 ? r * t / 100 / (o <= 100 ? o : 200 - o) * 100 : 0), l: s(o / 2), a: s(n, 2) };
-}, j = function(e) {
-  var r = X(e);
-  return "hsl(" + r.h + ", " + r.s + "%, " + r.l + "%)";
-}, k = function(e) {
-  var r = X(e);
-  return "hsla(" + r.h + ", " + r.s + "%, " + r.l + "%, " + r.a + ")";
-}, K = function(e) {
-  var r = e.h, t = e.s, n = e.v, o = e.a;
-  r = r / 360 * 6, t /= 100, n /= 100;
-  var a = Math.floor(r), c = n * (1 - t), l = n * (1 - (r - a) * t), f = n * (1 - (1 - r + a) * t), i = a % 6;
-  return { r: s(255 * [n, l, c, c, f, n][i]), g: s(255 * [f, n, n, l, c, c][i]), b: s(255 * [c, c, f, n, n, l][i]), a: s(o, 2) };
-}, M = function(e) {
-  var r = e.toString(16);
-  return r.length < 2 ? "0" + r : r;
-}, ae = function(e) {
-  var r = e.r, t = e.g, n = e.b, o = e.a, a = o < 1 ? M(s(255 * o)) : "";
-  return "#" + M(r) + M(t) + M(n) + a;
-}, L = function(e) {
-  var r = e.r, t = e.g, n = e.b, o = e.a, a = Math.max(r, t, n), c = a - Math.min(r, t, n), l = c ? a === r ? (t - n) / c : a === t ? 2 + (n - r) / c : 4 + (r - t) / c : 0;
-  return { h: s(60 * (l < 0 ? l + 6 : l)), s: s(a ? c / a * 100 : 0), v: s(a / 255 * 100), a: o };
-}, Y = u.memo(function(e) {
-  var r = e.hue, t = e.onChange, n = E(["react-colorful__hue", e.className]);
-  return u.createElement("div", { className: n }, u.createElement(z, { onMove: function(o) {
-    t({ h: 360 * o.left });
-  }, onKey: function(o) {
-    t({ h: _(r + 360 * o.left, 0, 360) });
-  }, "aria-label": "Hue", "aria-valuenow": s(r), "aria-valuemax": "360", "aria-valuemin": "0" }, u.createElement(D, { className: "react-colorful__hue-pointer", left: r / 360, color: j({ h: r, s: 100, v: 100, a: 1 }) })));
-}), V = u.memo(function(e) {
-  var r = e.hsva, t = e.onChange, n = { backgroundColor: j({ h: r.h, s: 100, v: 100, a: 1 }) };
-  return u.createElement("div", { className: "react-colorful__saturation", style: n }, u.createElement(z, { onMove: function(o) {
-    t({ s: 100 * o.left, v: 100 - 100 * o.top });
-  }, onKey: function(o) {
-    t({ s: _(r.s + 100 * o.left, 0, 100), v: _(r.v - 100 * o.top, 0, 100) });
-  }, "aria-label": "Color", "aria-valuetext": "Saturation " + s(r.s) + "%, Brightness " + s(r.v) + "%" }, u.createElement(D, { className: "react-colorful__saturation-pointer", top: 1 - r.v / 100, left: r.s / 100, color: j(r) })));
-}), N = function(e, r) {
-  if (e === r) return !0;
-  for (var t in e) if (e[t] !== r[t]) return !1;
-  return !0;
-}, F = function(e, r) {
-  return e.toLowerCase() === r.toLowerCase() || N(O(e), O(r));
-};
-function J(e, r, t) {
-  var n = H(t), o = te(function() {
-    return e.toHsva(r);
-  }), a = o[0], c = o[1], l = g({ color: r, hsva: a });
-  y(function() {
-    if (!e.equal(r, l.current.color)) {
-      var i = e.toHsva(r);
-      l.current = { hsva: i, color: r }, c(i);
-    }
-  }, [r, e]), y(function() {
-    var i;
-    N(a, l.current.hsva) || e.equal(i = e.fromHsva(a), l.current.color) || (l.current = { hsva: a, color: i }, n(i));
-  }, [a, e, n]);
-  var f = ne(function(i) {
-    c(function(d) {
-      return Object.assign({}, d, i);
-    });
-  }, []);
-  return [a, f];
-}
-var le = typeof window < "u" ? re : y, ce = function() {
-  return typeof __webpack_nonce__ < "u" ? __webpack_nonce__ : void 0;
-}, T = /* @__PURE__ */ new Map(), Q = function(e) {
-  le(function() {
-    var r = e.current ? e.current.ownerDocument : document;
-    if (r !== void 0 && !T.has(r)) {
-      var t = r.createElement("style");
-      t.innerHTML = `.react-colorful{position:relative;display:flex;flex-direction:column;width:200px;height:200px;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.react-colorful__saturation{position:relative;flex-grow:1;border-color:transparent;border-bottom:12px solid #000;border-radius:8px 8px 0 0;background-image:linear-gradient(0deg,#000,transparent),linear-gradient(90deg,#fff,hsla(0,0%,100%,0))}.react-colorful__alpha-gradient,.react-colorful__pointer-fill{content:"";position:absolute;left:0;top:0;right:0;bottom:0;pointer-events:none;border-radius:inherit}.react-colorful__alpha-gradient,.react-colorful__saturation{box-shadow:inset 0 0 0 1px rgba(0,0,0,.05)}.react-colorful__alpha,.react-colorful__hue{position:relative;height:24px}.react-colorful__hue{background:linear-gradient(90deg,red 0,#ff0 17%,#0f0 33%,#0ff 50%,#00f 67%,#f0f 83%,red)}.react-colorful__last-control{border-radius:0 0 8px 8px}.react-colorful__interactive{position:absolute;left:0;top:0;right:0;bottom:0;border-radius:inherit;outline:none;touch-action:none}.react-colorful__pointer{position:absolute;z-index:1;box-sizing:border-box;width:28px;height:28px;transform:translate(-50%,-50%);background-color:#fff;border:2px solid #fff;border-radius:50%;box-shadow:0 2px 4px rgba(0,0,0,.2)}.react-colorful__interactive:focus .react-colorful__pointer{transform:translate(-50%,-50%) scale(1.1)}.react-colorful__alpha,.react-colorful__alpha-pointer{background-color:#fff;background-image:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill-opacity=".05"><path d="M8 0h8v8H8zM0 8h8v8H0z"/></svg>')}.react-colorful__saturation-pointer{z-index:3}.react-colorful__hue-pointer{z-index:2}`, T.set(r, t);
-      var n = ce();
-      n && t.setAttribute("nonce", n), r.head.appendChild(t);
-    }
-  }, []);
-}, U = function(e) {
-  var r = e.className, t = e.colorModel, n = e.color, o = n === void 0 ? t.defaultColor : n, a = e.onChange, c = q(e, ["className", "colorModel", "color", "onChange"]), l = g(null);
-  Q(l);
-  var f = J(t, o, a), i = f[0], d = f[1], b = E(["react-colorful", r]);
-  return u.createElement("div", m({}, c, { ref: l, className: b }), u.createElement(V, { hsva: i, onChange: d }), u.createElement(Y, { hue: i.h, onChange: d, className: "react-colorful__last-control" }));
-}, ue = { defaultColor: "000", toHsva: A, fromHsva: function(e) {
-  return B({ h: e.h, s: e.s, v: e.v, a: 1 });
-}, equal: F }, de = function(e) {
-  return u.createElement(U, m({}, e, { colorModel: ue }));
-}, ie = function(e) {
-  var r = e.className, t = e.hsva, n = e.onChange, o = { backgroundImage: "linear-gradient(90deg, " + k(Object.assign({}, t, { a: 0 })) + ", " + k(Object.assign({}, t, { a: 1 })) + ")" }, a = E(["react-colorful__alpha", r]), c = s(100 * t.a);
-  return u.createElement("div", { className: a }, u.createElement("div", { className: "react-colorful__alpha-gradient", style: o }), u.createElement(z, { onMove: function(l) {
-    n({ a: l.left });
-  }, onKey: function(l) {
-    n({ a: _(t.a + l.left) });
-  }, "aria-label": "Alpha", "aria-valuetext": c + "%", "aria-valuenow": c, "aria-valuemin": "0", "aria-valuemax": "100" }, u.createElement(D, { className: "react-colorful__alpha-pointer", left: t.a, color: k(t) })));
-}, W = function(e) {
-  var r = e.className, t = e.colorModel, n = e.color, o = n === void 0 ? t.defaultColor : n, a = e.onChange, c = q(e, ["className", "colorModel", "color", "onChange"]), l = g(null);
-  Q(l);
-  var f = J(t, o, a), i = f[0], d = f[1], b = E(["react-colorful", r]);
-  return u.createElement("div", m({}, c, { ref: l, className: b }), u.createElement(V, { hsva: i, onChange: d }), u.createElement(Y, { hue: i.h, onChange: d }), u.createElement(ie, { hsva: i, onChange: d, className: "react-colorful__last-control" }));
-}, se = { defaultColor: "0001", toHsva: A, fromHsva: B, equal: F }, ge = function(e) {
-  return u.createElement(W, m({}, e, { colorModel: se }));
-}, fe = { defaultColor: { r: 0, g: 0, b: 0, a: 1 }, toHsva: L, fromHsva: K, equal: N }, me = function(e) {
-  return u.createElement(W, m({}, e, { colorModel: fe }));
-}, ve = { defaultColor: { r: 0, g: 0, b: 0 }, toHsva: function(e) {
-  return L({ r: e.r, g: e.g, b: e.b, a: 1 });
-}, fromHsva: function(e) {
-  return { r: (r = K(e)).r, g: r.g, b: r.b };
-  var r;
-}, equal: N }, pe = function(e) {
-  return u.createElement(U, m({}, e, { colorModel: ve }));
+      ) });
+    case "default":
+      return /* @__PURE__ */ C("svg", { width: "24", height: "24", viewBox: "0 0 24 24", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: /* @__PURE__ */ C(
+        "path",
+        {
+          d: "M17.0001 14.0001C17.5524 14.0002 18.0001 14.4479 18.0001 15.0001V17.0001L17.9953 17.1027C17.9473 17.573 17.573 17.9473 17.1027 17.9952L17.0001 18.0001H7.00013L6.89759 17.9952C6.3935 17.9439 6.0002 17.5177 6.00013 17.0001V15.0001C6.00013 14.4478 6.44785 14.0001 7.00013 14.0001H17.0001ZM7.00013 17.0001H17.0001V15.0001H7.00013V17.0001ZM17.0001 9.00012C17.5524 9.00019 18.0001 9.44788 18.0001 10.0001V11.0001C18.0001 11.5177 17.6067 11.9439 17.1027 11.9952L17.0001 12.0001H7.00013L6.89759 11.9952C6.42721 11.9473 6.05297 11.573 6.00502 11.1027L6.00013 11.0001V10.0001C6.00013 9.44784 6.44785 9.00012 7.00013 9.00012H17.0001ZM7.00013 11.0001H17.0001V10.0001H7.00013V11.0001ZM17.5001 6.00012C17.7762 6.00019 18.0001 6.22402 18.0001 6.50012C18.0001 6.77616 17.7762 7.00005 17.5001 7.00012H6.50013C6.22403 7.00012 6.0002 6.77621 6.00013 6.50012C6.00013 6.22398 6.22399 6.00012 6.50013 6.00012H17.5001Z",
+          fill: "currentColor"
+        }
+      ) });
+    case "upscaled":
+      return /* @__PURE__ */ C("svg", { width: "24", height: "24", viewBox: "0 0 24 24", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: /* @__PURE__ */ C(
+        "path",
+        {
+          d: "M19.0001 14.9996C19.5522 14.9997 19.9999 15.4476 20.0001 15.9996V18.9996C20.0001 19.5519 19.5524 19.9996 19.0001 19.9996H5.00013L4.89759 19.9948C4.42717 19.9469 4.05292 19.5726 4.00502 19.1022L4.00013 18.9996V15.9996C4.00034 15.4821 4.3936 15.0558 4.89759 15.0045L5.00013 14.9996H19.0001ZM5.00013 18.9996H19.0001V15.9996H5.00013V18.9996ZM19.0001 7.99963C19.5522 7.99971 19.9999 8.44756 20.0001 8.99963V10.9996L19.9953 11.1022C19.9439 11.6063 19.5177 11.9996 19.0001 11.9996H5.00013L4.89759 11.9948C4.39346 11.9434 4.00013 11.5173 4.00013 10.9996V8.99963C4.00032 8.48212 4.39358 8.05584 4.89759 8.00452L5.00013 7.99963H19.0001ZM5.00013 10.9996H19.0001V8.99963H5.00013V10.9996ZM19.5001 3.99963C19.7761 3.99971 19.9999 4.22372 20.0001 4.49963C20.0001 4.77573 19.7762 4.99956 19.5001 4.99963H4.50013C4.22399 4.99963 4.00013 4.77578 4.00013 4.49963C4.00035 4.22368 4.22413 3.99963 4.50013 3.99963H19.5001Z",
+          fill: "currentColor"
+        }
+      ) });
+    default:
+      throw new Error(`strokeWidth icon error: Unsupported combination variant=${t}`);
+  }
 };
 export {
-  ge as HexAlphaColorPicker,
-  de as HexColorPicker,
-  pe as RgbColorPicker,
-  me as RgbaColorPicker
+  e as strokeWidth
 };

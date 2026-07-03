@@ -1,9 +1,13 @@
-const i = (o, n, $ = {}) => {
-  const s = n ? `${o}__${n}` : o, t = [s];
-  for (const [r, e] of Object.entries($))
-    typeof e == "string" ? t.push(`${s}_${r}-${e}`) : e === !0 && t.push(`${s}_${r}`);
-  return t.join(" ");
+const a = {
+  class: ":root",
+  prefix: "--pui-radius",
+  variables: {
+    small: "2px",
+    medium: "5px",
+    large: "13px",
+    full: "100%"
+  }
 };
 export {
-  i as bem
+  a as radius
 };

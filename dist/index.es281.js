@@ -1,34 +1,28 @@
-var i = ["normal", "small-caps"];
-function c(n) {
-  if (!n)
-    return "";
-  var t = window.getComputedStyle(n);
-  if (t.font)
-    return t.font;
-  var r = t.fontFamily !== "";
-  if (!r)
-    return "";
-  var a = i.includes(t.fontVariant) ? t.fontVariant : "normal";
-  return "".concat(t.fontStyle, " ").concat(a, " ").concat(t.fontWeight, " ").concat(t.fontSize, " / ").concat(t.lineHeight, " ").concat(t.fontFamily);
-}
-var o;
-function u(n, t) {
-  var r = o || (o = document.createElement("canvas")), a = r.getContext("2d");
-  if (!a)
-    return null;
-  a.font = t;
-  var e = a.measureText(n).width;
-  return Math.ceil(e);
-}
-function f(n) {
-  if (typeof document > "u" || !n)
-    return null;
-  var t = c(n), r = n.value || n.placeholder, a = u(r, t);
-  return a === null ? null : (n.style.width = "".concat(a, "px"), a);
+import "preact/compat";
+import { jsx as u } from "./index.es203.js";
+import { getDecadeStart as m, getYearStart as p, getYearEnd as g } from "./index.es274.js";
+import v from "./index.es283.js";
+import { formatYear as y } from "./index.es272.js";
+var s = function() {
+  return s = Object.assign || function(e) {
+    for (var t, n = 1, r = arguments.length; n < r; n++) {
+      t = arguments[n];
+      for (var a in t) Object.prototype.hasOwnProperty.call(t, a) && (e[a] = t[a]);
+    }
+    return e;
+  }, s.apply(this, arguments);
+}, _ = function(e, t) {
+  var n = {};
+  for (var r in e) Object.prototype.hasOwnProperty.call(e, r) && t.indexOf(r) < 0 && (n[r] = e[r]);
+  if (e != null && typeof Object.getOwnPropertySymbols == "function")
+    for (var a = 0, r = Object.getOwnPropertySymbols(e); a < r.length; a++)
+      t.indexOf(r[a]) < 0 && Object.prototype.propertyIsEnumerable.call(e, r[a]) && (n[r[a]] = e[r[a]]);
+  return n;
+}, l = "react-calendar__decade-view__years__year";
+function D(e) {
+  var t = e.classes, n = t === void 0 ? [] : t, r = e.currentDecade, a = e.formatYear, i = a === void 0 ? y : a, c = _(e, ["classes", "currentDecade", "formatYear"]), f = c.date, d = c.locale, o = [];
+  return n && o.push.apply(o, n), o.push(l), m(f).getFullYear() !== r && o.push("".concat(l, "--neighboringDecade")), u(v, s({}, c, { classes: o, maxDateTransform: g, minDateTransform: p, view: "decade", children: i(d, f) }));
 }
 export {
-  f as default,
-  c as getFontShorthand,
-  u as measureText,
-  f as updateInputWidth
+  D as default
 };

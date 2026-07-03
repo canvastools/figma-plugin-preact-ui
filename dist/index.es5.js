@@ -1,12 +1,12 @@
 import "./index.es5.css";
-import { jsx as o } from "./index.es178.js";
+import { jsx as o } from "./index.es203.js";
 import { Fragment as T } from "preact";
 import { useRef as x } from "preact/hooks";
-import { Text as D } from "./index.es47.js";
-import { Tooltip as j } from "./index.es50.js";
+import { Text as D } from "./index.es49.js";
+import { Tooltip as j } from "./index.es52.js";
 /* empty css            */
-import { typedForwardRef as E } from "./index.es180.js";
-import { bem as F } from "./index.es63.js";
+import { typedForwardRef as E } from "./index.es205.js";
+import { bem as F } from "./index.es65.js";
 const K = ({
   id: B,
   className: y,

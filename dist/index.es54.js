@@ -1,47 +1,107 @@
-import "./index.es54.css";
-import { jsx as Y } from "./index.es178.js";
-import { useRef as j, useEffect as x } from "preact/hooks";
-/* empty css            */
-import { typedForwardRef as A } from "./index.es180.js";
-import { bem as D } from "./index.es63.js";
-const H = ({ id: L, className: M, minWidth: u, minHeight: c, maxWidth: a, maxHeight: d, onResize: o, ...W }, r) => {
-  const g = D("WindowResizer", void 0, void 0), l = j(null), F = (e) => {
-    if (l.current = e, typeof r == "function")
-      r(e);
-    else if (r) {
-      const i = r;
-      i.current = e;
-    }
-  };
-  return x(() => {
-    const e = l.current;
-    if (!e) return;
-    let i, v, p, f, t = null, w = 0, h = 0;
-    const R = () => {
-      o == null || o({ width: w, height: h }), t = null;
-    }, s = (n) => {
-      const y = Math.min(Math.max(p + n.clientX - i, u), a), X = Math.min(Math.max(f + n.clientY - v, c), d);
-      w = y, h = X, t === null && (t = requestAnimationFrame(R));
-    }, m = () => {
-      document.removeEventListener("mousemove", s), document.removeEventListener("mouseup", m), t !== null && (cancelAnimationFrame(t), t = null);
-    }, E = (n) => {
-      n.preventDefault(), i = n.clientX, v = n.clientY, p = window.innerWidth, f = window.innerHeight, document.addEventListener("mousemove", s), document.addEventListener("mouseup", m);
+import { jsx as A } from "./index.es203.js";
+import { createContext as S } from "preact";
+import { useRef as h, useCallback as s, useMemo as I, useContext as V } from "preact/hooks";
+import { TOOLTIP_DEFAULT_HIDE_DELAY as w, TOOLTIP_DEFAULT_SHOW_DELAY as k } from "./index.es55.js";
+const P = S(void 0), b = (u) => (u == null ? void 0 : u.showDelay) ?? k, E = (u) => (u == null ? void 0 : u.hideDelay) ?? w, M = () => V(P), W = ({ children: u }) => {
+  const O = h(null), i = h({
+    ref: null,
+    setOpen: null
+  }), c = h({
+    ref: null,
+    setOpen: null,
+    hideDelay: w
+  }), r = h(null), a = h(null), T = s((e, t) => {
+    i.current = { ref: e, setOpen: t };
+  }, []), D = s(() => {
+    i.current = { ref: null, setOpen: null };
+  }, []), v = s((e, t, l = w) => {
+    O.current = Date.now(), c.current = {
+      ref: e,
+      setOpen: t,
+      hideDelay: l
+    }, a.current != null && clearTimeout(a.current), a.current = window.setTimeout(() => {
+      a.current = null;
+      const n = c.current;
+      !n.ref || !n.setOpen || (n.setOpen(!1), i.current.ref && i.current.ref === n.ref && D(), c.current = {
+        ref: null,
+        setOpen: null,
+        hideDelay: w
+      });
+    }, l);
+  }, [D]), m = s(() => {
+    a.current != null && (clearTimeout(a.current), a.current = null), c.current = {
+      ref: null,
+      setOpen: null,
+      hideDelay: w
     };
-    return e.addEventListener("mousedown", E), () => {
-      e.removeEventListener("mousedown", E), document.removeEventListener("mousemove", s), document.removeEventListener("mouseup", m);
-    };
-  }, [u, c, a, d, o]), /* @__PURE__ */ Y(
-    "div",
-    {
-      id: L ?? "WindowResizer",
-      className: [g, M].join(" ").trim(),
-      "data-pui-interactive": "true",
-      "data-overlay-keep-open": "true",
-      ...W,
-      ref: F
-    }
+  }, []), y = s(
+    (e, t, l) => {
+      r.current != null && clearTimeout(r.current);
+      const n = () => {
+        t(!0), T(e, t);
+      };
+      if (l === 0) {
+        n();
+        return;
+      }
+      r.current = window.setTimeout(() => {
+        r.current = null, n();
+      }, l);
+    },
+    [T]
+  ), g = s(
+    (e, t, l) => {
+      var d, o;
+      const n = b(l), L = Date.now(), p = O.current, x = c.current.hideDelay;
+      if (p != null && L - p < x && c.current.ref && c.current.setOpen) {
+        const f = c.current;
+        m(), f.ref === e ? ((d = f.setOpen) == null || d.call(f, !0), T(e, f.setOpen ?? null)) : ((o = f.setOpen) == null || o.call(f, !1), t(!0), T(e, t)), r.current != null && (clearTimeout(r.current), r.current = null);
+        return;
+      }
+      y(e, t, n);
+    },
+    [m, y, T]
+  ), C = s(
+    () => {
+      r.current != null && (clearTimeout(r.current), r.current = null);
+      const e = i.current;
+      e.ref && e.setOpen && (e.setOpen(!1), D()), m(), O.current = null;
+    },
+    [m, D]
+  ), H = s(
+    (e, t, l) => {
+      const n = E(l);
+      r.current != null && (clearTimeout(r.current), r.current = null), !(!i.current.ref || i.current.ref !== e) && v(e, t, n);
+    },
+    [v]
+  ), R = s(
+    (e, t, l) => {
+      const n = b(l), L = E(l), p = Date.now(), x = O.current, d = c.current;
+      if (x != null && p - x < d.hideDelay && d.ref === e && d.setOpen && a.current != null) {
+        m(), t(!0), T(e, t), r.current != null && (clearTimeout(r.current), r.current = null);
+        return;
+      }
+      r.current != null && (clearTimeout(r.current), r.current = null);
+      const o = i.current;
+      if (o.ref === e && o.setOpen) {
+        v(e, t, L);
+        return;
+      }
+      o.ref && o.setOpen && o.ref !== e && (o.setOpen(!1), D()), m(), y(e, t, n);
+    },
+    [m, D, v, y, T]
+  ), _ = I(
+    () => ({
+      registerHoverStart: g,
+      registerHoverEnd: H,
+      registerPointerDown: C,
+      registerClick: R
+    }),
+    [g, H, C, R]
   );
-}, C = A(H);
+  return /* @__PURE__ */ A(P.Provider, { value: _, children: u });
+};
 export {
-  C as WindowResizer
+  W as TooltipContext,
+  M as useTooltipContext
 };

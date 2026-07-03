@@ -1,46 +1,47 @@
-const b = (t, o) => {
-  const i = t == null ? "" : String(t);
-  return o.trim ? i.trim() : i;
-}, w = (t, o) => {
-  const { required: i, minLength: m, maxLength: l, allowedCharacters: e, format: r, normalizeOnError: y } = o, h = t, a = b(h, o);
-  let u = null;
-  a === "" ? i && (u = "required") : typeof m == "number" && a.length < m ? u = "too_short" : typeof l == "number" && a.length > l ? u = "too_long" : e && [...a].some((n) => !e.includes(n)) && (u = "invalid_characters");
-  const g = u !== null;
-  let c, s, d = u;
-  if (g && !y)
-    c = void 0, s = void 0;
-  else {
-    let n = typeof l == "number" ? a.slice(0, l) : a;
-    e && (n = [...n].filter((p) => e.includes(p)).join(""), e.includes(" ") && (n = n.replace(/ {2,}/g, " "))), c = n;
-    try {
-      s = r ? r(n) : n;
-    } catch {
-      s = n;
+import "./index.es56.css";
+import { jsx as Y } from "./index.es203.js";
+import { useRef as j, useEffect as x } from "preact/hooks";
+/* empty css            */
+import { typedForwardRef as A } from "./index.es205.js";
+import { bem as D } from "./index.es65.js";
+const H = ({ id: L, className: M, minWidth: u, minHeight: c, maxWidth: a, maxHeight: d, onResize: o, ...W }, r) => {
+  const g = D("WindowResizer", void 0, void 0), l = j(null), F = (e) => {
+    if (l.current = e, typeof r == "function")
+      r(e);
+    else if (r) {
+      const i = r;
+      i.current = e;
     }
-    o.trim && (c = b(c, o), s = s != null ? b(s, o) : void 0), d = null;
-    const f = c ?? "";
-    f === "" ? i && (d = "required") : typeof m == "number" && f.length < m ? d = "too_short" : typeof l == "number" && f.length > l ? d = "too_long" : e && [...f].some((p) => !e.includes(p)) && (d = "invalid_characters");
-  }
-  return {
-    rawValue: h,
-    normalizedValue: c,
-    formattedValue: s,
-    error: d
   };
-}, K = (t) => {
-  const o = (l) => w(l, t);
-  return {
-    ...w(t.value, t),
-    handleKeyDown: (l) => {
-      var h;
-      const { event: e } = l, r = e.key;
-      if (!t.allowedCharacters) return;
-      const y = r === "Backspace" || r === "Delete" || r === "ArrowLeft" || r === "ArrowRight" || r === "Tab" || r === "Home" || r === "End" || e.ctrlKey || e.metaKey || e.altKey;
-      e.isComposing !== !0 && !y && r.length === 1 && !t.allowedCharacters.includes(r) && ((h = e.preventDefault) == null || h.call(e));
-    },
-    parse: o
-  };
-};
+  return x(() => {
+    const e = l.current;
+    if (!e) return;
+    let i, v, p, f, t = null, w = 0, h = 0;
+    const R = () => {
+      o == null || o({ width: w, height: h }), t = null;
+    }, s = (n) => {
+      const y = Math.min(Math.max(p + n.clientX - i, u), a), X = Math.min(Math.max(f + n.clientY - v, c), d);
+      w = y, h = X, t === null && (t = requestAnimationFrame(R));
+    }, m = () => {
+      document.removeEventListener("mousemove", s), document.removeEventListener("mouseup", m), t !== null && (cancelAnimationFrame(t), t = null);
+    }, E = (n) => {
+      n.preventDefault(), i = n.clientX, v = n.clientY, p = window.innerWidth, f = window.innerHeight, document.addEventListener("mousemove", s), document.addEventListener("mouseup", m);
+    };
+    return e.addEventListener("mousedown", E), () => {
+      e.removeEventListener("mousedown", E), document.removeEventListener("mousemove", s), document.removeEventListener("mouseup", m);
+    };
+  }, [u, c, a, d, o]), /* @__PURE__ */ Y(
+    "div",
+    {
+      id: L ?? "WindowResizer",
+      className: [g, M].join(" ").trim(),
+      "data-pui-interactive": "true",
+      "data-overlay-keep-open": "true",
+      ...W,
+      ref: F
+    }
+  );
+}, C = A(H);
 export {
-  K as useStringInput
+  C as WindowResizer
 };

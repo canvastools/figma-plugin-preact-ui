@@ -1,5 +1,5 @@
 const e = {
-  class: "figjam",
+  class: "figma-light",
   prefix: "--pui-color",
   variables: {
     neutral: {
@@ -7,57 +7,67 @@ const e = {
         default: "#FFFFFF",
         "default-hover": "#0000000D",
         "default-pressed": "#0000001C",
-        "default-selected": "#7C2BDA1F",
-        "default-selected-hover": "#7C2BDA40",
-        "default-selected-pressed": "#7C2BDA1F",
+        "default-selected": "#0D99FF1F",
+        "default-selected-hover": "#0D99FF40",
+        "default-selected-pressed": "#0D99FF1F",
         secondary: "#F5F5F5",
         "secondary-hover": "#0000001C",
         "secondary-pressed": "#0000000A",
-        "secondary-selected": "#7C2BDA0F",
+        "secondary-selected": "#0D99FF0F",
         tertiary: "#E6E6E6",
-        "brand-hover": "#7C2BDA1F",
-        "brand-pressed": "#7C2BDA40",
+        "brand-hover": "#0D99FF1F",
+        "brand-pressed": "#0D99FF40",
         "danger-hover": "#F2482214",
         "danger-pressed": "#F2482229",
         disabled: "#F5F5F5"
       },
       text: {
         default: "#000000E6",
-        "default-selected": "#8638e5",
+        "default-selected": "#007BE5",
         secondary: "#00000085",
-        brand: "#8638e5",
+        brand: "#007BE5",
         danger: "#DC3412",
         warning: "#B86200",
         success: "#009951",
         component: "#8638e5",
+        "component-secondary": "#C5B2DC",
+        slot: "#FF24BD",
+        "slot-secondary": "#E5AED4",
         disabled: "#0000004D",
         placeholder: "#00000080"
       },
       icon: {
         default: "#000000E6",
-        "default-selected": "#8638e5",
+        "default-selected": "#007BE5",
         secondary: "#00000085",
         tertiary: "#00000033",
-        brand: "#8638e5",
+        brand: "#007BE5",
         danger: "#DC3412",
         warning: "#B86200",
         success: "#009951",
         component: "#8638e5",
+        "component-secondary": "#C5B2DC",
+        slot: "#FF24BD",
+        "slot-secondary": "#E5AED4",
         disabled: "#0000004D"
       },
       border: {
         default: "#0000001C",
         "default-hover": "#00000014",
-        "default-selected": "#7C2BDA",
-        "default-selected-contrast": "#7C2BDA6B",
+        "default-selected": "#0D99FF",
+        "default-selected-contrast": "#0D99FF6B",
         secondary: "#00000033",
-        brand: "#7C2BDA40",
-        "brand-hover": "#7C2BDA85",
-        "brand-selected": "#7C2BDA",
+        brand: "#0D99FF40",
+        "brand-hover": "#0D99FF85",
+        "brand-selected": "#0D99FF",
         danger: "#F248224D",
         "danger-error": "#F24822",
         warning: "#F2A42780",
         success: "#12E3745C",
+        component: "#8638e5",
+        "component-secondary": "#C5B2DC",
+        slot: "#FF24BD",
+        "slot-secondary": "#E5AED4",
         disabled: "#0000001C",
         "drop-position": "#1A1A1A",
         "drop-position-restricted": "#F24822",
@@ -67,6 +77,9 @@ const e = {
     "neutral-fixed": {
       bg: {
         swatch: "#FFFFFF"
+      },
+      border: {
+        default: "#00000033"
       }
     },
     "neutral-inverted": {
@@ -106,29 +119,29 @@ const e = {
         disabled: "#808080"
       },
       border: {
-        default: "#383838"
+        default: "#FFFFFF1C"
       }
     },
     brand: {
       bg: {
-        default: "#9747ff",
-        "default-hover": "#8638e5",
-        "default-pressed": "#7C2BDA",
-        secondary: "#7C2BDA",
+        default: "#0D99FF",
+        "default-hover": "#198DFB",
+        "default-pressed": "#0768CF",
+        secondary: "#0768CF",
         disabled: "#D9D9D9"
       },
       text: {
         default: "#FFFFFF",
-        secondary: "#DABDFF",
+        secondary: "#A8DAFF",
         disabled: "#FFFFFF"
       },
       icon: {
         default: "#FFFFFF",
-        secondary: "#DABDFF",
+        secondary: "#A8DAFF",
         disabled: "#FFFFFF"
       },
       border: {
-        default: "#7C2BDA"
+        default: "#007BE5"
       }
     },
     danger: {
@@ -191,7 +204,7 @@ const e = {
         resizer: "#A8A8A8"
       },
       border: {
-        focused: "#7C2BDA"
+        focused: "#0D99FF"
       }
     },
     shadow: {
@@ -208,5 +221,5 @@ const e = {
   }
 };
 export {
-  e as figjamLight
+  e as figmaLight
 };
