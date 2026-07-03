@@ -1,7 +1,9 @@
 import { bem, typedForwardRef } from '../../utils'
 
-import { ListContext, ListContainer, ListItem } from '../../index'
-import type { ListItemData } from '../../index'
+import { ListContext } from '../ListContext/ListContext'
+import { ListContainer } from '../ListContainer/ListContainer'
+import { ListItem } from '../ListItem/ListItem'
+import type { ListItemData } from '../ListContext/ListContext.types'
 
 import type { ListProps } from './List.types'
 import './List.scss'

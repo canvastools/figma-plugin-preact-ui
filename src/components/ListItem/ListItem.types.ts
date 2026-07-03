@@ -19,11 +19,11 @@ export interface ListItemProps {
   acceptsChildren?: boolean
   selectable?: boolean
   selectionScope?: 'individual' | 'withDescendants'
-  onSelect?: (args: { event: MouseEvent; selected: boolean }) => void
+  onSelect?: (args: { event: MouseEvent | KeyboardEvent; selected: boolean }) => void
   hoverable?: boolean
   collapsed?: boolean
   collapsable?: boolean
-  onCollapsedChange?: (args: { event: MouseEvent; collapsed: boolean }) => void
+  onCollapsedChange?: (args: { event: MouseEvent | KeyboardEvent; collapsed: boolean }) => void
   collapseIconIntent?: 'secondary' | 'component-secondary' | 'slot-secondary'
   items?: preact.ComponentChildren
   children?: preact.ComponentChildren

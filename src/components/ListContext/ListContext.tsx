@@ -6,6 +6,23 @@ import type { ListContextValue, ListContextProps, ListItemData } from './ListCon
 
 const RawListContext = createContext<ListContextValue | undefined>(undefined)
 
+// Stable default so that omitting `selectedItemIds` doesn't produce a new
+// array identity on every render (that would re-trigger sync effects forever).
+const EMPTY_SELECTED_IDS: string[] = []
+
+const areSetsEqual = (a: Set<string>, b: Set<string>) => {
+  if (a.size !== b.size) return false
+  for (const v of a) {
+    if (!b.has(v)) return false
+  }
+  return true
+}
+
+// Items trees are plain JSON-safe data (see ListItemData), but structuredClone
+// is cheaper and keeps richer values intact if the type ever grows.
+const cloneItems = (items: ListItemData[]): ListItemData[] =>
+  typeof structuredClone === 'function' ? structuredClone(items) : JSON.parse(JSON.stringify(items))
+
 const useListContext = () => {
   const context = useContext(RawListContext)
   if (!context) throw new Error('ListContext not found')
@@ -15,7 +32,7 @@ const useListContext = () => {
 const ListContext = (props: ListContextProps) => {
   const {
     items: controlledItems,
-    selectedItemIds: controlledSelectedItemIds = [],
+    selectedItemIds: controlledSelectedItemIds = EMPTY_SELECTED_IDS,
     selectionMode,
     deselectOnClickOutside = false,
     onItemsChange,
@@ -143,13 +160,6 @@ const ListContext = (props: ListContextProps) => {
       const effectiveItemId = resolveBranchRoot(itemId)
       const meta = itemMetaRef.current.get(effectiveItemId)
       const isWithDescendants = meta?.selectionScope === 'withDescendants'
-      const areSetsEqual = (a: Set<string>, b: Set<string>) => {
-        if (a.size !== b.size) return false
-        for (const v of a) {
-          if (!b.has(v)) return false
-        }
-        return true
-      }
 
       const additive = Boolean(options?.additive)
       const range = Boolean(options?.range)
@@ -303,7 +313,7 @@ const ListContext = (props: ListContextProps) => {
       if (itemIds.length === 0) return
 
       // Create a deep copy of the current items
-      const newItems = JSON.parse(JSON.stringify(currentItems))
+      const newItems = cloneItems(currentItems)
 
       // Build a map of id -> path from the current (pre-removal) tree
       const idToPath = (() => {
@@ -462,8 +472,9 @@ const ListContext = (props: ListContextProps) => {
     return () => document.removeEventListener('pointerdown', handlePointerDown)
   }, [selectionMode, deselectOnClickOutside, currentSelectedItems, isSelectionControlled, onSelectionChange])
 
-  const dragImageRef = useRef<HTMLDivElement | null>(null)
-  const [, setDragImageVersion] = useState(0)
+  // Held in state (not a ref) so the memoized context value below picks up
+  // the element once it is created.
+  const [dragImageEl, setDragImageEl] = useState<HTMLDivElement | null>(null)
 
   useEffect(() => {
     // Fake drag image
@@ -476,13 +487,11 @@ const ListContext = (props: ListContextProps) => {
     ghost.style.pointerEvents = 'none'
 
     document.body.appendChild(ghost)
-    dragImageRef.current = ghost
-    setDragImageVersion((v) => v + 1)
+    setDragImageEl(ghost)
 
     return () => {
       document.body.removeChild(ghost)
-      dragImageRef.current = null
-      setDragImageVersion((v) => v + 1)
+      setDragImageEl(null)
     }
   }, [])
 
@@ -514,13 +523,6 @@ const ListContext = (props: ListContextProps) => {
     return idToPathRef.current.get(id) || null
   }, [])
 
-  const registerItemPath = useCallback((id: string, path: number[]) => {
-    idToPathRef.current.set(id, path)
-    return () => {
-      idToPathRef.current.delete(id)
-    }
-  }, [])
-
   // Rebuild id -> path map whenever the items tree changes
   useEffect(() => {
     const map = new Map<string, number[]>()
@@ -537,8 +539,13 @@ const ListContext = (props: ListContextProps) => {
 
   useEffect(() => {
     if (isSelectionControlled) {
-      const next = new Set(controlledSelectedItemIds)
-      setInternalSelectedItems(next)
+      // Bail out when the contents are equal: consumers often pass inline
+      // arrays, and unconditionally creating a new Set here would re-render
+      // (and re-run this effect) forever.
+      setInternalSelectedItems((prev) => {
+        const next = new Set(controlledSelectedItemIds)
+        return areSetsEqual(prev, next) ? prev : next
+      })
     }
   }, [controlledSelectedItemIds, isSelectionControlled])
 
@@ -609,22 +616,38 @@ const ListContext = (props: ListContextProps) => {
     setSelectionOriginIds(origins)
   }, [collectDescendantsForId, currentItems, currentSelectedItems])
 
-  const contextValue: ListContextValue = {
-    items: currentItems,
-    selectedItemIds: currentSelectedItems,
-    selectionOriginIds,
-    deselectOnClickOutside,
-    setSelection,
-    toggleSelect,
-    reorderItems,
-    selectionMode,
-    registerRootElement,
-    registerItem,
-    getPathForId,
-    registerItemPath,
-    dragImage: dragImageRef.current,
-    onKeyDown,
-  }
+  const contextValue: ListContextValue = useMemo(
+    () => ({
+      items: currentItems,
+      selectedItemIds: currentSelectedItems,
+      selectionOriginIds,
+      deselectOnClickOutside,
+      setSelection,
+      toggleSelect,
+      reorderItems,
+      selectionMode,
+      registerRootElement,
+      registerItem,
+      getPathForId,
+      dragImage: dragImageEl,
+      onKeyDown,
+    }),
+    [
+      currentItems,
+      currentSelectedItems,
+      selectionOriginIds,
+      deselectOnClickOutside,
+      setSelection,
+      toggleSelect,
+      reorderItems,
+      selectionMode,
+      registerRootElement,
+      registerItem,
+      getPathForId,
+      dragImageEl,
+      onKeyDown,
+    ],
+  )
 
   return <RawListContext.Provider value={contextValue}>{children}</RawListContext.Provider>
 }

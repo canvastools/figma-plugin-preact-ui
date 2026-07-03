@@ -1,4 +1,5 @@
-import type { ListContextProps, ListItemProps, ListItemData } from '../../index'
+import type { ListContextProps, ListItemData } from '../ListContext/ListContext.types'
+import type { ListItemProps } from '../ListItem/ListItem.types'
 
 export type ListItemPropsPick = Pick<
   ListItemProps,

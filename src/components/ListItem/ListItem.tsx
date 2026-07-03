@@ -4,9 +4,9 @@ import { useState, useEffect, useRef } from 'preact/hooks'
 import type { ListItemProps } from './ListItem.types'
 import './ListItem.scss'
 
-import { useListContext } from '../../index'
-import { Icon } from '../../index'
-import { chevronRight as chevronRightGlyph, chevronDown as chevronDownGlyph, dragHandle as dragHandleGlyph } from '../../index'
+import { useListContext } from '../ListContext/ListContext'
+import { Icon } from '../Icon/Icon'
+import { chevronRight as chevronRightGlyph, chevronDown as chevronDownGlyph, dragHandle as dragHandleGlyph } from '../Icon/glyphs'
 
 /* --- */
 
@@ -351,7 +351,7 @@ const ListItemComponent = (
           const additive = e.metaKey || e.ctrlKey
           toggleSelect(id, { range, additive })
           onSelect?.({
-            event: e as unknown as MouseEvent,
+            event: e,
             selected: !isSelected,
           })
         }
@@ -365,14 +365,13 @@ const ListItemComponent = (
           const nextCollapsed = !effectiveCollapsed
           if (isCollapsedControlled) {
             onCollapsedChange?.({
-              // Cast to MouseEvent for compatibility with callback type
-              event: e as unknown as MouseEvent,
+              event: e,
               collapsed: nextCollapsed,
             })
           } else {
             setInternalCollapsed(nextCollapsed)
             onCollapsedChange?.({
-              event: e as unknown as MouseEvent,
+              event: e,
               collapsed: nextCollapsed,
             })
           }
@@ -536,7 +535,6 @@ const ListItemComponent = (
         if (typeof ref === 'function') ref(node as HTMLDivElement)
         else if (ref) (ref as preact.RefObject<HTMLDivElement>).current = node
       }}
-      key={id}
       {...rest}
       tabIndex={tabIndex ?? (selectable || draggable || collapsable ? 0 : undefined)}
       onFocus={(e) => {
