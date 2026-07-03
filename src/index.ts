@@ -110,6 +110,9 @@ export type { ScrollContainerProps } from './components/ScrollContainer/ScrollCo
 export { Section } from './components/Section/Section'
 export type { SectionProps, SectionPadding } from './components/Section/Section.types'
 
+export { SectionCollapsible } from './components/SectionCollapsible/SectionCollapsible'
+export type { SectionCollapsibleProps } from './components/SectionCollapsible/SectionCollapsible.types'
+
 export { SegmentedControl } from './components/SegmentedControl/SegmentedControl'
 export type { SegmentedControlProps, SegmentedControlOptionData } from './components/SegmentedControl/SegmentedControl.types'
 

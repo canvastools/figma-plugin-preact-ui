@@ -1,0 +1,33 @@
+@use '../../shared.scss' as *;
+
+.SectionCollapsible {
+  align-self: stretch;
+
+  &__trigger {
+    position: relative;
+    display: flex;
+    align-items: center;
+    outline: none;
+
+    &:focus {
+      outline: none;
+    }
+
+    &:focus-visible {
+      outline: 1px solid var(--pui-color-system-border-focused);
+      outline-offset: -1px;
+      box-shadow: none;
+    }
+  }
+
+  &__trigger-icon {
+    position: absolute;
+    left: 0;
+  }
+
+  &__content {
+    display: flex;
+    flex-flow: column nowrap;
+    width: 100%;
+  }
+}
