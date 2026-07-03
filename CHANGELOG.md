@@ -1,14 +1,28 @@
 # Changelog
 
+### 1.3.0 - 3 July 2026
+
+- Minor style, usability and performance fixes
+- Tooltip: delay fix
+
+- Added 24 icons
+- Add color variables for slots, `intent` and `intentModifier` props updated for Text, Icon, Badge
+- OverlayPositioner: preserve position after drag when repositioning is triggered
+- MenuContaniner: added scroll to selected MenuItemOption
+- Select: added `ghost`, `fullWidth` prop
+- ListItem: added `collapseIconIntent` prop
+- Added:
+  - MenuItemGroup
+  - SectionCollapsible
+
 ### 1.2.0 - 10 Jun 2026
 
 - Minor style fixes
-- Added 35 icons
-
 - Fixed ListItem getting selected on drag when `selectable=false`
 - Fixed keyboard navigation for ListItem, Select
 - Fixed ListItem end-dropzone blocking hover on the last item in a branch
 
+- Added 35 icons
 - New spacing token: `300`
 - useNumericInut: added `trimTrailingZeros` prop
 - PopoverContainer, Popover: added `constrainHeight`
@@ -27,24 +41,22 @@
 ### 1.1.0 - 6 Apr 2026
 
 - Minor style fixes
-- Added 14 icons
-
 - Fixed the Scroll thumb inside the popover when trying to drag it with the mouse.
 - Fixed Popover closing when interacting with WindowResizer
 
+- Added 14 icons
 - ControlGroup: added `disabled` prop
 - ColorSwatch: added gradient fill support
 - TabList: add `scrollable` prop
 
 ### 1.0.0 - 21 Mar 2026
 
-- Property naming reviewed and standardised
 - Various bugs and issues fixed
+- Property naming reviewed and standardised
 - Refactoring of experimental components
+
 - Added 17 icons
-
-- Components:
-
+- Added:
   - Calendar
   - Code
   - Fog
@@ -69,9 +81,7 @@
 **Added:**
 
 - Added 26 icons
-
 - Added:
-
   - SegmentedControl
   - ListContainer
   - ListContext
@@ -88,7 +98,6 @@
 ### 0.3.0 - 5 Oct 2025 (Unstable)
 
 - Added:
-
   - ColorSwatch
   - InputGroup
   - MenuContainer
@@ -107,7 +116,6 @@
 ### 0.2.0 - 7 Sep 2025 (Unstable)
 
 - Light and Dark themes support
-
 - Added:
   - Avatar
   - Badge
