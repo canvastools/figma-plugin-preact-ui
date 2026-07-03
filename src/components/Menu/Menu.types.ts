@@ -1,12 +1,10 @@
-import {
-  MenuContextProps,
-  MenuContainerProps,
-  MenuItemActionProps,
-  MenuItemOptionProps,
-  MenuItemGroupProps,
-  MenuDividerProps,
-  OverlayPositionerProps,
-} from '../../index'
+import { MenuContextProps } from '../MenuContext/MenuContext.types'
+import { MenuContainerProps } from '../MenuContainer/MenuContainer.types'
+import { MenuItemActionProps } from '../MenuItemAction/MenuItemAction.types'
+import { MenuItemOptionProps } from '../MenuItemOption/MenuItemOption.types'
+import { MenuItemGroupProps } from '../MenuItemGroup/MenuItemGroup.types'
+import { MenuDividerProps } from '../MenuDivider/MenuDivider.types'
+import { OverlayPositionerProps } from '../OverlayPositioner/OverlayPositioner.types'
 
 export type MenuItemData =
   | ({ type: 'group' } & Pick<MenuItemGroupProps, 'className' | 'children' | 'paddingLikeOption'>)

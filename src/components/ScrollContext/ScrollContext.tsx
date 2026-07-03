@@ -1,5 +1,5 @@
 import { createContext } from 'preact'
-import { useContext, useState, useEffect, useRef } from 'preact/hooks'
+import { useContext, useState, useEffect, useCallback, useMemo, useRef } from 'preact/hooks'
 
 import type { ScrollContextValue, ScrollContextProps } from './ScrollContext.types'
 
@@ -40,9 +40,9 @@ const ScrollContext = ({
 
   const currentPositionY = controlledPositionY !== undefined ? controlledPositionY : internalPositionY
 
-  const measureHasScroll = (el: HTMLElement) => {
+  const measureHasScroll = useCallback((el: HTMLElement) => {
     setHasScroll(el.scrollHeight - el.clientHeight > 0)
-  }
+  }, [])
 
   const evaluateSpyActiveId = () => {
     const root = spyRootRef.current
@@ -79,19 +79,24 @@ const ScrollContext = ({
     }
   }
 
-  const scheduleSpyUpdate = () => {
+  // The evaluate function reads fresh state every render; the scheduler below
+  // stays identity-stable and always calls the latest version through a ref.
+  const evaluateSpyActiveIdRef = useRef(evaluateSpyActiveId)
+  evaluateSpyActiveIdRef.current = evaluateSpyActiveId
+
+  const scheduleSpyUpdate = useCallback(() => {
     if (spyRafIdRef.current != null) return
     spyRafIdRef.current = requestAnimationFrame(() => {
       spyRafIdRef.current = null
       try {
-        evaluateSpyActiveId()
+        evaluateSpyActiveIdRef.current()
       } catch {
         // ignore DOM read issues
       }
     })
-  }
+  }, [])
 
-  const registerScrollRoot = (ref: HTMLElement | null) => {
+  const registerScrollRoot = useCallback((ref: HTMLElement | null) => {
     scrollRootCleanupRef.current?.()
     scrollRootCleanupRef.current = null
     spyRootRef.current = ref
@@ -115,9 +120,9 @@ const ScrollContext = ({
     }
 
     scheduleSpyUpdate()
-  }
+  }, [measureHasScroll, scheduleSpyUpdate])
 
-  const registerSpyTarget = (id: string, ref: HTMLElement | null) => {
+  const registerSpyTarget = useCallback((id: string, ref: HTMLElement | null) => {
     const registry = spyTargetsRef.current
     const existingIndex = registry.findIndex((entry) => entry.id === id)
 
@@ -137,9 +142,9 @@ const ScrollContext = ({
     }
 
     scheduleSpyUpdate()
-  }
+  }, [scheduleSpyUpdate])
 
-  const handleScroll = (event: Event) => {
+  const handleScroll = useCallback((event: Event) => {
     const target =
       ((event as { currentTarget?: EventTarget | null }).currentTarget as HTMLElement | null) || (event.target as HTMLElement)
 
@@ -174,26 +179,26 @@ const ScrollContext = ({
     if (spyTargetsRef.current.length && spyRootRef.current) {
       scheduleSpyUpdate()
     }
-  }
+  }, [controlledPositionY, onScroll, scheduleSpyUpdate])
 
-  const updatePositionY = (positionY: number) => {
+  const updatePositionY = useCallback((positionY: number) => {
     setInternalPositionY(positionY)
     const max = lastKnownMaxScrollTopRef.current
     const hasScrollable = typeof max === 'number' && max > 0
     setIsAtTop(hasScrollable ? positionY === 0 : true)
     setIsAtBottom(hasScrollable ? positionY >= (max as number) : true)
     setHasScroll(hasScrollable)
-  }
+  }, [])
 
-  const resetPositionY = () => {
+  const resetPositionY = useCallback(() => {
     updatePositionY(0)
-  }
+  }, [updatePositionY])
 
   useEffect(() => {
     if (controlledPositionY !== undefined) {
       updatePositionY(controlledPositionY)
     }
-  }, [controlledPositionY])
+  }, [controlledPositionY, updatePositionY])
 
   useEffect(() => {
     spyThresholdRef.current = spyThreshold
@@ -205,18 +210,32 @@ const ScrollContext = ({
     return () => scrollRootCleanupRef.current?.()
   }, [])
 
-  const contextValue: ScrollContextValue = {
-    positionY: currentPositionY,
-    isAtTop,
-    isAtBottom,
-    hasScroll,
-    onScroll: handleScroll,
-    setPositionY: updatePositionY,
-    resetPositionY,
-    spyActiveId,
-    registerSpyTarget,
-    registerScrollRoot,
-  }
+  const contextValue: ScrollContextValue = useMemo(
+    () => ({
+      positionY: currentPositionY,
+      isAtTop,
+      isAtBottom,
+      hasScroll,
+      onScroll: handleScroll,
+      setPositionY: updatePositionY,
+      resetPositionY,
+      spyActiveId,
+      registerSpyTarget,
+      registerScrollRoot,
+    }),
+    [
+      currentPositionY,
+      isAtTop,
+      isAtBottom,
+      hasScroll,
+      handleScroll,
+      updatePositionY,
+      resetPositionY,
+      spyActiveId,
+      registerSpyTarget,
+      registerScrollRoot,
+    ],
+  )
 
   return <RawScrollContext.Provider value={contextValue}>{children}</RawScrollContext.Provider>
 }

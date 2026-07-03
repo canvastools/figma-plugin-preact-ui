@@ -1,6 +1,6 @@
 import { bem, typedForwardRef } from '../../utils'
 
-import { Text } from '../../index'
+import { Text } from '../Text/Text'
 
 import type { AvatarProps } from './Avatar.types'
 import './Avatar.scss'

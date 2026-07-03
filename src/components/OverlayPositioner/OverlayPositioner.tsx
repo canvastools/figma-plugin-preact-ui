@@ -1,6 +1,6 @@
 import { createPortal } from 'preact/compat'
 
-import { bem, typedForwardRef } from '../../utils'
+import { bem, typedForwardRef, useRefElement } from '../../utils'
 
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'preact/hooks'
 
@@ -38,6 +38,10 @@ const computePlacement = (
   offsetY: number,
   offsetEdge: number,
   arrowSize: number,
+  // Actual rendered box height. `h` may be inflated with hidden overflow (see
+  // constrainHeight) to pick a placement that fits the natural content, but
+  // the arrow must be positioned relative to the real box.
+  measuredH: number = h,
 ): { coords: Coords; arrow: ArrowData; placement: string } => {
   const candidates: string[] = [placement]
   if (placementFallback && Array.isArray(placementFallback)) {
@@ -69,7 +73,7 @@ const computePlacement = (
         const arrowLeft = clamp(rect.left + rect.width / 2 - left, arrowSize, w - arrowSize)
         return {
           coords: { left, top },
-          arrow: { left: arrowLeft, top: h, side: 'top' },
+          arrow: { left: arrowLeft, top: measuredH, side: 'top' },
         }
       }
       case 'top-left': {
@@ -78,7 +82,7 @@ const computePlacement = (
         const arrowLeft = clamp(rect.left - left + rect.width / 2, arrowSize, w - arrowSize)
         return {
           coords: { left, top },
-          arrow: { left: arrowLeft, top: h, side: 'top' },
+          arrow: { left: arrowLeft, top: measuredH, side: 'top' },
         }
       }
       case 'top-right': {
@@ -87,7 +91,7 @@ const computePlacement = (
         const arrowLeft = clamp(rect.left - left + rect.width / 2, arrowSize, w - arrowSize)
         return {
           coords: { left, top },
-          arrow: { left: arrowLeft, top: h, side: 'top' },
+          arrow: { left: arrowLeft, top: measuredH, side: 'top' },
         }
       }
       case 'bottom': {
@@ -126,7 +130,7 @@ const computePlacement = (
           offsetEdge,
           Math.min(vh - h - offsetEdge, Math.round(rect.top + rect.height / 2 - h / 2 + offsetY)),
         )
-        const arrowTop = clamp(rect.top - top + rect.height / 2, arrowSize, h - arrowSize)
+        const arrowTop = clamp(rect.top - top + rect.height / 2, arrowSize, measuredH - arrowSize)
         return {
           coords: { left, top },
           arrow: { left: w, top: arrowTop, side: 'left' },
@@ -135,7 +139,7 @@ const computePlacement = (
       case 'left-top': {
         const left = rect.left - w - offsetX
         const top = Math.max(offsetEdge, Math.min(vh - h - offsetEdge, Math.round(rect.top + offsetY)))
-        const arrowTop = clamp(rect.top - top + rect.height / 2, arrowSize, h - arrowSize)
+        const arrowTop = clamp(rect.top - top + rect.height / 2, arrowSize, measuredH - arrowSize)
         return {
           coords: { left, top },
           arrow: { left: w, top: arrowTop, side: 'left' },
@@ -144,7 +148,7 @@ const computePlacement = (
       case 'left-bottom': {
         const left = rect.left - w - offsetX
         const top = Math.max(offsetEdge, Math.min(vh - h - offsetEdge, Math.round(rect.bottom - h - offsetY)))
-        const arrowTop = clamp(rect.top - top + rect.height / 2, arrowSize, h - arrowSize)
+        const arrowTop = clamp(rect.top - top + rect.height / 2, arrowSize, measuredH - arrowSize)
         return {
           coords: { left, top },
           arrow: { left: w, top: arrowTop, side: 'left' },
@@ -156,7 +160,7 @@ const computePlacement = (
           offsetEdge,
           Math.min(vh - h - offsetEdge, Math.round(rect.top + rect.height / 2 - h / 2 + offsetY)),
         )
-        const arrowTop = clamp(rect.top - top + rect.height / 2, arrowSize, h - arrowSize)
+        const arrowTop = clamp(rect.top - top + rect.height / 2, arrowSize, measuredH - arrowSize)
         return {
           coords: { left, top },
           arrow: { left: 0, top: arrowTop, side: 'right' },
@@ -165,7 +169,7 @@ const computePlacement = (
       case 'right-top': {
         const left = rect.right + offsetX
         const top = Math.max(offsetEdge, Math.min(vh - h - offsetEdge, Math.round(rect.top + offsetY)))
-        const arrowTop = clamp(rect.top - top + rect.height / 2, arrowSize / 2, h - arrowSize)
+        const arrowTop = clamp(rect.top - top + rect.height / 2, arrowSize, measuredH - arrowSize)
         return {
           coords: { left, top },
           arrow: { left: 0, top: arrowTop, side: 'right' },
@@ -174,7 +178,7 @@ const computePlacement = (
       case 'right-bottom': {
         const left = rect.right + offsetX
         const top = Math.max(offsetEdge, Math.min(vh - h - offsetEdge, Math.round(rect.bottom - h - offsetY)))
-        const arrowTop = clamp(rect.top - top + rect.height / 2, arrowSize, h - arrowSize)
+        const arrowTop = clamp(rect.top - top + rect.height / 2, arrowSize, measuredH - arrowSize)
         return {
           coords: { left, top },
           arrow: { left: 0, top: arrowTop, side: 'right' },
@@ -186,7 +190,7 @@ const computePlacement = (
         const arrowLeft = clamp(rect.left - left + rect.width / 2, arrowSize, w - arrowSize)
         return {
           coords: { left, top },
-          arrow: { left: arrowLeft, top: h, side: 'bottom' },
+          arrow: { left: arrowLeft, top: measuredH, side: 'bottom' },
         }
       }
     }
@@ -246,6 +250,21 @@ const OverlayPositionerComponent = (
   const [appliedPlacement, setAppliedPlacement] = useState<string>(placement)
   const rafRef = useRef<number | null>(null)
   const isDraggingRef = useRef(false)
+  const dragListenersRef = useRef<{ move: (e: MouseEvent) => void; up: () => void } | null>(null)
+
+  // Remove window drag listeners if the overlay unmounts mid-drag (e.g. it is
+  // closed by Escape or a controlled prop while the mouse button is held).
+  useEffect(() => {
+    return () => {
+      const d = dragListenersRef.current
+      if (d) {
+        window.removeEventListener('mousemove', d.move)
+        window.removeEventListener('mouseup', d.up)
+        dragListenersRef.current = null
+      }
+      isDraggingRef.current = false
+    }
+  }, [])
 
   const resolvedPlacementFallback = useMemo<OverlayPositionerPlacement[] | undefined>(
     () => (placementFallback && Array.isArray(placementFallback) ? placementFallback : undefined),
@@ -277,13 +296,27 @@ const OverlayPositionerComponent = (
     // Only do this for explicitly height-constrained overlays. Content-sized
     // overlays (e.g. tooltips) can report phantom overflow from absolutely
     // positioned decorations such as arrows, which would corrupt placement.
+    const measuredH = h
     if (constrainHeight && el) {
       const overflow = findMaxHiddenOverflow(el, 0)
       if (overflow > 1) h += overflow
     }
 
     // Compute coords and arrow using placement + fallback rules
-    const result = computePlacement(vw, vh, rect, w, h, placement, resolvedPlacementFallback, offsetX, offsetY, offsetEdge, 8)
+    const result = computePlacement(
+      vw,
+      vh,
+      rect,
+      w,
+      h,
+      placement,
+      resolvedPlacementFallback,
+      offsetX,
+      offsetY,
+      offsetEdge,
+      8,
+      measuredH,
+    )
     setCoords(result.coords)
     setArrowData(result.arrow)
     setAppliedPlacement(result.placement)
@@ -453,10 +486,12 @@ const OverlayPositionerComponent = (
     return () => window.removeEventListener('mousedown', handler, true)
   }, [isOpen, closeOnClickOutside, anchorRef, isControlled, onClose])
 
+  // Resolve the anchor element through state so listeners are attached even
+  // when the anchor mounts after this overlay (e.g. conditional rendering).
+  const anchorEl = useRefElement(anchorRef as preact.RefObject<HTMLElement | null>)
+
   useEffect(() => {
     if (isControlled) return
-
-    const anchorEl = anchorRef.current as HTMLElement | null
     if (!anchorEl) return
 
     if (trigger === 'click') {
@@ -486,7 +521,7 @@ const OverlayPositionerComponent = (
         anchorEl.removeEventListener('mouseleave', onLeaveAnchor)
       }
     }
-  }, [isControlled, trigger, anchorRef])
+  }, [isControlled, trigger, anchorEl])
 
   const effectiveTop = (manualPos ? manualPos.top : coords.top) || 0
   const effectiveLeft = (manualPos ? manualPos.left : coords.left) || 0
@@ -574,7 +609,9 @@ const OverlayPositionerComponent = (
       isDraggingRef.current = false
       window.removeEventListener('mousemove', onMove)
       window.removeEventListener('mouseup', onUp)
+      dragListenersRef.current = null
     }
+    dragListenersRef.current = { move: onMove, up: onUp }
     window.addEventListener('mousemove', onMove)
     window.addEventListener('mouseup', onUp)
   }

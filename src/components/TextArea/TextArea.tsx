@@ -3,7 +3,8 @@ import { useEffect, useLayoutEffect, useRef, useState, useImperativeHandle } fro
 
 import { bem, typedForwardRef } from '../../utils'
 
-import { Tooltip, Text } from '../../index'
+import { Tooltip } from '../Tooltip/Tooltip'
+import { Text } from '../Text/Text'
 
 import type { TextAreaProps } from './TextArea.types'
 import './TextArea.scss'
@@ -65,6 +66,20 @@ const TextAreaComponent = (
   const rootRef = useRef<HTMLDivElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
+  const resizeListenersRef = useRef<{ move: (e: PointerEvent) => void; up: (e: PointerEvent) => void } | null>(null)
+
+  // Remove window resize-drag listeners if the component unmounts mid-drag.
+  useEffect(() => {
+    return () => {
+      const d = resizeListenersRef.current
+      if (d) {
+        window.removeEventListener('pointermove', d.move)
+        window.removeEventListener('pointerup', d.up)
+        window.removeEventListener('pointercancel', d.up)
+        resizeListenersRef.current = null
+      }
+    }
+  }, [])
 
   // Expose the root wrapper element to consumers (stable anchor for tooltips)
   useImperativeHandle(ref, () => rootRef.current as HTMLDivElement, [])
@@ -141,6 +156,7 @@ const TextAreaComponent = (
       window.removeEventListener('pointermove', onMove)
       window.removeEventListener('pointerup', onUp)
       window.removeEventListener('pointercancel', onUp)
+      resizeListenersRef.current = null
       try {
         handleEl.releasePointerCapture(_ev.pointerId)
       } catch {
@@ -148,12 +164,13 @@ const TextAreaComponent = (
       }
     }
 
+    resizeListenersRef.current = { move: onMove, up: onUp }
     window.addEventListener('pointermove', onMove)
     window.addEventListener('pointerup', onUp)
     window.addEventListener('pointercancel', onUp)
   }
 
-  const handleChange = (event: preact.JSX.TargetedEvent<HTMLTextAreaElement, Event>) => {
+  const handleInput = (event: preact.JSX.TargetedEvent<HTMLTextAreaElement, Event>) => {
     event.stopPropagation()
     const nextValue = event.currentTarget.value
     if (!isControlled) {
@@ -248,7 +265,9 @@ const TextAreaComponent = (
             {...(tabIndex !== undefined ? { tabIndex } : {})}
             placeholder={placeholder}
             value={displayedValue}
-            onChange={handleChange}
+            // onInput fires per keystroke in plain Preact; onChange would only
+            // work through preact/compat's global vnode patch.
+            onInput={handleInput}
             onClick={handleClick}
             onBlur={handleBlur}
             onFocus={handleFocus}

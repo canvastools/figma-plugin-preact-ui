@@ -77,7 +77,7 @@ export const Demo = {
       },
     },
   },
-  render: (args) => (
+  render: (args: import('./Bar.types').BarProps) => (
     <div className="sb-column sb-width-full">
       <Bar {...args}>
         <Section>

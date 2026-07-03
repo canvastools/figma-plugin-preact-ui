@@ -21,6 +21,7 @@
 
 .Text {
   @include typography-styles-default;
+  -webkit-user-select: none; // Safari only supports the prefixed form
   user-select: none;
   white-space: nowrap;
 

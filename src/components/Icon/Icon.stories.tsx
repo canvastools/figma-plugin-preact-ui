@@ -131,10 +131,10 @@ export const Demo: Story = {
     },
   },
   render: (args) => {
-    // @ts-expect-error Storybook maps string control to glyph key.
-    const { glyph, ...rest } = args as {
+    // Storybook maps the string control to a glyph key.
+    const { glyph, ...rest } = args as unknown as {
       glyph: keyof typeof glyphs
-    } & import('./Icon.types').IconProps
+    } & Omit<import('./Icon.types').IconProps, 'glyph'>
 
     return (
       <div className="sb-column sb-width-full">

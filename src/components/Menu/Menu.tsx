@@ -1,19 +1,18 @@
 import { bem, typedForwardRef } from '../../utils'
 
 import { cloneElement } from 'preact'
-import { useEffect, useRef, useState } from 'preact/hooks'
+import { useState } from 'preact/hooks'
 
-import {
-  MenuContext,
-  useMenuContext,
-  MenuContainer,
-  MenuItemAction,
-  MenuItemOption,
-  MenuItemGroup,
-  MenuDivider,
-  OverlayPositioner,
-} from '../../index'
-import type { MenuItemActionProps, MenuItemOptionProps, OverlayPositionerPlacement } from '../../index'
+import { MenuContext, useMenuContext } from '../MenuContext/MenuContext'
+import { MenuContainer } from '../MenuContainer/MenuContainer'
+import { MenuItemAction } from '../MenuItemAction/MenuItemAction'
+import { MenuItemOption } from '../MenuItemOption/MenuItemOption'
+import { MenuItemGroup } from '../MenuItemGroup/MenuItemGroup'
+import { MenuDivider } from '../MenuDivider/MenuDivider'
+import { OverlayPositioner } from '../OverlayPositioner/OverlayPositioner'
+import type { MenuItemActionProps } from '../MenuItemAction/MenuItemAction.types'
+import type { MenuItemOptionProps } from '../MenuItemOption/MenuItemOption.types'
+import type { OverlayPositionerPlacement } from '../OverlayPositioner/OverlayPositioner.types'
 
 import type { MenuProps, MenuItemData } from './Menu.types'
 import './Menu.scss'
@@ -29,60 +28,17 @@ type MenuBodyProps = {
   offsetX: number
   offsetY: number
   offsetEdge: number
-  onOpen?: () => void
-  onClose?: () => void
 }
 
-const MenuBody = ({
-  items,
-  width,
-  height,
-  placement,
-  placementFallback,
-  offsetX,
-  offsetY,
-  offsetEdge,
-  onOpen,
-  onClose,
-}: MenuBodyProps) => {
-  const { triggerRef, anchorRef, open, focusedItemId, setOpen } = useMenuContext()
+const MenuBody = ({ items, width, height, placement, placementFallback, offsetX, offsetY, offsetEdge }: MenuBodyProps) => {
+  const { anchorRef, open, focusedItemId, setOpen } = useMenuContext()
 
-  const hasFiredOpenRef = useRef(false)
-
-  // Ensure onOpen is called exactly once per open cycle
-  useEffect(() => {
-    if (open && !hasFiredOpenRef.current) {
-      hasFiredOpenRef.current = true
-      onOpen?.()
-    } else if (!open && hasFiredOpenRef.current) {
-      hasFiredOpenRef.current = false
-    }
-  }, [open, onOpen])
-
+  // All open/close notifications (onOpen/onClose) are fired by the Menu
+  // component itself when the open state changes, so closing here only needs
+  // to request the state change. Escape is handled globally by MenuContext.
   const handleClose = () => {
     setOpen(false)
-    onClose?.()
   }
-
-  // Close on Escape and call onClose once
-  useEffect(() => {
-    if (!open) return
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      const { key } = event
-      if (key === 'Escape' || key === 'Esc') {
-        event.preventDefault()
-        setOpen(false)
-        onClose?.()
-        triggerRef?.current?.focus()
-      }
-    }
-
-    window.addEventListener('keydown', handleKeyDown)
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown)
-    }
-  }, [open, setOpen, onClose, triggerRef])
 
   const renderItem = (item: MenuItemData, index: number) => {
     if (item.type === 'group') {
@@ -208,15 +164,25 @@ const MenuComponent = (
 ) => {
   const _className = bem('Menu', undefined, undefined)
 
-  const [internalOpen, setInternalOpen] = useState<boolean>(open ?? defaultOpen)
+  // Controlled/uncontrolled open state:
+  // - `open` provided → fully controlled, internal state is ignored; every
+  //   interaction that wants to change it only fires onOpen/onClose and the
+  //   parent decides.
+  // - otherwise `defaultOpen` seeds internal state.
+  const isControlled = open !== undefined
+  const [internalOpen, setInternalOpen] = useState<boolean>(defaultOpen)
+  const isOpen = isControlled ? (open as boolean) : internalOpen
 
-  useEffect(() => {
-    setInternalOpen(open ?? defaultOpen)
-  }, [open, defaultOpen])
+  const handleOpenChange = (next: boolean) => {
+    if (next === isOpen) return
+    if (!isControlled) setInternalOpen(next)
+    if (next) onOpen?.()
+    else onClose?.()
+  }
 
   return (
-    <MenuContext triggerRef={triggerRef} anchorRef={anchorRef} open={internalOpen} setOpen={setInternalOpen}>
-      {internalOpen && (
+    <MenuContext triggerRef={triggerRef} anchorRef={anchorRef} open={isOpen} setOpen={handleOpenChange}>
+      {isOpen && (
         <div id={id} className={[_className, className].join(' ').trim()} ref={ref} {...rest}>
           <MenuBody
             items={items}
@@ -227,8 +193,6 @@ const MenuComponent = (
             offsetX={offsetX}
             offsetY={offsetY}
             offsetEdge={offsetEdge}
-            onOpen={onOpen}
-            onClose={onClose}
           />
         </div>
       )}

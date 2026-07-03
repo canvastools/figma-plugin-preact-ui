@@ -6,6 +6,7 @@
   display: flex;
   align-items: center;
   height: 24px;
+  -webkit-user-select: none; // Safari only supports the prefixed form
   user-select: none;
   width: fit-content;
   border-radius: var(--pui-radius-medium);

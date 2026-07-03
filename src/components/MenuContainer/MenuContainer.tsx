@@ -2,7 +2,8 @@ import { useCallback, useContext, useEffect, useRef, useState } from 'preact/hoo
 
 import { bem, typedForwardRef } from '../../utils'
 
-import { Icon, chevronUp, chevronDown } from '../../index'
+import { Icon } from '../Icon/Icon'
+import { chevronUp, chevronDown } from '../Icon/glyphs'
 
 import { RawMenuContext } from '../MenuContext/MenuContext'
 import type { MenuContainerProps } from './MenuContainer.types'

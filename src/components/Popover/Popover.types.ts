@@ -1,4 +1,7 @@
-import type { PopoverHeaderProps, PopoverContextProps, PopoverContainerProps, OverlayPositionerProps } from '../../index'
+import type { PopoverHeaderProps } from '../PopoverHeader/PopoverHeader.types'
+import type { PopoverContextProps } from '../PopoverContext/PopoverContext.types'
+import type { PopoverContainerProps } from '../PopoverContainer/PopoverContainer.types'
+import type { OverlayPositionerProps } from '../OverlayPositioner/OverlayPositioner.types'
 
 type PopoverContextPropsPick = Pick<PopoverContextProps, 'triggerRef' | 'anchorRef'>
 

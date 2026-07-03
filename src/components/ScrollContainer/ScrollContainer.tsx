@@ -5,7 +5,7 @@ import { bem, typedForwardRef } from '../../utils'
 import type { ScrollContainerProps } from './ScrollContainer.types'
 import './ScrollContainer.scss'
 
-import { useScrollContextOptional } from '../../index'
+import { useScrollContextOptional } from '../ScrollContext/ScrollContext'
 
 /* --- */
 

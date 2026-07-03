@@ -10,6 +10,7 @@
   overflow: hidden;
   position: relative;
   background-color: var(--pui-color-neutral-inverted-bg-default);
+  -webkit-user-select: none; // Safari only supports the prefixed form
   user-select: none;
 
   &__children {

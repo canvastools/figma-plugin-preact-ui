@@ -3,8 +3,11 @@ import { useState, useEffect, useRef } from 'preact/hooks'
 
 import { bem, typedForwardRef, uuid } from '../../utils'
 
-import { Text, Icon, check as checkGlyph, useMenuContextOptional } from '../../index'
-import type { MenuContextValue } from '../../index'
+import { Text } from '../Text/Text'
+import { Icon } from '../Icon/Icon'
+import { check as checkGlyph } from '../Icon/glyphs'
+import { useMenuContextOptional } from '../MenuContext/MenuContext'
+import type { MenuContextValue } from '../MenuContext/MenuContext.types'
 
 import type { MenuItemOptionProps } from './MenuItemOption.types'
 import './MenuItemOption.scss'
@@ -13,7 +16,7 @@ import './MenuItemOption.scss'
 
 const hoverIntentProps = {
   intent: 'brand',
-  intentModifiers: 'default',
+  intentModifier: 'default',
 }
 
 const noopRegisterItem: MenuContextValue['registerItem'] = () => () => {}
@@ -51,7 +54,11 @@ const MenuItemOptionComponent = (
 
   const itemRef = useRef<HTMLElement>(null)
 
-  const internalId = id ?? uuid()
+  // Generated fallback id must stay stable across renders: MenuContext tracks
+  // focus/hover by id, and a fresh id per render would break keyboard nav.
+  const generatedIdRef = useRef<string | null>(null)
+  if (generatedIdRef.current === null) generatedIdRef.current = uuid()
+  const internalId = id ?? generatedIdRef.current
 
   useEffect(() => {
     const unregister = registerItem({
@@ -157,7 +164,7 @@ const MenuItemOptionComponent = (
         </div>
         <div className="MenuItemOption__content-container">
           {prefix && (
-            <div className="MenuItemAction__prefix">
+            <div className="MenuItemOption__prefix">
               {isActive
                 ? override(prefix, {
                     ...hoverIntentProps,

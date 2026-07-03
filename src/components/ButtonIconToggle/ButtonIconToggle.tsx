@@ -4,7 +4,7 @@ import { typedForwardRef } from '../../utils'
 
 import type { ButtonIconToggleProps } from './ButtonIconToggle.types'
 
-import { ButtonIcon } from '../../index'
+import { ButtonIcon } from '../ButtonIcon/ButtonIcon'
 
 /* --- */
 

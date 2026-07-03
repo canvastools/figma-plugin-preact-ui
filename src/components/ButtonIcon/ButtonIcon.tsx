@@ -4,7 +4,8 @@ import type { VNode } from 'preact'
 
 import { bem, typedForwardRef } from '../../utils'
 
-import { Icon, Tooltip } from '../../index'
+import { Icon } from '../Icon/Icon'
+import { Tooltip } from '../Tooltip/Tooltip'
 
 import type { ButtonIconProps } from './ButtonIcon.types'
 import './ButtonIcon.scss'

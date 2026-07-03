@@ -6,17 +6,14 @@ import { bem, typedForwardRef } from '../../utils'
 import type { SelectProps, SelectOptionData } from './Select.types'
 import './Select.scss'
 
-import {
-  MenuContext,
-  useMenuContext,
-  MenuContainer,
-  MenuItemOption,
-  MenuDivider,
-  OverlayPositioner,
-  Icon,
-  chevronDown as chevronDownGlyph,
-  Tooltip,
-} from '../../index'
+import { MenuContext, useMenuContext } from '../MenuContext/MenuContext'
+import { MenuContainer } from '../MenuContainer/MenuContainer'
+import { MenuItemOption } from '../MenuItemOption/MenuItemOption'
+import { MenuDivider } from '../MenuDivider/MenuDivider'
+import { OverlayPositioner } from '../OverlayPositioner/OverlayPositioner'
+import { Icon } from '../Icon/Icon'
+import { chevronDown as chevronDownGlyph } from '../Icon/glyphs'
+import { Tooltip } from '../Tooltip/Tooltip'
 
 /* --- */
 
@@ -73,16 +70,16 @@ const SelectComponent = (
     }
   }, [value])
 
-  const handleFocus = () => {
+  const handleFocus = (event: preact.JSX.TargetedFocusEvent<HTMLDivElement>) => {
     if (disabled) return
     setIsFocused(true)
-    onFocus?.()
+    onFocus?.({ event: event as FocusEvent, value: value ?? internalValue })
   }
 
-  const handleBlur = () => {
+  const handleBlur = (event: preact.JSX.TargetedFocusEvent<HTMLDivElement>) => {
     if (disabled) return
     setIsFocused(false)
-    onBlur?.()
+    onBlur?.({ event: event as FocusEvent, value: value ?? internalValue })
   }
 
   const handleKeyDown = (event: preact.JSX.TargetedKeyboardEvent<HTMLDivElement>) => {
@@ -234,7 +231,7 @@ const SelectMenu = ({ menuContainerProps, groups, selectedValue, onSelectedChang
                   disabled: opt.disabled,
                   focused: context.focusedItemId === opt.value,
                   selected: opt.value === selectedValue,
-                  onSelectedChange: ({ event }) => onSelectedChange?.({ event, value: opt.value }),
+                  onSelectedChange: ({ event }: { event: MouseEvent }) => onSelectedChange?.({ event, value: opt.value }),
                 })
               }
 

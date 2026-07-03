@@ -1,4 +1,6 @@
-import type { OverlayPositionerProps, TooltipContainerProps, TooltipTimingOptions, TooltipTrigger } from '../../index'
+import type { OverlayPositionerProps } from '../OverlayPositioner/OverlayPositioner.types'
+import type { TooltipContainerProps } from '../TooltipContainer/TooltipContainer.types'
+import type { TooltipTimingOptions, TooltipTrigger } from '../TooltipContext/TooltipContext.types'
 
 type TooltipContainerPropsPick = Pick<TooltipContainerProps, 'width' | 'height' | 'showArrow'>
 

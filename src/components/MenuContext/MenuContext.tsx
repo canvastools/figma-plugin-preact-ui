@@ -1,5 +1,5 @@
 import { createContext } from 'preact'
-import { useContext, useEffect, useState, useCallback, useRef } from 'preact/hooks'
+import { useContext, useEffect, useState, useCallback, useMemo, useRef } from 'preact/hooks'
 
 import type { MenuContextValue, MenuContextProps, MenuItemMetadata } from './MenuContext.types'
 
@@ -414,6 +414,13 @@ const MenuContext = ({ triggerRef, anchorRef, open, setOpen, children }: MenuCon
 
     const handleTypeahead = (event: KeyboardEvent) => {
       const { key, metaKey, ctrlKey, altKey } = event
+      const eventTarget = event.target as HTMLElement | null
+
+      // Don't steal printable characters from text fields or editable areas
+      // (same guard as the activation / arrow-key handlers above).
+      if (eventTarget && (eventTarget.tagName === 'INPUT' || eventTarget.tagName === 'TEXTAREA' || eventTarget.isContentEditable)) {
+        return
+      }
 
       if (metaKey || ctrlKey || altKey) return
       // Space is reserved as an activation key for the focused item,
@@ -470,18 +477,32 @@ const MenuContext = ({ triggerRef, anchorRef, open, setOpen, children }: MenuCon
     setFocusedItemState(id)
   }, [])
 
-  const contextValue: MenuContextValue = {
-    triggerRef: triggerRef as MenuContextValue['triggerRef'],
-    anchorRef: resolvedAnchorRef,
-    open: open !== undefined ? open : false,
-    setOpen: setOpen !== undefined ? setOpen : () => {},
-    registerItem,
-    focusedItemId,
-    setFocusedItem,
-    clearFocus,
-    setHoveredItem,
-    keyboardInteraction,
-  }
+  const contextValue: MenuContextValue = useMemo(
+    () => ({
+      triggerRef: triggerRef as MenuContextValue['triggerRef'],
+      anchorRef: resolvedAnchorRef,
+      open: open !== undefined ? open : false,
+      setOpen: setOpen !== undefined ? setOpen : () => {},
+      registerItem,
+      focusedItemId,
+      setFocusedItem,
+      clearFocus,
+      setHoveredItem,
+      keyboardInteraction,
+    }),
+    [
+      triggerRef,
+      resolvedAnchorRef,
+      open,
+      setOpen,
+      registerItem,
+      focusedItemId,
+      setFocusedItem,
+      clearFocus,
+      setHoveredItem,
+      keyboardInteraction,
+    ],
+  )
 
   return <RawMenuContext.Provider value={contextValue}>{children}</RawMenuContext.Provider>
 }
