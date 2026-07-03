@@ -2,7 +2,8 @@ import { bem, typedForwardRef } from '../../utils'
 
 import { Calendar as ReactCalendar } from 'react-calendar'
 
-import { Icon, chevronLeft, chevronRight, chevronDoubleLeft, chevronDoubleRight } from '../../index'
+import { Icon } from '../Icon/Icon'
+import { chevronLeft, chevronRight, chevronDoubleLeft, chevronDoubleRight } from '../Icon/glyphs'
 
 import type { CalendarProps } from './Calendar.types'
 import './Calendar.scss'
@@ -18,7 +19,10 @@ const CalendarComponent = (
     defaultView = 'month',
     view,
     defaultDate = null,
-    date = null,
+    // No default here: `undefined` keeps the calendar uncontrolled (selection
+    // is stored internally), while an explicit `null` means "controlled,
+    // nothing selected". react-calendar treats these differently.
+    date,
     minDate = new Date(new Date().setFullYear(new Date().getFullYear() - 5)),
     maxDate = new Date(new Date().setFullYear(new Date().getFullYear() + 5)),
     minDetail = 'century',
@@ -52,9 +56,9 @@ const CalendarComponent = (
   }
 
   return (
-    <div id={id} ref={ref} onKeyDown={handleKeyDown} data-pui-interactive="true">
+    <div id={id} className={className} ref={ref} onKeyDown={handleKeyDown} data-pui-interactive="true">
       <ReactCalendar
-        className={[_className, className].join(' ').trim()}
+        className={_className}
         locale={locale}
         calendarType={type}
         defaultView={defaultView}
