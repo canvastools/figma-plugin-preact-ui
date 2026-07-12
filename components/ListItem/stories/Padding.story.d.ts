@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact';
+import { StoryObj } from '@storybook/preact-vite';
 import { ListItem } from '../ListItem';
 type Story = StoryObj<typeof ListItem>;
 export declare const PaddingStory: Story;

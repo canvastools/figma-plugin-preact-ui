@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact';
+import { StoryObj } from '@storybook/preact-vite';
 import { Badge } from '../Badge';
 type Story = StoryObj<typeof Badge>;
 export declare const SuffixStory: Story;

@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact';
+import { StoryObj } from '@storybook/preact-vite';
 import { Progress } from '../Progress';
 type Story = StoryObj<typeof Progress>;
 export declare const VariantStory: Story;

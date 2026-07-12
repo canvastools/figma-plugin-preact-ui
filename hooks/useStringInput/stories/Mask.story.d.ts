@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact';
+import { StoryObj } from '@storybook/preact-vite';
 import { useStringInput } from '../useStringInput';
 type Story = StoryObj<typeof useStringInput>;
 export declare const MaskStory: Story;

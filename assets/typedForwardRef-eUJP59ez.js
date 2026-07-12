@@ -1,1 +1,0 @@
-import{D as i}from"./compat.module-AmaJGl25.js";const $=(t,o,f={})=>{const s=o?`${t}__${o}`:t,e=[s];for(const[n,r]of Object.entries(f))typeof r=="string"?e.push(`${s}_${n}-${r}`):r===!0&&e.push(`${s}_${n}`);return e.join(" ")};function a(t){return i(t)}export{$ as b,a as t};
