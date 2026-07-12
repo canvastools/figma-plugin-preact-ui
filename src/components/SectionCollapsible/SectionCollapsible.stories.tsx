@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/preact'
+import { Meta, StoryObj } from '@storybook/preact-vite'
 
 import { ControlledStory } from './stories/Controlled.story'
 import { UncontrolledStory } from './stories/Uncontrolled.story'
@@ -95,7 +95,6 @@ export default meta
 type Story = StoryObj<typeof SectionCollapsible>
 
 export const Demo: Story = {
-  tags: ['!autodocs'],
   args: {
     id: undefined,
     className: 'sb-container',
@@ -111,7 +110,6 @@ export const Demo: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <SectionCollapsible sectionProps={{ children: 'Section header' }}>
   {children}
@@ -122,9 +120,7 @@ export const Demo: Story = {
   },
   render: (args) => (
     <div className="sb-column sb-width-full">
-      {/* @ts-expect-error Storybook spread */}
       <SectionCollapsible {...args} sectionProps={{ children: <Text strong>{args.sectionProps?.children}</Text> }}>
-        {/* @ts-expect-error Storybook spread */}
         <Text>{args.children}</Text>
       </SectionCollapsible>
     </div>

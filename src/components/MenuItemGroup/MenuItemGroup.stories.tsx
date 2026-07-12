@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/preact'
+import { Meta, StoryObj } from '@storybook/preact-vite'
 
 import { PaddingStory } from './stories/Padding.story'
 
@@ -33,7 +33,7 @@ const meta: Meta<typeof MenuItemGroup> = {
     },
     paddingLikeOption: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
       description: 'Add padding to the left of the content to make it aligned with options.',
     },
   },
@@ -44,7 +44,6 @@ export default meta
 type Story = StoryObj<typeof MenuItemGroup>
 
 export const Demo: Story = {
-  tags: ['!autodocs'],
   args: {
     className: '',
     paddingLikeOption: false,
@@ -56,7 +55,6 @@ export const Demo: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <MenuContainer>
   <MenuItemGroup {...args}>{children}</MenuItemGroup>
@@ -68,7 +66,6 @@ export const Demo: Story = {
   render: (args) => (
     <div className="sb-column sb-width-full">
       <MenuContainer width={208}>
-        {/* @ts-expect-error Storybook spread */}
         <MenuItemGroup {...args}>{args.children}</MenuItemGroup>
       </MenuContainer>
     </div>

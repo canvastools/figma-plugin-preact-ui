@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/preact'
+import { Meta, StoryObj } from '@storybook/preact-vite'
 
 import { ControlledStory } from './stories/Controlled.story'
 import { VariantStory } from './stories/Variant.story'
@@ -24,17 +24,17 @@ const meta: Meta<typeof Progress> = {
     variant: {
       control: { type: 'radio' },
       options: ['indeterminate', 'determinate'],
-      defaultValue: { summary: 'indeterminate' },
+      table: { defaultValue: { summary: 'indeterminate' } },
     },
     delay: {
       control: { type: 'number' },
-      defaultValue: { summary: 0 },
+      table: { defaultValue: { summary: '0' } },
       description:
         'Delay in milliseconds before the progress bar becomes visible. This helps prevent flicker when content loads quickly.',
     },
     value: {
       control: { type: 'number' },
-      defaultValue: { summary: 0 },
+      table: { defaultValue: { summary: '0' } },
       description: 'Value of the progress bar for `determinate` variant.',
     },
   },
@@ -45,7 +45,6 @@ export default meta
 type Story = StoryObj<typeof Progress>
 
 export const Demo: Story = {
-  tags: ['!autodocs'],
   args: {
     id: undefined,
     className: '',
@@ -59,7 +58,6 @@ export const Demo: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <Progress {...args} />
 `,

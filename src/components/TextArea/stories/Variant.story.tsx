@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { TextArea } from '../TextArea'
 
@@ -15,7 +15,6 @@ export const VariantStory: Story = {
         story: 'Layout variants with optional label.',
       },
       source: {
-        language: 'tsx',
         code: `
 <TextArea variant="default" label="Label" />
 

@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { useState, useRef, useEffect } from 'preact/hooks'
 
@@ -16,7 +16,6 @@ export const SpyScrollStory: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 
 const ScrollContent = () => {

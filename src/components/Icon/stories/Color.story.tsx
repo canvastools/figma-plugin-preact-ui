@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { link } from '../glyphs'
 
@@ -14,7 +14,6 @@ export const ColorStory: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <Icon 
   glyph={help}

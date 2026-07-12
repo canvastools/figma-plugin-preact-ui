@@ -1,5 +1,5 @@
-import { Meta, StoryObj } from '@storybook/preact'
-import { fn } from '@storybook/test'
+import { Meta, StoryObj } from '@storybook/preact-vite'
+import { fn } from 'storybook/test'
 
 import { UncontrolledStory } from './stories/Uncontrolled.story'
 import { ControlledStory } from './stories/Controlled.story'
@@ -34,17 +34,17 @@ const meta: Meta<typeof Calendar> = {
     },
     locale: {
       control: { type: 'text' },
-      defaultValue: { summary: 'en-US' },
+      table: { defaultValue: { summary: 'en-US' } },
     },
     type: {
       control: { type: 'radio' },
       options: ['iso8601', 'islamic', 'hebrew', 'gregory'],
-      defaultValue: { summary: 'iso8601' },
+      table: { defaultValue: { summary: 'iso8601' } },
     },
     defaultView: {
       control: { type: 'radio' },
       options: ['month', 'year', 'decade', 'century'],
-      defaultValue: { summary: 'month' },
+      table: { defaultValue: { summary: 'month' } },
       description: 'View for uncontrolled state.',
     },
     view: {
@@ -59,9 +59,9 @@ const meta: Meta<typeof Calendar> = {
     },
     defaultDate: {
       control: { type: 'date' },
-      defaultValue: { summary: 'null' },
       description: 'Date for uncontrolled state.',
       table: {
+        defaultValue: { summary: 'null' },
         type: {
           summary: 'CalendarDate',
           detail: `Date | [Date | null, Date | null] | null`,
@@ -80,9 +80,9 @@ const meta: Meta<typeof Calendar> = {
     },
     minDate: {
       control: { type: 'date' },
-      defaultValue: { summary: '-5 years' },
       description: 'Minimum selectable date of the calendar.',
       table: {
+        defaultValue: { summary: '-5 years' },
         type: {
           summary: 'Date',
         },
@@ -90,9 +90,9 @@ const meta: Meta<typeof Calendar> = {
     },
     maxDate: {
       control: { type: 'date' },
-      defaultValue: { summary: '+5 years' },
       description: 'Maximum selectable date of the calendar.',
       table: {
+        defaultValue: { summary: '+5 years' },
         type: {
           summary: 'Date',
         },
@@ -101,23 +101,23 @@ const meta: Meta<typeof Calendar> = {
     minDetail: {
       control: { type: 'radio' },
       options: ['century', 'decade', 'year', 'month'],
-      defaultValue: { summary: 'century' },
+      table: { defaultValue: { summary: 'century' } },
       description: 'Minimum detail level of the calendar.',
     },
     maxDetail: {
       control: { type: 'radio' },
       options: ['century', 'decade', 'year', 'month'],
-      defaultValue: { summary: 'month' },
+      table: { defaultValue: { summary: 'month' } },
       description: 'Maximum detail level of the calendar.',
     },
     showNavigation: {
       control: { type: 'boolean' },
-      defaultValue: { summary: true },
+      table: { defaultValue: { summary: 'true' } },
     },
     navigation: {
       control: { type: 'radio' },
       options: ['full', 'simple'],
-      defaultValue: { summary: 'full' },
+      table: { defaultValue: { summary: 'full' } },
     },
     onDateChange: {
       table: {
@@ -184,14 +184,13 @@ export default meta
 type Story = StoryObj<typeof Calendar>
 
 export const Demo: Story = {
-  tags: ['!autodocs'],
   args: {
     id: undefined,
     className: '',
     locale: 'en-US',
     type: 'iso8601',
     defaultView: 'month',
-    view: null,
+    view: undefined,
     defaultDate: new Date(),
     date: null,
     minDate: new Date(new Date().setFullYear(new Date().getFullYear() - 5)),
@@ -211,7 +210,6 @@ export const Demo: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <Calendar {...args} />
 `,

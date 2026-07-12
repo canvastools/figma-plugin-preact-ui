@@ -1,5 +1,5 @@
-import { Meta, StoryObj } from '@storybook/preact'
-import { fn } from '@storybook/test'
+import { Meta, StoryObj } from '@storybook/preact-vite'
+import { fn } from 'storybook/test'
 
 import { useRef, useState } from 'preact/hooks'
 
@@ -135,7 +135,6 @@ const meta: Meta = {
         },
       },
     },
-
   },
 }
 
@@ -144,7 +143,6 @@ export default meta
 type Story = StoryObj<typeof Menu>
 
 export const Demo: Story = {
-  tags: ['!autodocs'],
   args: {
     id: undefined,
     className: '',
@@ -155,7 +153,6 @@ export const Demo: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <Menu {...args} />
 `,
@@ -214,7 +211,7 @@ export const Demo: Story = {
     return (
       <div className="sb-column sb-width-full">
         <Button ref={triggerRef}>Open Menu</Button>
-        <Menu triggerRef={triggerRef} items={items} {...args} />
+        <Menu {...args} triggerRef={triggerRef} items={items} />
       </div>
     )
   },

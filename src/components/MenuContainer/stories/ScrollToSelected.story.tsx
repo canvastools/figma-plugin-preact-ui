@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { useRef, useState } from 'preact/hooks'
 
@@ -14,7 +14,6 @@ export const ScrollToSelectedStory: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 const triggerRef = useRef(null)
 const [selected, setSelected] = useState("option-80")

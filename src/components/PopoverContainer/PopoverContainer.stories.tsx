@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/preact'
+import { Meta, StoryObj } from '@storybook/preact-vite'
 
 import { SizeStory } from './stories/Size.story'
 
@@ -57,7 +57,6 @@ const meta: Meta<typeof PopoverContainer> = {
         type: { summary: 'number' },
       },
     },
-
   },
 }
 
@@ -66,7 +65,6 @@ export default meta
 type Story = StoryObj<typeof PopoverContainer>
 
 export const Demo: Story = {
-  tags: ['!autodocs'],
   args: {
     id: undefined,
     className: '',
@@ -81,7 +79,6 @@ export const Demo: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <PopoverContainer {...args}>{children}</PopoverContainer>
 `,
@@ -92,7 +89,6 @@ export const Demo: Story = {
     return (
       <div className="sb-column sb-width-300" style={'--overlay-arrow-left: 150px; --overlay-arrow-top: 0px;'}>
         <PopoverContainer {...args}>
-          {/* @ts-expect-error Storybook spread */}
           <Text>{args.children}</Text>
         </PopoverContainer>
       </div>

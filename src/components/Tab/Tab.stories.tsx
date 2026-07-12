@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/preact'
-import { fn } from '@storybook/test'
+import type { Meta, StoryObj } from '@storybook/preact-vite'
+import { fn } from 'storybook/test'
 
 import { VariantStory } from './stories/Variant.story'
 import { PrefixStory } from './stories/Prefix.story'
@@ -38,7 +38,7 @@ const meta: Meta<typeof Tab> = {
     variant: {
       control: { type: 'radio' },
       options: ['default', 'single'],
-      defaultValue: { summary: 'default' },
+      table: { defaultValue: { summary: 'default' } },
     },
     prefix: {
       control: { disable: true },
@@ -104,7 +104,6 @@ export default meta
 type Story = StoryObj<typeof Tab>
 
 export const Demo: Story = {
-  tags: ['!autodocs'],
   args: {
     className: '',
     variant: 'default',
@@ -117,7 +116,6 @@ export const Demo: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <TabContext defaultActiveId="tab-1">
 
@@ -145,7 +143,6 @@ export const Demo: Story = {
     },
   },
   render: (args) => {
-    // @ts-expect-error Storybook control value
     if (args.variant === 'default') {
       return (
         <div className="sb-column sb-width-full">

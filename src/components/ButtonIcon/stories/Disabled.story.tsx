@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { Text, Icon, link } from '../../../index'
 
@@ -59,7 +59,6 @@ export const DisabledStory: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <ButtonIcon disabled>{children}</ButtonIcon>
 `,

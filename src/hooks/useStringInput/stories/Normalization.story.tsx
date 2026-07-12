@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { useState } from 'preact/hooks'
 
@@ -21,7 +21,6 @@ export const NormalizationStory: Story = {
           'To replicate an experience similar to Figma, errors should be avoided and default values should be applied in most cases.<br/>Value normalisation, trimming and allowed characters ensure that a value is always returned.',
       },
       source: {
-        language: 'tsx',
         code: `
 const stringInput = useStringInput({
   value: "",

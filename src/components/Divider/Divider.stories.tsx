@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/preact'
+import { Meta, StoryObj } from '@storybook/preact-vite'
 
 import { Divider } from './Divider'
 
@@ -21,7 +21,7 @@ const meta: Meta<typeof Divider> = {
     variant: {
       control: { type: 'radio' },
       options: ['full', 'inset'],
-      defaultValue: { summary: 'full' },
+      table: { defaultValue: { summary: 'full' } },
     },
   },
 }
@@ -42,7 +42,6 @@ export const Demo: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <Divider {...args} />
 `,

@@ -1,5 +1,5 @@
-import { Meta, StoryObj } from '@storybook/preact'
-import { fn } from '@storybook/test'
+import { Meta, StoryObj } from '@storybook/preact-vite'
+import { fn } from 'storybook/test'
 
 import { UncontrolledStory } from './stories/Uncontrolled.story'
 import { ControlledStory } from './stories/Controlled.story'
@@ -31,7 +31,7 @@ const meta: Meta<typeof TextArea> = {
     variant: {
       control: { type: 'radio' },
       options: ['default', 'list'],
-      defaultValue: { summary: 'default' },
+      table: { defaultValue: { summary: 'default' } },
     },
     label: {
       control: { type: 'text' },
@@ -54,20 +54,20 @@ const meta: Meta<typeof TextArea> = {
     },
     error: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
     },
     disabled: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
     },
     minLength: {
       control: { type: 'number' },
-      defaultValue: { summary: 0 },
+      table: { defaultValue: { summary: '0' } },
       description: 'Minimum length of the field value.',
     },
     maxLength: {
       control: { type: 'number' },
-      defaultValue: { summary: Infinity },
+      table: { defaultValue: { summary: 'Infinity' } },
       description: 'Maximum length of the field value.',
     },
     tooltip: {
@@ -81,11 +81,11 @@ const meta: Meta<typeof TextArea> = {
     },
     autoFocus: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
     },
     selectOnFocus: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
       description: 'Select all text when the textarea receives focus.',
     },
     maxWidth: {
@@ -192,7 +192,6 @@ export default meta
 type Story = StoryObj<typeof TextArea>
 
 export const Demo: Story = {
-  tags: ['!autodocs'],
   args: {
     id: undefined,
     className: '',
@@ -222,7 +221,6 @@ export const Demo: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <TextArea {...args} />
 

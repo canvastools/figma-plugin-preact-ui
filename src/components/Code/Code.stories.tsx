@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/preact'
+import { Meta, StoryObj } from '@storybook/preact-vite'
 
 import { Code } from './Code'
 
@@ -21,7 +21,7 @@ const meta: Meta<typeof Code> = {
     variant: {
       control: { type: 'radio' },
       options: ['inline', 'block'],
-      defaultValue: { summary: 'inline' },
+      table: { defaultValue: { summary: 'inline' } },
     },
     children: {
       control: { type: 'text' },
@@ -47,7 +47,6 @@ export const Demo: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <Code {...args}>{children}</Code>
 `,
@@ -56,10 +55,7 @@ export const Demo: Story = {
   },
   render: (args) => (
     <div className="sb-column sb-width-full">
-      <Code {...args}>
-        {/* @ts-expect-error - Storybook types hack */}
-        {args.children}
-      </Code>
+      <Code {...args}>{args.children}</Code>
     </div>
   ),
 }

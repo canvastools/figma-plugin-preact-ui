@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { Icon, Text, link } from '../../../index'
 import type { IconProps } from '../../../index'
@@ -120,7 +120,6 @@ export const PrefixStory: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <Badge
   intent="neutral"

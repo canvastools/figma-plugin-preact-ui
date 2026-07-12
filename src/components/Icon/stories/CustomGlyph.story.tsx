@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { Icon } from '../Icon'
 
@@ -16,7 +16,6 @@ export const CustomGlyphStory: Story = {
           "A custom SVG as a child of the <Icon> component must use the 'currentColor' value for all color properties in order to inherit the component’s intent.",
       },
       source: {
-        language: 'tsx',
         code: `
 <Icon 
   intent="neutral"

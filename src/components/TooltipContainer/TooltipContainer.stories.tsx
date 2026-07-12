@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/preact'
+import { Meta, StoryObj } from '@storybook/preact-vite'
 
 import { SizeStory } from './stories/Size.story'
 
@@ -54,7 +54,6 @@ export default meta
 type Story = StoryObj<typeof TooltipContainer>
 
 export const Demo: Story = {
-  tags: ['!autodocs'],
   args: {
     id: undefined,
     className: '',
@@ -69,7 +68,6 @@ export const Demo: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <TooltipContainer {...args}>{children}</TooltipContainer>
 `,
@@ -79,10 +77,7 @@ export const Demo: Story = {
   render: (args) => {
     return (
       <div className="sb-column sb-width-full" style={'--overlay-arrow-left: 150px; --overlay-arrow-top: 0px;'}>
-        <TooltipContainer {...args}>
-          {/* @ts-expect-error Storybook spread */}
-          {args.children}
-        </TooltipContainer>
+        <TooltipContainer {...args}>{args.children}</TooltipContainer>
       </div>
     )
   },

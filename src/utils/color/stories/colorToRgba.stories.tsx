@@ -1,10 +1,10 @@
-import { Meta, StoryObj } from '@storybook/preact'
+import { Meta, StoryObj } from '@storybook/preact-vite'
 
 import { Code, Stack, Text } from '../../../index'
 
 import { colorToRgba } from '../color'
 
-const meta: Meta<typeof colorToRgba> = {
+const meta: Meta = {
   title: 'Utils/colorToRgba',
   component: colorToRgba,
   tags: ['autodocs'],
@@ -39,7 +39,7 @@ type Color = {
 
 export default meta
 
-type Story = StoryObj<typeof colorToRgba>
+type Story = StoryObj
 
 export const Demo: Story = {
   parameters: {
@@ -48,7 +48,6 @@ export const Demo: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 import { colorToRgba } from "figma-plugin-preact-ui"
 

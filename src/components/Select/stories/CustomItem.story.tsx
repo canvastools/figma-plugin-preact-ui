@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { Fragment } from 'preact'
 import { useRef, useEffect } from 'preact/hooks'
@@ -22,7 +22,6 @@ export const CustomItemStory: Story = {
           'Custom items can be created using the useMenuContext hook to register the item and access the context for managing its states.<br/>It requires a custom CSS styling to be applied as well.',
       },
       source: {
-        language: 'tsx',
         code: `
 const CustomItem = ({
   label,

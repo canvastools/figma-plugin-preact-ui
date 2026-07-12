@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/preact'
-import { fn } from '@storybook/test'
+import type { Meta, StoryObj } from '@storybook/preact-vite'
+import { fn } from 'storybook/test'
 
 import { ControlledStory } from './stories/Controlled.story'
 import { UncontrolledStory } from './stories/Uncontrolled.story'
@@ -54,6 +54,7 @@ args: {
         },
       },
     },
+    // @ts-expect-error docs-only argTypes row, not a real prop
     useTabContext: {
       description: 'Hook to access the context.',
       table: {
@@ -79,7 +80,6 @@ export default meta
 type Story = StoryObj<typeof TabContext>
 
 export const Demo: Story = {
-  tags: ['!autodocs'],
   args: {
     defaultActiveId: 'tab-1',
     onTabChange: fn(),
@@ -90,7 +90,6 @@ export const Demo: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <TabContext defaultActiveId="tab-1" {...args}>
 

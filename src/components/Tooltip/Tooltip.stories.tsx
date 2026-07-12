@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/preact'
+import { Meta, StoryObj } from '@storybook/preact-vite'
 
 import { useRef } from 'preact/hooks'
 
@@ -43,6 +43,7 @@ const meta: Meta<typeof Tooltip> = {
         defaultValue: { summary: 'hover' },
       },
     },
+    // @ts-expect-error docs-only argTypes row, not a real prop
     '...TooltipContainerProps': {
       control: { disable: true },
       table: {
@@ -112,7 +113,6 @@ export const Demo: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 const anchorRef = useRef(null)
 
@@ -158,7 +158,6 @@ export const Click: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 const anchorRef = useRef(null)
 

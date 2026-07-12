@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/preact'
+import { Meta, StoryObj } from '@storybook/preact-vite'
 
 import { StackedStory } from './stories/Stacked.story'
 import { PaddingStory } from './stories/Padding.story'
@@ -33,7 +33,7 @@ const meta: Meta<typeof Section> = {
     variant: {
       control: { type: 'radio' },
       options: ['default', 'stacked'],
-      defaultValue: { summary: 'default' },
+      table: { defaultValue: { summary: 'default' } },
     },
     padding: {
       control: { type: 'object' },
@@ -71,7 +71,6 @@ export default meta
 type Story = StoryObj<typeof Section>
 
 export const Demo: Story = {
-  tags: ['!autodocs'],
   args: {
     id: undefined,
     className: 'sb-container',
@@ -85,7 +84,6 @@ export const Demo: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <Section {...args}>{children}</Section>
 `,
@@ -95,7 +93,6 @@ export const Demo: Story = {
   render: (args) => (
     <div className="sb-column sb-width-fullk">
       <Section {...args}>
-        {/* @ts-expect-error Storybook spread */}
         <Text>{args.children}</Text>
       </Section>
     </div>

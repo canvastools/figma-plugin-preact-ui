@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { TimePicker } from '../TimePicker'
 
@@ -12,7 +12,6 @@ export const VariantStory: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <TimePicker variant="default" />
 

@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { MenuItemAction } from '../../../index'
 
@@ -14,7 +14,6 @@ export const SizeStory: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <MenuContainer
   width={200}

@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/preact'
+import { Meta, StoryObj } from '@storybook/preact-vite'
 
 import { spacing } from '../themes'
 
@@ -9,7 +9,6 @@ const meta: Meta = {
   parameters: {
     docs: {
       source: {
-        language: 'tsx',
         code: `
 // CSS
 
@@ -42,6 +41,9 @@ type Story = StoryObj<typeof meta>
 
 export const Spacing: Story = {
   tags: ['!dev'],
+  globals: {
+    background: 'primary',
+  },
   render: () => (
     <SimpleVariableTable
       variables={spacing.variables as Record<string, string>}

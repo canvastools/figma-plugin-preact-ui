@@ -1,5 +1,5 @@
 import { Fragment } from 'preact/compat'
-import { Meta, StoryObj } from '@storybook/preact'
+import { Meta, StoryObj } from '@storybook/preact-vite'
 import { useState } from 'preact/hooks'
 
 import { figmaLight, figmaDark, figjamLight } from '../themes'
@@ -23,7 +23,6 @@ const meta: Meta = {
   parameters: {
     docs: {
       source: {
-        language: 'tsx',
         code: `
 // CSS
 
@@ -223,6 +222,9 @@ const colorTokensList = (groups: {
 
 export const Colors: Story = {
   tags: ['!dev'],
+  globals: {
+    background: 'primary',
+  },
   parameters: {
     docs: {
       description: {

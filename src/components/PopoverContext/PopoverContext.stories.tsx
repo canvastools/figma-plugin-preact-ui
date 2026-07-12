@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/preact'
+import { Meta, StoryObj } from '@storybook/preact-vite'
 
 import { useRef, useState } from 'preact/hooks'
 
@@ -84,7 +84,6 @@ export default meta
 type Story = StoryObj<typeof PopoverContext>
 
 export const Demo: Story = {
-  tags: ['!autodocs'],
   args: {
     open: false,
   },
@@ -94,7 +93,6 @@ export const Demo: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <PopoverContext {...args}>{children}</PopoverContext>
 `,
@@ -102,7 +100,6 @@ export const Demo: Story = {
     },
   },
   render: (args) => {
-    // @ts-expect-error Storybook control value
     const [open, setOpen] = useState(args.open)
     const triggerRef = useRef<HTMLButtonElement | null>(null)
 

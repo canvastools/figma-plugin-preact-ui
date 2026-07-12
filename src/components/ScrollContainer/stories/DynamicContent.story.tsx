@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { useState } from 'preact/hooks'
 
@@ -63,7 +63,6 @@ export const DynamicContentStory: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <ScrollContext>
   <ScrollContainer>{children}</ScrollContainer>

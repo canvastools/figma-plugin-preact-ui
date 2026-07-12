@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { ColorPicker } from '../ColorPicker'
 
@@ -12,7 +12,6 @@ export const WidthStory: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <ColorPicker width={207}/>
 

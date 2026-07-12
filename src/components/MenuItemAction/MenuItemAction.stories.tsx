@@ -1,5 +1,5 @@
-import { Meta, StoryObj } from '@storybook/preact'
-import { fn } from '@storybook/test'
+import { Meta, StoryObj } from '@storybook/preact-vite'
+import { fn } from 'storybook/test'
 
 import { IntentStory } from './stories/Intent.story'
 import { DisabledStory } from './stories/Disabled.story'
@@ -39,17 +39,17 @@ const meta: Meta<typeof MenuItemAction> = {
     },
     intentModifier: {
       control: { type: 'radio' },
-      defaultValue: { summary: 'default' },
+      table: { defaultValue: { summary: 'default' } },
       options: ['default', 'danger'],
     },
     disabled: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
     },
     focused: {
       control: { type: 'boolean' },
       description: 'Works only when the componet is inside `<MenuContext/>`.',
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
     },
     prefix: {
       control: { disable: true },
@@ -80,7 +80,7 @@ const meta: Meta<typeof MenuItemAction> = {
     },
     paddingLikeOption: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
       description: 'Add padding to the left of the content to make it aligned with options.',
     },
     tabIndex: {
@@ -111,7 +111,6 @@ export default meta
 type Story = StoryObj<typeof MenuItemAction>
 
 export const Demo: Story = {
-  tags: ['!autodocs'],
   args: {
     id: 'menu-item-action',
     className: '',
@@ -128,7 +127,6 @@ export const Demo: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <MenuContainer>
   <MenuItemAction {...args}>{children}</MenuItemAction>
@@ -140,7 +138,6 @@ export const Demo: Story = {
   render: (args) => (
     <div className="sb-column sb-width-full">
       <MenuContainer width={208}>
-        {/* @ts-expect-error Storybook spread */}
         <MenuItemAction {...args}>{args.children}</MenuItemAction>
       </MenuContainer>
     </div>

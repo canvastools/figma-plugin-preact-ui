@@ -1,22 +1,15 @@
 import type { StorybookConfig } from "@storybook/preact-vite"
 
 const config: StorybookConfig = {
-  stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
+  stories: ["../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
   addons: [
     "@storybook/addon-links",
-    "@storybook/addon-essentials",
+    "@storybook/addon-docs",
     "@chromatic-com/storybook",
-    "@storybook/addon-interactions",
   ],
   framework: {
     name: "@storybook/preact-vite",
     options: {},
-  },
-  docs: {
-    autodocs: true,
-  },
-  typescript: {
-    check: true,
   },
   viteFinal: async (config) => {
     if (process.env.STORYBOOK_BASE_PATH) {

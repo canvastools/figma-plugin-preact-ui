@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { TabContext, Section, TabList, Icon, link } from '../../../index'
 
@@ -14,7 +14,6 @@ export const SuffixStory: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <Tab suffix={
     <Icon glyph={link} />

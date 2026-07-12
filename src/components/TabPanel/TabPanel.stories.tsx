@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/preact'
+import type { Meta, StoryObj } from '@storybook/preact-vite'
 
 import { TabPanel } from './TabPanel'
 
@@ -38,7 +38,7 @@ const meta: Meta<typeof TabPanel> = {
     },
     fullHeight: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
     },
     children: {
       control: { disable: true },
@@ -63,7 +63,6 @@ export const Demo: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <TabContext defaultActiveId="tab-1">
 

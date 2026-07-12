@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/preact'
+import { Meta, StoryObj } from '@storybook/preact-vite'
 
 import { useRef } from 'preact/hooks'
 
@@ -56,6 +56,7 @@ const meta: Meta<typeof Popover> = {
         },
       },
     },
+    // @ts-expect-error docs-only argTypes row, not a real prop
     '...PopoverContextProps': {
       control: { disable: true },
       table: {
@@ -115,7 +116,6 @@ const meta: Meta<typeof Popover> = {
         type: { summary: 'number' },
       },
     },
-
   },
 }
 
@@ -124,7 +124,6 @@ export default meta
 type Story = StoryObj<typeof Popover>
 
 export const Demo: Story = {
-  tags: ['!autodocs'],
   args: {
     id: undefined,
     className: '',
@@ -139,7 +138,6 @@ export const Demo: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <Popover {...args}>{children}</Popover>
 `,
@@ -155,10 +153,7 @@ export const Demo: Story = {
 
         <Popover triggerRef={triggerRef} {...args}>
           <Section>
-            <Text>
-              {/* @ts-expect-error Storybook spread */}
-              {args.children}
-            </Text>
+            <Text>{args.children}</Text>
           </Section>
         </Popover>
       </div>

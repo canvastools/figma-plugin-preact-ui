@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { useState } from 'preact/hooks'
 
@@ -21,7 +21,6 @@ export const DoubleValueStory: Story = {
           'A double value can be used for fields that combine pairs of values, such as padding top/bottom and left/right.<br/>When a comma is present, the hook returns an array of values.',
       },
       source: {
-        language: 'tsx',
         code: `
 const numericInput = useNumericInput({
   value: "",

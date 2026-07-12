@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { ColorSwatch } from '../ColorSwatch'
 import type { GradientPaint } from '../ColorSwatch.types'
@@ -53,7 +53,6 @@ export const GradientStory: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <ColorSwatch fill={{ type: 'gradient-linear', ... }} />
 <ColorSwatch fill={{ type: 'gradient-radial', ... }} />

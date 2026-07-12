@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { Icon, link, MenuContainer, Text } from '../../../index'
 
@@ -14,7 +14,6 @@ export const SuffixStory: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <MenuItemAction 
   suffix={

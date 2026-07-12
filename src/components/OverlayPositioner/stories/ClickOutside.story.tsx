@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { useRef, useState } from 'preact/hooks'
 
@@ -16,7 +16,6 @@ export const ClickOutsideStory: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <OverlayPositioner
   anchorRef={anchorRef}

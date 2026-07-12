@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { Avatar } from '../Avatar'
 
@@ -12,7 +12,6 @@ export const ColorStory: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <Avatar 
   backgroundColor="var(--pui-color-brand-bg-default)"

@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/preact'
+import { Meta, StoryObj } from '@storybook/preact-vite'
 
 import { spacing } from '../../themes'
 
@@ -34,7 +34,7 @@ const meta: Meta<typeof Stack> = {
         type: 'radio',
       },
       options: ['row', 'row-reverse', 'column', 'column-reverse'],
-      defaultValue: { summary: 'column' },
+      table: { defaultValue: { summary: 'column' } },
     },
     spacing: {
       control: {
@@ -47,7 +47,7 @@ const meta: Meta<typeof Stack> = {
         type: 'radio',
       },
       options: ['start', 'center', 'end'],
-      defaultValue: { summary: 'start' },
+      table: { defaultValue: { summary: 'start' } },
       description: 'Horizontal alignment of the children.',
     },
     y: {
@@ -55,16 +55,16 @@ const meta: Meta<typeof Stack> = {
         type: 'radio',
       },
       options: ['start', 'center', 'end'],
-      defaultValue: { summary: 'start' },
+      table: { defaultValue: { summary: 'start' } },
       description: 'Vertical alignment of the children.',
     },
     fullHeight: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
     },
     fullWidth: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
     },
     children: {
       control: { disable: true },
@@ -97,7 +97,6 @@ export const Demo: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <Stack {...args}>{children}</Stack>`,
       },

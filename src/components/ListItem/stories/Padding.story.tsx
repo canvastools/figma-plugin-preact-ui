@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { useState } from 'preact/hooks'
 
@@ -19,7 +19,6 @@ export const PaddingStory: Story = {
         story: 'Left padding property is not supported in styles.',
       },
       source: {
-        language: 'tsx',
         code: `
 <ListItem padding={{ top: 200, right: 200, bottom: 200 }}>
   {children}

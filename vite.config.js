@@ -30,6 +30,7 @@ export default defineConfig(({ command }) => ({
       name: 'figma-plugin-preact-ui',
       formats: ['es'],
       fileName: (format) => `index.${format}.js`,
+      cssFileName: 'style',
     },
     rollupOptions: {
       external: ['preact', 'preact/compat', 'preact/hooks'],

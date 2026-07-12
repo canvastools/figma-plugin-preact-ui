@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/preact'
+import { Meta, StoryObj } from '@storybook/preact-vite'
 
 import { IntentStory } from './stories/Intent.story'
 import { PrefixStory } from './stories/Prefix.story'
@@ -25,7 +25,7 @@ const meta: Meta<typeof Badge> = {
     intent: {
       control: { type: 'radio' },
       options: ['neutral', 'neutral-inverted', 'brand', 'danger', 'warning', 'success'],
-      defaultValue: { summary: 'neutral' },
+      table: { defaultValue: { summary: 'neutral' } },
     },
     intentModifier: {
       control: { type: 'radio' },
@@ -41,7 +41,7 @@ const meta: Meta<typeof Badge> = {
         'slot',
         'slot-secondary',
       ],
-      defaultValue: { summary: 'default' },
+      table: { defaultValue: { summary: 'default' } },
     },
     prefix: {
       control: { disable: true },
@@ -78,7 +78,6 @@ export default meta
 type Story = StoryObj<typeof Badge>
 
 export const Demo: Story = {
-  tags: ['!autodocs'],
   args: {
     id: undefined,
     className: '',
@@ -92,14 +91,12 @@ export const Demo: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `<Badge {...args}>{children}</Badge>`,
       },
     },
   },
   render: (args) => (
     <div className="sb-column sb-width-full">
-      {/* @ts-expect-error Storybook spread */}
       <Badge {...args} />
     </div>
   ),

@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { useRef } from 'preact/hooks'
 
@@ -16,7 +16,6 @@ export const UncontrolledStory: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 const anchorRef = useRef(null)
 

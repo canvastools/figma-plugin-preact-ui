@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { Stack, ColorSwatch, Text } from '../../../index'
 
@@ -14,7 +14,6 @@ export const CustomChildrenStory: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `<Button>
   <ColorSwatch 
     fill={{ r: 255, g: 0, b: 0, a: 1 }}

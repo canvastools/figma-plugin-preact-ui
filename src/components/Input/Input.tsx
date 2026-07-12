@@ -123,7 +123,7 @@ const InputComponent = (
 
     if (focusOnDoubleClick && rootRef.current && isEditing) {
       setTimeout(() => {
-        rootRef.current && rootRef.current.focus()
+        rootRef.current?.focus()
       }, 0)
     }
   }

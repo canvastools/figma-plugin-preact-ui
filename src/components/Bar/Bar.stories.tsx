@@ -1,4 +1,4 @@
-import { Meta } from '@storybook/preact'
+import { Meta } from '@storybook/preact-vite'
 
 import { StickyStory } from './stories/Sticky.story'
 
@@ -31,11 +31,11 @@ const meta: Meta<typeof Bar> = {
     },
     showDividerTop: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
     },
     showDividerBottom: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
     },
     children: {
       control: { type: 'text' },
@@ -52,7 +52,6 @@ const meta: Meta<typeof Bar> = {
 export default meta
 
 export const Demo = {
-  tags: ['!autodocs'],
   args: {
     id: undefined,
     className: '',
@@ -66,7 +65,6 @@ export const Demo = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <Bar {...args}>
   <Section>

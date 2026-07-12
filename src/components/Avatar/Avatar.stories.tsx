@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/preact'
+import { Meta, StoryObj } from '@storybook/preact-vite'
 
 import { VariantStory } from './stories/Variant.story'
 import { SizeStory } from './stories/Size.story'
@@ -10,7 +10,6 @@ import { Avatar } from './Avatar'
 const meta: Meta<typeof Avatar> = {
   title: 'Components/Avatar',
   component: Avatar,
-  tags: ['autodocs'],
   argTypes: {
     id: {
       control: { type: 'text' },
@@ -26,12 +25,12 @@ const meta: Meta<typeof Avatar> = {
     variant: {
       control: { type: 'radio' },
       options: ['circle', 'square'],
-      defaultValue: { summary: 'circle' },
+      table: { defaultValue: { summary: 'circle' } },
     },
     size: {
       control: { type: 'radio' },
       options: ['small', 'medium', 'large'],
-      defaultValue: { summary: 'medium' },
+      table: { defaultValue: { summary: 'medium' } },
     },
     src: {
       control: { type: 'text' },
@@ -78,7 +77,6 @@ export default meta
 type Story = StoryObj<typeof Avatar>
 
 export const Demo: Story = {
-  tags: ['!autodocs'],
   args: {
     id: undefined,
     className: '',
@@ -93,14 +91,12 @@ export const Demo: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `<Avatar {...args}>{children}</Avatar>`,
       },
     },
   },
   render: (args) => (
     <div className="sb-column sb-width-full">
-      {/* @ts-expect-error Storybook spread */}
       <Avatar {...args} />
     </div>
   ),

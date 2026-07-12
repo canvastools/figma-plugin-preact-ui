@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { TextArea } from '../TextArea'
 
@@ -15,7 +15,6 @@ export const ResizeStory: Story = {
         story: 'Hover the field to show the corner handle. Drag vertically to resize.',
       },
       source: {
-        language: 'tsx',
         code: `
 <TextArea
   resize="y"

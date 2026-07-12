@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { MenuContainer } from '../../../index'
 
@@ -14,7 +14,6 @@ export const DisabledStory: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <MenuItemOption disabled>{children}</MenuItemOption>
 `,

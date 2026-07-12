@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/preact'
+import { Meta, StoryObj } from '@storybook/preact-vite'
 
 import { Fog } from './Fog'
 
@@ -29,7 +29,7 @@ const meta: Meta<typeof Fog> = {
     },
     delay: {
       control: { type: 'number' },
-      defaultValue: { summary: 0 },
+      table: { defaultValue: { summary: '0' } },
       description:
         'Once mounted, it already blocks mouse interactions, but you can set a delay (in milliseconds) before it becomes visible. This helps prevent flicker when content loads quickly.',
     },
@@ -61,7 +61,6 @@ export const Demo: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <Fog {...args}>{children}</Fog>
 `,
@@ -71,7 +70,6 @@ export const Demo: Story = {
   render: (args) => (
     <div className="sb-column sb-width-full sb-gap-16">
       <Fog {...args}>
-        {/* @ts-expect-error Storybook spread */}
         <Text>{args.children}</Text>
       </Fog>
       <Text>

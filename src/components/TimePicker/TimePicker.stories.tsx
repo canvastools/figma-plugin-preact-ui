@@ -1,5 +1,5 @@
-import { Meta, StoryObj } from '@storybook/preact'
-import { fn } from '@storybook/test'
+import { Meta, StoryObj } from '@storybook/preact-vite'
+import { fn } from 'storybook/test'
 
 import { TooltipContext } from '../../index'
 
@@ -36,11 +36,11 @@ const meta: Meta<typeof TimePicker> = {
     },
     locale: {
       control: { type: 'text' },
-      defaultValue: { summary: 'en-US' },
+      table: { defaultValue: { summary: 'en-US' } },
     },
     variant: {
       control: { type: 'radio' },
-      defaultValue: { summary: 'default' },
+      table: { defaultValue: { summary: 'default' } },
       options: ['default', 'list'],
     },
     label: {
@@ -58,9 +58,9 @@ const meta: Meta<typeof TimePicker> = {
     },
     date: {
       control: { disable: true },
-      defaultValue: { summary: 'null' },
       description: 'Date for controlled state.',
       table: {
+        defaultValue: { summary: 'null' },
         type: {
           summary: 'TimePickerDate',
           detail: `Date | string | number | null`,
@@ -69,39 +69,39 @@ const meta: Meta<typeof TimePicker> = {
     },
     format: {
       control: { type: 'text' },
-      defaultValue: { summary: 'HH:mm' },
+      table: { defaultValue: { summary: 'HH:mm' } },
       desription: 'Supported values are: `H`, `HH`, `h`, `hh`, `m`, `mm`, `s`, `ss`, `a`',
     },
     hourPlaceholder: {
       control: { type: 'text' },
-      defaultValue: { summary: 'HH' },
+      table: { defaultValue: { summary: 'HH' } },
     },
     minutePlaceholder: {
       control: { type: 'text' },
-      defaultValue: { summary: 'mm' },
+      table: { defaultValue: { summary: 'mm' } },
     },
     maxTime: {
       control: { type: 'text' },
-      defaultValue: { summary: '23:59' },
+      table: { defaultValue: { summary: '23:59' } },
     },
     minTime: {
       control: { type: 'text' },
-      defaultValue: { summary: '00:00' },
+      table: { defaultValue: { summary: '00:00' } },
     },
     disabled: {
       control: { type: 'boolean' },
-      defaultValue: { summary: 'false' },
+      table: { defaultValue: { summary: 'false' } },
     },
     autoFocus: {
       control: { type: 'boolean' },
-      defaultValue: { summary: 'false' },
+      table: { defaultValue: { summary: 'false' } },
     },
     tooltip: {
       control: { type: 'text' },
     },
     grouped: {
       control: { type: 'radio' },
-      defaultValue: { summary: 'undefined' },
+      table: { defaultValue: { summary: 'undefined' } },
       options: [undefined, 'first', 'last', 'middle'],
     },
     maxWidth: {
@@ -174,7 +174,6 @@ export default meta
 type Story = StoryObj<typeof TimePicker>
 
 export const Demo: Story = {
-  tags: ['!autodocs'],
   args: {
     id: undefined,
     className: '',
@@ -203,7 +202,6 @@ export const Demo: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <TimePicker {...args} />
 

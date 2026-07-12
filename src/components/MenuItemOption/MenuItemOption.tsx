@@ -144,7 +144,7 @@ const MenuItemOptionComponent = (
         if (typeof ref === 'function') {
           ref(el)
         } else if (ref) {
-          // eslint-disable-next-line
+           
           ;(ref as preact.RefObject<HTMLDivElement>).current = el
         }
         itemRef.current = el

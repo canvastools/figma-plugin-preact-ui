@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/preact'
+import { Meta, StoryObj } from '@storybook/preact-vite'
 
 import { IntentStory } from './stories/Intent.story'
 import { VariantStory } from './stories/Variant.story'
@@ -30,7 +30,7 @@ const meta: Meta<typeof Text> = {
     intent: {
       control: { type: 'radio' },
       options: ['neutral', 'neutral-inverted', 'neutral-inverted-fixed', 'brand', 'danger', 'warning', 'success'],
-      defaultValue: { summary: 'neutral' },
+      table: { defaultValue: { summary: 'neutral' } },
     },
     intentModifier: {
       control: { type: 'radio' },
@@ -46,34 +46,34 @@ const meta: Meta<typeof Text> = {
         'slot',
         'slot-secondary',
       ],
-      defaultValue: { summary: 'default' },
+      table: { defaultValue: { summary: 'default' } },
     },
     variant: {
       control: { type: 'radio' },
       options: ['heading', 'body'],
-      defaultValue: { summary: 'body' },
+      table: { defaultValue: { summary: 'body' } },
     },
     size: {
       control: { type: 'radio' },
       options: ['small', 'medium', 'large'],
-      defaultValue: { summary: 'medium' },
+      table: { defaultValue: { summary: 'medium' } },
     },
     strong: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
     },
     align: {
       control: { type: 'radio' },
       options: ['left', 'center', 'right'],
-      defaultValue: { summary: 'left' },
+      table: { defaultValue: { summary: 'left' } },
     },
     disabled: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
     },
     selected: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
     },
     textColor: {
       control: { type: 'color' },
@@ -86,19 +86,19 @@ const meta: Meta<typeof Text> = {
     },
     wrap: {
       control: { type: 'boolean' },
-      defaultValue: { summary: true },
+      table: { defaultValue: { summary: 'true' } },
     },
     truncate: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
     },
     inline: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
     },
     fullWidth: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
     },
     children: {
       control: { type: 'text' },
@@ -115,7 +115,6 @@ export default meta
 type Story = StoryObj<typeof Text>
 
 export const Demo: Story = {
-  tags: ['!autodocs'],
   args: {
     id: undefined,
     className: '',
@@ -140,7 +139,6 @@ export const Demo: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <Text {...args}>{children}</Text>
 `,
@@ -149,7 +147,6 @@ export const Demo: Story = {
   },
   render: (args) => (
     <div className="sb-column sb-width-full">
-      {/* @ts-expect-error Storybook spread */}
       <Text {...args}>{args.children}</Text>
     </div>
   ),

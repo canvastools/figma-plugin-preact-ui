@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { ColorSwatch } from '../ColorSwatch'
 
@@ -15,7 +15,6 @@ export const DisabledStory: Story = {
         story: 'Disabled swatch stops receiving hover and focus events.',
       },
       source: {
-        language: 'tsx',
         code: `
 <ColorSwatch disabled/>
 `,

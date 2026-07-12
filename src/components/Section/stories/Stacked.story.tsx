@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { Stack, Text } from '../../../index'
 
@@ -14,7 +14,6 @@ export const StackedStory: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <Section variant="default">
   {children}

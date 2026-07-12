@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/preact'
+import { Meta, StoryObj } from '@storybook/preact-vite'
 import { useRef } from 'preact/hooks'
 
 import {
@@ -38,6 +38,7 @@ const meta: Meta<typeof TooltipContext> = {
         },
       },
     },
+    // @ts-expect-error docs-only argTypes row, not a real prop
     useTooltipContext: {
       description: 'Hook to access the context.',
       table: {
@@ -91,7 +92,6 @@ export const Demo: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 const triggerRef = useRef(null)
 

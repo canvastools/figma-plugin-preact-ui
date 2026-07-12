@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/preact'
+import type { Meta, StoryObj } from '@storybook/preact-vite'
 
 import { DynamicContentStory } from './stories/DynamicContent.story'
 import { PopoverStory } from './stories/Popover.story'
@@ -47,7 +47,6 @@ export default meta
 type Story = StoryObj<typeof ScrollContainer>
 
 export const Demo: Story = {
-  tags: ['!autodocs'],
   args: {
     id: undefined,
     className: '',
@@ -58,7 +57,6 @@ export const Demo: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <ScrollContainer {...args}>{children}</ScrollContainer>
 

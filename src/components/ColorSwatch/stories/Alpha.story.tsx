@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { ColorSwatch } from '../ColorSwatch'
 import { Stack, Text } from '../../../index'
@@ -13,7 +13,6 @@ export const AlphaStory: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <ColorSwatch fill={{ r: 255, g: 0, b: 0, a: 1 }} alpha={false}/>
 <ColorSwatch fill={{ r: 255, g: 0, b: 0, a: 0.5 }} alpha={false}/>

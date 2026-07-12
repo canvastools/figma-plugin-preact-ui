@@ -1,5 +1,5 @@
-import { Meta, StoryObj } from '@storybook/preact'
-import { fn } from '@storybook/test'
+import { Meta, StoryObj } from '@storybook/preact-vite'
+import { fn } from 'storybook/test'
 
 import { useRef } from 'preact/hooks'
 
@@ -59,7 +59,7 @@ const meta: Meta<typeof OverlayPositioner> = {
     },
     defaultOpen: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
       description: 'Visibility for uncontrolled state.',
     },
     placement: {
@@ -79,9 +79,9 @@ const meta: Meta<typeof OverlayPositioner> = {
         'right-top',
         'right-bottom',
       ],
-      defaultValue: { summary: 'bottom' },
       description: 'Placement of the overlay relative to the anchor.',
       table: {
+        defaultValue: { summary: 'bottom' },
         type: {
           summary: 'OverlayPositionerPlacement',
           detail: `
@@ -143,45 +143,45 @@ const meta: Meta<typeof OverlayPositioner> = {
     },
     autoReposition: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
       description: 'Automatically reposition the overlay when the content height changes to occupy the available space.',
     },
     constrainHeight: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
       description:
         'When true, the positioner reconstructs the natural (unclipped) content height of the overlay for placement, so a height-constrained overlay (e.g. a Popover whose body scrolls internally) is placed where the most content is visible. Leave false for overlays that size to their content such as tooltips, where absolutely-positioned decorations (arrows) would otherwise be mistaken for clipped content.',
     },
     trigger: {
       control: { type: 'radio' },
       options: ['click', 'hover'],
-      defaultValue: { summary: 'click' },
+      table: { defaultValue: { summary: 'click' } },
       description: 'Trigger action for the overlay. Only works in uncontrolled state.',
     },
     draggable: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
       description:
         "Allow the overlay to be dragged. `data-pui-interactive='true'` attribute can be applied to elements inside the overlay to prevent drag initiation.",
     },
     offsetX: {
       control: { type: 'number' },
-      defaultValue: { summary: 0 },
+      table: { defaultValue: { summary: '0' } },
       description: 'Horizontal offset between the overlay and anchor.',
     },
     offsetY: {
       control: { type: 'number' },
-      defaultValue: { summary: 0 },
+      table: { defaultValue: { summary: '0' } },
       description: 'Vertical offset between the overlay and anchor.',
     },
     offsetEdge: {
       control: { type: 'number' },
-      defaultValue: { summary: 0 },
+      table: { defaultValue: { summary: '0' } },
       description: 'Minimum spacing from the viewport edges.',
     },
     closeOnClickOutside: {
       control: { type: 'boolean' },
-      defaultValue: { summary: true },
+      table: { defaultValue: { summary: 'true' } },
       description: 'Close the overlay when clicking outside. Only works when the trigger is `click`.',
     },
     onOpen: {
@@ -215,7 +215,6 @@ export default meta
 type Story = StoryObj<typeof OverlayPositioner>
 
 export const Demo: Story = {
-  tags: ['!autodocs'],
   args: {
     id: undefined,
     className: '',
@@ -239,7 +238,6 @@ export const Demo: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 const anchorRef = useRef(null)
 
@@ -258,15 +256,16 @@ const anchorRef = useRef(null)
   render: (args) => {
     const anchorRef = useRef<HTMLButtonElement | null>(null)
 
-    const placementFallback: OverlayPositionerPlacement[] | undefined =
-      // @ts-expect-error Storybook: single placement → array
-      args.placementFallback ? [args.placementFallback] : undefined
+    // @ts-expect-error the control provides a single placement, wrap it into an array
+    const placementFallback: OverlayPositionerPlacement[] | undefined = args.placementFallback
+      ? [args.placementFallback]
+      : undefined
 
     return (
       <div className="sb-column sb-width-full">
         <Button ref={anchorRef}>Show Overlay</Button>
 
-        <OverlayPositioner anchorRef={anchorRef} {...args} placementFallback={placementFallback}>
+        <OverlayPositioner {...args} anchorRef={anchorRef} placementFallback={placementFallback}>
           <PopoverContainer width={300}>
             <Section>
               <Text>

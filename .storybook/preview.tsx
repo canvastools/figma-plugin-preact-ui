@@ -1,8 +1,7 @@
-// @ts-nocheck
-
-import type { Preview } from '@storybook/preact'
+import type { Preview } from '@storybook/preact-vite'
 import { useEffect, useState } from 'preact/hooks'
-import { addons } from '@storybook/preview-api'
+
+import { Title, Subtitle, Description, Primary, Controls, Stories } from '@storybook/addon-docs/blocks'
 
 import './fonts.css'
 import './viewport.css'
@@ -44,7 +43,7 @@ if (typeof window !== 'undefined') {
       let hash = 0
       for (let i = 0; i < text.length; i++) hash = (hash * 31 + text.charCodeAt(i)) | 0
       return `${text.length}:${hash}`
-    } catch (_) {
+    } catch {
       return null
     }
   }
@@ -65,6 +64,7 @@ if (typeof window !== 'undefined') {
 }
 
 const preview: Preview = {
+  tags: ['autodocs'],
   parameters: {
     options: {
       storySort: {
@@ -73,13 +73,26 @@ const preview: Preview = {
       },
     },
     docs: {
+      page: () => (
+        <>
+          <Title />
+          <Subtitle />
+          <Description />
+          <Primary />
+          <Controls />
+          <Stories includePrimary={false} />
+        </>
+      ),
+      controls: {
+        sort: 'alpha',
+      },
       source: {
         language: 'tsx',
       },
     },
     backgrounds: { disable: true, grid: { disable: true } },
     viewport: {
-      viewports: {
+      options: {
         small: {
           name: '360',
           styles: {
@@ -102,7 +115,6 @@ const preview: Preview = {
           },
         },
       },
-      defaultViewport: 'large',
     },
   },
   globalTypes: {
@@ -121,7 +133,7 @@ const preview: Preview = {
       defaultValue: 'dotted',
       toolbar: {
         title: 'Background',
-        icon: 'contrasting',
+        icon: 'paintbrush',
         items: ['dotted', 'primary', 'secondary', 'contrasting'],
         dynamicTitle: true,
       },
@@ -136,10 +148,12 @@ const preview: Preview = {
         const [viewport, setViewport] = useState(defaultViewport)
 
         useEffect(() => {
-          const rawViewport = (context.globals as any)?.viewport
-          const nextViewport = rawViewport && rawViewport !== 'reset' ? rawViewport : defaultViewport
+          // Since Storybook 9 the viewport global is an object: { value, isRotated }
+          const rawViewport = context.globals?.viewport
+          const value = typeof rawViewport === 'object' ? rawViewport?.value : rawViewport
+          const nextViewport = value && value !== 'reset' ? value : defaultViewport
           setViewport(nextViewport)
-        }, [context.globals?.viewport, defaultViewport])
+        }, [defaultViewport])
 
         useEffect(() => {
           const removeClasses = ['figma-light', 'figma-dark', 'figjam']

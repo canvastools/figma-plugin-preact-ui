@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 import { useRef } from 'preact/hooks'
 
 import { Text, ScrollContext, Stack, Popover, Button } from '../../../index'
@@ -48,7 +48,6 @@ export const PopoverStory: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <ScrollContext>
   <ScrollContainer>{children}</ScrollContainer>

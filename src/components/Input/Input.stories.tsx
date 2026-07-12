@@ -1,5 +1,5 @@
-import { Meta, StoryObj } from '@storybook/preact'
-import { fn } from '@storybook/test'
+import { Meta, StoryObj } from '@storybook/preact-vite'
+import { fn } from 'storybook/test'
 
 import { UncontrolledStory } from './stories/Uncontrolled.story'
 import { ControlledStory } from './stories/Controlled.story'
@@ -32,7 +32,7 @@ const meta: Meta<typeof Input> = {
     variant: {
       control: { type: 'radio' },
       options: ['default', 'list'],
-      defaultValue: { summary: 'default' },
+      table: { defaultValue: { summary: 'default' } },
     },
     label: {
       control: { type: 'text' },
@@ -43,7 +43,7 @@ const meta: Meta<typeof Input> = {
     type: {
       control: { type: 'radio' },
       options: ['text', 'number'],
-      defaultValue: { summary: 'text' },
+      table: { defaultValue: { summary: 'text' } },
     },
     defaultValue: {
       control: { type: 'text' },
@@ -60,7 +60,7 @@ const meta: Meta<typeof Input> = {
     },
     ghost: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
     },
     grouped: {
       control: { type: 'radio' },
@@ -68,11 +68,11 @@ const meta: Meta<typeof Input> = {
     },
     error: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
     },
     disabled: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
     },
     prefix: {
       control: { disable: true },
@@ -95,24 +95,24 @@ const meta: Meta<typeof Input> = {
     },
     showSuffixOnHover: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
     },
     focusOnDoubleClick: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
     },
     focusOnPrefix: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
     },
     minLength: {
       control: { type: 'number' },
-      defaultValue: { summary: 0 },
+      table: { defaultValue: { summary: '0' } },
       description: 'Minimum length of the input value.',
     },
     maxLength: {
       control: { type: 'number' },
-      defaultValue: { summary: Infinity },
+      table: { defaultValue: { summary: 'Infinity' } },
       description: 'Maximum length of the input value.',
     },
     tooltip: {
@@ -126,11 +126,11 @@ const meta: Meta<typeof Input> = {
     },
     autoFocus: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
     },
     selectOnFocus: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
       description: 'Select all text when the input receives focus.',
     },
     maxWidth: {
@@ -210,7 +210,6 @@ export default meta
 type Story = StoryObj<typeof Input>
 
 export const Demo: Story = {
-  tags: ['!autodocs'],
   args: {
     id: undefined,
     className: '',
@@ -242,7 +241,6 @@ export const Demo: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <Input {...args} />
 

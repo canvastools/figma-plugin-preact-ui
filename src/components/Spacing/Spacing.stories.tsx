@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/preact'
+import { Meta, StoryObj } from '@storybook/preact-vite'
 
 import { spacing } from '../../themes'
 
@@ -27,7 +27,7 @@ const meta: Meta<typeof Spacing> = {
         type: 'radio',
       },
       options: ['row', 'column'],
-      defaultValue: { summary: 'column' },
+      table: { defaultValue: { summary: 'column' } },
     },
     size: {
       control: {
@@ -56,7 +56,6 @@ export const Demo: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <Spacing
   size={400}
@@ -68,7 +67,6 @@ export const Demo: Story = {
   },
   render: (args) => (
     <div className="sb-column sb-width-full">
-      {/* @ts-expect-error Storybook spread */}
       <Stack direction={args.direction}>
         <Avatar>A</Avatar>
         {/* @ts-expect-error Storybook spread */}

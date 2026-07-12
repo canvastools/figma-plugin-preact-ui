@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { Calendar } from '../Calendar'
 
@@ -12,7 +12,6 @@ export const ViewStory: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <Calendar view="month" />
 

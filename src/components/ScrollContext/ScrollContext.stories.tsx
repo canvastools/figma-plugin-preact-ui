@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/preact'
-import { fn } from '@storybook/test'
+import type { Meta, StoryObj } from '@storybook/preact-vite'
+import { fn } from 'storybook/test'
 
 import { useRef, useEffect } from 'preact/hooks'
 
@@ -26,7 +26,7 @@ const meta: Meta<typeof ScrollContext> = {
   argTypes: {
     defaultPositionY: {
       control: { type: 'number' },
-      defaultValue: { summary: 0 },
+      table: { defaultValue: { summary: '0' } },
       description: 'Scroll position for uncontrolled state.',
     },
     positionY: {
@@ -49,7 +49,7 @@ const meta: Meta<typeof ScrollContext> = {
     },
     spyThreshold: {
       control: { type: 'number' },
-      defaultValue: { summary: 0 },
+      table: { defaultValue: { summary: '0' } },
       description: 'Distance in pixels from the top of the scroll container at which a spy target is considered crossed.',
     },
     onScroll: {
@@ -76,6 +76,7 @@ args: {
         },
       },
     },
+    // @ts-expect-error docs-only argTypes row, not a real prop
     useScrollContext: {
       description: 'Hook to access the context.',
       table: {
@@ -105,7 +106,6 @@ export default meta
 type Story = StoryObj<typeof ScrollContext>
 
 export const Demo: Story = {
-  tags: ['!autodocs'],
   args: {
     defaultPositionY: 0,
     spyThreshold: 0,
@@ -118,7 +118,6 @@ export const Demo: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <ScrollContext {...args}>
   <ScrollContainer>{children}</ScrollContainer>

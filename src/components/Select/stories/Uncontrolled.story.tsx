@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { Select } from '../Select'
 import { SelectOptionData } from '../Select.types'
@@ -13,7 +13,6 @@ export const UncontrolledStory: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 const options = [
   { 

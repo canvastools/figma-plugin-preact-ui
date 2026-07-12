@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { Text } from '../Text'
 
@@ -15,7 +15,6 @@ export const LinksStory: Story = {
         story: 'Links can be rendered using markdown syntax.',
       },
       source: {
-        language: 'tsx',
         code: `
 <Text>
   Lorem Ipsum is simply [dummy text](https://www.google.com) of the printing and typesetting industry.

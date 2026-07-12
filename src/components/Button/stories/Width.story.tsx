@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { Stack } from '../../../index'
 
@@ -14,7 +14,6 @@ export const WidthStory: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <Button widthFull>{children}</Button>
 `,

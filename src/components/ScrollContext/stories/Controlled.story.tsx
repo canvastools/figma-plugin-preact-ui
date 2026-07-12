@@ -1,4 +1,4 @@
-import { StoryObj } from "@storybook/preact"
+import { StoryObj } from "@storybook/preact-vite"
 
 import { useState } from "preact/hooks"
 

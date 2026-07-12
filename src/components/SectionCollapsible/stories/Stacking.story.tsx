@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { Text, Divider, Section } from '../../../index'
 
@@ -14,7 +14,6 @@ export const StackingStory: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <SectionCollapsible
   sectionProps={{

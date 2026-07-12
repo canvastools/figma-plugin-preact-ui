@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { Text, Section, ScrollContext, ScrollContainer, useScrollContext } from '../../../index'
 
@@ -18,7 +18,6 @@ export const StickyStory: Story = {
           "By combining the scroll-related components with <a href='/docs/components-bar--docs'>`<Bar/>`</a>, you can simulate sticky elements.<br/>The visibility of the dividers is managed using the values from <a href='/docs/layout-scrollcontext--docs'>`<ScrollContext/>`</a>.",
       },
       source: {
-        language: 'tsx',
         code: `
 const { isAtTop, isAtBottom } = useScrollContext()
 

@@ -1,10 +1,8 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { Code, Stack, Text } from '../../../index'
 
-import { bem } from '../bem'
-
-type Story = StoryObj<typeof bem>
+type Story = StoryObj
 
 export const ElementStory: Story = {
   parameters: {
@@ -13,7 +11,6 @@ export const ElementStory: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 import { bem } from "figma-plugin-preact-ui"
 
