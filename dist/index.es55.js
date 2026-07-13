@@ -1,5 +1,0 @@
-const L = 1200, T = 480;
-export {
-  T as TOOLTIP_DEFAULT_HIDE_DELAY,
-  L as TOOLTIP_DEFAULT_SHOW_DELAY
-};

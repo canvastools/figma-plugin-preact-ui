@@ -77,7 +77,7 @@ export const CollapsableStory: Story = {
               hoverable={true}
               items={item.items ? renderItems(item.items, level + 1, variant) : undefined}
               collapsable={true}
-              collapseIconIntent={item.id.startsWith('Frame 2') ? 'component-secondary' : 'secondary'}
+              collapseIconIntent={item.id.startsWith('Frame 2') ? 'component-secondary' : 'default'}
             >
               <Stack direction="row" y="center">
                 {variant === 'layer' && <Spacing direction="row" size={200} />}

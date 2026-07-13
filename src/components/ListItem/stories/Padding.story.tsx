@@ -77,7 +77,7 @@ export const PaddingStory: Story = {
               items={item.items ? renderItems(item.items, level + 1, variant) : undefined}
               padding={{ top: 200, right: 200, bottom: 200 }}
               collapsable={true}
-              collapseIconIntent={item.id.startsWith('Frame 2') ? 'component-secondary' : 'secondary'}
+              collapseIconIntent={item.id.startsWith('Frame 2') ? 'component-secondary' : 'default'}
             >
               <Stack direction="row" y="center">
                 {variant === 'layer' && <Spacing direction="row" size={200} />}
