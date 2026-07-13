@@ -8,7 +8,7 @@
     "strict": true,
     "strictNullChecks": true,
     "strictPropertyInitialization": true,
-    "baseUrl": "./src",
+    "rootDir": "./src",
     "removeComments": false,
     "noImplicitAny": true,
     "moduleResolution": "bundler",
