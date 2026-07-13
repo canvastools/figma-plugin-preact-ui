@@ -12,6 +12,7 @@
     "removeComments": false,
     "noImplicitAny": true,
     "moduleResolution": "bundler",
+    "types": ["vite/client"],
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
