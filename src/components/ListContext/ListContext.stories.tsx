@@ -116,15 +116,18 @@ args: {
       range: boolean;
       additive: boolean
     }
-  ) => void
+  ) => Set<string> // resulting selection
   registerItemMeta: (
     id: string,
-    meta: { 
+    meta: {
       selectable: boolean;
-      selectionScope: "item" | "withDescendants"
+      selectionScope: "item" | "withDescendants";
+      draggable: boolean
     }
   ) => () => void
   getPathForId: (id: string) => number[] | null
+  getItemMeta: (id: string) => meta | undefined
+  getBranchIds: (id: string) => string[] // item + selectable descendants
   reorderItems: (
     itemIds: string[],
     targetIndex: number,

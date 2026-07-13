@@ -24,7 +24,7 @@ export interface ListItemProps {
   collapsed?: boolean
   collapsable?: boolean
   onCollapsedChange?: (args: { event: MouseEvent | KeyboardEvent; collapsed: boolean }) => void
-  collapseIconIntent?: 'secondary' | 'component-secondary' | 'slot-secondary'
+  collapseIconIntent?: 'default' | 'component-secondary' | 'slot-secondary'
   items?: preact.ComponentChildren
   children?: preact.ComponentChildren
   tabIndex?: number

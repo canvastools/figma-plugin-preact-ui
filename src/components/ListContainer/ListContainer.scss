@@ -5,8 +5,4 @@
   position: relative;
   display: flex;
   flex-direction: column;
-
-  &:hover .ListItem__collapse-toggle {
-    opacity: 1;
-  }
 }

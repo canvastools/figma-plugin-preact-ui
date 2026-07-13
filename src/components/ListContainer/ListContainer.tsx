@@ -532,26 +532,18 @@ const ListContainerComponent = (
       for (let i = 0; i < childElements.length; i++) {
         const child = childElements[i]
         if (child.classList.contains('ListItem_drag-over')) {
-          const acceptsAttr = child.getAttribute('data-accepts-children')
-          const acceptsChildren = acceptsAttr !== 'false'
           if (child.classList.contains('ListItem_drag-above')) {
             dragPosition = 'above'
             targetIndex = i
           } else if (child.classList.contains('ListItem_drag-below')) {
-            // If target item has children and is NOT collapsed, interpret bottom zone as INSIDE at index 0
-            const hasSubItems = child.querySelector('.ListItem__sub-items') !== null
-            const isCollapsed = child.classList.contains('ListItem_collapsed')
-            if (hasSubItems && !isCollapsed && acceptsChildren) {
-              dragPosition = 'inside'
-              targetIndex = 0
-            } else {
-              dragPosition = 'below'
-              targetIndex = i + 1
-            }
+            // The bottom zone of an expanded parent is already converted to
+            // "inside" (drag-inside class) during dragover, so "below" here is
+            // always a plain sibling insertion.
+            dragPosition = 'below'
+            targetIndex = i + 1
           } else if (child.classList.contains('ListItem_drag-inside')) {
-            const acceptsAttr2 = child.getAttribute('data-accepts-children')
-            const acceptsChildren2 = acceptsAttr2 !== 'false'
-            if (acceptsChildren2) {
+            const acceptsChildren = child.getAttribute('data-accepts-children') !== 'false'
+            if (acceptsChildren) {
               dragPosition = 'inside'
               targetIndex = 0
             } else {
