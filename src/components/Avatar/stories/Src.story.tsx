@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { Avatar } from '../Avatar'
 
@@ -12,16 +12,15 @@ export const SrcStory: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
-<Avatar src="https://thispersondoesnotexist.com/">{children}</Avatar>
+<Avatar src="https://thispersondoesnotexist.com/random-person.jpeg">{children}</Avatar>
 `,
       },
     },
   },
   render: () => (
     <div className="sb-row sb-width-full sb-gap-16">
-      <Avatar src="https://thispersondoesnotexist.com/">A</Avatar>
+      <Avatar src="https://thispersondoesnotexist.com/random-person.jpeg">A</Avatar>
       <Avatar>A</Avatar>
     </div>
   ),

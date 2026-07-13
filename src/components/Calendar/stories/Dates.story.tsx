@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { Calendar } from '../Calendar'
 
@@ -12,7 +12,6 @@ export const DatesStory: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 const weekBefore = new Date().setDate(new Date().getDate() - 7)
 const weekAfter = new Date().setDate(new Date().getDate() + 7)

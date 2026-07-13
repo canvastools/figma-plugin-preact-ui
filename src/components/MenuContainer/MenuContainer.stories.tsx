@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/preact'
+import { Meta, StoryObj } from '@storybook/preact-vite'
 
 import { SizeStory } from './stories/Size.story'
 import { ManyItemsStory } from './stories/ManyItems.story'
@@ -57,7 +57,6 @@ export default meta
 type Story = StoryObj<typeof MenuContainer>
 
 export const Demo: Story = {
-  tags: ['!autodocs'],
   args: {
     id: undefined,
     className: '',
@@ -70,7 +69,6 @@ export const Demo: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <MenuContainer {...args}>{children}</MenuContainer>
 `,

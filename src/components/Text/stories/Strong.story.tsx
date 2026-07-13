@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { Text } from '../Text'
 
@@ -12,7 +12,6 @@ export const StrongStory: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <Text strong>{children}</Text>
 `,

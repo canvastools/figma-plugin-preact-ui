@@ -1,5 +1,5 @@
-import { Meta, StoryObj } from '@storybook/preact'
-import { fn } from '@storybook/test'
+import { Meta, StoryObj } from '@storybook/preact-vite'
+import { fn } from 'storybook/test'
 
 import { PopoverHeader } from './PopoverHeader'
 
@@ -65,7 +65,6 @@ export const Demo: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <PopoverContainer>
   <PopoverHeader {...args}>{children}</PopoverHeader>
@@ -78,7 +77,6 @@ export const Demo: Story = {
     return (
       <div className="sb-column sb-width-300">
         <PopoverContainer>
-          {/* @ts-expect-error Storybook spread */}
           <PopoverHeader {...args}>{args.children}</PopoverHeader>
           <Section>
             <Text>

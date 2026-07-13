@@ -75,7 +75,6 @@ const ButtonComponent = (
           if (typeof ref === 'function') {
             ref(el)
           } else if (ref) {
-            // eslint-disable-next-line
             ;(ref as preact.RefObject<HTMLButtonElement>).current = el
           }
           itemRef.current = el

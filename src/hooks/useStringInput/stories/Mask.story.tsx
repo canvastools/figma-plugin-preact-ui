@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { useState } from 'preact/hooks'
 
@@ -20,7 +20,6 @@ export const MaskStory: Story = {
         story: 'A mask function can be provided to format the input value as desired.',
       },
       source: {
-        language: 'tsx',
         code: `
 const stringInput = useStringInput({
   value: "",

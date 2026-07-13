@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { Input, Icon, link } from '../../../index'
 
@@ -17,7 +17,6 @@ export const TranslucentStory: Story = {
         story: "A special variant used inside <a href='/docs/components-input--docs'>`<Input/>`</a>.",
       },
       source: {
-        language: 'tsx',
         code: `
 <Input
   placeholder="Placeholder"

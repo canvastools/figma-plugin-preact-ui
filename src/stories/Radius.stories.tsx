@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/preact'
+import { Meta, StoryObj } from '@storybook/preact-vite'
 
 import { radius } from '../themes'
 
@@ -9,7 +9,6 @@ const meta: Meta = {
   parameters: {
     docs: {
       source: {
-        language: 'tsx',
         code: `
 // CSS
 
@@ -43,6 +42,9 @@ type Story = StoryObj<typeof meta>
 
 export const Radius: Story = {
   tags: ['!dev'],
+  globals: {
+    background: 'primary',
+  },
   render: () => (
     <SimpleVariableTable
       variables={radius.variables as Record<string, string>}

@@ -1,5 +1,5 @@
-import { Meta, StoryObj } from '@storybook/preact'
-import { fn } from '@storybook/test'
+import { Meta, StoryObj } from '@storybook/preact-vite'
+import { fn } from 'storybook/test'
 
 import { UncontrolledStory } from './stories/Uncontrolled.story'
 import { ControlledStory } from './stories/Controlled.story'
@@ -32,7 +32,7 @@ const meta: Meta<typeof ButtonIconToggle> = {
     },
     defaultSelected: {
       control: { type: 'boolean' },
-      defaultValue: false,
+      table: { defaultValue: { summary: 'false' } },
       description: 'Value for uncontrolled state.',
     },
     tabIndex: {
@@ -56,6 +56,7 @@ args:{
         },
       },
     },
+    // @ts-expect-error docs-only argTypes row, not a real prop
     '...ButtonIconProps': {
       control: { disable: true },
       table: {
@@ -89,7 +90,6 @@ export default meta
 type Story = StoryObj<typeof ButtonIconToggle>
 
 export const Demo: Story = {
-  tags: ['!autodocs'],
   args: {
     defaultSelected: false,
     onSelectedChange: fn(),
@@ -100,7 +100,6 @@ export const Demo: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <ButtonIconToggle {...args}>
   {children}

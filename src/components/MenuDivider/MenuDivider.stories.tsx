@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/preact'
+import { Meta, StoryObj } from '@storybook/preact-vite'
 
 import { VariantStory } from './stories/Variant.story'
 
@@ -33,7 +33,7 @@ const meta: Meta<typeof MenuDivider> = {
     variant: {
       control: { type: 'radio' },
       options: ['full', 'inset'],
-      defaultValue: { summary: 'full' },
+      table: { defaultValue: { summary: 'full' } },
     },
   },
 }
@@ -43,7 +43,6 @@ export default meta
 type Story = StoryObj<typeof MenuDivider>
 
 export const Demo: Story = {
-  tags: ['!autodocs'],
   args: {
     id: undefined,
     className: '',
@@ -55,7 +54,6 @@ export const Demo: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <MenuContainer>
   <MenuItemAction>Menu Item</MenuItemAction>

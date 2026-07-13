@@ -1,5 +1,5 @@
-import { Meta, StoryObj } from '@storybook/preact'
-import { fn } from '@storybook/test'
+import { Meta, StoryObj } from '@storybook/preact-vite'
+import { fn } from 'storybook/test'
 
 import { UncontrolledStory } from './stories/Uncontrolled.story'
 import { ControlledStory } from './stories/Controlled.story'
@@ -28,12 +28,12 @@ const meta: Meta<typeof Checkbox> = {
     intent: {
       control: { type: 'radio' },
       options: ['neutral', 'brand'],
-      defaultValue: { summary: 'neutral' },
+      table: { defaultValue: { summary: 'neutral' } },
     },
     intentModifier: {
       control: { type: 'radio' },
       options: ['default'],
-      defaultValue: { summary: 'default' },
+      table: { defaultValue: { summary: 'default' } },
     },
     checked: {
       control: { disable: true },
@@ -47,15 +47,15 @@ const meta: Meta<typeof Checkbox> = {
     defaultChecked: {
       control: { type: 'boolean' },
       description: 'Value for uncontrolled state.',
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
     },
     mixed: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
     },
     disabled: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
     },
     label: {
       control: { type: 'text' },
@@ -88,7 +88,6 @@ export default meta
 type Story = StoryObj<typeof Checkbox>
 
 export const Demo: Story = {
-  tags: ['!autodocs'],
   args: {
     id: undefined,
     className: '',
@@ -106,7 +105,6 @@ export const Demo: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <Checkbox {...args} />
 `,

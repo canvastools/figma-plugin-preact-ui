@@ -1,5 +1,5 @@
-import { Meta, StoryObj } from '@storybook/preact'
-import { fn } from '@storybook/test'
+import { Meta, StoryObj } from '@storybook/preact-vite'
+import { fn } from 'storybook/test'
 
 import { UncontrolledStory } from './stories/Uncontrolled.story'
 import { ControlledStory } from './stories/Controlled.story'
@@ -29,9 +29,9 @@ const meta: Meta<typeof ColorPicker> = {
     defaultType: {
       control: { type: 'radio' },
       options: ['rgba', 'hex', 'hexAlpha'],
-      defaultValue: { summary: 'hex' },
       description: 'Picker mode for uncontrolled state.',
       table: {
+        defaultValue: { summary: 'hex' },
         type: {
           summary: 'ColorPickerType',
           detail: `"rgba" | "hex" | "hexAlpha"`,
@@ -52,9 +52,9 @@ const meta: Meta<typeof ColorPicker> = {
     types: {
       control: { type: 'check' },
       options: ['rgba', 'hex', 'hexAlpha'],
-      defaultValue: { summary: `["hex", "hexAlpha", "rgba"]` },
       description: 'Allowed color picker modes in the picker.',
       table: {
+        defaultValue: { summary: `["hex", "hexAlpha", "rgba"]` },
         type: {
           summary: 'ColorPickerType[]',
           detail: `["rgba", "hex", "hexAlpha"]`,
@@ -64,8 +64,8 @@ const meta: Meta<typeof ColorPicker> = {
     defaultColor: {
       control: { type: 'object' },
       description: 'Color value for uncontrolled state.',
-      defaultValue: { summary: `{ r: 1, g: 0, b: 0, a: 1 }` },
       table: {
+        defaultValue: { summary: `{ r: 1, g: 0, b: 0, a: 1 }` },
         type: {
           summary: 'Color',
           detail: `
@@ -98,20 +98,20 @@ const meta: Meta<typeof ColorPicker> = {
     },
     showControls: {
       control: { type: 'boolean' },
-      defaultValue: { summary: 'true' },
+      table: { defaultValue: { summary: 'true' } },
     },
     alpha: {
       control: { type: 'boolean' },
-      defaultValue: { summary: 'true' },
+      table: { defaultValue: { summary: 'true' } },
       description: 'When false, hides hexAlpha mode and opacity controls in other modes.',
     },
     width: {
       control: { type: 'number' },
-      defaultValue: { summary: '207' },
+      table: { defaultValue: { summary: '207' } },
     },
     fullWidth: {
       control: { type: 'boolean' },
-      defaultValue: { summary: 'false' },
+      table: { defaultValue: { summary: 'false' } },
       description: 'Overrides `width` property.',
     },
     onTypeChange: {
@@ -148,7 +148,6 @@ export default meta
 type Story = StoryObj<typeof ColorPicker>
 
 export const Demo: Story = {
-  tags: ['!autodocs'],
   args: {
     id: undefined,
     className: '',
@@ -172,7 +171,6 @@ export const Demo: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <ColorPicker {...args} />
 `,

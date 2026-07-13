@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { useState } from 'preact/hooks'
 
@@ -16,7 +16,6 @@ export const ControlledStory: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 const [type, setType] = useState("hex")
 const [color, setColor] = useState({ r: 1, g: 0, b: 0, a: 1 })

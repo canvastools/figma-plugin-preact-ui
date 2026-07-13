@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/preact'
+import { Meta, StoryObj } from '@storybook/preact-vite'
 
 import { IntentStory } from './stories/Intent.story'
 import { VariantStory } from './stories/Variant.story'
@@ -40,7 +40,7 @@ const meta: Meta<typeof Icon> = {
     intent: {
       control: { type: 'radio' },
       options: ['neutral', 'neutral-inverted', 'neutral-inverted-fixed', 'brand', 'danger', 'warning', 'success'],
-      defaultValue: { summary: 'neutral' },
+      table: { defaultValue: { summary: 'neutral' } },
     },
     intentModifier: {
       control: { type: 'radio' },
@@ -57,15 +57,15 @@ const meta: Meta<typeof Icon> = {
         'slot',
         'slot-secondary',
       ],
-      defaultValue: { summary: 'default' },
+      table: { defaultValue: { summary: 'default' } },
     },
     disabled: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
     },
     selected: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
       description: 'Enables the modifier for the selected state.',
     },
     iconColor: {
@@ -80,13 +80,13 @@ const meta: Meta<typeof Icon> = {
     variant: {
       control: { type: 'radio' },
       options: ['default', 'upscaled', 'downscaled'],
-      defaultValue: { summary: 'default' },
+      table: { defaultValue: { summary: 'default' } },
       description: 'Some icons may have glyph variations (e.g. size) while preserving the container dimensions.',
     },
     size: {
       control: { type: 'radio' },
       options: [16, 24],
-      defaultValue: { summary: '24' },
+      table: { defaultValue: { summary: '24' } },
       description: 'The size of the icon container.',
     },
     children: {
@@ -106,10 +106,10 @@ export default meta
 type Story = StoryObj<typeof Icon>
 
 export const Demo: Story = {
-  tags: ['!autodocs'],
   args: {
     id: undefined,
     className: '',
+    // @ts-expect-error control passes a glyph name; Icon maps it to the component
     glyph: 'link',
     intent: 'neutral',
     intentModifier: 'default',
@@ -125,7 +125,6 @@ export const Demo: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `<Icon {...args}>{children}</Icon>`,
       },
     },

@@ -1,5 +1,5 @@
-import { Meta, StoryObj } from '@storybook/preact'
-import { fn } from '@storybook/test'
+import { Meta, StoryObj } from '@storybook/preact-vite'
+import { fn } from 'storybook/test'
 
 import { UncontrolledStory } from './stories/Uncontrolled.story'
 import { ControlledStory } from './stories/Controlled.story'
@@ -69,15 +69,15 @@ const meta: Meta<typeof Select> = {
     },
     ghost: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
     },
     error: {
       control: { type: 'boolean' },
-      defaultValue: { summary: 'false' },
+      table: { defaultValue: { summary: 'false' } },
     },
     disabled: {
       control: { type: 'boolean' },
-      defaultValue: { summary: 'false' },
+      table: { defaultValue: { summary: 'false' } },
     },
     prefix: {
       control: { disable: true },
@@ -143,7 +143,6 @@ export default meta
 type Story = StoryObj<typeof Select>
 
 export const Demo: Story = {
-  tags: ['!autodocs'],
   args: {
     id: undefined,
     className: '',
@@ -164,7 +163,6 @@ export const Demo: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <Select {...args} />
 

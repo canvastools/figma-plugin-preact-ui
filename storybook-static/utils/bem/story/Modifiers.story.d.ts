@@ -1,5 +1,4 @@
-import { StoryObj } from '@storybook/preact';
-import { bem } from '../bem';
-type Story = StoryObj<typeof bem>;
+import { StoryObj } from '@storybook/preact-vite';
+type Story = StoryObj;
 export declare const ModifiersStory: Story;
 export {};

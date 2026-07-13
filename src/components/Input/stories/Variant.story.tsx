@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { Input } from '../Input'
 
@@ -15,7 +15,6 @@ export const VariantStory: Story = {
         story: 'If there is no label, the component will be displayed in the default variant.',
       },
       source: {
-        language: 'tsx',
         code: `
 <Input variant="default" />
 

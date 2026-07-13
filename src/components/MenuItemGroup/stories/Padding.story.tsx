@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { MenuContainer, MenuDivider, MenuItemOption, MenuItemAction } from '../../../index'
 
@@ -17,7 +17,6 @@ export const PaddingStory: Story = {
         story: 'When `paddingLikeOption` is `true`, the content of an item gets extra padding to align with options.',
       },
       source: {
-        language: 'tsx',
         code: `
 <MenuItemGroup paddingLikeOption>
   {children}

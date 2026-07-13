@@ -1,5 +1,5 @@
-import { Meta, StoryObj } from '@storybook/preact'
-import { fn } from '@storybook/test'
+import { Meta, StoryObj } from '@storybook/preact-vite'
+import { fn } from 'storybook/test'
 
 import { WindowResizer } from './WindowResizer'
 import type { WindowResizerProps } from './WindowResizer.types'
@@ -82,7 +82,6 @@ export const Demo: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <WindowResizer 
   minWidth={380}

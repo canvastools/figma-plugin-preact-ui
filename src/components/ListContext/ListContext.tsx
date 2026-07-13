@@ -52,6 +52,7 @@ const ListContext = (props: ListContextProps) => {
       {
         selectable?: boolean
         selectionScope?: 'individual' | 'withDescendants'
+        draggable?: boolean
       }
     >
   >(new Map())
@@ -116,31 +117,13 @@ const ListContext = (props: ListContextProps) => {
     [currentItems],
   )
 
-  // If `itemId` is the sole child of a parent whose selectionScope is
-  // "withDescendants", return that parent's id so the whole branch toggles.
-  const resolveBranchRoot = useCallback(
-    (itemId: string): string => {
-      const walk = (nodes: ListItemData[], parent: ListItemData | null): string | undefined => {
-        for (const n of nodes) {
-          if (n.id === itemId) {
-            if (
-              parent &&
-              parent.items?.length === 1 &&
-              itemMetaRef.current.get(parent.id)?.selectionScope === 'withDescendants'
-            ) {
-              return parent.id
-            }
-            return itemId
-          }
-          if (n.items?.length) {
-            const r = walk(n.items, n)
-            if (r !== undefined) return r
-          }
-        }
-      }
-      return walk(currentItems, null) ?? itemId
-    },
-    [currentItems],
+  // Full branch for selection purposes: the item plus all of its descendants,
+  // excluding entries registered with selectable=false — unselectable items
+  // never enter the selection regardless of how they were reached.
+  const collectSelectableBranchIds = useCallback(
+    (rootId: string): string[] =>
+      [rootId, ...collectDescendantsForId(rootId)].filter((id) => itemMetaRef.current.get(id)?.selectable !== false),
+    [collectDescendantsForId],
   )
 
   // Replace selection with exactly these ids (uncontrolled or via callback)
@@ -153,50 +136,53 @@ const ListContext = (props: ListContextProps) => {
     [isSelectionControlled, onSelectionChange],
   )
 
+  // Returns the resulting selection so callers (e.g. onSelect) can report the
+  // actual state of the toggled item rather than guessing by inversion.
   const toggleSelect = useCallback(
-    (itemId: string, options?: { range?: boolean; additive?: boolean }) => {
-      if (selectionMode === undefined) return
+    (itemId: string, options?: { range?: boolean; additive?: boolean }): Set<string> => {
+      if (selectionMode === undefined) return currentSelectedItems
 
-      const effectiveItemId = resolveBranchRoot(itemId)
-      const meta = itemMetaRef.current.get(effectiveItemId)
+      const meta = itemMetaRef.current.get(itemId)
+      if (meta?.selectable === false) return currentSelectedItems
       const isWithDescendants = meta?.selectionScope === 'withDescendants'
 
       const additive = Boolean(options?.additive)
       const range = Boolean(options?.range)
 
+      const commit = (next: Set<string>): Set<string> => {
+        lastSelectedAnchorRef.current = itemId
+        if (areSetsEqual(next, currentSelectedItems)) return currentSelectedItems
+        if (!isSelectionControlled) setInternalSelectedItems(next)
+        onSelectionChange?.({ selectedItemIds: Array.from(next) })
+        return next
+      }
+
       if (selectionMode === 'single') {
         let next: Set<string>
         if (isWithDescendants) {
-          const branchIds = [effectiveItemId, ...collectDescendantsForId(effectiveItemId)]
+          const branchIds = collectSelectableBranchIds(itemId)
           const allSelected = branchIds.length > 0 && branchIds.every((id) => currentSelectedItems.has(id))
           next = allSelected ? new Set<string>() : new Set<string>(branchIds)
         } else {
-          const already = currentSelectedItems.has(effectiveItemId)
+          const already = currentSelectedItems.has(itemId)
           next = new Set<string>()
-          if (!already) next.add(effectiveItemId)
+          if (!already) next.add(itemId)
         }
-        if (areSetsEqual(next, currentSelectedItems)) {
-          lastSelectedAnchorRef.current = effectiveItemId
-          return
-        }
-        if (!isSelectionControlled) setInternalSelectedItems(next)
-        onSelectionChange?.({ selectedItemIds: Array.from(next) })
-        lastSelectedAnchorRef.current = effectiveItemId
-        return
+        return commit(next)
       }
 
       // multi
       if (range) {
         const order = flattenItemsDepthFirst(currentItems)
-        let anchor = lastSelectedAnchorRef.current || effectiveItemId
+        let anchor = lastSelectedAnchorRef.current || itemId
         let start = order.indexOf(anchor)
-        const end = order.indexOf(effectiveItemId)
+        const end = order.indexOf(itemId)
         // If previous anchor no longer exists (e.g. after items tree change), fall back to current item
         if (start === -1) {
-          anchor = effectiveItemId
+          anchor = itemId
           start = order.indexOf(anchor)
         }
-        if (start === -1 || end === -1) return
+        if (start === -1 || end === -1) return currentSelectedItems
         const [lo, hi] = start <= end ? [start, end] : [end, start]
         const rawRange = order.slice(lo, hi + 1)
         // Filter according to meta: skip unselectable; if selectionScope==withDescendants skip their descendants too
@@ -232,28 +218,20 @@ const ListContext = (props: ListContextProps) => {
           if (isDescendantOfSkipped(id)) return
 
           // When selectionScope="withDescendants", include the full branch:
-          // the item itself plus all of its descendants.
+          // the item itself plus all of its selectable descendants.
           if (meta?.selectionScope === 'withDescendants') {
-            const branchIds = [id, ...collectDescendantsForId(id)]
-            branchIds.forEach((branchId) => next.add(branchId))
+            collectSelectableBranchIds(id).forEach((branchId) => next.add(branchId))
           } else {
             next.add(id)
           }
         })
-        if (areSetsEqual(next, currentSelectedItems)) {
-          lastSelectedAnchorRef.current = effectiveItemId
-          return
-        }
-        if (!isSelectionControlled) setInternalSelectedItems(next)
-        onSelectionChange?.({ selectedItemIds: Array.from(next) })
-        lastSelectedAnchorRef.current = effectiveItemId
-        return
+        return commit(next)
       }
 
       if (additive) {
         const next = new Set(currentSelectedItems)
         if (isWithDescendants) {
-          const branchIds = [effectiveItemId, ...collectDescendantsForId(effectiveItemId)]
+          const branchIds = collectSelectableBranchIds(itemId)
           const branchSelected = branchIds.length > 0 && branchIds.every((id) => next.has(id))
           if (branchSelected) {
             branchIds.forEach((id) => next.delete(id))
@@ -261,17 +239,10 @@ const ListContext = (props: ListContextProps) => {
             branchIds.forEach((id) => next.add(id))
           }
         } else {
-          if (next.has(effectiveItemId)) next.delete(effectiveItemId)
-          else next.add(effectiveItemId)
+          if (next.has(itemId)) next.delete(itemId)
+          else next.add(itemId)
         }
-        if (areSetsEqual(next, currentSelectedItems)) {
-          lastSelectedAnchorRef.current = effectiveItemId
-          return
-        }
-        if (!isSelectionControlled) setInternalSelectedItems(next)
-        onSelectionChange?.({ selectedItemIds: Array.from(next) })
-        lastSelectedAnchorRef.current = effectiveItemId
-        return
+        return commit(next)
       }
 
       // default click acts like single anchor in multi-mode with toggle behaviour:
@@ -279,22 +250,16 @@ const ListContext = (props: ListContextProps) => {
       // - otherwise, replace selection with just this item (or its branch)
       let next: Set<string>
       if (isWithDescendants) {
-        const branchIds = [effectiveItemId, ...collectDescendantsForId(effectiveItemId)]
+        const branchIds = collectSelectableBranchIds(itemId)
         const branchSet = new Set<string>(branchIds)
         const isExactlyBranchSelected =
           branchSet.size === currentSelectedItems.size && branchIds.every((id) => currentSelectedItems.has(id))
         next = isExactlyBranchSelected ? new Set<string>() : branchSet
       } else {
-        const isSingleItemSelected = currentSelectedItems.size === 1 && currentSelectedItems.has(effectiveItemId)
-        next = isSingleItemSelected ? new Set<string>() : new Set<string>([effectiveItemId])
+        const isSingleItemSelected = currentSelectedItems.size === 1 && currentSelectedItems.has(itemId)
+        next = isSingleItemSelected ? new Set<string>() : new Set<string>([itemId])
       }
-      if (areSetsEqual(next, currentSelectedItems)) {
-        lastSelectedAnchorRef.current = effectiveItemId
-        return
-      }
-      if (!isSelectionControlled) setInternalSelectedItems(next)
-      onSelectionChange?.({ selectedItemIds: Array.from(next) })
-      lastSelectedAnchorRef.current = effectiveItemId
+      return commit(next)
     },
     [
       selectionMode,
@@ -303,8 +268,7 @@ const ListContext = (props: ListContextProps) => {
       onSelectionChange,
       currentItems,
       flattenItemsDepthFirst,
-      collectDescendantsForId,
-      resolveBranchRoot,
+      collectSelectableBranchIds,
     ],
   )
 
@@ -509,6 +473,7 @@ const ListContext = (props: ListContextProps) => {
       meta: {
         selectable?: boolean
         selectionScope?: 'individual' | 'withDescendants'
+        draggable?: boolean
       },
     ) => {
       itemMetaRef.current.set(id, meta)
@@ -521,6 +486,10 @@ const ListContext = (props: ListContextProps) => {
 
   const getPathForId = useCallback((id: string) => {
     return idToPathRef.current.get(id) || null
+  }, [])
+
+  const getItemMeta = useCallback((id: string) => {
+    return itemMetaRef.current.get(id)
   }, [])
 
   // Rebuild id -> path map whenever the items tree changes
@@ -579,7 +548,7 @@ const ListContext = (props: ListContextProps) => {
       if (branchFullySelected.has(id)) {
         return branchFullySelected.get(id) as boolean
       }
-      const branchIds = [id, ...collectDescendantsForId(id)]
+      const branchIds = collectSelectableBranchIds(id)
       const full = branchIds.length > 0 && branchIds.every((nodeId) => selected.has(nodeId))
       branchFullySelected.set(id, full)
       return full
@@ -614,7 +583,7 @@ const ListContext = (props: ListContextProps) => {
     })
 
     setSelectionOriginIds(origins)
-  }, [collectDescendantsForId, currentItems, currentSelectedItems])
+  }, [collectSelectableBranchIds, currentItems, currentSelectedItems])
 
   const contextValue: ListContextValue = useMemo(
     () => ({
@@ -629,6 +598,8 @@ const ListContext = (props: ListContextProps) => {
       registerRootElement,
       registerItem,
       getPathForId,
+      getItemMeta,
+      getBranchIds: collectSelectableBranchIds,
       dragImage: dragImageEl,
       onKeyDown,
     }),
@@ -644,6 +615,8 @@ const ListContext = (props: ListContextProps) => {
       registerRootElement,
       registerItem,
       getPathForId,
+      getItemMeta,
+      collectSelectableBranchIds,
       dragImageEl,
       onKeyDown,
     ],

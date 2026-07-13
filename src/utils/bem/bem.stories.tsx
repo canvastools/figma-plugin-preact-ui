@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/preact'
+import { Meta, StoryObj } from '@storybook/preact-vite'
 
 import { ElementStory } from './story/Element.story'
 import { ModifiersStory } from './story/Modifiers.story'
@@ -7,7 +7,7 @@ import { Code, Stack, Text } from '../../index'
 
 import { bem } from './bem'
 
-const meta: Meta<typeof bem> = {
+const meta: Meta = {
   title: 'Utils/bem',
   component: bem,
   tags: ['autodocs'],
@@ -38,17 +38,15 @@ mods: Record<string, string | boolean>
 
 export default meta
 
-type Story = StoryObj<typeof bem>
+type Story = StoryObj
 
 export const Demo: Story = {
-  tags: ['!autodocs'],
   parameters: {
     viewport: {
       defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 import { bem } from "figma-plugin-preact-ui"
 

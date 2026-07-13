@@ -1,5 +1,5 @@
-import { Meta, StoryObj } from '@storybook/preact'
-import { fn } from '@storybook/test'
+import { Meta, StoryObj } from '@storybook/preact-vite'
+import { fn } from 'storybook/test'
 
 import { SizeStory } from './stories/Size.story'
 import { ColorStory } from './stories/Color.story'
@@ -34,7 +34,7 @@ const meta: Meta<typeof ColorSwatch> = {
     size: {
       control: { type: 'radio' },
       options: ['small', 'medium', 'large'],
-      defaultValue: { summary: 'medium' },
+      table: { defaultValue: { summary: 'medium' } },
     },
     fill: {
       control: { type: 'object' },
@@ -71,21 +71,21 @@ Vector: {
     alpha: {
       control: { type: 'boolean' },
       description: 'When true, transparent solid colors are split into opaque + alpha halves to preview transparency.',
-      defaultValue: { summary: true },
+      table: { defaultValue: { summary: 'true' } },
     },
     disabled: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
     },
     selected: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
     },
     selection: {
       control: { type: 'radio' },
       options: ['default', 'rainbow'],
       description: 'Selection border style.',
-      defaultValue: { summary: 'default' },
+      table: { defaultValue: { summary: 'default' } },
     },
     tooltip: {
       control: { type: 'text' },
@@ -132,7 +132,6 @@ export default meta
 type Story = StoryObj<typeof ColorSwatch>
 
 export const Demo: Story = {
-  tags: ['!autodocs'],
   args: {
     id: undefined,
     className: '',
@@ -151,7 +150,6 @@ export const Demo: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <ColorSwatch {...args} />
 

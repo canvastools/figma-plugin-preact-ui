@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { Text, ButtonIcon, Stack } from '../../../index'
 
@@ -45,7 +45,7 @@ const glyphCombinations = (glyph: string) => {
           </Text>
         </div>
       )
-    } catch (e) {
+    } catch {
       return (
         <div
           style={{
@@ -73,7 +73,6 @@ export const GlyphsStory: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 import { help } from "figma-plugin-preact-ui"
 

@@ -1,5 +1,5 @@
-import { Meta, StoryObj } from '@storybook/preact'
-import { fn } from '@storybook/test'
+import { Meta, StoryObj } from '@storybook/preact-vite'
+import { fn } from 'storybook/test'
 
 import { UncontrolledStory } from './stories/Uncontrolled.story'
 import { ControlledStory } from './stories/Controlled.story'
@@ -39,7 +39,7 @@ const meta: Meta<typeof MenuItemOption> = {
     },
     defaultSelected: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
       description: 'Value for uncontrolled state.',
     },
     selected: {
@@ -53,12 +53,12 @@ const meta: Meta<typeof MenuItemOption> = {
     },
     disabled: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
     },
     focused: {
       control: { type: 'boolean' },
       description: 'Works only when the componet is inside `<MenuContext/>`.',
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
     },
     prefix: {
       control: { disable: true },
@@ -116,7 +116,6 @@ export default meta
 type Story = StoryObj<typeof MenuItemOption>
 
 export const Demo: Story = {
-  tags: ['!autodocs'],
   args: {
     id: 'menu-item-option',
     className: '',
@@ -132,7 +131,6 @@ export const Demo: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <MenuContainer>
   <MenuItemOption {...args}>{children}</MenuItemOption>
@@ -145,7 +143,6 @@ export const Demo: Story = {
     <div className="sb-column sb-width-full">
       <MenuContext>
         <MenuContainer width={208}>
-          {/* @ts-expect-error Storybook spread */}
           <MenuItemOption {...args}>{args.children}</MenuItemOption>
         </MenuContainer>
       </MenuContext>

@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { Input, Button, ButtonIcon, Icon, link, chevronDown, TimePicker } from '../../../index'
 
@@ -14,7 +14,6 @@ export const CombinationsStory: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <ControlGroup>
   <Button>Button</Button>

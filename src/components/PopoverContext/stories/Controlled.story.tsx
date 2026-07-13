@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { useRef, useState } from 'preact/hooks'
 
@@ -16,7 +16,6 @@ export const ControlledStory: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 const PopoverContent = () => {
   const context = usePopoverContext()
@@ -79,7 +78,6 @@ const ControlledPopover = () => {
     },
   },
   render: (args) => {
-    // @ts-expect-error Storybook control value
     const [open, setOpen] = useState(args.open)
     const triggerRef = useRef<HTMLButtonElement | null>(null)
 

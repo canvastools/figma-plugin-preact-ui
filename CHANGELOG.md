@@ -1,12 +1,22 @@
 # Changelog
 
+### 1.3.1 - 13 July 2026
+
+- Bumping dependency package versions
+- Minor style, usability and performance fixes
+- Fixed List selection: clicking the only child of a `withDescendants` branch no longer selects its parent
+- List: items with `selectable=false` are now consistently excluded from selection (click, branch and range selection)
+- List: multi-drag and keyboard move now only move `draggable` items; non-draggable ones are deselected on drag start (descendants still travel with their branch)
+- List: dragging a `withDescendants` item now selects it together with its descendants, matching click behavior
+- ListItem: `onSelect` now reports the actual resulting `selected` state
+
 ### 1.3.0 - 3 July 2026
 
 - Minor style, usability and performance fixes
 - Tooltip: delay fix
 
 - Added 24 icons
-- Add color variables for slots, `intent` and `intentModifier` props updated for Text, Icon, Badge
+- Added color variables for slots, `intent` and `intentModifier` props updated for Text, Icon, Badge
 - OverlayPositioner: preserve position after drag when repositioning is triggered
 - MenuContaniner: added scroll to selected MenuItemOption
 - Select: added `ghost`, `fullWidth` prop

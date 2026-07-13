@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { Icon, ai } from '../../../index'
 
@@ -14,7 +14,6 @@ export const ChildrenStory: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 import { ai } from "figma-plugin-preact-ui"
 

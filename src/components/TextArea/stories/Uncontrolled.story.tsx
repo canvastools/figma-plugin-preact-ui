@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { TextArea } from '../TextArea'
 
@@ -12,7 +12,6 @@ export const UncontrolledStory: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <TextArea defaultValue="Hello World!" />
 `,

@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { TabContext, Section, Tab } from '../../../index'
 
@@ -14,7 +14,6 @@ export const HorizontalScrollStory: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <TabContext defaultActiveId="tab-1">
   <TabList>

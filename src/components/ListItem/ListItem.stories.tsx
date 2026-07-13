@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/preact'
-import { fn } from '@storybook/test'
+import type { Meta, StoryObj } from '@storybook/preact-vite'
+import { fn } from 'storybook/test'
 
 import { useState } from 'preact/hooks'
 
@@ -35,13 +35,13 @@ const meta: Meta<typeof ListItem> = {
     variant: {
       control: { type: 'radio' },
       options: ['default', 'layer'],
-      defaultValue: { summary: 'default' },
+      table: { defaultValue: { summary: 'default' } },
     },
     nestingLevel: {
       control: { type: 'number' },
-      defaultValue: { summary: 0 },
       description: '<strong>*</strong>',
       table: {
+        defaultValue: { summary: '0' },
         type: {
           summary: 'number',
         },
@@ -69,7 +69,7 @@ type ListItemPadding = keyof typeof spacing.variables // string | number
     },
     draggable: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
     },
     tabIndex: {
       control: { type: 'number' },
@@ -105,18 +105,18 @@ type ListItemPadding = keyof typeof spacing.variables // string | number
     },
     acceptsChildren: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
     },
     selectable: {
       control: { type: 'boolean' },
       description:
         "`data-pui-interactive='true'` attribute can be applied to elements inside the list item to stop propagation of click events.",
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
     },
     selectionScope: {
       control: { type: 'radio' },
       options: ['individual', 'withDescendants'],
-      defaultValue: { summary: 'individual' },
+      table: { defaultValue: { summary: 'individual' } },
       description:
         'Defines how the item can be selected. If set to `item`, the item can be selected individually. If set to `withDescendants`, the item and all its descendants can be selected at once.',
     },
@@ -135,7 +135,7 @@ type ListItemPadding = keyof typeof spacing.variables // string | number
     },
     hoverable: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
     },
     collapsed: {
       control: { disable: true },
@@ -148,12 +148,12 @@ type ListItemPadding = keyof typeof spacing.variables // string | number
     },
     collapsable: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
     },
     collapseIconIntent: {
       control: { type: 'radio' },
-      options: ['secondary', 'component-secondary', 'slot-secondary'],
-      defaultValue: { summary: 'secondary' },
+      options: ['default', 'component-secondary', 'slot-secondary'],
+      table: { defaultValue: { summary: 'default' } },
     },
     onCollapsedChange: {
       table: {
@@ -220,7 +220,6 @@ const itemsSample = [
 ] as ListItemData[]
 
 export const Demo: Story = {
-  tags: ['!autodocs'],
   args: {
     id: undefined,
     className: '',
@@ -232,7 +231,7 @@ export const Demo: Story = {
     selectionScope: 'individual',
     hoverable: true,
     collapsable: false,
-    collapseIconIntent: 'secondary',
+    collapseIconIntent: 'default',
     onDragStart: fn(),
     onDragEnd: fn(),
     onSelect: fn(),
@@ -336,7 +335,6 @@ const renderItems = (
             >
               <Stack direction="row" y="center" fullWidth>
                 <Stack direction="row" y="center">
-                  {/* @ts-expect-error - Storybook types hack */}
                   {args.variant === 'layer' && <Spacing direction="row" size={200} />}
                   <Text wrap={false}>{item.id}</Text>
                 </Stack>

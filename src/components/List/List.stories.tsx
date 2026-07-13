@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/preact'
+import { Meta, StoryObj } from '@storybook/preact-vite'
 
 import { useState } from 'preact/hooks'
 
@@ -103,7 +103,6 @@ const meta: Meta = {
         },
       },
     },
-
   },
 }
 
@@ -148,7 +147,6 @@ export const Demo: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 
 const [selectedItemIds, setSelectedItemIds] = useState([])

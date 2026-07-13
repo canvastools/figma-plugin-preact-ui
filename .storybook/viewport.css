@@ -29,10 +29,7 @@ body * {
 
 #storybook-viewport.viewport-bg-dotted {
   background-color: var(--pui-color-neutral-bg-default);
-  background-image: radial-gradient(
-    var(--pui-color-system-bg-helper) 1px,
-    transparent 1.2px
-  );
+  background-image: radial-gradient(var(--pui-color-neutral-bg-default-pressed) 1px, transparent 1.2px);
   background-position: 0 0;
   background-repeat: round, space;
   background-size: 12px 12px;
@@ -76,7 +73,7 @@ body * {
 }
 
 .viewport-large .sb-plugin-window::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: 0;

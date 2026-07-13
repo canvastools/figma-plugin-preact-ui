@@ -10,15 +10,26 @@ export interface ListContextValue {
   selectionOriginIds?: Set<string>
   deselectOnClickOutside?: boolean
   setSelection: (itemIds: string[]) => void
-  toggleSelect: (itemId: string, options?: { range?: boolean; additive?: boolean }) => void
+  /** Returns the resulting selection after the toggle. */
+  toggleSelect: (itemId: string, options?: { range?: boolean; additive?: boolean }) => Set<string>
   registerItem?: (
     id: string,
     meta: {
       selectable?: boolean
       selectionScope?: 'individual' | 'withDescendants'
+      draggable?: boolean
     },
   ) => () => void
   getPathForId?: (id: string) => number[] | null
+  getItemMeta?: (id: string) =>
+    | {
+        selectable?: boolean
+        selectionScope?: 'individual' | 'withDescendants'
+        draggable?: boolean
+      }
+    | undefined
+  /** The item plus all of its descendants, excluding entries with selectable=false. */
+  getBranchIds?: (id: string) => string[]
   reorderItems: (itemIds: string[], targetIndex: number, targetParentPath?: number[]) => void
   selectionMode?: 'single' | 'multi'
   registerRootElement?: (el: HTMLElement | null) => () => void

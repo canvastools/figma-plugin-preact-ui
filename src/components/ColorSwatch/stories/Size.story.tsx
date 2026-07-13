@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { ColorSwatch } from '../ColorSwatch'
 
@@ -12,7 +12,6 @@ export const SizeStory: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <ColorSwatch size="small"/>
 

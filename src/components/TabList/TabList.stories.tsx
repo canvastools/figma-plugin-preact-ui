@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/preact'
+import type { Meta, StoryObj } from '@storybook/preact-vite'
 
 import { HorizontalScrollStory } from './stories/HorizontalScroll.story'
 import { VariantStory } from './stories/Variant.story'
@@ -33,11 +33,11 @@ const meta: Meta<typeof TabList> = {
     variant: {
       control: { type: 'radio' },
       options: ['default', 'list'],
-      defaultValue: { summary: 'default' },
+      table: { defaultValue: { summary: 'default' } },
     },
     scrollable: {
       control: { type: 'boolean' },
-      defaultValue: { summary: 'true' },
+      table: { defaultValue: { summary: 'true' } },
     },
     children: {
       control: { disable: true },
@@ -56,14 +56,12 @@ export default meta
 type Story = StoryObj<typeof TabList>
 
 export const Demo: Story = {
-  tags: ['!autodocs'],
   parameters: {
     viewport: {
       defaultViewport: 'large',
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <TabContext defaultActiveId="tab-1">
 

@@ -1,5 +1,5 @@
-import { Meta, StoryObj } from '@storybook/preact'
-import { fn } from '@storybook/test'
+import { Meta, StoryObj } from '@storybook/preact-vite'
+import { fn } from 'storybook/test'
 
 import { IntentStory } from './stories/Intent.story'
 import { SizeStory } from './stories/Size.story'
@@ -32,21 +32,21 @@ const meta: Meta<typeof Button> = {
     intent: {
       control: { type: 'radio' },
       options: ['neutral', 'neutral-inverted', 'brand', 'danger', 'success'],
-      defaultValue: { summary: 'neutral' },
+      table: { defaultValue: { summary: 'neutral' } },
     },
     intentModifier: {
       control: { type: 'radio' },
       options: ['default', 'secondary', 'brand', 'danger', 'success'],
-      defaultValue: { summary: 'default' },
+      table: { defaultValue: { summary: 'default' } },
     },
     ghost: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
     },
     size: {
       control: { type: 'radio' },
       options: ['medium', 'large'],
-      defaultValue: { summary: 'medium' },
+      table: { defaultValue: { summary: 'medium' } },
     },
     grouped: {
       control: { type: 'radio' },
@@ -54,11 +54,11 @@ const meta: Meta<typeof Button> = {
     },
     disabled: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
     },
     fullWidth: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
     },
     tooltip: {
       control: { type: 'text' },
@@ -123,7 +123,6 @@ export default meta
 type Story = StoryObj<typeof Button>
 
 export const Demo: Story = {
-  tags: ['!autodocs'],
   args: {
     id: undefined,
     className: '',
@@ -144,7 +143,6 @@ export const Demo: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <Button {...args}>{children}</Button>
 
@@ -160,7 +158,6 @@ export const Demo: Story = {
   render: (args) => (
     <div className="sb-column sb-width-full">
       <TooltipContext>
-        {/* @ts-expect-error Storybook spread */}
         <Button {...args}>{args.children}</Button>
       </TooltipContext>
     </div>

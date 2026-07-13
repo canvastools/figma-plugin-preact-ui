@@ -1,5 +1,5 @@
-import { Meta, StoryObj } from '@storybook/preact'
-import { fn } from '@storybook/test'
+import { Meta, StoryObj } from '@storybook/preact-vite'
+import { fn } from 'storybook/test'
 
 import { IntentStory } from './stories/Intent.story'
 import { SizeStory } from './stories/Size.story'
@@ -30,21 +30,21 @@ const meta: Meta<typeof ButtonIcon> = {
     intent: {
       control: { type: 'radio' },
       options: ['neutral'],
-      defaultValue: { summary: 'neutral' },
+      table: { defaultValue: { summary: 'neutral' } },
     },
     intentModifier: {
       control: { type: 'radio' },
       options: ['default', 'secondary'],
-      defaultValue: { summary: 'default' },
+      table: { defaultValue: { summary: 'default' } },
     },
     ghost: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
     },
     size: {
       control: { type: 'radio' },
       options: ['medium', 'large'],
-      defaultValue: { summary: 'medium' },
+      table: { defaultValue: { summary: 'medium' } },
     },
     grouped: {
       control: { type: 'radio' },
@@ -53,11 +53,11 @@ const meta: Meta<typeof ButtonIcon> = {
     translucent: {
       control: { type: 'boolean' },
       description: 'Used for cases when the button is inside an input.',
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
     },
     disabled: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
     },
     tooltip: {
       control: { type: 'text' },
@@ -119,7 +119,6 @@ export default meta
 type Story = StoryObj<typeof ButtonIcon>
 
 export const Demo: Story = {
-  tags: ['!autodocs'],
   args: {
     id: undefined,
     className: '',
@@ -140,7 +139,6 @@ export const Demo: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <ButtonIcon {...args}>{children}</ButtonIcon>
 

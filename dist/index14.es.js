@@ -1,0 +1,30 @@
+import { Fragment as e, options as t } from "preact";
+//#region ../node_modules/.pnpm/preact@10.29.7/node_modules/preact/jsx-runtime/dist/jsxRuntime.module.js
+var n = 0;
+Array.isArray;
+function r(e, r, i, a, o, s) {
+	r ||= {};
+	var c, l, u = r;
+	if ("ref" in u) for (l in u = {}, r) l == "ref" ? c = r[l] : u[l] = r[l];
+	var d = {
+		type: e,
+		props: u,
+		key: i,
+		ref: c,
+		__k: null,
+		__: null,
+		__b: 0,
+		__e: null,
+		__c: null,
+		constructor: void 0,
+		__v: --n,
+		__i: -1,
+		__u: 0,
+		__source: o,
+		__self: s
+	};
+	if (typeof e == "function" && (c = e.defaultProps)) for (l in c) u[l] === void 0 && (u[l] = c[l]);
+	return t.vnode && t.vnode(d), d;
+}
+//#endregion
+export { e as Fragment, r as jsx, r as jsxDEV, r as jsxs };

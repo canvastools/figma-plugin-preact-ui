@@ -1,5 +1,5 @@
-import { Meta, StoryObj } from '@storybook/preact'
-import { fn } from '@storybook/test'
+import { Meta, StoryObj } from '@storybook/preact-vite'
+import { fn } from 'storybook/test'
 
 import { UncontrolledStory } from './stories/Uncontrolled.story'
 import { ControlledStory } from './stories/Controlled.story'
@@ -66,15 +66,16 @@ type IconPropsPick = {
     },
     disabled: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
     },
     fullWidth: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
     },
     tabIndex: {
       control: { type: 'number' },
-      description: 'Tab order of the active segment button. Inactive segments stay at -1. Omit for roving tabindex (active: 0).',
+      description:
+        'Tab order of the active segment button. Inactive segments stay at -1. Omit for roving tabindex (active: 0).',
       table: {
         type: { summary: 'number' },
       },
@@ -100,7 +101,6 @@ export default meta
 type Story = StoryObj<typeof SegmentedControl>
 
 export const Demo: Story = {
-  tags: ['!autodocs'],
   args: {
     id: undefined,
     className: '',
@@ -145,7 +145,7 @@ const options = [
 
     return (
       <div className="sb-column">
-        <SegmentedControl options={sampleOptionsWithoutIcons} {...args} />
+        <SegmentedControl {...args} options={sampleOptionsWithoutIcons} />
       </div>
     )
   },

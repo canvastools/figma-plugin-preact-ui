@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { Progress } from '../Progress'
 
@@ -12,7 +12,6 @@ export const VariantStory: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <Progress variant="indeterminate" />
 

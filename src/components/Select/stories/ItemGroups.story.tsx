@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { Select } from '../Select'
 import { SelectOptionData } from '../Select.types'
@@ -16,7 +16,6 @@ export const ItemGroupsStory: Story = {
         story: 'Use an array of arrays for the `items` property to group options.',
       },
       source: {
-        language: 'tsx',
         code: `
 const options = [
   [

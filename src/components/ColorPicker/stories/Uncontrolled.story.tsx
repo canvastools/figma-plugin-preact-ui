@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { ColorPicker } from '../ColorPicker'
 
@@ -12,7 +12,6 @@ export const UncontrolledStory: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <ColorPicker 
   defaultColor={{ r: 1, g: 0, b: 0, a: 1 }}

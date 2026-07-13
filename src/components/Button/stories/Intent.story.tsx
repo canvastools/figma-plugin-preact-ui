@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { Text } from '../../../index'
 
@@ -96,7 +96,6 @@ export const IntentStory: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <Button intent="neutral">{children}</Button>
 

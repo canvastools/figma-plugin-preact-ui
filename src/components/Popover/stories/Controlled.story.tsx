@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { useRef, useState } from 'preact/hooks'
 
@@ -16,7 +16,6 @@ export const ControlledStory: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 const triggerRef = useRef(null)
 const [open, setOpen] = useState(false)

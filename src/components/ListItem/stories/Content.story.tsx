@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { useState } from 'preact/hooks'
 
@@ -35,7 +35,6 @@ export const ContentStory: Story = {
           "Items can contain any content. `data-pui-interactive='true'` attribute can be applied to custom elements inside the list item to stop propagation of click events.",
       },
       source: {
-        language: 'tsx',
         code: `
 <ListItem>
   <input type="text" data-pui-interactive="true"/>

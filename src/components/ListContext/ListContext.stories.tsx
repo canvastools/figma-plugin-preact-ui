@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/preact'
-import { fn } from '@storybook/test'
+import type { Meta, StoryObj } from '@storybook/preact-vite'
+import { fn } from 'storybook/test'
 
 import { useState } from 'preact/hooks'
 
@@ -49,7 +49,7 @@ const meta: Meta<typeof ListContext> = {
     },
     deselectOnClickOutside: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
     },
     onItemsChange: {
       table: {
@@ -97,6 +97,7 @@ args: {
         },
       },
     },
+    // @ts-expect-error docs-only argTypes row, not a real prop
     useListContext: {
       control: { disable: true },
       table: {
@@ -115,15 +116,18 @@ args: {
       range: boolean;
       additive: boolean
     }
-  ) => void
+  ) => Set<string> // resulting selection
   registerItemMeta: (
     id: string,
-    meta: { 
+    meta: {
       selectable: boolean;
-      selectionScope: "item" | "withDescendants"
+      selectionScope: "item" | "withDescendants";
+      draggable: boolean
     }
   ) => () => void
   getPathForId: (id: string) => number[] | null
+  getItemMeta: (id: string) => meta | undefined
+  getBranchIds: (id: string) => string[] // item + selectable descendants
   reorderItems: (
     itemIds: string[],
     targetIndex: number,

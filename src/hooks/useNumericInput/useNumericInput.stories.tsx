@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/preact'
+import { Meta, StoryObj } from '@storybook/preact-vite'
 
 import { useState } from 'preact/hooks'
 
@@ -11,7 +11,7 @@ import { Input, Text } from '../../index'
 import { useNumericInput } from './useNumericInput'
 import { type NumericInputError, type NumericInputConfig } from './useNumericInput.types'
 
-const meta: Meta<typeof useNumericInput> = {
+const meta: Meta = {
   title: 'Hooks/useNumericInput',
   component: useNumericInput,
   tags: ['autodocs'],
@@ -46,45 +46,45 @@ const meta: Meta<typeof useNumericInput> = {
     },
     precision: {
       control: { type: 'number' },
-      defaultValue: { summary: 0 },
+      table: { defaultValue: { summary: '0' } },
       description:
         'Precision of the value. If 0, the value will be rounded to the nearest integer, otherwise it will be rounded to the nearest precision like 1 = 0.1, 2 = 0.01, etc.',
     },
     step: {
       control: { type: 'number' },
-      defaultValue: { summary: 1 },
+      table: { defaultValue: { summary: '1' } },
       description: 'Step size for changing the value.',
     },
     stepLarge: {
       control: { type: 'number' },
-      defaultValue: { summary: 10 },
+      table: { defaultValue: { summary: '10' } },
       description: 'Step size for changing the value when `Shift` key is pressed.',
     },
     required: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
       description: 'Whether the value is required.',
     },
     normalizeOnError: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
       description:
         'Whether to normalize and format the raw value on error, otherwise `undefined` will be returned for normalized value and formatted value.',
     },
     doubleValue: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
       description:
         'When true, parses a comma-separated pair of numbers (e.g. "12,24") and exposes both values in `normalizedValues` / `formattedValues`.',
     },
     math: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
       description: 'Evaluates simple arithmetic expressions before validation and formatting.',
     },
     trimTrailingZeros: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
       description: 'Whether to trim trailing zeros from the formatted value.',
     },
     useNumericInput: {
@@ -128,10 +128,9 @@ type NumericInputError = "required" | "invalid_number" | "less_than_min" | "grea
 }
 
 export default meta
-type Story = StoryObj<typeof useNumericInput>
+type Story = StoryObj
 
 export const Demo: Story = {
-  tags: ['!autodocs'],
   args: {
     value: '45',
     unit: '°',

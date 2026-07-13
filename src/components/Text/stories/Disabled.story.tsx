@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { Text } from '../Text'
 import type { TextProps } from '../Text.types'
@@ -94,7 +94,6 @@ export const DisabledStory: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <Text disabled>{children}</Text>
 `,

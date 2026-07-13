@@ -1,10 +1,10 @@
-import { Meta, StoryObj } from '@storybook/preact'
+import { Meta, StoryObj } from '@storybook/preact-vite'
 
 import { Code, Stack, Text } from '../../../index'
 
 import { hexAlphaToColor } from '../color'
 
-const meta: Meta<typeof hexAlphaToColor> = {
+const meta: Meta = {
   title: 'Utils/hexAlphaToColor',
   component: hexAlphaToColor,
   tags: ['autodocs'],
@@ -30,7 +30,7 @@ const meta: Meta<typeof hexAlphaToColor> = {
 
 export default meta
 
-type Story = StoryObj<typeof hexAlphaToColor>
+type Story = StoryObj
 
 export const Demo: Story = {
   parameters: {
@@ -39,7 +39,6 @@ export const Demo: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 import { hexAlphaToColor } from "figma-plugin-preact-ui"
 

@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { useState } from 'preact/hooks'
 
@@ -21,7 +21,6 @@ export const MathStory: Story = {
           'Math expressions can be evaluated before validation and formatting.<br/>Supported operators are `+`, `-`, `*`, `/` and `()`.',
       },
       source: {
-        language: 'tsx',
         code: `
 const numericInput = useNumericInput({
   value: "",

@@ -6,7 +6,11 @@ import './ListItem.scss'
 
 import { useListContext } from '../ListContext/ListContext'
 import { Icon } from '../Icon/Icon'
-import { chevronRight as chevronRightGlyph, chevronDown as chevronDownGlyph, dragHandle as dragHandleGlyph } from '../Icon/glyphs'
+import {
+  chevronRight as chevronRightGlyph,
+  chevronDown as chevronDownGlyph,
+  dragHandle as dragHandleGlyph,
+} from '../Icon/glyphs'
 
 /* --- */
 
@@ -22,7 +26,7 @@ const ListItemComponent = (
     selectionScope = 'individual',
     collapsed,
     collapsable = false,
-    collapseIconIntent = 'secondary',
+    collapseIconIntent = 'default',
     onCollapsedChange,
     onDragStart,
     onDragEnd,
@@ -43,6 +47,8 @@ const ListItemComponent = (
     selectionMode,
     setSelection,
     registerItem,
+    getItemMeta,
+    getBranchIds,
     dragImage,
     reorderItems,
     getPathForId,
@@ -94,10 +100,11 @@ const ListItemComponent = (
   const hasChildren = Boolean(items)
 
   useEffect(() => {
-    // register meta for range selection filtering
+    // register meta for range selection filtering and multi-drag filtering
     const unregister = registerItem?.(id, {
       selectable,
       selectionScope,
+      draggable,
     })
     const handleGlobalDragEnd = () => {
       setIsDragging(false)
@@ -121,7 +128,7 @@ const ListItemComponent = (
       document.removeEventListener('resetDragStates', handleResetDragStates)
       unregister?.()
     }
-  }, [id, registerItem, selectable, selectionScope])
+  }, [id, registerItem, selectable, selectionScope, draggable])
 
   const _className = bem('ListItem', undefined, {
     'selection-scope-descendants': selectionScope === 'withDescendants',
@@ -168,8 +175,8 @@ const ListItemComponent = (
     if (!selectable || selectionMode === undefined) return
     const range = e.shiftKey
     const additive = e.metaKey || e.ctrlKey
-    toggleSelect(id, { range, additive })
-    onSelect?.({ event: e, selected: !isSelected })
+    const nextSelection = toggleSelect(id, { range, additive })
+    onSelect?.({ event: e, selected: nextSelection.has(id) })
   }
 
   const moveFocus = (direction: 'prev' | 'next') => {
@@ -219,7 +226,10 @@ const ListItemComponent = (
     const myParentPath = myPath.slice(0, -1)
 
     const isMulti = selectable && selectedItemIds.has(id) && selectedItemIds.size > 1
-    const candidateIds = isMulti ? Array.from(selectedItemIds) : [id]
+    // Only draggable items participate in a multi-move, mirroring mouse multi-drag.
+    const candidateIds = isMulti
+      ? Array.from(selectedItemIds).filter((sid) => sid === id || getItemMeta?.(sid)?.draggable !== false)
+      : [id]
 
     const siblings: { id: string; index: number }[] = []
     for (const cid of candidateIds) {
@@ -349,10 +359,10 @@ const ListItemComponent = (
           e.stopPropagation()
           const range = e.shiftKey
           const additive = e.metaKey || e.ctrlKey
-          toggleSelect(id, { range, additive })
+          const nextSelection = toggleSelect(id, { range, additive })
           onSelect?.({
             event: e,
-            selected: !isSelected,
+            selected: nextSelection.has(id),
           })
         }
         break
@@ -389,12 +399,33 @@ const ListItemComponent = (
       document.documentElement.classList.add('pui-dragging')
       // Determine if this drag should be multi based on current selection BEFORE mutating it
       const isMultiDrag = selectable && selectedItemIds.has(id) && selectedItemIds.size > 1
-      const ids = isMultiDrag ? Array.from(selectedItemIds) : [id]
-      // If not multi, set exact selection to this id only.
-      // Only mutate selection for selectable items – otherwise dragging an
-      // unselectable item would visually select it.
-      if (selectable && selectionMode !== undefined && !isMultiDrag) {
-        setSelection([id])
+      let ids: string[]
+      if (isMultiDrag) {
+        // Only draggable items participate in a multi-drag. Selected descendants
+        // of a dragged item travel with it regardless of their own draggable
+        // flag (the branch moves as a whole), so keep them selected.
+        const selected = Array.from(selectedItemIds)
+        const draggableIds = selected.filter((sid) => sid === id || getItemMeta?.(sid)?.draggable !== false)
+        const keep = new Set(draggableIds)
+        draggableIds.forEach((sid) => {
+          getBranchIds?.(sid).forEach((bid) => {
+            if (selectedItemIds.has(bid)) keep.add(bid)
+          })
+        })
+        ids = Array.from(keep)
+        // Deselect items that don't participate in the drag.
+        if (selectionMode !== undefined && ids.length !== selected.length) {
+          setSelection(ids)
+        }
+      } else {
+        ids = [id]
+        // If not multi, set exact selection to this id only (with its
+        // descendants for selectionScope="withDescendants", matching click).
+        // Only mutate selection for selectable items – otherwise dragging an
+        // unselectable item would visually select it.
+        if (selectable && selectionMode !== undefined) {
+          setSelection(selectionScope === 'withDescendants' ? getBranchIds?.(id) ?? [id] : [id])
+        }
       }
       const payload = { ids }
       try {
@@ -609,6 +640,7 @@ const ListItemComponent = (
               <Icon
                 intent="neutral"
                 intentModifier={collapseIconIntent}
+                disabled={collapseIconIntent === 'default'}
                 glyph={effectiveCollapsed ? chevronRightGlyph : chevronDownGlyph}
                 size={16}
                 variant="default"

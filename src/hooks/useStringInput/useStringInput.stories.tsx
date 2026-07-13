@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/preact'
+import { Meta, StoryObj } from '@storybook/preact-vite'
 
 import { useState } from 'preact/hooks'
 
@@ -10,7 +10,7 @@ import { Input, Text } from '../../index'
 import { useStringInput } from './useStringInput'
 import type { StringInputConfig, StringInputError } from './useStringInput.types'
 
-const meta: Meta<typeof useStringInput> = {
+const meta: Meta = {
   title: 'Hooks/useStringInput',
   component: useStringInput,
   tags: ['autodocs'],
@@ -40,16 +40,16 @@ const meta: Meta<typeof useStringInput> = {
     },
     required: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
     },
     trim: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
       description: 'Trim the string before validation.',
     },
     normalizeOnError: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
       description:
         'Whether to normalize and format the raw value on error, otherwise `undefined` will be returned for normalized value and formatted value.',
     },
@@ -96,10 +96,9 @@ type StringInputError = "required" | "too_short" | "too_long" | "invalid_charact
 
 export default meta
 
-type Story = StoryObj<typeof useStringInput>
+type Story = StoryObj
 
 export const Demo: Story = {
-  tags: ['!autodocs'],
   args: {
     value: 'Hello world!',
     minLength: 3,
@@ -115,7 +114,6 @@ export const Demo: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 const stringInput = useStringInput({
   value: "Hello world!",

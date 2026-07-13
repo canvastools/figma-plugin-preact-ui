@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/preact'
+import { Meta, StoryObj } from '@storybook/preact-vite'
 
 import { Spinner } from './Spinner'
 
@@ -21,7 +21,7 @@ const meta: Meta<typeof Spinner> = {
     size: {
       control: { type: 'radio' },
       options: ['small', 'medium'],
-      defaultValue: 'medium',
+      table: { defaultValue: { summary: 'medium' } },
     },
   },
 }
@@ -42,7 +42,6 @@ export const Demo: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <Spinner {...args} />
 `,

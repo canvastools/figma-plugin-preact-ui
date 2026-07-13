@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { Icon, ButtonIcon, search, link } from '../../../index'
 
@@ -15,7 +15,6 @@ export const PrefixStory: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <Select
   prefix={

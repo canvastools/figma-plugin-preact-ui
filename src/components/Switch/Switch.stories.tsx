@@ -1,5 +1,5 @@
-import { Meta, StoryObj } from '@storybook/preact'
-import { fn } from '@storybook/test'
+import { Meta, StoryObj } from '@storybook/preact-vite'
+import { fn } from 'storybook/test'
 
 import { UncontrolledStory } from './stories/Uncontrolled.story'
 import { ControlledStory } from './stories/Controlled.story'
@@ -30,11 +30,11 @@ const meta: Meta<typeof Switch> = {
     defaultChecked: {
       control: { type: 'boolean' },
       description: 'Value for uncontrolled state.',
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
     },
     disabled: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
     },
     tabIndex: {
       control: { type: 'number' },
@@ -64,7 +64,6 @@ export default meta
 type Story = StoryObj<typeof Switch>
 
 export const Demo: Story = {
-  tags: ['!autodocs'],
   args: {
     id: undefined,
     className: '',
@@ -78,7 +77,6 @@ export const Demo: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <Switch {...args} />
 `,

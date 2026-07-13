@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { Avatar } from '../Avatar'
 
@@ -12,7 +12,6 @@ export const SizeStory: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <Avatar size="small">{children}</Avatar>
 
@@ -27,21 +26,21 @@ export const SizeStory: Story = {
     <div className="sb-row sb-width-full sb-gap-40">
       <div className="sb-column sb-gap-16">
         <div className="sb-row sb-gap-16">
-          <Avatar src="https://thispersondoesnotexist.com/" size="small">
+          <Avatar src="https://thispersondoesnotexist.com/random-person.jpeg" size="small">
             A
           </Avatar>
           <Avatar size="small">A</Avatar>
         </div>
 
         <div className="sb-row sb-gap-16">
-          <Avatar src="https://thispersondoesnotexist.com/" size="medium">
+          <Avatar src="https://thispersondoesnotexist.com/random-person.jpeg" size="medium">
             A
           </Avatar>
           <Avatar size="medium">A</Avatar>
         </div>
 
         <div className="sb-row sb-gap-16">
-          <Avatar src="https://thispersondoesnotexist.com/" size="large">
+          <Avatar src="https://thispersondoesnotexist.com/random-person.jpeg" size="large">
             A
           </Avatar>
           <Avatar size="large">A</Avatar>
@@ -50,7 +49,7 @@ export const SizeStory: Story = {
 
       <div className="sb-column sb-gap-16">
         <div className="sb-row sb-gap-16">
-          <Avatar src="https://thispersondoesnotexist.com/" size="small" variant="square">
+          <Avatar src="https://thispersondoesnotexist.com/random-person.jpeg" size="small" variant="square">
             A
           </Avatar>
           <Avatar size="small" variant="square">
@@ -59,7 +58,7 @@ export const SizeStory: Story = {
         </div>
 
         <div className="sb-row sb-gap-16">
-          <Avatar src="https://thispersondoesnotexist.com/" size="medium" variant="square">
+          <Avatar src="https://thispersondoesnotexist.com/random-person.jpeg" size="medium" variant="square">
             A
           </Avatar>
           <Avatar size="medium" variant="square">
@@ -68,7 +67,7 @@ export const SizeStory: Story = {
         </div>
 
         <div className="sb-row sb-gap-16">
-          <Avatar src="https://thispersondoesnotexist.com/" size="large" variant="square">
+          <Avatar src="https://thispersondoesnotexist.com/random-person.jpeg" size="large" variant="square">
             A
           </Avatar>
           <Avatar size="large" variant="square">

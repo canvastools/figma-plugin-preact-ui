@@ -625,7 +625,7 @@ const ColorPickerComponent = (
       setInternalType(nextType)
       onTypeChange?.({ type: nextType })
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+     
   }, [internalType, visibleTypesKey, type, onTypeChange])
 
   const currentType: ColorPickerType = resolvePickerType(internalType, visibleTypes)

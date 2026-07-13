@@ -100,7 +100,7 @@ const CheckboxComponent = (
             if (typeof ref === 'function') {
               ref(el)
             } else if (ref) {
-              // eslint-disable-next-line
+               
               ;(ref as preact.RefObject<HTMLInputElement | null>).current = el
             }
             if (el) {

@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/preact'
+import { Meta, StoryObj } from '@storybook/preact-vite'
 
 import { GroupFocusStory } from './stories/GroupFocus.story'
 import { CombinationsStory } from './stories/Combinations.story'
@@ -34,15 +34,15 @@ const meta: Meta<typeof ControlGroup> = {
     },
     groupFocus: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
     },
     disabled: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
     },
     fullWidth: {
       control: { type: 'boolean' },
-      defaultValue: { summary: false },
+      table: { defaultValue: { summary: 'false' } },
     },
     children: {
       control: { disable: true },
@@ -53,7 +53,6 @@ const meta: Meta<typeof ControlGroup> = {
         },
       },
     },
-
   },
 }
 
@@ -62,7 +61,6 @@ export default meta
 type Story = StoryObj<typeof ControlGroup>
 
 export const Demo: Story = {
-  tags: ['!autodocs'],
   args: {
     id: undefined,
     className: '',
@@ -76,7 +74,6 @@ export const Demo: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <ControlGroup {...args}>
   {children}
@@ -88,9 +85,7 @@ export const Demo: Story = {
   render: (args) => (
     <div className="sb-column sb-width-full">
       <ControlGroup {...args}>
-        {/* @ts-expect-error Storybook typing issue */}
         <Input placeholder="Input" disabled={args.disabled} />
-        {/* @ts-expect-error Storybook typing issue */}
         <Input placeholder="Input" disabled={args.disabled} />
       </ControlGroup>
     </div>

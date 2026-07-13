@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { link, TooltipContext } from '../../../index'
 
@@ -15,7 +15,6 @@ export const IconsStory: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 import { viewList, viewGrid } from "figma-plugin-preact-ui"
 

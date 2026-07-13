@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { Text } from '../../../index'
 
@@ -104,7 +104,6 @@ export const SizeStory: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <Button size="medium">{children}</Button>
 

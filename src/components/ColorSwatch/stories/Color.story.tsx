@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/preact'
+import { StoryObj } from '@storybook/preact-vite'
 
 import { ColorSwatch } from '../ColorSwatch'
 
@@ -12,7 +12,6 @@ export const ColorStory: Story = {
     },
     docs: {
       source: {
-        language: 'tsx',
         code: `
 <ColorSwatch fill={{ r: 255, g: 0, b: 0, a: 1 }}/>
 `,
