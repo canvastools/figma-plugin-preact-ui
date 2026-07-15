@@ -30,7 +30,7 @@ export const CombinationsStory: Story = {
   <Input/>
   <ButtonIcon
     intentModifier="secondary"
-    icon={{ glyph: chevronDown }}
+    icon={{ glyph: chevronDown, variant: 'downscaled' }}
   />
 </ControlGroup>
 `,
@@ -65,7 +65,7 @@ export const CombinationsStory: Story = {
       <ControlGroup groupFocus fullWidth>
         <Input placeholder="Input" />
         <ButtonIcon intentModifier="secondary">
-          <Icon glyph={chevronDown} intentModifier="default" />
+          <Icon glyph={chevronDown} variant="downscaled" />
         </ButtonIcon>
       </ControlGroup>
 

@@ -65,7 +65,12 @@ const SectionCollapsibleComponent = (
         onKeyDown={handleKeyDown}
       >
         <div className="SectionCollapsible__trigger-icon">
-          <Icon glyph={effectiveCollapsed ? chevronRight : chevronDown} size={16} intentModifier="secondary" />
+          <Icon
+            glyph={effectiveCollapsed ? chevronRight : chevronDown}
+            size={16}
+            intentModifier="secondary"
+            variant="downscaled"
+          />
         </div>
         <Section {...sectionProps} />
       </div>

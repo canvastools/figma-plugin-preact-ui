@@ -643,7 +643,7 @@ const ListItemComponent = (
                 disabled={collapseIconIntent === 'default'}
                 glyph={effectiveCollapsed ? chevronRightGlyph : chevronDownGlyph}
                 size={16}
-                variant="default"
+                variant="downscaled"
               />
             </div>
           )}

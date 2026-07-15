@@ -188,7 +188,7 @@ const MenuContainerComponent = (
           onMouseLeave={stopScrolling}
         >
           <div className="MenuContainer__scroll-zone-inner">
-            <Icon glyph={chevronUp} intent="neutral-inverted-fixed" />
+            <Icon glyph={chevronUp} intent="neutral-inverted-fixed" variant="downscaled" />
           </div>
         </div>
       )}
@@ -199,7 +199,7 @@ const MenuContainerComponent = (
           onMouseLeave={stopScrolling}
         >
           <div className="MenuContainer__scroll-zone-inner">
-            <Icon glyph={chevronDown} intent="neutral-inverted-fixed" />
+            <Icon glyph={chevronDown} intent="neutral-inverted-fixed" variant="downscaled" />
           </div>
         </div>
       )}
