@@ -59,7 +59,7 @@ const figmaDark: ColorTokenTree = {
 
         secondary: '#FFFFFFB3',
 
-        tertiary: '#FFFFFF59',
+        tertiary: '#FFFFFF66',
 
         brand: '#7CC4F8',
 

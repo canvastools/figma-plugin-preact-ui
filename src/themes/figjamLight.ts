@@ -59,7 +59,7 @@ const figjamLight: ColorTokenTree = {
 
         secondary: '#00000085',
 
-        tertiary: '#00000033',
+        tertiary: '#0000004D',
 
         brand: '#8638e5',
 
