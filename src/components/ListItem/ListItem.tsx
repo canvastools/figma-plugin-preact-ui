@@ -26,7 +26,7 @@ const ListItemComponent = (
     selectionScope = 'individual',
     collapsed,
     collapsable = false,
-    collapseIconIntent = 'default',
+    collapseIconIntent = 'tertiary',
     onCollapsedChange,
     onDragStart,
     onDragEnd,
@@ -640,7 +640,6 @@ const ListItemComponent = (
               <Icon
                 intent="neutral"
                 intentModifier={collapseIconIntent}
-                disabled={collapseIconIntent === 'default'}
                 glyph={effectiveCollapsed ? chevronRightGlyph : chevronDownGlyph}
                 size={16}
                 variant="downscaled"
@@ -658,7 +657,7 @@ const ListItemComponent = (
               }}
               onDragEnd={handleDragHandleDragEnd}
             >
-              <Icon glyph={dragHandleGlyph} iconColor="var(--pui-color-neutral-icon-tertiary)" size={16} />
+              <Icon glyph={dragHandleGlyph} intent="neutral" intentModifier="tertiary" size={16} />
             </div>
           )}
 

@@ -152,7 +152,7 @@ type ListItemPadding = keyof typeof spacing.variables // string | number
     },
     collapseIconIntent: {
       control: { type: 'radio' },
-      options: ['default', 'component-secondary', 'slot-secondary'],
+      options: ['tertiary', 'component-secondary', 'slot-secondary'],
       table: { defaultValue: { summary: 'default' } },
     },
     onCollapsedChange: {
@@ -231,7 +231,7 @@ export const Demo: Story = {
     selectionScope: 'individual',
     hoverable: true,
     collapsable: false,
-    collapseIconIntent: 'default',
+    collapseIconIntent: 'tertiary',
     onDragStart: fn(),
     onDragEnd: fn(),
     onSelect: fn(),
