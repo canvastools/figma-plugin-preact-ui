@@ -6,7 +6,7 @@ import { ScrollToSelectedStory } from './stories/ScrollToSelected.story'
 
 import { MenuContainer } from './MenuContainer'
 
-import { MenuDivider, MenuItemAction, MenuItemOption, MenuItemGroup } from '../../index'
+import { MenuDivider, MenuItemAction, MenuItemOption, MenuItemGroup, Icon, image } from '../../index'
 
 const meta: Meta<typeof MenuContainer> = {
   title: 'Components/MenuContainer',
@@ -81,12 +81,17 @@ export const Demo: Story = {
         <MenuItemGroup>Group 1</MenuItemGroup>
         <MenuItemAction>Action 1</MenuItemAction>
         <MenuItemAction>Action 2</MenuItemAction>
-        <MenuItemAction>Action 3</MenuItemAction>
         <MenuDivider variant="inset" />
-        <MenuItemGroup paddingLikeOption>Group 2</MenuItemGroup>
+        <MenuItemGroup>Group 2</MenuItemGroup>
+        <MenuItemAction paddingLikeOption>Action 1</MenuItemAction>
+        <MenuItemAction paddingLikeOption>Action 2</MenuItemAction>
+        <MenuItemGroup>Group 3</MenuItemGroup>
+        <MenuItemAction prefix={<Icon glyph={image} size={16} />}>Action 1</MenuItemAction>
+        <MenuItemAction prefix={<Icon glyph={image} size={16} />}>Action 2</MenuItemAction>
+        <MenuDivider variant="inset" />
+        <MenuItemGroup paddingLikeOption>Group 4</MenuItemGroup>
         <MenuItemOption defaultSelected>Option 1</MenuItemOption>
         <MenuItemOption>Option 2</MenuItemOption>
-        <MenuItemOption>Option 3</MenuItemOption>
         <MenuDivider variant="full" />
         <MenuItemAction paddingLikeOption intentModifier="danger">
           Destructive action
