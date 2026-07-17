@@ -18,6 +18,7 @@ const figjamLight: ColorTokenTree = {
         'secondary-hover': '#0000001C',
         'secondary-pressed': '#0000000A',
         'secondary-selected': '#7C2BDA0F',
+        'secondary-selected-hover': '#7C2BDA0F',
 
         tertiary: '#E6E6E6',
 

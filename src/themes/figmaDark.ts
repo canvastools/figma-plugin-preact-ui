@@ -18,6 +18,7 @@ const figmaDark: ColorTokenTree = {
         'secondary-hover': '#FFFFFF1F',
         'secondary-pressed': '#FFFFFF0F',
         'secondary-selected': '#6385FF42',
+        'secondary-selected-hover': '#6385FF42',
 
         tertiary: '#444444',
 

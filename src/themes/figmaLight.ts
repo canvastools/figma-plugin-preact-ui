@@ -18,6 +18,7 @@ const figmaLight: ColorTokenTree = {
         'secondary-hover': '#0000001C',
         'secondary-pressed': '#0000000A',
         'secondary-selected': '#0D99FF0F',
+        'secondary-selected-hover': '#0D99FF0F',
 
         tertiary: '#E6E6E6',
 
