@@ -25,6 +25,10 @@
     left: 0;
   }
 
+  &__section {
+    width: 100%;
+  }
+
   &__content {
     display: flex;
     flex-flow: column nowrap;
