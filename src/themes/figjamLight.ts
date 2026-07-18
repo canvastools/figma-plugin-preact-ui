@@ -105,7 +105,7 @@ const figjamLight: ColorTokenTree = {
 
         disabled: '#0000001C',
 
-        'drop-position': '#1A1A1A',
+        'drop-position': '#7C2BDA',
         'drop-position-restricted': '#F24822',
 
         swatch: '#0000001F',

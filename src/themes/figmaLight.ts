@@ -105,7 +105,7 @@ const figmaLight: ColorTokenTree = {
 
         disabled: '#0000001C',
 
-        'drop-position': '#1A1A1A',
+        'drop-position': '#0D99FF',
         'drop-position-restricted': '#F24822',
 
         swatch: '#0000001F',
