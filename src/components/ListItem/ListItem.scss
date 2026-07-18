@@ -125,26 +125,52 @@
 
   // Default
 
-  // &_variant-default {
-  // TODO
-  // --li-pr: var(--pui-spacing-400);
-  // --li-pl: var(--pui-spacing-400);
-  // --indent: calc((var(--li-pl) + var(--pui-spacing-200)) * var(--level));
-  // --indent-extra-collapsible: calc(var(--pui-spacing-200) + var(--pui-spacing-100));
-  // --indent-same-level: calc(var(--indent) + var(--li-pl));
-  // --indent-next-level: calc(var(--indent) + var(--li-pl) * 2 + var(--pui-spacing-200));
-  // }
+  &_variant-default:not(&_collapsable) {
+    --indent: 16px;
+    --li-pr: var(--pui-spacing-200);
+    --li-pl: 0px;
+    --li-pl-ext: var(--pui-spacing-400);
+    --indent-same-level: calc(var(--li-pl-ext) + var(--level) * (var(--indent) + var(--pui-spacing-200)));
+    --indent-next-level: calc(var(--indent-same-level) + var(--indent) + var(--pui-spacing-200));
+  }
+
+  &_variant-default:is(&_collapsable) {
+    --indent: 16px;
+    --li-pr: var(--pui-spacing-200);
+    --li-pl: 0px;
+    --li-pl-ext: calc(var(--pui-spacing-300) - 1px);
+    --indent-same-level: calc(var(--li-pl-ext) + var(--indent) + var(--level) * (var(--indent) + var(--pui-spacing-200)));
+    --indent-next-level: calc(var(--indent-same-level) + var(--indent) + var(--pui-spacing-200));
+  }
 
   &_variant-default &__drag-handle {
-    left: var(--indent);
+    left: calc(var(--indent-same-level) - var(--indent));
   }
 
   &_variant-default &__content:hover > &__content-inner > &__drag-handle {
     opacity: 1;
   }
 
-  &_variant-default &__content-inner {
-    padding: var(--li-pt) var(--li-pr) var(--li-pb) var(--li-pl);
+  &_variant-default > &__content {
+    padding: 0;
+  }
+
+  &_variant-default > &__content > &__content-inner {
+    padding: var(--li-pt) var(--li-pr) var(--li-pb) var(--indent-same-level);
+  }
+
+  // Collapsable
+
+  &_variant-default:is(&_collapsable) > &__content > &__content-inner > &__collapse-toggle {
+    left: calc(var(--indent-same-level) - var(--indent));
+  }
+
+  &_variant-default:is(&_collapsable):is(&_has-children) &__drag-handle {
+    left: calc(var(--indent-same-level) - var(--indent) * 2 + 3px);
+  }
+
+  &_variant-default:is(&_collapsable):not(&_has-children) &__drag-handle {
+    left: calc(var(--indent-same-level) - var(--indent));
   }
 
   // Layer
@@ -381,39 +407,21 @@
     top: -1px;
   }
 
-  &_variant-layer:is(&_collapsable):is(&_drag-above) > &__content::before {
+  &_variant-default:is(&_drag-above) > &__content::before {
+    left: calc(var(--indent-same-level) - 6px);
+  }
+
+  &_variant-default:is(&_drag-above) > &__content::after {
+    width: calc(100% - var(--indent-same-level));
+  }
+
+  &_variant-layer:is(&_drag-above) > &__content::before {
     left: calc(var(--indent-same-level) - 1px);
   }
 
-  &_variant-layer:is(&_collapsable):is(&_drag-above) > &__content::after {
+  &_variant-layer:is(&_drag-above) > &__content::after {
     width: calc(100% - var(--indent-same-level) - var(--li-pl-ext));
   }
-
-  &_variant-layer:not(&_collapsable):is(&_drag-above) > &__content::before {
-    left: calc(var(--indent-same-level) + 1px);
-  }
-
-  &_variant-layer:not(&_collapsable):is(&_drag-above) > &__content::after {
-    width: calc(100% - var(--indent-same-level) - var(--li-pl-ext));
-  }
-
-  // Drop inside
-
-  // &_drag-inside > &__content::before {
-  //   bottom: -4px;
-  // }
-
-  // &_drag-inside > &__content::after {
-  //   bottom: -1px;
-  // }
-
-  // &_variant-layer:is(&_collapsable):is(&_drag-inside) > &__content::before {
-  //   left: calc(var(--indent-next-level) - 1px);
-  // }
-
-  // &_variant-layer:is(&_collapsable):is(&_drag-inside) > &__content::after {
-  //   width: calc(100% - var(--indent-next-level) - var(--li-pl-ext));
-  // }
 
   // Drop below
 
@@ -425,25 +433,25 @@
     bottom: -1px;
   }
 
-  &_variant-layer:is(&_collapsable):is(&_drag-below) > &__content::before {
+  &_variant-default:is(&_drag-below) > &__content::before {
+    left: calc(var(--indent-same-level) - 6px);
+  }
+
+  &_variant-default:is(&_drag-below) > &__content::after {
+    width: calc(100% - var(--indent-same-level));
+  }
+
+  &_variant-layer:is(&_drag-below) > &__content::before {
     left: calc(var(--indent-same-level) - 1px);
   }
 
-  &_variant-layer:is(&_collapsable):is(&_drag-below) > &__content::after {
-    width: calc(100% - var(--indent-same-level) - var(--li-pl-ext));
-  }
-
-  &_variant-layer:not(&_collapsable):is(&_drag-below) > &__content::before {
-    left: calc(var(--indent-same-level) + 1px);
-  }
-
-  &_variant-layer:not(&_collapsable):is(&_drag-below) > &__content::after {
+  &_variant-layer:is(&_drag-below) > &__content::after {
     width: calc(100% - var(--indent-same-level) - var(--li-pl-ext));
   }
 
   // Drop parent, inside
 
-  &_drag-inside:is(&_variant-layer) > &__content > &__content-inner {
+  &_drag-inside > &__content > &__content-inner {
     outline-color: var(--pui-color-neutral-border-default-selected);
   }
 
@@ -493,7 +501,11 @@
 
   /* Drop zone */
 
-  &_draggable > &__end-dropzone {
+  &_draggable:is(&_variant-default) > &__end-dropzone {
+    left: calc(var(--indent-same-level)) !important;
+  }
+
+  &_draggable:is(&_variant-layer) > &__end-dropzone {
     left: calc(var(--indent-same-level) + var(--li-pl-ext)) !important;
   }
 
