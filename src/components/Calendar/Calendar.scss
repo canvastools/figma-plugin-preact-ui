@@ -6,7 +6,6 @@
   @include typography-body-medium;
   color: var(--pui-color-neutral-text-default);
   text-decoration: none;
-  -webkit-user-select: none; // Safari only supports the prefixed form
   user-select: none;
   outline: none;
   border: none;
@@ -123,7 +122,6 @@
             @include typography-body-medium;
             color: var(--pui-color-neutral-text-secondary);
             text-decoration: none;
-            -webkit-user-select: none; // Safari only supports the prefixed form
             user-select: none;
             pointer-events: none;
           }

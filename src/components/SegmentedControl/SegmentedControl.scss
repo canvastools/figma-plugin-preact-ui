@@ -10,6 +10,14 @@
   background-color: var(--pui-color-neutral-bg-secondary);
   border-radius: var(--pui-radius-medium);
 
+  // Fallback for browsers without :has() (Firefox < 121): approximate
+  // :has(:focus-visible) with :focus-within
+  @supports not selector(:has(*)) {
+    &:focus-within {
+      outline-color: transparent !important;
+    }
+  }
+
   &:has(:focus-visible) {
     outline-color: transparent !important;
   }
