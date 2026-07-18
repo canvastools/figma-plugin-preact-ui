@@ -479,12 +479,11 @@
     .react-time-picker__inputGroup,
     .Select {
       outline: 1px solid var(--pui-color-neutral-border-default-selected-contrast);
-      outline-offset: 0px;
     }
 
     .SegmentedControl {
       outline: 1px solid var(--pui-color-neutral-border-default-selected-contrast);
-      outline-offset: 1px;
+      outline-offset: -1px;
     }
 
     .Switch:not(.Switch_checked) > .Switch__input {
