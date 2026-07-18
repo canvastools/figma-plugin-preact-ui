@@ -1,4 +1,15 @@
-import { bem, typedForwardRef } from '../../utils'
+import {
+  bem,
+  typedForwardRef,
+  mergeRefs,
+  DRAG_ZONE_CLASSES,
+  clearDropItself,
+  setDropParentElement,
+  resolveDraggedIds,
+  setDraggingIds,
+  clearDraggingIds,
+  getChildListItems,
+} from '../../utils'
 import { useState, useEffect, useRef } from 'preact/hooks'
 
 import type { ListItemProps } from './ListItem.types'
@@ -57,6 +68,11 @@ const ListItemComponent = (
   const [isDragging, setIsDragging] = useState(false)
   const [isFocused, setIsFocused] = useState(false)
   const [isLastInBranch, setIsLastInBranch] = useState(false)
+  const [isSelectionStart, setIsSelectionStart] = useState(false)
+  const [isSelectionEnd, setIsSelectionEnd] = useState(false)
+  const [isSelectionAfterNested, setIsSelectionAfterNested] = useState(false)
+  const [isSelectionAfterNestedSecondary, setIsSelectionAfterNestedSecondary] = useState(false)
+  const [isSelectionBeforeSibling, setIsSelectionBeforeSibling] = useState(false)
   const selfRef = useRef<HTMLDivElement | null>(null)
   const mouseDownTargetRef = useRef<HTMLElement | null>(null)
   const endZoneRef = useRef<HTMLDivElement | null>(null)
@@ -71,11 +87,68 @@ const ListItemComponent = (
   }, [collapsed])
   const effectiveCollapsed = isCollapsedControlled ? Boolean(collapsed) : internalCollapsed
 
+  const isSelected = selectedItemIds.has(id)
+  const isSelectionOrigin = selectionScope === 'individual' ? isSelected : Boolean(selectionOriginIds?.has(id))
+  const hasChildren = Boolean(items)
+
   useEffect(() => {
     const el = selfRef.current
     if (!el) return
     const container = el.parentElement
     if (!container) return
+
+    // Last item on the last-child chain that closes the branch, if selected.
+    const getBranchEndSelectedItem = (itemEl: HTMLElement): HTMLElement | null => {
+      const itemsContainer = itemEl.querySelector(':scope > .ListItem__items > .ListContainer')
+      if (!itemsContainer) return null
+      const children = getChildListItems(itemsContainer)
+      if (children.length === 0) return null
+      const last = children[children.length - 1]
+      const lastId = last.getAttribute('data-item-id')
+      if (lastId && selectedItemIds.has(lastId)) return last
+      if (last.classList.contains('ListItem_collapsed')) return null
+      return getBranchEndSelectedItem(last)
+    }
+
+    // True when the last visible item in this branch (last-child chain) is selected.
+    const branchEndsWithSelection = (itemEl: HTMLElement): boolean => Boolean(getBranchEndSelectedItem(itemEl))
+
+    // Expanded selected origin with children → secondary fill under it.
+    const branchEndsWithSecondarySelection = (itemEl: HTMLElement): boolean => {
+      const end = getBranchEndSelectedItem(itemEl)
+      if (!end) return false
+      return (
+        end.classList.contains('ListItem_selection-origin') &&
+        end.classList.contains('ListItem_has-children') &&
+        !end.classList.contains('ListItem_collapsed')
+      )
+    }
+
+    // True when this selected item is on the last-child chain of an unselected
+    // ancestor whose next sibling is selected — e.g. 1-2 in [1 > 1-2 selected][2 selected]
+    const isBeforeSelectedSibling = (itemEl: HTMLElement): boolean => {
+      let current: HTMLElement | null = itemEl
+      while (current) {
+        const listContainer = current.parentElement
+        if (!listContainer?.classList.contains('ListContainer')) return false
+        const siblings = getChildListItems(listContainer)
+        if (siblings[siblings.length - 1] !== current) return false
+
+        const parentItem = listContainer.parentElement?.parentElement as HTMLElement | null
+        if (!parentItem?.classList.contains('ListItem')) return false
+
+        const parentId = parentItem.getAttribute('data-item-id')
+        const parentSelected = Boolean(parentId && selectedItemIds.has(parentId))
+        if (parentSelected) return false
+
+        const parentNext = parentItem.nextElementSibling as HTMLElement | null
+        const parentNextId = parentNext?.classList.contains('ListItem') ? parentNext.getAttribute('data-item-id') : null
+        if (parentNextId && selectedItemIds.has(parentNextId)) return true
+
+        current = parentItem
+      }
+      return false
+    }
 
     const check = () => {
       const siblings = container.children
@@ -87,17 +160,62 @@ const ListItemComponent = (
         }
       }
       setIsLastInBranch(last === el)
+
+      if (!selectedItemIds.has(id)) {
+        setIsSelectionStart(false)
+        setIsSelectionEnd(false)
+        setIsSelectionAfterNested(false)
+        setIsSelectionAfterNestedSecondary(false)
+        setIsSelectionBeforeSibling(false)
+        return
+      }
+      const prev = el.previousElementSibling as HTMLElement | null
+      const next = el.nextElementSibling as HTMLElement | null
+      const prevIsListItem = Boolean(prev?.classList.contains('ListItem'))
+      const prevId = prevIsListItem ? prev!.getAttribute('data-item-id') : null
+      const nextId = next?.classList.contains('ListItem') ? next.getAttribute('data-item-id') : null
+      const prevSelected = Boolean(prevId && selectedItemIds.has(prevId))
+
+      if (selectionScope === 'individual') {
+        // Contiguous selection in document order (crosses nesting), e.g. 1 → 1-1 → 1-2
+        let root: HTMLElement | null = el.closest('.ListContainer')
+        while (root) {
+          const outer = root.parentElement?.closest('.ListContainer') as HTMLElement | null
+          if (!outer) break
+          root = outer
+        }
+        const allItems = root
+          ? (Array.from(root.querySelectorAll('.ListItem')) as HTMLElement[]).filter((item) => item.offsetParent !== null)
+          : []
+        const index = allItems.indexOf(el)
+        const prevVisible = index > 0 ? allItems[index - 1] : null
+        const nextVisible = index >= 0 && index < allItems.length - 1 ? allItems[index + 1] : null
+        const prevVisibleId = prevVisible?.getAttribute('data-item-id')
+        const nextVisibleId = nextVisible?.getAttribute('data-item-id')
+        setIsSelectionStart(!prevVisibleId || !selectedItemIds.has(prevVisibleId))
+        setIsSelectionEnd(!nextVisibleId || !selectedItemIds.has(nextVisibleId))
+      } else {
+        // withDescendants: range edges among siblings at the same level
+        setIsSelectionStart(!prevId || !prevSelected)
+        setIsSelectionEnd(!nextId || !selectedItemIds.has(nextId))
+      }
+
+      // Selected item right after an unselected expanded parent whose branch ends selected
+      // e.g. [1 > 1-2 selected] then [2 selected]
+      const afterNested =
+        prevIsListItem && !prevSelected && !prev!.classList.contains('ListItem_collapsed') && branchEndsWithSelection(prev!)
+      setIsSelectionAfterNested(afterNested)
+      // Secondary when that nested end is an expanded origin with children (e.g. 1-2 > 1-2-1)
+      setIsSelectionAfterNestedSecondary(afterNested && branchEndsWithSecondarySelection(prev!))
+      setIsSelectionBeforeSibling(isBeforeSelectedSibling(el))
     }
 
     check()
     const observer = new MutationObserver(check)
-    observer.observe(container, { childList: true })
+    // subtree/class: collapse toggles on nested items can flip after-nested secondary
+    observer.observe(container, { childList: true, subtree: true, attributes: true, attributeFilter: ['class'] })
     return () => observer.disconnect()
-  }, [])
-
-  const isSelected = selectedItemIds.has(id)
-  const isSelectionOrigin = selectionScope === 'individual' ? isSelected : Boolean(selectionOriginIds?.has(id))
-  const hasChildren = Boolean(items)
+  }, [id, selectedItemIds, selectionScope])
 
   useEffect(() => {
     // register meta for range selection filtering and multi-drag filtering
@@ -138,6 +256,11 @@ const ListItemComponent = (
     selectable: selectable,
     selected: isSelected,
     'selection-origin': isSelectionOrigin,
+    'selection-start': isSelectionStart,
+    'selection-end': isSelectionEnd,
+    'selection-after-nested': isSelectionAfterNested,
+    'selection-after-nested-secondary': isSelectionAfterNestedSecondary,
+    'selection-before-sibling': isSelectionBeforeSibling,
     focused: isFocused,
     hoverable: hoverable,
     'has-children': hasChildren,
@@ -249,9 +372,7 @@ const ListItemComponent = (
 
     const myEl = selfRef.current
     const containerEl = myEl?.parentElement
-    const itemEls = containerEl
-      ? (Array.from(containerEl.children).filter((el) => (el as HTMLElement).classList.contains('ListItem')) as HTMLElement[])
-      : []
+    const itemEls = containerEl ? getChildListItems(containerEl) : []
     const containerLength = itemEls.length
 
     // Refocus the originally focused item after the tree re-renders, so the
@@ -289,8 +410,7 @@ const ListItemComponent = (
         // Append to the end of the previous sibling's existing children.
         const prevSiblingChildrenContainer = prevSiblingEl.querySelector(':scope > .ListItem__items > .ListContainer')
         const prevSiblingChildrenCount = prevSiblingChildrenContainer
-          ? Array.from(prevSiblingChildrenContainer.children).filter((el) => (el as HTMLElement).classList.contains('ListItem'))
-              .length
+          ? getChildListItems(prevSiblingChildrenContainer).length
           : 0
         reorderItems(siblingIds, prevSiblingChildrenCount, previousSiblingPath)
         refocusAfterMove()
@@ -434,7 +554,7 @@ const ListItemComponent = (
         // Ignore setData errors
       }
       e.dataTransfer?.setData('text/plain', ids[0])
-      ;(window as { __puiDraggingIds?: string[] }).__puiDraggingIds = ids
+      setDraggingIds(ids)
       // Hide default drag preview
       try {
         e.dataTransfer?.setDragImage(dragImage as HTMLElement, 0, 0)
@@ -449,11 +569,7 @@ const ListItemComponent = (
     if (draggable) {
       setIsDragging(false)
       document.documentElement.classList.remove('pui-dragging')
-      try {
-        delete (window as { __puiDraggingIds?: string[] }).__puiDraggingIds
-      } catch {
-        // Ignore delete errors
-      }
+      clearDraggingIds()
       onDragEnd?.({ event: e })
     }
   }
@@ -472,17 +588,8 @@ const ListItemComponent = (
     if (containerEl) {
       let levelContainer: HTMLElement | null = containerEl
       while (levelContainer) {
-        const levelItems = Array.from(levelContainer.children).filter((el) =>
-          (el as HTMLElement).classList.contains('ListItem'),
-        ) as HTMLElement[]
-        levelItems.forEach((item) => {
-          item.classList.remove(
-            'ListItem_drag-over',
-            'ListItem_drag-above',
-            'ListItem_drag-below',
-            'ListItem_drag-inside',
-            'ListItem_drag-self',
-          )
+        getChildListItems(levelContainer).forEach((item) => {
+          item.classList.remove(...DRAG_ZONE_CLASSES)
         })
         const levelParentItem = levelContainer.closest('.ListItem') as HTMLElement | null
         if (!parentItemEl && levelParentItem) {
@@ -493,14 +600,7 @@ const ListItemComponent = (
     }
 
     const desiredEl = parentItemEl || containerEl?.closest('.ListItem') || null
-    if (endZoneDropParentRef.current !== desiredEl) {
-      const allDropParents = document.querySelectorAll<HTMLElement>('.ListItem_drop-parent')
-      allDropParents.forEach((el) => {
-        el.classList.remove('ListItem_drop-parent')
-      })
-      if (desiredEl) desiredEl.classList.add('ListItem_drop-parent')
-      endZoneDropParentRef.current = desiredEl
-    }
+    setDropParentElement(desiredEl, endZoneDropParentRef)
   }
 
   const handleEndZoneDrop = (e: DragEvent) => {
@@ -512,31 +612,15 @@ const ListItemComponent = (
       endZoneDropParentRef.current.classList.remove('ListItem_drop-parent')
       endZoneDropParentRef.current = null
     }
-    let itemIds: string[] | null = null
-    const globalIds = (window as { __puiDraggingIds?: string[] }).__puiDraggingIds
-    if (Array.isArray(globalIds)) itemIds = globalIds
-    const json = e.dataTransfer?.getData('application/json')
-    if (json) {
-      try {
-        const parsed = JSON.parse(json)
-        if (parsed && Array.isArray(parsed.ids)) itemIds = parsed.ids
-      } catch {
-        // Ignore JSON parse errors
-      }
-    }
-    if (!itemIds) {
-      const itemId = e.dataTransfer?.getData('text/plain')
-      if (itemId) itemIds = [itemId]
-    }
+    clearDropItself()
+    const itemIds = resolveDraggedIds(e.dataTransfer)
 
     if (itemIds && itemIds.length) {
       const resetDragStatesEvent = new CustomEvent('resetDragStates')
       document.dispatchEvent(resetDragStatesEvent)
 
       const containerEl = selfRef.current?.closest('.ListContainer') as HTMLElement | null
-      const childCount = containerEl
-        ? Array.from(containerEl.children).filter((el) => (el as HTMLElement).classList?.contains('ListItem')).length
-        : 0
+      const childCount = containerEl ? getChildListItems(containerEl).length : 0
       const parentItemEl = containerEl?.closest('.ListItem') as HTMLElement | null
       const parentId = parentItemEl?.getAttribute('data-item-id') || null
       const parentPath = parentId ? getPathForId?.(parentId) || [] : []
@@ -555,17 +639,14 @@ const ListItemComponent = (
       endZoneDropParentRef.current.classList.remove('ListItem_drop-parent')
       endZoneDropParentRef.current = null
     }
+    clearDropItself()
   }
 
   return (
     <div
       id={id}
       className={[_className, className].join(' ').trim()}
-      ref={(node) => {
-        selfRef.current = node
-        if (typeof ref === 'function') ref(node as HTMLDivElement)
-        else if (ref) (ref as preact.RefObject<HTMLDivElement>).current = node
-      }}
+      ref={mergeRefs(selfRef, ref)}
       {...rest}
       tabIndex={tabIndex ?? (selectable || draggable || collapsable ? 0 : undefined)}
       onFocus={(e) => {

@@ -139,7 +139,7 @@ export const ContentStory: Story = {
               selectionScope={variant === 'layer' ? 'withDescendants' : 'individual'}
               collapsable={true}
               hoverable={true}
-              items={item.items ? renderItems(item.items, level + 1, variant) : undefined}
+              items={item.items && item.items.length ? renderItems(item.items, level + 1, variant) : undefined}
             >
               <Stack direction="row" y="center" fullWidth>
                 <Stack direction="row" spacing={200} y="center" fullWidth>

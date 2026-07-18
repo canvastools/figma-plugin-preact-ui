@@ -75,7 +75,7 @@ export const VariantStory: Story = {
               acceptsChildren={true}
               selectionScope={variant === 'layer' ? 'withDescendants' : 'individual'}
               hoverable={true}
-              items={item.items ? renderItems(item.items, level + 1, variant) : undefined}
+              items={item.items && item.items.length ? renderItems(item.items, level + 1, variant) : undefined}
             >
               <Stack direction="row" y="center">
                 {variant === 'layer' && <Spacing direction="row" size={200} />}

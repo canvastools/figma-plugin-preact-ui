@@ -74,7 +74,7 @@ export const PaddingStory: Story = {
               acceptsChildren={true}
               selectionScope={variant === 'layer' ? 'withDescendants' : 'individual'}
               hoverable={true}
-              items={item.items ? renderItems(item.items, level + 1, variant) : undefined}
+              items={item.items && item.items.length ? renderItems(item.items, level + 1, variant) : undefined}
               padding={{ top: 200, right: 200, bottom: 200 }}
               collapsable={true}
               collapseIconIntent={item.id.startsWith('Frame 2') ? 'component-secondary' : 'tertiary'}
