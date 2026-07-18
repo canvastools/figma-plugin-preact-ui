@@ -7,12 +7,6 @@ export interface ListItemProps {
   className?: string
   nestingLevel: number
   variant?: 'default' | 'layer'
-  padding?: {
-    top?: ListItemPadding
-    right?: ListItemPadding
-    bottom?: ListItemPadding
-    left?: ListItemPadding
-  }
   draggable?: boolean
   onDragStart?: (args: { event: DragEvent }) => void
   onDragEnd?: (args: { event: DragEvent }) => void

@@ -31,7 +31,6 @@ const ListItemComponent = (
     className,
     variant = 'default',
     nestingLevel = 0,
-    padding,
     draggable = false,
     acceptsChildren = false,
     selectionScope = 'individual',
@@ -663,15 +662,6 @@ const ListItemComponent = (
       data-nesting-level={nestingLevel}
       data-item-id={id}
       data-accepts-children={acceptsChildren ? 'true' : 'false'}
-      style={[
-        `--level: ${nestingLevel}`,
-        padding?.top !== undefined ? `--li-pt: var(--pui-spacing-${padding.top})` : '',
-        padding?.right !== undefined ? `--li-pr: var(--pui-spacing-${padding.right})` : '',
-        padding?.bottom !== undefined ? `--li-pb: var(--pui-spacing-${padding.bottom})` : '',
-        padding?.left !== undefined ? `--li-pl: var(--pui-spacing-${padding.left})` : '',
-      ]
-        .filter(Boolean)
-        .join('; ')}
     >
       <div
         className="ListItem__content"
