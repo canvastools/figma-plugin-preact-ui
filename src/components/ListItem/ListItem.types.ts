@@ -1,7 +1,3 @@
-import { spacing } from '../../themes'
-
-export type ListItemPadding = keyof typeof spacing.variables
-
 export interface ListItemProps {
   id: string
   className?: string

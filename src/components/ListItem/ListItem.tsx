@@ -662,6 +662,7 @@ const ListItemComponent = (
       data-nesting-level={nestingLevel}
       data-item-id={id}
       data-accepts-children={acceptsChildren ? 'true' : 'false'}
+      style={`--level: ${nestingLevel}`}
     >
       <div
         className="ListItem__content"

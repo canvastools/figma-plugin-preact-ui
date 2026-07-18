@@ -141,7 +141,7 @@
   }
 
   &_variant-default &__drag-handle {
-    left: calc(var(--indent-same-level) - var(--indent));
+    left: calc(var(--indent-same-level) - var(--indent) - 2px);
   }
 
   &_variant-default &__content:hover > &__content-inner > &__drag-handle {

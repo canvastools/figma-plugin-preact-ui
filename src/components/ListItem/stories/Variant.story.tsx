@@ -2,7 +2,7 @@ import { StoryObj } from '@storybook/preact-vite'
 
 import { useState } from 'preact/hooks'
 
-import { ListContainer, Text, Stack, Spacing, ListContext, Icon, type ListItemData } from '../../../index'
+import { ListContainer, Text, Stack, ListContext, type ListItemData } from '../../../index'
 
 import { ListItem } from '../ListItem'
 
