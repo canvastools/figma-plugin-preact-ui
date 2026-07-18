@@ -18,6 +18,7 @@ const figmaDark: ColorTokenTree = {
         'secondary-hover': '#FFFFFF1F',
         'secondary-pressed': '#FFFFFF0F',
         'secondary-selected': '#6385FF42',
+        'secondary-selected-hover': '#6385FF42',
 
         tertiary: '#444444',
 
@@ -59,7 +60,7 @@ const figmaDark: ColorTokenTree = {
 
         secondary: '#FFFFFFB3',
 
-        tertiary: '#FFFFFF59',
+        tertiary: '#FFFFFF66',
 
         brand: '#7CC4F8',
 
@@ -104,7 +105,7 @@ const figmaDark: ColorTokenTree = {
 
         disabled: '#FFFFFF1F',
 
-        'drop-position': '#FFFFFF',
+        'drop-position': '#0C8CE9',
         'drop-position-restricted': '#D4583B',
 
         swatch: '#FFFFFF1F',

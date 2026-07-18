@@ -133,7 +133,7 @@ const renderItems = (
           key={item.id}
           id={item.id}
           nestingLevel={level}
-          items={item.items ? renderItems(item.items, level + 1) : undefined}
+          items={item.items && item.items.length ? renderItems(item.items, level + 1) : undefined}
         >
           <Text>{item.id}</Text>
         </ListItem>
@@ -166,7 +166,7 @@ const renderItems = (
               key={item.id}
               id={item.id}
               nestingLevel={level}
-              items={item.items ? renderItems(item.items, level + 1) : undefined}
+              items={item.items && item.items.length ? renderItems(item.items, level + 1) : undefined}
             >
               <Stack direction="row" y="center">
                 <Stack direction="row" y="center">

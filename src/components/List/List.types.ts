@@ -4,7 +4,6 @@ import type { ListItemProps } from '../ListItem/ListItem.types'
 export type ListItemPropsPick = Pick<
   ListItemProps,
   | 'variant'
-  | 'padding'
   | 'draggable'
   | 'onDragStart'
   | 'onDragEnd'

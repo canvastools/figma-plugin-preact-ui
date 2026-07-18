@@ -241,7 +241,7 @@ const renderItems = (
           draggable={true}
           acceptsChildren={true}
           hoverable={true}
-          items={item.items ? renderItems(item.items, level + 1) : undefined}
+          items={item.items && item.items.length ? renderItems(item.items, level + 1) : undefined}
         >
           <Text>{item.id}</Text>
         </ListItem>
@@ -279,7 +279,7 @@ const renderItems = (
               draggable={true}
               acceptsChildren={true}
               hoverable={true}
-              items={item.items ? renderItems(item.items, level + 1) : undefined}
+              items={item.items && item.items.length ? renderItems(item.items, level + 1) : undefined}
             >
               <Stack direction="row" y="center">
                 <Stack direction="row" y="center">

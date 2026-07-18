@@ -93,7 +93,7 @@ interface IconProps {
     className?: string;
     glyph?: Glyph;
     intent?: 'neutral' | 'neutral-inverted' | 'neutral-inverted-fixed' | 'brand' | 'danger' | 'warning' | 'success';
-    intentModifier?: 'default' | 'secondary' | 'brand' | 'danger' | 'warning' | 'success' | 'component' | 'component-secondary' | 'slot' | 'slot-secondary';
+    intentModifier?: 'default' | 'secondary' | 'tertiary' | 'brand' | 'danger' | 'warning' | 'success' | 'component' | 'component-secondary' | 'slot' | 'slot-secondary';
     variant?: 'default' | 'upscaled' | 'downscaled';
     size?: 16 | 24;
     disabled?: boolean;
@@ -239,7 +239,7 @@ interface ColorSwatchProps {
 }
 
 declare const ColorSwatch: (props: ColorSwatchProps & {
-    ref?: preact$1.Ref<HTMLDivElement | HTMLButtonElement> | undefined;
+    ref?: preact$1.Ref<HTMLButtonElement | HTMLDivElement> | undefined;
 }) => preact$1.VNode | null;
 
 interface ControlGroupProps {
@@ -426,18 +426,11 @@ interface ListContextProps {
     children: preact.ComponentChildren;
 }
 
-type ListItemPadding = keyof typeof spacing.variables;
 interface ListItemProps {
     id: string;
     className?: string;
     nestingLevel: number;
     variant?: 'default' | 'layer';
-    padding?: {
-        top?: ListItemPadding;
-        right?: ListItemPadding;
-        bottom?: ListItemPadding;
-        left?: ListItemPadding;
-    };
     draggable?: boolean;
     onDragStart?: (args: {
         event: DragEvent;
@@ -459,13 +452,13 @@ interface ListItemProps {
         event: MouseEvent | KeyboardEvent;
         collapsed: boolean;
     }) => void;
-    collapseIconIntent?: 'default' | 'component-secondary' | 'slot-secondary';
+    collapseIconIntent?: 'tertiary' | 'component-secondary' | 'slot-secondary';
     items?: preact.ComponentChildren;
     children?: preact.ComponentChildren;
     tabIndex?: number;
 }
 
-type ListItemPropsPick = Pick<ListItemProps, 'variant' | 'padding' | 'draggable' | 'onDragStart' | 'onDragEnd' | 'acceptsChildren' | 'selectable' | 'selectionScope' | 'onSelect' | 'hoverable' | 'collapsed' | 'collapsable' | 'onCollapsedChange'>;
+type ListItemPropsPick = Pick<ListItemProps, 'variant' | 'draggable' | 'onDragStart' | 'onDragEnd' | 'acceptsChildren' | 'selectable' | 'selectionScope' | 'onSelect' | 'hoverable' | 'collapsed' | 'collapsable' | 'onCollapsedChange'>;
 type ListContextPropsPick = Pick<ListContextProps, 'selectedItemIds' | 'selectionMode' | 'deselectOnClickOutside' | 'onItemsChange' | 'onSelectionChange' | 'onKeyDown'>;
 interface ListProps extends ListContextPropsPick {
     id?: string;
@@ -790,9 +783,9 @@ declare const Section: (props: SectionProps & {
 
 type SectionPropsPick = Pick<SectionProps, 'variant' | 'padding' | 'children'>;
 interface SectionCollapsibleProps {
-    id?: string;
     className?: string;
     collapsed?: boolean;
+    defaultCollapsed?: boolean;
     onCollapsedChange?: (args: {
         event: MouseEvent | KeyboardEvent;
         collapsed: boolean;

@@ -8,12 +8,14 @@ import './viewport.css'
 import './docs.css'
 import './stories.css'
 
-// Load dist/style.css via a dynamic <link> and live-reload it when the file changes
+// Load built dist/style.css (SCSS imports are stubbed in Storybook). When
+// `npm run watch` rewrites the file, the watch-dist-style-css Vite plugin sends
+// `pui:dist-style-update` and we bust the <link> href — same live update as TSX HMR.
 if (typeof window !== 'undefined') {
   const LINK_ID = 'dist-style-css-link'
   const baseCssUrl = new URL('../dist/style.css', import.meta.url).pathname
 
-  function setLinkHref(version) {
+  function setLinkHref(version: number) {
     let link = document.getElementById(LINK_ID) as HTMLLinkElement | null
     if (!link) {
       link = document.createElement('link')
@@ -24,43 +26,13 @@ if (typeof window !== 'undefined') {
     link.href = `${baseCssUrl}?v=${version}`
   }
 
-  async function fetchSignature() {
-    try {
-      // Try lightweight HEAD first
-      const head = await fetch(`${baseCssUrl}?sig=${Date.now()}`, {
-        method: 'HEAD',
-        cache: 'no-store',
-      })
-      const len = head.headers.get('content-length') || ''
-      const mod = head.headers.get('last-modified') || ''
-      const sigHead = `${len}:${mod}`
-      if (sigHead !== ':') return sigHead
-      // Fallback to GET and hash if headers are absent
-      const res = await fetch(`${baseCssUrl}?sig=${Date.now()}`, {
-        cache: 'no-store',
-      })
-      const text = await res.text()
-      let hash = 0
-      for (let i = 0; i < text.length; i++) hash = (hash * 31 + text.charCodeAt(i)) | 0
-      return `${text.length}:${hash}`
-    } catch {
-      return null
-    }
-  }
+  setLinkHref(Date.now())
 
-  ;(async () => {
-    setLinkHref(Date.now())
-    let lastSig = await fetchSignature()
-    if (import.meta.env.DEV) {
-      setInterval(async () => {
-        const sig = await fetchSignature()
-        if (sig && lastSig && sig !== lastSig) {
-          setLinkHref(Date.now())
-        }
-        if (sig) lastSig = sig
-      }, 1000)
-    }
-  })()
+  if (import.meta.hot) {
+    import.meta.hot.on('pui:dist-style-update', () => {
+      setLinkHref(Date.now())
+    })
+  }
 }
 
 const preview: Preview = {
@@ -68,7 +40,7 @@ const preview: Preview = {
   parameters: {
     options: {
       storySort: {
-        method: 'alphabetical',
+        method: 'alpha',
         order: ['Overview', 'Variables', 'Components', 'Docs'],
       },
     },

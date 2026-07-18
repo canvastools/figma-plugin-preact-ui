@@ -144,7 +144,6 @@ const MenuItemOptionComponent = (
         if (typeof ref === 'function') {
           ref(el)
         } else if (ref) {
-           
           ;(ref as preact.RefObject<HTMLDivElement>).current = el
         }
         itemRef.current = el

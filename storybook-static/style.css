@@ -27,6 +27,7 @@
   --pui-color-neutral-bg-secondary-hover: #0000001C;
   --pui-color-neutral-bg-secondary-pressed: #0000000A;
   --pui-color-neutral-bg-secondary-selected: #0D99FF0F;
+  --pui-color-neutral-bg-secondary-selected-hover: #0D99FF0F;
   --pui-color-neutral-bg-tertiary: #E6E6E6;
   --pui-color-neutral-bg-brand-hover: #0D99FF1F;
   --pui-color-neutral-bg-brand-pressed: #0D99FF40;
@@ -49,7 +50,7 @@
   --pui-color-neutral-icon-default: #000000E6;
   --pui-color-neutral-icon-default-selected: #007BE5;
   --pui-color-neutral-icon-secondary: #00000085;
-  --pui-color-neutral-icon-tertiary: #00000033;
+  --pui-color-neutral-icon-tertiary: #0000004D;
   --pui-color-neutral-icon-brand: #007BE5;
   --pui-color-neutral-icon-danger: #DC3412;
   --pui-color-neutral-icon-warning: #B86200;
@@ -76,7 +77,7 @@
   --pui-color-neutral-border-slot: #FF24BD;
   --pui-color-neutral-border-slot-secondary: #E5AED4;
   --pui-color-neutral-border-disabled: #0000001C;
-  --pui-color-neutral-border-drop-position: #1A1A1A;
+  --pui-color-neutral-border-drop-position: #0D99FF;
   --pui-color-neutral-border-drop-position-restricted: #F24822;
   --pui-color-neutral-border-swatch: #0000001F;
   --pui-color-neutral-fixed-bg-swatch: #FFFFFF;
@@ -165,6 +166,7 @@
   --pui-color-neutral-bg-secondary-hover: #FFFFFF1F;
   --pui-color-neutral-bg-secondary-pressed: #FFFFFF0F;
   --pui-color-neutral-bg-secondary-selected: #6385FF42;
+  --pui-color-neutral-bg-secondary-selected-hover: #6385FF42;
   --pui-color-neutral-bg-tertiary: #444444;
   --pui-color-neutral-bg-brand-hover: #85A5FF5C;
   --pui-color-neutral-bg-brand-pressed: #6385FF42;
@@ -187,7 +189,7 @@
   --pui-color-neutral-icon-default: #FFFFFF;
   --pui-color-neutral-icon-default-selected: #7CC4F8;
   --pui-color-neutral-icon-secondary: #FFFFFFB3;
-  --pui-color-neutral-icon-tertiary: #FFFFFF59;
+  --pui-color-neutral-icon-tertiary: #FFFFFF66;
   --pui-color-neutral-icon-brand: #7CC4F8;
   --pui-color-neutral-icon-danger: #FCA397;
   --pui-color-neutral-icon-warning: #F7D15F;
@@ -214,7 +216,7 @@
   --pui-color-neutral-border-slot: #F08DD1;
   --pui-color-neutral-border-slot-secondary: #9B4A81;
   --pui-color-neutral-border-disabled: #FFFFFF1F;
-  --pui-color-neutral-border-drop-position: #FFFFFF;
+  --pui-color-neutral-border-drop-position: #0C8CE9;
   --pui-color-neutral-border-drop-position-restricted: #D4583B;
   --pui-color-neutral-border-swatch: #FFFFFF1F;
   --pui-color-neutral-fixed-bg-swatch: #FFFFFF;
@@ -303,6 +305,7 @@
   --pui-color-neutral-bg-secondary-hover: #0000001C;
   --pui-color-neutral-bg-secondary-pressed: #0000000A;
   --pui-color-neutral-bg-secondary-selected: #7C2BDA0F;
+  --pui-color-neutral-bg-secondary-selected-hover: #7C2BDA0F;
   --pui-color-neutral-bg-tertiary: #E6E6E6;
   --pui-color-neutral-bg-brand-hover: #7C2BDA1F;
   --pui-color-neutral-bg-brand-pressed: #7C2BDA40;
@@ -325,7 +328,7 @@
   --pui-color-neutral-icon-default: #000000E6;
   --pui-color-neutral-icon-default-selected: #8638e5;
   --pui-color-neutral-icon-secondary: #00000085;
-  --pui-color-neutral-icon-tertiary: #00000033;
+  --pui-color-neutral-icon-tertiary: #0000004D;
   --pui-color-neutral-icon-brand: #8638e5;
   --pui-color-neutral-icon-danger: #DC3412;
   --pui-color-neutral-icon-warning: #B86200;
@@ -352,7 +355,7 @@
   --pui-color-neutral-border-slot: #FF24BD;
   --pui-color-neutral-border-slot-secondary: #E5AED4;
   --pui-color-neutral-border-disabled: #0000001C;
-  --pui-color-neutral-border-drop-position: #1A1A1A;
+  --pui-color-neutral-border-drop-position: #7C2BDA;
   --pui-color-neutral-border-drop-position-restricted: #F24822;
   --pui-color-neutral-border-swatch: #0000001F;
   --pui-color-neutral-fixed-bg-swatch: #FFFFFF;

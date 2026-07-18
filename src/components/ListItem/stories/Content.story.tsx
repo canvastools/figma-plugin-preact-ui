@@ -10,7 +10,6 @@ import {
   Input,
   Select,
   ButtonIcon,
-  ButtonIconToggle,
   Switch,
   Checkbox,
   SegmentedControl,
@@ -44,52 +43,46 @@ export const ContentStory: Story = {
     },
   },
   render: () => {
-    const ItemContent = ({ label, variant }: { label: string; variant: 'default' | 'layer' }) => {
-      if (variant === 'default') {
-        return [
-          <Input
-            value={label}
-            prefix={
-              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: 24, height: 24 }}>
-                <ColorSwatch size="small" onClick={() => console.log('clicked')} />
-              </div>
-            }
-          />,
-          <TimePicker />,
-          <Select
-            placeholder="Select an option"
-            options={[
-              { label: 'Option 1', value: 'option1' },
-              { label: 'Option 2', value: 'option2' },
-            ]}
-          />,
-          <ButtonIcon icon={{ glyph: link }} />,
-          <Switch />,
-          <Checkbox defaultChecked />,
-          <SegmentedControl
-            defaultValue="option1"
-            options={[
-              {
-                label: 'Option 1',
-                value: 'option1',
-                icon: { glyph: link, size: 24 },
-              },
-              {
-                label: 'Option 2',
-                value: 'option2',
-                icon: { glyph: link, size: 24 },
-              },
-            ]}
-          />,
-        ]
-      }
-
-      if (variant === 'layer') {
-        return [
-          <Input value={label} ghost={true} focusOnDoubleClick={true} />,
-          <ButtonIconToggle ghost icon={{ glyph: link }} />,
-        ]
-      }
+    const ItemContent = ({ label }: { label: string }) => {
+      return [
+        <Input
+          value={label}
+          prefix={
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: 24, height: 24 }}>
+              <ColorSwatch size="small" onClick={() => console.log('clicked')} />
+            </div>
+          }
+        />,
+        <Input ghost={true} focusOnDoubleClick={true} placeholder="Double click to edit" />,
+        <TimePicker />,
+        <Select
+          placeholder="Select an option"
+          options={[
+            { label: 'Option 1', value: 'option1' },
+            { label: 'Option 2', value: 'option2' },
+          ]}
+          fullWidth={true}
+        />,
+        <ButtonIcon icon={{ glyph: link }} />,
+        <ButtonIcon icon={{ glyph: link }} ghost />,
+        <Switch />,
+        <Checkbox defaultChecked />,
+        <SegmentedControl
+          defaultValue="option1"
+          options={[
+            {
+              label: 'Option 1',
+              value: 'option1',
+              icon: { glyph: link, size: 24 },
+            },
+            {
+              label: 'Option 2',
+              value: 'option2',
+              icon: { glyph: link, size: 24 },
+            },
+          ]}
+        />,
+      ]
     }
 
     const itemsSample: ListItemData[] = [
@@ -136,14 +129,14 @@ export const ContentStory: Story = {
               variant={variant}
               draggable={true}
               acceptsChildren={true}
-              selectionScope={variant === 'layer' ? 'withDescendants' : 'individual'}
+              selectionScope="withDescendants"
               collapsable={true}
               hoverable={true}
-              items={item.items ? renderItems(item.items, level + 1, variant) : undefined}
+              items={item.items && item.items.length ? renderItems(item.items, level + 1, variant) : undefined}
             >
               <Stack direction="row" y="center" fullWidth>
                 <Stack direction="row" spacing={200} y="center" fullWidth>
-                  <ItemContent label={item.id} variant={variant} />
+                  <ItemContent label={item.id} />
                 </Stack>
               </Stack>
             </ListItem>
@@ -153,7 +146,7 @@ export const ContentStory: Story = {
     }
 
     return (
-      <div className="sb-row sb-width-full sb-gap-40">
+      <div className="sb-column sb-width-full sb-gap-40">
         <ListContext
           items={items_default}
           selectedItemIds={selectedItems_default}

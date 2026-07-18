@@ -1,4 +1,14 @@
-import { bem, typedForwardRef } from '../../utils'
+import {
+  bem,
+  typedForwardRef,
+  mergeRefs,
+  DRAG_ZONE_CLASSES,
+  clearDropItself,
+  setDropParentElement,
+  getDragOverIds,
+  resolveDraggedIds,
+  getChildListItems,
+} from '../../utils'
 import { useListContext } from '../ListContext/ListContext'
 import { useEffect, useRef } from 'preact/hooks'
 
@@ -6,6 +16,50 @@ import type { ListContainerProps } from './ListContainer.types'
 import './ListContainer.scss'
 
 /* --- */
+
+// Hide drop line when inserting between two currently dragged items:
+// - adjacent siblings, or
+// - parent and its first child (e.g. drop between 1 and 1-2)
+const syncDragBetweenSelected = (
+  el: HTMLElement,
+  zone: 'above' | 'below' | 'inside' | 'self' | null,
+  draggedIds: string[],
+) => {
+  el.classList.remove('ListItem_drag-between-selected')
+  if (zone !== 'above' && zone !== 'below') return
+  const elId = el.getAttribute('data-item-id')
+  if (!elId || !draggedIds.includes(elId)) return
+
+  const sibling = (zone === 'above' ? el.previousElementSibling : el.nextElementSibling) as HTMLElement | null
+  if (sibling?.classList.contains('ListItem')) {
+    const siblingId = sibling.getAttribute('data-item-id')
+    if (siblingId && draggedIds.includes(siblingId)) {
+      el.classList.add('ListItem_drag-between-selected')
+      return
+    }
+  }
+
+  if (zone === 'below') {
+    // Parent bottom band facing its first dragged child
+    const firstChild = el.querySelector(':scope > .ListItem__items > .ListContainer > .ListItem') as HTMLElement | null
+    const firstChildId = firstChild?.getAttribute('data-item-id')
+    if (firstChildId && draggedIds.includes(firstChildId)) {
+      el.classList.add('ListItem_drag-between-selected')
+    }
+    return
+  }
+
+  // First child's top band facing its dragged parent
+  const parentItem = el.parentElement?.closest('.ListItem') as HTMLElement | null
+  const listContainer = el.parentElement
+  if (!parentItem || !listContainer?.classList.contains('ListContainer')) return
+  const firstInContainer: HTMLElement | undefined = getChildListItems(listContainer)[0]
+  if (firstInContainer !== el) return
+  const parentId = parentItem.getAttribute('data-item-id')
+  if (parentId && draggedIds.includes(parentId)) {
+    el.classList.add('ListItem_drag-between-selected')
+  }
+}
 
 const ListContainerComponent = (
   { id, className, children, ...rest }: ListContainerProps & { nestingLevel?: number },
@@ -48,16 +102,18 @@ const ListContainerComponent = (
     const items = el.querySelectorAll<HTMLElement>('.ListItem')
     items.forEach((item) => {
       item.classList.remove(
-        'ListItem_drag-over',
-        'ListItem_drag-above',
-        'ListItem_drag-below',
-        'ListItem_drag-inside',
-        'ListItem_drag-self',
+        ...DRAG_ZONE_CLASSES,
         'ListItem_drop-parent',
+        'ListItem_drop-itself',
       )
     })
+    clearDropItself()
     hoverStateRef.current = { el: null, pos: null }
     endZoneDropParentRef.current = null
+  }
+
+  const setDropParent = (desiredDropParent: HTMLElement | null) => {
+    setDropParentElement(desiredDropParent, endZoneDropParentRef)
   }
 
   // Listen for global reset / dragend to clean up visual state
@@ -92,9 +148,7 @@ const ListContainerComponent = (
       e.dataTransfer.dropEffect = 'move'
     }
 
-    const children = Array.from(container.children).filter((el) =>
-      (el as HTMLElement).classList.contains('ListItem'),
-    ) as HTMLElement[]
+    const children = getChildListItems(container)
 
     const y = e.clientY
 
@@ -104,43 +158,21 @@ const ListContainerComponent = (
     const parentItemForContainer = container.closest('.ListItem') as HTMLElement | null
     if (parentItemForContainer) {
       // Clear drag-* on the parent item itself
-      parentItemForContainer.classList.remove(
-        'ListItem_drag-over',
-        'ListItem_drag-above',
-        'ListItem_drag-below',
-        'ListItem_drag-inside',
-        'ListItem_drag-self',
-      )
+      parentItemForContainer.classList.remove(...DRAG_ZONE_CLASSES)
 
       // Also clear drag-* on all items at the same container level as the
       // parent, so that when we move the pointer into a child container, no
       // sibling still shows a stale drag-above/below.
       const parentLevelContainer = parentItemForContainer.parentElement?.closest('.ListContainer') as HTMLElement | null
       if (parentLevelContainer) {
-        const parentLevelItems = Array.from(parentLevelContainer.children).filter((el) =>
-          (el as HTMLElement).classList.contains('ListItem'),
-        ) as HTMLElement[]
-        parentLevelItems.forEach((item) => {
-          item.classList.remove(
-            'ListItem_drag-over',
-            'ListItem_drag-above',
-            'ListItem_drag-below',
-            'ListItem_drag-inside',
-            'ListItem_drag-self',
-          )
+        getChildListItems(parentLevelContainer).forEach((item) => {
+          item.classList.remove(...DRAG_ZONE_CLASSES)
         })
       }
     }
 
     // Determine which items are currently being dragged (for self-hover)
-    let draggedIds: string[] = []
-    const globalIds = (window as { __puiDraggingIds?: string[] }).__puiDraggingIds
-    if (Array.isArray(globalIds)) {
-      draggedIds = globalIds
-    } else {
-      const plain = e.dataTransfer?.getData('text/plain')
-      if (plain) draggedIds = [plain]
-    }
+    const draggedIds = getDragOverIds(e.dataTransfer)
 
     // First pass: check if pointer is over any of the dragged items. If so,
     // treat this as "self" hover and avoid showing zones on siblings.
@@ -189,15 +221,9 @@ const ListContainerComponent = (
           return
         }
         if (prev.el && prev.el !== selfChild) {
-          prev.el.classList.remove(
-            'ListItem_drag-over',
-            'ListItem_drag-above',
-            'ListItem_drag-below',
-            'ListItem_drag-inside',
-            'ListItem_drag-self',
-          )
+          prev.el.classList.remove(...DRAG_ZONE_CLASSES)
         }
-        selfChild.classList.remove('ListItem_drag-above', 'ListItem_drag-below', 'ListItem_drag-inside', 'ListItem_drag-self')
+        selfChild.classList.remove(...DRAG_ZONE_CLASSES)
         selfChild.classList.add('ListItem_drag-over', 'ListItem_drag-self')
         hoverStateRef.current = { el: selfChild, pos: 'self' }
         return
@@ -255,15 +281,9 @@ const ListContainerComponent = (
 
       // Clear previous hover state
       if (prev.el && prev.el !== selfChild) {
-        prev.el.classList.remove(
-          'ListItem_drag-over',
-          'ListItem_drag-above',
-          'ListItem_drag-below',
-          'ListItem_drag-inside',
-          'ListItem_drag-self',
-        )
+        prev.el.classList.remove(...DRAG_ZONE_CLASSES)
       } else if (prev.el === selfChild) {
-        prev.el.classList.remove('ListItem_drag-above', 'ListItem_drag-below', 'ListItem_drag-inside', 'ListItem_drag-self')
+        prev.el.classList.remove(...DRAG_ZONE_CLASSES)
       }
 
       selfChild.classList.add('ListItem_drag-over', 'ListItem_drag-self')
@@ -274,6 +294,7 @@ const ListContainerComponent = (
       } else {
         // inside: no extra zone marker; visual "self" is enough
       }
+      syncDragBetweenSelected(selfChild, selfPos, draggedIds)
       hoverStateRef.current = { el: selfChild, pos: 'self' }
 
       // Update drop-parent highlight in self-hover:
@@ -293,19 +314,7 @@ const ListContainerComponent = (
         desiredDropParentSelf = selfChild
       }
 
-      if (
-        endZoneDropParentRef.current !== desiredDropParentSelf ||
-        (desiredDropParentSelf && !desiredDropParentSelf.classList.contains('ListItem_drop-parent'))
-      ) {
-        const allDropParents = document.querySelectorAll<HTMLElement>('.ListItem_drop-parent')
-        allDropParents.forEach((el) => {
-          el.classList.remove('ListItem_drop-parent')
-        })
-        if (desiredDropParentSelf) {
-          desiredDropParentSelf.classList.add('ListItem_drop-parent')
-        }
-        endZoneDropParentRef.current = desiredDropParentSelf
-      }
+      setDropParent(desiredDropParentSelf)
       return
     }
 
@@ -377,13 +386,7 @@ const ListContainerComponent = (
     if (!bestChild || !bestPos) {
       const prev = hoverStateRef.current
       if (prev.el) {
-        prev.el.classList.remove(
-          'ListItem_drag-over',
-          'ListItem_drag-above',
-          'ListItem_drag-below',
-          'ListItem_drag-inside',
-          'ListItem_drag-self',
-        )
+        prev.el.classList.remove(...DRAG_ZONE_CLASSES)
         hoverStateRef.current = { el: null, pos: null }
       }
       // No candidate at this level; allow event to bubble so an ancestor
@@ -422,16 +425,7 @@ const ListContainerComponent = (
       const containerParentItem = container.closest('.ListItem') as HTMLElement | null
       const desiredDropParent = bestPos === 'inside' ? bestChild : containerParentItem || null
 
-      if (endZoneDropParentRef.current !== desiredDropParent) {
-        const allDropParents = document.querySelectorAll<HTMLElement>('.ListItem_drop-parent')
-        allDropParents.forEach((el) => {
-          el.classList.remove('ListItem_drop-parent')
-        })
-        if (desiredDropParent) {
-          desiredDropParent.classList.add('ListItem_drop-parent')
-        }
-        endZoneDropParentRef.current = desiredDropParent
-      }
+      setDropParent(desiredDropParent)
 
       hoverStateRef.current = { el: bestChild, pos: bestPos }
       e.stopPropagation()
@@ -440,15 +434,9 @@ const ListContainerComponent = (
 
     // Clear previous hover state
     if (prev.el && prev.el !== bestChild) {
-      prev.el.classList.remove(
-        'ListItem_drag-over',
-        'ListItem_drag-above',
-        'ListItem_drag-below',
-        'ListItem_drag-inside',
-        'ListItem_drag-self',
-      )
+      prev.el.classList.remove(...DRAG_ZONE_CLASSES)
     } else if (prev.el === bestChild) {
-      prev.el.classList.remove('ListItem_drag-above', 'ListItem_drag-below', 'ListItem_drag-inside', 'ListItem_drag-self')
+      prev.el.classList.remove(...DRAG_ZONE_CLASSES)
     }
 
     // Apply new hover state
@@ -460,6 +448,7 @@ const ListContainerComponent = (
     } else if (visualZone === 'inside') {
       bestChild.classList.add('ListItem_drag-inside')
     }
+    syncDragBetweenSelected(bestChild, visualZone, draggedIds)
 
     // Update drop-parent highlight.
     // - For "inside" always highlight the actual item under the pointer.
@@ -477,21 +466,8 @@ const ListContainerComponent = (
       desiredDropParent = bestChild
     }
 
-    if (
-      endZoneDropParentRef.current !== desiredDropParent ||
-      (desiredDropParent && !desiredDropParent.classList.contains('ListItem_drop-parent'))
-    ) {
-      // At any time there should be at most one drop-parent in the entire
-      // tree. Clear all existing ones globally, then set the new one.
-      const allDropParents = document.querySelectorAll<HTMLElement>('.ListItem_drop-parent')
-      allDropParents.forEach((el) => {
-        el.classList.remove('ListItem_drop-parent')
-      })
-      if (desiredDropParent) {
-        desiredDropParent.classList.add('ListItem_drop-parent')
-      }
-      endZoneDropParentRef.current = desiredDropParent
-    }
+    // At any time there should be at most one drop-parent in the entire tree.
+    setDropParent(desiredDropParent)
 
     hoverStateRef.current = { el: bestChild, pos: bestPos }
 
@@ -503,24 +479,7 @@ const ListContainerComponent = (
   const handleDrop = (e: DragEvent) => {
     e.preventDefault()
     e.stopPropagation()
-    let itemIds: string[] | null = null
-    const globalIds = (window as { __puiDraggingIds?: string[] }).__puiDraggingIds
-    if (Array.isArray(globalIds)) itemIds = globalIds
-    const json = e.dataTransfer?.getData('application/json')
-    if (json) {
-      try {
-        const parsed = JSON.parse(json)
-        if (parsed && Array.isArray(parsed.ids)) {
-          itemIds = parsed.ids
-        }
-      } catch {
-        // Ignore JSON parse errors
-      }
-    }
-    if (!itemIds) {
-      const itemId = e.dataTransfer?.getData('text/plain')
-      if (itemId) itemIds = [itemId]
-    }
+    const itemIds = resolveDraggedIds(e.dataTransfer)
 
     if (itemIds && itemIds.length) {
       const targetElement = e.currentTarget as HTMLElement
@@ -617,11 +576,7 @@ const ListContainerComponent = (
       id={id}
       className={[_className, className].join(' ').trim()}
       data-pui-interactive="true"
-      ref={(node) => {
-        rootRef.current = node
-        if (typeof ref === 'function') ref(node as HTMLDivElement)
-        else if (ref) (ref as preact.RefObject<HTMLDivElement>).current = node
-      }}
+      ref={mergeRefs(rootRef, ref)}
       {...rest}
       onDragOver={handleDragOver}
       onDrop={handleDrop}

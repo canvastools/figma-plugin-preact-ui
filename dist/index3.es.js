@@ -15,6 +15,7 @@ var e = {
 				"secondary-hover": "#0000001C",
 				"secondary-pressed": "#0000000A",
 				"secondary-selected": "#0D99FF0F",
+				"secondary-selected-hover": "#0D99FF0F",
 				tertiary: "#E6E6E6",
 				"brand-hover": "#0D99FF1F",
 				"brand-pressed": "#0D99FF40",
@@ -41,7 +42,7 @@ var e = {
 				default: "#000000E6",
 				"default-selected": "#007BE5",
 				secondary: "#00000085",
-				tertiary: "#00000033",
+				tertiary: "#0000004D",
 				brand: "#007BE5",
 				danger: "#DC3412",
 				warning: "#B86200",
@@ -70,7 +71,7 @@ var e = {
 				slot: "#FF24BD",
 				"slot-secondary": "#E5AED4",
 				disabled: "#0000001C",
-				"drop-position": "#1A1A1A",
+				"drop-position": "#0D99FF",
 				"drop-position-restricted": "#F24822",
 				swatch: "#0000001F"
 			}

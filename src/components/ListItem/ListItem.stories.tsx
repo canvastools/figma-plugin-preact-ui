@@ -5,10 +5,10 @@ import { useState } from 'preact/hooks'
 
 import { VariantStory } from './stories/Variant.story'
 import { CollapsableStory } from './stories/Collapsable.story'
-import { PaddingStory } from './stories/Padding.story'
+import { LayersStory } from './stories/Layers.story'
 import { ContentStory } from './stories/Content.story'
 
-import { ListContext, ListContainer, Stack, Text, Spacing, type ListItemData } from '../../index'
+import { ListContext, ListContainer, Stack, Text, Spacing, type ListItemData, Icon, frame } from '../../index'
 
 import { ListItem } from './ListItem'
 
@@ -44,26 +44,6 @@ const meta: Meta<typeof ListItem> = {
         defaultValue: { summary: '0' },
         type: {
           summary: 'number',
-        },
-      },
-    },
-    padding: {
-      control: { type: 'object' },
-      table: {
-        type: {
-          summary: 'object',
-          detail: `
-padding: {
-  top: SectionPadding
-  right: SectionPadding
-  bottom: SectionPadding
-  left: SectionPadding
-}
-
-// Types
-
-type ListItemPadding = keyof typeof spacing.variables // string | number
-          `,
         },
       },
     },
@@ -152,7 +132,7 @@ type ListItemPadding = keyof typeof spacing.variables // string | number
     },
     collapseIconIntent: {
       control: { type: 'radio' },
-      options: ['default', 'component-secondary', 'slot-secondary'],
+      options: ['tertiary', 'component-secondary', 'slot-secondary'],
       table: { defaultValue: { summary: 'default' } },
     },
     onCollapsedChange: {
@@ -231,7 +211,7 @@ export const Demo: Story = {
     selectionScope: 'individual',
     hoverable: true,
     collapsable: false,
-    collapseIconIntent: 'default',
+    collapseIconIntent: 'tertiary',
     onDragStart: fn(),
     onDragEnd: fn(),
     onSelect: fn(),
@@ -296,7 +276,7 @@ const renderItems = (
           acceptsChildren={true}
           selectionScope="individual"
           hoverable={true}
-          items={item.items ? renderItems(item.items, level + 1) : undefined}
+          items={item.items && item.items.length ? renderItems(item.items, level + 1) : undefined}
           {...args}
         >
           <Text>{item.id}</Text>
@@ -331,9 +311,10 @@ const renderItems = (
               key={item.id}
               id={item.id}
               nestingLevel={level}
-              items={item.items ? renderItems(item.items, level + 1) : undefined}
+              items={item.items && item.items.length ? renderItems(item.items, level + 1) : undefined}
             >
               <Stack direction="row" y="center" fullWidth>
+                {args.variant === 'layer' && <Icon glyph={frame} intent="neutral" size={16} variant="downscaled" />}
                 <Stack direction="row" y="center">
                   {args.variant === 'layer' && <Spacing direction="row" size={200} />}
                   <Text wrap={false}>{item.id}</Text>
@@ -370,5 +351,5 @@ const renderItems = (
 
 export const Variant = VariantStory
 export const Collapsable = CollapsableStory
-export const Padding = PaddingStory
+export const Layers = LayersStory
 export const Content = ContentStory

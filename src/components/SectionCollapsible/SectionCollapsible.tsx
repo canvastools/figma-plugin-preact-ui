@@ -12,11 +12,20 @@ import './SectionCollapsible.scss'
 /* --- */
 
 const SectionCollapsibleComponent = (
-  { id, className, collapsed, onCollapsedChange, sectionProps, children, tabIndex, ...rest }: SectionCollapsibleProps,
+  {
+    className,
+    collapsed,
+    defaultCollapsed = true,
+    onCollapsedChange,
+    sectionProps,
+    children,
+    tabIndex,
+    ...rest
+  }: SectionCollapsibleProps,
   ref: preact.Ref<HTMLDivElement>,
 ) => {
   const isCollapsedControlled = collapsed !== undefined
-  const [internalCollapsed, setInternalCollapsed] = useState<boolean>(collapsed ?? true)
+  const [internalCollapsed, setInternalCollapsed] = useState<boolean>(defaultCollapsed)
 
   useEffect(() => {
     if (isCollapsedControlled) setInternalCollapsed(Boolean(collapsed))
@@ -54,7 +63,7 @@ const SectionCollapsibleComponent = (
   }
 
   return (
-    <div id={id} className={[_className, className].join(' ').trim()} ref={ref} {...rest}>
+    <div className={[_className, className].join(' ').trim()} ref={ref} {...rest}>
       <div
         className="SectionCollapsible__trigger"
         data-pui-interactive="true"
@@ -65,9 +74,14 @@ const SectionCollapsibleComponent = (
         onKeyDown={handleKeyDown}
       >
         <div className="SectionCollapsible__trigger-icon">
-          <Icon glyph={effectiveCollapsed ? chevronRight : chevronDown} size={16} intentModifier="secondary" />
+          <Icon
+            glyph={effectiveCollapsed ? chevronRight : chevronDown}
+            size={16}
+            intentModifier="tertiary"
+            variant="downscaled"
+          />
         </div>
-        <Section {...sectionProps} />
+        <Section className="SectionCollapsible__section" {...sectionProps} />
       </div>
       {!effectiveCollapsed && children != null && children !== false && children !== true && (
         <div className="SectionCollapsible__content">{children}</div>

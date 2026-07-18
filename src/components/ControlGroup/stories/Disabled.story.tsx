@@ -31,7 +31,7 @@ export const DisabledStory: Story = {
   <ButtonIcon 
     disabled
     intentModifier="secondary"
-    icon={{ glyph: chevronDown }}
+    icon={{ glyph: chevronDown, variant: 'downscaled' }}
   />
 </ControlGroup>
 `,
@@ -66,7 +66,7 @@ export const DisabledStory: Story = {
       <ControlGroup groupFocus fullWidth disabled>
         <Input placeholder="Input" disabled />
         <ButtonIcon intentModifier="secondary" disabled>
-          <Icon glyph={chevronDown} intentModifier="default" disabled />
+          <Icon glyph={chevronDown} variant="downscaled" disabled />
         </ButtonIcon>
       </ControlGroup>
 

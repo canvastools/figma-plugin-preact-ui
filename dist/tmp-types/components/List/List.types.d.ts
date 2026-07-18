@@ -1,6 +1,6 @@
 import type { ListContextProps, ListItemData } from '../ListContext/ListContext.types';
 import type { ListItemProps } from '../ListItem/ListItem.types';
-export type ListItemPropsPick = Pick<ListItemProps, 'variant' | 'padding' | 'draggable' | 'onDragStart' | 'onDragEnd' | 'acceptsChildren' | 'selectable' | 'selectionScope' | 'onSelect' | 'hoverable' | 'collapsed' | 'collapsable' | 'onCollapsedChange'>;
+export type ListItemPropsPick = Pick<ListItemProps, 'variant' | 'draggable' | 'onDragStart' | 'onDragEnd' | 'acceptsChildren' | 'selectable' | 'selectionScope' | 'onSelect' | 'hoverable' | 'collapsed' | 'collapsable' | 'onCollapsedChange'>;
 type ListContextPropsPick = Pick<ListContextProps, 'selectedItemIds' | 'selectionMode' | 'deselectOnClickOutside' | 'onItemsChange' | 'onSelectionChange' | 'onKeyDown'>;
 export interface ListProps extends ListContextPropsPick {
     id?: string;

@@ -1,5 +1,5 @@
-import { jsx as e } from "./index14.es.js";
-//#region src/components/Icon/glyphs/mixed.tsx
+import { jsx as e } from "./index15.es.js";
+//#region src/components/Icon/glyphs/minus.tsx
 var t = ({ variant: t }) => {
 	switch (t) {
 		case "downscaled": return /* @__PURE__ */ e("svg", {
@@ -9,7 +9,7 @@ var t = ({ variant: t }) => {
 			fill: "none",
 			xmlns: "http://www.w3.org/2000/svg",
 			children: /* @__PURE__ */ e("path", {
-				d: "M12 7C12.5523 7 13 7.44772 13 8C13 8.55228 12.5523 9 12 9H4C3.44772 9 3 8.55228 3 8C3 7.44772 3.44772 7 4 7H12Z",
+				d: "M11.5 8C11.7761 8 12 8.22386 12 8.5C12 8.77614 11.7761 9 11.5 9H3.5C3.22386 9 3 8.77614 3 8.5C3 8.22386 3.22386 8 3.5 8H11.5Z",
 				fill: "currentColor"
 			})
 		});
@@ -20,7 +20,7 @@ var t = ({ variant: t }) => {
 			fill: "none",
 			xmlns: "http://www.w3.org/2000/svg",
 			children: /* @__PURE__ */ e("path", {
-				d: "M16 11C16.5523 11 17 11.4477 17 12C17 12.5523 16.5523 13 16 13H8C7.44772 13 7 12.5523 7 12C7 11.4477 7.44772 11 8 11H16Z",
+				d: "M16.5 12C16.7761 12 17 12.2239 17 12.5C17 12.7761 16.7761 13 16.5 13H6.5C6.22386 13 6 12.7761 6 12.5C6 12.2239 6.22386 12 6.5 12H16.5Z",
 				fill: "currentColor"
 			})
 		});
@@ -31,12 +31,12 @@ var t = ({ variant: t }) => {
 			fill: "none",
 			xmlns: "http://www.w3.org/2000/svg",
 			children: /* @__PURE__ */ e("path", {
-				d: "M16.9997 10.9998C17.5519 10.9998 17.9996 11.4476 17.9997 11.9998C17.9997 12.552 17.552 12.9998 16.9997 12.9998H6.99971C6.44756 12.9996 5.99971 12.5519 5.99971 11.9998C5.99987 11.4477 6.44766 10.9999 6.99971 10.9998H16.9997Z",
+				d: "M18.5 12C18.7761 12 19 12.2239 19 12.5C19 12.7761 18.7761 13 18.5 13H4.5C4.22386 13 4 12.7761 4 12.5C4 12.2239 4.22386 12 4.5 12H18.5Z",
 				fill: "currentColor"
 			})
 		});
-		default: throw Error(`mixed icon error: Unsupported combination variant=${t}`);
+		default: throw Error(`minus icon error: Unsupported combination variant=${t}`);
 	}
 };
 //#endregion
-export { t as mixed };
+export { t as minus };

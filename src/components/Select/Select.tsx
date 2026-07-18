@@ -156,7 +156,7 @@ const SelectComponent = (
         </div>
 
         <div className="Select__suffix">
-          <Icon glyph={chevronDownGlyph} size={16} intent="neutral" disabled={disabled} />
+          <Icon glyph={chevronDownGlyph} size={16} intent="neutral" disabled={disabled} variant="downscaled" />
         </div>
       </div>
 

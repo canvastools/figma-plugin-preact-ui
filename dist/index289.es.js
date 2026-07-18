@@ -1,34 +1,5 @@
-//#region ../node_modules/.pnpm/detect-element-overflow@2.0.0/node_modules/detect-element-overflow/dist/index.js
-function e(e) {
-	return e.getBoundingClientRect();
-}
-function t(t, n) {
-	return {
-		get collidedTop() {
-			return e(t).top < e(n).top;
-		},
-		get collidedBottom() {
-			return e(t).bottom > e(n).bottom;
-		},
-		get collidedLeft() {
-			return e(t).left < e(n).left;
-		},
-		get collidedRight() {
-			return e(t).right > e(n).right;
-		},
-		get overflowTop() {
-			return e(n).top - e(t).top;
-		},
-		get overflowBottom() {
-			return e(t).bottom - e(n).bottom;
-		},
-		get overflowLeft() {
-			return e(n).left - e(t).left;
-		},
-		get overflowRight() {
-			return e(t).right - e(n).right;
-		}
-	};
-}
+import e from "./index288.es.js";
+//#region ../node_modules/.pnpm/react-clock@6.0.0_@types+react@19.1.3_react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/react-clock/dist/index.js
+var t = e;
 //#endregion
-export { t as default };
+export { e as Clock, t as default };

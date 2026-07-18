@@ -1,5 +1,5 @@
-import { jsx as e } from "./index14.es.js";
-//#region src/components/Icon/glyphs/dropShadowBottom.tsx
+import { jsx as e } from "./index15.es.js";
+//#region src/components/Icon/glyphs/dropShadow.tsx
 var t = ({ variant: t }) => {
 	switch (t) {
 		case "downscaled": return /* @__PURE__ */ e("svg", {
@@ -9,7 +9,7 @@ var t = ({ variant: t }) => {
 			fill: "none",
 			xmlns: "http://www.w3.org/2000/svg",
 			children: [/* @__PURE__ */ e("path", {
-				d: "M4.5 14C3.67157 14 3 13.3284 3 12.5L3 11L4 12H12L13 11V12.5C13 13.3284 12.3284 14 11.5 14H4.5Z",
+				d: "M12.5 2C13.3284 2 14 2.67157 14 3.5V12.5C14 13.3284 13.3284 14 12.5 14H3.5C2.67157 14 2 13.3284 2 12.5V3.5C2 2.67157 2.67157 2 3.5 2H12.5ZM4 4V12H12V4H4Z",
 				fill: "currentColor",
 				"fill-opacity": "0.3"
 			}), /* @__PURE__ */ e("path", {
@@ -24,7 +24,7 @@ var t = ({ variant: t }) => {
 			fill: "none",
 			xmlns: "http://www.w3.org/2000/svg",
 			children: [/* @__PURE__ */ e("path", {
-				d: "M8 20C6.89543 20 6 19.1046 6 18V16L7 17H17L18 16V18C18 19.1046 17.1046 20 16 20H8Z",
+				d: "M17 4C18.6569 4 20 5.34315 20 7V17C20 18.6569 18.6569 20 17 20H7C5.34315 20 4 18.6569 4 17V7C4 5.34315 5.34315 4 7 4H17ZM7 7V17H17V7H7Z",
 				fill: "currentColor",
 				"fill-opacity": "0.3"
 			}), /* @__PURE__ */ e("path", {
@@ -39,7 +39,7 @@ var t = ({ variant: t }) => {
 			fill: "none",
 			xmlns: "http://www.w3.org/2000/svg",
 			children: [/* @__PURE__ */ e("path", {
-				d: "M6 22C4.89543 22 4 21.1046 4 20V18L5 19H19L20 18V20C20 21.1046 19.1046 22 18 22H6Z",
+				d: "M19 2C20.6569 2 22 3.34315 22 5V19C22 20.6569 20.6569 22 19 22H5C3.34315 22 2 20.6569 2 19V5C2 3.34315 3.34315 2 5 2H19ZM5 5V19H19V5H5Z",
 				fill: "currentColor",
 				"fill-opacity": "0.3"
 			}), /* @__PURE__ */ e("path", {
@@ -47,8 +47,8 @@ var t = ({ variant: t }) => {
 				fill: "currentColor"
 			})]
 		});
-		default: throw Error(`dropShadowBottom icon error: Unsupported combination variant=${t}`);
+		default: throw Error(`dropShadow icon error: Unsupported combination variant=${t}`);
 	}
 };
 //#endregion
-export { t as dropShadowBottom };
+export { t as dropShadow };

@@ -1,48 +1,45 @@
 import e from "./index199.es.js";
-//#region ../node_modules/.pnpm/get-user-locale@3.0.0/node_modules/get-user-locale/dist/index.js
-function t(e) {
-	return typeof e == "string";
-}
-function n(e, t, n) {
-	return n.indexOf(e) === t;
-}
-function r(e) {
-	return e.toLowerCase() === e;
-}
-function i(e) {
-	return e.indexOf(",") === -1 ? e : e.split(",");
-}
-function a(e) {
-	if (!e) return e;
-	if (e === "C" || e === "posix" || e === "POSIX") return "en-US";
-	if (e.indexOf(".") !== -1) {
-		var t = e.split(".")[0], n = t === void 0 ? "" : t;
-		return a(n);
-	}
-	if (e.indexOf("@") !== -1) {
-		var i = e.split("@")[0], n = i === void 0 ? "" : i;
-		return a(n);
-	}
-	if (e.indexOf("-") === -1 || !r(e)) return e;
-	var o = e.split("-"), s = o[0], c = o[1];
-	return `${s}-${(c === void 0 ? "" : c).toUpperCase()}`;
-}
-function o(e) {
-	var r = e === void 0 ? {} : e, o = r.useFallbackLocale, s = o === void 0 || o, c = r.fallbackLocale, l = c === void 0 ? "en-US" : c, u = [];
-	if (typeof navigator < "u") {
-		for (var d = navigator.languages || [], f = [], p = 0, m = d; p < m.length; p++) {
-			var h = m[p];
-			f = f.concat(i(h));
+//#region ../node_modules/.pnpm/memoize@10.2.0/node_modules/memoize/distribution/index.js
+var t = 2147483647, n = /* @__PURE__ */ new WeakMap(), r = /* @__PURE__ */ new WeakMap(), i = /* @__PURE__ */ new WeakMap();
+function a(e, t) {
+	let n = e.get(t);
+	if (n) {
+		if (n.maxAge <= Date.now()) {
+			e.delete(t);
+			return;
 		}
-		var g = navigator.language, _ = g && i(g);
-		u = u.concat(f, _);
+		return n;
 	}
-	return s && u.push(l), u.filter(t).map(a).filter(n);
 }
-var s = e(o, { cacheKey: JSON.stringify });
-function c(e) {
-	return s(e)[0] || null;
+function o(o, { cacheKey: s, cache: c = /* @__PURE__ */ new Map(), maxAge: l } = {}) {
+	if (l === 0) return o;
+	if (typeof l == "number" && Number.isFinite(l)) {
+		if (l > t) throw TypeError(`The \`maxAge\` option cannot exceed ${t}.`);
+		if (l < 0) throw TypeError("The `maxAge` option should not be a negative number.");
+	}
+	let u = function(...e) {
+		let n = s ? s(e) : e[0], i = a(c, n);
+		if (i) return i.data;
+		let d = o.apply(this, e), f = typeof l == "function" ? l(...e) : l;
+		if (f !== void 0 && f !== Infinity) {
+			if (!Number.isFinite(f)) throw TypeError("The `maxAge` function must return a finite number, `0`, or `Infinity`.");
+			if (f <= 0) return d;
+			if (f > t) throw TypeError(`The \`maxAge\` function result cannot exceed ${t}.`);
+		}
+		if (c.set(n, {
+			data: d,
+			maxAge: f === void 0 || f === Infinity ? Infinity : Date.now() + f
+		}), f !== void 0 && f !== Infinity) {
+			let e = setTimeout(() => {
+				c.delete(n), r.get(u)?.delete(e);
+			}, f);
+			e.unref?.();
+			let t = r.get(u) ?? /* @__PURE__ */ new Set();
+			t.add(e), r.set(u, t);
+		}
+		return d;
+	};
+	return e(u, o, { ignoreNonConfigurable: !0 }), n.set(u, c), i.set(u, s ?? ((e) => e[0])), u;
 }
-var l = e(c, { cacheKey: JSON.stringify });
 //#endregion
-export { l as default, l as getUserLocale, s as getUserLocales };
+export { o as default };

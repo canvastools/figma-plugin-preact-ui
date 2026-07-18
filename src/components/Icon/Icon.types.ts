@@ -12,6 +12,7 @@ export interface IconProps {
   intentModifier?:
     | 'default'
     | 'secondary'
+    | 'tertiary'
     | 'brand'
     | 'danger'
     | 'warning'

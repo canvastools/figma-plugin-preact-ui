@@ -1,60 +1,28 @@
-import { useRefElement as e } from "./index12.es.js";
-import { jsx as t } from "./index14.es.js";
-import { useContext as n, useEffect as r, useMemo as i } from "preact/hooks";
-import { createContext as a } from "preact";
-//#region src/components/PopoverContext/PopoverContext.tsx
-var o = a(void 0), s = () => {
-	let e = n(o);
-	if (!e) throw Error("PopoverContext not found");
-	return e;
-}, c = ({ triggerRef: n, anchorRef: a, open: s, setOpen: c, children: l }) => {
-	let u = a ?? n, d = e(n), f = i(() => ({
-		triggerRef: n,
-		anchorRef: u,
-		open: s !== void 0 && s,
-		setOpen: c
-	}), [
-		n,
-		u,
-		s,
-		c
-	]);
-	return r(() => {
-		if (!d) return;
-		let e = (e) => {
-			e.preventDefault(), c?.(!s);
-		}, t = (e) => {
-			let { key: t } = e;
-			if (t === "Enter" || t === " ") {
-				if (s) return;
-				e.preventDefault(), c?.(!0);
-				return;
-			}
-		};
-		return d.addEventListener("mousedown", e), d.addEventListener("keydown", t), () => {
-			d.removeEventListener("mousedown", e), d.removeEventListener("keydown", t);
-		};
-	}, [
-		d,
-		s,
-		c
-	]), r(() => {
-		if (!s) return;
-		let e = (e) => {
-			let { key: t } = e;
-			t !== "Escape" && t !== "Esc" || (e.preventDefault(), c?.(!1), n?.current?.focus());
-		};
-		return window.addEventListener("keydown", e), () => {
-			window.removeEventListener("keydown", e);
-		};
-	}, [
-		s,
-		c,
-		n
-	]), /* @__PURE__ */ t(o.Provider, {
-		value: f,
-		children: l
-	});
-};
+import "./index250.es.css";
+import { bem as e } from "./index8.es.js";
+import { typedForwardRef as t } from "./index11.es.js";
+import { jsx as n } from "./index15.es.js";
+import { Text as r } from "./index16.es.js";
+import { ButtonIcon as i } from "./index36.es.js";
+import { close as a } from "./index62.es.js";
+/* empty css            */
+var o = t(({ id: t, className: o, children: s, onClose: c, ...l }, u) => /* @__PURE__ */ n("div", {
+	id: t,
+	className: [e("PopoverHeader", void 0, void 0), o].join(" ").trim(),
+	ref: u,
+	...l,
+	children: /* @__PURE__ */ n("div", {
+		className: "PopoverHeader__content",
+		children: [/* @__PURE__ */ n(r, {
+			strong: !0,
+			fullWidth: !0,
+			children: s
+		}), /* @__PURE__ */ n(i, {
+			ghost: !0,
+			icon: { glyph: a },
+			onClick: c ? () => c() : void 0
+		})]
+	})
+}));
 //#endregion
-export { c as PopoverContext, s as usePopoverContext };
+export { o as PopoverHeader };

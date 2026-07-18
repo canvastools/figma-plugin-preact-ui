@@ -1,4 +1,7 @@
-//#region src/utils/uuid.ts
-var e = () => Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+import { forwardRef as e } from "preact/compat";
+//#region src/utils/typedForwardRef.ts
+function t(t) {
+	return e(t);
+}
 //#endregion
-export { e as uuid };
+export { t as typedForwardRef };

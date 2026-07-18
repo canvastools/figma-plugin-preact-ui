@@ -37,7 +37,6 @@ const ListComponent = (
           const resolvedListItemProps = typeof listItemProps === 'function' ? listItemProps(item) : listItemProps
           const {
             variant,
-            padding,
             draggable,
             onDragStart,
             onDragEnd,
@@ -58,7 +57,6 @@ const ListComponent = (
               key={id}
               id={id}
               variant={variant}
-              padding={padding}
               nestingLevel={level}
               draggable={draggable}
               onDragStart={onDragStart}

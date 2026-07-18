@@ -1,18 +1,8 @@
-import { spacing } from '../../themes'
-
-export type ListItemPadding = keyof typeof spacing.variables
-
 export interface ListItemProps {
   id: string
   className?: string
   nestingLevel: number
   variant?: 'default' | 'layer'
-  padding?: {
-    top?: ListItemPadding
-    right?: ListItemPadding
-    bottom?: ListItemPadding
-    left?: ListItemPadding
-  }
   draggable?: boolean
   onDragStart?: (args: { event: DragEvent }) => void
   onDragEnd?: (args: { event: DragEvent }) => void
@@ -24,7 +14,7 @@ export interface ListItemProps {
   collapsed?: boolean
   collapsable?: boolean
   onCollapsedChange?: (args: { event: MouseEvent | KeyboardEvent; collapsed: boolean }) => void
-  collapseIconIntent?: 'default' | 'component-secondary' | 'slot-secondary'
+  collapseIconIntent?: 'tertiary' | 'component-secondary' | 'slot-secondary'
   items?: preact.ComponentChildren
   children?: preact.ComponentChildren
   tabIndex?: number

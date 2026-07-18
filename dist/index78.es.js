@@ -1,5 +1,5 @@
-import { jsx as e } from "./index14.es.js";
-//#region src/components/Icon/glyphs/dropShadowTopRight.tsx
+import { jsx as e } from "./index15.es.js";
+//#region src/components/Icon/glyphs/dropShadowTopLeft.tsx
 var t = ({ variant: t }) => {
 	switch (t) {
 		case "downscaled": return /* @__PURE__ */ e("svg", {
@@ -9,7 +9,7 @@ var t = ({ variant: t }) => {
 			fill: "none",
 			xmlns: "http://www.w3.org/2000/svg",
 			children: [/* @__PURE__ */ e("path", {
-				d: "M12.5 2C13.3284 2 14 2.67157 14 3.5V10.5C14 11.3284 13.3284 12 12.5 12H12V4H4V3.5C4 2.67157 4.67157 2 5.5 2L12.5 2Z",
+				d: "M2 3.5C2 2.67157 2.67157 2 3.5 2H10.5C11.3284 2 12 2.67157 12 3.5V4H4V12H3.5C2.67157 12 2 11.3284 2 10.5V3.5Z",
 				fill: "currentColor",
 				"fill-opacity": "0.3"
 			}), /* @__PURE__ */ e("path", {
@@ -24,7 +24,7 @@ var t = ({ variant: t }) => {
 			fill: "none",
 			xmlns: "http://www.w3.org/2000/svg",
 			children: [/* @__PURE__ */ e("path", {
-				d: "M18 4C19.1046 4 20 4.89543 20 6L20 14C20 15.1046 19.1046 16 18 16H17L17 7L8 7V6C8 4.89543 8.89543 4 10 4L18 4Z",
+				d: "M4 6C4 4.89543 4.89543 4 6 4H14C15.1046 4 16 4.89543 16 6V7H7V16H6C4.89543 16 4 15.1046 4 14V6Z",
 				fill: "currentColor",
 				"fill-opacity": "0.3"
 			}), /* @__PURE__ */ e("path", {
@@ -39,7 +39,7 @@ var t = ({ variant: t }) => {
 			fill: "none",
 			xmlns: "http://www.w3.org/2000/svg",
 			children: [/* @__PURE__ */ e("path", {
-				d: "M20 2C21.1046 2 22 2.89543 22 4L22 16C22 17.1046 21.1046 18 20 18H19V5L6 5V4C6 2.89543 6.89543 2 8 2L20 2Z",
+				d: "M2 4C2 2.89543 2.89543 2 4 2L16 2C17.1046 2 18 2.89543 18 4V5H5V18H4C2.89543 18 2 17.1046 2 16V4Z",
 				fill: "currentColor",
 				"fill-opacity": "0.3"
 			}), /* @__PURE__ */ e("path", {
@@ -47,8 +47,8 @@ var t = ({ variant: t }) => {
 				fill: "currentColor"
 			})]
 		});
-		default: throw Error(`dropShadowTopRight icon error: Unsupported combination variant=${t}`);
+		default: throw Error(`dropShadowTopLeft icon error: Unsupported combination variant=${t}`);
 	}
 };
 //#endregion
-export { t as dropShadowTopRight };
+export { t as dropShadowTopLeft };

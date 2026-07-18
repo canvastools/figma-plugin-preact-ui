@@ -20,14 +20,6 @@ const meta: Meta<typeof SectionCollapsible> = {
     },
   },
   argTypes: {
-    id: {
-      control: { type: 'text' },
-      table: {
-        type: {
-          summary: 'string',
-        },
-      },
-    },
     className: {
       control: { type: 'text' },
     },
@@ -36,6 +28,14 @@ const meta: Meta<typeof SectionCollapsible> = {
       description: 'Controlled collapsed state.',
       table: {
         type: { summary: 'boolean' },
+      },
+    },
+    defaultCollapsed: {
+      control: { type: 'boolean' },
+      description: 'Initial collapsed state for uncontrolled state.',
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'true' },
       },
     },
     onCollapsedChange: {
@@ -96,8 +96,8 @@ type Story = StoryObj<typeof SectionCollapsible>
 
 export const Demo: Story = {
   args: {
-    id: undefined,
     className: 'sb-container',
+    defaultCollapsed: true,
     sectionProps: {
       variant: 'default',
       children: 'Section header',

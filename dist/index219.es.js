@@ -1,31 +1,42 @@
-import { jsx as e } from "./index14.es.js";
-import { formatShortWeekday as t, formatWeekday as n } from "./index201.es.js";
-import { getMonth as r, getMonthStart as i, getYear as a } from "./index202.es.js";
-import { getDayOfWeek as o, isCurrentDayOfWeek as s, isWeekend as c } from "./index204.es.js";
-import { clsx as l } from "./index206.es.js";
-import u from "./index207.es.js";
-//#region ../node_modules/.pnpm/react-calendar@6.0.1_@types+react@19.1.3_react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/react-calendar/dist/MonthView/Weekdays.js
-var d = "react-calendar__month-view__weekdays", f = `${d}__weekday`;
-function p(p) {
-	let { calendarType: m, formatShortWeekday: h = t, formatWeekday: g = n, locale: _, onMouseLeave: v } = p, y = i(/* @__PURE__ */ new Date()), b = a(y), x = r(y), S = [];
-	for (let t = 1; t <= 7; t += 1) {
-		let n = new Date(b, x, t - o(y, m)), r = g(_, n);
-		S.push(e("div", {
-			className: l(f, s(n) && `${f}--current`, c(n, m) && `${f}--weekend`),
-			children: e("abbr", {
-				"aria-label": r,
-				title: r,
-				children: h(_, n).replace(".", "")
-			})
-		}, t));
-	}
-	return e(u, {
-		className: d,
+import { jsx as e } from "./index15.es.js";
+import { getDayStart as t, getDaysInMonth as n, getMonth as r, getYear as i } from "./index203.es.js";
+import { getDayOfWeek as a } from "./index205.es.js";
+import o from "./index210.es.js";
+import s from "./index218.es.js";
+//#region ../node_modules/.pnpm/react-calendar@6.0.1_@types+react@19.1.3_react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/react-calendar/dist/MonthView/Days.js
+function c(c) {
+	let { activeStartDate: l, calendarType: u, hover: d, showFixedNumberOfWeeks: f, showNeighboringMonth: p, value: m, valueType: h, ...g } = c, _ = i(l), v = r(l), y = f || p, b = a(l, u), x = y ? 0 : b, S = (y ? -b : 0) + 1;
+	return e(o, {
+		className: "react-calendar__month-view__days",
 		count: 7,
-		onFocus: v,
-		onMouseOver: v,
-		children: S
+		dateTransform: (e) => {
+			let n = /* @__PURE__ */ new Date();
+			return n.setFullYear(_, v, e), t(n);
+		},
+		dateType: "day",
+		hover: d,
+		end: (() => {
+			if (f) return S + 42 - 1;
+			let e = n(l);
+			if (p) {
+				let t = /* @__PURE__ */ new Date();
+				return t.setFullYear(_, v, e), t.setHours(0, 0, 0, 0), e + (7 - a(t, u) - 1);
+			}
+			return e;
+		})(),
+		renderTile: ({ date: t, ...n }) => e(s, {
+			...g,
+			...n,
+			activeStartDate: l,
+			calendarType: u,
+			currentMonthIndex: v,
+			date: t
+		}, t.getTime()),
+		offset: x,
+		start: S,
+		value: m,
+		valueType: h
 	});
 }
 //#endregion
-export { p as default };
+export { c as default };

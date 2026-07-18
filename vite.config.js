@@ -24,6 +24,7 @@ export default defineConfig(({ command }) => ({
     cssSplitPlugin({ globalScss: ['src/shared.scss'] }),
   ],
   build: {
+    target: 'es2020',
     minify: true,
     lib: {
       entry: 'src/index.ts',

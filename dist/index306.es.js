@@ -1,178 +1,270 @@
 "use client";
-import { jsx as e } from "./index14.es.js";
-import { clsx as t } from "./index206.es.js";
-import n from "./index281.es.js";
-import r from "./index288.es.js";
-import i from "./index292.es.js";
-import a from "./index305.es.js";
-import { createElement as o, createPortal as ee, useCallback as s, useEffect as c, useMemo as l, useRef as u, useState as te } from "preact/compat";
-//#region ../node_modules/.pnpm/react-time-picker@8.0.3_@types+react@19.1.3_react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/react-time-picker/dist/TimePicker.js
-var d = "react-time-picker", f = [
-	"mousedown",
-	"focusin",
-	"touchstart"
-], p = {
-	xmlns: "http://www.w3.org/2000/svg",
-	width: 19,
-	height: 19,
-	viewBox: "0 0 19 19",
-	stroke: "black",
-	strokeWidth: 2
-}, ne = e("svg", {
-	...p,
-	"aria-hidden": "true",
-	className: `${d}__clock-button__icon ${d}__button__icon`,
-	fill: "none",
-	children: [e("circle", {
-		cx: "9.5",
-		cy: "9.5",
-		r: "7.5"
-	}), e("path", { d: "M9.5 4.5 v5 h4" })]
-}), re = e("svg", {
-	...p,
-	"aria-hidden": "true",
-	className: `${d}__clear-button__icon ${d}__button__icon`,
-	children: [e("line", {
-		x1: "4",
-		x2: "15",
-		y1: "4",
-		y2: "15"
-	}), e("line", {
-		x1: "15",
-		x2: "4",
-		y1: "4",
-		y2: "15"
-	})]
-});
-function m(p) {
-	let { amPmAriaLabel: m, autoFocus: h, className: g, clearAriaLabel: _, clearIcon: v = re, clockAriaLabel: y, clockIcon: b = ne, closeClock: x = !0, "data-testid": S, hourAriaLabel: C, hourPlaceholder: ie, disableClock: w, disabled: T, format: ae, id: oe, isOpen: E = null, locale: D, maxTime: se, maxDetail: ce = "minute", minTime: le, minuteAriaLabel: ue, minutePlaceholder: de, name: O = "time", nativeInputAriaLabel: k, onClockClose: A, onClockOpen: j, onChange: M, onFocus: N, onInvalidChange: P, openClockOnFocus: F = !0, required: I, value: L, secondAriaLabel: R, secondPlaceholder: z, shouldCloseClock: B, shouldOpenClock: V, ...H } = p, [U, W] = te(E), G = u(null), K = u(null);
-	c(() => {
-		W(E);
-	}, [E]);
-	function q({ reason: e }) {
-		V && !V({ reason: e }) || (W(!0), j && j());
-	}
-	let J = s(({ reason: e }) => {
-		B && !B({ reason: e }) || (W(!1), A && A());
-	}, [A, B]);
-	function fe() {
-		U ? J({ reason: "buttonClick" }) : q({ reason: "buttonClick" });
-	}
-	function Y(e, t = x) {
-		t && J({ reason: "select" }), M && M(e);
-	}
-	function pe(e) {
-		N && N(e), !(T || U || !F || e.target.dataset.select === "true") && q({ reason: "focus" });
-	}
-	let X = s((e) => {
-		e.key === "Escape" && J({ reason: "escape" });
-	}, [J]);
-	function me() {
-		Y(null);
-	}
-	function Z(e) {
-		e.stopPropagation();
-	}
-	let Q = s((e) => {
-		let { current: t } = G, { current: n } = K, r = "composedPath" in e ? e.composedPath()[0] : e.target;
-		r && t && !t.contains(r) && (!n || !n.contains(r)) && J({ reason: "outsideAction" });
-	}, [J]), $ = s((e = U) => {
-		for (let t of f) e ? document.addEventListener(t, Q) : document.removeEventListener(t, Q);
-		e ? document.addEventListener("keydown", X) : document.removeEventListener("keydown", X);
+import { jsx as e } from "./index15.es.js";
+import { getHours as t, getHoursMinutes as n, getHoursMinutesSeconds as r, getMinutes as i, getSeconds as a } from "./index203.es.js";
+import o from "./index294.es.js";
+import { convert12to24 as s, convert24to12 as c } from "./index295.es.js";
+import { getFormatter as l, getNumberFormatter as u } from "./index296.es.js";
+import { getAmPmLabels as ee } from "./index297.es.js";
+import te from "./index298.es.js";
+import ne from "./index301.es.js";
+import re from "./index302.es.js";
+import ie from "./index303.es.js";
+import ae from "./index304.es.js";
+import oe from "./index305.es.js";
+import { useEffect as d, useRef as f, useState as p } from "preact/compat";
+//#region ../node_modules/.pnpm/react-time-picker@8.0.3_@types+react@19.1.3_react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/react-time-picker/dist/TimeInput.js
+var m = {}, se = [
+	"hour",
+	"minute",
+	"second"
+];
+function h(e) {
+	return e.dataset.input === "true";
+}
+function g(e, t) {
+	let n = e;
+	do
+		n = n[t];
+	while (n && !h(n));
+	return n;
+}
+function _(e) {
+	e && e.focus();
+}
+function ce(t, n, r) {
+	let i = [], a = new RegExp(Object.keys(n).map((e) => `${e}+`).join("|"), "g"), s = t.match(a);
+	return t.split(a).reduce((t, a, c) => {
+		let l = a && e(o, { children: a }, `separator_${c}`);
+		t.push(l);
+		let u = s?.[c];
+		if (u) {
+			let e = n[u] || n[Object.keys(n).find((e) => u.match(e))];
+			if (!e) return t;
+			!r && i.includes(e) ? t.push(u) : (t.push(e(u, c)), i.push(e));
+		}
+		return t;
+	}, []);
+}
+var v = u({ useGrouping: !1 });
+function y({ amPmAriaLabel: o, autoFocus: u, className: h, disabled: y, format: b, hourAriaLabel: x, hourPlaceholder: S, isClockOpen: C = null, locale: w, maxDetail: T = "minute", maxTime: E, minTime: D, minuteAriaLabel: le, minutePlaceholder: ue, name: de = "time", nativeInputAriaLabel: fe, onChange: O, onInvalidChange: k, required: A, secondAriaLabel: pe, secondPlaceholder: me, value: j }) {
+	let [M, N] = p(null), [P, F] = p(null), [I, L] = p(null), [R, z] = p(null), [he, B] = p(null), V = f(null), H = f(null), U = f(null), W = f(null), G = f(null), [K, ge] = p(C), q = f(void 0);
+	d(() => {
+		ge(C);
+	}, [C]), d(() => {
+		let e = j;
+		e ? (N(c(t(e))[1]), F(t(e).toString()), L(i(e).toString()), z(a(e).toString()), B(e)) : (N(null), F(null), L(null), z(null), B(null));
 	}, [
-		U,
-		Q,
-		X
+		j,
+		D,
+		E,
+		T,
+		K
 	]);
-	c(() => ($(), () => {
-		$(!1);
-	}), [$]);
-	function he() {
-		let [t] = Array.isArray(L) ? L : [L], n = {
-			amPmAriaLabel: m,
-			hourAriaLabel: C,
-			minuteAriaLabel: ue,
-			nativeInputAriaLabel: k,
-			secondAriaLabel: R
-		}, r = {
-			hourPlaceholder: ie,
-			minutePlaceholder: de,
-			secondPlaceholder: z
-		};
-		return e("div", {
-			className: `${d}__wrapper`,
-			children: [
-				e(a, {
-					...n,
-					...r,
-					autoFocus: h,
-					className: `${d}__inputGroup`,
-					disabled: T,
-					format: ae,
-					isClockOpen: U,
-					locale: D,
-					maxDetail: ce,
-					maxTime: se,
-					minTime: le,
-					name: O,
-					onChange: Y,
-					onInvalidChange: P,
-					required: I,
-					value: t
-				}),
-				v !== null && e("button", {
-					"aria-label": _,
-					className: `${d}__clear-button ${d}__button`,
-					"data-testid": "clear-button",
-					disabled: T,
-					onClick: me,
-					onFocus: Z,
-					type: "button",
-					children: typeof v == "function" ? o(v) : v
-				}),
-				b !== null && !w && e("button", {
-					"aria-expanded": U || !1,
-					"aria-label": y,
-					className: `${d}__clock-button ${d}__button`,
-					"data-testid": "clock-button",
-					disabled: T,
-					onClick: fe,
-					onFocus: Z,
-					type: "button",
-					children: typeof b == "function" ? o(b) : b
-				})
-			]
-		});
+	let J = T, _e = (() => {
+		let e = se.indexOf(T);
+		return l(m[e] || (() => {
+			let t = { hour: "numeric" };
+			return e >= 1 && (t.minute = "numeric"), e >= 2 && (t.second = "numeric"), m[e] = t, t;
+		})());
+	})();
+	function ve(e) {
+		return (() => {
+			switch (J) {
+				case "hour":
+				case "minute": return n;
+				case "second": return r;
+				default: throw Error("Invalid valueType");
+			}
+		})()(e);
 	}
-	function ge() {
-		if (U === null || w) return null;
-		let { clockProps: n, portalContainer: a, value: o } = p, s = `${d}__clock`, c = t(s, `${s}--${U ? "open" : "closed"}`), [l] = Array.isArray(o) ? o : [o], u = e(r, {
-			locale: D,
-			value: l,
-			...n
-		});
-		return a ? ee(e("div", {
-			ref: K,
-			className: c,
-			children: u
-		}), a) : e(i, { children: e("div", {
-			ref: (e) => {
-				e && !U && e.removeAttribute("style");
-			},
-			className: c,
-			children: u
-		}) });
+	let Y = b || _e(w, new Date(2017, 0, 1, 21, 13, 14)).replace(v(w, 9), "h").replace(v(w, 21), "H").replace(v(w, 13), "mm").replace(v(w, 14), "ss").replace(new RegExp(ee(w).join("|")), "a"), ye = (() => {
+		let e = Y.match(/[^0-9a-z]/i);
+		return e ? e[0] : null;
+	})();
+	function be(e) {
+		if (e.target === e.currentTarget) {
+			let t = e.target.children[1];
+			_(t);
+		}
 	}
-	let _e = l(() => n(H), [H]);
+	function xe(e) {
+		switch (q.current = e.key, e.key) {
+			case "ArrowLeft":
+			case "ArrowRight":
+			case ye: {
+				e.preventDefault();
+				let { target: t } = e;
+				_(g(t, e.key === "ArrowLeft" ? "previousElementSibling" : "nextElementSibling"));
+				break;
+			}
+			default:
+		}
+	}
+	function Se(e) {
+		let { key: t, target: n } = e;
+		if (q.current !== t || Number.isNaN(Number(t))) return;
+		let r = n.getAttribute("max");
+		if (!r) return;
+		let { value: i } = n;
+		(Number(i) * 10 > Number(r) || i.length >= r.length) && _(g(n, "nextElementSibling"));
+	}
+	function Ce() {
+		if (!O) return;
+		function e(e) {
+			return !!e;
+		}
+		let t = [
+			V.current,
+			H.current,
+			U.current,
+			W.current,
+			G.current
+		].filter(e), n = t.slice(1), r = {};
+		for (let e of t) r[e.name] = e.type === "number" ? e.valueAsNumber : e.value;
+		if (n.every((e) => !e.value)) {
+			O(null, !1);
+			return;
+		}
+		let i = t.every((e) => e.value), a = t.every((e) => e.validity.valid);
+		if (i && a) {
+			let e = Number(r.hour24 || r.hour12 && r.amPm && s(r.hour12, r.amPm) || 0), t = Number(r.minute || 0), n = Number(r.second || 0), i = (e) => `0${e}`.slice(-2);
+			O(ve(`${i(e)}:${i(t)}:${i(n)}`), !1);
+			return;
+		}
+		k && k();
+	}
+	function X(e) {
+		let { name: t, value: n } = e.target;
+		switch (t) {
+			case "amPm":
+				N(n);
+				break;
+			case "hour12":
+				F(n ? s(n, M || "am").toString() : "");
+				break;
+			case "hour24":
+				F(n);
+				break;
+			case "minute":
+				L(n);
+				break;
+			case "second":
+				z(n);
+				break;
+		}
+		Ce();
+	}
+	function we(e) {
+		let { value: t } = e.target;
+		O && O(t || null, !1);
+	}
+	let Z = {
+		className: h,
+		disabled: y,
+		maxTime: E,
+		minTime: D,
+		onChange: X,
+		onKeyDown: xe,
+		onKeyUp: Se,
+		required: !!(A || K)
+	};
+	function Q(t, n) {
+		if (t && t.length > 2) throw Error(`Unsupported token: ${t}`);
+		let r = t ? t.length === 2 : !1;
+		return e(ne, {
+			...Z,
+			amPm: M,
+			ariaLabel: x,
+			autoFocus: n === 0 && u,
+			inputRef: H,
+			placeholder: S,
+			showLeadingZeros: r,
+			value: P
+		}, "hour12");
+	}
+	function Te(t, n) {
+		if (t && t.length > 2) throw Error(`Unsupported token: ${t}`);
+		let r = t ? t.length === 2 : !1;
+		return e(re, {
+			...Z,
+			ariaLabel: x,
+			autoFocus: n === 0 && u,
+			inputRef: U,
+			placeholder: S,
+			showLeadingZeros: r,
+			value: P
+		}, "hour24");
+	}
+	function $(e, t) {
+		return /h/.test(e) ? Q(e, t) : Te(e, t);
+	}
+	function Ee(t, n) {
+		if (t && t.length > 2) throw Error(`Unsupported token: ${t}`);
+		let r = t ? t.length === 2 : !1;
+		return e(ie, {
+			...Z,
+			ariaLabel: le,
+			autoFocus: n === 0 && u,
+			hour: P,
+			inputRef: W,
+			placeholder: ue,
+			showLeadingZeros: r,
+			value: I
+		}, "minute");
+	}
+	function De(t, n) {
+		if (t && t.length > 2) throw Error(`Unsupported token: ${t}`);
+		let r = !t || t.length === 2;
+		return e(oe, {
+			...Z,
+			ariaLabel: pe,
+			autoFocus: n === 0 && u,
+			hour: P,
+			inputRef: G,
+			minute: I,
+			placeholder: me,
+			showLeadingZeros: r,
+			value: R
+		}, "second");
+	}
+	function Oe(t, n) {
+		return e(te, {
+			...Z,
+			ariaLabel: o,
+			autoFocus: n === 0 && u,
+			inputRef: V,
+			locale: w,
+			onChange: X,
+			value: M
+		}, "ampm");
+	}
+	function ke() {
+		return ce(Y, {
+			h: $,
+			H: $,
+			m: Ee,
+			s: De,
+			a: Oe
+		}, b !== void 0);
+	}
+	function Ae() {
+		return e(ae, {
+			ariaLabel: fe,
+			disabled: y,
+			maxTime: E,
+			minTime: D,
+			name: de,
+			onChange: we,
+			required: A,
+			value: he,
+			valueType: J
+		}, "time");
+	}
 	return e("div", {
-		className: t(d, `${d}--${U ? "open" : "closed"}`, `${d}--${T ? "disabled" : "enabled"}`, g),
-		"data-testid": S,
-		id: oe,
-		..._e,
-		onFocus: pe,
-		ref: G,
-		children: [he(), ge()]
+		className: h,
+		onClick: be,
+		children: [Ae(), ke()]
 	});
 }
 //#endregion
-export { m as default };
+export { y as default };

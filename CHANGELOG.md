@@ -1,5 +1,11 @@
 # Changelog
 
+### 1.3.2 - 18 July 2026
+
+- Minor style, usability and performance fixes
+- SectionCollapsible: added `defaultCollapsed` prop for uncontrolled state
+- Cross-browser compatibility has been improved
+
 ### 1.3.1 - 13 July 2026
 
 - Bumping dependency package versions
