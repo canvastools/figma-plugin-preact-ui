@@ -1,5 +1,5 @@
-import { jsx as e } from "./index14.es.js";
-//#region src/components/Icon/glyphs/dropShadowLeft.tsx
+import { jsx as e } from "./index15.es.js";
+//#region src/components/Icon/glyphs/dropShadowBottomRight.tsx
 var t = ({ variant: t }) => {
 	switch (t) {
 		case "downscaled": return /* @__PURE__ */ e("svg", {
@@ -9,7 +9,7 @@ var t = ({ variant: t }) => {
 			fill: "none",
 			xmlns: "http://www.w3.org/2000/svg",
 			children: [/* @__PURE__ */ e("path", {
-				d: "M2 4.5C2 3.67157 2.67157 3 3.5 3L5 3L4 4V12L5 13H3.5C2.67157 13 2 12.3284 2 11.5V4.5Z",
+				d: "M14 12.5C14 13.3284 13.3284 14 12.5 14L5.5 14C4.67157 14 4 13.3284 4 12.5V12L12 12L12 4H12.5C13.3284 4 14 4.67157 14 5.5L14 12.5Z",
 				fill: "currentColor",
 				"fill-opacity": "0.3"
 			}), /* @__PURE__ */ e("path", {
@@ -24,7 +24,7 @@ var t = ({ variant: t }) => {
 			fill: "none",
 			xmlns: "http://www.w3.org/2000/svg",
 			children: [/* @__PURE__ */ e("path", {
-				d: "M4 8C4 6.89543 4.89543 6 6 6H8L7 7V17L8 18H6C4.89543 18 4 17.1046 4 16V8Z",
+				d: "M20 18C20 19.1046 19.1046 20 18 20H10C8.89543 20 8 19.1046 8 18V17H17V8H18C19.1046 8 20 8.89543 20 10V18Z",
 				fill: "currentColor",
 				"fill-opacity": "0.3"
 			}), /* @__PURE__ */ e("path", {
@@ -39,7 +39,7 @@ var t = ({ variant: t }) => {
 			fill: "none",
 			xmlns: "http://www.w3.org/2000/svg",
 			children: [/* @__PURE__ */ e("path", {
-				d: "M2 6C2 4.89543 2.89543 4 4 4H6L5 5V19L6 20H4C2.89543 20 2 19.1046 2 18V6Z",
+				d: "M22 20C22 21.1046 21.1046 22 20 22L8 22C6.89543 22 6 21.1046 6 20V19H19V6H20C21.1046 6 22 6.89543 22 8V20Z",
 				fill: "currentColor",
 				"fill-opacity": "0.3"
 			}), /* @__PURE__ */ e("path", {
@@ -47,8 +47,8 @@ var t = ({ variant: t }) => {
 				fill: "currentColor"
 			})]
 		});
-		default: throw Error(`dropShadowLeft icon error: Unsupported combination variant=${t}`);
+		default: throw Error(`dropShadowBottomRight icon error: Unsupported combination variant=${t}`);
 	}
 };
 //#endregion
-export { t as dropShadowLeft };
+export { t as dropShadowBottomRight };

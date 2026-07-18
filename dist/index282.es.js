@@ -1,19 +1,112 @@
-import { jsx as e } from "./index14.es.js";
-//#region ../node_modules/.pnpm/react-clock@6.0.0_@types+react@19.1.3_react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/react-clock/dist/Hand.js
-function t(t) {
-	var n = t.angle, r = n === void 0 ? 0 : n, i = t.name, a = t.length, o = a === void 0 ? 100 : a, s = t.oppositeLength, c = s === void 0 ? 10 : s, l = t.width, u = l === void 0 ? 1 : l;
-	return e("div", {
-		className: `react-clock__hand react-clock__${i}-hand`,
-		style: { transform: `rotate(${r}deg)` },
-		children: e("div", {
-			className: `react-clock__hand__body react-clock__${i}-hand__body`,
-			style: {
-				width: `${u}px`,
-				top: `${50 - o / 2}%`,
-				bottom: `${50 - c / 2}%`
-			}
-		})
-	});
+//#region ../node_modules/.pnpm/make-event-props@2.0.0/node_modules/make-event-props/dist/index.js
+var e = [
+	"onCopy",
+	"onCut",
+	"onPaste"
+], t = [
+	"onCompositionEnd",
+	"onCompositionStart",
+	"onCompositionUpdate"
+], n = ["onFocus", "onBlur"], r = [
+	"onInput",
+	"onInvalid",
+	"onReset",
+	"onSubmit"
+], i = ["onLoad", "onError"], a = [
+	"onKeyDown",
+	"onKeyPress",
+	"onKeyUp"
+], o = [
+	"onAbort",
+	"onCanPlay",
+	"onCanPlayThrough",
+	"onDurationChange",
+	"onEmptied",
+	"onEncrypted",
+	"onEnded",
+	"onError",
+	"onLoadedData",
+	"onLoadedMetadata",
+	"onLoadStart",
+	"onPause",
+	"onPlay",
+	"onPlaying",
+	"onProgress",
+	"onRateChange",
+	"onSeeked",
+	"onSeeking",
+	"onStalled",
+	"onSuspend",
+	"onTimeUpdate",
+	"onVolumeChange",
+	"onWaiting"
+], s = [
+	"onClick",
+	"onContextMenu",
+	"onDoubleClick",
+	"onMouseDown",
+	"onMouseEnter",
+	"onMouseLeave",
+	"onMouseMove",
+	"onMouseOut",
+	"onMouseOver",
+	"onMouseUp"
+], c = [
+	"onDrag",
+	"onDragEnd",
+	"onDragEnter",
+	"onDragExit",
+	"onDragLeave",
+	"onDragOver",
+	"onDragStart",
+	"onDrop"
+], l = ["onSelect"], u = [
+	"onTouchCancel",
+	"onTouchEnd",
+	"onTouchMove",
+	"onTouchStart"
+], d = [
+	"onPointerDown",
+	"onPointerMove",
+	"onPointerUp",
+	"onPointerCancel",
+	"onGotPointerCapture",
+	"onLostPointerCapture",
+	"onPointerEnter",
+	"onPointerLeave",
+	"onPointerOver",
+	"onPointerOut"
+], f = ["onScroll"], p = ["onWheel"], m = [
+	"onAnimationStart",
+	"onAnimationEnd",
+	"onAnimationIteration"
+], h = ["onTransitionEnd"], g = ["onToggle"], _ = ["onChange"], v = [
+	...e,
+	...t,
+	...n,
+	...r,
+	...i,
+	...a,
+	...o,
+	...s,
+	...c,
+	...l,
+	...u,
+	...d,
+	...f,
+	...p,
+	...m,
+	...h,
+	..._,
+	...g
+];
+function y(e, t) {
+	let n = {};
+	for (let r of v) {
+		let i = e[r];
+		i && (t ? n[r] = ((e) => i(e, t(r))) : n[r] = i);
+	}
+	return n;
 }
 //#endregion
-export { t as default };
+export { v as allEvents, m as animationEvents, _ as changeEvents, e as clipboardEvents, t as compositionEvents, y as default, c as dragEvents, n as focusEvents, r as formEvents, i as imageEvents, a as keyboardEvents, o as mediaEvents, s as mouseEvents, g as otherEvents, d as pointerEvents, l as selectionEvents, u as touchEvents, h as transitionEvents, f as uiEvents, p as wheelEvents };

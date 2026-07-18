@@ -1,9 +1,9 @@
 import { SectionProps } from '../Section/Section.types';
 type SectionPropsPick = Pick<SectionProps, 'variant' | 'padding' | 'children'>;
 export interface SectionCollapsibleProps {
-    id?: string;
     className?: string;
     collapsed?: boolean;
+    defaultCollapsed?: boolean;
     onCollapsedChange?: (args: {
         event: MouseEvent | KeyboardEvent;
         collapsed: boolean;

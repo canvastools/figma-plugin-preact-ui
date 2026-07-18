@@ -1,5 +1,5 @@
-import { jsx as e } from "./index14.es.js";
-//#region src/components/Icon/glyphs/dropShadowBottomLeft.tsx
+import { jsx as e } from "./index15.es.js";
+//#region src/components/Icon/glyphs/dropShadowBottom.tsx
 var t = ({ variant: t }) => {
 	switch (t) {
 		case "downscaled": return /* @__PURE__ */ e("svg", {
@@ -9,7 +9,7 @@ var t = ({ variant: t }) => {
 			fill: "none",
 			xmlns: "http://www.w3.org/2000/svg",
 			children: [/* @__PURE__ */ e("path", {
-				d: "M3.5 14C2.67157 14 2 13.3284 2 12.5L2 5.5C2 4.67157 2.67157 4 3.5 4H4V12H12V12.5C12 13.3284 11.3284 14 10.5 14H3.5Z",
+				d: "M4.5 14C3.67157 14 3 13.3284 3 12.5L3 11L4 12H12L13 11V12.5C13 13.3284 12.3284 14 11.5 14H4.5Z",
 				fill: "currentColor",
 				"fill-opacity": "0.3"
 			}), /* @__PURE__ */ e("path", {
@@ -24,7 +24,7 @@ var t = ({ variant: t }) => {
 			fill: "none",
 			xmlns: "http://www.w3.org/2000/svg",
 			children: [/* @__PURE__ */ e("path", {
-				d: "M6 20C4.89543 20 4 19.1046 4 18L4 10C4 8.89543 4.89543 8 6 8H7L7 17H16V18C16 19.1046 15.1046 20 14 20H6Z",
+				d: "M8 20C6.89543 20 6 19.1046 6 18V16L7 17H17L18 16V18C18 19.1046 17.1046 20 16 20H8Z",
 				fill: "currentColor",
 				"fill-opacity": "0.3"
 			}), /* @__PURE__ */ e("path", {
@@ -39,7 +39,7 @@ var t = ({ variant: t }) => {
 			fill: "none",
 			xmlns: "http://www.w3.org/2000/svg",
 			children: [/* @__PURE__ */ e("path", {
-				d: "M4 22C2.89543 22 2 21.1046 2 20L2 8C2 6.89543 2.89543 6 4 6H5L5 19H18V20C18 21.1046 17.1046 22 16 22H4Z",
+				d: "M6 22C4.89543 22 4 21.1046 4 20V18L5 19H19L20 18V20C20 21.1046 19.1046 22 18 22H6Z",
 				fill: "currentColor",
 				"fill-opacity": "0.3"
 			}), /* @__PURE__ */ e("path", {
@@ -47,8 +47,8 @@ var t = ({ variant: t }) => {
 				fill: "currentColor"
 			})]
 		});
-		default: throw Error(`dropShadowBottomLeft icon error: Unsupported combination variant=${t}`);
+		default: throw Error(`dropShadowBottom icon error: Unsupported combination variant=${t}`);
 	}
 };
 //#endregion
-export { t as dropShadowBottomLeft };
+export { t as dropShadowBottom };

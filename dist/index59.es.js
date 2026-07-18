@@ -1,5 +1,5 @@
-import { jsx as e } from "./index14.es.js";
-//#region src/components/Icon/glyphs/chevronRight.tsx
+import { jsx as e } from "./index15.es.js";
+//#region src/components/Icon/glyphs/chevronLeft.tsx
 var t = ({ variant: t }) => {
 	switch (t) {
 		case "downscaled": return /* @__PURE__ */ e("svg", {
@@ -9,7 +9,7 @@ var t = ({ variant: t }) => {
 			fill: "none",
 			xmlns: "http://www.w3.org/2000/svg",
 			children: /* @__PURE__ */ e("path", {
-				d: "M7.14638 6.23348C6.95116 6.03826 6.95125 5.72172 7.14638 5.52645C7.34164 5.33119 7.65815 5.33119 7.85341 5.52645L10.328 8.00106L7.85341 10.4757C7.65815 10.6709 7.34164 10.6709 7.14638 10.4757C6.95129 10.2804 6.95117 9.96384 7.14638 9.76864L8.91396 8.00106L7.14638 6.23348Z",
+				d: "M8.85164 9.76864C9.04686 9.96386 9.04677 10.2804 8.85164 10.4757C8.65638 10.6709 8.33987 10.6709 8.14461 10.4757L5.67 8.00106L8.14461 5.52645C8.33987 5.33119 8.65638 5.33119 8.85164 5.52645C9.04674 5.72173 9.04685 6.03828 8.85164 6.23348L7.08407 8.00106L8.85164 9.76864Z",
 				fill: "currentColor"
 			})
 		});
@@ -20,7 +20,7 @@ var t = ({ variant: t }) => {
 			fill: "none",
 			xmlns: "http://www.w3.org/2000/svg",
 			children: /* @__PURE__ */ e("path", {
-				d: "M11.1464 10.2342C10.9512 10.039 10.9512 9.72147 11.1464 9.52621C11.3417 9.33129 11.6583 9.33126 11.8535 9.52621L14.3281 12.0018L11.8535 14.4764C11.6582 14.6717 11.3417 14.6716 11.1464 14.4764C10.9512 14.2811 10.9512 13.9646 11.1464 13.7694L12.914 12.0018L11.1464 10.2342Z",
+				d: "M14.3536 16.7707C14.5488 16.9659 14.5487 17.2825 14.3536 17.4777C14.1583 17.6729 13.8418 17.673 13.6466 17.4777L8.17 12.0012L13.6466 6.5246C13.8418 6.32939 14.1583 6.3295 14.3536 6.5246C14.5487 6.71988 14.5488 7.03643 14.3536 7.23164L9.58406 12.0012L14.3536 16.7707Z",
 				fill: "currentColor"
 			})
 		});
@@ -37,8 +37,8 @@ var t = ({ variant: t }) => {
 				fill: "currentColor"
 			})
 		});
-		default: throw Error(`chevronRight icon error: Unsupported combination variant=${t}`);
+		default: throw Error(`chevronLeft icon error: Unsupported combination variant=${t}`);
 	}
 };
 //#endregion
-export { t as chevronRight };
+export { t as chevronLeft };

@@ -1,5 +1,5 @@
-import { jsx as e } from "./index14.es.js";
-//#region src/components/Icon/glyphs/y.tsx
+import { jsx as e } from "./index15.es.js";
+//#region src/components/Icon/glyphs/x.tsx
 var t = ({ variant: t }) => {
 	switch (t) {
 		case "downscaled": return /* @__PURE__ */ e("svg", {
@@ -9,7 +9,7 @@ var t = ({ variant: t }) => {
 			fill: "none",
 			xmlns: "http://www.w3.org/2000/svg",
 			children: /* @__PURE__ */ e("path", {
-				d: "M8.62356 8.67285L8.62258 12H7.37258L7.37356 8.67188L4.56887 4H6.02688L7.99856 7.28516L9.96926 4H11.4253L8.62356 8.67285Z",
+				d: "M8.74856 8L11.4156 12H9.91262L7.99758 9.12695L6.08254 12H4.57961L7.24563 8L4.57961 4H6.08254L7.99758 6.87207L9.91262 4H11.4156L8.74856 8Z",
 				fill: "currentColor"
 			})
 		});
@@ -20,7 +20,7 @@ var t = ({ variant: t }) => {
 			fill: "none",
 			xmlns: "http://www.w3.org/2000/svg",
 			children: /* @__PURE__ */ e("path", {
-				d: "M12.625 12.6729V16H11.375V12.6729L8.57129 8H10.0293L12 11.2852L13.9707 8H15.4287L12.625 12.6729Z",
+				d: "M12.751 12L15.418 16H13.915L12 13.127L10.085 16H8.58203L11.248 12L8.58203 8H10.085L12 10.8721L13.915 8H15.418L12.751 12Z",
 				fill: "currentColor"
 			})
 		});
@@ -31,12 +31,12 @@ var t = ({ variant: t }) => {
 			fill: "none",
 			xmlns: "http://www.w3.org/2000/svg",
 			children: /* @__PURE__ */ e("path", {
-				d: "M12.6245 12.6802L12.6284 19.0005H11.3784L11.3745 12.6782L6.55225 5.00049H8.02881L11.9995 11.3247L15.9771 5.00049H17.4536L12.6245 12.6802Z",
+				d: "M12.7554 11.9995L17.4224 19.0005H15.9204L12.0034 13.1265L8.08838 19.0005H6.58545L11.2524 11.9995L6.58643 5.00049H8.08936L12.0034 10.8726L15.9194 5.00049H17.4214L12.7554 11.9995Z",
 				fill: "currentColor"
 			})
 		});
-		default: throw Error(`y icon error: Unsupported combination variant=${t}`);
+		default: throw Error(`x icon error: Unsupported combination variant=${t}`);
 	}
 };
 //#endregion
-export { t as y };
+export { t as x };

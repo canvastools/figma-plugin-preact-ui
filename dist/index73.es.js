@@ -1,5 +1,5 @@
-import { jsx as e } from "./index14.es.js";
-//#region src/components/Icon/glyphs/dropShadowBottomRight.tsx
+import { jsx as e } from "./index15.es.js";
+//#region src/components/Icon/glyphs/dropShadowBottomLeft.tsx
 var t = ({ variant: t }) => {
 	switch (t) {
 		case "downscaled": return /* @__PURE__ */ e("svg", {
@@ -9,7 +9,7 @@ var t = ({ variant: t }) => {
 			fill: "none",
 			xmlns: "http://www.w3.org/2000/svg",
 			children: [/* @__PURE__ */ e("path", {
-				d: "M14 12.5C14 13.3284 13.3284 14 12.5 14L5.5 14C4.67157 14 4 13.3284 4 12.5V12L12 12L12 4H12.5C13.3284 4 14 4.67157 14 5.5L14 12.5Z",
+				d: "M3.5 14C2.67157 14 2 13.3284 2 12.5L2 5.5C2 4.67157 2.67157 4 3.5 4H4V12H12V12.5C12 13.3284 11.3284 14 10.5 14H3.5Z",
 				fill: "currentColor",
 				"fill-opacity": "0.3"
 			}), /* @__PURE__ */ e("path", {
@@ -24,7 +24,7 @@ var t = ({ variant: t }) => {
 			fill: "none",
 			xmlns: "http://www.w3.org/2000/svg",
 			children: [/* @__PURE__ */ e("path", {
-				d: "M20 18C20 19.1046 19.1046 20 18 20H10C8.89543 20 8 19.1046 8 18V17H17V8H18C19.1046 8 20 8.89543 20 10V18Z",
+				d: "M6 20C4.89543 20 4 19.1046 4 18L4 10C4 8.89543 4.89543 8 6 8H7L7 17H16V18C16 19.1046 15.1046 20 14 20H6Z",
 				fill: "currentColor",
 				"fill-opacity": "0.3"
 			}), /* @__PURE__ */ e("path", {
@@ -39,7 +39,7 @@ var t = ({ variant: t }) => {
 			fill: "none",
 			xmlns: "http://www.w3.org/2000/svg",
 			children: [/* @__PURE__ */ e("path", {
-				d: "M22 20C22 21.1046 21.1046 22 20 22L8 22C6.89543 22 6 21.1046 6 20V19H19V6H20C21.1046 6 22 6.89543 22 8V20Z",
+				d: "M4 22C2.89543 22 2 21.1046 2 20L2 8C2 6.89543 2.89543 6 4 6H5L5 19H18V20C18 21.1046 17.1046 22 16 22H4Z",
 				fill: "currentColor",
 				"fill-opacity": "0.3"
 			}), /* @__PURE__ */ e("path", {
@@ -47,8 +47,8 @@ var t = ({ variant: t }) => {
 				fill: "currentColor"
 			})]
 		});
-		default: throw Error(`dropShadowBottomRight icon error: Unsupported combination variant=${t}`);
+		default: throw Error(`dropShadowBottomLeft icon error: Unsupported combination variant=${t}`);
 	}
 };
 //#endregion
-export { t as dropShadowBottomRight };
+export { t as dropShadowBottomLeft };

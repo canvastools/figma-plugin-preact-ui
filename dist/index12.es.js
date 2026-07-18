@@ -1,11 +1,4 @@
-import { useEffect as e, useState as t } from "preact/hooks";
-//#region src/utils/useRefElement.ts
-var n = (n) => {
-	let [r, i] = t(n?.current ?? null);
-	return e(() => {
-		let e = n?.current ?? null;
-		i((t) => t === e ? t : e);
-	}), r;
-};
+//#region src/utils/uuid.ts
+var e = () => Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 //#endregion
-export { n as useRefElement };
+export { e as uuid };

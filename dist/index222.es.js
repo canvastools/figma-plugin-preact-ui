@@ -1,59 +1,39 @@
-import { jsx as e } from "./index14.es.js";
-import { CALENDAR_TYPES as t, CALENDAR_TYPE_LOCALES as n } from "./index203.es.js";
-import { clsx as r } from "./index206.es.js";
-import i from "./index218.es.js";
-import a from "./index219.es.js";
-import o from "./index221.es.js";
-//#region ../node_modules/.pnpm/react-calendar@6.0.1_@types+react@19.1.3_react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/react-calendar/dist/MonthView.js
-function s(e) {
-	if (e) {
-		for (let [t, r] of Object.entries(n)) if (r.includes(e)) return t;
-	}
-	return t.ISO_8601;
-}
-function c(t) {
-	let { activeStartDate: n, locale: c, onMouseLeave: l, showFixedNumberOfWeeks: u } = t, { calendarType: d = s(c), formatShortWeekday: f, formatWeekday: p, onClickWeekNumber: m, showWeekNumbers: h, ...g } = t;
-	function _() {
-		return e(a, {
-			calendarType: d,
-			formatShortWeekday: f,
-			formatWeekday: p,
-			locale: c,
-			onMouseLeave: l
-		});
-	}
-	function v() {
-		return h ? e(o, {
-			activeStartDate: n,
-			calendarType: d,
-			onClickWeekNumber: m,
-			onMouseLeave: l,
-			showFixedNumberOfWeeks: u
-		}) : null;
-	}
-	function y() {
-		return e(i, {
-			calendarType: d,
-			...g
-		});
-	}
-	let b = "react-calendar__month-view";
-	return e("div", {
-		className: r(b, h ? `${b}--weekNumbers` : ""),
-		children: e("div", {
-			style: {
-				display: "flex",
-				alignItems: "flex-end"
-			},
-			children: [v(), e("div", {
-				style: {
-					flexGrow: 1,
-					width: "100%"
-				},
-				children: [_(), y()]
-			})]
+import { jsx as e } from "./index15.es.js";
+import { getDate as t, getDaysInMonth as n, getMonth as r, getYear as i } from "./index203.es.js";
+import { getBeginOfWeek as a, getDayOfWeek as o, getWeekNumber as s } from "./index205.es.js";
+import c from "./index208.es.js";
+import l from "./index221.es.js";
+//#region ../node_modules/.pnpm/react-calendar@6.0.1_@types+react@19.1.3_react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/react-calendar/dist/MonthView/WeekNumbers.js
+function u(u) {
+	let { activeStartDate: d, calendarType: f, onClickWeekNumber: p, onMouseLeave: m, showFixedNumberOfWeeks: h } = u, g = (() => {
+		if (h) return 6;
+		let e = n(d) - (7 - o(d, f));
+		return 1 + Math.ceil(e / 7);
+	})(), _ = (() => {
+		let e = i(d), n = r(d), o = t(d), s = [];
+		for (let t = 0; t < g; t += 1) s.push(a(new Date(e, n, o + t * 7), f));
+		return s;
+	})();
+	return e(c, {
+		className: "react-calendar__month-view__weekNumbers",
+		count: g,
+		direction: "column",
+		onFocus: m,
+		onMouseOver: m,
+		style: {
+			flexBasis: "calc(100% * (1 / 8)",
+			flexShrink: 0
+		},
+		children: _.map((e) => s(e, f)).map((t, n) => {
+			let r = _[n];
+			if (!r) throw Error("date is not defined");
+			return e(l, {
+				date: r,
+				onClickWeekNumber: p,
+				weekNumber: t
+			}, t);
 		})
 	});
 }
 //#endregion
-export { c as default };
+export { u as default };

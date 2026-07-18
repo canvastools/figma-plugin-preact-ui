@@ -1,5 +1,5 @@
-import { jsx as e } from "./index14.es.js";
-//#region src/components/Icon/glyphs/innerShadowTopRight.tsx
+import { jsx as e } from "./index15.es.js";
+//#region src/components/Icon/glyphs/innerShadowTopLeft.tsx
 var t = ({ variant: t }) => {
 	switch (t) {
 		case "downscaled": return /* @__PURE__ */ e("svg", {
@@ -9,7 +9,7 @@ var t = ({ variant: t }) => {
 			fill: "none",
 			xmlns: "http://www.w3.org/2000/svg",
 			children: [/* @__PURE__ */ e("path", {
-				d: "M12 4V6V12H10V7C10 6.44772 9.55228 6 9 6H4V4L12 4Z",
+				d: "M4 4H6H12V6H7C6.44772 6 6 6.44772 6 7V12H4V4Z",
 				fill: "currentColor",
 				"fill-opacity": "0.3"
 			}), /* @__PURE__ */ e("path", {
@@ -24,7 +24,7 @@ var t = ({ variant: t }) => {
 			fill: "none",
 			xmlns: "http://www.w3.org/2000/svg",
 			children: [/* @__PURE__ */ e("path", {
-				d: "M17 7V9V17H15V10C15 9.44772 14.5523 9 14 9H7V7L17 7Z",
+				d: "M7 7H9H17V9H10C9.44772 9 9 9.44772 9 10V17H7V7Z",
 				fill: "currentColor",
 				"fill-opacity": "0.3"
 			}), /* @__PURE__ */ e("path", {
@@ -39,7 +39,7 @@ var t = ({ variant: t }) => {
 			fill: "none",
 			xmlns: "http://www.w3.org/2000/svg",
 			children: [/* @__PURE__ */ e("path", {
-				d: "M19 5L19 7L19 19H17V8C17 7.44772 16.5523 7 16 7L5 7V5L19 5Z",
+				d: "M5 5H7H19V7H8C7.44772 7 7 7.44772 7 8V19H5V5Z",
 				fill: "currentColor",
 				"fill-opacity": "0.3"
 			}), /* @__PURE__ */ e("path", {
@@ -47,8 +47,8 @@ var t = ({ variant: t }) => {
 				fill: "currentColor"
 			})]
 		});
-		default: throw Error(`innerShadowTopRight icon error: Unsupported combination variant=${t}`);
+		default: throw Error(`innerShadowTopLeft icon error: Unsupported combination variant=${t}`);
 	}
 };
 //#endregion
-export { t as innerShadowTopRight };
+export { t as innerShadowTopLeft };

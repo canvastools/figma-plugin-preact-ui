@@ -1,5 +1,5 @@
-import { jsx as e } from "./index14.es.js";
-//#region src/components/Icon/glyphs/dropShadowRight.tsx
+import { jsx as e } from "./index15.es.js";
+//#region src/components/Icon/glyphs/dropShadowLeft.tsx
 var t = ({ variant: t }) => {
 	switch (t) {
 		case "downscaled": return /* @__PURE__ */ e("svg", {
@@ -9,7 +9,7 @@ var t = ({ variant: t }) => {
 			fill: "none",
 			xmlns: "http://www.w3.org/2000/svg",
 			children: [/* @__PURE__ */ e("path", {
-				d: "M14 11.5C14 12.3284 13.3284 13 12.5 13L11 13L12 12L12 4L11 3H12.5C13.3284 3 14 3.67157 14 4.5L14 11.5Z",
+				d: "M2 4.5C2 3.67157 2.67157 3 3.5 3L5 3L4 4V12L5 13H3.5C2.67157 13 2 12.3284 2 11.5V4.5Z",
 				fill: "currentColor",
 				"fill-opacity": "0.3"
 			}), /* @__PURE__ */ e("path", {
@@ -24,7 +24,7 @@ var t = ({ variant: t }) => {
 			fill: "none",
 			xmlns: "http://www.w3.org/2000/svg",
 			children: [/* @__PURE__ */ e("path", {
-				d: "M20 16C20 17.1046 19.1046 18 18 18H16L17 17V7L16 6H18C19.1046 6 20 6.89543 20 8V16Z",
+				d: "M4 8C4 6.89543 4.89543 6 6 6H8L7 7V17L8 18H6C4.89543 18 4 17.1046 4 16V8Z",
 				fill: "currentColor",
 				"fill-opacity": "0.3"
 			}), /* @__PURE__ */ e("path", {
@@ -39,7 +39,7 @@ var t = ({ variant: t }) => {
 			fill: "none",
 			xmlns: "http://www.w3.org/2000/svg",
 			children: [/* @__PURE__ */ e("path", {
-				d: "M22 18C22 19.1046 21.1046 20 20 20H18L19 19V5L18 4H20C21.1046 4 22 4.89543 22 6V18Z",
+				d: "M2 6C2 4.89543 2.89543 4 4 4H6L5 5V19L6 20H4C2.89543 20 2 19.1046 2 18V6Z",
 				fill: "currentColor",
 				"fill-opacity": "0.3"
 			}), /* @__PURE__ */ e("path", {
@@ -47,8 +47,8 @@ var t = ({ variant: t }) => {
 				fill: "currentColor"
 			})]
 		});
-		default: throw Error(`dropShadowRight icon error: Unsupported combination variant=${t}`);
+		default: throw Error(`dropShadowLeft icon error: Unsupported combination variant=${t}`);
 	}
 };
 //#endregion
-export { t as dropShadowRight };
+export { t as dropShadowLeft };

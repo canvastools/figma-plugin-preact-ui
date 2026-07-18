@@ -1,29 +1,20 @@
-import { jsx as e } from "./index14.es.js";
-import { getMonthStart as t, getYear as n } from "./index202.es.js";
-import r from "./index209.es.js";
-import i from "./index223.es.js";
-//#region ../node_modules/.pnpm/react-calendar@6.0.1_@types+react@19.1.3_react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/react-calendar/dist/YearView/Months.js
-function a(a) {
-	let { activeStartDate: o, hover: s, value: c, valueType: l, ...u } = a, d = n(o);
-	return e(r, {
-		className: "react-calendar__year-view__months",
-		dateTransform: (e) => {
-			let n = /* @__PURE__ */ new Date();
-			return n.setFullYear(d, e, 1), t(n);
-		},
-		dateType: "month",
-		end: 11,
-		hover: s,
-		renderTile: ({ date: t, ...n }) => e(i, {
-			...u,
-			...n,
-			activeStartDate: o,
-			date: t
-		}, t.getTime()),
-		start: 0,
-		value: c,
-		valueType: l
+import { jsx as e } from "./index15.es.js";
+import { formatMonth as t, formatMonthYear as n } from "./index202.es.js";
+import { getMonthEnd as r, getMonthStart as i } from "./index203.es.js";
+import a from "./index211.es.js";
+//#region ../node_modules/.pnpm/react-calendar@6.0.1_@types+react@19.1.3_react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/react-calendar/dist/YearView/Month.js
+var o = "react-calendar__year-view__months__month";
+function s({ classes: s = [], formatMonth: c = t, formatMonthYear: l = n, ...u }) {
+	let { date: d, locale: f } = u;
+	return e(a, {
+		...u,
+		classes: [...s, o],
+		formatAbbr: l,
+		maxDateTransform: r,
+		minDateTransform: i,
+		view: "year",
+		children: c(f, d)
 	});
 }
 //#endregion
-export { a as default };
+export { s as default };

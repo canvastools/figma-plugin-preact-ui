@@ -1,30 +1,34 @@
-import { __commonJSMin as e } from "./index2.es.js";
-//#region ../node_modules/.pnpm/warning@4.0.3/node_modules/warning/warning.js
-var t = /* @__PURE__ */ e(((e, t) => {
-	var n = process.env.NODE_ENV !== "production", r = function() {};
-	if (n) {
-		var i = function(e, t) {
-			var n = arguments.length;
-			t = Array(n > 1 ? n - 1 : 0);
-			for (var r = 1; r < n; r++) t[r - 1] = arguments[r];
-			var i = 0, a = "Warning: " + e.replace(/%s/g, function() {
-				return t[i++];
-			});
-			typeof console < "u" && console.error(a);
-			try {
-				throw Error(a);
-			} catch {}
-		};
-		r = function(e, t, n) {
-			var r = arguments.length;
-			n = Array(r > 2 ? r - 2 : 0);
-			for (var a = 2; a < r; a++) n[a - 2] = arguments[a];
-			if (t === void 0) throw Error("`warning(condition, format, ...args)` requires a warning message argument");
-			e || i.apply(null, [t].concat(n));
-		};
-	}
-	t.exports = r;
-}));
+//#region ../node_modules/.pnpm/detect-element-overflow@2.0.0/node_modules/detect-element-overflow/dist/index.js
+function e(e) {
+	return e.getBoundingClientRect();
+}
+function t(t, n) {
+	return {
+		get collidedTop() {
+			return e(t).top < e(n).top;
+		},
+		get collidedBottom() {
+			return e(t).bottom > e(n).bottom;
+		},
+		get collidedLeft() {
+			return e(t).left < e(n).left;
+		},
+		get collidedRight() {
+			return e(t).right > e(n).right;
+		},
+		get overflowTop() {
+			return e(n).top - e(t).top;
+		},
+		get overflowBottom() {
+			return e(t).bottom - e(n).bottom;
+		},
+		get overflowLeft() {
+			return e(n).left - e(t).left;
+		},
+		get overflowRight() {
+			return e(t).right - e(n).right;
+		}
+	};
+}
 //#endregion
-export default t();
-export { t as require_warning };
+export { t as default };

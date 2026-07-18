@@ -10,7 +10,7 @@ export declare const Variant: import("storybook/internal/csf").StoryAnnotations<
 export declare const Collapsable: import("storybook/internal/csf").StoryAnnotations<import("@storybook/preact-vite").PreactRenderer, import("./ListItem.types").ListItemProps & {
     ref?: import("preact").Ref<HTMLDivElement> | undefined;
 }>;
-export declare const Padding: import("storybook/internal/csf").StoryAnnotations<import("@storybook/preact-vite").PreactRenderer, import("./ListItem.types").ListItemProps & {
+export declare const Layers: import("storybook/internal/csf").StoryAnnotations<import("@storybook/preact-vite").PreactRenderer, import("./ListItem.types").ListItemProps & {
     ref?: import("preact").Ref<HTMLDivElement> | undefined;
 }>;
 export declare const Content: import("storybook/internal/csf").StoryAnnotations<import("@storybook/preact-vite").PreactRenderer, import("./ListItem.types").ListItemProps & {

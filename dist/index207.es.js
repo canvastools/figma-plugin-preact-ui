@@ -1,35 +1,16 @@
-import { jsx as e } from "./index14.es.js";
-import { Children as t, cloneElement as n } from "preact/compat";
-//#region ../node_modules/.pnpm/react-calendar@6.0.1_@types+react@19.1.3_react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/react-calendar/dist/Flex.js
-function r(e) {
-	return `${e}%`;
+//#region ../node_modules/.pnpm/clsx@2.1.1/node_modules/clsx/dist/clsx.mjs
+function e(t) {
+	var n, r, i = "";
+	if (typeof t == "string" || typeof t == "number") i += t;
+	else if (typeof t == "object") if (Array.isArray(t)) {
+		var a = t.length;
+		for (n = 0; n < a; n++) t[n] && (r = e(t[n])) && (i && (i += " "), i += r);
+	} else for (r in t) t[r] && (i && (i += " "), i += r);
+	return i;
 }
-function i({ children: i, className: a, count: o, direction: s, offset: c, style: l, wrap: u, ...d }) {
-	return e("div", {
-		className: a,
-		style: {
-			display: "flex",
-			flexDirection: s,
-			flexWrap: u ? "wrap" : "nowrap",
-			...l
-		},
-		...d,
-		children: t.map(i, (e, t) => {
-			let i = c && t === 0 ? r(100 * c / o) : null;
-			return n(e, {
-				...e.props,
-				style: {
-					flexBasis: r(100 / o),
-					flexShrink: 0,
-					flexGrow: 0,
-					overflow: "hidden",
-					marginLeft: i,
-					marginInlineStart: i,
-					marginInlineEnd: 0
-				}
-			});
-		})
-	});
+function t() {
+	for (var t, n, r = 0, i = "", a = arguments.length; r < a; r++) (t = arguments[r]) && (n = e(t)) && (i && (i += " "), i += n);
+	return i;
 }
 //#endregion
-export { i as default };
+export { t as clsx, t as default };

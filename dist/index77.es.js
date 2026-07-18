@@ -1,5 +1,5 @@
-import { jsx as e } from "./index14.es.js";
-//#region src/components/Icon/glyphs/dropShadowTopLeft.tsx
+import { jsx as e } from "./index15.es.js";
+//#region src/components/Icon/glyphs/dropShadowTop.tsx
 var t = ({ variant: t }) => {
 	switch (t) {
 		case "downscaled": return /* @__PURE__ */ e("svg", {
@@ -9,7 +9,7 @@ var t = ({ variant: t }) => {
 			fill: "none",
 			xmlns: "http://www.w3.org/2000/svg",
 			children: [/* @__PURE__ */ e("path", {
-				d: "M2 3.5C2 2.67157 2.67157 2 3.5 2H10.5C11.3284 2 12 2.67157 12 3.5V4H4V12H3.5C2.67157 12 2 11.3284 2 10.5V3.5Z",
+				d: "M11.5 2C12.3284 2 13 2.67157 13 3.5L13 5L12 4H4L3 5V3.5C3 2.67157 3.67157 2 4.5 2L11.5 2Z",
 				fill: "currentColor",
 				"fill-opacity": "0.3"
 			}), /* @__PURE__ */ e("path", {
@@ -24,7 +24,7 @@ var t = ({ variant: t }) => {
 			fill: "none",
 			xmlns: "http://www.w3.org/2000/svg",
 			children: [/* @__PURE__ */ e("path", {
-				d: "M4 6C4 4.89543 4.89543 4 6 4H14C15.1046 4 16 4.89543 16 6V7H7V16H6C4.89543 16 4 15.1046 4 14V6Z",
+				d: "M16 4C17.1046 4 18 4.89543 18 6V8L17 7L7 7L6 8V6C6 4.89543 6.89543 4 8 4L16 4Z",
 				fill: "currentColor",
 				"fill-opacity": "0.3"
 			}), /* @__PURE__ */ e("path", {
@@ -39,7 +39,7 @@ var t = ({ variant: t }) => {
 			fill: "none",
 			xmlns: "http://www.w3.org/2000/svg",
 			children: [/* @__PURE__ */ e("path", {
-				d: "M2 4C2 2.89543 2.89543 2 4 2L16 2C17.1046 2 18 2.89543 18 4V5H5V18H4C2.89543 18 2 17.1046 2 16V4Z",
+				d: "M18 2C19.1046 2 20 2.89543 20 4V6L19 5L5 5L4 6V4C4 2.89543 4.89543 2 6 2L18 2Z",
 				fill: "currentColor",
 				"fill-opacity": "0.3"
 			}), /* @__PURE__ */ e("path", {
@@ -47,8 +47,8 @@ var t = ({ variant: t }) => {
 				fill: "currentColor"
 			})]
 		});
-		default: throw Error(`dropShadowTopLeft icon error: Unsupported combination variant=${t}`);
+		default: throw Error(`dropShadowTop icon error: Unsupported combination variant=${t}`);
 	}
 };
 //#endregion
-export { t as dropShadowTopLeft };
+export { t as dropShadowTop };

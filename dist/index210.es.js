@@ -1,43 +1,28 @@
-import { jsx as e } from "./index14.es.js";
-import { clsx as t } from "./index206.es.js";
-import { useMemo as n } from "preact/compat";
-//#region ../node_modules/.pnpm/react-calendar@6.0.1_@types+react@19.1.3_react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/react-calendar/dist/Tile.js
-function r(r) {
-	let { activeStartDate: i, children: a, classes: o, date: s, formatAbbr: c, locale: l, maxDate: u, maxDateTransform: d, minDate: f, minDateTransform: p, onClick: m, onMouseOver: h, style: g, tileClassName: _, tileContent: v, tileDisabled: y, view: b } = r, x = n(() => typeof _ == "function" ? _({
-		activeStartDate: i,
-		date: s,
-		view: b
-	}) : _, [
-		i,
-		s,
-		_,
-		b
-	]), S = n(() => typeof v == "function" ? v({
-		activeStartDate: i,
-		date: s,
-		view: b
-	}) : v, [
-		i,
-		s,
-		v,
-		b
-	]);
-	return e("button", {
-		className: t(o, x),
-		disabled: f && p(f) > s || u && d(u) < s || y?.({
-			activeStartDate: i,
-			date: s,
-			view: b
-		}),
-		onClick: m ? (e) => m(s, e) : void 0,
-		onFocus: h ? () => h(s) : void 0,
-		onMouseOver: h ? () => h(s) : void 0,
-		style: g,
-		type: "button",
-		children: [c ? e("abbr", {
-			"aria-label": c(l, s),
-			children: a
-		}) : a, S]
+import { jsx as e } from "./index15.es.js";
+import t from "./index208.es.js";
+import { getTileClasses as n } from "./index209.es.js";
+//#region ../node_modules/.pnpm/react-calendar@6.0.1_@types+react@19.1.3_react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/react-calendar/dist/TileGroup.js
+function r({ className: r, count: i = 3, dateTransform: a, dateType: o, end: s, hover: c, offset: l, renderTile: u, start: d, step: f = 1, value: p, valueType: m }) {
+	let h = [];
+	for (let e = d; e <= s; e += f) {
+		let t = a(e);
+		h.push(u({
+			classes: n({
+				date: t,
+				dateType: o,
+				hover: c,
+				value: p,
+				valueType: m
+			}),
+			date: t
+		}));
+	}
+	return e(t, {
+		className: r,
+		count: i,
+		offset: l,
+		wrap: !0,
+		children: h
 	});
 }
 //#endregion

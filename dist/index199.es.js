@@ -1,45 +1,28 @@
-import e from "./index198.es.js";
-//#region ../node_modules/.pnpm/memoize@10.2.0/node_modules/memoize/distribution/index.js
-var t = 2147483647, n = /* @__PURE__ */ new WeakMap(), r = /* @__PURE__ */ new WeakMap(), i = /* @__PURE__ */ new WeakMap();
-function a(e, t) {
-	let n = e.get(t);
-	if (n) {
-		if (n.maxAge <= Date.now()) {
-			e.delete(t);
-			return;
-		}
-		return n;
-	}
-}
-function o(o, { cacheKey: s, cache: c = /* @__PURE__ */ new Map(), maxAge: l } = {}) {
-	if (l === 0) return o;
-	if (typeof l == "number" && Number.isFinite(l)) {
-		if (l > t) throw TypeError(`The \`maxAge\` option cannot exceed ${t}.`);
-		if (l < 0) throw TypeError("The `maxAge` option should not be a negative number.");
-	}
-	let u = function(...e) {
-		let n = s ? s(e) : e[0], i = a(c, n);
-		if (i) return i.data;
-		let d = o.apply(this, e), f = typeof l == "function" ? l(...e) : l;
-		if (f !== void 0 && f !== Infinity) {
-			if (!Number.isFinite(f)) throw TypeError("The `maxAge` function must return a finite number, `0`, or `Infinity`.");
-			if (f <= 0) return d;
-			if (f > t) throw TypeError(`The \`maxAge\` function result cannot exceed ${t}.`);
-		}
-		if (c.set(n, {
-			data: d,
-			maxAge: f === void 0 || f === Infinity ? Infinity : Date.now() + f
-		}), f !== void 0 && f !== Infinity) {
-			let e = setTimeout(() => {
-				c.delete(n), r.get(u)?.delete(e);
-			}, f);
-			e.unref?.();
-			let t = r.get(u) ?? /* @__PURE__ */ new Set();
-			t.add(e), r.set(u, t);
-		}
-		return d;
-	};
-	return e(u, o, { ignoreNonConfigurable: !0 }), n.set(u, c), i.set(u, s ?? ((e) => e[0])), u;
+//#region ../node_modules/.pnpm/mimic-function@5.0.1/node_modules/mimic-function/index.js
+var e = (e, n, r, i) => {
+	if (r === "length" || r === "prototype" || r === "arguments" || r === "caller") return;
+	let a = Object.getOwnPropertyDescriptor(e, r), o = Object.getOwnPropertyDescriptor(n, r);
+	!t(a, o) && i || Object.defineProperty(e, r, o);
+}, t = function(e, t) {
+	return e === void 0 || e.configurable || e.writable === t.writable && e.enumerable === t.enumerable && e.configurable === t.configurable && (e.writable || e.value === t.value);
+}, n = (e, t) => {
+	let n = Object.getPrototypeOf(t);
+	n !== Object.getPrototypeOf(e) && Object.setPrototypeOf(e, n);
+}, r = (e, t) => `/* Wrapped ${e}*/\n${t}`, i = Object.getOwnPropertyDescriptor(Function.prototype, "toString"), a = Object.getOwnPropertyDescriptor(Function.prototype.toString, "name"), o = (e, t, n) => {
+	let o = n === "" ? "" : `with ${n.trim()}() `, s = r.bind(null, o, t.toString());
+	Object.defineProperty(s, "name", a);
+	let { writable: c, enumerable: l, configurable: u } = i;
+	Object.defineProperty(e, "toString", {
+		value: s,
+		writable: c,
+		enumerable: l,
+		configurable: u
+	});
+};
+function s(t, r, { ignoreNonConfigurable: i = !1 } = {}) {
+	let { name: a } = t;
+	for (let n of Reflect.ownKeys(r)) e(t, r, n, i);
+	return n(t, r), o(t, r, a), t;
 }
 //#endregion
-export { o as default };
+export { s as default };

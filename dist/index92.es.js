@@ -1,5 +1,5 @@
-import { jsx as e } from "./index14.es.js";
-//#region src/components/Icon/glyphs/innerShadowLeft.tsx
+import { jsx as e } from "./index15.es.js";
+//#region src/components/Icon/glyphs/innerShadowBottomRight.tsx
 var t = ({ variant: t }) => {
 	switch (t) {
 		case "downscaled": return /* @__PURE__ */ e("svg", {
@@ -9,7 +9,7 @@ var t = ({ variant: t }) => {
 			fill: "none",
 			xmlns: "http://www.w3.org/2000/svg",
 			children: [/* @__PURE__ */ e("path", {
-				d: "M4 4H7C6.44772 4 6 4.44772 6 5V11C6 11.5523 6.44772 12 7 12H4V4Z",
+				d: "M12 12H10L4 12V10H9C9.55228 10 10 9.55228 10 9V4H12L12 12Z",
 				fill: "currentColor",
 				"fill-opacity": "0.3"
 			}), /* @__PURE__ */ e("path", {
@@ -24,7 +24,7 @@ var t = ({ variant: t }) => {
 			fill: "none",
 			xmlns: "http://www.w3.org/2000/svg",
 			children: [/* @__PURE__ */ e("path", {
-				d: "M7 7H10C9.44772 7 9 7.44772 9 8V16C9 16.5523 9.44772 17 10 17H7V7Z",
+				d: "M17 17H15H7V15L14 15C14.5523 15 15 14.5523 15 14L15 7H17V17Z",
 				fill: "currentColor",
 				"fill-opacity": "0.3"
 			}), /* @__PURE__ */ e("path", {
@@ -39,7 +39,7 @@ var t = ({ variant: t }) => {
 			fill: "none",
 			xmlns: "http://www.w3.org/2000/svg",
 			children: [/* @__PURE__ */ e("path", {
-				d: "M5 5L8 5C7.44772 5 7 5.44772 7 6V18C7 18.5523 7.44772 19 8 19H5V5Z",
+				d: "M19 19H17H5V17H16C16.5523 17 17 16.5523 17 16V5H19V19Z",
 				fill: "currentColor",
 				"fill-opacity": "0.3"
 			}), /* @__PURE__ */ e("path", {
@@ -47,8 +47,8 @@ var t = ({ variant: t }) => {
 				fill: "currentColor"
 			})]
 		});
-		default: throw Error(`innerShadowLeft icon error: Unsupported combination variant=${t}`);
+		default: throw Error(`innerShadowBottomRight icon error: Unsupported combination variant=${t}`);
 	}
 };
 //#endregion
-export { t as innerShadowLeft };
+export { t as innerShadowBottomRight };
