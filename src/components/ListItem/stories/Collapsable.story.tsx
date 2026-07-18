@@ -2,7 +2,7 @@ import { StoryObj } from '@storybook/preact-vite'
 
 import { useState } from 'preact/hooks'
 
-import { ListContainer, Text, Stack, Spacing, ListContext, Icon, instance, frame, type ListItemData } from '../../../index'
+import { ListContainer, Text, Stack, ListContext, type ListItemData } from '../../../index'
 
 import { ListItem } from '../ListItem'
 
@@ -77,19 +77,10 @@ export const CollapsableStory: Story = {
               hoverable={true}
               items={item.items && item.items.length ? renderItems(item.items, level + 1, variant) : undefined}
               collapsable={true}
-              collapseIconIntent={item.id.startsWith('Frame 2') ? 'component-secondary' : 'tertiary'}
             >
               <Stack direction="row" y="center">
-                {variant === 'layer' && <Spacing direction="row" size={200} />}
-                <Stack direction="row" spacing={200} y="center">
-                  {item.id === 'Frame 2' && <Icon glyph={instance} size={16} intentModifier="component" variant="downscaled" />}
-                  {item.id.startsWith('Frame 2-') && (
-                    <Icon glyph={frame} size={16} intentModifier="component" variant="downscaled" />
-                  )}
-                  <Text wrap={false} intentModifier={item.id.startsWith('Frame 2') ? 'component' : 'default'}>
-                    {item.id}
-                  </Text>
-                </Stack>
+                <Text wrap={false}>{item.id}</Text>
+
                 <Text intentModifier="secondary" wrap={false}>
                   &nbsp;(Level {level})
                 </Text>
