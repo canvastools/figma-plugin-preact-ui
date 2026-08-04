@@ -30,6 +30,9 @@ const meta: Meta<typeof TooltipContainer> = {
     width: {
       control: { type: 'number' },
     },
+    maxWidth: {
+      control: { type: 'number' },
+    },
     height: {
       control: { type: 'number' },
     },

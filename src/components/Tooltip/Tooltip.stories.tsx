@@ -52,6 +52,7 @@ const meta: Meta<typeof Tooltip> = {
           detail: `
 {
   width: number
+  maxWidth: number
   height: number
   showArrow: boolean
 }

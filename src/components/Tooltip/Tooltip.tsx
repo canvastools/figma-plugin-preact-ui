@@ -18,6 +18,7 @@ const TooltipComponent = (
     className,
     anchorRef,
     width,
+    maxWidth,
     height,
     showArrow = true,
     placement = 'bottom',
@@ -139,7 +140,7 @@ const TooltipComponent = (
       onClose={trigger === 'click' ? handleDismiss : () => setOpen(false)}
     >
       <div id={id} className={[_className, className].join(' ').trim()} data-pui-interactive="true" {...rest} ref={ref}>
-        <TooltipContainer width={width} height={height} showArrow={showArrow}>
+        <TooltipContainer width={width} maxWidth={maxWidth} height={height} showArrow={showArrow}>
           {children}
         </TooltipContainer>
       </div>
