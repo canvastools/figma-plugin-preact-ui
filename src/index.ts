@@ -246,6 +246,8 @@ export {
   fontSize,
   gradient,
   group,
+  heart,
+  heartFilled,
   help,
   hidden,
   home,
