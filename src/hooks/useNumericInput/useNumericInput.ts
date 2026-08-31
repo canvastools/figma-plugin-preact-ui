@@ -3,6 +3,18 @@ import { NumericInputConfig, NumericInputError, NumericInput, NumericInputParseR
 const NUMBER_REGEX = /[-+]?\d*\.?\d+/
 const MATH_ALLOWED_CHARS = /[0-9+\-*/().\s]/
 
+/**
+ * Converts comma decimal separators to dots and keeps at most one separator
+ * per number, e.g. "12,5" -> "12.5", "1,000" -> "1.000", "1,2,3" -> "1.2".
+ */
+const normalizeDecimalSeparator = (raw: string): string =>
+  String(raw ?? '')
+    .replace(/,/g, '.')
+    .replace(/\d*\.\d*(?:\.\d*)+/g, run => {
+      const [integer, decimals] = run.split('.')
+      return `${integer}.${decimals}`
+    })
+
 const clamp = (value: number, min?: number, max?: number): number => {
   if (typeof min === 'number' && value < min) return min
   if (typeof max === 'number' && value > max) return max
@@ -15,14 +27,14 @@ const roundToPrecision = (value: number, precision: number): number => {
   return Math.round(value * factor) / factor
 }
 
-const inferPrecisionFromValue = (value: number | string): number => {
+const inferPrecisionFromValue = (value: number | string, doubleValue?: boolean): number => {
   let str: string
   if (typeof value === 'number') {
     if (!Number.isFinite(value)) return 0
     if (Number.isInteger(value)) return 0
     str = value.toFixed(20).replace(/0+$/, '').replace(/\.$/, '')
   } else {
-    str = String(value)
+    str = doubleValue ? String(value) : normalizeDecimalSeparator(String(value))
   }
   const match = NUMBER_REGEX.exec(str)
   if (!match) return 0
@@ -292,7 +304,8 @@ const buildSingleResult = (raw: string, config: NumericInputConfig): NumericInpu
 
   const { value: parsed, error: parseError } = parseNumericInput(raw, required, config.math)
 
-  const precision = typeof config.precision === 'number' ? config.precision : inferPrecisionFromValue(config.value)
+  const precision =
+    typeof config.precision === 'number' ? config.precision : inferPrecisionFromValue(config.value, config.doubleValue)
 
   // Parsing errors (required / invalid) – we cannot derive a numeric value
   // at all, so both normalizedValue and formattedValue are undefined.
@@ -376,9 +389,10 @@ const buildSingleResult = (raw: string, config: NumericInputConfig): NumericInpu
 const buildResult = (raw: string, config: NumericInputConfig): NumericInputParseResult => {
   const { unit, normalizeOnError = false, doubleValue } = config
 
-  // Default behavior – single numeric value
+  // Default behavior – single numeric value. A comma is treated as a decimal
+  // separator here; it only acts as a pair separator when `doubleValue` is on.
   if (!doubleValue) {
-    return buildSingleResult(raw, config)
+    return { ...buildSingleResult(normalizeDecimalSeparator(raw), config), rawValue: raw }
   }
 
   // When doubleValue is enabled, allow parsing a comma-separated pair of
@@ -464,7 +478,8 @@ const useNumericInput = (config: NumericInputConfig): NumericInput => {
     direction: 'increment' | 'decrement',
     options?: { shiftKey?: boolean },
   ): number => {
-    const { value: currentValue } = parseNumericInput(raw, required, config.math)
+    const source = typeof raw === 'string' && !config.doubleValue ? normalizeDecimalSeparator(raw) : raw
+    const { value: currentValue } = parseNumericInput(source, required, config.math)
 
     const effectiveStep = options?.shiftKey && typeof stepLarge === 'number' ? stepLarge : step
 
@@ -473,7 +488,8 @@ const useNumericInput = (config: NumericInputConfig): NumericInput => {
     const delta = direction === 'increment' ? effectiveStep : -effectiveStep
     const next = base + delta
 
-    const precisionToUse = typeof precision === 'number' ? precision : inferPrecisionFromValue(config.value)
+    const precisionToUse =
+      typeof precision === 'number' ? precision : inferPrecisionFromValue(config.value, config.doubleValue)
 
     const rounded = roundToPrecision(next, precisionToUse)
     return clamp(rounded, min, max)
