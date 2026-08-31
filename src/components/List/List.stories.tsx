@@ -54,6 +54,7 @@ const meta: Meta = {
           summary: 'Pick<ListItemProps> | ((item: ListItemData) => Pick<ListItemProps>)',
           detail: `
 {
+  className: string
   variant: "default" | "layer"
   draggable: boolean
   onDragStart: (args: { event: DragEvent }) => void
@@ -65,6 +66,7 @@ const meta: Meta = {
   hoverable: boolean
   collapsed: boolean
   collapsable: boolean
+  collapseIconIntent: "tertiary" | "component-secondary" | "slot-secondary"
   onCollapsedChange: (args: { event: MouseEvent; collapsed: boolean }) => void
 }`,
         },

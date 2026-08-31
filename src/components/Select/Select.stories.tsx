@@ -129,7 +129,10 @@ args: {
           summary: 'Pick<MenuContainerProps>',
           detail: `
 {
+  id: string
+  className: string
   width: number
+  height: number
 }
           `,
         },

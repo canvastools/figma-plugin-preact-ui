@@ -3,6 +3,7 @@ import type { ListItemProps } from '../ListItem/ListItem.types'
 
 export type ListItemPropsPick = Pick<
   ListItemProps,
+  | 'className'
   | 'variant'
   | 'draggable'
   | 'onDragStart'
@@ -14,6 +15,7 @@ export type ListItemPropsPick = Pick<
   | 'hoverable'
   | 'collapsed'
   | 'collapsable'
+  | 'collapseIconIntent'
   | 'onCollapsedChange'
 >
 

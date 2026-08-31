@@ -50,6 +50,8 @@ const meta: Meta<typeof Popover> = {
           summary: 'Pick<PopoverHeaderProps>',
           detail: `
 {
+  id: string
+  className: string
   children: preact.ComponentChildren
 }
 `,
