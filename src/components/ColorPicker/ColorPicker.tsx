@@ -113,6 +113,7 @@ const ControlsRgba = ({
   const redValueValidation = useNumericInput({
     value: rgba.r.toString(),
     required: true,
+    math: true,
     min: RGBA_VALUES.r.min,
     max: RGBA_VALUES.r.max,
     precision: 0,
@@ -124,6 +125,7 @@ const ControlsRgba = ({
   const greenValueValidation = useNumericInput({
     value: rgba.g.toString(),
     required: true,
+    math: true,
     min: RGBA_VALUES.g.min,
     max: RGBA_VALUES.g.max,
     precision: 0,
@@ -135,6 +137,7 @@ const ControlsRgba = ({
   const blueValueValidation = useNumericInput({
     value: rgba.b.toString(),
     required: true,
+    math: true,
     min: RGBA_VALUES.b.min,
     max: RGBA_VALUES.b.max,
     precision: 0,
@@ -148,7 +151,9 @@ const ControlsRgba = ({
     required: true,
     min: 0,
     max: 100,
-    precision: 0,
+    precision: 2,
+    trimTrailingZeros: true,
+    math: true,
     step: 1,
     stepLarge: 10,
     normalizeOnError: true,
@@ -625,7 +630,6 @@ const ColorPickerComponent = (
       setInternalType(nextType)
       onTypeChange?.({ type: nextType })
     }
-     
   }, [internalType, visibleTypesKey, type, onTypeChange])
 
   const currentType: ColorPickerType = resolvePickerType(internalType, visibleTypes)
