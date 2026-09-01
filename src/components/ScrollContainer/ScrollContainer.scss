@@ -21,6 +21,13 @@
     overflow-x: hidden;
     overflow-y: auto;
     scrollbar-width: none;
+    outline: none;
+
+    &:focus-visible,
+    &:focus {
+      outline: 1px solid var(--pui-color-system-border-focused);
+      outline-offset: -1px;
+    }
   }
 
   &__track {
