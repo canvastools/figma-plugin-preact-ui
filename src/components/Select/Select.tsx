@@ -26,6 +26,7 @@ const SelectComponent = (
     defaultValue,
     value,
     grouped,
+    selected = false,
     ghost = false,
     error = false,
     disabled = false,
@@ -111,6 +112,7 @@ const SelectComponent = (
     grouped: Boolean(grouped),
     groupedPosition: grouped ?? undefined,
     prefix: Boolean(prefix),
+    selected,
     ghost,
     fullWidth,
     error,
@@ -156,7 +158,14 @@ const SelectComponent = (
         </div>
 
         <div className="Select__suffix">
-          <Icon glyph={chevronDownGlyph} size={16} intent="neutral" disabled={disabled} variant="downscaled" />
+          <Icon
+            glyph={chevronDownGlyph}
+            size={16}
+            intent="neutral"
+            selected={selected}
+            disabled={disabled}
+            variant="downscaled"
+          />
         </div>
       </div>
 

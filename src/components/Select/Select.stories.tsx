@@ -67,6 +67,10 @@ const meta: Meta<typeof Select> = {
       control: { type: 'radio' },
       options: [undefined, 'first', 'last', 'middle'],
     },
+    selected: {
+      control: { type: 'boolean' },
+      table: { defaultValue: { summary: 'false' } },
+    },
     ghost: {
       control: { type: 'boolean' },
       table: { defaultValue: { summary: 'false' } },
@@ -152,6 +156,7 @@ export const Demo: Story = {
     placeholder: 'Placeholder',
     defaultValue: '',
     grouped: undefined,
+    selected: false,
     ghost: false,
     error: false,
     disabled: false,

@@ -38,6 +38,11 @@
     outline-color: transparent;
   }
 
+  &_selected {
+    background-color: var(--pui-color-neutral-bg-default-selected);
+    outline-color: transparent;
+  }
+
   &_error {
     outline-color: var(--pui-color-neutral-border-danger-error) !important;
   }
@@ -82,6 +87,14 @@
 
     .Select:not(.Select_filled) & {
       color: var(--pui-color-neutral-text-placeholder);
+    }
+
+    .Select:not(.Select_filled):is(.Select_selected) & {
+      color: var(--pui-color-neutral-text-placeholder-selected);
+    }
+
+    .Select:is(.Select_filled):is(.Select_selected) & {
+      color: var(--pui-color-neutral-text-default-selected);
     }
   }
 
