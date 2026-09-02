@@ -58,6 +58,10 @@ const meta: Meta<typeof Input> = {
         },
       },
     },
+    selected: {
+      control: { type: 'boolean' },
+      table: { defaultValue: { summary: 'false' } },
+    },
     ghost: {
       control: { type: 'boolean' },
       table: { defaultValue: { summary: 'false' } },
@@ -218,6 +222,7 @@ export const Demo: Story = {
     type: 'text',
     placeholder: 'Placeholder',
     defaultValue: '',
+    selected: false,
     ghost: false,
     grouped: undefined,
     error: false,

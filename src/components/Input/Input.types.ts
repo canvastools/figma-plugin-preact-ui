@@ -7,6 +7,7 @@ export interface InputProps {
   placeholder?: string
   defaultValue?: string
   value?: string
+  selected?: boolean
   ghost?: boolean
   grouped?: 'first' | 'last' | 'middle'
   error?: boolean
