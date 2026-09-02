@@ -53,6 +53,7 @@ const figjamLight: ColorTokenTree = {
         disabled: '#0000004D',
 
         placeholder: '#00000080',
+        'placeholder-selected': '#8638e580',
       },
       icon: {
         default: '#000000E6',

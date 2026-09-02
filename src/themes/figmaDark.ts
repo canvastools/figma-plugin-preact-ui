@@ -53,6 +53,7 @@ const figmaDark: ColorTokenTree = {
         disabled: '#FFFFFF66',
 
         placeholder: '#FFFFFF8C',
+        'placeholder-selected': '#7CC4F880',
       },
       icon: {
         default: '#FFFFFF',
