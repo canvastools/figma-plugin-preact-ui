@@ -132,6 +132,12 @@
   @include Button_intent-filled('danger', 'default');
   @include Button_intent-filled('success', 'default');
 
+  &_selected {
+    background-color: var(--pui-color-neutral-bg-default-selected) !important;
+    box-shadow: none !important;
+    outline-color: transparent !important;
+  }
+  
   &_disabled {
     cursor: auto !important;
   }

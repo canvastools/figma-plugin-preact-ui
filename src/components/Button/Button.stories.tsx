@@ -39,6 +39,10 @@ const meta: Meta<typeof Button> = {
       options: ['default', 'secondary', 'brand', 'danger', 'success'],
       table: { defaultValue: { summary: 'default' } },
     },
+    selected: {
+      control: { type: 'boolean' },
+      table: { defaultValue: { summary: 'false' } },
+    },
     ghost: {
       control: { type: 'boolean' },
       table: { defaultValue: { summary: 'false' } },
@@ -129,6 +133,7 @@ export const Demo: Story = {
     intent: 'neutral',
     intentModifier: 'default',
     ghost: false,
+    selected: false,
     size: 'medium',
     grouped: undefined,
     disabled: false,

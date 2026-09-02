@@ -4,6 +4,7 @@ export interface ButtonProps {
   intent?: 'neutral' | 'neutral-inverted' | 'brand' | 'danger' | 'success'
   intentModifier?: 'default' | 'secondary' | 'brand' | 'danger' | 'success'
   ghost?: boolean
+  selected?: boolean
   size?: 'medium' | 'large'
   grouped?: 'first' | 'last' | 'middle'
   disabled?: boolean
