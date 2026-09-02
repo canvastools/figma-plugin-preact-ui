@@ -198,6 +198,10 @@
     color: var(--pui-color-neutral-text-placeholder-selected);
   }
 
+  &_selected:hover &__container {
+    outline-color: transparent;
+  }
+
   // Error
 
   &_error &__container {
