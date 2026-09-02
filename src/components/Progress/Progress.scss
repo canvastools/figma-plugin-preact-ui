@@ -11,17 +11,45 @@
     opacity: 1;
   }
 
+  /**
+   * A band travelling across the track, moved by `transform`.
+   *
+   * It used to be one element with a wide gradient and an animated
+   * `background-position`, which looks the same and behaves very differently:
+   * that property is painted by the main thread on every frame, so the animation
+   * stops dead whenever the thread is busy. `transform` and `opacity` are the
+   * two properties a browser can animate off the main thread, on the compositor,
+   * and this bar exists precisely for the moments when something long is holding
+   * that thread — a progress bar that freezes while the plugin works is worse
+   * than none, because it reads as a hung plugin rather than a busy one.
+   *
+   * `will-change` is what asks for the layer up front rather than on the first
+   * frame, which is the frame most likely to be late.
+   */
   &_variant-indeterminate {
-    background: linear-gradient(90deg, var(--pui-color-neutral-bg-secondary) 0%, var(--pui-color-brand-bg-default) 50%, var(--pui-color-neutral-bg-secondary) 100%);
-    background-size: 200% 100%;
-    animation: progress 1.6s linear infinite;
+    background-color: var(--pui-color-neutral-bg-secondary);
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      /* Half the track, so one sweep is a single translation from just off one end to just off the other */
+      width: 100%;
+      background: linear-gradient(90deg, transparent 0%, var(--pui-color-brand-bg-default) 50%, transparent 100%);
+      animation: progress 1.2s linear infinite;
+      will-change: transform;
+    }
 
     @keyframes progress {
       0% {
-        background-position: 200% 0;
+        /* Its own width to the left of the track — the band is fully out of sight */
+        transform: translateX(-100%);
       }
       100% {
-        background-position: -200% 0;
+        /* Twice its own width to the right, which puts its left edge on the track's right edge */
+        transform: translateX(200%);
       }
     }
   }
