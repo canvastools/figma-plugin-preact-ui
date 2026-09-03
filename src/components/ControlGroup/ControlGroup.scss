@@ -23,44 +23,67 @@
     border-radius: var(--pui-radius-medium);
   }
 
+  &_groupFocus:focus-within::before {
+    outline-color: var(--pui-color-neutral-border-default-selected) !important;
+  }
+
   &_fullWidth {
     width: 100%;
   }
 
   // Combinations
 
-  &:not(&_disabled) .Input_grouped + *,
-  &:not(&_disabled) .Button_grouped + *,
-  &:not(&_disabled) .TimePicker_grouped + *,
-  &:not(&_disabled) .Select_grouped + * {
-    margin-left: 1px;
+  & > * + .Button_grouped:is(.Button_intent-neutral-secondary),
+  & > * + .ButtonIcon_grouped:is(.ButtonIcon_intent-neutral-secondary) {
+    margin-left: 0;
+    z-index: 0;
   }
 
-  &:is(&_disabled) .Input_grouped + *,
-  &:is(&_disabled) .Button_grouped + *,
-  &:is(&_disabled) .TimePicker_grouped + *,
-  &:is(&_disabled) .Select_grouped + * {
+  & > * + .Button_grouped:not(.Button_intent-neutral-secondary),
+  & > * + .ButtonIcon_grouped:not(.ButtonIcon_intent-neutral-secondary),
+  & > *:not(.ButtonIcon_grouped.ButtonIcon_intent-neutral-secondary) + .Input_grouped,
+  & > *:not(.ButtonIcon_grouped.ButtonIcon_intent-neutral-secondary) + .TimePicker_grouped,
+  & > *:not(.ButtonIcon_grouped.ButtonIcon_intent-neutral-secondary) + .Select_grouped {
     margin-left: -1px;
+    z-index: 0;
   }
 
-  & .Button_grouped + .Button_grouped,
-  & .Button_grouped + .ButtonIcon_grouped,
-  & .Button_grouped + .ButtonIconToggle_grouped,
-  & .ButtonIcon_grouped + .Button_grouped,
-  & .ButtonIcon_grouped + .ButtonIcon_grouped,
-  & .ButtonIcon_grouped + .ButtonIconToggle_grouped,
-  & .ButtonIconToggle_grouped + .Button_grouped,
-  & .ButtonIconToggle_grouped + .ButtonIcon_grouped,
-  & .ButtonIconToggle_grouped + .ButtonIconToggle_grouped {
-    margin-left: -1px;
+  &:not(&_disabled) > *:not(.Button_grouped):not(.ButtonIcon_grouped):not(.Select_grouped) + .Input_grouped,
+  &:not(&_disabled) > *:not(.Button_grouped):not(.ButtonIcon_grouped):not(.Select_grouped) + .TimePicker_grouped,
+  &:not(&_disabled) > .ButtonIcon_grouped.ButtonIcon_intent-neutral-secondary + .Input_grouped,
+  &:not(&_disabled) > .ButtonIcon_grouped.ButtonIcon_intent-neutral-secondary + .TimePicker_grouped,
+  &:not(&_disabled) > *:is(.Input_grouped) + .ButtonIcon_grouped:is(.ButtonIcon_intent-neutral-secondary),
+  &:not(&_disabled) > *:is(.TimePicker_grouped) + .ButtonIcon_grouped:is(.ButtonIcon_intent-neutral-secondary) {
+    box-shadow: -1px 0 0 var(--pui-color-neutral-bg-default);
   }
 
-  &_groupFocus:not(&_disabled):hover::before {
-    outline-color: var(--pui-color-neutral-border-default-hover);
+  &:not(&_groupFocus) > .Button_grouped:focus-within,
+  &:not(&_groupFocus) > .ButtonIcon_grouped:focus-within,
+  &:not(&_groupFocus) > .Input_grouped:focus-within,
+  &:not(&_groupFocus) > .TimePicker_grouped:focus-within,
+  &:not(&_groupFocus) > .Select_grouped:focus-within {
+    z-index: 4;
+    box-shadow: none;
   }
 
-  &_groupFocus:not(&_disabled):focus-within::before {
-    outline-color: var(--pui-color-neutral-border-default-selected);
+  &:not(&_groupFocus) > .Button_grouped:hover,
+  &:not(&_groupFocus) > .ButtonIcon_grouped:hover,
+  &:not(&_groupFocus) > .Input_grouped:hover,
+  &:not(&_groupFocus) > .TimePicker_grouped:hover,
+  &:not(&_groupFocus) > .Select_grouped:hover {
+    z-index: 3;
+    box-shadow: none;
+  }
+
+  & > .Select_grouped,
+  & > .Button_grouped:not(.Button_intent-neutral-secondary),
+  & > .ButtonIcon_grouped:not(.ButtonIcon_intent-neutral-secondary) {
+    z-index: 2;
+  }
+
+  & > .Button_grouped:is(.Button_intent-neutral-secondary):focus,
+  & > .ButtonIcon_grouped:is(.ButtonIcon_intent-neutral-secondary):focus {
+    z-index: 4;
   }
 
   &_groupFocus:not(&_disabled):hover .Input__container:hover,

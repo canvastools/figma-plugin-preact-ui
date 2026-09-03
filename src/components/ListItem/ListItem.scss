@@ -75,13 +75,14 @@
     position: absolute;
     top: 0;
     height: 100%;
-    width: 16px;
+    width: 12;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     z-index: 5;
     user-select: none;
     opacity: 0;
+    overflow: hidden;
     cursor: grab;
 
     &:active {
@@ -158,7 +159,7 @@
   // Collapsable
 
   &_variant-default:is(&_collapsable):is(&_has-children) &__drag-handle {
-    left: calc(var(--indent-same-level) - var(--indent) * 2 + 3px);
+    left: calc(var(--indent-same-level) - var(--indent) * 2 + 4px);
   }
 
   &_variant-default:is(&_collapsable):not(&_has-children) &__drag-handle {
@@ -474,9 +475,10 @@
   /* Selection overrides */
 
   &_selected > &__content > &__content-inner > &__children {
-    .Input:not(.Input_ghost) > .Input__container,
-    .react-time-picker__inputGroup,
-    .Select {
+    .Input:not(.Input_ghost):not(:is(.ControlGroup:is(.ControlGroup_groupFocus) *)) > .Input__container,
+    .react-time-picker__inputGroup:not(:is(.ControlGroup:is(.ControlGroup_groupFocus) *)),
+    .Select:not(:is(.ControlGroup:is(.ControlGroup_groupFocus) *)),
+    .ControlGroup:is(.ControlGroup_groupFocus)::before {
       outline: 1px solid var(--pui-color-neutral-border-default-selected-contrast);
     }
 
@@ -493,9 +495,9 @@
       box-shadow: inset 0 0 0 1px var(--pui-color-neutral-border-default-selected-contrast);
     }
 
-    .Button:is(.Button_intent-neutral-default):not(.Button_ghost),
-    .ButtonIcon:is(.ButtonIcon_intent-neutral-default):not(.ButtonIcon_ghost),
-    .ButtonIconToggle:is(.ButtonIconToggle_intent-neutral-default):not(.ButtonIconToggle_ghost) {
+    .Button:is(.Button_intent-neutral-default):not(.Button_ghost):not(:is(.ControlGroup:is(.ControlGroup_groupFocus) *)),
+    .ButtonIcon:is(.ButtonIcon_intent-neutral-default):not(.ButtonIcon_ghost):not(:is(.ControlGroup:is(.ControlGroup_groupFocus) *)),
+    .ButtonIconToggle:is(.ButtonIconToggle_intent-neutral-default):not(.ButtonIconToggle_ghost):not(:is(.ControlGroup:is(.ControlGroup_groupFocus) *)) {
       box-shadow: inset 0 0 0 1px var(--pui-color-neutral-border-default-selected-contrast) !important;
     }
   }

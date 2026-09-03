@@ -1,6 +1,6 @@
 import { StoryObj } from '@storybook/preact-vite'
 
-import { Input, Button, ButtonIcon, Icon, link, chevronDown, TimePicker } from '../../../index'
+import { Input, Button, ButtonIcon, Icon, link, chevronDown, TimePicker, Select } from '../../../index'
 
 import { ControlGroup } from '../ControlGroup'
 
@@ -40,39 +40,82 @@ export const DisabledStory: Story = {
   },
   render: () => (
     <div className="sb-column sb-width-420 sb-gap-40">
-      <ControlGroup disabled>
+      <ControlGroup disabled fullWidth>
         <Button disabled>Button</Button>
         <Button disabled>Button</Button>
         <Button disabled>Button</Button>
       </ControlGroup>
 
-      <ControlGroup disabled>
+      <ControlGroup disabled fullWidth>
         <Button disabled>Button</Button>
         <Button disabled>Button</Button>
-        <ButtonIcon icon={{ glyph: link }} disabled />
+        <ButtonIcon disabled icon={{ glyph: link }} />
       </ControlGroup>
 
-      <ControlGroup disabled>
-        <ButtonIcon icon={{ glyph: link }} disabled />
-        <ButtonIcon icon={{ glyph: link }} disabled />
-        <ButtonIcon icon={{ glyph: link }} disabled />
+      <ControlGroup disabled fullWidth>
+        <ButtonIcon disabled icon={{ glyph: link }} />
+        <ButtonIcon disabled icon={{ glyph: link }} />
+        <ButtonIcon disabled icon={{ glyph: link }} />
       </ControlGroup>
 
-      <ControlGroup groupFocus fullWidth disabled>
-        <Input placeholder="Input" disabled />
-        <Input placeholder="Input" disabled />
+      <ControlGroup disabled fullWidth>
+        <Input disabled placeholder="Input" />
+        <Input disabled placeholder="Input" />
       </ControlGroup>
 
-      <ControlGroup groupFocus fullWidth disabled>
-        <Input placeholder="Input" disabled />
-        <ButtonIcon intentModifier="secondary" disabled>
+      <ControlGroup disabled fullWidth>
+        <Input disabled placeholder="Input" />
+        <TimePicker disabled />
+      </ControlGroup>
+
+      <ControlGroup disabled fullWidth>
+        <Input disabled placeholder="Input" />
+        <Select
+          disabled
+          placeholder="Select an option"
+          options={[
+            { label: 'Option 1', value: 'option1' },
+            { label: 'Option 2', value: 'option2' },
+          ]}
+          fullWidth={true}
+        />
+      </ControlGroup>
+
+      <ControlGroup disabled fullWidth>
+        <Input disabled placeholder="Input" />
+        <Button disabled>Button</Button>
+      </ControlGroup>
+
+      <ControlGroup disabled fullWidth>
+        <Input disabled placeholder="Input" />
+        <ButtonIcon disabled intentModifier="secondary">
           <Icon glyph={chevronDown} variant="downscaled" disabled />
         </ButtonIcon>
       </ControlGroup>
 
-      <ControlGroup groupFocus fullWidth disabled>
-        <Input placeholder="Input" disabled />
-        <TimePicker disabled />
+      <ControlGroup disabled fullWidth>
+        <Select
+          disabled
+          placeholder="Select an option"
+          options={[
+            { label: 'Option 1', value: 'option1' },
+            { label: 'Option 2', value: 'option2' },
+          ]}
+          fullWidth={true}
+        />
+        <Input disabled placeholder="Input" />
+      </ControlGroup>
+
+      <ControlGroup disabled fullWidth>
+        <Button disabled>Button</Button>
+        <Input disabled placeholder="Input" />
+      </ControlGroup>
+
+      <ControlGroup disabled fullWidth>
+        <ButtonIcon disabled intentModifier="secondary">
+          <Icon glyph={chevronDown} variant="downscaled" disabled />
+        </ButtonIcon>
+        <Input disabled placeholder="Input" />
       </ControlGroup>
     </div>
   ),
