@@ -141,7 +141,7 @@
   }
 
   &_variant-default &__drag-handle {
-    left: calc(var(--indent-same-level) - var(--indent) - 2px);
+    left: calc(var(--indent-same-level) - var(--indent) - 0px);
   }
 
   &_variant-default &__content:hover > &__content-inner > &__drag-handle {
@@ -159,7 +159,7 @@
   // Collapsable
 
   &_variant-default:is(&_collapsable):is(&_has-children) &__drag-handle {
-    left: calc(var(--indent-same-level) - var(--indent) * 2 + 4px);
+    left: calc(var(--indent-same-level) - var(--indent) * 2 + 3px);
   }
 
   &_variant-default:is(&_collapsable):not(&_has-children) &__drag-handle {
@@ -479,7 +479,7 @@
     .react-time-picker__inputGroup:not(:is(.ControlGroup:is(.ControlGroup_groupFocus) *)),
     .Select:not(:is(.ControlGroup:is(.ControlGroup_groupFocus) *)),
     .ControlGroup:is(.ControlGroup_groupFocus)::before {
-      outline: 1px solid var(--pui-color-neutral-border-default-selected-contrast);
+      outline: 1px solid var(--pui-color-neutral-border-default-selected-contrast) !important;
     }
 
     .SegmentedControl {

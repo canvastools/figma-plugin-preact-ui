@@ -102,7 +102,6 @@ export const ContentStory: Story = {
           <Input placeholder="test" />
           <ButtonIcon icon={{ glyph: link }} />
         </ControlGroup>,
-
         <ControlGroup groupFocus={true}>
           <TimePicker />,
           <Select

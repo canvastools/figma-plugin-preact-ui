@@ -23,6 +23,10 @@
     border-radius: var(--pui-radius-medium);
   }
 
+  &_groupFocus:hover::before {
+    outline-color: var(--pui-color-neutral-border-default) !important;
+  }
+
   &_groupFocus:focus-within::before {
     outline-color: var(--pui-color-neutral-border-default-selected) !important;
   }
@@ -33,57 +37,69 @@
 
   // Combinations
 
-  & > * + .Button_grouped:is(.Button_intent-neutral-secondary),
-  & > * + .ButtonIcon_grouped:is(.ButtonIcon_intent-neutral-secondary) {
-    margin-left: 0;
-    z-index: 0;
-  }
-
-  & > * + .Button_grouped:not(.Button_intent-neutral-secondary),
-  & > * + .ButtonIcon_grouped:not(.ButtonIcon_intent-neutral-secondary),
-  & > *:not(.ButtonIcon_grouped.ButtonIcon_intent-neutral-secondary) + .Input_grouped,
-  & > *:not(.ButtonIcon_grouped.ButtonIcon_intent-neutral-secondary) + .TimePicker_grouped,
-  & > *:not(.ButtonIcon_grouped.ButtonIcon_intent-neutral-secondary) + .Select_grouped {
+  & > * + * {
     margin-left: -1px;
-    z-index: 0;
   }
 
-  &:not(&_disabled) > *:not(.Button_grouped):not(.ButtonIcon_grouped):not(.Select_grouped) + .Input_grouped,
-  &:not(&_disabled) > *:not(.Button_grouped):not(.ButtonIcon_grouped):not(.Select_grouped) + .TimePicker_grouped,
-  &:not(&_disabled) > .ButtonIcon_grouped.ButtonIcon_intent-neutral-secondary + .Input_grouped,
-  &:not(&_disabled) > .ButtonIcon_grouped.ButtonIcon_intent-neutral-secondary + .TimePicker_grouped,
-  &:not(&_disabled) > *:is(.Input_grouped) + .ButtonIcon_grouped:is(.ButtonIcon_intent-neutral-secondary),
-  &:not(&_disabled) > *:is(.TimePicker_grouped) + .ButtonIcon_grouped:is(.ButtonIcon_intent-neutral-secondary) {
-    box-shadow: -1px 0 0 var(--pui-color-neutral-bg-default);
+  & > *:is(.Input_grouped) + *:is(.Input_grouped),
+  & > *:is(.TimePicker_grouped) + *:is(.TimePicker_grouped),
+  & > *:is(.Input_grouped) + *:is(.TimePicker_grouped),
+  & > *:is(.TimePicker_grouped) + *:is(.Input_grouped),
+  & > *:is(.Button_grouped.Button_intent-neutral-secondary) + *:is(.Input_grouped),
+  & > *:is(.Button_grouped.Button_intent-neutral-secondary) + *:is(.TimePicker_grouped),
+  & > *:is(.Button_grouped.Button_intent-neutral-secondary) + *:is(.Select_grouped),
+  & > *:is(.ButtonIcon_grouped.ButtonIcon_intent-neutral-secondary) + *:is(.Input_grouped),
+  & > *:is(.ButtonIcon_grouped.ButtonIcon_intent-neutral-secondary) + *:is(.TimePicker_grouped),
+  & > *:is(.ButtonIcon_grouped.ButtonIcon_intent-neutral-secondary) + *:is(.Select_grouped),
+  & > * + *:is(.Button_grouped.Button_intent-neutral-secondary),
+  & > * + *:is(.ButtonIcon_grouped.ButtonIcon_intent-neutral-secondary) {
+    position: relative;
+
+    &::before {
+      content: '';
+      pointer-events: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1px;
+      height: 100%;
+      background-color: var(--pui-color-neutral-bg-default);
+    }
+
+    &:is(.ControlGroup:is(.ControlGroup_groupFocus):hover:not(:focus-within) *)::before {
+      background-color: var(--pui-color-neutral-border-default);
+    }
+
+    & > *:first-child::before {
+      display: none;
+    }
   }
 
-  &:not(&_groupFocus) > .Button_grouped:focus-within,
-  &:not(&_groupFocus) > .ButtonIcon_grouped:focus-within,
-  &:not(&_groupFocus) > .Input_grouped:focus-within,
-  &:not(&_groupFocus) > .TimePicker_grouped:focus-within,
-  &:not(&_groupFocus) > .Select_grouped:focus-within {
-    z-index: 4;
-    box-shadow: none;
+  &:not(&_groupFocus) > *:hover::before,
+  &:not(&_groupFocus) > *:focus-within::before,
+  &:is(&_groupFocus) > *:is(.Button_grouped.Button_intent-neutral-secondary):focus-within::before,
+  &:is(&_groupFocus) > *:is(.ButtonIcon_grouped.ButtonIcon_intent-neutral-secondary):focus-within::before {
+    display: none;
   }
 
-  &:not(&_groupFocus) > .Button_grouped:hover,
-  &:not(&_groupFocus) > .ButtonIcon_grouped:hover,
-  &:not(&_groupFocus) > .Input_grouped:hover,
-  &:not(&_groupFocus) > .TimePicker_grouped:hover,
-  &:not(&_groupFocus) > .Select_grouped:hover {
-    z-index: 3;
-    box-shadow: none;
+  &:not(&_groupFocus) > *:hover {
+    z-index: 1;
   }
 
-  & > .Select_grouped,
-  & > .Button_grouped:not(.Button_intent-neutral-secondary),
-  & > .ButtonIcon_grouped:not(.ButtonIcon_intent-neutral-secondary) {
+  & > *:is(.Button_grouped):not(.Button_intent-neutral-secondary),
+  & > *:is(.ButtonIcon_grouped):not(.ButtonIcon_intent-neutral-secondary),
+  & > *:is(.Select_grouped) {
     z-index: 2;
   }
 
-  & > .Button_grouped:is(.Button_intent-neutral-secondary):focus,
-  & > .ButtonIcon_grouped:is(.ButtonIcon_intent-neutral-secondary):focus {
+  &:is(&_groupFocus) > *:is(.Button_grouped):not(.Button_intent-neutral-secondary:not(:focus-within)),
+  &:is(&_groupFocus) > *:is(.ButtonIcon_grouped):not(.ButtonIcon_intent-neutral-secondary:not(:focus-within)),
+  &:is(&_groupFocus) > *:is(.Select_grouped) {
     z-index: 4;
+  }
+
+  &:not(&_groupFocus) > *:focus-within {
+    z-index: 3;
   }
 
   &_groupFocus:not(&_disabled):hover .Input__container:hover,
