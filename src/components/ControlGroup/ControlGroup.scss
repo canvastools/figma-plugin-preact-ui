@@ -66,7 +66,8 @@
       background-color: var(--pui-color-neutral-bg-default);
     }
 
-    &:is(.ControlGroup:is(.ControlGroup_groupFocus):hover:not(:focus-within) *)::before {
+    &:is(.ControlGroup:is(.ControlGroup_groupFocus):hover:not(:focus-within) *)::before,
+    &:is(.ControlGroup:is(.ControlGroup_groupFocus):is(:focus-within) *)::before {
       background-color: var(--pui-color-neutral-border-default);
     }
 
@@ -75,15 +76,22 @@
     }
   }
 
-  &:not(&_groupFocus) > *:hover::before,
+  &:not(&_groupFocus) > *:not(.Input_selected):not(.TimePicker_selected):not(.Button_grouped.Button_intent-neutral-secondary):not(.ButtonIcon_grouped.ButtonIcon_intent-neutral-secondary):hover::before,
   &:not(&_groupFocus) > *:focus-within::before,
   &:is(&_groupFocus) > *:is(.Button_grouped.Button_intent-neutral-secondary):focus-within::before,
   &:is(&_groupFocus) > *:is(.ButtonIcon_grouped.ButtonIcon_intent-neutral-secondary):focus-within::before {
     display: none;
   }
 
-  &:not(&_groupFocus) > *:hover {
+  &:not(&_groupFocus) > *:not(.Button_grouped.Button_intent-neutral-secondary):not(.ButtonIcon_grouped.ButtonIcon_intent-neutral-secondary):hover {
     z-index: 1;
+  }
+
+  &:not(&_groupFocus) > *:is(.Input_selected):hover:not(:focus-within),
+  &:not(&_groupFocus) > *:is(.TimePicker_selected):hover:not(:focus-within),
+  &:not(&_groupFocus) > *:is(.Button_grouped.Button_intent-neutral-secondary):hover:not(:focus-within),
+  &:not(&_groupFocus) > *:is(.Button_grouped.ButtonIcon_intent-neutral-secondary):hover:not(:focus-within) {
+    z-index: 0;
   }
 
   & > *:is(.Button_grouped):not(.Button_intent-neutral-secondary),
