@@ -11,6 +11,12 @@
     border-radius: var(--pui-radius-medium);
   }
 
+  &__prefix,
+  &__suffix {
+    display: flex;
+    flex-flow: row nowrap;
+  }
+
   &_intentModifier-default:not(&_focused) &__content:hover {
     background-color: var(--pui-color-brand-bg-default);
   }
