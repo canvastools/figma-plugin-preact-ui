@@ -172,6 +172,33 @@ const ControlsRgba = ({
     setInputOpacityValue(Math.round(r.a * 100).toString())
   }, [color])
 
+  const redDrag = redValueValidation.getDragProps({
+    onChange: (next) => setInputRedValue(String(next)),
+    onCommit: (next) => {
+      if (typeof next !== 'number') return
+      setInputRedValue(String(next))
+      setColor(rgbaToColor({ r: next, g: rgba.g, b: rgba.b, a: rgba.a }))
+    },
+  })
+
+  const greenDrag = greenValueValidation.getDragProps({
+    onChange: (next) => setInputGreenValue(String(next)),
+    onCommit: (next) => {
+      if (typeof next !== 'number') return
+      setInputGreenValue(String(next))
+      setColor(rgbaToColor({ r: rgba.r, g: next, b: rgba.b, a: rgba.a }))
+    },
+  })
+
+  const blueDrag = blueValueValidation.getDragProps({
+    onChange: (next) => setInputBlueValue(String(next)),
+    onCommit: (next) => {
+      if (typeof next !== 'number') return
+      setInputBlueValue(String(next))
+      setColor(rgbaToColor({ r: rgba.r, g: rgba.g, b: next, a: rgba.a }))
+    },
+  })
+
   const opacityDrag = opacityValidation.getDragProps({
     onChange: (next) => setInputOpacityValue(String(next)),
     onCommit: (next) => {
@@ -200,6 +227,7 @@ const ControlsRgba = ({
             className="ColorPicker__inputCompact"
             tooltip="Red"
             selectOnFocus={true}
+            dragHandle={redDrag}
             value={inputRedValue}
             onValueChange={(e) => setInputRedValue(e.value)}
             onBlur={(e) => {
@@ -237,6 +265,7 @@ const ControlsRgba = ({
             className="ColorPicker__inputCompact"
             tooltip="Green"
             selectOnFocus={true}
+            dragHandle={greenDrag}
             value={inputGreenValue}
             onValueChange={(e) => setInputGreenValue(e.value)}
             onBlur={(e) => {
@@ -274,6 +303,7 @@ const ControlsRgba = ({
             className="ColorPicker__inputCompact"
             tooltip="Blue"
             selectOnFocus={true}
+            dragHandle={blueDrag}
             value={inputBlueValue}
             onValueChange={(e) => setInputBlueValue(e.value)}
             onBlur={(e) => {
