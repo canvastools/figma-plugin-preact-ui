@@ -1,4 +1,4 @@
-import { bem, typedForwardRef } from '../../utils'
+import { bem, lockCursor, typedForwardRef } from '../../utils'
 import { useEffect, useRef } from 'preact/hooks'
 
 import type { WindowResizerProps } from './WindowResizer.types'
@@ -35,6 +35,7 @@ const WindowResizerComponent = (
     let animationFrame: number | null = null
     let pendingWidth = 0
     let pendingHeight = 0
+    let unlockCursor: (() => void) | null = null
 
     const sendResize = () => {
       onResize?.({ width: pendingWidth, height: pendingHeight })
@@ -58,6 +59,9 @@ const WindowResizerComponent = (
       document.removeEventListener('mousemove', onMouseMove)
       document.removeEventListener('mouseup', onMouseUp)
 
+      unlockCursor?.()
+      unlockCursor = null
+
       if (animationFrame !== null) {
         cancelAnimationFrame(animationFrame)
         animationFrame = null
@@ -73,6 +77,9 @@ const WindowResizerComponent = (
       startWidth = window.innerWidth
       startHeight = window.innerHeight
 
+      // The CSS cursor belongs to this element only; keep it for the whole drag.
+      unlockCursor = lockCursor('nwse-resize')
+
       document.addEventListener('mousemove', onMouseMove)
       document.addEventListener('mouseup', onMouseUp)
     }
@@ -83,6 +90,7 @@ const WindowResizerComponent = (
       resizer.removeEventListener('mousedown', onMouseDown)
       document.removeEventListener('mousemove', onMouseMove)
       document.removeEventListener('mouseup', onMouseUp)
+      unlockCursor?.()
     }
   }, [minWidth, minHeight, maxWidth, maxHeight, onResize])
 

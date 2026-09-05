@@ -26,6 +26,7 @@ export {
   mergeRefs,
 } from './components/list'
 
+export { lockCursor } from './lockCursor'
 export { typedForwardRef } from './typedForwardRef'
 export { uuid } from './uuid'
 export { useRefElement } from './useRefElement'

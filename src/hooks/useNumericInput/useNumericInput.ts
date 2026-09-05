@@ -1,3 +1,5 @@
+import { lockCursor } from '../../utils/lockCursor'
+
 import {
   NumericInputConfig,
   NumericInputError,
@@ -620,11 +622,8 @@ const useNumericInput = (config: NumericInputConfig): NumericInput => {
       let lastSteps = 0
       let lastDisplay: string | null = null
 
-      // Keep the resize cursor while the pointer travels over other elements —
-      // a cursor on `body` alone loses to their own rules (a text input, a button).
-      const cursorStyle = document.createElement('style')
-      cursorStyle.textContent = '*, *::before, *::after { cursor: ew-resize !important; user-select: none !important; }'
-      document.head.appendChild(cursorStyle)
+      // Keep the resize cursor while the pointer travels over other elements.
+      const unlockCursor = lockCursor('ew-resize')
 
       const apply = (moveEvent: MouseEvent) => {
         const steps = Math.trunc((moveEvent.clientX - startX) / DRAG_PIXELS_PER_STEP)
@@ -660,7 +659,7 @@ const useNumericInput = (config: NumericInputConfig): NumericInput => {
       const handleMouseUp = (upEvent: MouseEvent) => {
         window.removeEventListener('mousemove', handleMouseMove)
         window.removeEventListener('mouseup', handleMouseUp)
-        cursorStyle.remove()
+        unlockCursor()
 
         apply(upEvent)
 

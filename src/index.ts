@@ -190,6 +190,7 @@ export { colorToHex, hexToColor, colorToHexAlpha, hexAlphaToColor, colorToRgba, 
 export type { Rgba } from './utils'
 
 export { bem } from './utils'
+export { lockCursor } from './utils'
 
 // Glyphs
 
