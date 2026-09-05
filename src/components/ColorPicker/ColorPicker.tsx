@@ -172,6 +172,15 @@ const ControlsRgba = ({
     setInputOpacityValue(Math.round(r.a * 100).toString())
   }, [color])
 
+  const opacityDrag = opacityValidation.getDragProps({
+    onChange: (next) => setInputOpacityValue(String(next)),
+    onCommit: (next) => {
+      if (typeof next !== 'number') return
+      const fraction = roundAlpha(clamp(next / 100, RGBA_VALUES.a.min, RGBA_VALUES.a.max))
+      setColor(rgbaToColor({ r: rgba.r, g: rgba.g, b: rgba.b, a: fraction }))
+    },
+  })
+
   return (
     <>
       <div style={{ width: '52px' }}>
@@ -306,7 +315,9 @@ const ControlsRgba = ({
               value={inputOpacityValue}
               suffix={
                 <Text intentModifier="secondary">
-                  <div className="ColorPicker__controlOpacityContainer">%</div>
+                  <div className="ColorPicker__controlOpacityContainer" {...opacityDrag}>
+                    %
+                  </div>
                 </Text>
               }
               onValueChange={(e) => setInputOpacityValue(e.value)}
@@ -467,6 +478,15 @@ const ControlsHexAlpha = ({
     setHexOpacityValue(Math.round(color.a * 100).toString())
   }, [color.a])
 
+  const hexOpacityDrag = hexOpacityValidation.getDragProps({
+    onChange: (next) => setHexOpacityValue(String(next)),
+    onCommit: (next) => {
+      if (typeof next !== 'number') return
+      const fraction = roundAlpha(clamp(next / 100, HEX_VALUES.a.min, HEX_VALUES.a.max))
+      setColor({ ...color, a: fraction })
+    },
+  })
+
   return (
     <>
       <div style={{ width: '52px' }}>
@@ -503,7 +523,9 @@ const ControlsHexAlpha = ({
             value={hexOpacityValue}
             suffix={
               <Text intentModifier="secondary">
-                <div className="ColorPicker__controlOpacityContainer">%</div>
+                <div className="ColorPicker__controlOpacityContainer" {...hexOpacityDrag}>
+                  %
+                </div>
               </Text>
             }
             onValueChange={(e) => {
