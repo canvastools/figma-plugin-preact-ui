@@ -16,6 +16,10 @@ export const DragStory: Story = {
       defaultViewport: 'large',
     },
     docs: {
+      description: {
+        story:
+          'Drag the prefix icon horizontally to scrub the value by `step` (`stepLarge` with Shift). The value moves live through `onChange` and lands on release through `onCommit`.<br/>`value` here is the input state, which holds whatever has been typed - so the fallback on blur comes from the last committed value rather than from the hook.',
+      },
       source: {
         code: `
 const numericInput = useNumericInput({
@@ -88,7 +92,8 @@ const dragProps = numericInput.getDragProps({
           }
           onValueChange={(args) => setInputValue(args.value)}
           onKeyDown={(args) => numericInput.handleKeyDown(args, (next) => setInputValue(format(next)))}
-          onBlur={(args) => setInputValue(format(numericInput.parse(args.value).normalizedValue ?? 0))}
+          /* `value` is the typed text, so an unreadable entry reverts to what was last committed */
+          onBlur={(args) => setInputValue(numericInput.parse(args.value).formattedValue ?? String(committed))}
         />
         <Text>committed: "{committed}"</Text>
       </div>

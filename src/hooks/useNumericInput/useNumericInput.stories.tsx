@@ -70,7 +70,7 @@ const meta: Meta = {
       control: { type: 'boolean' },
       table: { defaultValue: { summary: 'false' } },
       description:
-        'Whether to normalize and format the raw value on error, otherwise `undefined` will be returned for normalized value and formatted value.',
+        'Whether to normalize and format the raw value on error, so there is always something to show. Out of range input is clamped to `min` / `max`; input that cannot be read as a number at all (letters, an emptied required field) falls back to the value passed in `value`. Without it, `normalizedValue` and `formattedValue` come back `undefined` on every error.',
     },
     doubleValue: {
       control: { type: 'boolean' },

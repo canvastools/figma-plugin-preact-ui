@@ -18,12 +18,12 @@ export const MathStory: Story = {
     docs: {
       description: {
         story:
-          'Math expressions can be evaluated before validation and formatting.<br/>Supported operators are `+`, `-`, `*`, `/` and `()`.',
+          'Math expressions can be evaluated before validation and formatting.<br/>Supported operators are `+`, `-`, `*`, `/` and `()`.<br/>An expression that does not resolve to a number is an `invalid_number`, so with `normalizeOnError` it reverts to the current value - try `45+10`, then `45+`.',
       },
       source: {
         code: `
 const numericInput = useNumericInput({
-  value: "",
+  value: 55,
   unit: "°",
   min: -180,
   max: 180,
