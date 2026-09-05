@@ -28,6 +28,7 @@
   }
 
   &__container {
+    position: relative;
     display: flex;
     align-items: center;
     height: 24px;
@@ -57,6 +58,16 @@
 
   &_keyboardFocus &__container {
     outline-color: var(--pui-color-neutral-border-default-selected) !important;
+  }
+
+  /* Opt-in scrub handle — a hairline on the left edge with a wider hit area */
+  &__dragHandle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 4px;
+    height: 100%;
   }
 
   &__display {

@@ -28,6 +28,7 @@ const InputComponent = (
     disabled = false,
     prefix,
     suffix,
+    dragHandle,
     showSuffixOnHover = false,
     focusOnDoubleClick = false,
     focusOnPrefix = false,
@@ -210,6 +211,13 @@ const InputComponent = (
     inputRef.current?.focus()
   }
 
+  const handleDragHandleMouseDown = (event: preact.JSX.TargetedMouseEvent<HTMLDivElement>) => {
+    if (disabled) return
+    event.preventDefault()
+    inputRef.current?.focus()
+    dragHandle?.onMouseDown?.(event as unknown as MouseEvent)
+  }
+
   const handlePrefixDoubleClick = (event: preact.JSX.TargetedMouseEvent<HTMLDivElement>) => {
     if (disabled) return
     event.preventDefault()
@@ -260,6 +268,9 @@ const InputComponent = (
             flexShrink: maxWidth ? 0 : undefined,
           }}
         >
+          {dragHandle && !disabled && (
+            <div className="Input__dragHandle" style={dragHandle.style} onMouseDown={handleDragHandleMouseDown} />
+          )}
           {prefix && (
             <div
               className="Input__prefix"

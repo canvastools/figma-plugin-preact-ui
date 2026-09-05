@@ -97,6 +97,15 @@ const meta: Meta<typeof Input> = {
         },
       },
     },
+    dragHandle: {
+      control: { disable: true },
+      description: 'Props from `useNumericInput().getDragProps()`. Turns the left edge of the field into a scrub handle',
+      table: {
+        type: {
+          summary: 'NumericInputDragProps',
+        },
+      },
+    },
     showSuffixOnHover: {
       control: { type: 'boolean' },
       table: { defaultValue: { summary: 'false' } },
