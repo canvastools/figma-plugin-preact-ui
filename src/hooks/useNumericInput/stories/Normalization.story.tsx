@@ -43,14 +43,8 @@ const [inputValue, setInputValue] = useState(numericInput.formattedValue ?? "")
   onBlur={(args) => {
     const parsed = numericInput.parse(args.value)
 
-    if (
-      parsed.error === "required" ||
-      parsed.error === "invalid_number"
-    ) {
-      setInputValue(String("Auto"))
-      return
-    }
-    
+    // normalizeOnError always yields a value: out of range
+    // clamps, unreadable input reverts to the current one
     setInputValue(String(parsed.formattedValue))
   }}
   onKeyDown={(args) =>
@@ -97,11 +91,7 @@ const [inputValue, setInputValue] = useState(numericInput.formattedValue ?? "")
               formattedValue: parsed.formattedValue ?? '',
             })
 
-            if (parsed.error === 'required' || parsed.error === 'invalid_number') {
-              setInputValue(String('Auto'))
-              return
-            }
-
+            /* normalizeOnError always yields a value: out of range clamps, unreadable input reverts */
             setInputValue(String(parsed.formattedValue))
           }}
           onKeyDown={(args) => numericInput.handleKeyDown(args, (next) => setInputValue(String(next)))}

@@ -310,28 +310,96 @@ const parseNumericInput = (raw: unknown, required?: boolean, math?: boolean): In
   return { value: parsed, error: null }
 }
 
-const buildSingleResult = (raw: string, config: NumericInputConfig): NumericInputParseResult => {
-  const { min, max, required, unit, normalizeOnError = false, trimTrailingZeros = false } = config
+/**
+ * Applies clamping, rounding and unit formatting to a number that has already
+ * been obtained. Shared by the normal path and by the fallback used when the
+ * raw input cannot be parsed at all.
+ */
+const formatNumeric = (
+  value: number,
+  config: NumericInputConfig,
+  precision: number,
+): { normalizedValue: number; formattedValue: string } => {
+  const { min, max, unit, trimTrailingZeros = false } = config
+
+  const normalizedValue = roundToPrecision(clamp(value, min, max), precision)
+
+  let numericString: string
+  if (precision > 0) {
+    numericString = Number.isInteger(normalizedValue) ? String(normalizedValue) : normalizedValue.toFixed(precision)
+  } else {
+    numericString = String(normalizedValue)
+  }
+
+  if (trimTrailingZeros && numericString.includes('.')) {
+    numericString = numericString.replace(/0+$/, '').replace(/\.$/, '')
+  }
+
+  return {
+    normalizedValue,
+    formattedValue: unit ? `${numericString}${unit}` : numericString,
+  }
+}
+
+/**
+ * The value a field falls back to when its input cannot be parsed at all —
+ * the value the field currently holds, so nonsense reverts instead of jumping
+ * to a bound. Parsed directly, never through `buildSingleResult`, so the
+ * fallback path cannot recurse when `config.value` is itself unparsable.
+ */
+const resolveCurrentValue = (config: NumericInputConfig, side: 'first' | 'second' = 'first'): number | undefined => {
+  const raw = String(config.value ?? '')
+
+  const source = config.doubleValue
+    ? (raw.split(',')[side === 'second' ? 1 : 0] ?? '').trim()
+    : normalizeDecimalSeparator(raw)
+
+  const { value } = parseNumericInput(source, false, config.math)
+
+  return value
+}
+
+const buildSingleResult = (
+  raw: string,
+  config: NumericInputConfig,
+  fallbackValue?: number,
+): NumericInputParseResult => {
+  const { min, max, required, unit, normalizeOnError = false } = config
 
   const { value: parsed, error: parseError } = parseNumericInput(raw, required, config.math)
 
   const precision =
     typeof config.precision === 'number' ? config.precision : inferPrecisionFromValue(config.value, config.doubleValue)
 
-  // Parsing errors (required / invalid) – we cannot derive a numeric value
-  // at all, so both normalizedValue and formattedValue are undefined.
+  // Parsing errors (required / invalid) – no numeric value can be derived from
+  // the input itself:
+  // - normalizeOnError = true  → fall back to the value the field currently
+  //   holds, so the caller always has something to show
+  // - normalizeOnError = false → normalizedValue / formattedValue stay undefined
   if (parseError) {
+    const fallback = fallbackValue ?? resolveCurrentValue(config)
+
+    if (!normalizeOnError || fallback === undefined) {
+      return {
+        rawValue: raw,
+        normalizedValue: undefined,
+        formattedValue: undefined,
+        error: parseError,
+        unit,
+      }
+    }
+
     return {
       rawValue: raw,
-      normalizedValue: undefined,
-      formattedValue: undefined,
+      ...formatNumeric(fallback, config, precision),
       error: parseError,
       unit,
     }
   }
 
   // Defensive: if parsed is somehow undefined without an error, treat it as
-  // "no value".
+  // "no value". An empty optional field is a legitimate absence, not an error,
+  // so it is deliberately left un-normalized.
   if (parsed === undefined) {
     return {
       rawValue: raw,
@@ -354,9 +422,6 @@ const buildSingleResult = (raw: string, config: NumericInputConfig): NumericInpu
     error = 'not_integer'
   }
 
-  const clamped = clamp(parsed, min, max)
-  const rounded = roundToPrecision(clamped, precision)
-
   // When there is a range / integer error:
   // - normalizeOnError = true  → still return normalizedValue / formattedValue
   // - normalizeOnError = false → return them as undefined
@@ -370,28 +435,9 @@ const buildSingleResult = (raw: string, config: NumericInputConfig): NumericInpu
     }
   }
 
-  const normalizedValue = rounded
-  let numericString: string
-  if (precision > 0) {
-    if (Number.isInteger(normalizedValue)) {
-      numericString = String(normalizedValue)
-    } else {
-      numericString = normalizedValue.toFixed(precision)
-    }
-  } else {
-    numericString = String(normalizedValue)
-  }
-
-  if (trimTrailingZeros && numericString.includes('.')) {
-    numericString = numericString.replace(/0+$/, '').replace(/\.$/, '')
-  }
-
-  const formattedValue = unit ? `${numericString}${unit}` : numericString
-
   return {
     rawValue: raw,
-    normalizedValue,
-    formattedValue,
+    ...formatNumeric(parsed, config, precision),
     error,
     unit,
   }
@@ -415,13 +461,36 @@ const buildResult = (raw: string, config: NumericInputConfig): NumericInputParse
     return buildSingleResult(raw, config)
   }
 
+  // More than one separator is not a pair we can read. With normalizeOnError
+  // the caller still gets the values the field currently holds.
   if (parts.length > 2) {
+    const currentLeft = resolveCurrentValue(config, 'first')
+    const currentRight = resolveCurrentValue(config, 'second') ?? currentLeft
+
+    if (!normalizeOnError || currentLeft === undefined || currentRight === undefined) {
+      return {
+        rawValue: raw,
+        normalizedValue: undefined,
+        formattedValue: undefined,
+        normalizedValues: undefined,
+        formattedValues: undefined,
+        error: 'invalid_number',
+        unit,
+      }
+    }
+
+    const precision =
+      typeof config.precision === 'number' ? config.precision : inferPrecisionFromValue(config.value, config.doubleValue)
+
+    const left = formatNumeric(currentLeft, config, precision)
+    const right = formatNumeric(currentRight, config, precision)
+
     return {
       rawValue: raw,
-      normalizedValue: undefined,
-      formattedValue: undefined,
-      normalizedValues: undefined,
-      formattedValues: undefined,
+      normalizedValue: left.normalizedValue,
+      formattedValue: left.formattedValue,
+      normalizedValues: [left.normalizedValue, right.normalizedValue],
+      formattedValues: [left.formattedValue, right.formattedValue],
       error: 'invalid_number',
       unit,
     }
@@ -430,8 +499,13 @@ const buildResult = (raw: string, config: NumericInputConfig): NumericInputParse
   const leftRaw = parts[0].trim()
   const rightRaw = parts.slice(1).join(',').trim()
 
-  const leftResult = buildSingleResult(leftRaw, config)
-  const rightResult = buildSingleResult(rightRaw, config)
+  // Each side reverts to its own current value, so garbage on one side of the
+  // pair does not pull the other side along.
+  const currentLeft = resolveCurrentValue(config, 'first')
+  const currentRight = resolveCurrentValue(config, 'second') ?? currentLeft
+
+  const leftResult = buildSingleResult(leftRaw, config, currentLeft)
+  const rightResult = buildSingleResult(rightRaw, config, currentRight)
 
   const primaryError = leftResult.error ?? rightResult.error
 

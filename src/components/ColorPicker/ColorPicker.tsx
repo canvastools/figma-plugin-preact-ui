@@ -233,26 +233,11 @@ const ControlsRgba = ({
             onBlur={(e) => {
               const parsed = redValueValidation.parse(e.value)
 
-              if (parsed.error === 'required' || parsed.error === 'invalid_number' || parsed.error === 'not_integer') {
-                setColor(rgbaToColor({ r: RGBA_VALUES.r.min, g: rgba.g, b: rgba.b, a: rgba.a }))
-                setInputRedValue(String(parsed.formattedValue ?? '0'))
-                return
-              }
+              /* Normalization covers every error: out of range clamps, unreadable input reverts */
+              const next = parsed.normalizedValue ?? rgba.r
 
-              if (parsed.error === 'less_than_min') {
-                setColor(rgbaToColor({ r: RGBA_VALUES.r.min, g: rgba.g, b: rgba.b, a: rgba.a }))
-                setInputRedValue(String(parsed.formattedValue ?? '0'))
-                return
-              }
-
-              if (parsed.error === 'greater_than_max') {
-                setColor(rgbaToColor({ r: RGBA_VALUES.r.max, g: rgba.g, b: rgba.b, a: rgba.a }))
-                setInputRedValue(String(parsed.formattedValue ?? '0'))
-                return
-              }
-
-              setColor(rgbaToColor({ r: parsed.normalizedValue ?? 0, g: rgba.g, b: rgba.b, a: rgba.a }))
-              setInputRedValue(String(parsed.formattedValue ?? '0'))
+              setColor(rgbaToColor({ r: next, g: rgba.g, b: rgba.b, a: rgba.a }))
+              setInputRedValue(parsed.formattedValue ?? String(rgba.r))
             }}
             onKeyDown={(e) =>
               redValueValidation.handleKeyDown(e, (next) => {
@@ -271,26 +256,11 @@ const ControlsRgba = ({
             onBlur={(e) => {
               const parsed = greenValueValidation.parse(e.value)
 
-              if (parsed.error === 'required' || parsed.error === 'invalid_number' || parsed.error === 'not_integer') {
-                setColor(rgbaToColor({ r: rgba.r, g: RGBA_VALUES.g.min, b: rgba.b, a: rgba.a }))
-                setInputGreenValue(String(parsed.formattedValue ?? '0'))
-                return
-              }
+              /* Normalization covers every error: out of range clamps, unreadable input reverts */
+              const next = parsed.normalizedValue ?? rgba.g
 
-              if (parsed.error === 'less_than_min') {
-                setColor(rgbaToColor({ r: rgba.r, g: RGBA_VALUES.g.min, b: rgba.b, a: rgba.a }))
-                setInputGreenValue(String(parsed.formattedValue ?? '0'))
-                return
-              }
-
-              if (parsed.error === 'greater_than_max') {
-                setColor(rgbaToColor({ r: rgba.r, g: RGBA_VALUES.g.max, b: rgba.b, a: rgba.a }))
-                setInputGreenValue(String(parsed.formattedValue ?? '0'))
-                return
-              }
-
-              setColor(rgbaToColor({ r: rgba.r, g: parsed.normalizedValue ?? 0, b: rgba.b, a: rgba.a }))
-              setInputGreenValue(String(parsed.formattedValue ?? '0'))
+              setColor(rgbaToColor({ r: rgba.r, g: next, b: rgba.b, a: rgba.a }))
+              setInputGreenValue(parsed.formattedValue ?? String(rgba.g))
             }}
             onKeyDown={(e) =>
               greenValueValidation.handleKeyDown(e, (next) => {
@@ -309,26 +279,11 @@ const ControlsRgba = ({
             onBlur={(e) => {
               const parsed = blueValueValidation.parse(e.value)
 
-              if (parsed.error === 'required' || parsed.error === 'invalid_number' || parsed.error === 'not_integer') {
-                setColor(rgbaToColor({ r: rgba.r, g: rgba.g, b: RGBA_VALUES.b.min, a: rgba.a }))
-                setInputBlueValue(String(parsed.formattedValue ?? '0'))
-                return
-              }
+              /* Normalization covers every error: out of range clamps, unreadable input reverts */
+              const next = parsed.normalizedValue ?? rgba.b
 
-              if (parsed.error === 'less_than_min') {
-                setColor(rgbaToColor({ r: rgba.r, g: rgba.g, b: RGBA_VALUES.b.min, a: rgba.a }))
-                setInputBlueValue(String(parsed.formattedValue ?? '0'))
-                return
-              }
-
-              if (parsed.error === 'greater_than_max') {
-                setColor(rgbaToColor({ r: rgba.r, g: rgba.g, b: RGBA_VALUES.b.max, a: rgba.a }))
-                setInputBlueValue(String(parsed.formattedValue ?? '0'))
-                return
-              }
-
-              setColor(rgbaToColor({ r: rgba.r, g: rgba.g, b: parsed.normalizedValue ?? 0, a: rgba.a }))
-              setInputBlueValue(String(parsed.formattedValue ?? '0'))
+              setColor(rgbaToColor({ r: rgba.r, g: rgba.g, b: next, a: rgba.a }))
+              setInputBlueValue(parsed.formattedValue ?? String(rgba.b))
             }}
             onKeyDown={(e) =>
               blueValueValidation.handleKeyDown(e, (next) => {
@@ -354,29 +309,13 @@ const ControlsRgba = ({
               onBlur={(e) => {
                 const parsed = opacityValidation.parse(e.value)
 
-                if (parsed.error === 'required' || parsed.error === 'invalid_number' || parsed.error === 'not_integer') {
-                  setColor(rgbaToColor({ r: rgba.r, g: rgba.g, b: rgba.b, a: RGBA_VALUES.a.min }))
-                  setInputOpacityValue(String(parsed.formattedValue ?? '0'))
-                  return
-                }
-
-                if (parsed.error === 'less_than_min') {
-                  setColor(rgbaToColor({ r: rgba.r, g: rgba.g, b: rgba.b, a: RGBA_VALUES.a.min }))
-                  setInputOpacityValue(String(parsed.formattedValue ?? '0'))
-                  return
-                }
-
-                if (parsed.error === 'greater_than_max') {
-                  setColor(rgbaToColor({ r: rgba.r, g: rgba.g, b: rgba.b, a: RGBA_VALUES.a.max }))
-                  setInputOpacityValue(String(parsed.formattedValue ?? '0'))
-                  return
-                }
-
-                const percent = parsed.normalizedValue ?? 0
+                /* Normalization covers every error: out of range clamps, unreadable input reverts */
+                const currentPercent = Math.round(rgba.a * 100)
+                const percent = parsed.normalizedValue ?? currentPercent
                 const fraction = roundAlpha(clamp(percent / 100, RGBA_VALUES.a.min, RGBA_VALUES.a.max))
 
                 setColor(rgbaToColor({ r: rgba.r, g: rgba.g, b: rgba.b, a: fraction }))
-                setInputOpacityValue(String(parsed.formattedValue ?? '0'))
+                setInputOpacityValue(parsed.formattedValue ?? String(currentPercent))
               }}
               onKeyDown={(e) =>
                 opacityValidation.handleKeyDown(e, (next) => {
@@ -564,28 +503,13 @@ const ControlsHexAlpha = ({
             onBlur={(e) => {
               const parsed = hexOpacityValidation.parse(e.value)
 
-              if (parsed.error === 'required' || parsed.error === 'invalid_number' || parsed.error === 'not_integer') {
-                setColor({ ...color, a: HEX_VALUES.a.min })
-                setHexOpacityValue(String(parsed.formattedValue))
-                return
-              }
-
-              if (parsed.error === 'less_than_min') {
-                setColor({ ...color, a: HEX_VALUES.a.min })
-                setHexOpacityValue(String(parsed.formattedValue))
-                return
-              }
-
-              if (parsed.error === 'greater_than_max') {
-                setColor({ ...color, a: HEX_VALUES.a.max })
-                setHexOpacityValue(String(parsed.formattedValue))
-                return
-              }
-
-              const percent = parsed.normalizedValue ?? 0
+              /* Normalization covers every error: out of range clamps, unreadable input reverts */
+              const currentPercent = Math.round(color.a * 100)
+              const percent = parsed.normalizedValue ?? currentPercent
               const fraction = roundAlpha(clamp(percent / 100, HEX_VALUES.a.min, HEX_VALUES.a.max))
+
               setColor({ ...color, a: fraction })
-              setHexOpacityValue(String(parsed.formattedValue))
+              setHexOpacityValue(parsed.formattedValue ?? String(currentPercent))
             }}
             onKeyDown={(e) =>
               hexOpacityValidation.handleKeyDown(e, (next) => {
