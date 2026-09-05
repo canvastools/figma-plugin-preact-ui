@@ -76,10 +76,32 @@
     }
   }
 
+  // Leading filled control sits above the next field on focus and covers its ::before.
+  & > *:is(.Button_grouped.Button_intent-neutral-secondary, .ButtonIcon_grouped.ButtonIcon_intent-neutral-secondary):focus-within:has(+ *:is(.Input_grouped, .TimePicker_grouped, .Select_grouped)) {
+    position: relative;
+
+    &::after {
+      content: '';
+      pointer-events: none;
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 1px;
+      height: 100%;
+      background-color: var(--pui-color-neutral-bg-default);
+    }
+  }
+
+  &_groupFocus:is(:hover, :focus-within) > *:is(.Button_grouped.Button_intent-neutral-secondary, .ButtonIcon_grouped.ButtonIcon_intent-neutral-secondary):focus-within:has(+ *:is(.Input_grouped, .TimePicker_grouped, .Select_grouped))::after {
+    background-color: var(--pui-color-neutral-border-default);
+  }
+
   &:not(&_groupFocus) > *:not(.Input_selected):not(.TimePicker_selected):not(.Button_grouped.Button_intent-neutral-secondary):not(.ButtonIcon_grouped.ButtonIcon_intent-neutral-secondary):hover::before,
-  &:not(&_groupFocus) > *:focus-within::before,
-  &:is(&_groupFocus) > *:is(.Button_grouped.Button_intent-neutral-secondary):focus-within::before,
-  &:is(&_groupFocus) > *:is(.ButtonIcon_grouped.ButtonIcon_intent-neutral-secondary):focus-within::before {
+  &:not(&_groupFocus) > *:not(.Button_grouped.Button_intent-neutral-secondary):not(.ButtonIcon_grouped.ButtonIcon_intent-neutral-secondary):focus-within::before,
+  & > *:is(.Button_grouped.Button_intent-neutral-secondary):is(:focus-visible):focus-within::before,
+  & > *:is(.ButtonIcon_grouped.ButtonIcon_intent-neutral-secondary):is(:focus-visible):focus-within::before,
+  & > *:is(.Button_grouped.Button_intent-neutral-secondary):is(:focus-visible):focus-within::after,
+  & > *:is(.ButtonIcon_grouped.ButtonIcon_intent-neutral-secondary):is(:focus-visible):focus-within::after {
     display: none;
   }
 
@@ -90,7 +112,7 @@
   &:not(&_groupFocus) > *:is(.Input_selected):hover:not(:focus-within),
   &:not(&_groupFocus) > *:is(.TimePicker_selected):hover:not(:focus-within),
   &:not(&_groupFocus) > *:is(.Button_grouped.Button_intent-neutral-secondary):hover:not(:focus-within),
-  &:not(&_groupFocus) > *:is(.Button_grouped.ButtonIcon_intent-neutral-secondary):hover:not(:focus-within) {
+  &:not(&_groupFocus) > *:is(.ButtonIcon_grouped.ButtonIcon_intent-neutral-secondary):hover:not(:focus-within) {
     z-index: 0;
   }
 
@@ -106,7 +128,7 @@
     z-index: 4;
   }
 
-  &:not(&_groupFocus) > *:focus-within {
+  &:not(&_groupFocus) > *:is(:focus-visible):focus-within {
     z-index: 3;
   }
 
