@@ -1,6 +1,15 @@
-import { NumericInputConfig, NumericInputError, NumericInput, NumericInputParseResult } from './useNumericInput.types'
+import {
+  NumericInputConfig,
+  NumericInputError,
+  NumericInput,
+  NumericInputDragOptions,
+  NumericInputDragProps,
+  NumericInputParseResult,
+} from './useNumericInput.types'
 
 const NUMBER_REGEX = /[-+]?\d*\.?\d+/
+/** Horizontal mouse travel, in pixels, that makes up one step while dragging. */
+const DRAG_PIXELS_PER_STEP = 2
 const MATH_ALLOWED_CHARS = /[0-9+\-*/().\s]/
 
 /**
@@ -574,10 +583,110 @@ const useNumericInput = (config: NumericInputConfig): NumericInput => {
     onValueChange?.(next)
   }
 
+  /**
+   * Props for an element that scrubs the value by horizontal dragging.
+   * Dragging always starts from the current value rounded up to an integer
+   * and moves by whole steps, so `precision` is deliberately ignored here.
+   */
+  const getDragProps = (options?: NumericInputDragOptions): NumericInputDragProps => {
+    const { disabled, onChange, onCommit } = options ?? {}
+
+    if (disabled) {
+      return { style: {} }
+    }
+
+    const format = (numeric: number): string => {
+      const result = buildSingleResult(String(numeric), config)
+      return result.formattedValue ?? String(numeric)
+    }
+
+    const onMouseDown = (event: MouseEvent) => {
+      if (event.button !== 0) {
+        return
+      }
+
+      const raw = String(value)
+      const parts = config.doubleValue && raw.includes(',') ? raw.split(',') : [raw]
+
+      // A drag starts from the current value rounded up, one base per number.
+      const bases = parts.map(part => {
+        const source = config.doubleValue ? part.trim() : normalizeDecimalSeparator(part)
+        const { value: parsed } = parseNumericInput(source, required, config.math)
+        const base = typeof parsed === 'number' ? parsed : typeof min === 'number' ? min : 0
+        return Math.ceil(base)
+      })
+
+      const startX = event.clientX
+      let lastSteps = 0
+      let lastDisplay: string | null = null
+
+      // Keep the resize cursor while the pointer travels over other elements —
+      // a cursor on `body` alone loses to their own rules (a text input, a button).
+      const cursorStyle = document.createElement('style')
+      cursorStyle.textContent = '*, *::before, *::after { cursor: ew-resize !important; user-select: none !important; }'
+      document.head.appendChild(cursorStyle)
+
+      const apply = (moveEvent: MouseEvent) => {
+        const steps = Math.trunc((moveEvent.clientX - startX) / DRAG_PIXELS_PER_STEP)
+        const effectiveStep = moveEvent.shiftKey && typeof stepLarge === 'number' ? stepLarge : step
+
+        if (steps === lastSteps && lastDisplay !== null) {
+          return
+        }
+
+        // A press that never moved is a plain click, not a drag.
+        if (steps === 0 && lastDisplay === null) {
+          return
+        }
+
+        lastSteps = steps
+
+        // Both numbers of a pair move by the same step.
+        const display = bases.map(base => format(clamp(base + steps * effectiveStep, min, max))).join(', ')
+
+        if (display === lastDisplay) {
+          return
+        }
+
+        lastDisplay = display
+        onChange?.(bases.length > 1 ? display : (parse(display).normalizedValue as number))
+      }
+
+      const handleMouseMove = (moveEvent: MouseEvent) => {
+        moveEvent.preventDefault()
+        apply(moveEvent)
+      }
+
+      const handleMouseUp = (upEvent: MouseEvent) => {
+        window.removeEventListener('mousemove', handleMouseMove)
+        window.removeEventListener('mouseup', handleMouseUp)
+        cursorStyle.remove()
+
+        apply(upEvent)
+
+        // No movement at all — the press was a plain click, leave the value alone.
+        if (lastDisplay === null) {
+          return
+        }
+
+        onCommit?.(bases.length > 1 ? lastDisplay : (parse(lastDisplay).normalizedValue as number))
+      }
+
+      window.addEventListener('mousemove', handleMouseMove)
+      window.addEventListener('mouseup', handleMouseUp)
+    }
+
+    return {
+      style: { cursor: 'ew-resize' },
+      onMouseDown,
+    }
+  }
+
   return {
     ...current,
     handleKeyDown,
     parse,
+    getDragProps,
   }
 }
 

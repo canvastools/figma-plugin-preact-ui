@@ -5,6 +5,7 @@ import { useState } from 'preact/hooks'
 import { NormalizationStory } from './stories/Normalization.story'
 import { DoubleValueStory } from './stories/DoubleValue.story'
 import { MathStory } from './stories/Math.story'
+import { DragStory } from './stories/Drag.story'
 
 import { Input, Text } from '../../index'
 
@@ -105,6 +106,9 @@ const meta: Meta = {
     raw: string // required
     unit: string
   ) => NumericInputParseResult 
+  getDragProps: (
+    options: NumericInputDragOptions
+  ) => NumericInputDragProps
 }
   
 // Types
@@ -120,6 +124,17 @@ type NumericInputParseResult = {
 }
 
 type NumericInputError = "required" | "invalid_number" | "less_than_min" | "greater_than_max" | "not_integer"
+
+type NumericInputDragOptions = {
+  disabled: boolean
+  onChange: (next: number | string) => void
+  onCommit: (next: number | string) => void
+}
+
+type NumericInputDragProps = {
+  style: { cursor: string | undefined }
+  onMouseDown: ((event: MouseEvent) => void) | undefined
+}
 `,
         },
       },
@@ -233,3 +248,4 @@ const [error, setError] = useState(null)
 export const Normalization = NormalizationStory
 export const DoubleValue = DoubleValueStory
 export const Math = MathStory
+export const Drag = DragStory

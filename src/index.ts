@@ -175,6 +175,8 @@ export type { WindowResizerProps } from './components/WindowResizer/WindowResize
 export { useNumericInput } from './hooks/useNumericInput/useNumericInput'
 export type {
   NumericInputConfig,
+  NumericInputDragOptions,
+  NumericInputDragProps,
   NumericInputError,
   NumericInputParseResult,
 } from './hooks/useNumericInput/useNumericInput.types'
