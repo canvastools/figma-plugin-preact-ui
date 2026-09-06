@@ -86,6 +86,19 @@ const CheckboxComponent = (
   const handleKeyDown = (event: preact.JSX.TargetedKeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Escape' || event.key === 'Esc') {
       event.currentTarget.blur()
+      return
+    }
+
+    // Native checkbox toggles on Space; also toggle on Enter for keyboard parity with buttons.
+    if (event.key === 'Enter') {
+      event.preventDefault()
+      if (disabled) return
+      event.stopPropagation()
+      const nextChecked = !isChecked
+      if (!isControlled) {
+        setIsChecked(nextChecked)
+      }
+      onCheckedChange?.({ event: event as unknown as Event, checked: nextChecked })
     }
   }
 

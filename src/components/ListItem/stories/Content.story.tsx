@@ -5,6 +5,9 @@ import { useState } from 'preact/hooks'
 import {
   ListContainer,
   Stack,
+  Text,
+  Button,
+  ControlGroup,
   TimePicker,
   ListContext,
   Input,
@@ -85,6 +88,38 @@ export const ContentStory: Story = {
       ]
     }
 
+    const ItemContentGroups = ({ label }: { label: string }) => {
+      return [
+        <ControlGroup groupFocus={true}>
+          <Input
+            value={label}
+            prefix={
+              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: 24, height: 24 }}>
+                <ColorSwatch size="small" onClick={() => console.log('clicked')} />
+              </div>
+            }
+          />
+          <Input placeholder="test" />
+          <ButtonIcon icon={{ glyph: link }} />
+        </ControlGroup>,
+        <ControlGroup groupFocus={true}>
+          <TimePicker />,
+          <Select
+            placeholder="Select an option"
+            options={[
+              { label: 'Option 1', value: 'option1' },
+              { label: 'Option 2', value: 'option2' },
+            ]}
+          />
+          <Button>Button</Button>
+        </ControlGroup>,
+        <ControlGroup>
+          <ButtonIcon icon={{ glyph: link }} />
+          <ButtonIcon icon={{ glyph: link }} />
+        </ControlGroup>,
+      ]
+    }
+
     const itemsSample: ListItemData[] = [
       {
         id: 'Frame 0',
@@ -117,7 +152,13 @@ export const ContentStory: Story = {
     const [items_layer, setItems_layer] = useState<ListItemData[]>(itemsSample)
     const [selectedItems_layer, setSelectedItems_layer] = useState<string[]>([])
 
-    const renderItems = (items: ListItemData[], level: number, variant: 'default' | 'layer') => {
+    const [items_default_grouped, setItems_default_grouped] = useState<ListItemData[]>(itemsSample)
+    const [selectedItems_default_grouped, setSelectedItems_default_grouped] = useState<string[]>([])
+
+    const [items_layer_grouped, setItems_layer_grouped] = useState<ListItemData[]>(itemsSample)
+    const [selectedItems_layer_grouped, setSelectedItems_layer_grouped] = useState<string[]>([])
+
+    const renderItems = (items: ListItemData[], level: number, variant: 'default' | 'layer', grouped: boolean = false) => {
       return (
         <ListContainer>
           {items.map((item) => (
@@ -136,7 +177,7 @@ export const ContentStory: Story = {
             >
               <Stack direction="row" y="center" fullWidth>
                 <Stack direction="row" spacing={200} y="center" fullWidth>
-                  <ItemContent label={item.id} />
+                  {grouped ? <ItemContentGroups label={item.id} /> : <ItemContent label={item.id} />}
                 </Stack>
               </Stack>
             </ListItem>
@@ -147,6 +188,8 @@ export const ContentStory: Story = {
 
     return (
       <div className="sb-column sb-width-full sb-gap-40">
+        <Text>Default</Text>
+
         <ListContext
           items={items_default}
           selectedItemIds={selectedItems_default}
@@ -154,7 +197,7 @@ export const ContentStory: Story = {
           onItemsChange={(args) => setItems_default(args.items)}
           onSelectionChange={(args) => setSelectedItems_default(args.selectedItemIds)}
         >
-          {renderItems(items_default, 0, 'default')}
+          {renderItems(items_default, 0, 'default', false)}
         </ListContext>
 
         <ListContext
@@ -168,7 +211,33 @@ export const ContentStory: Story = {
             setSelectedItems_layer(args.selectedItemIds)
           }}
         >
-          {renderItems(items_layer, 0, 'layer')}
+          {renderItems(items_layer, 0, 'layer', false)}
+        </ListContext>
+
+        <Text>Grouped</Text>
+
+        <ListContext
+          items={items_default_grouped}
+          selectedItemIds={selectedItems_default_grouped}
+          selectionMode="multi"
+          onItemsChange={(args) => setItems_default_grouped(args.items)}
+          onSelectionChange={(args) => setSelectedItems_default_grouped(args.selectedItemIds)}
+        >
+          {renderItems(items_default_grouped, 0, 'default', true)}
+        </ListContext>
+
+        <ListContext
+          items={items_layer_grouped}
+          selectedItemIds={selectedItems_layer_grouped}
+          selectionMode="multi"
+          onItemsChange={(args) => {
+            setItems_layer_grouped(args.items)
+          }}
+          onSelectionChange={(args) => {
+            setSelectedItems_layer_grouped(args.selectedItemIds)
+          }}
+        >
+          {renderItems(items_layer_grouped, 0, 'layer', true)}
         </ListContext>
       </div>
     )

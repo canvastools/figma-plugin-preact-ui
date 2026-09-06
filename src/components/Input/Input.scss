@@ -28,6 +28,7 @@
   }
 
   &__container {
+    position: relative;
     display: flex;
     align-items: center;
     height: 24px;
@@ -59,8 +60,14 @@
     outline-color: var(--pui-color-neutral-border-default-selected) !important;
   }
 
-  &_error &__container {
-    outline-color: var(--pui-color-neutral-border-danger-error);
+  /* Opt-in scrub handle — a hairline on the left edge with a wider hit area */
+  &__dragHandle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 4px;
+    height: 100%;
   }
 
   &__display {
@@ -136,22 +143,6 @@
     cursor: auto;
   }
 
-  &_disabled &__container {
-    background-color: transparent !important;
-    outline-width: 1px;
-    outline-style: solid;
-    outline-color: var(--pui-color-neutral-border-disabled) !important;
-  }
-
-  &_disabled &__input-native,
-  &_disabled &__input-native::placeholder {
-    color: var(--pui-color-neutral-text-disabled);
-  }
-
-  &_disabled &__label {
-    color: var(--pui-color-neutral-text-disabled);
-  }
-
   &_groupedPosition-first &__container {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
@@ -192,6 +183,65 @@
   }
 
   &_ghost:is(&_disabled) &__input-native {
+    color: var(--pui-color-neutral-text-disabled);
+  }
+
+  // Selected
+
+  &_selected &__container {
+    background-color: var(--pui-color-neutral-bg-default-selected);
+    outline-color: transparent;
+  }
+
+  &_selected &__input-native {
+    color: var(--pui-color-neutral-text-default-selected);
+  }
+
+  &_selected &__display {
+    color: var(--pui-color-neutral-text-default-selected);
+  }
+
+  &_selected &__display_placeholder {
+    color: var(--pui-color-neutral-text-placeholder-selected);
+  }
+
+  &_selected &__input-native::placeholder {
+    color: var(--pui-color-neutral-text-placeholder-selected);
+  }
+
+  &_selected:hover &__container {
+    outline-color: transparent;
+  }
+
+  // Error
+
+  &_error &__container {
+    outline-color: var(--pui-color-neutral-border-danger-error);
+  }
+
+  // Disabled
+
+  &_disabled &__container {
+    background-color: transparent !important;
+    outline-width: 1px;
+    outline-style: solid;
+    outline-color: var(--pui-color-neutral-border-disabled) !important;
+  }
+
+  &_disabled &__input-native,
+  &_disabled &__input-native::placeholder {
+    color: var(--pui-color-neutral-text-disabled);
+  }
+
+  &_disabled &__label {
+    color: var(--pui-color-neutral-text-disabled);
+  }
+
+  &_disabled &__display {
+    color: var(--pui-color-neutral-text-disabled);
+  }
+
+  &_disabled &__display_placeholder {
     color: var(--pui-color-neutral-text-disabled);
   }
 }

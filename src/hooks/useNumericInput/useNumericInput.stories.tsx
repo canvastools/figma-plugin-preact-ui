@@ -5,6 +5,7 @@ import { useState } from 'preact/hooks'
 import { NormalizationStory } from './stories/Normalization.story'
 import { DoubleValueStory } from './stories/DoubleValue.story'
 import { MathStory } from './stories/Math.story'
+import { DragStory } from './stories/Drag.story'
 
 import { Input, Text } from '../../index'
 
@@ -69,7 +70,7 @@ const meta: Meta = {
       control: { type: 'boolean' },
       table: { defaultValue: { summary: 'false' } },
       description:
-        'Whether to normalize and format the raw value on error, otherwise `undefined` will be returned for normalized value and formatted value.',
+        'Whether to normalize and format the raw value on error, so there is always something to show. Out of range input is clamped to `min` / `max`; input that cannot be read as a number at all (letters, an emptied required field) falls back to the value passed in `value`. Without it, `normalizedValue` and `formattedValue` come back `undefined` on every error.',
     },
     doubleValue: {
       control: { type: 'boolean' },
@@ -105,6 +106,9 @@ const meta: Meta = {
     raw: string // required
     unit: string
   ) => NumericInputParseResult 
+  getDragProps: (
+    options: NumericInputDragOptions
+  ) => NumericInputDragProps
 }
   
 // Types
@@ -120,6 +124,17 @@ type NumericInputParseResult = {
 }
 
 type NumericInputError = "required" | "invalid_number" | "less_than_min" | "greater_than_max" | "not_integer"
+
+type NumericInputDragOptions = {
+  disabled: boolean
+  onChange: (next: number | string) => void
+  onCommit: (next: number | string) => void
+}
+
+type NumericInputDragProps = {
+  style: { cursor: string | undefined }
+  onMouseDown: ((event: MouseEvent) => void) | undefined
+}
 `,
         },
       },
@@ -233,3 +248,4 @@ const [error, setError] = useState(null)
 export const Normalization = NormalizationStory
 export const DoubleValue = DoubleValueStory
 export const Math = MathStory
+export const Drag = DragStory

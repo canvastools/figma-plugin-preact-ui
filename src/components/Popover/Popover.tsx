@@ -82,7 +82,13 @@ const PopoverBody = ({
         constrainHeight={constrainHeight}
         tabIndex={tabIndex}
       >
-        <PopoverHeader onClose={handleClose}>{popoverHeaderProps?.children}</PopoverHeader>
+        <PopoverHeader
+          id={popoverHeaderProps?.id}
+          className={popoverHeaderProps?.className}
+          onClose={handleClose}
+        >
+          {popoverHeaderProps?.children}
+        </PopoverHeader>
         {children}
       </PopoverContainer>
     </OverlayPositioner>

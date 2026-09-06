@@ -22,11 +22,13 @@ const InputComponent = (
     value,
     defaultValue,
     ghost = false,
+    selected = false,
     grouped,
     error = false,
     disabled = false,
     prefix,
     suffix,
+    dragHandle,
     showSuffixOnHover = false,
     focusOnDoubleClick = false,
     focusOnPrefix = false,
@@ -87,6 +89,7 @@ const InputComponent = (
     suffix: Boolean(suffix),
     suffixOnHover: Boolean(showSuffixOnHover),
     focused: isFocused,
+    selected,
     // For double-click mode, apply keyboardFocus only when the wrapper
     // itself is focused via keyboard (Tab), not mouse.
     keyboardFocus: focusOnDoubleClick && isWrapperFocused && isKeyboardEditing,
@@ -208,6 +211,13 @@ const InputComponent = (
     inputRef.current?.focus()
   }
 
+  const handleDragHandleMouseDown = (event: preact.JSX.TargetedMouseEvent<HTMLDivElement>) => {
+    if (disabled) return
+    event.preventDefault()
+    inputRef.current?.focus()
+    dragHandle?.onMouseDown?.(event as unknown as MouseEvent)
+  }
+
   const handlePrefixDoubleClick = (event: preact.JSX.TargetedMouseEvent<HTMLDivElement>) => {
     if (disabled) return
     event.preventDefault()
@@ -252,12 +262,15 @@ const InputComponent = (
           onFocus={handleRootFocus}
           onBlur={handleRootBlur}
           onDblClick={handleDoubleClickDisplay}
-          tabIndex={focusOnDoubleClick ? (tabIndex ?? 0) : undefined}
+          tabIndex={focusOnDoubleClick ? tabIndex ?? 0 : undefined}
           style={{
             maxWidth: variant === 'default' ? undefined : typeof maxWidth === 'number' ? `${maxWidth}px` : maxWidth,
             flexShrink: maxWidth ? 0 : undefined,
           }}
         >
+          {dragHandle && !disabled && (
+            <div className="Input__dragHandle" style={dragHandle.style} onMouseDown={handleDragHandleMouseDown} />
+          )}
           {prefix && (
             <div
               className="Input__prefix"
@@ -266,8 +279,8 @@ const InputComponent = (
                 focusOnPrefix && focusOnDoubleClick
                   ? handlePrefixDoubleClick
                   : !focusOnPrefix && focusOnDoubleClick
-                    ? handlePrefixBlockDoubleClick
-                    : undefined
+                  ? handlePrefixBlockDoubleClick
+                  : undefined
               }
             >
               {prefix}

@@ -1,5 +1,27 @@
 # Changelog
 
+### 1.3.3 - 06 September 2026
+
+- Minor style, usability and performance fixes
+
+- TooltipContainer: added `maxWidth` prop
+- useNumericInput: added `getDragProps()` — drag an element (a prefix / suffix icon) horizontally to scrub the value by `step` (`stepLarge` with Shift), live while dragging and committed on release
+- Added `InputDragContainer` — wraps an `Input` prefix / suffix so the value can be scrubbed by dragging the icon; takes `useNumericInput().getDragProps()`
+- Input: added `dragHandle` prop — a 2px handle on the left edge that scrubs the value by dragging, for fields with no prefix icon to grab
+- ColorPicker: R / G / B and the `%` opacity suffix now scrub their values by dragging
+- WindowResizer: the resize cursor no longer flickers back to the default when the pointer passes over other elements while dragging
+- Added `lockCursor()` — forces a cursor on the whole document for the length of a drag
+- useNumericInput: comma is now parsed as a decimal separator and converted to a dot (except in `doubleValue` mode, where it stays a pair separator)
+- useNumericInput: `normalizeOnError` now also covers input that cannot be parsed at all (letters, an empty required field) — `normalizedValue` / `formattedValue` fall back to the value the field currently holds instead of coming back `undefined`, so `String(parsed.formattedValue)` can no longer print "undefined"
+- ColorPicker: typing letters into R / G / B or opacity reverts the field to its current value instead of dropping it to the minimum (opacity in hex mode no longer shows "undefined")
+- Select: added `selected` prop
+- Input: added `selected` prop
+- Button: added `selected` prop
+- Added 2 icons
+- Added:
+  - InputDragContainer
+  - hsbToColor, colorToHsb
+
 ### 1.3.2 - 18 July 2026
 
 - Minor style, usability and performance fixes

@@ -2,7 +2,7 @@ import type { OverlayPositionerProps } from '../OverlayPositioner/OverlayPositio
 import type { TooltipContainerProps } from '../TooltipContainer/TooltipContainer.types'
 import type { TooltipTimingOptions, TooltipTrigger } from '../TooltipContext/TooltipContext.types'
 
-type TooltipContainerPropsPick = Pick<TooltipContainerProps, 'width' | 'height' | 'showArrow'>
+type TooltipContainerPropsPick = Pick<TooltipContainerProps, 'width' | 'maxWidth' | 'height' | 'showArrow'>
 
 type OverlayPositionerPropsPick = Pick<
   OverlayPositionerProps,

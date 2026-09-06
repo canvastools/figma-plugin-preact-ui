@@ -50,6 +50,9 @@ export type { IconProps, Glyph, GlyphProps, IconPropsPick } from './components/I
 export { Input } from './components/Input/Input'
 export type { InputProps } from './components/Input/Input.types'
 
+export { InputDragContainer } from './components/InputDragContainer/InputDragContainer'
+export type { InputDragContainerProps } from './components/InputDragContainer/InputDragContainer.types'
+
 export { List } from './components/List/List'
 export type { ListProps, ListItemPropsPick } from './components/List/List.types'
 
@@ -175,6 +178,8 @@ export type { WindowResizerProps } from './components/WindowResizer/WindowResize
 export { useNumericInput } from './hooks/useNumericInput/useNumericInput'
 export type {
   NumericInputConfig,
+  NumericInputDragOptions,
+  NumericInputDragProps,
   NumericInputError,
   NumericInputParseResult,
 } from './hooks/useNumericInput/useNumericInput.types'
@@ -184,10 +189,11 @@ export type { StringInputConfig, StringInputError, StringInputParseResult } from
 
 // Utils
 
-export { colorToHex, hexToColor, colorToHexAlpha, hexAlphaToColor, colorToRgba, rgbaToColor, roundAlpha, clamp } from './utils'
-export type { Rgba } from './utils'
+export { colorToHex, hexToColor, colorToHexAlpha, hexAlphaToColor, colorToRgba, rgbaToColor, colorToHsb, hsbToColor, roundAlpha, clamp } from './utils'
+export type { Hsb, Rgba } from './utils'
 
 export { bem } from './utils'
+export { lockCursor } from './utils'
 
 // Glyphs
 
@@ -246,6 +252,8 @@ export {
   fontSize,
   gradient,
   group,
+  heart,
+  heartFilled,
   help,
   hidden,
   home,

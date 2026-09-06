@@ -85,3 +85,64 @@ export const rgbaToColor = (rgba: Rgba): Color => {
     a: clamp(rgba.a, 0, 1),
   }
 }
+
+/** HSB with h in 0–360 degrees, s and b (brightness) in 0–1, a in 0–1. */
+export type Hsb = { h: number; s: number; b: number; a: number }
+
+/**
+ * Converts a `Color` (0–1) to HSB — the model Figma's own color UI is built on,
+ * and the one to reach for when a color has to be shifted rather than replaced:
+ * hue, saturation and brightness move independently, which they do not in RGB.
+ *
+ * A gray has no hue to speak of, so it comes back as `h: 0`.
+ */
+export const colorToHsb = (color: Color): Hsb => {
+  const { r, g, b } = color
+
+  const max = Math.max(r, g, b)
+  const min = Math.min(r, g, b)
+  const delta = max - min
+
+  let h = 0
+  if (delta !== 0) {
+    if (max === r) h = (60 * ((g - b) / delta) + 360) % 360
+    else if (max === g) h = 60 * ((b - r) / delta + 2)
+    else h = 60 * ((r - g) / delta + 4)
+  }
+
+  return {
+    h,
+    s: max === 0 ? 0 : delta / max,
+    b: max,
+    a: clamp(color.a, 0, 1),
+  }
+}
+
+/** Converts HSB (h in 0–360, s and b in 0–1) to a `Color` (0–1). */
+export const hsbToColor = (hsb: Hsb): Color => {
+  const h = ((hsb.h % 360) + 360) % 360
+  const s = clamp(hsb.s, 0, 1)
+  const v = clamp(hsb.b, 0, 1)
+  const a = clamp(hsb.a, 0, 1)
+
+  if (s === 0) return { r: v, g: v, b: v, a }
+
+  const c = v * s
+  const x = c * (1 - Math.abs(((h / 60) % 2) - 1))
+  const m = v - c
+
+  const [r, g, b] =
+    h < 60
+      ? [c, x, 0]
+      : h < 120
+      ? [x, c, 0]
+      : h < 180
+      ? [0, c, x]
+      : h < 240
+      ? [0, x, c]
+      : h < 300
+      ? [x, 0, c]
+      : [c, 0, x]
+
+  return { r: r + m, g: g + m, b: b + m, a }
+}

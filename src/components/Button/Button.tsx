@@ -18,6 +18,7 @@ const ButtonComponent = (
     intent = 'neutral',
     intentModifier = 'default',
     ghost = false,
+    selected = false,
     size = 'medium',
     grouped,
     disabled = false,
@@ -37,6 +38,7 @@ const ButtonComponent = (
   const _className = bem('Button', undefined, {
     intent: `${intent}-${intentModifier}`,
     ghost,
+    selected,
     size,
     grouped: Boolean(grouped),
     groupedPosition: grouped ?? undefined,
@@ -90,7 +92,15 @@ const ButtonComponent = (
           {children != null && children !== false && children !== true && (
             <div className="Button__children">
               {wrapChildrenInText ? (
-                <Text variant="body" size="medium" intent={intent} intentModifier={intentModifier} disabled={disabled} truncate>
+                <Text
+                  variant="body"
+                  size="medium"
+                  intent={selected ? 'neutral' : intent}
+                  intentModifier={selected ? 'default' : intentModifier}
+                  disabled={disabled}
+                  selected={selected}
+                  truncate
+                >
                   {children}
                 </Text>
               ) : (

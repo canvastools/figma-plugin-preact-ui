@@ -35,40 +35,14 @@ const ListComponent = (
         {items.map((item) => {
           const { id, items: nestedItems } = item
           const resolvedListItemProps = typeof listItemProps === 'function' ? listItemProps(item) : listItemProps
-          const {
-            variant,
-            draggable,
-            onDragStart,
-            onDragEnd,
-            acceptsChildren,
-            selectable,
-            selectionScope,
-            onSelect,
-            hoverable,
-            collapsed,
-            collapsable,
-            onCollapsedChange,
-          } = resolvedListItemProps
-
           const content = renderItem ? renderItem(item) : undefined
 
           return (
             <ListItem
               key={id}
               id={id}
-              variant={variant}
               nestingLevel={level}
-              draggable={draggable}
-              onDragStart={onDragStart}
-              onDragEnd={onDragEnd}
-              acceptsChildren={acceptsChildren}
-              selectable={selectable}
-              selectionScope={selectionScope}
-              onSelect={onSelect}
-              hoverable={hoverable}
-              collapsed={collapsed}
-              collapsable={collapsable}
-              onCollapsedChange={onCollapsedChange}
+              {...resolvedListItemProps}
               items={nestedItems && nestedItems.length ? renderItems(nestedItems, level + 1) : undefined}
             >
               {content}

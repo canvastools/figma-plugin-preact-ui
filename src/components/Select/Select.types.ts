@@ -15,6 +15,7 @@ export interface SelectProps {
   defaultValue?: string
   value?: string
   grouped?: 'first' | 'last' | 'middle'
+  selected?: boolean
   ghost?: boolean
   error?: boolean
   disabled?: boolean

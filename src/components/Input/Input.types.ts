@@ -1,3 +1,5 @@
+import type { NumericInputDragProps } from '../../hooks/useNumericInput/useNumericInput.types'
+
 export interface InputProps {
   id?: string
   className?: string
@@ -7,12 +9,14 @@ export interface InputProps {
   placeholder?: string
   defaultValue?: string
   value?: string
+  selected?: boolean
   ghost?: boolean
   grouped?: 'first' | 'last' | 'middle'
   error?: boolean
   disabled?: boolean
   prefix?: preact.ComponentChildren
   suffix?: preact.ComponentChildren
+  dragHandle?: NumericInputDragProps
   showSuffixOnHover?: boolean
   focusOnDoubleClick?: boolean
   focusOnPrefix?: boolean

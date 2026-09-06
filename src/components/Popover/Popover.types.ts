@@ -22,7 +22,7 @@ type OverlayPositionerPropsPick = Pick<
   | 'onClose'
 >
 
-type PopoverHeaderPropsPick = Pick<PopoverHeaderProps, 'children'>
+type PopoverHeaderPropsPick = Pick<PopoverHeaderProps, 'id' | 'className' | 'children'>
 
 export interface PopoverProps extends PopoverContextPropsPick, OverlayPositionerPropsPick, PopoverContainerPropsPick {
   id?: string

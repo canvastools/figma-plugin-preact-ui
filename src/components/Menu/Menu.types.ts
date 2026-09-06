@@ -10,11 +10,11 @@ export type MenuItemData =
   | ({ type: 'group' } & Pick<MenuItemGroupProps, 'className' | 'children' | 'paddingLikeOption'>)
   | ({ type: 'action'; closeOnClick?: boolean } & Pick<
       MenuItemActionProps,
-      'id' | 'intentModifier' | 'disabled' | 'prefix' | 'suffix' | 'children' | 'paddingLikeOption' | 'onClick'
+      'id' | 'className' | 'intentModifier' | 'disabled' | 'prefix' | 'suffix' | 'children' | 'paddingLikeOption' | 'onClick'
     >)
   | ({ type: 'option'; closeOnClick?: boolean } & Pick<
       MenuItemOptionProps,
-      'id' | 'defaultSelected' | 'selected' | 'disabled' | 'prefix' | 'suffix' | 'children' | 'onSelectedChange'
+      'id' | 'className' | 'defaultSelected' | 'selected' | 'disabled' | 'prefix' | 'suffix' | 'children' | 'onSelectedChange'
     >)
   | {
       type: 'custom'
@@ -24,7 +24,7 @@ export type MenuItemData =
       onClick?: (args: { event: MouseEvent; id: string }) => void
       closeOnClick?: boolean
     }
-  | ({ type: 'divider' } & Pick<MenuDividerProps, 'className' | 'variant'>)
+  | ({ type: 'divider' } & Pick<MenuDividerProps, 'id' | 'className' | 'variant'>)
 
 type MenuContextPropsPick = Pick<MenuContextProps, 'triggerRef' | 'anchorRef'>
 

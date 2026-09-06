@@ -8,7 +8,7 @@ import { Text } from '../Text/Text'
 /* --- */
 
 const TooltipContainerComponent = (
-  { id, className, width, height, showArrow, children, ...rest }: TooltipContainerProps,
+  { id, className, width, maxWidth, height, showArrow, children, ...rest }: TooltipContainerProps,
   ref: preact.Ref<HTMLDivElement>,
 ) => {
   const _className = bem('TooltipContainer', undefined, {
@@ -24,6 +24,7 @@ const TooltipContainerComponent = (
       {...rest}
       style={{
         width,
+        maxWidth,
         height,
       }}
     >

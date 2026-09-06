@@ -11,6 +11,12 @@
     gap: var(--pui-spacing-200);
   }
 
+  &__prefix,
+  &__suffix {
+    display: flex;
+    flex-flow: row nowrap;
+  }
+
   &:not(&_focused) &__content:hover {
     background-color: var(--pui-color-brand-bg-default);
   }

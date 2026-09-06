@@ -5,6 +5,20 @@
   justify-content: center;
   align-items: center;
 
+  /**
+   * The ring is a static mask; motion is a `transform` rotate.
+   *
+   * `transform` and `opacity` are the two properties a browser can animate
+   * off the main thread, on the compositor. This spinner exists for the
+   * moments when something long is holding that thread — a spinner that
+   * freezes while the plugin works reads as a hung plugin rather than a
+   * busy one.
+   *
+   * `will-change` asks for the layer up front rather than on the first
+   * frame, which is the frame most likely to be late. Opacity stays out
+   * of the keyframes so the ring is visible even if that first frame
+   * never arrives.
+   */
   &__spinner {
     --_m: conic-gradient(#0000 0, var(--pui-color-neutral-icon-secondary)), linear-gradient(#000 0 0) content-box;
     mask: var(--_m);
@@ -13,10 +27,10 @@
     padding: 2px;
     aspect-ratio: 1;
     border-radius: 50%;
-    opacity: 0;
     background: var(--pui-color-neutral-icon-secondary);
     mask-composite: subtract;
-    animation: l3 0.4s 0s infinite linear;
+    animation: spinner 0.4s linear infinite;
+    will-change: transform;
   }
 
   &_size-small {
@@ -30,13 +44,11 @@
   }
 }
 
-@keyframes l3 {
+@keyframes spinner {
   0% {
     transform: rotate(0deg);
-    opacity: 1;
   }
   100% {
     transform: rotate(360deg);
-    opacity: 1;
   }
 }

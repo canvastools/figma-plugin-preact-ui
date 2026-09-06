@@ -18,12 +18,12 @@ export const NormalizationStory: Story = {
     docs: {
       description: {
         story:
-          'To replicate an experience similar to Figma, errors should be avoided and default values should be applied in most cases.<br/>Value normalisation ensures that a value is always returned.',
+          'To replicate an experience similar to Figma, errors should be avoided and default values should be applied in most cases.<br/>Value normalisation ensures that a value is always returned: out of range input is clamped to `min` / `max`, and input that cannot be read as a number at all falls back to the value the field currently holds - try `999` or `abc`.<br/>The `error` is still reported, so a caller that wants its own default for an emptied field can act on `required` before reading the value.',
       },
       source: {
         code: `
 const numericInput = useNumericInput({
-  value: "",
+  value: 45,
   unit: "°",
   min: -180,
   max: 180,
@@ -43,14 +43,8 @@ const [inputValue, setInputValue] = useState(numericInput.formattedValue ?? "")
   onBlur={(args) => {
     const parsed = numericInput.parse(args.value)
 
-    if (
-      parsed.error === "required" ||
-      parsed.error === "invalid_number"
-    ) {
-      setInputValue(String("Auto"))
-      return
-    }
-    
+    // normalizeOnError always yields a value: out of range
+    // clamps, unreadable input reverts to the current one
     setInputValue(String(parsed.formattedValue))
   }}
   onKeyDown={(args) =>
@@ -97,11 +91,7 @@ const [inputValue, setInputValue] = useState(numericInput.formattedValue ?? "")
               formattedValue: parsed.formattedValue ?? '',
             })
 
-            if (parsed.error === 'required' || parsed.error === 'invalid_number') {
-              setInputValue(String('Auto'))
-              return
-            }
-
+            /* normalizeOnError always yields a value: out of range clamps, unreadable input reverts */
             setInputValue(String(parsed.formattedValue))
           }}
           onKeyDown={(args) => numericInput.handleKeyDown(args, (next) => setInputValue(String(next)))}

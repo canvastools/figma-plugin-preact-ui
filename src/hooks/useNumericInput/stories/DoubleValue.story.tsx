@@ -18,7 +18,7 @@ export const DoubleValueStory: Story = {
     docs: {
       description: {
         story:
-          'A double value can be used for fields that combine pairs of values, such as padding top/bottom and left/right.<br/>When a comma is present, the hook returns an array of values.',
+          'A double value can be used for fields that combine pairs of values, such as padding top/bottom and left/right.<br/>When a comma is present, the hook returns an array of values.<br/>With `normalizeOnError`, each half is normalised on its own - try `120, 50` or `abc, 50`.',
       },
       source: {
         code: `
@@ -43,14 +43,8 @@ const [inputValue, setInputValue] = useState(numericInput.formattedValues?.join(
   onBlur={(args) => {
     const parsed = numericInput.parse(args.value)
 
-    if (
-      parsed.error === "required" ||
-      parsed.error === "invalid_number"
-    ) {
-      setInputValue(String("Auto"))
-      return
-    }
-
+    // normalizeOnError always yields values: each half clamps
+    // on its own, and an unreadable one reverts to its current value
     if (parsed.formattedValues) {
       setInputValue(parsed.formattedValues.join(", "))
     } else {
@@ -102,11 +96,7 @@ const [inputValue, setInputValue] = useState(numericInput.formattedValues?.join(
               formattedValues: parsed.formattedValues ?? [],
             })
 
-            if (parsed.error === 'required' || parsed.error === 'invalid_number') {
-              setInputValue(String('Auto'))
-              return
-            }
-
+            /* normalizeOnError always yields values: each half clamps on its own, and an unreadable one reverts */
             if (parsed.formattedValues) {
               setInputValue(parsed.formattedValues.join(', '))
             } else {
