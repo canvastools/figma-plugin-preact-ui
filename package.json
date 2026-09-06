@@ -74,7 +74,7 @@
     "lint:ci": "tsc --noEmit && eslint .",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "STORYBOOK_BASE_PATH=/figma-plugin-preact-ui/ storybook build",
-    "deploy-storybook": "npm run build-storybook && touch storybook-static/.nojekyll && gh-pages -d storybook-static --dotfiles"
+    "deploy-storybook": "npm run build && npm run build-storybook && touch storybook-static/.nojekyll && gh-pages -d storybook-static --dotfiles"
   },
   "dependencies": {
     "react-calendar": "^6.0.1",

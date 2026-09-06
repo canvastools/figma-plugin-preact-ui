@@ -86,9 +86,16 @@ const config: StorybookConfig = {
     name: '@storybook/preact-vite',
     options: {},
   },
-  viteFinal: async (config) => {
+  viteFinal: async (config, { configType }) => {
     if (process.env.STORYBOOK_BASE_PATH) {
       config.base = process.env.STORYBOOK_BASE_PATH
+    }
+
+    // A static build inlines dist/style.css as an asset via `new URL(...)` in
+    // preview.tsx. Without the file Vite leaves the path untouched and the
+    // deployed site 404s on /dist/style.css with every component unstyled.
+    if (configType === 'PRODUCTION' && !fs.existsSync(distStyleCssPath)) {
+      throw new Error(`dist/style.css is missing — run \`npm run build\` before \`storybook build\`.`)
     }
 
     // Ignore all SCSS imports by mapping them to a virtual JS module
