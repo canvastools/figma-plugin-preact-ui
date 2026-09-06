@@ -69,6 +69,8 @@ export { frame } from './frame';
 export { fontSize } from './fontSize';
 export { gradient } from './gradient';
 export { group } from './group';
+export { heart } from './heart';
+export { heartFilled } from './heartFilled';
 export { help } from './help';
 export { hidden } from './hidden';
 export { letterSpacing } from './letterSpacing';

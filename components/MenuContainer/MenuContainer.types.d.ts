@@ -5,4 +5,4 @@ export interface MenuContainerProps {
     height?: number;
     children: preact.ComponentChildren;
 }
-export type MenuContainerPropsPick = Pick<MenuContainerProps, 'width'>;
+export type MenuContainerPropsPick = Pick<MenuContainerProps, 'id' | 'className' | 'width' | 'height'>;

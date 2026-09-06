@@ -47,6 +47,7 @@
   --pui-color-neutral-text-slot-secondary: #E5AED4;
   --pui-color-neutral-text-disabled: #0000004D;
   --pui-color-neutral-text-placeholder: #00000080;
+  --pui-color-neutral-text-placeholder-selected: #007BE580;
   --pui-color-neutral-icon-default: #000000E6;
   --pui-color-neutral-icon-default-selected: #007BE5;
   --pui-color-neutral-icon-secondary: #00000085;
@@ -186,6 +187,7 @@
   --pui-color-neutral-text-slot-secondary: #9B4A81;
   --pui-color-neutral-text-disabled: #FFFFFF66;
   --pui-color-neutral-text-placeholder: #FFFFFF8C;
+  --pui-color-neutral-text-placeholder-selected: #7CC4F880;
   --pui-color-neutral-icon-default: #FFFFFF;
   --pui-color-neutral-icon-default-selected: #7CC4F8;
   --pui-color-neutral-icon-secondary: #FFFFFFB3;
@@ -325,6 +327,7 @@
   --pui-color-neutral-text-slot-secondary: #E5AED4;
   --pui-color-neutral-text-disabled: #0000004D;
   --pui-color-neutral-text-placeholder: #00000080;
+  --pui-color-neutral-text-placeholder-selected: #8638e580;
   --pui-color-neutral-icon-default: #000000E6;
   --pui-color-neutral-icon-default-selected: #8638e5;
   --pui-color-neutral-icon-secondary: #00000085;
