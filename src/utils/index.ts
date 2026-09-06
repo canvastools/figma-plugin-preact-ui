@@ -6,11 +6,13 @@ export {
   hexAlphaToColor,
   colorToRgba,
   rgbaToColor,
+  colorToHsb,
+  hsbToColor,
   roundAlpha,
   clamp,
 } from './color/color'
 
-export type { Rgba } from './color/color'
+export type { Hsb, Rgba } from './color/color'
 
 export {
   DRAG_ZONE_CLASSES,

@@ -189,8 +189,8 @@ export type { StringInputConfig, StringInputError, StringInputParseResult } from
 
 // Utils
 
-export { colorToHex, hexToColor, colorToHexAlpha, hexAlphaToColor, colorToRgba, rgbaToColor, roundAlpha, clamp } from './utils'
-export type { Rgba } from './utils'
+export { colorToHex, hexToColor, colorToHexAlpha, hexAlphaToColor, colorToRgba, rgbaToColor, colorToHsb, hsbToColor, roundAlpha, clamp } from './utils'
+export type { Hsb, Rgba } from './utils'
 
 export { bem } from './utils'
 export { lockCursor } from './utils'
