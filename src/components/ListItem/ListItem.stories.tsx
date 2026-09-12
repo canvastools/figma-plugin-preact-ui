@@ -37,6 +37,12 @@ const meta: Meta<typeof ListItem> = {
       options: ['default', 'layer'],
       table: { defaultValue: { summary: 'default' } },
     },
+    flushRight: {
+      control: { type: 'boolean' },
+      description:
+        'Removes the right gap so the selection and hover background reach the container edge with square right corners. Only for `variant="layer"`.',
+      table: { defaultValue: { summary: 'false' } },
+    },
     nestingLevel: {
       control: { type: 'number' },
       description: '<strong>*</strong>',
@@ -205,6 +211,7 @@ export const Demo: Story = {
     className: '',
     nestingLevel: 0,
     variant: 'default',
+    flushRight: false,
     draggable: true,
     acceptsChildren: true,
     selectable: true,

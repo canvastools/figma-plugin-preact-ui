@@ -3,6 +3,7 @@ export interface ListItemProps {
   className?: string
   nestingLevel: number
   variant?: 'default' | 'layer'
+  flushRight?: boolean
   draggable?: boolean
   onDragStart?: (args: { event: DragEvent }) => void
   onDragEnd?: (args: { event: DragEvent }) => void

@@ -170,7 +170,17 @@
 
   &_variant-layer {
     --li-pr: var(--pui-spacing-100);
+    // Gap between the selection / hover background and the container's right edge
+    --li-pr-outer: var(--li-pr);
     --li-pl-ext: var(--pui-spacing-200);
+    // Corner radii of the selection / hover background (left and right sides)
+    --li-radius: var(--pui-radius-medium);
+    --li-radius-right: var(--li-radius);
+  }
+
+  &_variant-layer:is(&_flush-right) {
+    --li-pr-outer: 0px;
+    --li-radius-right: 0px;
   }
 
   &_variant-layer:is(&_collapsable) {
@@ -182,11 +192,11 @@
   }
 
   &_variant-layer > &__content {
-    padding: var(--li-pt) var(--li-pr) var(--li-pb) var(--li-pl-ext);
+    padding: var(--li-pt) var(--li-pr-outer) var(--li-pb) var(--li-pl-ext);
   }
 
   &_variant-layer > &__content > &__content-inner {
-    padding: 0 var(--li-pr) 0 var(--indent-same-level);
+    padding-left: var(--indent-same-level);
   }
 
   /* Selected */
@@ -204,7 +214,7 @@
     position: absolute;
     top: calc(var(--li-pt) * -1);
     left: var(--li-pl-ext);
-    right: var(--li-pr);
+    right: var(--li-pr-outer);
     height: 100%;
     background-color: var(--pui-color-neutral-bg-secondary-selected);
     z-index: 0;
@@ -220,7 +230,7 @@
     position: absolute;
     top: calc(var(--li-pt) * -1);
     left: var(--li-pl-ext);
-    right: var(--li-pr);
+    right: var(--li-pr-outer);
     height: calc(var(--li-pt) * 2);
   }
 
@@ -242,7 +252,7 @@
   // Cascade: default → selected=0 → start/end corners → single → bridge overrides
 
   &_variant-layer > &__content > &__content-inner {
-    border-radius: var(--pui-radius-medium);
+    border-radius: var(--li-radius) var(--li-radius-right) var(--li-radius-right) var(--li-radius);
   }
 
   // Selected: square by default (range middles + withDescendants non-origins)
@@ -252,36 +262,36 @@
 
   // Start of a selection range
   &_selected:is(&_variant-layer):is(&_selection-origin):is(&_selection-start) > &__content > &__content-inner {
-    border-radius: var(--pui-radius-medium) var(--pui-radius-medium) 0 0;
+    border-radius: var(--li-radius) var(--li-radius-right) 0 0;
   }
 
   // End of a selection range (leaf / collapsed). Expanded end uses __items:after below.
   &_selected:is(&_variant-layer):is(&_selection-origin):is(&_selection-end):not(&_has-children) > &__content > &__content-inner,
   &_selected:is(&_variant-layer):is(&_selection-origin):is(&_selection-end):is(&_has-children):is(&_collapsed) > &__content > &__content-inner {
-    border-radius: 0 0 var(--pui-radius-medium) var(--pui-radius-medium);
+    border-radius: 0 0 var(--li-radius-right) var(--li-radius);
   }
 
   &_selected:is(&_variant-layer):is(&_selection-origin):is(&_selection-end):is(&_has-children):not(&_collapsed) > &__items:after {
-    border-radius: 0 0 var(--pui-radius-medium) var(--pui-radius-medium);
+    border-radius: 0 0 var(--li-radius-right) var(--li-radius);
   }
 
   // Single selected item
   &_selected:is(&_variant-layer):is(&_selection-origin):is(&_selection-start):is(&_selection-end):not(&_has-children) > &__content > &__content-inner,
   &_selected:is(&_variant-layer):is(&_selection-origin):is(&_selection-start):is(&_selection-end):is(&_has-children):is(&_collapsed) > &__content > &__content-inner {
-    border-radius: var(--pui-radius-medium);
+    border-radius: var(--li-radius) var(--li-radius-right) var(--li-radius-right) var(--li-radius);
   }
 
   &_selected:is(&_variant-layer):is(&_selection-origin):is(&_selection-start):is(&_selection-end):is(&_has-children):not(&_collapsed) > &__content > &__content-inner {
-    border-radius: var(--pui-radius-medium) var(--pui-radius-medium) 0 0;
+    border-radius: var(--li-radius) var(--li-radius-right) 0 0;
   }
 
   // individual + expanded: no secondary children fill — full radius on start/end
   &_selected:is(&_variant-layer):is(&_selection-origin):not(&_selection-scope-descendants):is(&_has-children):is(&_selection-start):is(&_selection-end) > &__content > &__content-inner {
-    border-radius: var(--pui-radius-medium);
+    border-radius: var(--li-radius) var(--li-radius-right) var(--li-radius-right) var(--li-radius);
   }
 
   &_selected:is(&_variant-layer):is(&_selection-origin):not(&_selection-scope-descendants):is(&_has-children):not(&_collapsed):not(&_selection-start):is(&_selection-end) > &__content > &__content-inner {
-    border-radius: 0 0 var(--pui-radius-medium) var(--pui-radius-medium);
+    border-radius: 0 0 var(--li-radius-right) var(--li-radius);
   }
 
   // Bridge: nested selection continues into the next outer sibling
@@ -295,7 +305,7 @@
   &_selected:is(&_variant-layer):is(&_selection-before-sibling):is(&_selection-origin):is(&_selection-start) > &__content > &__content-inner,
   &_selected:is(&_variant-layer):is(&_selection-before-sibling):is(&_selection-origin):is(&_selection-start):is(&_selection-end):not(&_has-children) > &__content > &__content-inner,
   &_selected:is(&_variant-layer):is(&_selection-before-sibling):is(&_selection-origin):is(&_selection-start):is(&_selection-end):is(&_has-children):is(&_collapsed) > &__content > &__content-inner {
-    border-radius: var(--pui-radius-medium) var(--pui-radius-medium) 0 0;
+    border-radius: var(--li-radius) var(--li-radius-right) 0 0;
   }
 
   &_selected:is(&_variant-layer):is(&_selection-before-sibling):is(&_selection-origin):is(&_has-children):not(&_collapsed) > &__items:after {
@@ -310,11 +320,11 @@
 
   &_selected:is(&_variant-layer):is(&_selection-after-nested):is(&_selection-origin):is(&_selection-end):not(&_has-children) > &__content > &__content-inner,
   &_selected:is(&_variant-layer):is(&_selection-after-nested):is(&_selection-origin):is(&_selection-end):is(&_has-children):is(&_collapsed) > &__content > &__content-inner {
-    border-radius: 0 0 var(--pui-radius-medium) var(--pui-radius-medium);
+    border-radius: 0 0 var(--li-radius-right) var(--li-radius);
   }
 
   &_variant-layer:not(&_selection-origin) > &__content:hover > &__content-inner {
-    border-radius: var(--pui-radius-medium);
+    border-radius: var(--li-radius) var(--li-radius-right) var(--li-radius-right) var(--li-radius);
   }
 
   /* Hover */

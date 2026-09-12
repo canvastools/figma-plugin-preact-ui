@@ -10,7 +10,7 @@ import {
   clearDraggingIds,
   getChildListItems,
 } from '../../utils'
-import { useState, useEffect, useRef } from 'preact/hooks'
+import { useState, useEffect, useLayoutEffect, useRef } from 'preact/hooks'
 
 import type { ListItemProps } from './ListItem.types'
 import './ListItem.scss'
@@ -30,6 +30,7 @@ const ListItemComponent = (
     id,
     className,
     variant = 'default',
+    flushRight = false,
     nestingLevel = 0,
     draggable = false,
     acceptsChildren = false,
@@ -90,7 +91,7 @@ const ListItemComponent = (
   const isSelectionOrigin = selectionScope === 'individual' ? isSelected : Boolean(selectionOriginIds?.has(id))
   const hasChildren = Boolean(items)
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const el = selfRef.current
     if (!el) return
     const container = el.parentElement
@@ -250,6 +251,7 @@ const ListItemComponent = (
   const _className = bem('ListItem', undefined, {
     'selection-scope-descendants': selectionScope === 'withDescendants',
     variant,
+    'flush-right': flushRight,
     nested: nestingLevel > 0,
     draggable: draggable,
     selectable: selectable,
