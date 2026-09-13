@@ -7,7 +7,7 @@ import { DisabledStory } from './stories/Disabled.story'
 import { TranslucentStory } from './stories/Translucent.story'
 import { IconStory } from './stories/Icon.story'
 
-import { Icon, link, TooltipContext } from '../../index'
+import { link, TooltipContext } from '../../index'
 
 import { ButtonIcon } from './ButtonIcon'
 
@@ -34,7 +34,7 @@ const meta: Meta<typeof ButtonIcon> = {
     },
     intentModifier: {
       control: { type: 'radio' },
-      options: ['default', 'secondary'],
+      options: ['default', 'secondary', 'brand'],
       table: { defaultValue: { summary: 'default' } },
     },
     ghost: {
@@ -130,7 +130,8 @@ export const Demo: Story = {
     translucent: false,
     disabled: false,
     tooltip: 'Button tooltip',
-    children: <Icon glyph={link} />,
+    icon: { glyph: link },
+    children: undefined,
     onClick: fn(),
   },
   parameters: {

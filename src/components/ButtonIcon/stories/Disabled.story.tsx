@@ -1,6 +1,6 @@
 import { StoryObj } from '@storybook/preact-vite'
 
-import { Text, Icon, link } from '../../../index'
+import { Text, link } from '../../../index'
 
 import { ButtonIcon } from '../ButtonIcon'
 import type { ButtonIconProps } from '../ButtonIcon.types'
@@ -33,20 +33,18 @@ const disabledCombinations = () => {
         intent={intent as ButtonIconProps['intent']}
         intentModifier={intentModifier as ButtonIconProps['intentModifier']}
         ghost={ghost}
+        icon={{ glyph: link }}
         disabled
-      >
-        <Icon glyph={link} />
-      </ButtonIcon>
+      />
 
       <ButtonIcon
         intent={intent as ButtonIconProps['intent']}
         intentModifier={intentModifier as ButtonIconProps['intentModifier']}
         ghost={ghost}
         size="large"
+        icon={{ glyph: link }}
         disabled
-      >
-        <Icon glyph={link} />
-      </ButtonIcon>
+      />
     </div>
   ))
 }

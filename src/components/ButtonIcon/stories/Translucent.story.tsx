@@ -1,6 +1,6 @@
 import { StoryObj } from '@storybook/preact-vite'
 
-import { Input, Icon, link } from '../../../index'
+import { Input, link } from '../../../index'
 
 import { ButtonIcon } from '../ButtonIcon'
 
@@ -34,14 +34,7 @@ export const TranslucentStory: Story = {
   },
   render: () => (
     <div className="sb-column sb-width-300 sb-gap-16">
-      <Input
-        placeholder="Placeholder"
-        suffix={
-          <ButtonIcon translucent>
-            <Icon glyph={link} />
-          </ButtonIcon>
-        }
-      />
+      <Input placeholder="Placeholder" suffix={<ButtonIcon translucent icon={{ glyph: link }} />} />
     </div>
   ),
 }

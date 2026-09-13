@@ -19,6 +19,16 @@ const validIntentCombinations = [
     intentModifier: 'default',
     ghost: true,
   },
+  {
+    intent: 'neutral',
+    intentModifier: 'secondary',
+    ghost: false,
+  },
+  {
+    intent: 'neutral',
+    intentModifier: 'brand',
+    ghost: false,
+  },
 ]
 
 const intentCombinations = () => {
@@ -30,12 +40,11 @@ const intentCombinations = () => {
       </Text>
 
       <ButtonIcon
+        icon={{ glyph: link }}
         intent={intent as ButtonIconProps['intent']}
         intentModifier={intentModifier as ButtonIconProps['intentModifier']}
         ghost={ghost}
-      >
-        <Icon glyph={link} />
-      </ButtonIcon>
+      />
     </div>
   ))
 }

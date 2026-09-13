@@ -4,7 +4,7 @@ export interface ButtonIconProps {
   id?: string
   className?: string
   intent?: 'neutral'
-  intentModifier?: 'default' | 'secondary'
+  intentModifier?: 'default' | 'secondary' | 'brand'
   ghost?: boolean
   size?: 'medium' | 'large'
   grouped?: 'first' | 'last' | 'middle'

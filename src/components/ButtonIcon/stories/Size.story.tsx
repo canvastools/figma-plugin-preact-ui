@@ -1,6 +1,6 @@
 import { StoryObj } from '@storybook/preact-vite'
 
-import { Text, Icon, link } from '../../../index'
+import { Text, link } from '../../../index'
 
 import { ButtonIcon } from '../ButtonIcon'
 import type { ButtonIconProps } from '../ButtonIcon.types'
@@ -34,18 +34,16 @@ const sizeCombinations = () => {
         intentModifier={intentModifier as ButtonIconProps['intentModifier']}
         ghost={ghost}
         size="medium"
-      >
-        <Icon glyph={link} />
-      </ButtonIcon>
+        icon={{ glyph: link }}
+      />
 
       <ButtonIcon
         intent={intent as ButtonIconProps['intent']}
         intentModifier={intentModifier as ButtonIconProps['intentModifier']}
         ghost={ghost}
         size="large"
-      >
-        <Icon glyph={link} />
-      </ButtonIcon>
+        icon={{ glyph: link }}
+      />
     </div>
   ))
 }
