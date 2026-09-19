@@ -81,6 +81,7 @@
 
   &__display_placeholder {
     color: var(--pui-color-neutral-text-placeholder);
+    white-space: nowrap;
   }
 
   &__input-native {

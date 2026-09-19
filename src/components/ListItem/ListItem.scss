@@ -32,6 +32,10 @@
     outline-offset: -1px;
   }
 
+  &__content-inner {
+    min-width: 0;
+  }
+
   &__items {
     flex: 1 1 100%;
     display: flex;
@@ -46,6 +50,7 @@
     align-items: center;
     min-height: 24px;
     width: 100%;
+    min-width: 0;
     z-index: 1;
   }
 
