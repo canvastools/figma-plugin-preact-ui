@@ -224,6 +224,8 @@ const figmaDark: ColorTokenTree = {
       bg: {
         default: '#F3C11B',
 
+        secondary: '#c58011',
+
         disabled: '#757575',
       },
       text: {

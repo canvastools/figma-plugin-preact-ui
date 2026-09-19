@@ -224,6 +224,8 @@ const figjamLight: ColorTokenTree = {
       bg: {
         default: '#FFCD29',
 
+        secondary: '#fff1c2',
+
         disabled: '#D9D9D9',
       },
       text: {
