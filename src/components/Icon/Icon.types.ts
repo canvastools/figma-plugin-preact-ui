@@ -14,6 +14,7 @@ export interface IconProps {
     | 'secondary'
     | 'tertiary'
     | 'brand'
+    | 'brand-secondary'
     | 'danger'
     | 'warning'
     | 'success'

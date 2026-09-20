@@ -39,6 +39,7 @@
   @include Text_intent('neutral', 'default');
   @include Text_intent('neutral', 'secondary');
   @include Text_intent('neutral', 'brand');
+  @include Text_intent('neutral', 'brand-secondary');
   @include Text_intent('neutral', 'danger');
   @include Text_intent('neutral', 'warning');
   @include Text_intent('neutral', 'success');

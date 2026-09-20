@@ -38,6 +38,7 @@ const meta: Meta<typeof Text> = {
         'default',
         'secondary',
         'brand',
+        'brand-secondary',
         'danger',
         'warning',
         'success',

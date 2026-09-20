@@ -37,6 +37,7 @@ const figjamLight: ColorTokenTree = {
         secondary: '#00000085',
 
         brand: '#8638e5',
+        'brand-secondary': '#C5B2DC',
 
         danger: '#DC3412',
 
@@ -64,6 +65,7 @@ const figjamLight: ColorTokenTree = {
         tertiary: '#0000004D',
 
         brand: '#8638e5',
+        'brand-secondary': '#C5B2DC',
 
         danger: '#DC3412',
 

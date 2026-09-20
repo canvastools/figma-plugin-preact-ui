@@ -37,6 +37,7 @@ const figmaDark: ColorTokenTree = {
         secondary: '#FFFFFFB3',
 
         brand: '#7CC4F8',
+        'brand-secondary': '#4C697E',
 
         danger: '#FCA397',
 
@@ -64,6 +65,7 @@ const figmaDark: ColorTokenTree = {
         tertiary: '#FFFFFF66',
 
         brand: '#7CC4F8',
+        'brand-secondary': '#4C697E',
 
         danger: '#FCA397',
 

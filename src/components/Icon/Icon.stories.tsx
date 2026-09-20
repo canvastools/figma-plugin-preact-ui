@@ -49,6 +49,7 @@ const meta: Meta<typeof Icon> = {
         'secondary',
         'tertiary',
         'brand',
+        'brand-secondary',
         'danger',
         'warning',
         'success',

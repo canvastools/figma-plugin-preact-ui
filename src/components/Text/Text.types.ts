@@ -6,6 +6,7 @@ export interface TextProps {
     | 'default'
     | 'secondary'
     | 'brand'
+    | 'brand-secondary'
     | 'danger'
     | 'warning'
     | 'success'
