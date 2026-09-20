@@ -31,6 +31,11 @@ const validIntentCombinations = [
   {
     bg: '--pui-color-neutral-bg-default',
     intent: 'neutral',
+    intentModifier: 'brand-secondary',
+  },
+  {
+    bg: '--pui-color-neutral-bg-default',
+    intent: 'neutral',
     intentModifier: 'danger',
   },
   {
