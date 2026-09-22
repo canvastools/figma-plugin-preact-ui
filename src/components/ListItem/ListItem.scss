@@ -138,7 +138,7 @@
   }
 
   &_variant-default:is(&_collapsable) {
-    --li-pl-ext: calc(var(--pui-spacing-300) - 1px);
+    --li-pl-ext: var(--pui-spacing-300);
   }
 
   &_variant-default &__drag-handle {
