@@ -1,6 +1,22 @@
 import { createContext } from 'preact'
-import { useContext, useState, useEffect, useCallback, useRef, useMemo } from 'preact/hooks'
-import type { ListContextValue, ListContextProps, ListItemData } from './ListContext.types'
+import { useContext, useState, useEffect, useLayoutEffect, useCallback, useRef, useMemo } from 'preact/hooks'
+import {
+  createListDragController,
+  indexListTree,
+  isSameListTree,
+  isWithinListBranch,
+  moveInListTree,
+  toListMoveRoots,
+} from '../../utils'
+import type {
+  ListContextValue,
+  ListContextProps,
+  ListDragController,
+  ListDropTarget,
+  ListItemData,
+  ListItemDragState,
+  ListItemMeta,
+} from './ListContext.types'
 
 /* --- */
 
@@ -18,15 +34,25 @@ const areSetsEqual = (a: Set<string>, b: Set<string>) => {
   return true
 }
 
-// Items trees are plain JSON-safe data (see ListItemData), but structuredClone
-// is cheaper and keeps richer values intact if the type ever grows.
-const cloneItems = (items: ListItemData[]): ListItemData[] =>
-  typeof structuredClone === 'function' ? structuredClone(items) : JSON.parse(JSON.stringify(items))
-
 const useListContext = () => {
   const context = useContext(RawListContext)
   if (!context) throw new Error('ListContext not found')
   return context
+}
+
+const NO_DRAG_STATE: ListItemDragState = {}
+
+// A row's own slice of the drag state: only rows whose indicators change re-render.
+const useListItemDragState = (id: string): ListItemDragState => {
+  const { drag } = useListContext()
+  const [state, setState] = useState(() => drag.getItemState(id))
+
+  useLayoutEffect(() => {
+    setState(drag.getItemState(id))
+    return drag.subscribe(id, () => setState(drag.getItemState(id)))
+  }, [drag, id])
+
+  return state ?? NO_DRAG_STATE
 }
 
 const ListContext = (props: ListContextProps) => {
@@ -36,6 +62,7 @@ const ListContext = (props: ListContextProps) => {
     selectionMode,
     deselectOnClickOutside = false,
     onItemsChange,
+    canDrop,
     onSelectionChange,
     onKeyDown,
     children,
@@ -46,17 +73,7 @@ const ListContext = (props: ListContextProps) => {
   const [internalItems, setInternalItems] = useState<ListItemData[]>(controlledItems ?? [])
   const [internalSelectedItems, setInternalSelectedItems] = useState<Set<string>>(new Set(controlledSelectedItemIds))
   const [selectionOriginIds, setSelectionOriginIds] = useState<Set<string>>(new Set())
-  const itemMetaRef = useRef<
-    Map<
-      string,
-      {
-        selectable?: boolean
-        selectionScope?: 'individual' | 'withDescendants'
-        draggable?: boolean
-      }
-    >
-  >(new Map())
-  const idToPathRef = useRef<Map<string, number[]>>(new Map())
+  const itemMetaRef = useRef<Map<string, ListItemMeta>>(new Map())
 
   // Determine if we're in controlled state for each aspect
   const isItemsControlled = hasControlledItems && onItemsChange !== undefined
@@ -272,149 +289,45 @@ const ListContext = (props: ListContextProps) => {
     ],
   )
 
-  const reorderItems = useCallback(
-    (itemIds: string[], targetIndex: number, targetParentPath?: number[]) => {
-      if (itemIds.length === 0) return
+  const treeIndex = useMemo(() => indexListTree(currentItems), [currentItems])
 
-      // Create a deep copy of the current items
-      const newItems = cloneItems(currentItems)
-
-      // Build a map of id -> path from the current (pre-removal) tree
-      const idToPath = (() => {
-        const map = new Map<string, number[]>()
-        const walk = (nodes: ListItemData[], path: number[]) => {
-          nodes.forEach((n, idx) => {
-            const p = [...path, idx]
-            map.set(n.id, p)
-            if (n.items && n.items.length) walk(n.items, p)
-          })
-        }
-        walk(currentItems, [])
-        return map
-      })()
-
-      // Guard: prevent dropping an ancestor into its own descendant container
-      if (targetParentPath && targetParentPath.length > 0) {
-        for (const id of itemIds) {
-          const draggedPath = idToPath.get(id)
-          if (draggedPath) {
-            const isAncestor =
-              targetParentPath.length >= draggedPath.length && draggedPath.every((v, i) => targetParentPath[i] === v)
-            if (isAncestor) {
-              // Ignore drop to avoid cycles
-              return
-            }
-          }
-        }
+  // The consumer's rule plus the one the tree itself imposes: a branch cannot
+  // go inside itself.
+  const canMove = useCallback(
+    (roots: string[], target: ListDropTarget) => {
+      if (roots.length === 0) return false
+      const { parentId, index } = target
+      if (parentId !== null) {
+        if (!treeIndex.nodes.has(parentId)) return false
+        if (roots.some((id) => isWithinListBranch(treeIndex, parentId, id))) return false
       }
-
-      // Helper function to find and remove items from any level
-      const findAndRemoveItems = (items: ListItemData[], ids: string[]): ListItemData[] => {
-        const removedItems: ListItemData[] = []
-
-        // Remove from current level
-        for (let i = items.length - 1; i >= 0; i--) {
-          if (ids.includes(items[i].id)) {
-            removedItems.unshift(items.splice(i, 1)[0])
-          }
-        }
-
-        // Remove from children recursively
-        items.forEach((item) => {
-          if (item.items) {
-            const childRemoved = findAndRemoveItems(item.items, ids)
-            removedItems.push(...childRemoved)
-          }
-        })
-
-        return removedItems
-      }
-
-      // Helper function to insert items at a specific path
-      const insertItemsAtPath = (items: ListItemData[], path: number[], targetIndex: number, itemsToInsert: ListItemData[]) => {
-        if (path.length === 0) {
-          // Insert at root level
-          const clamped = Math.max(0, Math.min(targetIndex, items.length))
-          items.splice(clamped, 0, ...itemsToInsert)
-          return
-        }
-
-        // Navigate to the target container
-        const firstIdx = Math.max(0, Math.min(path[0], Math.max(0, items.length - 1)))
-        let current: ListItemData | undefined = items[firstIdx]
-
-        // If path is [x], insert into the children of the item at index x
-        if (path.length === 1) {
-          if (!current) return
-          if (!current.items) current.items = []
-          const clamped = Math.max(0, Math.min(targetIndex, current.items.length))
-          current.items.splice(clamped, 0, ...itemsToInsert)
-          return
-        }
-
-        // For deeper paths, navigate to the nested container, clamping indices
-        for (let i = 1; i < path.length; i++) {
-          if (!current) return
-          if (!current.items) current.items = []
-          const idx = Math.max(0, Math.min(path[i], Math.max(0, current.items.length - 1)))
-          current = current.items[idx]
-        }
-        if (!current) return
-        if (!current.items) current.items = []
-        const clamped = Math.max(0, Math.min(targetIndex, current.items.length))
-        current.items.splice(clamped, 0, ...itemsToInsert)
-      }
-
-      // Find and remove the dragged items from anywhere in the tree
-      const removedItems = findAndRemoveItems(newItems, itemIds)
-
-      if (removedItems.length === 0) return
-
-      // Adjust target index for moves within the same container
-      const normalizedTargetPath = targetParentPath && targetParentPath.length ? targetParentPath : []
-      let removedBeforeCount = 0
-      itemIds.forEach((id) => {
-        const path = idToPath.get(id)
-        if (!path || path.length === 0) return
-        const parentPath = path.slice(0, path.length - 1)
-        const indexInParent = path[path.length - 1]
-        const sameContainer =
-          parentPath.length === normalizedTargetPath.length && parentPath.every((v, i) => v === normalizedTargetPath[i])
-        if (sameContainer && indexInParent < targetIndex) removedBeforeCount++
-      })
-      const adjustedTargetIndex = Math.max(0, targetIndex - removedBeforeCount)
-
-      // Adjust target path (for INSIDE drops) when the target item index shifts
-      // due to removing dragged items from the same container (parent path)
-      const adjustedTargetPath = [...normalizedTargetPath]
-      if (adjustedTargetPath.length > 0) {
-        const parentOfTargetItemPath = adjustedTargetPath.slice(0, adjustedTargetPath.length - 1)
-        const originalTargetItemIndex = adjustedTargetPath[adjustedTargetPath.length - 1]
-        let removedBeforeAtLevel = 0
-        itemIds.forEach((id) => {
-          const p = idToPath.get(id)
-          if (!p || p.length === 0) return
-          const pParent = p.slice(0, p.length - 1)
-          const pIndex = p[p.length - 1]
-          const sameContainer =
-            pParent.length === parentOfTargetItemPath.length && pParent.every((v, i) => v === parentOfTargetItemPath[i])
-          if (sameContainer && pIndex < originalTargetItemIndex) {
-            removedBeforeAtLevel++
-          }
-        })
-        adjustedTargetPath[adjustedTargetPath.length - 1] = Math.max(0, originalTargetItemIndex - removedBeforeAtLevel)
-      }
-
-      // Insert the items at the target location
-      insertItemsAtPath(newItems, adjustedTargetPath, adjustedTargetIndex, removedItems)
-
-      // Update state
-      if (!isItemsControlled) {
-        setInternalItems(newItems)
-      }
-      onItemsChange?.({ items: newItems })
+      return canDrop ? canDrop({ draggedIds: roots, parentId, index }) : true
     },
-    [currentItems, onItemsChange, isItemsControlled],
+    [treeIndex, canDrop],
+  )
+
+  // Unchecked: callers have asked canMove already. A move that leaves every
+  // row where it was is not reported.
+  const applyMove = useCallback(
+    (roots: string[], target: ListDropTarget) => {
+      const next = moveInListTree(currentItems, roots, target)
+      if (!next || isSameListTree(next, currentItems)) return false
+
+      if (!isItemsControlled) {
+        setInternalItems(next)
+      }
+      onItemsChange?.({ items: next, move: { ids: roots, parentId: target.parentId, index: target.index } })
+      return true
+    },
+    [currentItems, isItemsControlled, onItemsChange],
+  )
+
+  const moveItems = useCallback(
+    (itemIds: string[], target: ListDropTarget) => {
+      const roots = toListMoveRoots(treeIndex, itemIds)
+      return canMove(roots, target) && applyMove(roots, target)
+    },
+    [treeIndex, canMove, applyMove],
   )
 
   // Outside-click to clear selection in single/multi modes
@@ -436,9 +349,7 @@ const ListContext = (props: ListContextProps) => {
     return () => document.removeEventListener('pointerdown', handlePointerDown)
   }, [selectionMode, deselectOnClickOutside, currentSelectedItems, isSelectionControlled, onSelectionChange])
 
-  // Held in state (not a ref) so the memoized context value below picks up
-  // the element once it is created.
-  const [dragImageEl, setDragImageEl] = useState<HTMLDivElement | null>(null)
+  const dragImageRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
     // Fake drag image
@@ -451,11 +362,11 @@ const ListContext = (props: ListContextProps) => {
     ghost.style.pointerEvents = 'none'
 
     document.body.appendChild(ghost)
-    setDragImageEl(ghost)
+    dragImageRef.current = ghost
 
     return () => {
       document.body.removeChild(ghost)
-      setDragImageEl(null)
+      dragImageRef.current = null
     }
   }, [])
 
@@ -467,44 +378,48 @@ const ListContext = (props: ListContextProps) => {
     }
   }, [])
 
-  const registerItem = useCallback(
-    (
-      id: string,
-      meta: {
-        selectable?: boolean
-        selectionScope?: 'individual' | 'withDescendants'
-        draggable?: boolean
-      },
-    ) => {
-      itemMetaRef.current.set(id, meta)
-      return () => {
-        itemMetaRef.current.delete(id)
-      }
-    },
-    [],
-  )
-
-  const getPathForId = useCallback((id: string) => {
-    return idToPathRef.current.get(id) || null
+  const registerItem = useCallback((id: string, meta: ListItemMeta) => {
+    itemMetaRef.current.set(id, meta)
+    return () => {
+      itemMetaRef.current.delete(id)
+    }
   }, [])
 
   const getItemMeta = useCallback((id: string) => {
     return itemMetaRef.current.get(id)
   }, [])
 
-  // Rebuild id -> path map whenever the items tree changes
+  const getNodeInfo = useCallback((id: string) => treeIndex.nodes.get(id), [treeIndex])
+
+  const getChildIds = useCallback((parentId: string | null) => treeIndex.children.get(parentId) ?? [], [treeIndex])
+
+  // The controller lives as long as the context and reads the latest tree and
+  // rules through this ref, so its handlers never change identity.
+  const latestRef = useRef({ treeIndex, canMove, applyMove })
+  latestRef.current = { treeIndex, canMove, applyMove }
+
+  const dragRef = useRef<ListDragController | null>(null)
+  if (!dragRef.current) {
+    dragRef.current = createListDragController({
+      getTree: () => latestRef.current.treeIndex,
+      getItemMeta: (id) => itemMetaRef.current.get(id),
+      canMove: (roots, target) => latestRef.current.canMove(roots, target),
+      applyMove: (roots, target) => latestRef.current.applyMove(roots, target),
+      getDragImage: () => dragImageRef.current,
+      isOwnNode: (node) => Array.from(rootElementsRef.current).some((root) => root.contains(node)),
+    })
+  }
+  const drag = dragRef.current
+
+  // The drag source may be gone by the time the drag ends (moved rows remount),
+  // so its own dragend cannot be relied on to close the session.
   useEffect(() => {
-    const map = new Map<string, number[]>()
-    const walk = (nodes: ListItemData[], path: number[]) => {
-      nodes.forEach((n, idx) => {
-        const p = [...path, idx]
-        map.set(n.id, p)
-        if (n.items && n.items.length) walk(n.items, p)
-      })
+    document.addEventListener('dragend', drag.end)
+    return () => {
+      document.removeEventListener('dragend', drag.end)
+      drag.end()
     }
-    walk(currentItems, [])
-    idToPathRef.current = map
-  }, [currentItems])
+  }, [drag])
 
   useEffect(() => {
     if (isSelectionControlled) {
@@ -593,14 +508,15 @@ const ListContext = (props: ListContextProps) => {
       deselectOnClickOutside,
       setSelection,
       toggleSelect,
-      reorderItems,
+      moveItems,
+      drag,
       selectionMode,
       registerRootElement,
       registerItem,
-      getPathForId,
       getItemMeta,
+      getNodeInfo,
+      getChildIds,
       getBranchIds: collectSelectableBranchIds,
-      dragImage: dragImageEl,
       onKeyDown,
     }),
     [
@@ -610,14 +526,15 @@ const ListContext = (props: ListContextProps) => {
       deselectOnClickOutside,
       setSelection,
       toggleSelect,
-      reorderItems,
+      moveItems,
+      drag,
       selectionMode,
       registerRootElement,
       registerItem,
-      getPathForId,
       getItemMeta,
+      getNodeInfo,
+      getChildIds,
       collectSelectableBranchIds,
-      dragImageEl,
       onKeyDown,
     ],
   )
@@ -625,4 +542,4 @@ const ListContext = (props: ListContextProps) => {
   return <RawListContext.Provider value={contextValue}>{children}</RawListContext.Provider>
 }
 
-export { ListContext, useListContext }
+export { ListContext, useListContext, useListItemDragState }

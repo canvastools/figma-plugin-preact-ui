@@ -1,21 +1,11 @@
-import {
-  bem,
-  typedForwardRef,
-  mergeRefs,
-  DRAG_ZONE_CLASSES,
-  clearDropItself,
-  setDropParentElement,
-  resolveDraggedIds,
-  setDraggingIds,
-  clearDraggingIds,
-  getChildListItems,
-} from '../../utils'
+import { bem, typedForwardRef, mergeRefs, getChildListItems } from '../../utils'
 import { useState, useEffect, useLayoutEffect, useRef } from 'preact/hooks'
 
 import type { ListItemProps } from './ListItem.types'
+import type { ListDropTarget } from '../ListContext/ListContext.types'
 import './ListItem.scss'
 
-import { useListContext } from '../ListContext/ListContext'
+import { useListContext, useListItemDragState } from '../ListContext/ListContext'
 import { Icon } from '../Icon/Icon'
 import {
   chevronRight as chevronRightGlyph,
@@ -24,6 +14,17 @@ import {
 } from '../Icon/glyphs'
 
 /* --- */
+
+// Classes the drag controller toggles. A mutation that only flips these says
+// nothing about selection edges, so the observer below ignores it.
+const DRAG_STATE_CLASS = /(^|\s)ListItem(_drag-[\w-]+|_drop-parent|_drop-itself|_dragging|__end-dropzone-active)(?=\s|$)/g
+
+const withoutDragClasses = (value: string | null) =>
+  (value ?? '').replace(DRAG_STATE_CLASS, ' ').split(/\s+/).filter(Boolean).sort().join(' ')
+
+const isDragOnlyMutation = (mutation: MutationRecord) =>
+  mutation.type === 'attributes' &&
+  withoutDragClasses(mutation.oldValue) === withoutDragClasses((mutation.target as Element).getAttribute('class'))
 
 const ListItemComponent = (
   {
@@ -60,12 +61,13 @@ const ListItemComponent = (
     registerItem,
     getItemMeta,
     getBranchIds,
-    dragImage,
-    reorderItems,
-    getPathForId,
+    getNodeInfo,
+    getChildIds,
+    moveItems,
+    drag,
     onKeyDown: contextOnKeyDown,
   } = useListContext()
-  const [isDragging, setIsDragging] = useState(false)
+  const dragState = useListItemDragState(id)
   const [isFocused, setIsFocused] = useState(false)
   const [isLastInBranch, setIsLastInBranch] = useState(false)
   const [isSelectionStart, setIsSelectionStart] = useState(false)
@@ -75,8 +77,6 @@ const ListItemComponent = (
   const [isSelectionBeforeSibling, setIsSelectionBeforeSibling] = useState(false)
   const selfRef = useRef<HTMLDivElement | null>(null)
   const mouseDownTargetRef = useRef<HTMLElement | null>(null)
-  const endZoneRef = useRef<HTMLDivElement | null>(null)
-  const endZoneDropParentRef = useRef<HTMLElement | null>(null)
 
   // Collapsed (controlled/uncontrolled)
   const isCollapsedControlled = collapsed !== undefined
@@ -211,42 +211,30 @@ const ListItemComponent = (
     }
 
     check()
-    const observer = new MutationObserver(check)
+    const observer = new MutationObserver((mutations) => {
+      if (mutations.every(isDragOnlyMutation)) return
+      check()
+    })
     // subtree/class: collapse toggles on nested items can flip after-nested secondary
-    observer.observe(container, { childList: true, subtree: true, attributes: true, attributeFilter: ['class'] })
+    observer.observe(container, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ['class'],
+      attributeOldValue: true,
+    })
     return () => observer.disconnect()
   }, [id, selectedItemIds, selectionScope])
 
   useEffect(() => {
-    // register meta for range selection filtering and multi-drag filtering
-    const unregister = registerItem?.(id, {
+    // register meta for range selection filtering, multi-drag filtering and drop rules
+    return registerItem?.(id, {
       selectable,
       selectionScope,
       draggable,
+      acceptsChildren,
     })
-    const handleGlobalDragEnd = () => {
-      setIsDragging(false)
-      document.documentElement.classList.remove('pui-dragging')
-      endZoneRef.current?.classList.remove('ListItem__end-dropzone-active')
-      endZoneDropParentRef.current = null
-    }
-
-    const handleResetDragStates = () => {
-      setIsDragging(false)
-      document.documentElement.classList.remove('pui-dragging')
-      endZoneRef.current?.classList.remove('ListItem__end-dropzone-active')
-      endZoneDropParentRef.current = null
-    }
-
-    document.addEventListener('dragend', handleGlobalDragEnd)
-    document.addEventListener('resetDragStates', handleResetDragStates)
-
-    return () => {
-      document.removeEventListener('dragend', handleGlobalDragEnd)
-      document.removeEventListener('resetDragStates', handleResetDragStates)
-      unregister?.()
-    }
-  }, [id, registerItem, selectable, selectionScope, draggable])
+  }, [id, registerItem, selectable, selectionScope, draggable, acceptsChildren])
 
   const _className = bem('ListItem', undefined, {
     'selection-scope-descendants': selectionScope === 'withDescendants',
@@ -267,7 +255,15 @@ const ListItemComponent = (
     'has-children': hasChildren,
     collapsed: effectiveCollapsed,
     collapsable,
-    dragging: isDragging,
+    'drag-over': dragState.over,
+    'drag-above': dragState.zone === 'above',
+    'drag-below': dragState.zone === 'below',
+    'drag-inside': dragState.zone === 'inside',
+    'drag-self': dragState.self,
+    'drag-between-selected': dragState.betweenSelected,
+    'drop-parent': dragState.dropParent,
+    'drop-itself': dragState.dropItself,
+    dragging: dragState.dragging,
   })
 
   const isInteractiveTarget = (target: HTMLElement | null): boolean => {
@@ -339,15 +335,15 @@ const ListItemComponent = (
   // the requested direction. Mirrors mouse drag-and-drop constraints:
   // - Requires `draggable` on the focused item.
   // - If `selectable=true`, multi-move applies: all selected siblings of the
-  //   focused item (items sharing the same parent path) move together.
+  //   focused item (items sharing the same parent) move together.
   // - If `selectable=false`, only the focused item moves (selection is ignored,
   //   mirroring the mouse drag behavior where non-selectable items don't
   //   participate in multi-drag).
   // - For nesting (`right`), the previous sibling must accept children.
-  const moveItems = (direction: 'up' | 'down' | 'left' | 'right') => {
-    const myPath = getPathForId?.(id)
-    if (!myPath || myPath.length === 0) return
-    const myParentPath = myPath.slice(0, -1)
+  // - Every move is asked of `canDrop`, exactly like a drop.
+  const moveByKeyboard = (direction: 'up' | 'down' | 'left' | 'right') => {
+    const node = getNodeInfo(id)
+    if (!node) return
 
     const isMulti = selectable && selectedItemIds.has(id) && selectedItemIds.size > 1
     // Only draggable items participate in a multi-move, mirroring mouse multi-drag.
@@ -357,11 +353,9 @@ const ListItemComponent = (
 
     const siblings: { id: string; index: number }[] = []
     for (const cid of candidateIds) {
-      const cp = getPathForId?.(cid)
-      if (!cp || cp.length === 0) continue
-      const cParent = cp.slice(0, -1)
-      if (cParent.length === myParentPath.length && cParent.every((v, i) => v === myParentPath[i])) {
-        siblings.push({ id: cid, index: cp[cp.length - 1] })
+      const candidate = getNodeInfo(cid)
+      if (candidate && candidate.parentId === node.parentId) {
+        siblings.push({ id: cid, index: candidate.index })
       }
     }
     if (siblings.length === 0) return
@@ -370,63 +364,48 @@ const ListItemComponent = (
     const siblingIds = siblings.map((s) => s.id)
     const firstIdx = siblings[0].index
     const lastIdx = siblings[siblings.length - 1].index
+    const containerIds = getChildIds(node.parentId)
 
-    const myEl = selfRef.current
-    const containerEl = myEl?.parentElement
-    const itemEls = containerEl ? getChildListItems(containerEl) : []
-    const containerLength = itemEls.length
-
-    // Refocus the originally focused item after the tree re-renders, so the
-    // user can chain multiple keyboard moves without losing their anchor.
-    const refocusAfterMove = () => {
-      requestAnimationFrame(() => {
-        const el = document.querySelector(`[data-item-id="${id}"]`)
-        if (el instanceof HTMLElement) {
-          el.focus({ preventScroll: false })
-        }
-      })
-    }
-
+    let target: ListDropTarget
     switch (direction) {
       case 'up': {
         if (firstIdx === 0) return
-        const targetParentPath = myParentPath.length > 0 ? myParentPath : undefined
-        reorderItems(siblingIds, firstIdx - 1, targetParentPath)
-        refocusAfterMove()
+        target = { parentId: node.parentId, index: firstIdx - 1 }
         break
       }
       case 'down': {
-        if (lastIdx >= containerLength - 1) return
-        const targetParentPath = myParentPath.length > 0 ? myParentPath : undefined
-        reorderItems(siblingIds, lastIdx + 2, targetParentPath)
-        refocusAfterMove()
+        if (lastIdx >= containerIds.length - 1) return
+        // After the row that follows the last moved one, counted once the moved rows are out
+        target = { parentId: node.parentId, index: lastIdx + 2 - siblings.length }
         break
       }
       case 'right': {
         if (firstIdx === 0) return
-        const prevSiblingEl = itemEls[firstIdx - 1]
-        if (!prevSiblingEl) return
-        if (prevSiblingEl.getAttribute('data-accepts-children') === 'false') return
-        const previousSiblingPath = [...myParentPath, firstIdx - 1]
+        const prevSiblingId = containerIds[firstIdx - 1]
+        if (!prevSiblingId || !getItemMeta?.(prevSiblingId)?.acceptsChildren) return
         // Append to the end of the previous sibling's existing children.
-        const prevSiblingChildrenContainer = prevSiblingEl.querySelector(':scope > .ListItem__items > .ListContainer')
-        const prevSiblingChildrenCount = prevSiblingChildrenContainer
-          ? getChildListItems(prevSiblingChildrenContainer).length
-          : 0
-        reorderItems(siblingIds, prevSiblingChildrenCount, previousSiblingPath)
-        refocusAfterMove()
+        target = { parentId: prevSiblingId, index: getChildIds(prevSiblingId).length }
         break
       }
       case 'left': {
-        if (myParentPath.length === 0) return
-        const grandparentPath = myParentPath.slice(0, -1)
-        const parentIndexInGrandparent = myParentPath[myParentPath.length - 1]
-        const targetParentPath = grandparentPath.length > 0 ? grandparentPath : undefined
-        reorderItems(siblingIds, parentIndexInGrandparent + 1, targetParentPath)
-        refocusAfterMove()
+        if (node.parentId === null) return
+        const parent = getNodeInfo(node.parentId)
+        if (!parent) return
+        target = { parentId: parent.parentId, index: parent.index + 1 }
         break
       }
     }
+
+    if (!moveItems(siblingIds, target)) return
+
+    // Refocus the originally focused item after the tree re-renders, so the
+    // user can chain multiple keyboard moves without losing their anchor.
+    requestAnimationFrame(() => {
+      const el = document.querySelector(`[data-item-id="${id}"]`)
+      if (el instanceof HTMLElement) {
+        el.focus({ preventScroll: false })
+      }
+    })
   }
 
   const handleKeyDown = (e: KeyboardEvent) => {
@@ -438,7 +417,7 @@ const ListItemComponent = (
           if (draggable) {
             e.preventDefault()
             e.stopPropagation()
-            moveItems('up')
+            moveByKeyboard('up')
           }
           break
         }
@@ -451,7 +430,7 @@ const ListItemComponent = (
           if (draggable) {
             e.preventDefault()
             e.stopPropagation()
-            moveItems('down')
+            moveByKeyboard('down')
           }
           break
         }
@@ -463,14 +442,14 @@ const ListItemComponent = (
         if (e.altKey && draggable) {
           e.preventDefault()
           e.stopPropagation()
-          moveItems('left')
+          moveByKeyboard('left')
         }
         break
       case 'ArrowRight':
         if (e.altKey && draggable) {
           e.preventDefault()
           e.stopPropagation()
-          moveItems('right')
+          moveByKeyboard('right')
         }
         break
       case 'Enter':
@@ -515,132 +494,45 @@ const ListItemComponent = (
   }
 
   const handleDragHandleDragStart = (e: DragEvent) => {
-    if (draggable) {
-      setIsDragging(true)
-      document.documentElement.classList.add('pui-dragging')
-      // Determine if this drag should be multi based on current selection BEFORE mutating it
-      const isMultiDrag = selectable && selectedItemIds.has(id) && selectedItemIds.size > 1
-      let ids: string[]
-      if (isMultiDrag) {
-        // Only draggable items participate in a multi-drag. Selected descendants
-        // of a dragged item travel with it regardless of their own draggable
-        // flag (the branch moves as a whole), so keep them selected.
-        const selected = Array.from(selectedItemIds)
-        const draggableIds = selected.filter((sid) => sid === id || getItemMeta?.(sid)?.draggable !== false)
-        const keep = new Set(draggableIds)
-        draggableIds.forEach((sid) => {
-          getBranchIds?.(sid).forEach((bid) => {
-            if (selectedItemIds.has(bid)) keep.add(bid)
-          })
+    if (!draggable) return
+    // Determine if this drag should be multi based on current selection BEFORE mutating it
+    const isMultiDrag = selectable && selectedItemIds.has(id) && selectedItemIds.size > 1
+    let ids: string[]
+    if (isMultiDrag) {
+      // Only draggable items participate in a multi-drag. Selected descendants
+      // of a dragged item travel with it regardless of their own draggable
+      // flag (the branch moves as a whole), so keep them selected.
+      const selected = Array.from(selectedItemIds)
+      const draggableIds = selected.filter((sid) => sid === id || getItemMeta?.(sid)?.draggable !== false)
+      const keep = new Set(draggableIds)
+      draggableIds.forEach((sid) => {
+        getBranchIds?.(sid).forEach((bid) => {
+          if (selectedItemIds.has(bid)) keep.add(bid)
         })
-        ids = Array.from(keep)
-        // Deselect items that don't participate in the drag.
-        if (selectionMode !== undefined && ids.length !== selected.length) {
-          setSelection(ids)
-        }
-      } else {
-        ids = [id]
-        // If not multi, set exact selection to this id only (with its
-        // descendants for selectionScope="withDescendants", matching click).
-        // Only mutate selection for selectable items – otherwise dragging an
-        // unselectable item would visually select it.
-        if (selectable && selectionMode !== undefined) {
-          setSelection(selectionScope === 'withDescendants' ? getBranchIds?.(id) ?? [id] : [id])
-        }
+      })
+      ids = Array.from(keep)
+      // Deselect items that don't participate in the drag.
+      if (selectionMode !== undefined && ids.length !== selected.length) {
+        setSelection(ids)
       }
-      const payload = { ids }
-      try {
-        e.dataTransfer?.setData('application/json', JSON.stringify(payload))
-      } catch {
-        // Ignore setData errors
+    } else {
+      ids = [id]
+      // If not multi, set exact selection to this id only (with its
+      // descendants for selectionScope="withDescendants", matching click).
+      // Only mutate selection for selectable items – otherwise dragging an
+      // unselectable item would visually select it.
+      if (selectable && selectionMode !== undefined) {
+        setSelection(selectionScope === 'withDescendants' ? (getBranchIds?.(id) ?? [id]) : [id])
       }
-      e.dataTransfer?.setData('text/plain', ids[0])
-      setDraggingIds(ids)
-      // Hide default drag preview
-      try {
-        e.dataTransfer?.setDragImage(dragImage as HTMLElement, 0, 0)
-      } catch {
-        // Ignore setDragImage errors
-      }
-      onDragStart?.({ event: e })
     }
+    drag.start({ event: e, sourceId: id, itemIds: ids })
+    onDragStart?.({ event: e })
   }
 
   const handleDragHandleDragEnd = (e: DragEvent) => {
-    if (draggable) {
-      setIsDragging(false)
-      document.documentElement.classList.remove('pui-dragging')
-      clearDraggingIds()
-      onDragEnd?.({ event: e })
-    }
-  }
-
-  const handleEndZoneDragOver = (e: DragEvent) => {
-    e.preventDefault()
-    e.stopPropagation()
-    if (e.dataTransfer) {
-      e.dataTransfer.dropEffect = 'move'
-    }
-    const endZoneTarget = e.currentTarget as HTMLElement
-    endZoneTarget.classList.add('ListItem__end-dropzone-active')
-
-    const containerEl = selfRef.current?.closest('.ListContainer') as HTMLElement | null
-    let parentItemEl: HTMLElement | null = null
-    if (containerEl) {
-      let levelContainer: HTMLElement | null = containerEl
-      while (levelContainer) {
-        getChildListItems(levelContainer).forEach((item) => {
-          item.classList.remove(...DRAG_ZONE_CLASSES)
-        })
-        const levelParentItem = levelContainer.closest('.ListItem') as HTMLElement | null
-        if (!parentItemEl && levelParentItem) {
-          parentItemEl = levelParentItem
-        }
-        levelContainer = levelParentItem?.parentElement?.closest('.ListContainer') ?? null
-      }
-    }
-
-    const desiredEl = parentItemEl || containerEl?.closest('.ListItem') || null
-    setDropParentElement(desiredEl, endZoneDropParentRef)
-  }
-
-  const handleEndZoneDrop = (e: DragEvent) => {
-    e.preventDefault()
-    e.stopPropagation()
-    const endZoneTarget = e.currentTarget as HTMLElement
-    endZoneTarget.classList.remove('ListItem__end-dropzone-active')
-    if (endZoneDropParentRef.current) {
-      endZoneDropParentRef.current.classList.remove('ListItem_drop-parent')
-      endZoneDropParentRef.current = null
-    }
-    clearDropItself()
-    const itemIds = resolveDraggedIds(e.dataTransfer)
-
-    if (itemIds && itemIds.length) {
-      const resetDragStatesEvent = new CustomEvent('resetDragStates')
-      document.dispatchEvent(resetDragStatesEvent)
-
-      const containerEl = selfRef.current?.closest('.ListContainer') as HTMLElement | null
-      const childCount = containerEl ? getChildListItems(containerEl).length : 0
-      const parentItemEl = containerEl?.closest('.ListItem') as HTMLElement | null
-      const parentId = parentItemEl?.getAttribute('data-item-id') || null
-      const parentPath = parentId ? getPathForId?.(parentId) || [] : []
-
-      const targetPath = parentId ? parentPath : undefined
-      const targetIndex = childCount
-
-      reorderItems(itemIds, targetIndex, targetPath)
-    }
-  }
-
-  const handleEndZoneDragLeave = (e: DragEvent) => {
-    const endZoneTarget = e.currentTarget as HTMLElement
-    endZoneTarget.classList.remove('ListItem__end-dropzone-active')
-    if (endZoneDropParentRef.current) {
-      endZoneDropParentRef.current.classList.remove('ListItem_drop-parent')
-      endZoneDropParentRef.current = null
-    }
-    clearDropItself()
+    if (!draggable) return
+    drag.end()
+    onDragEnd?.({ event: e })
   }
 
   return (
@@ -741,13 +633,10 @@ const ListItemComponent = (
 
       {items && <div className="ListItem__items">{items}</div>}
 
+      {/* Hit target and indicator only: the drag controller reads it off the event target */}
       {isLastInBranch && (
         <div
-          ref={endZoneRef}
-          className="ListItem__end-dropzone"
-          onDragOver={handleEndZoneDragOver}
-          onDrop={handleEndZoneDrop}
-          onDragLeave={handleEndZoneDragLeave}
+          className={dragState.endZone ? 'ListItem__end-dropzone ListItem__end-dropzone-active' : 'ListItem__end-dropzone'}
         />
       )}
     </div>

@@ -15,18 +15,18 @@ export {
 export type { Hsb, Rgba } from './color/color'
 
 export {
-  DRAG_ZONE_CLASSES,
-  getDraggingIds,
-  setDraggingIds,
-  clearDraggingIds,
-  resolveDraggedIds,
-  getDragOverIds,
-  clearDropItself,
-  syncDropItself,
-  setDropParentElement,
+  cloneListItems,
+  indexListTree,
+  isWithinListBranch,
+  toListMoveRoots,
+  toListDropTarget,
+  moveInListTree,
+  isSameListTree,
   getChildListItems,
   mergeRefs,
 } from './components/list'
+export type { ListTreeIndex } from './components/list'
+export { createListDragController } from './components/listDrag'
 
 export { lockCursor } from './lockCursor'
 export { typedForwardRef } from './typedForwardRef'

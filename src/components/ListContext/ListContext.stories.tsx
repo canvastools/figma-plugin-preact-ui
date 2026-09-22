@@ -52,12 +52,18 @@ const meta: Meta<typeof ListContext> = {
       table: { defaultValue: { summary: 'false' } },
     },
     onItemsChange: {
+      description: '`move` is present when the change is a move (drag and drop or keyboard).',
       table: {
         type: {
           summary: '(args) => void',
           detail: `
 args: {
   items: ListItemData[]
+  move?: {
+    ids: string[] // the moved rows, in tree order
+    parentId: string | null // null is the top level
+    index: number // among the parent's children once the moved rows are out
+  }
 }
           `,
         },
@@ -70,6 +76,22 @@ args: {
           detail: `
 args: {
   selectedItemIds: string[]
+}
+          `,
+        },
+      },
+    },
+    canDrop: {
+      description:
+        'Whether the dragged rows may land at `parentId`/`index`. Asked while dragging, so a refused place shows no drop indicator, and again for keyboard moves. Answered once per place per drag; keep it pure and cheap.',
+      table: {
+        type: {
+          summary: '(args) => boolean',
+          detail: `
+args: {
+  draggedIds: string[] // the moved rows; selected descendants travel inside them
+  parentId: string | null // null is the top level
+  index: number // among the parent's children once the moved rows are out
 }
           `,
         },
@@ -117,25 +139,26 @@ args: {
       additive: boolean
     }
   ) => Set<string> // resulting selection
-  registerItemMeta: (
+  registerItem: (
     id: string,
     meta: {
       selectable: boolean;
-      selectionScope: "item" | "withDescendants";
-      draggable: boolean
+      selectionScope: "individual" | "withDescendants";
+      draggable: boolean;
+      acceptsChildren: boolean
     }
   ) => () => void
-  getPathForId: (id: string) => number[] | null
   getItemMeta: (id: string) => meta | undefined
+  getNodeInfo: (id: string) => { parentId: string | null; index: number } | undefined
+  getChildIds: (parentId: string | null) => string[]
   getBranchIds: (id: string) => string[] // item + selectable descendants
-  reorderItems: (
+  moveItems: (
     itemIds: string[],
-    targetIndex: number,
-    targetParentPath?: number[]
-  ) => void
+    target: { parentId: string | null; index: number }
+  ) => boolean // checks canDrop; true when the tree changed
+  drag: ListDragController // internal: the drag session ListContainer and ListItem forward to
   selectionMode: "none" | "single" | "multi"
   registerRootElement?: (el: HTMLElement | null) => () => void
-  dragImage: HTMLDivElement | null
   onKeyDown?: (args: { event: KeyboardEvent; itemId: string }) => void
 }
         `,

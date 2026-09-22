@@ -21,6 +21,7 @@ const ListComponent = (
     selectionMode,
     deselectOnClickOutside,
     onItemsChange,
+    canDrop,
     onSelectionChange,
     onKeyDown,
     ...rest
@@ -60,6 +61,7 @@ const ListComponent = (
       selectionMode={selectionMode}
       deselectOnClickOutside={deselectOnClickOutside}
       onItemsChange={onItemsChange}
+      canDrop={canDrop}
       onSelectionChange={onSelectionChange}
       onKeyDown={onKeyDown}
     >

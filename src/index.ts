@@ -60,7 +60,12 @@ export { ListContainer } from './components/ListContainer/ListContainer'
 export type { ListContainerProps } from './components/ListContainer/ListContainer.types'
 
 export { ListContext, useListContext } from './components/ListContext/ListContext'
-export type { ListContextValue, ListContextProps, ListItemData } from './components/ListContext/ListContext.types'
+export type {
+  ListContextValue,
+  ListContextProps,
+  ListItemData,
+  ListDropTarget,
+} from './components/ListContext/ListContext.types'
 
 export { ListItem } from './components/ListItem/ListItem'
 export type { ListItemProps } from './components/ListItem/ListItem.types'
