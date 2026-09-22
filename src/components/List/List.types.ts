@@ -9,6 +9,7 @@ export type ListItemPropsPick = Pick<
   | 'onDragStart'
   | 'onDragEnd'
   | 'acceptsChildren'
+  | 'placeholder'
   | 'selectable'
   | 'selectionScope'
   | 'onSelect'

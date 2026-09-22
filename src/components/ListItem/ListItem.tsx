@@ -33,8 +33,9 @@ const ListItemComponent = (
     variant = 'default',
     flushRight = false,
     nestingLevel = 0,
-    draggable = false,
+    draggable: draggableProp = false,
     acceptsChildren = false,
+    placeholder = false,
     selectionScope = 'individual',
     collapsed,
     collapsable = false,
@@ -42,7 +43,7 @@ const ListItemComponent = (
     onCollapsedChange,
     onDragStart,
     onDragEnd,
-    selectable = false,
+    selectable: selectableProp = false,
     hoverable = false,
     onSelect,
     items,
@@ -52,6 +53,10 @@ const ListItemComponent = (
   }: ListItemProps,
   ref: preact.Ref<HTMLDivElement>,
 ) => {
+  // A placeholder stands for its parent's empty body: never picked up or selected
+  const draggable = draggableProp && !placeholder
+  const selectable = selectableProp && !placeholder
+
   const {
     selectedItemIds,
     selectionOriginIds,
@@ -233,13 +238,15 @@ const ListItemComponent = (
       selectionScope,
       draggable,
       acceptsChildren,
+      placeholder,
     })
-  }, [id, registerItem, selectable, selectionScope, draggable, acceptsChildren])
+  }, [id, registerItem, selectable, selectionScope, draggable, acceptsChildren, placeholder])
 
   const _className = bem('ListItem', undefined, {
     'selection-scope-descendants': selectionScope === 'withDescendants',
     variant,
     'flush-right': flushRight,
+    placeholder,
     nested: nestingLevel > 0,
     draggable: draggable,
     selectable: selectable,
@@ -316,8 +323,8 @@ const ListItemComponent = (
     const allItems = Array.from(root.querySelectorAll<HTMLElement>('.ListItem'))
     if (!allItems.length) return
     const visibleItems = allItems.filter((el) => {
-      // Skip items that are not visible (collapsed or display:none)
-      return el.offsetParent !== null
+      // Skip items that are not visible (collapsed or display:none), and placeholders
+      return el.offsetParent !== null && !el.classList.contains('ListItem_placeholder')
     })
     const index = visibleItems.indexOf(current as HTMLElement)
     if (index === -1) return
@@ -634,7 +641,7 @@ const ListItemComponent = (
       {items && <div className="ListItem__items">{items}</div>}
 
       {/* Hit target and indicator only: the drag controller reads it off the event target */}
-      {isLastInBranch && (
+      {isLastInBranch && !placeholder && (
         <div
           className={dragState.endZone ? 'ListItem__end-dropzone ListItem__end-dropzone-active' : 'ListItem__end-dropzone'}
         />

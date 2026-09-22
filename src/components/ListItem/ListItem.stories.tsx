@@ -93,6 +93,12 @@ const meta: Meta<typeof ListItem> = {
       control: { type: 'boolean' },
       table: { defaultValue: { summary: 'false' } },
     },
+    placeholder: {
+      control: { disable: true },
+      description:
+        'Stands for its parent\'s empty body (e.g. "No items" in an empty group): hovering it while dragging drops into the parent first, drawn as the parent\'s inside outline. No end drop zone, skipped by arrow-key focus, never draggable or selectable.',
+      table: { defaultValue: { summary: 'false' } },
+    },
     selectable: {
       control: { type: 'boolean' },
       description:

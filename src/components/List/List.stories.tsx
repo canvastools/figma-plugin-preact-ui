@@ -3,7 +3,6 @@ import { Meta, StoryObj } from '@storybook/preact-vite'
 import { useState } from 'preact/hooks'
 
 import { Text } from '../../index'
-import type { ListDropTarget } from '../../index'
 
 import { List } from './List'
 import type { ListItemData } from '../../index'
@@ -61,6 +60,7 @@ const meta: Meta = {
   onDragStart: (args: { event: DragEvent }) => void
   onDragEnd: (args: { event: DragEvent }) => void
   acceptsChildren: boolean
+  placeholder: boolean
   selectable: boolean
   selectionScope: "individual" | "withDescendants"
   onSelect: (args: { event: MouseEvent; selected: boolean }) => void
@@ -230,110 +230,6 @@ const [items, setItems] = useState([
           onItemsChange={(args) => setItems(args.items)}
           onSelectionChange={(args) => setSelectedItemIds(args.selectedItemIds)}
         />
-      </div>
-    )
-  },
-}
-
-/* Drop rules */
-
-const dropRulesSample = [
-  {
-    id: 'group:Columns',
-    items: [
-      { id: 'prop:Size', items: [{ id: 'value:Size:S' }, { id: 'value:Size:M' }, { id: 'value:Size:L' }] },
-      { id: 'mode:Theme' },
-    ],
-  },
-  {
-    id: 'group:Rows',
-    items: [{ id: 'prop:State', items: [{ id: 'value:State:Default' }, { id: 'value:State:Hover' }] }],
-  },
-  {
-    id: 'group:Tables',
-    items: [{ id: 'mode:Density' }],
-  },
-] as ListItemData[]
-
-const kindOf = (id: string) => id.slice(0, id.indexOf(':'))
-
-const labelOf = (id: string) => id.slice(id.lastIndexOf(':') + 1)
-
-// Groups stay at the top level and nothing else goes there; a property is
-// only in Columns or Rows; a mode is in any group; a value stays in its own property
-const dropRulesCanDrop = ({ draggedIds, parentId }: { draggedIds: string[] } & ListDropTarget) =>
-  draggedIds.every((id) => {
-    if (parentId === null) return false
-    const kind = kindOf(id)
-    if (kind === 'value') return parentId === `prop:${id.split(':')[1]}`
-    if (kind === 'prop') return parentId === 'group:Columns' || parentId === 'group:Rows'
-    if (kind === 'mode') return kindOf(parentId) === 'group'
-    return false
-  })
-
-export const DropRules: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'A `canDrop` rule is asked while dragging: a place it refuses shows no drop indicator, and the same rule applies to Alt+arrow keyboard moves.',
-      },
-      source: {
-        code: `
-<List
-  items={items}
-  listItemProps={(item) => ({
-    draggable: !item.id.startsWith('group:'),
-    acceptsChildren: item.id.startsWith('group:') || item.id.startsWith('prop:'),
-    collapsable: item.id.startsWith('prop:'),
-    hoverable: true,
-  })}
-  renderItem={(item) => <Text>{item.id}</Text>}
-  canDrop={({ draggedIds, parentId }) =>
-    draggedIds.every((id) => {
-      if (parentId === null) return false
-      if (id.startsWith('value:')) return parentId === \`prop:\${id.split(':')[1]}\`
-      if (id.startsWith('prop:')) return parentId === 'group:Columns' || parentId === 'group:Rows'
-      if (id.startsWith('mode:')) return parentId.startsWith('group:')
-      return false
-    })
-  }
-  onItemsChange={(args) => setItems(args.items)}
-/>
-`,
-      },
-    },
-  },
-  render: (args) => {
-    const [items, setItems] = useState(dropRulesSample)
-    const [lastMove, setLastMove] = useState<string>('—')
-
-    return (
-      <div className="sb-column sb-width-full sb-gap-16">
-        <List
-          {...args}
-          items={items}
-          listItemProps={(item) => {
-            const kind = kindOf(item.id)
-            return {
-              draggable: kind !== 'group',
-              acceptsChildren: kind === 'group' || kind === 'prop',
-              collapsable: kind === 'prop',
-              hoverable: kind !== 'group',
-            }
-          }}
-          renderItem={(item) => (
-            <Text strong={kindOf(item.id) === 'group'} intentModifier={kindOf(item.id) === 'value' ? 'secondary' : undefined}>
-              {labelOf(item.id)}
-            </Text>
-          )}
-          canDrop={dropRulesCanDrop}
-          onItemsChange={({ items: next, move }) => {
-            setItems(next)
-            if (move) setLastMove(`${move.ids.join(', ')} → ${move.parentId ?? 'top level'} @ ${move.index}`)
-          }}
-        />
-        <Text intentModifier="secondary">Last move: {lastMove}</Text>
       </div>
     )
   },

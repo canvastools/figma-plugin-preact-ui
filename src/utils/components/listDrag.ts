@@ -131,8 +131,28 @@ export const createListDragController = (deps: ListDragDeps): ListDragController
     return firstChild !== undefined && dragged.includes(firstChild)
   }
 
+  // A placeholder stands for its parent's empty body: anywhere on it means
+  // "into the parent, first", drawn as the parent's own inside outline.
+  const resolvePlaceholder = (tree: ListTreeIndex, rowId: string): Resolution | null => {
+    if (!session) return null
+    const node = tree.nodes.get(rowId)
+    if (!node) return null
+
+    const states = new Map<string, ListItemDragState>()
+    const target = toListDropTarget(tree, session.roots, node.parentId, 0)
+    const isOwnBranch = isInsideMovedBranch(tree, node.parentId)
+    if (!isOwnBranch && !isAllowed(target)) return { target: null, states }
+
+    // The top level has no row to outline, so the placeholder stands in for it
+    const outlinedId = node.parentId ?? rowId
+    states.set(outlinedId, { over: true, zone: 'inside' })
+    markDropParent(tree, states, outlinedId)
+    return { target: isOwnBranch ? null : target, states }
+  }
+
   const resolveRow = (tree: ListTreeIndex, row: HTMLElement, rowId: string, clientY: number): Resolution | null => {
     if (!session) return null
+    if (deps.getItemMeta(rowId)?.placeholder) return resolvePlaceholder(tree, rowId)
     const { roots, itemIds } = session
     const node = tree.nodes.get(rowId)
     const content = row.querySelector(':scope > .ListItem__content')
@@ -192,7 +212,8 @@ export const createListDragController = (deps: ListDragDeps): ListDragController
     return { target: null, states }
   }
 
-  // The strip under the last row of a level: append to that level
+  // The strip under the last row of a level: append to that level. Null when
+  // refused, so the row the strip covers can answer instead.
   const resolveEndZone = (tree: ListTreeIndex, ownerId: string): Resolution | null => {
     if (!session) return null
     const node = tree.nodes.get(ownerId)
@@ -201,11 +222,23 @@ export const createListDragController = (deps: ListDragDeps): ListDragController
     const states = new Map<string, ListItemDragState>()
     const target = toListDropTarget(tree, session.roots, node.parentId, node.index + 1)
     const isOwnBranch = isInsideMovedBranch(tree, node.parentId)
-    if (!isOwnBranch && !isAllowed(target)) return { target: null, states }
+    if (!isOwnBranch && !isAllowed(target)) return null
 
     states.set(ownerId, { endZone: true })
     markDropParent(tree, states, node.parentId)
     return { target: isOwnBranch ? null : target, states }
+  }
+
+  // What a refused end drop zone covers: the bottom edge of the row beneath it
+  const resolveRowUnder = (tree: ListTreeIndex, event: DragEvent): Resolution | null => {
+    const content = document
+      .elementsFromPoint(event.clientX, event.clientY)
+      .find((el) => !el.closest('.ListItem__end-dropzone') && el.closest('.ListItem__content'))
+      ?.closest('.ListItem__content')
+    const row = content?.parentElement
+    const rowId = row?.getAttribute('data-item-id')
+    if (!row || !rowId || !tree.nodes.has(rowId)) return null
+    return resolveRow(tree, row, rowId, event.clientY)
   }
 
   const start: ListDragController['start'] = ({ event, sourceId, itemIds }) => {
@@ -261,7 +294,9 @@ export const createListDragController = (deps: ListDragDeps): ListDragController
     // Between rows: keep what is shown rather than flicker
     if (!owner || !ownerId || !tree.nodes.has(ownerId)) return
 
-    const resolution = endZone ? resolveEndZone(tree, ownerId) : resolveRow(tree, owner, ownerId, event.clientY)
+    const resolution = endZone
+      ? (resolveEndZone(tree, ownerId) ?? resolveRowUnder(tree, event) ?? { target: null, states: new Map() })
+      : resolveRow(tree, owner, ownerId, event.clientY)
     if (!resolution) return
     session.target = resolution.target
     publish(resolution.states)

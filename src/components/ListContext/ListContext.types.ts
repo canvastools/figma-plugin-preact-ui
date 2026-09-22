@@ -17,6 +17,7 @@ export interface ListItemMeta {
   selectionScope?: 'individual' | 'withDescendants'
   draggable?: boolean
   acceptsChildren?: boolean
+  placeholder?: boolean
 }
 
 export interface ListNodeInfo {
