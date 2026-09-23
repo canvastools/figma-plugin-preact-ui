@@ -18,6 +18,13 @@ export type ListItemPropsPick = Pick<
   | 'collapsable'
   | 'collapseIconIntent'
   | 'onCollapsedChange'
+  /**
+   * A row is a tab stop when it is selectable, draggable or collapsable, and
+   * `tabIndex` is the way past that: a row that is none of the three, and yet
+   * holds a control somebody has to be able to reach, has to be focusable to
+   * hand that focus on.
+   */
+  | 'tabIndex'
 >
 
 type ListContextPropsPick = Pick<
