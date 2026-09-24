@@ -289,6 +289,7 @@ export {
   instance,
   instanceSwap,
   key,
+  library,
   letterSpacing,
   lineHeight,
   link,
