@@ -36,11 +36,19 @@
     box-shadow: none;
 
     &:hover {
-      background-color: var(--pui-color-#{$intent}-bg-#{$modifier}-hover);
+      @if $modifier == 'secondary' {
+        background-color: var(--pui-color-#{$intent}-bg-default-hover);
+      } @else {
+        background-color: var(--pui-color-#{$intent}-bg-#{$modifier}-hover);
+      }
     }
 
     &:active {
-      background-color: var(--pui-color-#{$intent}-bg-#{$modifier}-pressed);
+      @if $modifier == 'secondary' {
+        background-color: var(--pui-color-#{$intent}-bg-default-pressed);
+      } @else {
+        background-color: var(--pui-color-#{$intent}-bg-#{$modifier}-pressed);
+      }
     }
   }
 }
@@ -123,6 +131,7 @@
   @include Button_intent-outlined('neutral', 'default');
   @include Button_intent-filled('neutral', 'secondary');
   @include Button_intent-ghost('neutral', 'default');
+  @include Button_intent-ghost('neutral', 'secondary');
   @include Button_intent-outlined('neutral', 'brand');
   @include Button_intent-ghost('neutral', 'brand');
   @include Button_intent-outlined('neutral', 'danger');
@@ -137,7 +146,7 @@
     box-shadow: none !important;
     outline-color: transparent !important;
   }
-  
+
   &_disabled {
     cursor: auto !important;
   }
