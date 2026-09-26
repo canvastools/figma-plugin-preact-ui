@@ -1,5 +1,14 @@
 import { createContext } from 'preact'
-import { useContext, useState, useEffect, useLayoutEffect, useCallback, useRef, useMemo } from 'preact/hooks'
+import {
+  useContext,
+  useState,
+  useEffect,
+  useLayoutEffect,
+  useCallback,
+  useImperativeHandle,
+  useRef,
+  useMemo,
+} from 'preact/hooks'
 import {
   createListDragController,
   indexListTree,
@@ -16,6 +25,8 @@ import type {
   ListItemData,
   ListItemDragState,
   ListItemMeta,
+  ListHandle,
+  ListLayoutCheck,
 } from './ListContext.types'
 
 /* --- */
@@ -32,6 +43,25 @@ const areSetsEqual = (a: Set<string>, b: Set<string>) => {
     if (!b.has(v)) return false
   }
   return true
+}
+
+// The classes a row's selection-edge check reads off its neighbours. A change to
+// any other — focus, hover, the drag states — moves no edge, and is ignored.
+const EDGE_CLASSES = ['ListItem_collapsed', 'ListItem_selected', 'ListItem_selection-origin', 'ListItem_has-children']
+
+const toEdgeClasses = (value: string | null) =>
+  EDGE_CLASSES.filter((name) => (value ?? '').split(/\s+/).includes(name)).join(' ')
+
+const isEdgeMutation = (mutation: MutationRecord) =>
+  mutation.type === 'attributes' &&
+  toEdgeClasses(mutation.oldValue) !== toEdgeClasses((mutation.target as Element).getAttribute('class'))
+
+const OBSERVE: MutationObserverInit = {
+  childList: true,
+  subtree: true,
+  attributes: true,
+  attributeFilter: ['class'],
+  attributeOldValue: true,
 }
 
 const useListContext = () => {
@@ -65,6 +95,7 @@ const ListContext = (props: ListContextProps) => {
     canDrop,
     onSelectionChange,
     onKeyDown,
+    handleRef,
     children,
   } = props
 
@@ -370,13 +401,54 @@ const ListContext = (props: ListContextProps) => {
     }
   }, [])
 
-  const registerRootElement = useCallback((el: HTMLElement | null) => {
-    if (!el) return () => {}
-    rootElementsRef.current.add(el)
+  // One observer for the whole list rather than one per row. Each row used to
+  // watch its container's subtree, so every class change anywhere woke every
+  // row of that level and of every level above it. Here a mutation is read once:
+  // rows coming or going wake every row (which one ends its branch may move),
+  // an edge class changing wakes only the selected rows — an unselected row's
+  // check does nothing a class could change — and anything else wakes nobody.
+  const layoutChecksRef = useRef<Set<ListLayoutCheck>>(new Set())
+  const observerRef = useRef<MutationObserver | null>(null)
+
+  const getObserver = useCallback(() => {
+    if (!observerRef.current) {
+      observerRef.current = new MutationObserver((mutations) => {
+        const isStructural = mutations.some((mutation) => mutation.type === 'childList')
+        if (!isStructural && !mutations.some(isEdgeMutation)) return
+        layoutChecksRef.current.forEach((check) => {
+          if (isStructural || check.isSelected()) check.run()
+        })
+      })
+    }
+    return observerRef.current
+  }, [])
+
+  useEffect(() => () => observerRef.current?.disconnect(), [])
+
+  const registerLayoutCheck = useCallback((check: ListLayoutCheck) => {
+    layoutChecksRef.current.add(check)
     return () => {
-      rootElementsRef.current.delete(el)
+      layoutChecksRef.current.delete(check)
     }
   }, [])
+
+  const registerRootElement = useCallback(
+    (el: HTMLElement | null) => {
+      if (!el) return () => {}
+      rootElementsRef.current.add(el)
+      // A nested container inside an observed one is reported once all the same:
+      // an observer gets one record per mutation, however many of its targets see it
+      getObserver().observe(el, OBSERVE)
+      return () => {
+        rootElementsRef.current.delete(el)
+        // An observer cannot stop watching one target, so it is told the rest again
+        const observer = getObserver()
+        observer.disconnect()
+        rootElementsRef.current.forEach((root) => observer.observe(root, OBSERVE))
+      }
+    },
+    [getObserver],
+  )
 
   const registerItem = useCallback((id: string, meta: ListItemMeta) => {
     itemMetaRef.current.set(id, meta)
@@ -500,6 +572,56 @@ const ListContext = (props: ListContextProps) => {
     setSelectionOriginIds(origins)
   }, [collectSelectableBranchIds, currentItems, currentSelectedItems])
 
+  // A row asked for by id, or the first one that can take the focus — looked up
+  // in the list's own containers, so two lists on a page never answer for each other
+  useImperativeHandle(
+    handleRef ?? null,
+    (): ListHandle => ({
+      focusItem: (itemId) => {
+        const roots = Array.from(rootElementsRef.current)
+        const find = (selector: string) =>
+          roots.map((root) => root.querySelector<HTMLElement>(selector)).find(Boolean) ?? null
+        const row =
+          (itemId && find(`.ListItem[data-item-id="${CSS.escape(itemId)}"]`)) ||
+          roots
+            .flatMap((root) => Array.from(root.querySelectorAll<HTMLElement>('.ListItem[tabindex]')))
+            .find((el) => el.offsetParent !== null) ||
+          null
+        row?.focus()
+        return Boolean(row)
+      },
+    }),
+    [],
+  )
+
+  const focusAfterMoveRef = useRef<string | null>(null)
+
+  // Anything the user does next that is not about that row ends the promise
+  useEffect(() => {
+    const release = (event: Event) => {
+      const pendingId = focusAfterMoveRef.current
+      if (!pendingId) return
+      const target = event.target as HTMLElement | null
+      if (event.type === 'focusin' && target?.getAttribute?.('data-item-id') === pendingId) return
+      focusAfterMoveRef.current = null
+    }
+    document.addEventListener('focusin', release)
+    document.addEventListener('pointerdown', release)
+    return () => {
+      document.removeEventListener('focusin', release)
+      document.removeEventListener('pointerdown', release)
+    }
+  }, [])
+
+  // Read through a ref, so a consumer can pass a new function every render
+  // without re-rendering every row through the context value
+  const onKeyDownRef = useRef(onKeyDown)
+  onKeyDownRef.current = onKeyDown
+  const handleKeyDown = useCallback(
+    (args: { event: KeyboardEvent; itemId: string }) => onKeyDownRef.current?.(args),
+    [],
+  )
+
   const contextValue: ListContextValue = useMemo(
     () => ({
       items: currentItems,
@@ -517,7 +639,9 @@ const ListContext = (props: ListContextProps) => {
       getNodeInfo,
       getChildIds,
       getBranchIds: collectSelectableBranchIds,
-      onKeyDown,
+      focusAfterMoveRef,
+      registerLayoutCheck,
+      onKeyDown: handleKeyDown,
     }),
     [
       currentItems,
@@ -535,7 +659,8 @@ const ListContext = (props: ListContextProps) => {
       getNodeInfo,
       getChildIds,
       collectSelectableBranchIds,
-      onKeyDown,
+      registerLayoutCheck,
+      handleKeyDown,
     ],
   )
 

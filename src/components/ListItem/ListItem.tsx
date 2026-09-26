@@ -15,17 +15,6 @@ import {
 
 /* --- */
 
-// Classes the drag controller toggles. A mutation that only flips these says
-// nothing about selection edges, so the observer below ignores it.
-const DRAG_STATE_CLASS = /(^|\s)ListItem(_drag-[\w-]+|_drop-parent|_drop-itself|_dragging|__end-dropzone-active)(?=\s|$)/g
-
-const withoutDragClasses = (value: string | null) =>
-  (value ?? '').replace(DRAG_STATE_CLASS, ' ').split(/\s+/).filter(Boolean).sort().join(' ')
-
-const isDragOnlyMutation = (mutation: MutationRecord) =>
-  mutation.type === 'attributes' &&
-  withoutDragClasses(mutation.oldValue) === withoutDragClasses((mutation.target as Element).getAttribute('class'))
-
 const ListItemComponent = (
   {
     id,
@@ -70,6 +59,8 @@ const ListItemComponent = (
     getChildIds,
     moveItems,
     drag,
+    focusAfterMoveRef,
+    registerLayoutCheck,
     onKeyDown: contextOnKeyDown,
   } = useListContext()
   const dragState = useListItemDragState(id)
@@ -216,20 +207,20 @@ const ListItemComponent = (
     }
 
     check()
-    const observer = new MutationObserver((mutations) => {
-      if (mutations.every(isDragOnlyMutation)) return
-      check()
-    })
-    // subtree/class: collapse toggles on nested items can flip after-nested secondary
-    observer.observe(container, {
-      childList: true,
-      subtree: true,
-      attributes: true,
-      attributeFilter: ['class'],
-      attributeOldValue: true,
-    })
-    return () => observer.disconnect()
-  }, [id, selectedItemIds, selectionScope])
+    // Re-run by the list's one observer — see `registerLayoutCheck`
+    return registerLayoutCheck?.({ run: check, isSelected: () => selectedItemIds.has(id) })
+  }, [id, selectedItemIds, selectionScope, registerLayoutCheck])
+
+  // The row a keyboard move was made from takes the focus back wherever it is
+  // drawn — a new row, when the move went into another parent — unless the focus
+  // is already somewhere else on purpose rather than lost with the old row.
+  useLayoutEffect(() => {
+    const el = selfRef.current
+    if (!el || focusAfterMoveRef?.current !== id) return
+    const active = document.activeElement
+    if (active === el || (active && active !== document.body)) return
+    el.focus({ preventScroll: false })
+  })
 
   useEffect(() => {
     // register meta for range selection filtering, multi-drag filtering and drop rules
@@ -270,6 +261,7 @@ const ListItemComponent = (
     'drag-between-selected': dragState.betweenSelected,
     'drop-parent': dragState.dropParent,
     'drop-itself': dragState.dropItself,
+    'drag-refused': dragState.refused,
     dragging: dragState.dragging,
   })
 
@@ -323,8 +315,10 @@ const ListItemComponent = (
     const allItems = Array.from(root.querySelectorAll<HTMLElement>('.ListItem'))
     if (!allItems.length) return
     const visibleItems = allItems.filter((el) => {
-      // Skip items that are not visible (collapsed or display:none), and placeholders
-      return el.offsetParent !== null && !el.classList.contains('ListItem_placeholder')
+      // Skip items that are not visible (collapsed or display:none), placeholders,
+      // and rows that cannot take the focus — `focus()` on one does nothing, and
+      // the arrows would stop dead there instead of passing it
+      return el.offsetParent !== null && !el.classList.contains('ListItem_placeholder') && el.hasAttribute('tabindex')
     })
     const index = visibleItems.indexOf(current as HTMLElement)
     if (index === -1) return
@@ -347,6 +341,10 @@ const ListItemComponent = (
   //   mirroring the mouse drag behavior where non-selectable items don't
   //   participate in multi-drag).
   // - For nesting (`right`), the previous sibling must accept children.
+  // - At the edge of its parent, `up`/`down` carries the rows into the parent's
+  //   neighbour — its end going up, its start going down — when that neighbour
+  //   accepts children. The same place a mouse could drop them, so it is not an
+  //   option: the keyboard used to stop where the mouse did not.
   // - Every move is asked of `canDrop`, exactly like a drop.
   const moveByKeyboard = (direction: 'up' | 'down' | 'left' | 'right') => {
     const node = getNodeInfo(id)
@@ -373,15 +371,34 @@ const ListItemComponent = (
     const lastIdx = siblings[siblings.length - 1].index
     const containerIds = getChildIds(node.parentId)
 
+    // The parent's sibling one step along, when it can take the rows in
+    const neighbourParent = (step: -1 | 1): string | null => {
+      if (node.parentId === null) return null
+      const parent = getNodeInfo(node.parentId)
+      if (!parent) return null
+      const neighbourId = getChildIds(parent.parentId)[parent.index + step]
+      return neighbourId && getItemMeta?.(neighbourId)?.acceptsChildren ? neighbourId : null
+    }
+
     let target: ListDropTarget
     switch (direction) {
       case 'up': {
-        if (firstIdx === 0) return
+        if (firstIdx === 0) {
+          const previousId = neighbourParent(-1)
+          if (!previousId) return
+          target = { parentId: previousId, index: getChildIds(previousId).length }
+          break
+        }
         target = { parentId: node.parentId, index: firstIdx - 1 }
         break
       }
       case 'down': {
-        if (lastIdx >= containerIds.length - 1) return
+        if (lastIdx >= containerIds.length - 1) {
+          const nextId = neighbourParent(1)
+          if (!nextId) return
+          target = { parentId: nextId, index: 0 }
+          break
+        }
         // After the row that follows the last moved one, counted once the moved rows are out
         target = { parentId: node.parentId, index: lastIdx + 2 - siblings.length }
         break
@@ -404,6 +421,8 @@ const ListItemComponent = (
     }
 
     if (!moveItems(siblingIds, target)) return
+
+    if (focusAfterMoveRef) focusAfterMoveRef.current = id
 
     // Refocus the originally focused item after the tree re-renders, so the
     // user can chain multiple keyboard moves without losing their anchor.

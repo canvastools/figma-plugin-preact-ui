@@ -1,6 +1,15 @@
 import { spacing } from '../../themes'
 
-export interface StackProps {
+/**
+ * Everything a `div` takes besides what the stack decides itself — `onKeyDown`,
+ * `data-*`, `role` — since every other prop is spread onto the element already.
+ */
+type StackElementProps = Omit<
+  preact.JSX.HTMLAttributes<HTMLDivElement>,
+  'id' | 'className' | 'class' | 'children' | 'ref' | 'spacing'
+>
+
+export interface StackProps extends StackElementProps {
   id?: string
   className?: string
   direction?: 'row' | 'row-reverse' | 'column' | 'column-reverse'

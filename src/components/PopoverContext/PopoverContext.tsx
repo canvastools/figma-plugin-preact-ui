@@ -67,14 +67,20 @@ const PopoverContext = ({ triggerRef, anchorRef, open, setOpen, children }: Popo
     const handleEscape = (event: KeyboardEvent) => {
       const { key } = event
       if (key !== 'Escape' && key !== 'Esc') return
+      // An overlay of its own — a select's menu opened from inside — closes itself first
+      const target = event.target instanceof Element ? event.target : null
+      const overlay = target?.closest('.OverlayPositioner')
+      if (overlay && !overlay.querySelector('.PopoverContainer')) return
       event.preventDefault()
       setOpen?.(false)
       triggerRef?.current?.focus()
     }
 
-    window.addEventListener('keydown', handleEscape)
+    // In the capture phase, so the popover takes Esc before anything under it
+    // hears it — and whatever does hear it sees `defaultPrevented` and leaves it.
+    window.addEventListener('keydown', handleEscape, true)
     return () => {
-      window.removeEventListener('keydown', handleEscape)
+      window.removeEventListener('keydown', handleEscape, true)
     }
   }, [open, setOpen, triggerRef])
 

@@ -59,10 +59,11 @@ export type { ListProps, ListItemPropsPick } from './components/List/List.types'
 export { ListContainer } from './components/ListContainer/ListContainer'
 export type { ListContainerProps } from './components/ListContainer/ListContainer.types'
 
-export { ListContext, useListContext } from './components/ListContext/ListContext'
+export { ListContext, useListContext, useListItemDragState } from './components/ListContext/ListContext'
 export type {
   ListContextValue,
   ListContextProps,
+  ListHandle,
   ListItemData,
   ListDropTarget,
 } from './components/ListContext/ListContext.types'

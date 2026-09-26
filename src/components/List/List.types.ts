@@ -36,6 +36,7 @@ type ListContextPropsPick = Pick<
   | 'onItemsChange'
   | 'onSelectionChange'
   | 'onKeyDown'
+  | 'handleRef'
 >
 
 export interface ListProps extends ListContextPropsPick {

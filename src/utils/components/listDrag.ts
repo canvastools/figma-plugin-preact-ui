@@ -23,6 +23,8 @@ interface Session {
   sourceId: string
   target: ListDropTarget | null
   answers: Map<string, boolean>
+  // Rows nothing dragged can go into or beside — see `toRefused`
+  refused: Set<string>
 }
 
 interface Resolution {
@@ -52,6 +54,7 @@ const STATE_KEYS: (keyof ListItemDragState)[] = [
   'dropParent',
   'dropItself',
   'endZone',
+  'refused',
 ]
 
 const isSameState = (a?: ListItemDragState, b?: ListItemDragState) =>
@@ -69,6 +72,7 @@ export const createListDragController = (deps: ListDragDeps): ListDragController
   // Swap in the next states and wake only the rows whose state changed
   const publish = (next: Map<string, ListItemDragState>) => {
     if (session) merge(next, session.sourceId, { dragging: true })
+    session?.refused.forEach((id) => merge(next, id, { refused: true }))
 
     const prev = states
     const changed: string[] = []
@@ -241,14 +245,36 @@ export const createListDragController = (deps: ListDragDeps): ListDragController
     return resolveRow(tree, row, rowId, event.clientY)
   }
 
+  // Every row the drag cannot land in or beside, asked once as it starts, with the
+  // same rule and the same cache as a drop — so a row can say so before the
+  // pointer gets there. What is dragged is never refused, nor anything carried
+  // inside it, nor a placeholder, which only stands for its parent.
+  const toRefused = (tree: ListTreeIndex): Set<string> => {
+    const refused = new Set<string>()
+    if (!session) return refused
+    const { roots } = session
+    tree.nodes.forEach((node, id) => {
+      if (roots.some((root) => isWithinListBranch(tree, id, root))) return
+      const meta = deps.getItemMeta(id)
+      if (meta?.placeholder) return
+      const into = Boolean(meta?.acceptsChildren) && isAllowed({ parentId: id, index: 0 })
+      const beside = isAllowed(toListDropTarget(tree, roots, node.parentId, node.index))
+      if (!into && !beside) refused.add(id)
+    })
+    return refused
+  }
+
   const start: ListDragController['start'] = ({ event, sourceId, itemIds }) => {
+    const tree = deps.getTree()
     session = {
       itemIds,
-      roots: toListMoveRoots(deps.getTree(), itemIds),
+      roots: toListMoveRoots(tree, itemIds),
       sourceId,
       target: null,
       answers: new Map(),
+      refused: new Set(),
     }
+    session.refused = toRefused(tree)
 
     // Firefox does not start a drag without data
     try {

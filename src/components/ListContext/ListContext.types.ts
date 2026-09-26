@@ -35,6 +35,8 @@ export interface ListItemDragState {
   dropParent?: boolean
   dropItself?: boolean
   endZone?: boolean
+  /** Nothing dragged can go into this row or beside it — decided once, as the drag starts */
+  refused?: boolean
 }
 
 /** @internal One drag session per ListContext; ListContainer and ListItem only forward events to it. */
@@ -66,7 +68,35 @@ export interface ListContextValue {
   drag: ListDragController
   selectionMode?: 'single' | 'multi'
   registerRootElement?: (el: HTMLElement | null) => () => void
+  /**
+   * The row a keyboard move was made from, until the focus goes somewhere else on
+   * purpose. A move into another parent remounts the row — a keyed child moves
+   * only within its own container — and a controlled list draws it there only
+   * once its items come back, so the new row takes the focus as it appears.
+   */
+  focusAfterMoveRef?: { current: string | null }
+  /**
+   * A row's own check of its selection edges, run by the list's one observer:
+   * every row when rows come or go, only the selected ones when a class the
+   * check reads changes. Returns the unsubscribe.
+   */
+  registerLayoutCheck?: (check: ListLayoutCheck) => () => void
   onKeyDown?: (args: { event: KeyboardEvent; itemId: string }) => void
+}
+
+/** @internal What a row asks the list's observer to run, and whether it is selected right now. */
+export interface ListLayoutCheck {
+  run: () => void
+  isSelected: () => boolean
+}
+
+/** What a list can be asked to do from outside it. */
+export interface ListHandle {
+  /**
+   * Focuses a row — or, for `null` or an id not on screen, the first row that can
+   * take the focus. Answers whether anything was focused.
+   */
+  focusItem: (itemId: string | null) => boolean
 }
 
 export interface ListContextProps {
@@ -83,5 +113,7 @@ export interface ListContextProps {
   canDrop?: (args: { draggedIds: string[] } & ListDropTarget) => boolean
   onSelectionChange?: (args: { selectedItemIds: string[] }) => void
   onKeyDown?: (args: { event: KeyboardEvent; itemId: string }) => void
+  /** Filled with a `ListHandle` for as long as the list is mounted */
+  handleRef?: preact.Ref<ListHandle>
   children: preact.ComponentChildren
 }
