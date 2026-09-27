@@ -107,7 +107,7 @@ export type { PopoverContextValue, PopoverContextProps } from './components/Popo
 export { PopoverHeader } from './components/PopoverHeader/PopoverHeader'
 export type { PopoverHeaderProps } from './components/PopoverHeader/PopoverHeader.types'
 
-export { Progress } from './components/Progress/Progress'
+export { Progress, PROGRESS_STEP_MS } from './components/Progress/Progress'
 export type { ProgressProps } from './components/Progress/Progress.types'
 
 export { ScrollContext, useScrollContext, useScrollContextOptional } from './components/ScrollContext/ScrollContext'
