@@ -603,12 +603,26 @@ const ListContext = (props: ListContextProps) => {
       if (!pendingId) return
       const target = event.target as HTMLElement | null
       if (event.type === 'focusin' && target?.getAttribute?.('data-item-id') === pendingId) return
+      // Focus leaving for somewhere in particular — Tab to the row's own button,
+      // say — ends it before it lands, not after: between `focusout` and
+      // `focusin` the active element is the body, and a render in that gap read
+      // it as the focus lost with the old row and took it back. Heard in the
+      // capture phase for the same reason: the row's own blur handling runs
+      // before a bubbling listener would, and schedules that render. A row
+      // removed by the move reports no such target, which is the case the
+      // promise is for.
+      if (event.type === 'focusout') {
+        const next = (event as FocusEvent).relatedTarget as HTMLElement | null
+        if (!next || next.getAttribute?.('data-item-id') === pendingId) return
+      }
       focusAfterMoveRef.current = null
     }
     document.addEventListener('focusin', release)
+    document.addEventListener('focusout', release, true)
     document.addEventListener('pointerdown', release)
     return () => {
       document.removeEventListener('focusin', release)
+      document.removeEventListener('focusout', release, true)
       document.removeEventListener('pointerdown', release)
     }
   }, [])

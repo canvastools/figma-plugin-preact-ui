@@ -38,6 +38,7 @@
 
   &_fullWidth {
     width: 100%;
+    min-width: 0;
   }
 
   @include Stack_spacing(100);

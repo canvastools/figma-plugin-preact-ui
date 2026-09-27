@@ -58,7 +58,8 @@
   border-radius: var(--pui-radius-medium);
   border: none;
   flex: 0 0 auto;
-  width: fit-content;
+  max-width: 100%;
+  min-width: 0;
   cursor: default;
 
   &:focus-visible {
@@ -71,6 +72,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    min-width: 0;
+    overflow: hidden;
   }
 
   &__children {
@@ -79,6 +82,9 @@
     padding: 0 var(--pui-spacing-100);
     text-overflow: ellipsis;
     white-space: nowrap;
+    max-width: 100%;
+    min-width: 0;
+    overflow: hidden;
   }
 
   &:not(&_customChildren) &__children {
@@ -91,6 +97,7 @@
 
   &_suffix &__children {
     padding-right: 0;
+    flex-shrink: 0;
   }
 
   &_size {
