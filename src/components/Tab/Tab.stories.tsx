@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/preact-vite'
 import { fn } from 'storybook/test'
 
 import { VariantStory } from './stories/Variant.story'
+import { DisabledStory } from './stories/Disabled.story'
 import { PrefixStory } from './stories/Prefix.story'
 import { SuffixStory } from './stories/Suffix.story'
 import { CustomChildrenStory } from './stories/CustomChildren.story'
@@ -39,6 +40,13 @@ const meta: Meta<typeof Tab> = {
       control: { type: 'radio' },
       options: ['default', 'single'],
       table: { defaultValue: { summary: 'default' } },
+    },
+    disabled: {
+      control: { type: 'boolean' },
+      table: {
+        defaultValue: { summary: 'false' },
+        type: { summary: 'boolean' },
+      },
     },
     prefix: {
       control: { disable: true },
@@ -108,6 +116,7 @@ export const Demo: Story = {
     className: '',
     variant: 'default',
     tooltip: 'Tab tooltip',
+    disabled: false,
     onClick: fn(),
   },
   parameters: {
@@ -186,6 +195,7 @@ export const Demo: Story = {
 }
 
 export const Variant = VariantStory
+export const Disabled = DisabledStory
 export const Prefix = PrefixStory
 export const Suffix = SuffixStory
 export const CustomChildren = CustomChildrenStory

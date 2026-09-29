@@ -85,4 +85,12 @@
 
     cursor: auto;
   }
+
+  &_disabled {
+    background-color: transparent;
+
+    &:hover {
+      background-color: transparent;
+    }
+  }
 }

@@ -17,7 +17,19 @@ import './Tab.scss'
 /* --- */
 
 const TabComponent = (
-  { id, className, variant = 'default', prefix, suffix, children, tooltip, tabIndex, onClick, ...rest }: TabProps,
+  {
+    id,
+    className,
+    variant = 'default',
+    disabled = false,
+    prefix,
+    suffix,
+    children,
+    tooltip,
+    tabIndex,
+    onClick,
+    ...rest
+  }: TabProps,
   ref: preact.Ref<HTMLButtonElement>,
 ) => {
   const wrapChildrenInText = typeof children === 'string' || typeof children === 'number'
@@ -41,6 +53,7 @@ const TabComponent = (
   const _className = bem('Tab', undefined, {
     variant,
     selected: id === activeId,
+    disabled,
     prefix: Boolean(prefix),
     suffix: Boolean(suffix),
     tooltip: Boolean(tooltip),
@@ -79,6 +92,7 @@ const TabComponent = (
             <Text
               variant="body"
               size="medium"
+              disabled={disabled}
               strong={fake || id === activeId}
               intent="neutral"
               intentModifier={selected ? 'default' : 'secondary'}
@@ -99,11 +113,12 @@ const TabComponent = (
       <button
         id={id}
         className={[_className, className].join(' ').trim()}
-        data-pui-interactive="true"
+        data-pui-interactive={!disabled}
+        disabled={disabled}
         ref={setRef}
         {...rest}
         tabIndex={tabIndex ?? (id === activeId ? 0 : -1)}
-        onClick={handleClick}
+        onClick={disabled ? undefined : handleClick}
       >
         <div className="Tab__container Tab__container_fake">{renderContent({ fake: true, selected: id === activeId })}</div>
         <div className="Tab__container Tab__container_real">{renderContent({ selected: id === activeId })}</div>
